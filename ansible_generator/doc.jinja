@@ -1,0 +1,94 @@
+{% macro doc_attributes(map) -%}
+    {% for key,value in map.items() %}
+        {{ value['name'] }}:
+            description:
+                - {{ value['help'] }}
+            {% if key == "name" or key == "id" -%}
+            required: true
+            {% endif -%}
+            default:
+            {% if "options" in value -%}
+            choices:
+                {% for v in value["options"] -%}
+                - {{ v["name"] }}
+                {% endfor -%}
+            {% endif -%}
+            {% if value["category"] == "table" -%}
+                suboptions:
+                    {{ doc_attributes(value["children"])|indent|indent }}
+            {% endif -%}
+    {% endfor -%}
+{%- endmacro -%}
+#!/usr/bin/python
+# Copyright 2018 Fortinet, Inc.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# the lib use python logging can get it if the following is set in your
+# Ansible config.
+
+from __future__ import (absolute_import, division, print_function)
+
+__metaclass__ = type
+
+ANSIBLE_METADATA = {'status': ['preview'],
+                    'supported_by': 'community',
+                    'metadata_version': '1.1'}
+
+DOCUMENTATION = '''
+---
+module: {{module_name}}
+short_description: {{short_description}}
+description:
+    - This module is able to configure a FortiGate or FortiOS by
+      allowing the user to configure webfilter feature. For now it
+      is able to handle url and content filtering capabilities. The
+      module uses FortiGate REST API internally to configure the device.
+
+version_added: "2.6"
+author:
+    - Miguel Angel Munoz (@mamunozgonzalez)
+    - Nicolas Thomas (@thomnico)
+notes:
+    - Requires fortiosapi library developed by Fortinet
+    - Run as a local_action in your playbook
+requirements:
+    - fortiosapi>=0.9.8
+options:
+    host:
+       description:
+            - FortiOS or FortiGate ip adress.
+       required: true
+    username:
+        description:
+            - FortiOS or FortiGate username.
+        required: true
+    password:
+        description:
+            - FortiOS or FortiGate password.
+        default: ""
+    vdom:
+        description:
+            - Virtual domain, among those defined previously. A vdom is a
+              virtual instance of the FortiGate that can be configured and
+              used as a different unit.
+        default: "root"
+    {{path}}_{{name}}:
+        description:
+            - {{description}}
+        default: null
+        suboptions:
+            {{ doc_attributes(current['schema']['children'])|indent }}
+'''
+
