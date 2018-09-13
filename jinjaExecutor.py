@@ -18,17 +18,20 @@ def function():
   current = fgt_sch[191]
 
   file_loader = FileSystemLoader('ansible_generator')
-  env = Environment (loader=file_loader)
+  env = Environment (loader=file_loader, lstrip_blocks=False, trim_blocks=False)
 
   template = env.get_template('doc.jinja')
-
-
 
   module_name = "webfilter"
   short_description = "Configure URL filter lists."
   description = ""
   path = current['path']
   name = current['name']
+
+  output = template.render(**locals())
+  print(output)
+
+  template = env.get_template('code.jinja')
 
   output = template.render(**locals())
   print(output)

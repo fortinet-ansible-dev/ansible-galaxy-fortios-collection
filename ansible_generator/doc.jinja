@@ -1,5 +1,5 @@
-{% macro doc_attributes(map) -%}
-    {% for key,value in map.items() %}
+{% macro doc_attributes(dict) -%}
+    {% for key,value in dict |dictsort %}
         {{ value['name'] }}:
             description:
                 - {{ value['help'] }}

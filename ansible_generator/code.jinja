@@ -1,0 +1,128 @@
+from ansible.module_utils.basic import AnsibleModule
+
+fos = None
+
+def login(data):
+    host = data['host']
+    username = data['username']
+    password = data['password']
+
+    fos.debug('on')
+    fos.https('off')
+
+    fos.login(host, username, password)
+
+
+def filter_{{path}}_{{name}}_data(json):
+    option_list = [ {%- for key, value in current['schema']['children']|dictsort -%}
+                    '{{key}}'{%- if not loop.last%},{%endif -%}
+                    {% if loop.index % 3 == 0 and not loop.last %}
+                    {% endif%}
+                    {%- endfor -%}]
+    dictionary = {}
+
+    for attribute in option_list:
+        if attribute in json:
+            dictionary[attribute] = json[attribute]
+
+    return dictionary
+
+
+def {{path}}_{{name}}(data, fos):
+    vdom = data['vdom']
+    {{path}}_{{name}}_data = data['{{path}}_{{name}}']
+    filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
+
+    if {{path}}_{{name}}_data['state'] == "present":
+        return fos.set('{{path}}',
+                       '{{name}}',
+                       data=filtered_data,
+                       vdom=vdom)
+
+    elif {{path}}_{{name}}_data['state'] == "absent":
+        return fos.delete('{{path}}',
+                          '{{name}}',
+                          mkey=filtered_data['id'],
+                          vdom=vdom)
+
+
+def fortios_{{path}}(data, fos):
+    host = data['host']
+    username = data['username']
+    password = data['password']
+    fos.https('off')
+    fos.login(host, username, password)
+
+    methodlist = ['{{path}}_{{name}}']
+    for method in methodlist:
+        if data[method]:
+            resp = eval(method)(data, fos)
+            break
+
+    fos.logout()
+    return not resp['status'] == "success", resp['status'] == "success", resp
+{% macro getAnsibleType(attribute) -%}
+{%- if attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
+string
+{%- else %}
+    {%- if not attribute["type"] and attribute["category"]=="table" -%}
+    list
+    {%- else -%}
+    {{attribute["type"]}}
+    {%- endif -%}
+{%- endif -%}
+{%- endmacro %}
+{% macro code_fields(dict) -%}
+                {%- for key,value in dict |dictsort -%}
+                "{{key}}": {"required": {% if key == "name" or key == "id" -%}
+                        True
+                    {%- else -%}
+                        False
+                    {%- endif -%}
+                    , "type": "{{getAnsibleType(value)}}"
+                    {%- if "options" in value %},
+                    "choices": [
+                        {%- for v in value["options"] -%}
+                        "{{ v["name"] }}"{% if not loop.last %}, {%endif%} 
+                        {%- endfor -%} ]
+                    {%- endif -%}
+                    {%- if value["category"] == "table" %},
+                    "options": {
+                        {{code_fields(value["children"]) |indent |indent }} }
+                    {%- endif -%}}{%- if not loop.last %}, {%endif%}
+                {% endfor -%}
+{%- endmacro %}
+def main():
+    fields = {
+        "host": {"required": True, "type": "string"},
+        "username": {"required": True, "type": "string"},
+        "password": {"required": False, "type": "string", "no_log": True},
+        "vdom": {"required": False, "type": "string", "default": "root"},
+        "{{path}}_{{name}}": {
+            "required": False, "type": "dict",
+            "options": {
+                "state": {"required": True, "type": "string"},
+                {{ code_fields(current['schema']['children']) }}
+            }
+        }
+    }
+
+    module = AnsibleModule(argument_spec=fields,
+                           supports_check_mode=False)
+    try:
+        from fortiosapi import FortiOSAPI
+    except ImportError:
+        module.fail_json(msg="fortiosapi module is required")
+
+    fos = FortiOSAPI()
+
+    is_error, has_changed, result = fortios_{{path}}(module.params, fos)
+
+    if not is_error:
+        module.exit_json(changed=has_changed, meta=result)
+    else:
+        module.fail_json(msg="Error in repo", meta=result)
+
+
+if __name__ == '__main__':
+    main()
