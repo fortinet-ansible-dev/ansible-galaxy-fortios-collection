@@ -23,7 +23,7 @@ def function():
   template = env.get_template('doc.jinja')
 
   module_name = "webfilter"
-  short_description = "Configure URL filter lists."
+  short_description = current['schema']['help']
   description = ""
   path = current['path']
   name = current['name']

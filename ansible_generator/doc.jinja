@@ -1,24 +1,23 @@
 {% macro doc_attributes(dict) -%}
-    {% for key,value in dict |dictsort %}
-        {{ value['name'] }}:
+        {%- for key,value in dict |dictsort %}
+        {{value['name']}}:
             description:
                 - {{ value['help'] }}
-            {% if key == "name" or key == "id" -%}
+            {%- if key == "name" or key == "id" %}
             required: true
-            {% endif -%}
+            {%- endif %}
             default:
-            {% if "options" in value -%}
+            {%- if "options" in value %}
             choices:
-                {% for v in value["options"] -%}
+                {%- for v in value["options"] %}
                 - {{ v["name"] }}
-                {% endfor -%}
-            {% endif -%}
-            {% if value["category"] == "table" -%}
-                suboptions:
-                    {{ doc_attributes(value["children"])|indent|indent }}
-            {% endif -%}
-    {% endfor -%}
-{%- endmacro -%}
+                {%- endfor -%}
+            {%- endif -%}
+            {%- if value["category"] == "table" %}
+            suboptions:                {{ doc_attributes(value["children"])|indent|indent }}
+            {%- endif -%}
+            {% endfor -%}
+{%- endmacro %}
 #!/usr/bin/python
 # Copyright 2018 Fortinet, Inc.
 #
@@ -86,9 +85,8 @@ options:
         default: "root"
     {{path}}_{{name}}:
         description:
-            - {{description}}
+            - {{current['schema']['help']}}
         default: null
-        suboptions:
-            {{ doc_attributes(current['schema']['children'])|indent }}
+        suboptions: {{ doc_attributes(current['schema']['children'])|indent }}
 '''
 
