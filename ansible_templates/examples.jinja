@@ -1,0 +1,33 @@
+{% macro example_attributes(dict) -%}
+      {%- for key, value in dict | dictsort %}
+        {{key}}: 
+      {%- if value['category'] == 'table' -%}
+        {{example_attributes(value['children']) |indent}} 
+      {%- elif key == 'comment' %} "{{value['help']}}"
+      {%- elif key == 'name' %} "default_name"
+      {%- elif key == 'id' %} "{{range(1,50)|random}}"
+      {%- elif value['category'] == 'unitary' and value['type']=='option' and "options" in value%} "{%if value['options']| length > 0 %}{{value['options'][0]['name']}}{%else%}<your_own_value>{%endif%}"
+      {%- elif value['category'] == 'unitary' and value['type']=='integer'%} "{{range(1,50)|random}}"
+      {%- elif key == 'url' %} "http://myurl.com"
+      {%- elif ("host" in key) and value['type']=='string' %} "myhostname"
+      {%- else %} "<your_own_value>"
+      {%- endif -%}
+      {%- endfor -%}
+{%- endmacro %}
+EXAMPLES = '''
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: {{current['schema']['help']}}
+    fortios_{{path}}_{{name}}:
+      host:  "{{ '{{' }}  host {{ '}}' }}"
+      username: "{{ '{{' }} username {{ '}}' }}"
+      password: "{{ '{{' }} password {{ '}}' }}"
+      vdom:  "{{ '{{' }}  vdom {{ '}}' }}"
+      {{path}}_{{name}}:
+        state: "present"{{ example_attributes(current['schema']['children']) }}
+'''

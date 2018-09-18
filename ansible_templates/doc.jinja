@@ -5,8 +5,7 @@
                 - {{ value['help'] }}
             {%- if key == "name" or key == "id" %}
             required: true
-            {%- endif %}
-            default:
+            {%- endif -%}
             {%- if "options" in value %}
             choices:
                 {%- for v in value["options"] %}
@@ -51,10 +50,7 @@ module: {{module_name}}
 short_description: {{short_description}}
 description:
     - This module is able to configure a FortiGate or FortiOS by
-      allowing the user to configure webfilter feature. For now it
-      is able to handle url and content filtering capabilities. The
-      module uses FortiGate REST API internally to configure the device.
-
+      allowing the user to configure {{path}} feature. 
 version_added: "2.6"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
