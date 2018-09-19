@@ -15,7 +15,7 @@ def login(data):
 
 
 def filter_{{path}}_{{name}}_data(json):
-    option_list = [ {%- for key, value in current['schema']['children']|dictsort -%}
+    option_list = [ {%- for key, value in schema['schema']['children']|dictsort -%}
                     '{{key}}'{%- if not loop.last%},{%endif -%}
                     {% if loop.index % 3 == 0 and not loop.last %}
                     {% endif%}
@@ -63,14 +63,14 @@ def fortios_{{path}}(data, fos):
     fos.logout()
     return not resp['status'] == "success", resp['status'] == "success", resp
 {% macro getAnsibleType(attribute) -%}
-{%- if attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
-string
-{%- else %}
-    {%- if not attribute["type"] and attribute["category"]=="table" -%}
-    list
-    {%- else -%}
-    {{attribute["type"]}}
-    {%- endif -%}
+{%- if attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
+str
+{%- elif not attribute["type"] and ( attribute["category"]=="table" or attribute["category"]=="complex")-%}
+list
+{%- elif attribute["type"] == "integer"-%}
+int
+{%- else -%}
+{{attribute["type"]}}
 {%- endif -%}
 {%- endmacro %}
 {% macro code_fields(dict) -%}
@@ -87,7 +87,7 @@ string
                         "{{ v["name"] }}"{% if not loop.last %}, {%endif%} 
                         {%- endfor -%} ]
                     {%- endif -%}
-                    {%- if value["category"] == "table" %},
+                    {%- if value["category"] == "table" or value["category"] == "complex" %},
                     "options": {
                         {{code_fields(value["children"]) |indent |indent }} }
                     {%- endif -%}}{%- if not loop.last %}, {%endif%}
@@ -95,15 +95,15 @@ string
 {%- endmacro %}
 def main():
     fields = {
-        "host": {"required": True, "type": "string"},
-        "username": {"required": True, "type": "string"},
-        "password": {"required": False, "type": "string", "no_log": True},
-        "vdom": {"required": False, "type": "string", "default": "root"},
+        "host": {"required": True, "type": "str"},
+        "username": {"required": True, "type": "str"},
+        "password": {"required": False, "type": "str", "no_log": True},
+        "vdom": {"required": False, "type": "str", "default": "root"},
         "{{path}}_{{name}}": {
             "required": False, "type": "dict",
             "options": {
-                "state": {"required": True, "type": "string"},
-                {{ code_fields(current['schema']['children']) }}
+                "state": {"required": True, "type": "str"},
+                {{ code_fields(schema['schema']['children']) }}
             }
         }
     }

@@ -2,7 +2,7 @@
         {%- for key,value in dict |dictsort %}
         {{value['name']}}:
             description:
-                - {{ value['help'] }}
+                - {{ value['help'] }} {%- if 'datasource' in value %} Source: {{value['datasource']|join(' ')}}.{%-endif-%}
             {%- if key == "name" or key == "id" %}
             required: true
             {%- endif -%}
@@ -12,7 +12,7 @@
                 - {{ v["name"] }}
                 {%- endfor -%}
             {%- endif -%}
-            {%- if value["category"] == "table" %}
+            {%- if value["category"] == "table" or value["category"] == "complex" %}
             suboptions:                {{ doc_attributes(value["children"])|indent|indent }}
             {%- endif -%}
             {% endfor -%}
@@ -50,7 +50,7 @@ module: {{module_name}}
 short_description: {{short_description}}
 description:
     - This module is able to configure a FortiGate or FortiOS by
-      allowing the user to configure {{path}} feature. 
+      allowing the user to configure {{path}} feature. Tested with FOS: {{version}}
 version_added: "2.6"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
@@ -81,8 +81,8 @@ options:
         default: "root"
     {{path}}_{{name}}:
         description:
-            - {{current['schema']['help']}}
+            - {{schema['schema']['help']}}
         default: null
-        suboptions: {{ doc_attributes(current['schema']['children'])|indent }}
+        suboptions: {{ doc_attributes(schema['schema']['children'])|indent }}
 '''
 

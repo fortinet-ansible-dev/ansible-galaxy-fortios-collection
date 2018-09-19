@@ -1,17 +1,20 @@
 {% macro example_attributes(dict) -%}
       {%- for key, value in dict | dictsort %}
         {{key}}: 
-      {%- if value['category'] == 'table' -%}
-        {{example_attributes(value['children']) |indent}} 
+      {%- if value['category'] == 'table' or value['category'] == 'complex'%}
+         - {{- example_attributes(value['children']) |indent}} 
       {%- elif key == 'comment' %} "{{value['help']}}"
-      {%- elif key == 'name' %} "default_name"
+      {%- elif key == 'name' %} "default_name{{range(1,50)|random}}"
       {%- elif key == 'id' %} "{{range(1,50)|random}}"
+      {%- elif key == 'server' %} "192.168.100.40"
+      {%- elif key == 'source-ip' %} "84.230.14.43"
+      {%- elif 'identifier' in key and value['type']=='string' %} "myId"
       {%- elif value['category'] == 'unitary' and value['type']=='option' and "options" in value%} "{%if value['options']| length > 0 %}{{value['options'][0]['name']}}{%else%}<your_own_value>{%endif%}"
       {%- elif value['category'] == 'unitary' and value['type']=='integer'%} "{{range(1,50)|random}}"
       {%- elif key == 'url' %} "http://myurl.com"
       {%- elif ("host" in key) and value['type']=='string' %} "myhostname"
       {%- else %} "<your_own_value>"
-      {%- endif -%}
+      {%- endif -%}{%- if 'datasource' in value %} (source: {{value['datasource']|join(' ')}}){%-endif-%}
       {%- endfor -%}
 {%- endmacro %}
 EXAMPLES = '''
@@ -22,12 +25,12 @@ EXAMPLES = '''
    password: ""
    vdom: "root"
   tasks:
-  - name: {{current['schema']['help']}}
-    fortios_{{path}}_{{name}}:
+  - name: {{schema['schema']['help']}}
+    {{module_name}}:
       host:  "{{ '{{' }}  host {{ '}}' }}"
       username: "{{ '{{' }} username {{ '}}' }}"
       password: "{{ '{{' }} password {{ '}}' }}"
       vdom:  "{{ '{{' }}  vdom {{ '}}' }}"
       {{path}}_{{name}}:
-        state: "present"{{ example_attributes(current['schema']['children']) }}
+        state: "present"{{ example_attributes(schema['schema']['children']) }}
 '''
