@@ -79,6 +79,10 @@ options:
               virtual instance of the FortiGate that can be configured and
               used as a different unit.
         default: "root"
+    https:
+        description:
+            - Indicates if the requests towards FortiGate must use HTTPS
+              protocol
     {{path}}_{{name}}:
         description:
             - {{schema['schema']['help']}}

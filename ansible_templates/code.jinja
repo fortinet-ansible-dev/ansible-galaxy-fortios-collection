@@ -9,7 +9,10 @@ def login(data):
     password = data['password']
 
     fos.debug('on')
-    fos.https('off')
+    if 'https' in data and not data['https']:
+        fos.https('off')
+    else:
+        fos.https('on')
 
     fos.login(host, username, password)
 
@@ -99,6 +102,7 @@ def main():
         "username": {"required": True, "type": "str"},
         "password": {"required": False, "type": "str", "no_log": True},
         "vdom": {"required": False, "type": "str", "default": "root"},
+        "https": {"required": False, "type": "bool", "default": "True"},
         "{{path}}_{{name}}": {
             "required": False, "type": "dict",
             "options": {
