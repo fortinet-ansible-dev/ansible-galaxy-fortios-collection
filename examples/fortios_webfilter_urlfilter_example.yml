@@ -24,7 +24,6 @@
             status: "enable"
             type: "simple"
             url: "http://myurl.com"
-            web-proxy-profile: "<your_own_value> (source: web-proxy.profile.name)"
         id:  "14"
         ip-addr-block: "enable"
         name: "default_name_16"
