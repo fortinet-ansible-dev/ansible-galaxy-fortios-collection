@@ -68,10 +68,14 @@ def fortios_{{path}}(data, fos):
 {% macro getAnsibleType(attribute) -%}
 {%- if attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
 str
-{%- elif not attribute["type"] and ( attribute["category"]=="table" or attribute["category"]=="complex")-%}
+{%- elif not attribute["type"] and attribute["category"]=="table"-%}
 list
+{%- elif not attribute["type"] and attribute["category"]=="complex"-%}
+dict
 {%- elif attribute["type"] == "integer"-%}
 int
+{%- elif attribute["type"] == "user"-%}
+str
 {%- else -%}
 {{attribute["type"]}}
 {%- endif -%}

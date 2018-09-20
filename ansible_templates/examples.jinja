@@ -1,22 +1,26 @@
 {% macro example_attributes(dict) -%}
       {%- for key, value in dict | dictsort %}
         {{key}}: 
+      {%- if counter.update({'id': counter['id']+1 }) -%}{%-endif-%}
+      {%- set id = counter['id']-%}
+      {%- if 'datasource' in value -%} {%- set ds = " (source: " + value['datasource']|join(' ') + ")" -%} {%-endif-%}
       {%- if value['category'] == 'table' or value['category'] == 'complex'%}
          - {{- example_attributes(value['children']) |indent}} 
-      {%- elif key == 'comment' %} "{{value['help']}}"
-      {%- elif key == 'name' %} "default_name{{range(1,50)|random}}"
-      {%- elif key == 'id' %} "{{range(1,50)|random}}"
-      {%- elif key == 'server' %} "192.168.100.40"
-      {%- elif key == 'source-ip' %} "84.230.14.43"
-      {%- elif 'identifier' in key and value['type']=='string' %} "myId"
-      {%- elif value['category'] == 'unitary' and value['type']=='option' and "options" in value%} "{%if value['options']| length > 0 %}{{value['options'][0]['name']}}{%else%}<your_own_value>{%endif%}"
-      {%- elif value['category'] == 'unitary' and value['type']=='integer'%} "{{range(1,50)|random}}"
-      {%- elif key == 'url' %} "http://myurl.com"
-      {%- elif ("host" in key) and value['type']=='string' %} "myhostname"
-      {%- else %} "<your_own_value>"
-      {%- endif -%}{%- if 'datasource' in value %} (source: {{value['datasource']|join(' ')}}){%-endif-%}
+      {%- elif key == 'comment' %} "{{value['help']}}{{ds}}"
+      {%- elif key == 'name' %} "default_name_{{id}}{{ds}}"
+      {%- elif key == 'id' %}  "{{id}}{{ds}}"
+      {%- elif key == 'server' %} "192.168.100.40{{ds}}"
+      {%- elif key == 'source-ip' %} "84.230.14.43{{ds}}"
+      {%- elif 'identifier' in key and value['type']=='string' %}  "myId_{{id}}{{ds}}"
+      {%- elif value['category'] == 'unitary' and value['type']=='option' and "options" in value%} "{%if value['options']| length > 0 %}{{value['options'][0]['name']}}{%else%}<your_own_value>{{ds}}{%endif%}"
+      {%- elif value['category'] == 'unitary' and value['type']=='integer'%} "{{id}}{{ds}}"
+      {%- elif key == 'url' %} "http://myurl.com{{ds}}"
+      {%- elif ("host" in key) and value['type']=='string' %} "myhostname{{ds}}"
+      {%- else %} "<your_own_value>{{ds}}"
+      {%- endif -%}
       {%- endfor -%}
-{%- endmacro %}
+{%- endmacro -%}
+{%- set counter = {'id':2} %}
 EXAMPLES = '''
 - hosts: localhost
   vars:
