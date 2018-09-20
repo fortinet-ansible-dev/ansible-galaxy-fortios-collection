@@ -1,7 +1,6 @@
 
-from ansible.module_utils.basic import AnsibleModule
-
 fos = None
+
 
 def login(data):
     host = data['host']
@@ -21,8 +20,8 @@ def filter_{{path}}_{{name}}_data(json):
     option_list = [ {%- for key, value in schema['schema']['children']|dictsort -%}
                     '{{key}}'{%- if not loop.last%},{%endif -%}
                     {% if loop.index % 3 == 0 and not loop.last %}
-                    {% endif%}
-                    {%- endfor -%}]
+                   {% else %} {% endif %}
+                   {%- endfor -%}]
     dictionary = {}
 
     for attribute in option_list:
@@ -91,7 +90,9 @@ str
                     {%- if "options" in value %},
                     "choices": [
                         {%- for v in value["options"] -%}
-                        "{{ v["name"] }}"{% if not loop.last %}, {%endif%} 
+                        "{{ v["name"] }}"{% if not loop.last %}, {%endif-%}
+                        {%- if loop.index % 3 == 0 and not loop.last %}
+                        {% endif -%}
                         {%- endfor -%} ]
                     {%- endif -%}
                     {%- if value["category"] == "table" or value["category"] == "complex" %},
