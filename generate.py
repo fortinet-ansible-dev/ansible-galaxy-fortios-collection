@@ -29,16 +29,16 @@ def render_module(schema, version):
     template = env.get_template('code.jinja')
     output += template.render(**locals())
 
-    dir = 'output/' + path
+    dir = 'output/' + version + '/' + path
     if not os.path.exists(dir):
         os.makedirs(dir)
 
-    file = open('output/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
-    output = autopep8.fix_code(output)
+    file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
+    output = autopep8.fix_code(output, options={'aggressive': 1})
     file.write(output)
     file.close()
 
-    file_example = open('output/' + path + '/fortios_' + path +
+    file_example = open('output/' + version + '/' + path + '/fortios_' + path +
                         '_' + name + '_example.yml', 'w')
     template = env.get_template('examples.jinja')
     output = template.render(**locals())
@@ -46,8 +46,8 @@ def render_module(schema, version):
     file_example.writelines(lines[2:-1])
     file_example.close()
 
-    print "\033[0mFile generated: " + 'output/\033[37mfortios_' + path + '_' + name + '.py'
-    print "\033[0mFile generated: " + 'output/\033[37mfortios_' + \
+    print "\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '.py'
+    print "\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + \
         path + '_' + name + '_example.yml', 'w'
 
 

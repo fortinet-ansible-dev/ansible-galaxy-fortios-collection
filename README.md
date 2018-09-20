@@ -6,10 +6,8 @@ Name it: fgt_schema.json
 
 Run:
 
-`./jinjaExecutor.py`
+`./generate.py`
 
 At the moment the output is shown in stdoutput
 
 Only documentation is generated
-
-

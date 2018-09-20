@@ -4,8 +4,10 @@
       {%- if counter.update({'id': counter['id']+1 }) -%}{%-endif-%}
       {%- set id = counter['id']-%}
       {%- if 'datasource' in value -%} {%- set ds = " (source: " + value['datasource']|join(' ') + ")" -%} {%-endif-%}
-      {%- if value['category'] == 'table' or value['category'] == 'complex'%}
+      {%- if value['category'] == 'table' %}
          - {{- example_attributes(value['children']) |indent}} 
+      {%- elif value['category'] == 'complex'%}
+         {{- example_attributes(value['children']) |indent}} 
       {%- elif key == 'comment' %} "{{value['help']}}{{ds}}"
       {%- elif key == 'name' %} "default_name_{{id}}{{ds}}"
       {%- elif key == 'id' %}  "{{id}}{{ds}}"

@@ -1,0 +1,304 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure Web filter profiles.
+    fortios_webfilter_profile:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      webfilter_profile:
+        state: "present"
+        name: default2
+        comment: Default web filtering.
+        replacemsg-group: ''
+        inspection-mode: flow-based
+        https-replacemsg: enable
+        post-action: normal
+        override:
+          ovrd-cookie: deny
+          ovrd-scope: user
+          profile-type: list
+          ovrd-dur-mode: constant
+          ovrd-dur: 15m
+          profile-attribute: Login-LAT-Service
+          ovrd-user-group: []
+          profile: []
+        web:
+          bword-threshold: 10
+          bword-table: 0
+          urlfilter-table: 0
+          content-header-list: 0
+          blacklist: disable
+          youtube-restrict: none
+          log-search: disable
+          keyword-match: []
+        youtube-channel-status: disable
+        youtube-channel-filter: []
+        ftgd-wf:
+          exempt-quota: '17'
+          ovrd: ''
+          filters:
+          - q_origin_key: 1
+            id: 1
+            category: 2
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 2
+            id: 2
+            category: 7
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 3
+            id: 3
+            category: 8
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 4
+            id: 4
+            category: 9
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 5
+            id: 5
+            category: 11
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 6
+            id: 6
+            category: 12
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 7
+            id: 7
+            category: 13
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 8
+            id: 8
+            category: 14
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 9
+            id: 9
+            category: 15
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 10
+            id: 10
+            category: 16
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 11
+            id: 11
+            category: 0
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 12
+            id: 12
+            category: 57
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 13
+            id: 13
+            category: 63
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 14
+            id: 14
+            category: 64
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 15
+            id: 15
+            category: 65
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 16
+            id: 16
+            category: 66
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 17
+            id: 17
+            category: 67
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 18
+            id: 18
+            category: 26
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 19
+            id: 19
+            category: 61
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 20
+            id: 20
+            category: 86
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 21
+            id: 21
+            category: 88
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 22
+            id: 22
+            category: 90
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          - q_origin_key: 23
+            id: 23
+            category: 91
+            action: block
+            warn-duration: 5m
+            auth-usr-grp: []
+            log: enable
+            override-replacemsg: ''
+            warning-prompt: per-category
+            warning-duration-type: timeout
+          quota: []
+          max-quota-timeout: 300
+          rate-image-urls: enable
+          rate-javascript-urls: enable
+          rate-css-urls: enable
+          rate-crl-urls: enable
+        wisp: disable
+        wisp-servers: []
+        wisp-algorithm: auto-learning
+        log-all-url: disable
+        web-content-log: enable
+        web-filter-activex-log: enable
+        web-filter-command-block-log: enable
+        web-filter-cookie-log: enable
+        web-filter-applet-log: enable
+        web-filter-jscript-log: enable
+        web-filter-js-log: enable
+        web-filter-vbs-log: enable
+        web-filter-unknown-log: enable
+        web-filter-referer-log: enable
+        web-filter-cookie-removal-log: enable
+        web-url-log: enable
+        web-invalid-domain-log: enable
+        web-ftgd-err-log: enable
+        web-ftgd-quota-usage: enable
+        extended-log: disable
+        web-extended-all-action-log: disable
+
+

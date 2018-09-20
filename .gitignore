@@ -104,4 +104,3 @@ venv.bak/
 .mypy_cache/
 fgt_schema.json
 output/
-examples/
