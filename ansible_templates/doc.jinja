@@ -2,7 +2,7 @@
         {%- for key,value in dict |dictsort %}
         {{value['name']}}:
             description:
-                - {{ value['help'] }} {%- if 'datasource' in value %} Source {{value['datasource']|join(' ')}}.{%-endif-%}
+                - {%if ":" in value['help'] -%}"{%-endif-%}{{ value['help'] }} {%- if 'datasource' in value %} Source {{value['datasource']|join(' ')}}.{%-endif-%}{%if ":" in value['help'] -%}"{%-endif-%}
             {%- if key == "name" or key == "id" %}
             required: true
             {%- endif -%}
@@ -51,7 +51,7 @@ description:
       allowing the user to configure {{path}} feature and {{name}} category.
       Examples includes all options and need to be adjusted to datasources before usage.
       Tested with FOS {{version}}
-version_added: "2.6"
+version_added: "2.8"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)

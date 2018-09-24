@@ -5,6 +5,34 @@ import autopep8
 import os
 
 
+def searchProperBreakableChar(line, startingPosition):
+    breakableChars = " :.,;"
+    for i in reversed(range(0, startingPosition)):
+        if line[i] in breakableChars:
+            return i
+    return startingPosition
+
+
+def numberOfInitialSpaces(line):
+    print line
+    print line.lstrip()
+    print len(line)-len(line.lstrip())+2
+    return len(line)-len(line.lstrip())+2
+
+
+def splitLargeLines(output):
+    output = output.splitlines()
+    for i in range(0, len(output)):
+        line = output[i]
+        if len(line) > 159:
+            position = searchProperBreakableChar(line, 159)
+            initialSpaces = " " * numberOfInitialSpaces(output[i])
+            output.insert(i+1, initialSpaces + line[position:])
+            output[i] = output[i][:position]
+    output = '\n'.join(output)
+    return output
+
+
 def render_module(schema, version):
 
     file_loader = FileSystemLoader('ansible_templates')
@@ -36,6 +64,7 @@ def render_module(schema, version):
         os.makedirs(dir)
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
+    output = splitLargeLines(output)
     output = autopep8.fix_code(output, options={'aggressive': 1})
     file.write(output)
     file.close()
@@ -74,5 +103,5 @@ if __name__ == "__main__":
     fgt_schema_file = open('fgt_schema.json').read()
     fgt_schema = json.loads(fgt_schema_file)
     fgt_sch_results = fgt_schema['results']
-    render_module(fgt_sch_results[62], fgt_schema['version'])
+    render_module(fgt_sch_results[220], fgt_schema['version'])
     jinjaExecutor()
