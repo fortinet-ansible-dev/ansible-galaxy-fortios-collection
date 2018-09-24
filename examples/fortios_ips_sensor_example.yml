@@ -1,0 +1,43 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPS sensor.
+    fortios_ips_sensor:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      ips_sensor:
+        state: "present"
+        name: default
+        comment: Prevent critical attacks.
+        replacemsg-group: ''
+        block-malicious-url: disable
+        extended-log: disable
+        entries:
+        - id: 1
+          rule: []
+          location: all
+          severity: 'medium high critical '
+          protocol: all
+          os: all
+          application: all
+          status: default
+          log: enable
+          log-packet: disable
+          log-attack-context: disable
+          action: default
+          rate-count: 0
+          rate-duration: 60
+          rate-mode: continuous
+          rate-track: none
+          exempt-ip: []
+          quarantine: none
+          quarantine-expiry: 5m
+          quarantine-log: enable
+        filter: []
+        override: []

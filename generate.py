@@ -14,9 +14,6 @@ def searchProperBreakableChar(line, startingPosition):
 
 
 def numberOfInitialSpaces(line):
-    print line
-    print line.lstrip()
-    print len(line)-len(line.lstrip())+2
     return len(line)-len(line.lstrip())+2
 
 
