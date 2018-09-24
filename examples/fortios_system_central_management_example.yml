@@ -1,0 +1,36 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure central management.
+    fortios_system_central_management:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      system_central_management:
+        state: "present"
+        mode: normal
+        type: none
+        schedule-config-restore: enable
+        schedule-script-restore: enable
+        allow-push-configuration: enable
+        allow-push-firmware: enable
+        allow-remote-firmware-upgrade: enable
+        allow-monitor: enable
+        serial-number: ''
+        fmg: ''
+        fmg-source-ip: 0.0.0.0
+        fmg-source-ip6: "::"
+        vdom: root
+        server-list: 
+         -
+            addr-type: "ipv4"
+            id:  "19"
+            server-address: "10.20.32.32"
+            server-type: "update"
+        include-default-servers: enable
+        enc-algorithm: low
