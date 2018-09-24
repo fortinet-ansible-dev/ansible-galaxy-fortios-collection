@@ -105,3 +105,4 @@ venv.bak/
 fgt_schema.json
 output/
 *.retry
+settings.json
