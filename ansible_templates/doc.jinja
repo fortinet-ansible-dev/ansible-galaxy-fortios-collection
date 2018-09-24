@@ -2,7 +2,7 @@
         {%- for key,value in dict |dictsort %}
         {{value['name']}}:
             description:
-                - {{ value['help'] }} {%- if 'datasource' in value %} Source: {{value['datasource']|join(' ')}}.{%-endif-%}
+                - {{ value['help'] }} {%- if 'datasource' in value %} Source {{value['datasource']|join(' ')}}.{%-endif-%}
             {%- if key == "name" or key == "id" %}
             required: true
             {%- endif -%}
@@ -18,7 +18,6 @@
             {% endfor -%}
 {%- endmacro %}#!/usr/bin/python
 from __future__ import (absolute_import, division, print_function)
-from ansible.module_utils.basic import AnsibleModule
 # Copyright 2018 Fortinet, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -51,7 +50,7 @@ description:
     - This module is able to configure a FortiGate or FortiOS by
       allowing the user to configure {{path}} feature and {{name}} category.
       Examples includes all options and need to be adjusted to datasources before usage.
-      Tested with FOS: {{version}}
+      Tested with FOS {{version}}
 version_added: "2.6"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
@@ -79,11 +78,13 @@ options:
             - Virtual domain, among those defined previously. A vdom is a
               virtual instance of the FortiGate that can be configured and
               used as a different unit.
-        default: "root"
+        default: root
     https:
         description:
             - Indicates if the requests towards FortiGate must use HTTPS
               protocol
+        type: bool
+        default: false
     {{path}}_{{name}}:
         description:
             - {{schema['schema']['help']}}

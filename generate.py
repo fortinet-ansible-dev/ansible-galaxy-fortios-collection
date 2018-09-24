@@ -13,8 +13,10 @@ def render_module(schema, version):
 
     short_description = schema['schema']['help']
     description = ""
-    path = schema['path'].replace('-', '_')
-    name = schema['name'].replace('-', '_')
+    original_path = schema['path']
+    original_name = schema['name']
+    path = original_path.replace('-', '_')
+    name = original_name.replace('-', '_')
     module_name = "fortios_" + path + "_" + name
 
     template = env.get_template('doc.jinja')
@@ -72,5 +74,5 @@ if __name__ == "__main__":
     fgt_schema_file = open('fgt_schema.json').read()
     fgt_schema = json.loads(fgt_schema_file)
     fgt_sch_results = fgt_schema['results']
-    render_module(fgt_sch_results[215], fgt_schema['version'])
+    render_module(fgt_sch_results[62], fgt_schema['version'])
     jinjaExecutor()

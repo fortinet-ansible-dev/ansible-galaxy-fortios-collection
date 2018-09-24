@@ -1,4 +1,6 @@
 
+from ansible.module_utils.basic import AnsibleModule
+
 fos = None
 
 
@@ -37,14 +39,14 @@ def {{path}}_{{name}}(data, fos):
     filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
 
     if {{path}}_{{name}}_data['state'] == "present":
-        return fos.set('{{path}}',
-                       '{{name}}',
+        return fos.set('{{original_path}}',
+                       '{{original_name}}',
                        data=filtered_data,
                        vdom=vdom)
 
     elif {{path}}_{{name}}_data['state'] == "absent":
-        return fos.delete('{{path}}',
-                          '{{name}}',
+        return fos.delete('{{original_path}}',
+                          '{{original_name}}',
                           mkey=filtered_data['id'],
                           vdom=vdom)
 
@@ -74,6 +76,10 @@ dict
 {%- elif attribute["type"] == "integer"-%}
 int
 {%- elif attribute["type"] == "user"-%}
+str
+{%- elif attribute["type"] == "ipv4-address"-%}
+str
+{%- elif attribute["type"] == "ipv6-address"-%}
 str
 {%- else -%}
 {{attribute["type"]}}
@@ -107,7 +113,7 @@ def main():
         "username": {"required": True, "type": "str"},
         "password": {"required": False, "type": "str", "no_log": True},
         "vdom": {"required": False, "type": "str", "default": "root"},
-        "https": {"required": False, "type": "bool", "default": "True"},
+        "https": {"required": False, "type": "bool", "default": "False"},
         "{{path}}_{{name}}": {
             "required": False, "type": "dict",
             "options": {

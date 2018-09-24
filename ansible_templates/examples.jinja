@@ -3,7 +3,7 @@
         {{key}}: 
       {%- if counter.update({'id': counter['id']+1 }) -%}{%-endif-%}
       {%- set id = counter['id']-%}
-      {%- if 'datasource' in value -%} {%- set ds = " (source: " + value['datasource']|join(' ') + ")" -%} {%-endif-%}
+      {%- if 'datasource' in value -%} {%- set ds = " (source " + value['datasource']|join(' ') + ")" -%} {%-endif-%}
       {%- if value['category'] == 'table' %}
          - {{- example_attributes(value['children']) |indent}} 
       {%- elif value['category'] == 'complex'%}
