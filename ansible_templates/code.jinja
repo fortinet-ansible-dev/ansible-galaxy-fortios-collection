@@ -81,6 +81,8 @@ str
 str
 {%- elif attribute["type"] == "ipv6-address"-%}
 str
+{%- elif attribute["type"] == "password"-%}
+str
 {%- else -%}
 {{attribute["type"]}}
 {%- endif -%}

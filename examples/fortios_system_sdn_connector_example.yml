@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure connection to SDN Connector.
+    fortios_system_sdn_connector:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      system_sdn_connector:
+        state: "present"
+        name: "default_name_12"
+        type: "aws"
+        access-key: "AKDIG7382JUF"
+        secret-key: "GFJI93234JFOEI32123"
+        region: "us-west-2"
+        vpc-id: "vpc-2jf8324l"

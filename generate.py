@@ -75,8 +75,7 @@ def render_module(schema, version):
     file_example.close()
 
     print "\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '.py'
-    print "\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + \
-        path + '_' + name + '_example.yml', 'w'
+    print "\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml'
 
 
 def jinjaExecutor():
@@ -100,5 +99,5 @@ if __name__ == "__main__":
     fgt_schema_file = open('fgt_schema.json').read()
     fgt_schema = json.loads(fgt_schema_file)
     fgt_sch_results = fgt_schema['results']
-    render_module(fgt_sch_results[220], fgt_schema['version'])
+    render_module(fgt_sch_results[69], fgt_schema['version'])
     jinjaExecutor()
