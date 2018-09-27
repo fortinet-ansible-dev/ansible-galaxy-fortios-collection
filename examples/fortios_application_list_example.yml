@@ -1,0 +1,52 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure application control lists.
+    fortios_application_list:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      application_list:
+        state: "present"
+        name: default_monitor
+        comment: Monitor all applications.
+        replacemsg-group: ''
+        extended-log: disable
+        other-application-action: pass
+        app-replacemsg: enable
+        other-application-log: disable
+        unknown-application-action: pass
+        unknown-application-log: disable
+        deep-app-inspection: enable
+        options: allow-dns
+        entries:
+          - id: 1
+            risk: []
+            category: []
+            sub-category: []
+            application: []
+            protocols: all
+            vendor: all
+            technology: all
+            behavior: all
+            popularity: 1 2 3 4 5
+            parameters: []
+            action: pass
+            log: enable
+            log-packet: disable
+            rate-count: 0
+            rate-duration: 60
+            rate-mode: continuous
+            rate-track: none
+            session-ttl: 0
+            shaper: ''
+            shaper-reverse: ''
+            per-ip-shaper: ''
+            quarantine: none
+            quarantine-expiry: 5m
+            quarantine-log: enable
