@@ -83,6 +83,26 @@ str
 str
 {%- elif attribute["type"] == "password"-%}
 str
+{%- elif attribute["type"] == "ipv4-classnet-any"-%}
+str
+{%- elif attribute["type"] == "ipv4-address-any"-%}
+str
+{%- elif attribute["type"] == "ipv4-classnet"-%}
+str
+{%- elif attribute["type"] == "ipv4-netmask"-%}
+str
+{%- elif attribute["type"] == "ipv6-network"-%}
+str
+{%- elif attribute["type"] == "ipv6-prefix"-%}
+str
+{%- elif attribute["type"] == "mac-address"-%}
+str
+{%- elif attribute["type"] == "uuid"-%}
+str
+{%- elif attribute["type"] == "time"-%}
+str
+{%- elif attribute["type"] == "datetime"-%}
+str
 {%- else -%}
 {{attribute["type"]}}
 {%- endif -%}

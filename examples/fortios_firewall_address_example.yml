@@ -1,0 +1,40 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 addresses.
+    fortios_firewall_address:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      firewall_address:
+        state: "present"
+        name: ip_test_example
+        subnet: 10.210.4.0/24
+        type: iprange
+        start-ip: 10.210.4.208
+        end-ip: 10.210.4.220
+        fqdn: ''
+        country: ''
+        wildcard-fqdn: ''
+        cache-ttl: 0
+        wildcard: 10.210.4.208 10.210.4.220
+        tenant: ''
+        organization: ''
+        epg-name: ''
+        subnet-name: ''
+        sdn-tag: ''
+        policy-group: ''
+        comment: ''
+        visibility: enable
+        associated-interface: ssl.root
+        color: 0
+        filter: ''
+        obj-id: ''
+        list: []
+        tagging: []
+        allow-routing: disable
