@@ -106,3 +106,4 @@ fgt_schema.json
 output/
 *.retry
 settings.json
+test/*.py
