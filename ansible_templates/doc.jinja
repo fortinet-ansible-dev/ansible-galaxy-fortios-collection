@@ -1,9 +1,9 @@
-{% macro doc_attributes(dict) -%}
+{% macro doc_attributes(dict, mkey) -%}
         {%- for key,value in dict |dictsort %}
         {{value['name']}}:
             description:
                 - {%if ":" in value['help'] -%}"{%-endif-%}{{ value['help'] }} {%- if 'datasource' in value %} Source {{value['datasource']|join(' ')}}.{%-endif-%}{%if ":" in value['help'] -%}"{%-endif-%}
-            {%- if key == "name" or key == "id" %}
+            {%- if key == mkey %}
             required: true
             {%- endif -%}
             {%- if "options" in value %}
@@ -13,7 +13,7 @@
                 {%- endfor -%}
             {%- endif -%}
             {%- if value["category"] == "table" or value["category"] == "complex" %}
-            suboptions:{{ doc_attributes(value["children"])|indent|indent}}
+            suboptions:{{ doc_attributes(value["children"], value["mkey"])|indent|indent}}
             {%- endif -%}
             {% endfor -%}
 {%- endmacro %}#!/usr/bin/python
@@ -97,6 +97,6 @@ options:
                 choices:
                     - present
                     - absent
-                {%-endif-%}{{ doc_attributes(schema['schema']['children'])|indent }}
+                {%-endif-%}{{ doc_attributes(schema['schema']['children'], schema['schema']['mkey'])|indent }}
 '''
 

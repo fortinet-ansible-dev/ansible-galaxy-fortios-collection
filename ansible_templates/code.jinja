@@ -114,9 +114,9 @@ str
 {{attribute["type"]}}
 {%- endif -%}
 {%- endmacro %}
-{% macro code_fields(dict) -%}
+{% macro code_fields(dict, mkey) -%}
                 {%- for key,value in dict |dictsort -%}
-                "{{key}}": {"required": {% if key == "name" or key == "id" -%}
+                "{{key}}": {"required": {% if key == mkey -%}
                         True
                     {%- else -%}
                         False
@@ -132,7 +132,7 @@ str
                     {%- endif -%}
                     {%- if value["category"] == "table" or value["category"] == "complex" %},
                     "options": {
-                        {{code_fields(value["children"]) |indent |indent }} }
+                        {{code_fields(value["children"], value["mkey"]) |indent |indent }} }
                     {%- endif -%}}{%- if not loop.last %}, {%endif%}
                 {% endfor -%}
 {%- endmacro %}
@@ -147,9 +147,9 @@ def main():
             "required": False, "type": "dict",
             "options": {
                 {%-if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
-                             "choices": ["low", "medium", "high"]}},
+                             "choices": ["present", "absent"]},
                 {%endif-%}
-                {{ code_fields(schema['schema']['children']) }}
+                {{ code_fields(schema['schema']['children'], schema['schema']['mkey']) }}
             }
         }
     }
