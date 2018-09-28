@@ -89,6 +89,14 @@ options:
         description:
             - {{schema['schema']['help']}}
         default: null
-        suboptions: {{ doc_attributes(schema['schema']['children'])|indent }}
+        suboptions: 
+            {%-if "mkey" in schema['schema'] %}
+            state: 
+                description: 
+                    - Indicates whether to create or remove the object
+                choices:
+                    - present
+                    - absent
+                {%-endif-%}{{ doc_attributes(schema['schema']['children'])|indent }}
 '''
 

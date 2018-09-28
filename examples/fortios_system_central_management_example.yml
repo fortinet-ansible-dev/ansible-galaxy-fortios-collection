@@ -12,7 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{  vdom }}"
       system_central_management:
-        state: "present"
         mode: normal
         type: none
         schedule-config-restore: enable

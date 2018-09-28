@@ -38,6 +38,7 @@ def {{path}}_{{name}}(data, fos):
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
     filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
 
+    {%-if "mkey" in schema['schema'] %}
     if {{path}}_{{name}}_data['state'] == "present":
         return fos.set('{{original_path}}',
                        '{{original_name}}',
@@ -47,8 +48,14 @@ def {{path}}_{{name}}(data, fos):
     elif {{path}}_{{name}}_data['state'] == "absent":
         return fos.delete('{{original_path}}',
                           '{{original_name}}',
-                          mkey=filtered_data['id'],
+                          mkey=filtered_data['{{schema['schema']['mkey']}}'],
                           vdom=vdom)
+    {%else%}
+    return fos.set('{{original_path}}',
+                    '{{original_name}}',
+                    data=filtered_data,
+                    vdom=vdom)
+    {%endif%}
 
 
 def fortios_{{path}}(data, fos):
@@ -139,7 +146,9 @@ def main():
         "{{path}}_{{name}}": {
             "required": False, "type": "dict",
             "options": {
-                "state": {"required": True, "type": "str"},
+                {%-if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
+                             "choices": ["low", "medium", "high"]}},
+                {%endif-%}
                 {{ code_fields(schema['schema']['children']) }}
             }
         }

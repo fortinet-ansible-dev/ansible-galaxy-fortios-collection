@@ -37,6 +37,6 @@ EXAMPLES = '''
       username: "{{ '{{' }} username {{ '}}' }}"
       password: "{{ '{{' }} password {{ '}}' }}"
       vdom:  "{{ '{{' }}  vdom {{ '}}' }}"
-      {{path}}_{{name}}:
-        state: "present"{{ example_attributes(schema['schema']['children']) }}
+      {{path}}_{{name}}:{%-if "mkey" in schema['schema']%}
+        state: "present"{%endif-%}{{ example_attributes(schema['schema']['children']) }}
 '''
