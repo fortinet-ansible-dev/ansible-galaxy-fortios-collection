@@ -13,7 +13,7 @@
       vdom:  "{{  vdom }}"
       ips_sensor:
         state: "present"
-        name: default
+        name: default2
         comment: Prevent critical attacks.
         replacemsg-group: ''
         block-malicious-url: disable
