@@ -12,6 +12,9 @@ export ANSIBLE_LIBRARY=$(pwd)/output/${version}/firewall
 ansible-playbook examples/fortios_firewall_address_example.yml
 ansible-playbook examples/remove/fortios_firewall_address_example.yml
 
+ansible-playbook examples/fortios_firewall_addrgrp_example.yml
+ansible-playbook examples/remove/fortios_firewall_addrgrp_example.yml
+
 export ANSIBLE_LIBRARY=$(pwd)/output/${version}/ips
 ansible-playbook examples/fortios_ips_sensor_example.yml
 ansible-playbook examples/remove/fortios_ips_sensor_example.yml
@@ -30,6 +33,9 @@ ansible-playbook examples/fortios_webfilter_fortiguard_example.yml
 
 ansible-playbook examples/fortios_webfilter_profile_example.yml
 ansible-playbook examples/remove/fortios_webfilter_profile_example.yml
+
+ansible-playbook examples/fortios_webfilter_search_engine_example.yml
+ansible-playbook examples/remove/fortios_webfilter_search_engine_example.yml
 
 ansible-playbook examples/fortios_webfilter_urlfilter_example.yml
 ansible-playbook examples/remove/fortios_webfilter_urlfilter_example.yml
