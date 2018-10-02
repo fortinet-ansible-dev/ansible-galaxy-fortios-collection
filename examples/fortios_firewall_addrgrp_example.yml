@@ -1,0 +1,23 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 address groups.
+    fortios_firewall_addrgrp:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      firewall_addrgrp:
+        state: "present"
+        allow-routing: "enable"
+        color: "4"
+        comment: "Comment."
+        member:
+         -
+            name: "all"
+        name: "default_name_8"
+        visibility: "enable"

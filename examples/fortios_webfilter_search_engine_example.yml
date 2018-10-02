@@ -17,6 +17,6 @@
         hostname: "myhostname"
         name: "default_name_5"
         query: "?query="
-        safesearch: "enable"
+        safesearch: "url"
         safesearch-str: "safesearch:"
         url: "http://searchurl.com"
