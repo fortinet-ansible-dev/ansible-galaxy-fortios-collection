@@ -5,7 +5,6 @@ set -x
 version="v6.0.2"
 
 export ANSIBLE_LIBRARY=$(pwd)/output/${version}/application
-echo $ANSIBLE_LIBRARY
 ansible-playbook examples/fortios_application_list_example.yml
 ansible-playbook examples/remove/fortios_application_list_example.yml
 
@@ -24,6 +23,11 @@ ansible-playbook examples/fortios_system_sdn_connector_example.yml
 ansible-playbook examples/remove/fortios_system_sdn_connector_example.yml
 
 export ANSIBLE_LIBRARY=$(pwd)/output/${version}/webfilter
+ansible-playbook examples/fortios_webfilter_content_header_example.yml
+ansible-playbook examples/remove/fortios_webfilter_content_header_example.yml
+
+ansible-playbook examples/fortios_webfilter_fortiguard_example.yml
+
 ansible-playbook examples/fortios_webfilter_profile_example.yml
 ansible-playbook examples/remove/fortios_webfilter_profile_example.yml
 
