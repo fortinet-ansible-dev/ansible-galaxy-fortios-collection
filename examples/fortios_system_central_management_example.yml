@@ -13,23 +13,22 @@
       vdom:  "{{  vdom }}"
       system_central_management:
         mode: normal
-        type: none
+        type: fortimanager
         schedule-config-restore: enable
         schedule-script-restore: enable
         allow-push-configuration: enable
         allow-push-firmware: enable
         allow-remote-firmware-upgrade: enable
         allow-monitor: enable
-        serial-number: ''
-        fmg: ''
-        fmg-source-ip: 0.0.0.0
-        fmg-source-ip6: "::"
+        serial-number: 23f23j32rr3f8293
+        fmg: FMG1
+        fmg-source-ip: 10.210.1.1
         vdom: root
         server-list: 
          -
             addr-type: "ipv4"
             id:  "19"
-            server-address: "10.20.32.32"
+            server-address: "10.20.232.32"
             server-type: "update"
         include-default-servers: enable
         enc-algorithm: low

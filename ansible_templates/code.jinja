@@ -146,7 +146,7 @@ def main():
         "{{path}}_{{name}}": {
             "required": False, "type": "dict",
             "options": {
-                {%-if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
+                {%if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
                              "choices": ["present", "absent"]},
                 {%endif-%}
                 {{ code_fields(schema['schema']['children'], schema['schema']['mkey']) }}
