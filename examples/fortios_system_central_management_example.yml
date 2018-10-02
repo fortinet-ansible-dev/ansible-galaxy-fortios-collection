@@ -13,7 +13,7 @@
       vdom:  "{{  vdom }}"
       system_central_management:
         mode: normal
-        type: fortimanager
+        type: none
         schedule-config-restore: enable
         schedule-script-restore: enable
         allow-push-configuration: enable
