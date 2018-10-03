@@ -7,10 +7,10 @@
   tasks:
   - name: Configure application control lists.
     fortios_application_list:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       application_list:
         state: "absent"
         name: default_monitor

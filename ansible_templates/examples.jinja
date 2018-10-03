@@ -33,10 +33,10 @@ EXAMPLES = '''
   tasks:
   - name: {{schema['schema']['help']}}
     {{module_name}}:
-      host:  "{{ '{{' }}  host {{ '}}' }}"
+      host:  "{{ '{{' }} host {{ '}}' }}"
       username: "{{ '{{' }} username {{ '}}' }}"
       password: "{{ '{{' }} password {{ '}}' }}"
-      vdom:  "{{ '{{' }}  vdom {{ '}}' }}"
+      vdom:  "{{ '{{' }} vdom {{ '}}' }}"
       {{path}}_{{name}}:{%-if "mkey" in schema['schema']%}
         state: "present"{%endif-%}{{ example_attributes(schema['schema']['children']) }}
 '''

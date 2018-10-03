@@ -7,10 +7,10 @@
   tasks:
   - name: Configure IPv4 address groups.
     fortios_firewall_addrgrp:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       firewall_addrgrp:
         state: "absent"
         name: "default_name_8"

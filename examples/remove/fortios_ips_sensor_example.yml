@@ -7,10 +7,10 @@
   tasks:
   - name: Configure IPS sensor.
     fortios_ips_sensor:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       ips_sensor:
         state: "absent"
         name: default2

@@ -7,10 +7,10 @@
   tasks:
   - name: Configure Web filter profiles.
     fortios_webfilter_profile:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       webfilter_profile:
         state: "present"
         name: default2

@@ -7,10 +7,10 @@
   tasks:
   - name: Configure URL filter lists.
     fortios_webfilter_urlfilter:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       webfilter_urlfilter:
         state: "absent"
         id:  "14"

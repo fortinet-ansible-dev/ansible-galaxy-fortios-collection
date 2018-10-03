@@ -2,40 +2,31 @@
 
 set -x
 
+rm -f $(pwd)/examples/*.retry
+rm -f $(pwd)/examples/remove/*.retry
+
 version="v6.0.2"
 
-export ANSIBLE_LIBRARY=$(pwd)/output/${version}/application
-ansible-playbook examples/fortios_application_list_example.yml
-ansible-playbook examples/remove/fortios_application_list_example.yml
+function run_example( ) {
+    export ANSIBLE_LIBRARY=$(pwd)/output/${version}/$1
+    ansible-playbook examples/$2
+    if [ -f examples/remove/$2 ]; then 
+        ansible-playbook examples/remove/$2
+    fi
+}
 
-export ANSIBLE_LIBRARY=$(pwd)/output/${version}/firewall
-ansible-playbook examples/fortios_firewall_address_example.yml
-ansible-playbook examples/remove/fortios_firewall_address_example.yml
+run_example application fortios_application_list_example.yml
+run_example firewall fortios_firewall_address_example.yml
+run_example firewall fortios_firewall_addrgrp_example.yml
+run_example ips fortios_ips_sensor_example.yml
+run_example system fortios_system_central_management_example.yml
+run_example system fortios_system_sdn_connector_example.yml
+run_example webfilter fortios_webfilter_content_header_example.yml
+run_example webfilter fortios_webfilter_fortiguard_example.yml
+run_example webfilter fortios_webfilter_profile_example.yml
+run_example webfilter fortios_webfilter_search_engine_example.yml
+run_example webfilter fortios_webfilter_urlfilter_example.yml
 
-ansible-playbook examples/fortios_firewall_addrgrp_example.yml
-ansible-playbook examples/remove/fortios_firewall_addrgrp_example.yml
 
-export ANSIBLE_LIBRARY=$(pwd)/output/${version}/ips
-ansible-playbook examples/fortios_ips_sensor_example.yml
-ansible-playbook examples/remove/fortios_ips_sensor_example.yml
 
-export ANSIBLE_LIBRARY=$(pwd)/output/${version}/system
-ansible-playbook examples/fortios_system_central_management_example.yml
-
-ansible-playbook examples/fortios_system_sdn_connector_example.yml
-ansible-playbook examples/remove/fortios_system_sdn_connector_example.yml
-
-export ANSIBLE_LIBRARY=$(pwd)/output/${version}/webfilter
-ansible-playbook examples/fortios_webfilter_content_header_example.yml
-ansible-playbook examples/remove/fortios_webfilter_content_header_example.yml
-
-ansible-playbook examples/fortios_webfilter_fortiguard_example.yml
-
-ansible-playbook examples/fortios_webfilter_profile_example.yml
-ansible-playbook examples/remove/fortios_webfilter_profile_example.yml
-
-ansible-playbook examples/fortios_webfilter_search_engine_example.yml
-ansible-playbook examples/remove/fortios_webfilter_search_engine_example.yml
-
-ansible-playbook examples/fortios_webfilter_urlfilter_example.yml
-ansible-playbook examples/remove/fortios_webfilter_urlfilter_example.yml
+exit

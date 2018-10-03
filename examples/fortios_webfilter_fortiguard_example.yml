@@ -7,10 +7,10 @@
   tasks:
   - name: Configure FortiGuard Web Filter service.
     fortios_webfilter_fortiguard:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       webfilter_fortiguard:
         cache-mem-percent: "3"
         cache-mode: "ttl"

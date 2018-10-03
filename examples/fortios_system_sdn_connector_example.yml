@@ -7,10 +7,10 @@
   tasks:
   - name: Configure connection to SDN Connector.
     fortios_system_sdn_connector:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       system_sdn_connector:
         state: "present"
         name: "default_name_12"

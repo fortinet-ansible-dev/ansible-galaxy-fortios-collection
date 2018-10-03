@@ -7,10 +7,10 @@
   tasks:
   - name: Configure central management.
     fortios_system_central_management:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       system_central_management:
         mode: normal
         type: none

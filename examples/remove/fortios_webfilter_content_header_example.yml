@@ -7,10 +7,10 @@
   tasks:
   - name: Configure content types used by Web filter.
     fortios_webfilter_content_header:
-      host:  "{{  host }}"
+      host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
-      vdom:  "{{  vdom }}"
+      vdom:  "{{ vdom }}"
       webfilter_content_header:
         state: "absent"
         comment: "Optional comments."
