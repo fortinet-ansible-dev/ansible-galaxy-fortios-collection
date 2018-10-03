@@ -2,16 +2,68 @@
 
 set -x
 
+cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )
+
+if [ ! -z $1 ] && [ "$1"="--https" ]; then
+  https=true
+fi
+
 rm -f $(pwd)/examples/*.retry
+rm -f $(pwd)/examples/*.https
 rm -f $(pwd)/examples/remove/*.retry
+rm -f $(pwd)/examples/remove/*.https
 
 version="v6.0.2"
 
+success=0
+failed=0
+
+function modify_playbook_for_https() {
+    cat $1 |sed 's/{{ vdom }}"/{{ vdom }}"\n      https: true/g' > $1.https
+}
+
 function run_example( ) {
     export ANSIBLE_LIBRARY=$(pwd)/output/${version}/$1
-    ansible-playbook examples/$2
+
+    filename=./examples/$2
+    filename_removal=./examples/remove/$2
+
+    if [ "$https" = true ]; then 
+        modify_playbook_for_https ${filename}
+        ansible-playbook ${filename}.https
+        if [ $?=0 ]; then
+          success=$(($success+1))
+        else
+          failed=$(($failed+1))
+        fi
+        rm ${filename}.https
+    else
+        ansible-playbook ${filename}
+        if [ $?=0 ]; then
+          success=$(($success+1))
+        else
+          failed=$(($failed+1))
+        fi
+    fi
+
     if [ -f examples/remove/$2 ]; then 
-        ansible-playbook examples/remove/$2
+        if [ "$https" = true ]; then 
+            modify_playbook_for_https ${filename_removal}
+            ansible-playbook ${filename_removal}.https
+            if [ $?=0 ]; then
+            success=$(($success+1))
+            else
+            failed=$(($failed+1))
+            fi
+            rm ${filename_removal}.https
+        else
+            ansible-playbook ${filename_removal}
+            if [ $?=0 ]; then
+            success=$(($success+1))
+            else
+            failed=$(($failed+1))
+            fi
+        fi
     fi
 }
 
@@ -28,5 +80,4 @@ run_example webfilter fortios_webfilter_search_engine_example.yml
 run_example webfilter fortios_webfilter_urlfilter_example.yml
 
 
-
-exit
+echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
