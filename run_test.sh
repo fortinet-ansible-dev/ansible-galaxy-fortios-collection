@@ -79,6 +79,7 @@ run_example webfilter fortios_webfilter_profile_example.yml
 run_example webfilter fortios_webfilter_search_engine_example.yml
 run_example webfilter fortios_webfilter_urlfilter_example.yml
 run_example webfilter fortios_webfilter_ftgd_local_cat_example.yml
-
+run_example webfilter fortios_webfilter_ftgd_local_rating_example.yml
+run_example webfilter fortios_webfilter_override_example.yml
 
 echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"

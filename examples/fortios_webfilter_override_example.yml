@@ -1,0 +1,23 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure FortiGuard Web Filter administrative overrides.
+    fortios_webfilter_override:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      webfilter_override:
+        state: "present"
+        expires: "2019/11/01 10:00:00"
+        id:  "2"
+        ip: "10.210.9.120"
+        new-profile: "wifi-default"
+        old-profile: "default"
+        scope: "ip"
+        status: "enable"
+
