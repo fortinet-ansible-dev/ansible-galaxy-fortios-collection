@@ -16,7 +16,7 @@
       {%- elif 'identifier' in key and value['type']=='string' %}  "myId_{{id}}{{ds}}"
       {%- elif value['category'] == 'unitary' and value['type']=='option' and "options" in value%} "{%if value['options']| length > 0 %}{{value['options'][0]['name']}}{%else%}<your_own_value>{{ds}}{%endif%}"
       {%- elif value['category'] == 'unitary' and value['type']=='integer'%} "{{id}}{{ds}}"
-      {%- elif key == 'url' %} "http://myurl.com{{ds}}"
+      {%- elif key == 'url' %} "myurl.com{{ds}}"
       {%- elif ("host" in key) and value['type']=='string' %} "myhostname{{ds}}"
       {%- else %} "<your_own_value>{{ds}}"
       {%- endif -%}
