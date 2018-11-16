@@ -1,0 +1,143 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 policies.
+    fortios_firewall_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_policy:
+        state: "present"
+        policyid: 210
+        name: policy210
+        srcintf:
+        - q_origin_key: any
+          name: any
+        dstintf:
+        - q_origin_key: any
+          name: any
+        srcaddr:
+        - q_origin_key: all
+          name: all
+        dstaddr:
+        - q_origin_key: all
+          name: all
+        internet-service: disable
+        internet-service-id: []
+        internet-service-custom: []
+        internet-service-src: disable
+        internet-service-src-id: []
+        internet-service-src-custom: []
+        rtp-nat: disable
+        rtp-addr: []
+        learning-mode: disable
+        action: accept
+        send-deny-packet: disable
+        firewall-session-dirty: check-all
+        status: enable
+        schedule: always
+        schedule-timeout: disable
+        service:
+        - q_origin_key: HTTPS
+          name: HTTPS
+        dscp-match: disable
+        dscp-negate: disable
+        dscp-value: '000000'
+        tcp-session-without-syn: disable
+        utm-status: disable
+        profile-type: single
+        profile-group: ''
+        av-profile: ''
+        webfilter-profile: ''
+        dnsfilter-profile: ''
+        spamfilter-profile: ''
+        dlp-sensor: ''
+        ips-sensor: ''
+        application-list: ''
+        voip-profile: ''
+        icap-profile: ''
+        waf-profile: ''
+        ssh-filter-profile: ''
+        profile-protocol-options: default
+        ssl-ssh-profile: ''
+        logtraffic: all
+        logtraffic-start: disable
+        capture-packet: disable
+        wanopt: disable
+        wanopt-detection: active
+        wanopt-passive-opt: default
+        wanopt-profile: ''
+        wanopt-peer: ''
+        webcache: disable
+        webcache-https: disable
+        traffic-shaper: ''
+        traffic-shaper-reverse: ''
+        per-ip-shaper: ''
+        application: []
+        app-category: []
+        url-category: []
+        app-group: []
+        nat: disable
+        permit-any-host: disable
+        permit-stun-host: disable
+        fixedport: disable
+        ippool: disable
+        poolname: []
+        session-ttl: 0
+        vlan-cos-fwd: 255
+        vlan-cos-rev: 255
+        inbound: disable
+        outbound: enable
+        natinbound: disable
+        natoutbound: disable
+        wccp: disable
+        ntlm: disable
+        ntlm-guest: disable
+        ntlm-enabled-browsers: []
+        fsso: enable
+        wsso: enable
+        rsso: disable
+        fsso-agent-for-ntlm: ''
+        groups: []
+        users: []
+        devices: []
+        auth-path: disable
+        disclaimer: disable
+        vpntunnel: ''
+        natip: 0.0.0.0 0.0.0.0
+        match-vip: disable
+        diffserv-forward: disable
+        diffserv-reverse: disable
+        diffservcode-forward: '000000'
+        diffservcode-rev: '000000'
+        tcp-mss-sender: 0
+        tcp-mss-receiver: 0
+        comments: ''
+        label: ''
+        global-label: ''
+        auth-cert: ''
+        auth-redirect-addr: ''
+        redirect-url: ''
+        identity-based-route: ''
+        block-notification: disable
+        custom-log-fields: []
+        replacemsg-override-group: ''
+        srcaddr-negate: disable
+        dstaddr-negate: disable
+        service-negate: disable
+        internet-service-negate: disable
+        internet-service-src-negate: disable
+        timeout-send-rst: disable
+        captive-portal-exempt: disable
+        ssl-mirror: disable
+        ssl-mirror-intf: []
+        scan-botnet-connections: disable
+        dsri: disable
+        radius-mac-auth-bypass: disable
+        delay-tcp-npu-session: disable
+        vlan-filter: ''
