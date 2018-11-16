@@ -31,7 +31,7 @@ function run_example( ) {
     if [ "$https" = true ]; then 
         modify_playbook_for_https ${filename}
         ansible-playbook ${filename}.https
-        if [ $?=0 ]; then
+        if [ $? == 0 ]; then
           success=$(($success+1))
         else
           failed=$(($failed+1))
@@ -39,7 +39,7 @@ function run_example( ) {
         rm ${filename}.https
     else
         ansible-playbook ${filename}
-        if [ $?=0 ]; then
+        if [ $? == 0 ]; then
           success=$(($success+1))
         else
           failed=$(($failed+1))
@@ -47,10 +47,10 @@ function run_example( ) {
     fi
 
     if [ -f examples/remove/$2 ]; then 
-        if [ "$https" = true ]; then 
+        if [ "$https" == true ]; then 
             modify_playbook_for_https ${filename_removal}
             ansible-playbook ${filename_removal}.https
-            if [ $?=0 ]; then
+            if [ $? == 0 ]; then
             success=$(($success+1))
             else
             failed=$(($failed+1))
@@ -58,7 +58,7 @@ function run_example( ) {
             rm ${filename_removal}.https
         else
             ansible-playbook ${filename_removal}
-            if [ $?=0 ]; then
+            if [ $? == 0 ]; then
             success=$(($success+1))
             else
             failed=$(($failed+1))
@@ -82,5 +82,6 @@ run_example webfilter fortios_webfilter_ftgd_local_cat_example.yml
 run_example webfilter fortios_webfilter_ftgd_local_rating_example.yml
 run_example webfilter fortios_webfilter_override_example.yml
 run_example webfilter fortios_webfilter_ips_urlfilter_cache_setting_example.yml
+run_example webfilter fortios_webfilter_ips_urlfilter_setting_example.yml
 
 echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"

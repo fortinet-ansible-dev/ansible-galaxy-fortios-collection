@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPS URL filter settings.
+    fortios_webfilter_ips_urlfilter_setting:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      webfilter_ips_urlfilter_setting:
+        device: "port1"
+        distance: "4"
+        gateway: "192.168.122.1"
+        geo-filter: ""
