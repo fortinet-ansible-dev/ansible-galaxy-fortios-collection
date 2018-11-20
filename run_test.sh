@@ -4,6 +4,15 @@ set -x
 
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )
 
+trap ctrl_c SIGINT
+trap ctrl_c SIGTERM
+
+function ctrl_c() {
+    echo "** Interrupted by user **"
+    echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
+    exit
+}
+
 if [ ! -z $1 ] && [ "$1"="--https" ]; then
   https=true
 fi
