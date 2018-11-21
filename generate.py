@@ -36,7 +36,7 @@ def render_module(schema, version):
     env = Environment(loader=file_loader,
                       lstrip_blocks=False, trim_blocks=False)
 
-    short_description = schema['schema']['help']
+    short_description = schema['schema']['help'][:-1] + " in Fortinet's FortiOS and FortiGate."
     description = ""
     original_path = schema['path']
     original_name = schema['name']
