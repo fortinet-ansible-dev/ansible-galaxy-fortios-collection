@@ -1,0 +1,94 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv6 policies.
+    fortios_firewall_policy6:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_policy6:
+        state: "present"
+        policyid: 1
+        name: policy1
+        srcintf:
+        - name: port1
+        dstintf:
+        - name: port1
+        srcaddr:
+        - name: all
+        dstaddr:
+        - name: all
+        action: accept
+        firewall-session-dirty: check-all
+        status: enable
+        vlan-cos-fwd: 255
+        vlan-cos-rev: 255
+        schedule: always
+        service:
+        - name: ALL
+        dscp-match: disable
+        dscp-negate: disable
+        dscp-value: '000000'
+        tcp-session-without-syn: disable
+        utm-status: enable
+        profile-type: single
+        profile-group: ''
+        av-profile: default
+        webfilter-profile: default
+        spamfilter-profile: ''
+        dlp-sensor: ''
+        ips-sensor: default
+        application-list: default
+        voip-profile: ''
+        icap-profile: ''
+        ssh-filter-profile: ''
+        profile-protocol-options: default
+        ssl-ssh-profile: certificate-inspection
+        logtraffic: utm
+        logtraffic-start: disable
+        traffic-shaper: ''
+        traffic-shaper-reverse: ''
+        per-ip-shaper: ''
+        application: []
+        app-category: []
+        url-category: []
+        app-group: []
+        nat: enable
+        fixedport: disable
+        ippool: disable
+        poolname: []
+        session-ttl: 0
+        inbound: disable
+        outbound: disable
+        natinbound: disable
+        natoutbound: disable
+        send-deny-packet: disable
+        vpntunnel: ''
+        diffserv-forward: disable
+        diffserv-reverse: disable
+        diffservcode-forward: '000000'
+        diffservcode-rev: '000000'
+        tcp-mss-sender: 0
+        tcp-mss-receiver: 0
+        comments: ''
+        label: ''
+        global-label: ''
+        rsso: disable
+        custom-log-fields: []
+        replacemsg-override-group: ''
+        srcaddr-negate: disable
+        dstaddr-negate: disable
+        service-negate: disable
+        groups: []
+        users: []
+        devices: []
+        timeout-send-rst: disable
+        ssl-mirror: disable
+        ssl-mirror-intf: []
+        dsri: disable
+        vlan-filter: ''
