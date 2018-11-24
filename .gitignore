@@ -107,3 +107,4 @@ output/
 *.retry
 settings.json
 test/*.py
+*.not_validated
