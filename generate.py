@@ -62,7 +62,7 @@ def render_module(schema, version):
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
     output = splitLargeLines(output)
-    output = autopep8.fix_code(output, options={'aggressive': 1})
+    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160})
     file.write(output)
     file.close()
 
@@ -99,5 +99,5 @@ if __name__ == "__main__":
     fgt_schema_file = open('fgt_schema.json').read()
     fgt_schema = json.loads(fgt_schema_file)
     fgt_sch_results = fgt_schema['results']
-    render_module(fgt_sch_results[69], fgt_schema['version'])
+    # render_module(fgt_sch_results[166], fgt_schema['version'])
     jinjaExecutor()
