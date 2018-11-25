@@ -31,8 +31,6 @@ for filename in $files; do
 done
 
 
-exit -1
-
 # Second, move each Ansible module to ansible dir and create a branch for it
 cd ~/ansible_generator
 
@@ -43,9 +41,6 @@ for filename in $files; do
    file=$(basename $filename)
    path=$(dirname $filename)
    name=${file%.*}
-#   echo "File:   " $file
-#   echo "Path:   " $path
-#   echo "No ext: " $name
 
    cd ~/ansible/
    git checkout devel

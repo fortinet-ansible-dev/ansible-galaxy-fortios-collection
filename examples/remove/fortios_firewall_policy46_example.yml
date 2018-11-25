@@ -1,0 +1,26 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 to IPv6 virtual IPs.
+    fortios_firewall_vip46:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip46:
+        state: "absent"
+        name: newVIP46
+        id: 0
+  - name: Configure IPv4 to IPv6 policies.
+    fortios_firewall_policy46:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_policy46:
+        state: "absent"
+        policyid: 1
