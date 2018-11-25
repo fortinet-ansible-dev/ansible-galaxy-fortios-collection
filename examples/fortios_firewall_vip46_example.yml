@@ -1,0 +1,31 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 to IPv6 virtual IPs.
+    fortios_firewall_vip46:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip46:
+        state: "present"
+        name: newVIP46
+        id: 0
+        comment: ''
+        type: static-nat
+        src-filter: []
+        extip: 10.200.10.0-10.200.10.50
+        mappedip: 2001:db8:ac10:fe01::-2001:db8:ac10:fe01::32
+        arp-reply: enable
+        portforward: disable
+        protocol: tcp
+        extport: 0-65535
+        mappedport: 0-65535
+        color: 0
+        ldb-method: static
+        realservers: []
+        monitor: []
