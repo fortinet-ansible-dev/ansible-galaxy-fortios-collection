@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv6 address groups.
+    fortios_firewall_addrgrp6:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_addrgrp6:
+        state: "present"
+        name: Address Group IPv6
+        visibility: enable
+        color: 0
+        comment: 'SSL tunnel addr group'
+        member:
+        - name: SSLVPN_TUNNEL_IPv6_ADDR1
+        tagging: []
