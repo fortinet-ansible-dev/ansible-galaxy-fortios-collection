@@ -1,0 +1,38 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv6 to IPv4 policies.
+    fortios_firewall_policy64:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_policy64:
+        state: "present"
+        policyid: 1
+        srcintf: port1
+        dstintf: port1
+        srcaddr:
+        - name: all
+        dstaddr:
+        - name: all
+        action: accept
+        status: enable
+        schedule: always
+        service:
+        - name: ALL
+        logtraffic: disable
+        permit-any-host: disable
+        traffic-shaper: ''
+        traffic-shaper-reverse: ''
+        per-ip-shaper: ''
+        fixedport: disable
+        ippool: disable
+        poolname: []
+        tcp-mss-sender: 0
+        tcp-mss-receiver: 0
+        comments: ''
