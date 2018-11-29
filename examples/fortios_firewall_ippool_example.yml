@@ -1,0 +1,29 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 IP pools.
+    fortios_firewall_ippool:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_ippool:
+        state: "present"
+        name: ippool
+        type: overload
+        startip: 64.64.84.1
+        endip: 64.64.84.200
+        source-startip: 0.0.0.0
+        source-endip: 0.0.0.0
+        block-size: 128
+        num-blocks-per-user: 8
+        pba-timeout: 30
+        permit-any-host: disable
+        arp-reply: enable
+        arp-intf: ''
+        associated-interface: ''
+        comments: 'My ippool'

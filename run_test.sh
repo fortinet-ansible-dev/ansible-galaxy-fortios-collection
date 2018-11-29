@@ -82,6 +82,7 @@ run_example firewall fortios_firewall_address6_example.yml
 run_example firewall fortios_firewall_address6_template_example.yml
 run_example firewall fortios_firewall_addrgrp_example.yml
 run_example firewall fortios_firewall_addrgrp6_example.yml
+run_example firewall fortios_firewall_ippool_example.yml
 run_example firewall fortios_firewall_policy_example.yml
 run_example firewall fortios_firewall_policy46_example.yml
 run_example firewall fortios_firewall_policy6_example.yml
