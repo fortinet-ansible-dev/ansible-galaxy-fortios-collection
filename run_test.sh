@@ -79,6 +79,7 @@ function run_example( ) {
 run_example application fortios_application_list_example.yml
 run_example firewall fortios_firewall_address_example.yml
 run_example firewall fortios_firewall_address6_example.yml
+run_example firewall fortios_firewall_address6_template_example.yml
 run_example firewall fortios_firewall_addrgrp_example.yml
 run_example firewall fortios_firewall_policy_example.yml
 run_example firewall fortios_firewall_policy46_example.yml
