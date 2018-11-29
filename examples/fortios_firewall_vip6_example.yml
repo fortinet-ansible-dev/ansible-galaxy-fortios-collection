@@ -1,0 +1,77 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure virtual IP for IPv6.
+    fortios_firewall_vip6:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip6:
+        state: "present"
+        name: vipIPv6
+        comment: new vip
+        type: static-nat
+        src-filter: []
+        extip: "::1823:4324:436a-::1823:4324:4400"
+        mappedip: "::1032:2000:2134:2-::1032:2000:2134:98"
+        arp-reply: enable
+        portforward: enable
+        protocol: tcp
+        extport: 250-260
+        mappedport: 8250-8260
+        color: 0
+        ldb-method: static
+        persistence: none
+        realservers: []
+        http-cookie-domain-from-host: disable
+        http-cookie-domain: ''
+        http-cookie-path: ''
+        http-cookie-generation: 0
+        http-cookie-age: 60
+        http-cookie-share: same-ip
+        https-cookie-secure: disable
+        http-multiplex: disable
+        http-ip-header: disable
+        http-ip-header-name: ''
+        outlook-web-access: disable
+        weblogic-server: disable
+        websphere-server: disable
+        ssl-mode: half
+        ssl-certificate: ''
+        ssl-dh-bits: '2048'
+        ssl-algorithm: high
+        ssl-cipher-suites: []
+        ssl-server-algorithm: client
+        ssl-server-cipher-suites: []
+        ssl-pfs: require
+        ssl-min-version: tls-1.1
+        ssl-max-version: tls-1.2
+        ssl-server-min-version: client
+        ssl-server-max-version: client
+        ssl-send-empty-frags: enable
+        ssl-client-fallback: enable
+        ssl-client-renegotiation: secure
+        ssl-client-session-state-type: both
+        ssl-client-session-state-timeout: 30
+        ssl-client-session-state-max: 1000
+        ssl-server-session-state-type: both
+        ssl-server-session-state-timeout: 60
+        ssl-server-session-state-max: 100
+        ssl-http-location-conversion: disable
+        ssl-http-match-host: enable
+        ssl-hpkp: disable
+        ssl-hpkp-primary: ''
+        ssl-hpkp-backup: ''
+        ssl-hpkp-age: 5184000
+        ssl-hpkp-report-uri: ''
+        ssl-hpkp-include-subdomains: disable
+        ssl-hsts: disable
+        ssl-hsts-age: 5184000
+        ssl-hsts-include-subdomains: disable
+        monitor: []
+        max-embryonic-connections: 1000
