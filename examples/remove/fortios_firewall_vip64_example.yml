@@ -1,0 +1,16 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv6 to IPv4 virtual IPs.
+    fortios_firewall_vip64:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip64:
+        state: "absent"
+        name: myVip64

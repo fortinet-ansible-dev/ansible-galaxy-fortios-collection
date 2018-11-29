@@ -1,0 +1,28 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv6 to IPv4 virtual IPs.
+    fortios_firewall_vip64:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip64:
+        state: "present"
+        name: myVip64
+        comment: new
+        type: static-nat
+        src-filter: []
+        extip: "::1939:a823:3c9d-::1939:a823:3c9f"
+        mappedip: 10.23.104.10-10.23.104.12
+        arp-reply: enable
+        portforward: enable
+        protocol: tcp
+        extport: 250-260
+        mappedport: 8250-8260
+        color: 0
+        ldb-method: static

@@ -88,6 +88,7 @@ run_example firewall fortios_firewall_policy6_example.yml
 run_example firewall fortios_firewall_vip_example.yml
 run_example firewall fortios_firewall_vip46_example.yml
 run_example firewall fortios_firewall_vip6_example.yml
+run_example firewall fortios_firewall_vip64_example.yml
 run_example ips fortios_ips_sensor_example.yml
 run_example system fortios_system_central_management_example.yml
 run_example system fortios_system_sdn_connector_example.yml
