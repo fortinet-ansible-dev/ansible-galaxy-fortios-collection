@@ -1,0 +1,42 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure virtual IP for IPv4.
+    fortios_firewall_vip:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip:
+        state: "present"
+        name: "1"
+        type: static-nat
+        dns-mapping-ttl: 0
+        ldb-method: static
+        extip: 1.1.1.1
+        mappedip:
+        - range: 10.10.10.10
+        extintf: port1
+        arp-reply: enable
+        protocol: tcp
+        extport: 0-65535
+        mappedport: 0-65535
+  - name: Configure IPv4 virtual IP groups.
+    fortios_firewall_vipgrp:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vipgrp:
+        state: "present"
+        name: My Vip Group
+        interface: port1
+        color: 0
+        comments: simple group
+        member:
+        - name: '1'
+

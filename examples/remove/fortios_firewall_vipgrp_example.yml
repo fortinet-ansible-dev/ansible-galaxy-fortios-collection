@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 virtual IP groups.
+    fortios_firewall_vipgrp:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vipgrp:
+        state: "absent"
+        name: My Vip Group
+  - name: Configure virtual IP for IPv4.
+    fortios_firewall_vip:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_vip:
+        state: "absent"
+        name: "1"
