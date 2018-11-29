@@ -1,0 +1,24 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv6 firewall addresses.
+    fortios_firewall_address6:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_address6:
+        state: "present"
+        name: mine
+        type: ipprefix
+        ip6: "1323:5324::/32"
+        fqdn: ''
+        cache-ttl: 0
+        visibility: enable
+        color: 0
+        obj-id: ''
+        comment: 'My ipprefix'
