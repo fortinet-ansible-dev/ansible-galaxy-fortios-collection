@@ -1,0 +1,23 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure file patterns used by DLP blocking.
+    fortios_dlp_filepattern:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      dlp_filepattern:
+        state: "present"
+        comment: "Optional comments."
+        entries:
+         -
+            file-type: "exe"
+            filter-type: "type"
+            pattern: "com"
+        id:  "2"
+        name: "all_executables"
