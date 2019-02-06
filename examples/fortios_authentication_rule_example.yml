@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure Authentication Rules.
+    fortios_authentication_rule:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      authentication_rule:
+        state: "present"
+        comments: "This is a comment"
+        ip-based: "enable"
+        name: "default_name_6"
+        protocol: "http"
+        srcaddr:
+         -
+            name: "google-play"
+        status: "enable"
+        transaction-based: "enable"
+        web-auth-cookie: "enable"
