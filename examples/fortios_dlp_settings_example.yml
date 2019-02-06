@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Designate logical storage for DLP fingerprint database.
+    fortios_dlp_settings:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      dlp_settings:
+        cache-mem-percent: "3"
+        chunk-size: "3000"
+        db-mode: "stop-adding"
+        size: "20"
