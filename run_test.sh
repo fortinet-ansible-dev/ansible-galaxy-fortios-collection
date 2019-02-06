@@ -110,5 +110,7 @@ run_example webfilter fortios_webfilter_override_example.yml
 run_example webfilter fortios_webfilter_ips_urlfilter_cache_setting_example.yml
 run_example webfilter fortios_webfilter_ips_urlfilter_setting_example.yml
 run_example webfilter fortios_webfilter_ips_urlfilter_setting6_example.yml
+run_example webfilter fortios_webfilter_content_example.yml
+
 
 echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
