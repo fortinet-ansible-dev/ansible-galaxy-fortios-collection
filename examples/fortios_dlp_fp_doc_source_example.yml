@@ -1,0 +1,33 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Create a DLP fingerprint database by allowing the FortiGate to access a file server containing files from which to create fingerprints.
+    fortios_dlp_fp_doc_source:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      dlp_fp_doc_source:
+        state: "present"
+        date: "3"
+        file-path: "/usr/local/dlp"
+        file-pattern: "*"
+        keep-modified: "enable"
+        name: "dlp_fp_server"
+        password: "pw1"
+        period: "none"
+        remove-deleted: "enable"
+        scan-on-creation: "enable"
+        scan-subdirectories: "enable"
+        sensitivity: "Warning"
+        server: "192.168.100.40"
+        server-type: "samba"
+        tod-hour: "16"
+        tod-min: "17"
+        username: "myuser"
+        vdom: "mgmt"
+        weekday: "sunday"
