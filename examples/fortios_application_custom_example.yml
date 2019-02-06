@@ -1,0 +1,20 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure custom application signatures.
+    fortios_application_custom:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      application_custom:
+        state: "present"
+        category: "1"
+        tag: "3"
+        id:  "3"
+        name: "My own application custom"
+        signature: "F-SBID( --name 'Block.example.com'; --pattern 'example.com'; --service HTTP; --no_case; --flow from_client; --context host; )"
