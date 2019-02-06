@@ -1,0 +1,17 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure authentication setting.
+    fortios_authentication_setting:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      authentication_setting:
+        captive-portal: "update.microsoft.com"
+        captive-portal-type: "fqdn"
+        captive-portal-port: "1"
