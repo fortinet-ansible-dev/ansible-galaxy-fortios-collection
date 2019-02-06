@@ -1,0 +1,41 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure DLP sensors.
+    fortios_dlp_sensor:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      dlp_sensor:
+        state: "present"
+        comment: "Comment."
+        dlp-log: "enable"
+        extended-log: "enable"
+        filter:
+         -
+            action: "allow"
+            archive: "disable"
+            company-identifier:  "myId_9"
+            file-size: "11"
+            file-type: "1"
+            filter-by: "credit-card"
+            fp-sensitivity:
+             -
+                name: "Critical"
+            id:  "16"
+            match-percentage: "17"
+            name: "default_name_18"
+            proto: "smtp"
+            regexp: "ab.*ds"
+            severity: "info"
+            type: "file"
+        flow-based: "enable"
+        full-archive-proto: "smtp"
+        nac-quar-log: "enable"
+        name: "another_sensor"
+        summary-proto: "smtp"
