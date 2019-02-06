@@ -1,0 +1,20 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure Authentication Schemes.
+    fortios_authentication_scheme:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      authentication_scheme:
+        state: "present"
+        method: "basic"
+        name: "default_name_8"
+        fsso-guest: "disable"
+        user-database: 
+        - name: "local"
