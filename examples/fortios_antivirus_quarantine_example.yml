@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure quarantine options.
+    fortios_antivirus_quarantine:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      antivirus_quarantine:
+        drop-blocked: "imap"
+        drop-heuristic: "imap"
+        drop-infected: "smtp"
+        maxfilesize: "500"
+        store-blocked: "smtp"
+        store-heuristic: "smtp"
+        store-infected: "imap"

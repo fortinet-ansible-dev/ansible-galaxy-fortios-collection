@@ -78,6 +78,7 @@ function run_example( ) {
 
 run_example antivirus fortios_antivirus_heuristic_example.yml
 run_example antivirus fortios_antivirus_profile_example.yml
+run_example antivirus fortios_antivirus_quarantine_example.yml
 run_example application fortios_application_list_example.yml
 run_example firewall fortios_firewall_address_example.yml
 run_example firewall fortios_firewall_address6_example.yml
