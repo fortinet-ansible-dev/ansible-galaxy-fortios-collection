@@ -1,0 +1,59 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure AntiVirus profiles.
+    fortios_antivirus_profile:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      antivirus_profile:
+        state: "present"
+        ftp:
+            archive-block: "encrypted"
+            archive-log: "encrypted"
+            emulator: "enable"
+            options: "scan"
+            outbreak-prevention: "disabled"
+        http:
+            archive-block: "encrypted"
+            archive-log: "encrypted"
+            content-disarm: "disable"
+            emulator: "enable"
+            options: "scan"
+            outbreak-prevention: "disabled"
+        imap:
+            archive-block: "encrypted"
+            archive-log: "encrypted"
+            content-disarm: "disable"
+            emulator: "enable"
+            executables: "default"
+            options: "scan"
+            outbreak-prevention: "disabled"
+        mapi:
+            archive-block: "encrypted"
+            archive-log: "encrypted"
+            emulator: "enable"
+            executables: "default"
+            options: "scan"
+            outbreak-prevention: "disabled"
+        mobile-malware-db: "disable"
+        name: "Another antivirus profile"
+        smb:
+            archive-block: "encrypted"
+            archive-log: "encrypted"
+            emulator: "enable"
+            options: "scan"
+            outbreak-prevention: "disabled"
+        smtp:
+            archive-block: "encrypted"
+            archive-log: "encrypted"
+            content-disarm: "disable"
+            emulator: "enable"
+            executables: "default"
+            options: "scan"
+            outbreak-prevention: "disabled"
