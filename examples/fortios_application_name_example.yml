@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure application signatures.
+    fortios_application_name:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      application_name:
+        state: "present"
+        category: "28"
+        id: "10"
+        name: "Skype"
+        popularity: "5"
+        protocol: "TCP"
+        risk: "20"
+        sub-category: "0"
+        technology: "Peer-to-peer"
+        vendor: "Microsoft"
+        weight: "18"
