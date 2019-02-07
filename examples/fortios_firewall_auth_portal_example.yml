@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure firewall authentication portals.
+    fortios_firewall_auth_portal:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_auth_portal:
+        groups:
+         -
+            name: "Guest-group"
+        portal-addr: "10.2.3.143"
