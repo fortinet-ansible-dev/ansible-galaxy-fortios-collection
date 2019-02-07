@@ -93,6 +93,7 @@ run_example dlp fortios_dlp_fp_doc_source_example.yml
 run_example dlp fortios_dlp_fp_sensitivity_example.yml
 run_example dlp fortios_dlp_sensor_example.yml
 run_example dlp fortios_dlp_settings_example.yml
+run_example dnsfilter fortios_dnsfilter_domain_filter_example.yml
 run_example firewall fortios_firewall_address_example.yml
 run_example firewall fortios_firewall_address6_example.yml
 run_example firewall fortios_firewall_address6_template_example.yml
