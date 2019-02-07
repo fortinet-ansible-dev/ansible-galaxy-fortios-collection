@@ -1,0 +1,29 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Extender controller configuration.
+    fortios_extender_controller_extender:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      extender_controller_extender:
+        state: "present"
+        aaa-shared-secret: "aaa-sh"
+        access-point-name: "ap1"
+        admin: "disable"
+        billing-start-day: "7"
+        dial-mode: "dial-on-demand"
+        dial-status: "14"
+        id:  "17"
+        quota-limit-mb: "29"
+        redial: "1"
+        roaming: "enable"
+        role: "none"
+        sim-pin: "1324"
+        vdom: "1"
+        wimax-auth-protocol: "tls"
