@@ -1,0 +1,77 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure FortiClient endpoint control profiles.
+    fortios_endpoint_control_profile:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      endpoint_control_profile:
+        state: "present"
+        profile-name: My New Profile
+        forticlient-winmac-settings:
+            forticlient-registration-compliance-action: warning
+            forticlient-ems-compliance: disable
+            forticlient-ems-compliance-action: warning
+            forticlient-ems-entries: []
+            forticlient-security-posture: disable
+            forticlient-security-posture-compliance-action: warning
+            forticlient-av: disable
+            av-realtime-protection: disable
+            av-signature-up-to-date: disable
+            sandbox-analysis: disable
+            sandbox-address: ''
+            os-av-software-installed: disable
+            forticlient-application-firewall: disable
+            forticlient-application-firewall-list: ''
+            forticlient-wf: disable
+            forticlient-wf-profile: ''
+            forticlient-system-compliance: enable
+            forticlient-system-compliance-action: warning
+            forticlient-minimum-software-version: disable
+            forticlient-win-ver: 5.4.1
+            forticlient-mac-ver: 5.4.1
+            forticlient-linux-ver: 5.4.1
+            forticlient-operating-system: []
+            forticlient-running-app: []
+            forticlient-registry-entry: []
+            forticlient-own-file: []
+            forticlient-log-upload: enable
+            forticlient-log-upload-level: traffic
+            forticlient-log-upload-server: ''
+            forticlient-vuln-scan: enable
+            forticlient-vuln-scan-compliance-action: warning
+            forticlient-vuln-scan-enforce: high
+            forticlient-vuln-scan-enforce-grace: 1
+            forticlient-vuln-scan-exempt: disable
+        forticlient-android-settings:
+            forticlient-wf: disable
+            forticlient-wf-profile: ''
+            disable-wf-when-protected: enable
+            forticlient-vpn-provisioning: disable
+            forticlient-advanced-vpn: disable
+            forticlient-advanced-vpn-buffer: ''
+            forticlient-vpn-settings: []
+        forticlient-ios-settings:
+            forticlient-wf: disable
+            forticlient-wf-profile: ''
+            disable-wf-when-protected: enable
+            client-vpn-provisioning: disable
+            client-vpn-settings: []
+            distribute-configuration-profile: disable
+            configuration-name: ''
+            configuration-content: ''
+        description: ''
+        src-addr: []
+        device-groups:
+            - name: Mobile Devices
+        users: []
+        user-groups: []
+        on-net-addr:
+            - name: all
+        replacemsg-override-group: ''
