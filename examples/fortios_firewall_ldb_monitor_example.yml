@@ -1,0 +1,24 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure server load balancing health monitors.
+    fortios_firewall_ldb_monitor:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_ldb_monitor:
+        state: "present"
+        http-get: "/status"
+        http-match: "server is ok"
+        http-max-redirects: "5"
+        interval: "6"
+        name: "load balancer health monitor"
+        port: "8"
+        retry: "9"
+        timeout: "10"
+        type: "ping"

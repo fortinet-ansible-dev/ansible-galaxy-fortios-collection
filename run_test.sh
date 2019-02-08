@@ -123,6 +123,7 @@ run_example firewall fortios_firewall_ippool_example.yml
 run_example firewall fortios_firewall_ippool6_example.yml
 run_example firewall fortios_firewall_ip_translation_example.yml
 run_example firewall fortios_firewall_ipv6_eh_filter_example.yml
+run_example firewall fortios_firewall_ldb_monitor_example.yml
 run_example firewall fortios_firewall_policy_example.yml
 run_example firewall fortios_firewall_policy46_example.yml
 run_example firewall fortios_firewall_policy6_example.yml

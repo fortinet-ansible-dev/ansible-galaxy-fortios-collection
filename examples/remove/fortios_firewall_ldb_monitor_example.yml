@@ -1,0 +1,16 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure server load balancing health monitors.
+    fortios_firewall_ldb_monitor:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_ldb_monitor:
+        state: "absent"
+        name: "load balancer health monitor"
