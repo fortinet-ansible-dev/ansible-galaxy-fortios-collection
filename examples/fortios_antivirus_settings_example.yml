@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       antivirus_settings:
         default-db: "normal"
         grayware: "enable"

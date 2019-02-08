@@ -11,5 +11,6 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       antivirus_heuristic:
         mode: "pass"

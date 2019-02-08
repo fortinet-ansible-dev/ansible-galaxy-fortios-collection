@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       webfilter_ftgd_local_rating:
         state: "present"
         rating: "19"

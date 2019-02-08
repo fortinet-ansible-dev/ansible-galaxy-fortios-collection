@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       webfilter_override:
         state: "present"
         expires: "2019/11/01 10:00:00"

@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       webfilter_search_engine:
         state: "present"
         charset: "utf-8"

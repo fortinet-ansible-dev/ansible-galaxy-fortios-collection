@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       extender_controller_extender:
         state: "present"
         aaa-shared-secret: "aaa-sh"

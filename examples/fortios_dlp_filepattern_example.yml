@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       dlp_filepattern:
         state: "present"
         comment: "Optional comments."

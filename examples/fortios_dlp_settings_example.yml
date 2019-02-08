@@ -11,6 +11,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
+      https: "False"
       dlp_settings:
         cache-mem-percent: "3"
         chunk-size: "3000"
