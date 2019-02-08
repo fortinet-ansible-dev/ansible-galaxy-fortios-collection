@@ -1,0 +1,58 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Web proxy address configuration.
+    fortios_firewall_proxy_address:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_proxy_address:
+        state: "present"
+        case-sensitivity: "disable"
+        category:
+         -
+            id:  "5"
+        color: "6"
+        comment: "Optional comments."
+        header: "<your_own_value>"
+        header-group:
+         -
+            case-sensitivity: "disable"
+            header: "<your_own_value>"
+            header-name: "<your_own_value>"
+            id:  "13"
+        header-name: "<your_own_value>"
+        host: "google-play"
+        host-regex: "myhostname"
+        method: "get"
+        name: "default_name_18"
+        path: "<your_own_value>"
+        query: "<your_own_value>"
+        referrer: "enable"
+        type: "host-regex"
+        ua: "chrome"
+        uuid: "<your_own_value>"
+        visibility: "enable"
+  - name: Web proxy address group configuration.
+    fortios_firewall_proxy_addrgrp:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_proxy_addrgrp:
+        state: "present"
+        color: "3"
+        comment: "Optional comments."
+        member:
+         -
+            name: "default_name_18"
+        name: "default_name_7"
+        type: "dst"
+        visibility: "enable"
