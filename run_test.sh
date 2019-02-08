@@ -134,6 +134,7 @@ run_example firewall fortios_firewall_policy_example.yml
 run_example firewall fortios_firewall_policy46_example.yml
 run_example firewall fortios_firewall_policy6_example.yml
 run_example firewall fortios_firewall_policy64_example.yml
+run_example firewall fortios_firewall_profile_group_example.yml
 run_example firewall fortios_firewall_vip_example.yml
 run_example firewall fortios_firewall_vip46_example.yml
 run_example firewall fortios_firewall_vip6_example.yml
