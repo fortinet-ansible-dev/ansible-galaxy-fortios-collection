@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure custom Internet Services.
+    fortios_firewall_internet_service_custom:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_internet_service_custom:
+        state: "present"
+        comment: "Comment."
+        entry:
+         -
+            dst:
+             -
+                name: "all"
+            id:  "15"
+            protocol: "20"
+        master-service-id: "65536"
+        name: "myCustomInetService"
