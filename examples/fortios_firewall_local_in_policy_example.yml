@@ -1,0 +1,31 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure user defined IPv4 local-in policies.
+    fortios_firewall_local_in_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_local_in_policy:
+        state: "present"
+        action: "accept"
+        comments: "<your_own_value>"
+        dstaddr:
+         -
+            name: "all"
+        intf: "port1"
+        policyid: "8"
+        schedule: "always"
+        service:
+         -
+            name: "ALL"
+        srcaddr:
+         -
+            name: "all"
+        status: "enable"
