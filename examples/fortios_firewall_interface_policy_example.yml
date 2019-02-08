@@ -1,0 +1,45 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 interface policies.
+    fortios_firewall_interface_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_interface_policy:
+        state: "present"
+        address-type: "ipv4"
+        application-list: "sniffer-profile"
+        application-list-status: "enable"
+        av-profile: "sniffer-profile"
+        av-profile-status: "enable"
+        comments: "My comments"
+        dlp-sensor: "sniffer-profile"
+        dlp-sensor-status: "enable"
+        dsri: "enable"
+        dstaddr:
+         -
+            name: "all"
+        interface: "port1"
+        ips-sensor: "sniffer-profile"
+        ips-sensor-status: "enable"
+        label: "My label"
+        logtraffic: "all"
+        policyid: "19"
+        scan-botnet-connections: "disable"
+        service:
+         -
+            name: "ALL"
+        spamfilter-profile: "sniffer-profile"
+        spamfilter-profile-status: "enable"
+        srcaddr:
+         -
+            name: "all"
+        status: "enable"
+        webfilter-profile: "sniffer-profile"
+        webfilter-profile-status: "enable"
