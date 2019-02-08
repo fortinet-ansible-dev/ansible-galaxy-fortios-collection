@@ -1,0 +1,23 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Show Internet Service application.
+    fortios_firewall_internet_service:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_internet_service:
+        state: "present"
+        database: "isdb"
+        direction: "src"
+        icon-id: "11"
+        id:  "65536"
+        name: "Google-Others"
+        offset: "1"
+        reputation: "0"
+        sld-id: "3897221120"
