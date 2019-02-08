@@ -1,0 +1,28 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure multicast addresses.
+    fortios_firewall_multicast_address:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_multicast_address:
+        state: "present"
+        associated-interface: "port1"
+        color: "4"
+        comment: "Comment."
+        end-ip: "224.0.2.2"
+        name: "MyMulticastAddress"
+        start-ip: "224.0.2.1"
+        tagging:
+         -
+            category: "default"
+            name: "t1"
+        type: "multicastrange"
+        visibility: "enable"
