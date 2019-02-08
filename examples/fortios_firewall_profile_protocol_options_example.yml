@@ -1,0 +1,56 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure protocol options.
+    fortios_firewall_profile_protocol_options:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_profile_protocol_options:
+        state: "present"
+        comment: "Optional comments."
+        http:
+            block-page-status-code: "101"
+            comfort-amount: "20"
+            comfort-interval: "21"
+            http-policy: "disable"
+            inspect-all: "enable"
+            options: "clientcomfort"
+            oversize-limit: "27"
+            post-lang: "jisx0201"
+            range-block: "disable"
+            retry-count: "31"
+            scan-bzip2: "enable"
+            status: "enable"
+            streaming-content-bypass: "enable"
+            strip-x-forwarded-for: "disable"
+            switching-protocols: "bypass"
+            uncompressed-nest-limit: "37"
+            uncompressed-oversize-limit: "38"
+        ftp:
+            ports: "21"
+            options: "splice"
+        imap:
+            ports: "143"
+            options: "fragmail"
+        mapi:
+            ports: "135"
+            options: "fragmail"
+        pop3:
+            ports: "110"
+            options: "fragmail"
+        smtp:
+            ports: "25"
+            options: "fragmail"
+        nntp:
+            ports: "119"
+            options: "splice"
+        dns:
+            ports: "53"
+        name: "fw_prof_protocol1"
