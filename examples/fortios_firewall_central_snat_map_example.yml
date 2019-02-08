@@ -1,0 +1,34 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure central SNAT policies.
+    fortios_firewall_central_snat_map:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_central_snat_map:
+        state: "present"
+        comments: "MyComments"
+        dst-addr:
+         -
+            name: "all"
+        dstintf:
+         -
+            name: "port1"
+        nat: "disable"
+        nat-port: "4235"
+        orig-addr:
+         -
+            name: "all"
+        orig-port: "2443"
+        policyid: "3"
+        protocol: "16"
+        srcintf:
+         -
+            name: "port1"
+        status: "enable"
