@@ -1,0 +1,37 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 DoS policies.
+    fortios_firewall_DoS_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_DoS_policy:
+        state: "present"
+        anomaly:
+         -
+            action: "pass"
+            log: "enable"
+            name: "icmp_flood"
+            quarantine: "none"
+            status: "disable"
+            threshold: "11"
+            threshold(default): "12"
+        comments: "My comment"
+        dstaddr:
+         -
+            name: "all"
+        interface: "port1"
+        policyid: "17"
+        service:
+         -
+            name: "ALL"
+        srcaddr:
+         -
+            name: "all"
+        status: "enable"
