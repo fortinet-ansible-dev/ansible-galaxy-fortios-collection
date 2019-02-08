@@ -1,0 +1,73 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure proxy policies.
+    fortios_firewall_proxy_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_proxy_policy:
+        state: "present"
+        policyid: 1
+        proxy: transparent-web
+        srcintf:
+        - name: port2
+        dstintf:
+        - name: port2
+        srcaddr:
+        - name: all
+        poolname: []
+        dstaddr:
+        - name: all
+        internet-service: disable
+        internet-service-negate: disable
+        internet-service-id: []
+        internet-service-custom: []
+        service:
+        - name: webproxy
+        srcaddr-negate: disable
+        dstaddr-negate: disable
+        service-negate: disable
+        action: accept
+        status: enable
+        schedule: always
+        logtraffic: utm
+        session-ttl: 0
+        srcaddr6: []
+        dstaddr6: []
+        groups: []
+        users: []
+        http-tunnel-auth: disable
+        webproxy-forward-server: ''
+        webproxy-profile: ''
+        transparent: disable
+        webcache: disable
+        webcache-https: disable
+        disclaimer: disable
+        utm-status: enable
+        profile-type: single
+        profile-group: ''
+        av-profile: default
+        webfilter-profile: default
+        spamfilter-profile: ''
+        dlp-sensor: default
+        ips-sensor: default
+        application-list: default
+        icap-profile: ''
+        waf-profile: ''
+        ssh-filter-profile: ''
+        profile-protocol-options: default
+        ssl-ssh-profile: certificate-inspection
+        replacemsg-override-group: ''
+        logtraffic-start: disable
+        label: ''
+        global-label: ''
+        scan-botnet-connections: disable
+        comments: ''
+        redirect-url: ''
