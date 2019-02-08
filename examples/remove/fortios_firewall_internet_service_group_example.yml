@@ -1,0 +1,16 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure group of Internet Service.
+    fortios_firewall_internet_service_group:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      firewall_internet_service_group:
+        state: "absent"
+        name: "mygroup"
