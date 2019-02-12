@@ -150,6 +150,7 @@ run_example firewall fortios_firewall_vipgrp64_example.yml
 run_example ips fortios_ips_sensor_example.yml
 run_example system fortios_system_central_management_example.yml
 run_example system fortios_system_sdn_connector_example.yml
+run_example user fortios_user_tacacsplus_example.yml
 run_example webfilter fortios_webfilter_content_header_example.yml
 run_example webfilter fortios_webfilter_fortiguard_example.yml
 run_example webfilter fortios_webfilter_profile_example.yml

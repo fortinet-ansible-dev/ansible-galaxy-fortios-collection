@@ -1,0 +1,26 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure TACACS+ server entries.
+    fortios_user_tacacsplus:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      user_tacacsplus:
+        state: "present"
+        authen-type: "auto"
+        authorization: "disable"
+        key: "u829Jfow123"
+        name: "default_name_6"
+        port: "49"
+        secondary-key: "GI4623KFu3"
+        secondary-server: "server.domain.com"
+        server: "192.168.100.40"
+        tertiary-key: "2j9fkjwoeo"
+        tertiary-server: "server3.domain.com"
