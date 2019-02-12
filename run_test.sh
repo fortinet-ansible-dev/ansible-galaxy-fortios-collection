@@ -170,5 +170,7 @@ run_example webfilter fortios_webfilter_content_example.yml
 # Set proxy inspection mode 
 run_example system fortios_system_settings_example.yml
 
+# Run examples that require proxy mode
+run_example ftp_proxy fortios_ftp_proxy_explicit_example.yml
 
 echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
