@@ -40,8 +40,8 @@ def render_module(schema, version):
     description = ""
     original_path = schema['path']
     original_name = schema['name']
-    path = original_path.replace('-', '_').replace('.', '_')
-    name = original_name.replace('-', '_').replace('.', '_')
+    path = original_path.replace('-', '_').replace('.', '_').replace('+', 'plus')
+    name = original_name.replace('-', '_').replace('.', '_').replace('+', 'plus')
     module_name = "fortios_" + path + "_" + name
 
     template = env.get_template('doc.jinja')
