@@ -139,8 +139,8 @@ run_example firewall fortios_firewall_profile_protocol_options_example.yml
 run_example firewall fortios_firewall_proxy_address_example.yml
 run_example firewall fortios_firewall_proxy_addrgrp_example.yml
 run_example firewall fortios_firewall_proxy_policy_example.yml
-run_example firewall fortios_firewall_schedule_group_example.yml
-run_example firewall fortios_firewall_schedule_onetime_example.yml
+run_example firewall_schedule fortios_firewall_schedule_group_example.yml
+run_example firewall_schedule fortios_firewall_schedule_onetime_example.yml
 run_example firewall fortios_firewall_vip_example.yml
 run_example firewall fortios_firewall_vip46_example.yml
 run_example firewall fortios_firewall_vip6_example.yml
@@ -165,6 +165,10 @@ run_example webfilter fortios_webfilter_ips_urlfilter_cache_setting_example.yml
 run_example webfilter fortios_webfilter_ips_urlfilter_setting_example.yml
 run_example webfilter fortios_webfilter_ips_urlfilter_setting6_example.yml
 run_example webfilter fortios_webfilter_content_example.yml
+
+
+# Set proxy inspection mode 
+run_example system fortios_system_settings_example.yml
 
 
 echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
