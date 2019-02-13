@@ -153,6 +153,7 @@ run_example icap fortios_icap_profile_example.yml
 run_example ips fortios_ips_custom_example.yml
 run_example ips fortios_ips_sensor_example.yml
 run_example log fortios_log_custom_field_example.yml
+run_example log_disk fortios_log_disk_filter_example.yml
 run_example system fortios_system_central_management_example.yml
 run_example system fortios_system_sdn_connector_example.yml
 run_example user fortios_user_tacacsplus_example.yml
