@@ -77,11 +77,8 @@ def {{path}}_{{name}}(data, fos):
 def fortios_{{path}}(data, fos):
     login(data)
 
-    methodlist = ['{{path}}_{{name}}']
-    for method in methodlist:
-        if data[method]:
-            resp = eval(method)(data, fos)
-            break
+    if data['{{path}}_{{name}}']:
+        resp = {{path}}_{{name}}(data, fos)
 
     fos.logout()
     return not resp['status'] == "success", resp['status'] == "success", resp
