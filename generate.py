@@ -30,7 +30,11 @@ def splitLargeLines(output):
     return output
 
 
-def render_module(schema, version):
+def calculate_full_path(parent_attrs, attribute_name):
+    return attribute_name if not parent_attrs else parent_attrs + ',' + attribute_name
+
+
+def render_module(schema, version, special_attributes):
 
     file_loader = FileSystemLoader('ansible_templates')
     env = Environment(loader=file_loader,
@@ -43,6 +47,7 @@ def render_module(schema, version):
     path = original_path.replace('-', '_').replace('.', '_').replace('+', 'plus')
     name = original_name.replace('-', '_').replace('.', '_').replace('+', 'plus')
     module_name = "fortios_" + path + "_" + name
+    special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
     template = env.get_template('doc.jinja')
     output = template.render(**locals())
@@ -54,7 +59,7 @@ def render_module(schema, version):
     output += template.render(**locals())
 
     template = env.get_template('code.jinja')
-    output += template.render(**locals())
+    output += template.render(calculate_full_path=calculate_full_path, **locals())
 
     dir = 'output/' + version + '/' + path
     if not os.path.exists(dir):
@@ -84,13 +89,19 @@ def jinjaExecutor():
     fgt_schema = json.loads(fgt_schema_file)
     fgt_sch_results = fgt_schema['results']
 
+    special_attributes_file = open('special_attributes.lst').read()
+    special_attributes = json.loads(special_attributes_file)
+
     real_counter = 0
     for i, pn in enumerate(fgt_sch_results):
         if 'diagnose' not in pn['path'] and 'execute' not in pn['path']:
+            module_name = pn['path'] + '_' + pn['name']
             print '\n\033[0mParsing schema:'
-            print '\033[0mModule name: \033[92m' + pn['path']+'_'+pn['name']
+            print '\033[0mModule name: \033[92m' + module_name
             print '\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i)
-            render_module(fgt_sch_results[i], fgt_schema['version'])
+            render_module(fgt_sch_results[i],
+                          fgt_schema['version'],
+                          special_attributes[module_name] if module_name in special_attributes else [])
             real_counter += 1
 
 

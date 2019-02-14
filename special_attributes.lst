@@ -1,0 +1,4 @@
+{
+    "system_interface":  [ ["allowaccess"],
+                           ["ipv6", "ip6-allowaccess"] ]
+}

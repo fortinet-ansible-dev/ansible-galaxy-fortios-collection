@@ -33,10 +33,26 @@ def filter_{{path}}_{{name}}_data(json):
     return dictionary
 
 
+def flatten_multilists_attributes(data):
+    multilist_attrs = {{special_attributes}}
+
+    for attr in multilist_attrs:
+        try:
+            path = "data['" + "']['".join(elem for elem in attr) + "']"
+            current_val = eval(path)
+            flattened_val = ' '.join(elem for elem in current_val)
+            exec(path + '= flattened_val')
+        except:
+            pass
+
+    return data
+
+
 def {{path}}_{{name}}(data, fos):
     vdom = data['vdom']
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
-    filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
+    flattened_data = flatten_multilists_attributes({{path}}_{{name}}_data)
+    filtered_data = filter_{{path}}_{{name}}_data(flattened_data)
 
     {%-if "mkey" in schema['schema'] %}
     if {{path}}_{{name}}_data['state'] == "present":
@@ -69,8 +85,10 @@ def fortios_{{path}}(data, fos):
 
     fos.logout()
     return not resp['status'] == "success", resp['status'] == "success", resp
-{% macro getAnsibleType(attribute) -%}
-{%- if attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
+{% macro getAnsibleType(parent_attrs, attribute) -%}
+{%- if calculate_full_path(parent_attrs, attribute["name"]) in special_attributes_flattened -%}
+list
+{%- elif attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
 str
 {%- elif not attribute["type"] and attribute["category"]=="table"-%}
 list
@@ -114,14 +132,14 @@ str
 {{attribute["type"]}}
 {%- endif -%}
 {%- endmacro %}
-{% macro code_fields(dict, mkey) -%}
+{% macro code_fields(dict, mkey, parent_attrs) -%}
                 {%- for key,value in dict |dictsort -%}
                 "{{key}}": {"required": {% if key == mkey -%}
                         True
                     {%- else -%}
                         False
                     {%- endif -%}
-                    , "type": "{{getAnsibleType(value)}}"
+                    , "type": "{{getAnsibleType(parent_attrs, value)}}"
                     {%- if "options" in value %},
                     "choices": [
                         {%- for v in value["options"] -%}
@@ -132,7 +150,7 @@ str
                     {%- endif -%}
                     {%- if value["category"] == "table" or value["category"] == "complex" %},
                     "options": {
-                        {{code_fields(value["children"], value["mkey"]) |indent |indent }} }
+                        {{code_fields(value["children"], value["mkey"], key if parent_attrs == '' else parent_attrs + ',' + key) |indent |indent }} }
                     {%- endif -%}}{%- if not loop.last %}, {%endif%}
                 {% endfor -%}
 {%- endmacro %}
@@ -149,7 +167,7 @@ def main():
                 {%if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
                              "choices": ["present", "absent"]},
                 {%endif-%}
-                {{ code_fields(schema['schema']['children'], schema['schema']['mkey']) }}
+                {{ code_fields(schema['schema']['children'], schema['schema']['mkey'], '') }}
             }
         }
     }
