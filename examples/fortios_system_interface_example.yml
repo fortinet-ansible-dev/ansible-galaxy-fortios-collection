@@ -1,0 +1,50 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure interfaces.
+    fortios_system_interface:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_interface:
+        state: "present"
+        name: port2
+        vdom: root
+        algorithm: "L2"
+        allowaccess: [ ping, http ]
+        ap-discover: "enable"
+        arpforward: "enable"
+        auth-type: "auto"
+        auto-auth-extension-device: "enable"
+        bfd: "global"
+        bfd-desired-min-tx: "13"
+        bfd-detect-mult: "14"
+        bfd-required-min-rx: "15"
+        broadcast-forticlient-discovery: "enable"
+        broadcast-forward: "enable"
+        captive-portal: "18"
+        cli-conn-status: "19"
+        color: "20"
+        dedicated-to: "none"
+        defaultgw: "enable"
+        ipv6:
+          ip6-allowaccess:
+            - http
+            - snmp
+            - fgfm
+        l2forward: "enable"
+        lacp-ha-slave: "enable"
+        lacp-mode: "static"
+        lacp-speed: "slow"
+        lcp-echo-interval: "147"
+        lcp-max-echo-fails: "148"
+        link-up-delay: "149"
+        lldp-transmission: "enable"
+
+
