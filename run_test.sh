@@ -172,6 +172,7 @@ run_example report fortios_report_chart_example.yml
 run_example report fortios_report_dataset_example.yml
 run_example router fortios_router_access_list_example.yml
 run_example user fortios_user_tacacsplus_example.yml
+run_example vpn_ipsec fortios_vpn_ipsec_manualkey_example.yml
 run_example webfilter fortios_webfilter_content_header_example.yml
 run_example webfilter fortios_webfilter_fortiguard_example.yml
 run_example webfilter fortios_webfilter_profile_example.yml

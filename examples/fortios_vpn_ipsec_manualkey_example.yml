@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure IPsec manual keys.
+    fortios_vpn_ipsec_manualkey:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      vpn_ipsec_manualkey:
+        state: "present"
+        authentication: "md5"
+        authkey: "1234567890123456-1234567890123456"
+        enckey: "1234567890123456"
+        encryption: "des"
+        interface: "port2"
+        local-gw: "10.0.0.1"
+        name: "1"
+        npu-offload: "enable"
+        remote-gw: "10.10.10.1"
