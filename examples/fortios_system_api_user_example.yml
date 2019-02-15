@@ -15,7 +15,7 @@
       system_api_user:
         state: "present"
         accprofile: "prof_admin"
-        comments: "<your_own_value>"
+        comments: "My comment"
         cors-allow-origin: "*"
         name: "userA"
         peer-auth: "disable"

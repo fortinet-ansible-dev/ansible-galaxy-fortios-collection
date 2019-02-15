@@ -192,4 +192,8 @@ run_example system fortios_system_settings_example.yml
 # Run examples that require proxy mode
 run_example ftp_proxy fortios_ftp_proxy_explicit_example.yml
 
+# Special test cases tested manually
+# run_example system fortios_system_vdom_example.yml
+
+
 echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
