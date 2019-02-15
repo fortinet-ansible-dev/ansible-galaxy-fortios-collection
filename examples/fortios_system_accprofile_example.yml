@@ -1,0 +1,63 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure access profiles for system administrators.
+    fortios_system_accprofile:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_accprofile:
+        state: "present"
+        admintimeout: "3"
+        admintimeout-override: "enable"
+        authgrp: "none"
+        comments: "<your_own_value>"
+        ftviewgrp: "none"
+        fwgrp: "none"
+        fwgrp-permission:
+            address: "none"
+            policy: "none"
+            schedule: "none"
+            service: "none"
+        loggrp: "none"
+        loggrp-permission:
+            config: "none"
+            data-access: "none"
+            report-access: "none"
+            threat-weight: "none"
+        name: "default_name_20"
+        netgrp: "none"
+        netgrp-permission:
+            cfg: "none"
+            packet-capture: "none"
+            route-cfg: "none"
+        scope: "vdom"
+        secfabgrp: "none"
+        sysgrp: "none"
+        sysgrp-permission:
+            admin: "none"
+            cfg: "none"
+            mnt: "none"
+            upd: "none"
+        utmgrp: "none"
+        utmgrp-permission:
+            antivirus: "none"
+            application-control: "none"
+            data-loss-prevention: "none"
+            dnsfilter: "none"
+            endpoint-control: "none"
+            icap: "none"
+            ips: "none"
+            spamfilter: "none"
+            voip: "none"
+            waf: "none"
+            webfilter: "none"
+        vpngrp: "none"
+        wanoptgrp: "none"
+        wifi: "none"
