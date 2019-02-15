@@ -167,6 +167,7 @@ run_example system fortios_system_interface_example.yml
 run_example system fortios_system_sdn_connector_example.yml
 run_example report fortios_report_chart_example.yml
 run_example report fortios_report_dataset_example.yml
+run_example router fortios_router_access_list_example.yml
 run_example user fortios_user_tacacsplus_example.yml
 run_example webfilter fortios_webfilter_content_header_example.yml
 run_example webfilter fortios_webfilter_fortiguard_example.yml
