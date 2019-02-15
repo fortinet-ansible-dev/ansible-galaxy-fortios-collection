@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure admin users.
+    fortios_system_admin:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_admin:
+        state: "present"
+        accprofile: "prof_admin"
+        comments: "Admin Aux"
+        email-to: "admin@mycompany.com"
+        guest-auth: "disable"
+        name: "new_admin"
+        password: "pw1"

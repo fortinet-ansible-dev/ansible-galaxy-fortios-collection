@@ -163,6 +163,7 @@ run_example log fortios_log_gui_display_example.yml
 run_example log_memory fortios_log_memory_filter_example.yml
 run_example log_memory fortios_log_memory_global_setting_example.yml
 run_example system fortios_system_accprofile_example.yml
+run_example system fortios_system_admin_example.yml
 run_example system fortios_system_central_management_example.yml
 run_example system fortios_system_interface_example.yml
 run_example system fortios_system_sdn_connector_example.yml
