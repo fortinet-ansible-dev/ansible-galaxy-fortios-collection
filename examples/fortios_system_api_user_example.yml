@@ -1,0 +1,28 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure API users.
+    fortios_system_api_user:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_api_user:
+        state: "present"
+        accprofile: "prof_admin"
+        comments: "<your_own_value>"
+        cors-allow-origin: "*"
+        name: "userA"
+        peer-auth: "disable"
+        schedule: "always"
+        trusthost:
+          - id:  "12"
+            ipv4-trusthost: "10.210.10.10/24"
+            type: "ipv4-trusthost"
+        vdom:
+          - name: "root"
