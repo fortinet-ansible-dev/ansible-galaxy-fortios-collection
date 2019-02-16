@@ -166,6 +166,7 @@ run_example system fortios_system_accprofile_example.yml
 run_example system fortios_system_admin_example.yml
 run_example system fortios_system_api_user_example.yml
 run_example system fortios_system_central_management_example.yml
+run_example system fortios_system_dns_example.yml
 run_example system fortios_system_interface_example.yml
 run_example system fortios_system_sdn_connector_example.yml
 run_example report fortios_report_chart_example.yml

@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure DNS.
+    fortios_system_dns:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_dns:
+        cache-notfound-responses: "disable"
+        dns-cache-limit: "5050"
+        dns-cache-ttl: "70"
+        domain: "ftnt.com"
+        primary: "8.8.8.8"
+        secondary: "8.8.4.4"
+        source-ip: "192.168.122.40"
