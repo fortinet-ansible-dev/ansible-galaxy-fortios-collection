@@ -1,0 +1,59 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure access lists.
+    fortios_router_access_list:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      router_access_list:
+        state: "present"
+        comments: "Access List"
+        name: "access-list1"
+        rule:
+         -
+            action: "permit"
+            id:  "1"
+            prefix: "10.210.0.0/23"
+  - name: Configure access lists.
+    fortios_router_access_list:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      router_access_list:
+        state: "present"
+        comments: "Access List"
+        name: "access-list2"
+        rule:
+         -
+            action: "permit"
+            id:  "1"
+            prefix: "10.220.0.0/23"
+  - name: Configure OSPF.
+    fortios_router_ospf:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      router_ospf:
+        abr-type: "cisco"
+        area:
+         - filter-list:
+             - direction: "out"
+               id:  "1"
+               list: "access-list2"
+           id:  "10.210.1.3"
+         - filter-list:
+           - direction: "out"
+             id:  "1"
+             list: "access-list1"
+           id:  "10.210.1.2"
