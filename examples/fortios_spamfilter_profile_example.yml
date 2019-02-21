@@ -1,0 +1,60 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure AntiSpam profiles.
+    fortios_spamfilter_profile:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      spamfilter_profile:
+        state: "present"
+        comment: "Comment 123."
+        external: "disable"
+        flow-based: "disable"
+        gmail:
+            log: "disable"
+        imap:
+            action: "tag"
+            log: "disable"
+            tag-msg: "my tag-msg"
+            tag-type:
+                - "subject"
+                - "spaminfo"
+        mapi:
+            action: "pass"
+            log: "disable"
+        msn-hotmail:
+            log: "disable"
+        name: "spamfilterprofile1"
+        options: 
+            - "spamfsip"
+            - "spamfsurl" 
+            - "spamfsphish"
+        pop3:
+            action: "tag"
+            log: "disable"
+            tag-msg: "Spam"
+            tag-type: 
+                - "header"
+                - "spaminfo"
+        smtp:
+            action: "discard"
+            hdrip: "disable"
+            local-override: "disable"
+            log: "disable"
+            tag-msg: "MyTagMsg"
+            tag-type: 
+                - "subject"
+                - "spaminfo"
+        spam-bword-threshold: "10"
+        spam-filtering: "enable"
+        spam-log: "disable"
+        spam-log-fortiguard-response: "disable"
+        yahoo-mail:
+            log: "disable"
