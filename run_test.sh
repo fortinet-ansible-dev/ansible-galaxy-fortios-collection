@@ -162,7 +162,7 @@ run_example log_fortiguard fortios_log_fortiguard_filter_example.yml
 run_example log fortios_log_gui_display_example.yml
 run_example log_memory fortios_log_memory_filter_example.yml
 run_example log_memory fortios_log_memory_global_setting_example.yml
-run_example spamfilter fortios_spamfilter_profile_example.yml
+run_example ssh-filter fortios_ssh_filter_profile_example.yml
 run_example system fortios_system_accprofile_example.yml
 run_example system fortios_system_admin_example.yml
 run_example system fortios_system_api_user_example.yml
@@ -195,6 +195,7 @@ run_example system fortios_system_settings_example.yml
 
 # Run examples that require proxy mode
 run_example ftp_proxy fortios_ftp_proxy_explicit_example.yml
+run_example spamfilter fortios_spamfilter_profile_example.yml
 
 # Special test cases tested manually
 # run_example system fortios_system_vdom_example.yml
