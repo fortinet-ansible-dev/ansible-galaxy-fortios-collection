@@ -1,4 +1,8 @@
 {
     "system_interface":  [ ["allowaccess"],
-                           ["ipv6", "ip6-allowaccess"] ]
+                           ["ipv6", "ip6-allowaccess"] ],
+    "spamfilter_profile": [ ["options"],
+                            ["imap", "tag-type"],
+                            ["pop3", "tag-type"],
+                            ["smtp", "tag-type"]]
 }
