@@ -1,0 +1,40 @@
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: ""
+   vdom: "root"
+  tasks:
+  - name: Configure DHCP servers.
+    fortios_system_dhcp_server:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_dhcp_server:
+        state: "present"
+        auto-configuration: "disable"
+        default-gateway: "10.20.1.1"
+        dns-server1: "8.8.8.8"
+        dns-server2: "8.8.4.4"
+        dns-service: "local"
+        domain: "mydomain.com"
+        forticlient-on-net-status: "disable"
+        id:  "1"
+        interface: "port2"
+        lease-time: "300"
+        netmask: "255.255.255.0"
+        ntp-server1: "10.10.1.1"
+        ntp-service: "local"
+        options:
+         -  code: "42"
+            id:  "1"
+            type: "hex"
+            value: "92"
+        server-type: "regular"
+        status: "disable"
+        tftp-server:
+         - tftp-server: "10.1.1.1"
+        timezone-option: "disable"
+        vci-match: "disable"
