@@ -83,7 +83,7 @@ def fortios_{{path}}(data, fos):
     fos.logout()
     return not resp['status'] == "success", resp['status'] == "success", resp
 {% macro getAnsibleType(parent_attrs, attribute) -%}
-{%- if calculate_full_path(parent_attrs, attribute["name"]) in special_attributes_flattened -%}
+{%- if calculateFullPath(parent_attrs, attribute["name"]) in special_attributes_flattened -%}
 list
 {%- elif attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
 str
