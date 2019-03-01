@@ -30,7 +30,7 @@ def filter_{{path}}_{{name}}_data(json):
 
     return dictionary
 
-{%- if special_attributes != [] -%}
+{% if special_attributes != [] -%}
 def flatten_multilists_attributes(data):
     multilist_attrs = {{special_attributes}}
 
@@ -44,15 +44,16 @@ def flatten_multilists_attributes(data):
             pass
 
     return data
-{%-endif-%}
+{% endif-%}
 
 def {{path}}_{{name}}(data, fos):
     vdom = data['vdom']
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
-    flattened_data = flatten_multilists_attributes({{path}}_{{name}}_data)
-    filtered_data = filter_{{path}}_{{name}}_data(flattened_data)
+    {% if special_attributes != [] -%}{{path}}_{{name}}_data = flatten_multilists_attributes({{path}}_{{name}}_data)
+    {% endif -%}
+    filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
 
-    {%-if "mkey" in schema['schema'] %}
+    {% if "mkey" in schema['schema'] %}
     if {{path}}_{{name}}_data['state'] == "present":
         return fos.set('{{original_path}}',
                        '{{original_name}}',
