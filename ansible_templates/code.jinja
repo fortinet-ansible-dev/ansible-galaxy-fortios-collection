@@ -1,10 +1,8 @@
 
 from ansible.module_utils.basic import AnsibleModule
 
-fos = None
 
-
-def login(data):
+def login(data, fos):
     host = data['host']
     username = data['username']
     password = data['password']
@@ -32,7 +30,7 @@ def filter_{{path}}_{{name}}_data(json):
 
     return dictionary
 
-
+{%- if special_attributes != [] -%}
 def flatten_multilists_attributes(data):
     multilist_attrs = {{special_attributes}}
 
@@ -46,7 +44,7 @@ def flatten_multilists_attributes(data):
             pass
 
     return data
-
+{%-endif-%}
 
 def {{path}}_{{name}}(data, fos):
     vdom = data['vdom']
@@ -75,7 +73,7 @@ def {{path}}_{{name}}(data, fos):
 
 
 def fortios_{{path}}(data, fos):
-    login(data)
+    login(data, fos)
 
     if data['{{path}}_{{name}}']:
         resp = {{path}}_{{name}}(data, fos)
@@ -176,7 +174,6 @@ def main():
     except ImportError:
         module.fail_json(msg="fortiosapi module is required")
 
-    global fos
     fos = FortiOSAPI()
 
     is_error, has_changed, result = fortios_{{path}}(module.params, fos)
