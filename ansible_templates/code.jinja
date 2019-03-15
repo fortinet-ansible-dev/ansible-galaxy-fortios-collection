@@ -73,6 +73,11 @@ def {{path}}_{{name}}(data, fos):
     {%endif%}
 
 
+def is_successful_status(status):
+    return status['status'] == "success" or \
+        status['http_method'] == "DELETE" and status['http_status'] == 404
+
+
 def fortios_{{path}}(data, fos):
     login(data, fos)
 
@@ -80,7 +85,9 @@ def fortios_{{path}}(data, fos):
         resp = {{path}}_{{name}}(data, fos)
 
     fos.logout()
-    return not resp['status'] == "success", resp['status'] == "success", resp
+    return not is_successful_status(resp), \
+        resp['status'] == "success", \
+        resp
 {% macro getAnsibleType(parent_attrs, attribute) -%}
 {%- if calculateFullPath(parent_attrs, attribute["name"]) in special_attributes_flattened -%}
 list
