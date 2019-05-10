@@ -6,5 +6,7 @@
     "system_interface":  [ ["allowaccess"],
                            ["ipv6", "ip6-allowaccess"] ],
     "system_global": [ ["admin-https-ssl-versions"] ],
-    "system_snmp_user": [ ["events"] ]                         
+    "system_snmp_user": [ ["events"],
+                          ["notify-hosts"],
+                          ["notify-hosts6"] ]                         
 }
