@@ -236,8 +236,6 @@ ansible_network_os=fortinet.fortios.fortios
   - name: display vars
     debug: msg="{{info}}"
 
-
-    
 '''
 
 RETURN = '''
@@ -304,7 +302,6 @@ from ansible.module_utils.connection import Connection
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios import FortiOSHandler
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import FAIL_SOCKET_MSG
 import json
-import os
 
 def login(data, fos):
     host = data['host']
@@ -325,7 +322,7 @@ def json_generic(data, fos):
     json_generic_data = data['json_generic']
 
     # Give priority to jsonbody
-    data = "";
+    data = ""
     if json_generic_data['jsonbody']:
         data = json.loads(json_generic_data['jsonbody'])
     else:
