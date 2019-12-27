@@ -1,0 +1,23 @@
+namespace: "fortinet"
+name: "fortios"
+version: "1.0.4"
+description: "A collection of Ansible Modules for FortiOS"
+readme: "README.md"
+authors:
+    - Frank Shen (@frankshen01)
+    - Hongbin Lu (@fgtdev-hblu)
+    - Miguel Angel Munoz (@mamunozgonzalez)
+    - Nicolas Thomas (@thomnico)
+dependencies: { }
+license:
+    - "MIT"
+tags:
+    - fortios
+    - networking
+    - firewall
+    - security
+    - fortinet
+repository: "https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection"
+documentation: "https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html?highlight=fortios"
+homepage: "https://www.fortinet.com"
+issues: "https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues"
