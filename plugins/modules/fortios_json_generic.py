@@ -144,10 +144,10 @@ ansible_network_os=fortinet.fortios.fortios
           "allow-routing": "disable"
           }
     register: info
-    
+
   - name: display vars
-    debug: msg="{{info}}" 
-    
+    debug: msg="{{info}}"
+
 # sample2.yml
 - hosts: fortigates
   collections:
@@ -167,7 +167,7 @@ ansible_network_os=fortinet.fortios.fortios
         method: "DELETE"
         path: "/api/v2/cmdb/firewall/address/111"
     register: info
-    
+
   - name: display vars
     debug: msg="{{info}}"
 
@@ -187,10 +187,10 @@ ansible_network_os=fortinet.fortios.fortios
           associated-interface: "port1"
           allow-routing: "disable"
     register: info
-    
+
   - name: display vars
-    debug: msg="{{info}}"    
-    
+    debug: msg="{{info}}"
+
   - name: test delete
     fortios_json_generic:
       vdom:  "{{ vdom }}"
@@ -198,7 +198,7 @@ ansible_network_os=fortinet.fortios.fortios
         method: "DELETE"
         path: "/api/v2/cmdb/firewall/address/111"
     register: info
-    
+
   - name: display vars
     debug: msg="{{info}}"
 
@@ -220,10 +220,10 @@ ansible_network_os=fortinet.fortios.fortios
           "allow-routing": "disable"
           }
     register: info
-    
+
   - name: display vars
-    debug: msg="{{info}}" 
-    
+    debug: msg="{{info}}"
+
   - name: test speical params
     fortios_json_generic:
       vdom:  "{{ vdom }}"
@@ -232,7 +232,7 @@ ansible_network_os=fortinet.fortios.fortios
         path: "/api/v2/cmdb/firewall/policy/1"
         specialparams: "action=move&after=2"
     register: info
-    
+
   - name: display vars
     debug: msg="{{info}}"
 
@@ -303,6 +303,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import FAIL_SOCKET_MSG
 import json
 
+
 def login(data, fos):
     host = data['host']
     username = data['username']
@@ -317,6 +318,7 @@ def login(data, fos):
 
     fos.login(host, username, password, verify=ssl_verify)
 
+
 def json_generic(data, fos):
     vdom = data['vdom']
     json_generic_data = data['json_generic']
@@ -330,10 +332,10 @@ def json_generic(data, fos):
             data = json_generic_data['dictbody']
 
     return fos.jsonraw(json_generic_data['method'],
-                json_generic_data['path'],
-                data=data,
-                specific_params=json_generic_data['specialparams'],
-                vdom=vdom)
+                       json_generic_data['path'],
+                       data=data,
+                       specific_params=json_generic_data['specialparams'],
+                       vdom=vdom)
 
 
 def is_successful_status(status):

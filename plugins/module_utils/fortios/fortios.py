@@ -233,7 +233,6 @@ class FortiOSHandler(object):
         return self.formatresponse(result_data, vdom=vdom)
 
 
-
 # BEGIN DEPRECATED
 
 
