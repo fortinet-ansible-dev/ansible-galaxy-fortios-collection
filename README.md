@@ -448,7 +448,6 @@ The collection provides the following modules:
 * `fortios_wireless_controller_wtp_group`  Configure WTP groups in Fortinet's FortiOS and FortiGate.
 * `fortios_wireless_controller_wtp_profile`  Configure WTP profiles or FortiAP profiles that define radio settings for manageable FortiAP platforms in Fortinet's FortiOS and FortiGate.
 * `fortios_wireless_controller_wtp`  Configure Wireless Termination Points (WTPs), that is, FortiAPs or APs to be managed by FortiGate in Fortinet's FortiOS and FortiGate.
-* `fortios_json_generic`  Config Fortinet's FortiOS and FortiGate with json generic method.
 
 
 ## Roles

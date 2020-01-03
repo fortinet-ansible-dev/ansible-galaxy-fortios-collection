@@ -210,29 +210,6 @@ class FortiOSHandler(object):
             resp = json.loads(to_text(res))
         return resp
 
-    def jsonraw(self, method, path, data, specific_params, vdom=None, parameters=None):
-        url = path
-        bvdom = False
-
-        if vdom:
-            if vdom == "global":
-                url += '?global=1'
-            else:
-                url += '?vdom=' + vdom
-            bvdom = True
-
-        if specific_params:
-            if bvdom:
-                url += '&'
-            else:
-                url += "?"
-            url += specific_params
-
-        status, result_data = self._conn.send_request(url=url, method=method, data=json.dumps(data), params=parameters)
-
-        return self.formatresponse(result_data, vdom=vdom)
-
-
 # BEGIN DEPRECATED
 
 
