@@ -1,6 +1,6 @@
 namespace: "fortinet"
 name: "fortios"
-version: "1.0.6"
+version: "1.0.7"
 description: "A collection of Ansible Modules for FortiOS"
 readme: "README.md"
 authors:
@@ -18,6 +18,6 @@ tags:
     - security
     - fortinet
 repository: "https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection"
-documentation: "https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html?highlight=fortios"
+documentation: "https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/"
 homepage: "https://www.fortinet.com"
 issues: "https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues"

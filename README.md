@@ -21,7 +21,6 @@ Tested with FOS v6.0.5
 ## Modules
 The collection provides the following modules:
 
-* `fortios_address`  Manage fortios firewall address objects.
 * `fortios_alertemail_setting`  Configure alert email settings in Fortinet's FortiOS and FortiGate.
 * `fortios_antivirus_heuristic`  Configure global heuristic options in Fortinet's FortiOS and FortiGate.
 * `fortios_antivirus_profile`  Configure AntiVirus profiles in Fortinet's FortiOS and FortiGate.
@@ -35,7 +34,6 @@ The collection provides the following modules:
 * `fortios_authentication_rule`  Configure Authentication Rules in Fortinet's FortiOS and FortiGate.
 * `fortios_authentication_scheme`  Configure Authentication Schemes in Fortinet's FortiOS and FortiGate.
 * `fortios_authentication_setting`  Configure authentication setting in Fortinet's FortiOS and FortiGate.
-* `fortios_config`  Manage config on Fortinet FortiOS firewall devices.
 * `fortios_dlp_filepattern`  Configure file patterns used by DLP blocking in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_fp_doc_source`  Create a DLP fingerprint database by allowing the FortiGate to access a file server containing files from which to create fingerprints in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_fp_sensitivity`  Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source in Fortinet's FortiOS and FortiGate.
@@ -127,7 +125,6 @@ The collection provides the following modules:
 * `fortios_ips_rule`  Configure IPS rules in Fortinet's FortiOS and FortiGate.
 * `fortios_ips_sensor`  Configure IPS sensor in Fortinet's FortiOS and FortiGate.
 * `fortios_ips_settings`  Configure IPS VDOM parameter in Fortinet's FortiOS and FortiGate.
-* `fortios_ipv4_policy`  Manage IPv4 policy objects on Fortinet FortiOS firewall devices.
 * `fortios_log_custom_field`  Configure custom log fields in Fortinet's FortiOS and FortiGate.
 * `fortios_log_disk_filter`  Configure filters for local disk logging. Use these filters to determine the log messages to record according to severity and type in Fortinet's FortiOS and FortiGate.
 * `fortios_log_disk_setting`  Settings for local disk logging in Fortinet's FortiOS and FortiGate.
