@@ -40,6 +40,11 @@ from ansible.module_utils.basic import env_fallback
 
 import json
 
+try:
+    import urllib.parse as urlencoding
+except ImportError:
+    import urllib as urlencoding
+
 # BEGIN DEPRECATED
 
 # check for pyFG lib
@@ -92,7 +97,7 @@ class FortiOSHandler(object):
 
         url = '/api/v2/cmdb/' + path + '/' + name
         if mkey:
-            url = url + '/' + str(mkey)
+            url = url + '/' + urlencoding.quote(str(mkey), safe='')
         if vdom:
             if vdom == "global":
                 url += '?global=1'
@@ -103,7 +108,7 @@ class FortiOSHandler(object):
     def mon_url(self, path, name, vdom=None, mkey=None):
         url = '/api/v2/monitor/' + path + '/' + name
         if mkey:
-            url = url + '/' + str(mkey)
+            url = url + '/' + urlencoding.quote(str(mkey), safe='')
         if vdom:
             if vdom == "global":
                 url += '?global=1'
