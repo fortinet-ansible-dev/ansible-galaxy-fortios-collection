@@ -106,7 +106,7 @@ options:
                     - absent
             action:
                 description:
-                    - Policy action (allow/deny/ipsec).
+                    - Policy action (accept/deny/ipsec).
                 type: str
                 choices:
                     - accept
