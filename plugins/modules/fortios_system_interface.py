@@ -2173,7 +2173,58 @@ def underscore_to_hyphen(data):
     return data
 
 
-def system_interface(data, fos):
+def serialize(data):
+    if type(data) == str and ' ' in data:
+        return serialize(data.split(' '))
+    if type(data) == list and len(data) > 0:
+        if type(data[0]) == dict:
+            list_to_order = []
+            for dt in data:
+                ret = {}
+                for key, value in dt.items():
+                    ret[key] = serialize(value)
+                list_to_order.append(ret)
+
+            # order list
+            return sorted(
+                list_to_order, key=lambda dt: str(dt.items()))
+        else:
+            return sorted(data)
+
+    if type(data) == dict:
+        ret = {}
+        for key, value in data.items():
+            ret[key] = serialize(value)
+
+        return ret
+
+    return data
+
+
+def is_same_comparison(reorder_current, reorder_filtered):
+    for key, value in reorder_filtered.items():
+        if key not in reorder_current:
+            return False
+
+        if type(value) == dict:
+            if not is_same_comparison(reorder_current[key], value):
+                return False
+        elif type(value) == list:
+            if len(value) != len(reorder_current[key]):
+                return False
+            if type(value[0]) == dict:
+                for current_dict in reorder_current[key]:
+                    if not is_same_comparison(current_dict, value[0]):
+                        return False
+            elif reorder_current[key] != value:
+                return False
+        elif reorder_current[key] != value:
+            return False
+
+    return True
+
+
+def system_interface(data, fos, check_mode=False):
     vdom = data['vdom']
     if 'state' in data and data['state']:
         state = data['state']
@@ -2185,6 +2236,40 @@ def system_interface(data, fos):
     system_interface_data = flatten_multilists_attributes(system_interface_data)
     filtered_data = underscore_to_hyphen(filter_system_interface_data(system_interface_data))
 
+    # check_mode starts from here
+    # 1. check if the module entity exists or not
+    mkey = fos.get_mkey('system', 'interface', filtered_data, vdom=vdom)
+    current_data = fos.get('system', 'interface', vdom=vdom, mkey=mkey)
+    is_existed = current_data and current_data.get('http_status') == 200 \
+        and type(current_data.get('results')) == list \
+        and len(current_data['results']) > 0
+    # 2. if it exists and the state is 'present' then compare current settings with desired
+    if check_mode:
+        if state == 'present':
+            if mkey is None:
+                return False, True, filtered_data
+
+            # if mkey exists then compare each other
+            # record exits and they're matched or not
+            if is_existed:
+                is_same = is_same_comparison(
+                    serialize(current_data['results'][0]), serialize(filtered_data))
+                return False, not is_same, filtered_data
+
+            # record does not exist
+            return False, True, filtered_data
+
+        if state == 'absent':
+            if mkey is None:
+                return False, False, filtered_data
+
+            if is_existed:
+                return False, True, filtered_data
+            return False, False, filtered_data
+
+        return True, False, {'reason: ': 'Must provide state parameter'}
+
+    # 3. Take action
     if state == "present":
         return fos.set('system',
                        'interface',
@@ -2203,10 +2288,13 @@ def is_successful_status(status):
         status['http_method'] == "DELETE" and status['http_status'] == 404
 
 
-def fortios_system(data, fos):
+def fortios_system(data, fos, check_mode):
 
     if data['system_interface']:
-        resp = system_interface(data, fos)
+        resp = system_interface(data, fos, check_mode)
+    # check mode
+    if check_mode:
+        return resp
 
     return not is_successful_status(resp), \
         resp['status'] == "success" and \
@@ -2859,7 +2947,7 @@ def main():
     }
 
     module = AnsibleModule(argument_spec=fields,
-                           supports_check_mode=False)
+                           supports_check_mode=True)
 
     # legacy_mode refers to using fortiosapi instead of HTTPAPI
     legacy_mode = 'host' in module.params and module.params['host'] is not None and \
@@ -2872,7 +2960,7 @@ def main():
             connection = Connection(module._socket_path)
             fos = FortiOSHandler(connection)
 
-            is_error, has_changed, result = fortios_system(module.params, fos)
+            is_error, has_changed, result = fortios_system(module.params, fos, module.check_mode)
             versions_check_result = connection.get_system_version()
         else:
             module.fail_json(**FAIL_SOCKET_MSG)
@@ -2885,7 +2973,7 @@ def main():
         fos = FortiOSAPI()
 
         login(module.params, fos)
-        is_error, has_changed, result = fortios_system(module.params, fos)
+        is_error, has_changed, result = fortios_system(module.params, fos, module.check_mode)
         fos.logout()
 
     if versions_check_result and versions_check_result['matched'] is False:
