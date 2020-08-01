@@ -136,12 +136,13 @@ options:
                 type: int
             type:
                 description:
-                    - Select the Monitor type used by the health check monitor to check the health of the server (PING | TCP | HTTP).
+                    - Select the Monitor type used by the health check monitor to check the health of the server (PING | TCP | HTTP | HTTPS).
                 type: str
                 choices:
                     - ping
                     - tcp
                     - http
+                    - https
                     - passive-sip
 '''
 
@@ -344,7 +345,7 @@ def main():
                 "timeout": {"required": False, "type": "int"},
                 "type": {"required": False, "type": "str",
                          "choices": ["ping", "tcp", "http",
-                                     "passive-sip"]}
+                                     "https", "passive-sip"]}
 
             }
         }
