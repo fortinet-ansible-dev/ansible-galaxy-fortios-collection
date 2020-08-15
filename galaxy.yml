@@ -10,7 +10,9 @@ authors:
     - Jie Xue (@JieX19)
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
-dependencies: { }
+dependencies: {
+    "ansible.netcommon": "*"
+}
 license:
     - "MIT"
 tags:
@@ -20,6 +22,6 @@ tags:
     - security
     - fortinet
 repository: "https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/tree/fos_v6.0.0/galaxy_1.0.14"
-documentation: "https://ansible-galaxy-fortios-docs.readthedocs.io/en/galaxy-1.0.14"
+documentation: "https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest"
 homepage: "https://www.fortinet.com"
 issues: "https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues"
