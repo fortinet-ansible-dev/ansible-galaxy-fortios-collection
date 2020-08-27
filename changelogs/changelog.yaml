@@ -1,0 +1,26 @@
+ancestor: null
+releases:
+  1.0.15:
+    changes:
+      bugfixes:
+      - Add events param to special attributes file(https://github.com/fortinet-solutions-cse/ansible_generator/pull/22)
+      - Add vpn_ipsec_phase2_interface.proposal into exceptional multilist (https://github.com/fortinet-solutions-cse/ansible_generator/pull/15)
+      - Fix fgd_alert_subscription multiple choices problem (https://github.com/fortinet-solutions-cse/ansible_generator/pull/14)
+      - Fix issue 26 of ansible_fgt_modules (https://github.com/fortinet-solutions-cse/ansible_generator/pull/18)
+      - Module fortios_vpn_ssl_settings -  banned_cipher doesn't work(https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues/10)
+      - Support special identifier validation and repair (https://github.com/fortinet-solutions-cse/ansible_generator/pull/11)
+      - Update underscore_to_hyphen function and supported version file (https://github.com/fortinet-solutions-cse/ansible_generator/pull/21)
+      - Update valid_identifiers.lst (https://github.com/fortinet-solutions-cse/ansible_generator/pull/12)
+      - facts (https://github.com/fortinet-ansible-dev/fortios-ansible-generator/commit/b2abfaaac1312dd23e6c8e8c243ce24edc33a25c)
+      - fix issue 24 of ansible_fgt_modules for generator (https://github.com/fortinet-solutions-cse/ansible_generator/pull/19)
+      - fix the mkey encoding in fortios api URL(https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/pull/2)
+      - jsonraw (https://github.com/fortinet-ansible-dev/fortios-ansible-generator/commit/722fa8e8facdddca78e7e1ebc46912540986793e)
+      - minor fix for feild:required to be consistent with schema definition (https://github.com/fortinet-solutions-cse/ansible_generator/pull/20)
+      - support revision_change in response since fortigate 6.2.3 (https://github.com/fortinet-solutions-cse/ansible_generator/pull/17)
+      - vmlicence (https://github.com/fortinet-ansible-dev/fortios-ansible-generator/commit/2180645d8bf008dc4ee1900eb0324c45912bd88d)
+      release_summary: 'This collection is for FortiOS appliances v6.0.0
+
+'
+    fragments:
+    - all.yml
+    release_date: '2020-08-27'
