@@ -53,6 +53,7 @@ class HttpApi(HttpApiBase):
     def __init__(self, connection):
         super(HttpApi, self).__init__(connection)
 
+        self._conn = connection
         self._ccsrftoken = ''
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
@@ -65,6 +66,12 @@ class HttpApi(HttpApiBase):
         self._log.write(log_message)
         self._log.flush()
 
+    def get_access_token(self):
+        '''this is only available after a module is initialized'''
+        token = self._conn.get_option('access_token') if 'access_token' in self._conn._options else None
+
+        return token
+
     def set_become(self, become_context):
         """
         Elevation is not required on Fortinet devices - Skipped
@@ -76,13 +83,24 @@ class HttpApi(HttpApiBase):
     def login(self, username, password):
         """Call a defined login endpoint to receive an authentication token."""
 
-        data = "username=" + urllib.parse.quote(username) + "&secretkey=" + urllib.parse.quote(password) + "&ajax=1"
-        dummy, result_data = self.send_request(url='/logincheck', data=data, method='POST')
-        self.log('login with user: %s %s' % (username, 'succeeds' if result_data[0] == '1' else 'fails'))
-        if result_data[0] != '1':
-            raise Exception('Wrong credentials. Please check')
+        if self.get_access_token() == None:
+            self.log('login with username and password')
+            data = "username=" + urllib.parse.quote(username) + "&secretkey=" + urllib.parse.quote(password) + "&ajax=1"
+            dummy, result_data = self.send_request(url='/logincheck', data=data, method='POST')
+            self.log('login with user: %s %s' % (username, 'succeeds' if result_data[0] == '1' else 'fails'))
+            if result_data[0] != '1':
+                raise Exception('Wrong credentials. Please check')
         # If we succeed to login, we retrieve the system status first
+        else:
+            self.log('login with access token')
+            self.send_request(url='/logincheck')
+            status, _ = self.send_request(url = '/api/v2/cmdb/system/interface?vdom=root&action=schema')
+
+            if status == 401:
+                raise Exception('Invalid access token. Please check')
+
         self.update_system_version()
+
 
     def logout(self):
         """ Call to implement session logout."""
@@ -97,28 +115,43 @@ class HttpApi(HttpApiBase):
         :return: Dictionary containing headers
         """
 
-        headers = {}
+        if self.get_access_token() == None:
+            headers = {}
 
-        for attr, val in response.getheaders():
-            if attr == 'Set-Cookie' and 'APSCOOKIE_' in val:
-                headers['Cookie'] = val
+            for attr, val in response.getheaders():
+                if attr == 'Set-Cookie' and 'APSCOOKIE_' in val:
+                    headers['Cookie'] = val
 
-            elif attr == 'Set-Cookie' and 'ccsrftoken=' in val:
-                csrftoken_search = re.search('\"(.*)\"', val)
-                if csrftoken_search:
-                    self._ccsrftoken = csrftoken_search.group(1)
+                elif attr == 'Set-Cookie' and 'ccsrftoken=' in val:
+                    csrftoken_search = re.search('\"(.*)\"', val)
+                    if csrftoken_search:
+                        self._ccsrftoken = csrftoken_search.group(1)
 
-        headers['x-csrftoken'] = self._ccsrftoken
-        self.log('update x-csrftoken: %s' % (self._ccsrftoken))
-        return headers
+            headers['x-csrftoken'] = self._ccsrftoken
+            self.log('update x-csrftoken: %s' % (self._ccsrftoken))
+            return headers
+        else:
+            self.log('using access token - setting header')
+
+            return {
+                "Accept": "application/json"
+            }
+
 
     def handle_httperror(self, exc):
         """
-        Not required on Fortinet devices - Skipped
-        :param exc: Unused input.
-        :return: exc
+        propogate exceptions to users
+        :param exc: Exception
         """
+        self.log('Exception thrown from handling http: ' + to_text(exc))
+
         return exc
+
+    def _concat_token(self, url):
+        if self.get_access_token():
+            token_pair = 'access_token=' + self.get_access_token()
+            return url + '&' + token_pair if '?' in url else url + '?' + token_pair
+        return url
 
     def send_request(self, **message_kwargs):
         """
@@ -127,14 +160,19 @@ class HttpApi(HttpApiBase):
 
         :return: Status code and response data.
         """
+
         url = message_kwargs.get('url', '/')
+        if self.get_access_token() != None:
+            url = self._concat_token(message_kwargs.get('url', '/'))
         data = message_kwargs.get('data', '')
         method = message_kwargs.get('method', 'GET')
 
         try:
             response, response_data = self.connection.send(url, data, method=method)
 
-            return response.status, to_text(response_data.getvalue())
+            json_formatted = to_text(response_data.getvalue())
+
+            return response.status, json_formatted
         except Exception as err:
             raise Exception(err)
 
@@ -142,13 +180,17 @@ class HttpApi(HttpApiBase):
         """
         retrieve the system status of fortigate device
         """
-        url = '/api/v2/cmdb/non/existing/path'
+        url = '/api/v2/cmdb/system/interface?vdom=root&action=schema'
         status, result = self.send_request(url=url)
-        self._system_version = json.loads(result)['version']
+        self.log('update sys ver: ' + str(status) + ' len=' + str(len(to_text(result))))
+        result_json = json.loads(result)
+        self._system_version = result_json.get('version', 'undefined')
         self.log('system version: %s' % (self._system_version))
         self.log('ansible version: %s' % (self._ansible_fos_version))
 
     def get_system_version(self):
+        return dict()
+
         if not self._system_version:
             raise Exception('Wrong calling stack, httpapi must login!')
         system_version_words = self._system_version.split('.')
