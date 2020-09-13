@@ -58,6 +58,12 @@ options:
             - FortiOS or FortiGate password.
         type: str
         default: ""
+    access_token:
+        description:
+            - Token-based authentication.
+              Access token generated from GUI of the Fortigate.
+        type: str
+        required: false   
     vdom:
         description:
             - Virtual domain, among those defined previously. A vdom is a
@@ -497,6 +503,7 @@ def main():
         "host": {"required": False, "type": "str"},
         "username": {"required": False, "type": "str"},
         "password": {"required": False, "type": "str", "default": "", "no_log": True},
+        "access_token": {"required": False, "type": "str", "no_log": True},
         "vdom": {"required": False, "type": "str", "default": "root"},
         "https": {"required": False, "type": "bool", "default": True},
         "ssl_verify": {"required": False, "type": "bool", "default": True},
@@ -595,6 +602,9 @@ def main():
     if not legacy_mode:
         if module._socket_path:
             connection = Connection(module._socket_path)
+            if 'access_token' in module.params:
+                connection.set_option('access_token', module.params['access_token'])
+            
             fos = FortiOSHandler(connection)
 
             is_error, has_changed, result = fortios_user(module.params, fos)
