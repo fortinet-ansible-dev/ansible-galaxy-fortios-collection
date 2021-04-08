@@ -1644,8 +1644,9 @@ def filter_firewall_gtp_data(json):
 
 
 def flatten_multilists_attributes(data):
-    multilist_attrs = [[u'policy_v2', u'rat_type'], [u'policy_v2', u'messages'], [u'policy_v2', u'apn_sel_mode'], [u'policy', u'rat_type'], [u'policy',
-                                                                                                                                             u'messages'], [u'policy', u'apn_sel_mode'], [u'ie_remove_policy', u'remove_ies'], [u'imsi', u'selection_mode'], [u'apn', u'selection_mode']]
+    multilist_attrs = [[u'policy_v2', u'rat_type'], [u'policy_v2', u'messages'], [u'policy_v2', u'apn_sel_mode'], [u'policy', u'rat_type'],
+                       [u'policy', u'messages'], [u'policy', u'apn_sel_mode'], [u'ie_remove_policy', u'remove_ies'], [u'imsi', u'selection_mode'],
+                       [u'apn', u'selection_mode']]
 
     for attr in multilist_attrs:
         try:

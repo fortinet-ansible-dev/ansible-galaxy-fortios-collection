@@ -451,10 +451,6 @@ options:
                         description:
                             - Switch controller export port to pool-list.
                         type: int
-                    export_to_pool_flag:
-                        description:
-                            - Switch controller export port to pool-list.
-                        type: int
                     fgt_peer_device_name:
                         description:
                             - FGT peer device name.
@@ -1441,7 +1437,6 @@ EXAMPLES = '''
                 tag_name: "<your_own_value> (source switch-controller.switch-interface-tag.name)"
             export_to: "<your_own_value> (source system.vdom.name)"
             export_to_pool: "<your_own_value> (source switch-controller.virtual-port-pool.name)"
-            export_to_pool_flag: "72"
             export_to_pool_flag: "73"
             fgt_peer_device_name: "<your_own_value>"
             fgt_peer_port_name: "<your_own_value>"
