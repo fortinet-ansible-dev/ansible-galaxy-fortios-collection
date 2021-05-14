@@ -1,0 +1,53 @@
+ancestor: null
+releases:
+  2.0.0:
+    changes:
+      breaking_changes:
+      - Generic FortiOS Module - FOS module to issue generic request with Ansible.
+      - Support for FOS Monitor API - several modules are new for monitor API.
+      - Unified Collection - The fortios collection itself will be adapting any FOS
+        platforms.
+      bugfixes:
+      - Deprecated second-layer state module parameter
+      - enable_log - Explicit logging option.
+      known_issues:
+      - Modules for monitor API are not versioned yet.
+      major_changes:
+      - New module fortios_configuration_fact
+      - New module fortios_json_generic
+      - New module fortios_monitor
+      - New module fortios_monitor_fact
+      release_summary: The major breaking release of FOS 2.x collections.
+      removed_features:
+      - Removed module fortios_facts
+      - Removed module fortios_registration_forticare
+      - Removed module fortios_registration_vdom
+      - Removed module fortios_system_config_backup_restore
+      - Removed module fortios_system_vmlicense
+    fragments:
+    - overall.yml
+    release_date: '2021-04-05'
+  2.0.1:
+    changes:
+      minor_changes:
+      - fixed pylint testing errors.
+    fragments:
+    - 2.0.1.yml
+    release_date: '2021-04-07'
+  2.0.2:
+    changes:
+      bugfixes:
+      - Fix the authorization fails at log in with username and password in FOS7.0.
+      - Github Issue 103
+      - Github Issue 105
+      major_changes:
+      - Improve ``fortios_configuration_fact`` to use multiple selectors concurrently.
+      - Support ``check_mode`` in all cofigurationAPI-based modules.
+      - Support filtering for fact gathering modules ``fortios_configuration_fact``
+        and ``fortios_monitor_fact``.
+      - Support moving policy in ``firewall_central_snat_map``.
+      - Unify schemas for monitor API.
+      release_summary: patch release of 2.0.2
+    fragments:
+    - release_2.0.2.yml
+    release_date: '2021-05-14'
