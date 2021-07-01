@@ -2409,7 +2409,7 @@ def filter_system_interface_data(json):
 
 
 def flatten_single_path(data, path, index):
-    if not data or index == len(path) or path[index] not in data:
+    if not data or index == len(path) or not data[path[index]]:
         return
 
     if index == len(path) - 1:
