@@ -56,8 +56,7 @@ class Facts(FactsBase):
 
         for subset in subsets:
             if subset['fact'] not in FACT_DETAIL_SUBSETS:
-                self._module.fail_json(msg='Subset must be one of [%s], got %s' %
-                                           (', '.join(sorted([item for item in FACT_DETAIL_SUBSETS])), subset['fact']))
+                self._module.fail_json(msg='Wrong subset %s' % (subset['fact']))
 
             for valid_subset in frozenset(self.FACT_SUBSETS.keys()):
                 if subset['fact'].startswith(valid_subset):
