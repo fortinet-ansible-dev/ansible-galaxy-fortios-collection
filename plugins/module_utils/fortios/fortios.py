@@ -85,7 +85,7 @@ def check_legacy_fortiosapi():
     if len(legacy_params):
         error_message = 'Legacy fortiosapi parameters %s detected, please use HTTPAPI instead!' % (str(legacy_params))
         sys.stderr.write(error_message)
-        sys.exit(1)
+        # sys.exit(1)
 
 
 def schema_to_module_spec(schema):

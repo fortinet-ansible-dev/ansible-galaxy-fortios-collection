@@ -1148,8 +1148,8 @@ def flatten_single_path(data, path, index):
 
 
 def flatten_multilists_attributes(data):
-    multilist_attrs = [[u'ovrd_perm'], [u'web', u'safe_search'], [u'web', u'whitelist'], [u'web', u'allowlist'], [u'ftgd_wf', u'options'], [u'file_filter',
-                                                                                                                                            u'entries', u'protocol'], [u'options']]
+    multilist_attrs = [[u'ovrd_perm'], [u'web', u'safe_search'], [u'web', u'whitelist'], [u'web', u'allowlist'], [u'ftgd_wf', u'options'],
+                       [u'file_filter', u'entries', u'protocol'], [u'options']]
 
     for attr in multilist_attrs:
         flatten_single_path(data, attr, 0)

@@ -1521,11 +1521,11 @@ def flatten_single_path(data, path, index):
 
 def flatten_multilists_attributes(data):
     multilist_attrs = [[u'smtp', u'archive_block'], [u'smtp', u'archive_log'], [u'smtp', u'options'], [u'ftp', u'archive_block'], [u'ftp', u'archive_log'],
-                       [u'ftp', u'options'], [u'mapi', u'archive_block'], [u'mapi', u'archive_log'], [u'mapi', u'options'], [u'nntp', u'archive_block'], [u'nntp',
-                                                                                                                                                          u'archive_log'], [u'nntp', u'options'], [u'http', u'archive_block'], [u'http', u'archive_log'], [u'http', u'options'], [u'cifs', u'archive_block'],
-                       [u'cifs', u'archive_log'], [u'cifs', u'options'], [u'ssh', u'archive_block'], [u'ssh', u'archive_log'], [u'ssh', u'options'], [u'imap',
-                                                                                                                                                      u'archive_block'], [u'imap', u'archive_log'], [u'imap', u'options'], [u'pop3', u'archive_block'], [u'pop3', u'archive_log'], [u'pop3',
-                                                                                                                                                                                                                                                                                    u'options']]
+                       [u'ftp', u'options'], [u'mapi', u'archive_block'], [u'mapi', u'archive_log'], [u'mapi', u'options'], [u'nntp', u'archive_block'],
+                       [u'nntp', u'archive_log'], [u'nntp', u'options'], [u'http', u'archive_block'], [u'http', u'archive_log'], [u'http', u'options'],
+                       [u'cifs', u'archive_block'], [u'cifs', u'archive_log'], [u'cifs', u'options'], [u'ssh', u'archive_block'], [u'ssh', u'archive_log'],
+                       [u'ssh', u'options'], [u'imap', u'archive_block'], [u'imap', u'archive_log'], [u'imap', u'options'], [u'pop3', u'archive_block'],
+                       [u'pop3', u'archive_log'], [u'pop3', u'options']]
 
     for attr in multilist_attrs:
         flatten_single_path(data, attr, 0)

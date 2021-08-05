@@ -1148,8 +1148,8 @@ def flatten_single_path(data, path, index):
 
 
 def flatten_multilists_attributes(data):
-    multilist_attrs = [[u'ftp', u'options'], [u'mapi', u'options'], [u'smtp', u'options'], [u'pop3', u'options'], [u'http', u'post_lang'], [u'http',
-                                                                                                                                            u'options'], [u'cifs', u'options'], [u'nntp', u'options'], [u'imap', u'options'], [u'ssh', u'options']]
+    multilist_attrs = [[u'ftp', u'options'], [u'mapi', u'options'], [u'smtp', u'options'], [u'pop3', u'options'], [u'http', u'post_lang'],
+                       [u'http', u'options'], [u'cifs', u'options'], [u'nntp', u'options'], [u'imap', u'options'], [u'ssh', u'options']]
 
     for attr in multilist_attrs:
         flatten_single_path(data, attr, 0)

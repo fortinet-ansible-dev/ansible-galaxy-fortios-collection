@@ -464,10 +464,6 @@ options:
                         description:
                             - Switch controller export port to pool-list.
                         type: int
-                    export_to_pool_flag:
-                        description:
-                            - Switch controller export port to pool-list.
-                        type: int
                     fec_capable:
                         description:
                             - FEC capable.
@@ -1490,7 +1486,6 @@ EXAMPLES = '''
                 tag_name: "<your_own_value> (source switch-controller.switch-interface-tag.name)"
             export_to: "<your_own_value> (source system.vdom.name)"
             export_to_pool: "<your_own_value> (source switch-controller.virtual-port-pool.name)"
-            export_to_pool_flag: "74"
             export_to_pool_flag: "75"
             fec_capable: "76"
             fec_state: "disabled"

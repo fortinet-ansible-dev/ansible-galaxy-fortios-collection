@@ -1121,8 +1121,9 @@ def flatten_single_path(data, path, index):
 
 
 def flatten_multilists_attributes(data):
-    multilist_attrs = [[u'mm4'], [u'mm7'], [u'mm1'], [u'mm3'], [u'dupe', u'action1'], [u'dupe', u'action3'], [u'dupe', u'action2'], [u'notification',
-                                                                                                                                     u'days_allowed'], [u'flood', u'action1'], [u'flood', u'action3'], [u'flood', u'action2'], [u'notif_msisdn', u'threshold']]
+    multilist_attrs = [[u'mm4'], [u'mm7'], [u'mm1'], [u'mm3'], [u'dupe', u'action1'], [u'dupe', u'action3'], [u'dupe', u'action2'],
+                       [u'notification', u'days_allowed'], [u'flood', u'action1'], [u'flood', u'action3'], [u'flood', u'action2'],
+                       [u'notif_msisdn', u'threshold']]
 
     for attr in multilist_attrs:
         flatten_single_path(data, attr, 0)

@@ -1669,8 +1669,9 @@ def flatten_single_path(data, path, index):
 
 
 def flatten_multilists_attributes(data):
-    multilist_attrs = [[u'policy', u'rat_type'], [u'policy', u'messages'], [u'policy', u'apn_sel_mode'], [u'ie_remove_policy', u'remove_ies'], [u'policy_v2',
-                                                                                                                                                u'rat_type'], [u'policy_v2', u'messages'], [u'policy_v2', u'apn_sel_mode'], [u'imsi', u'selection_mode'], [u'apn', u'selection_mode']]
+    multilist_attrs = [[u'policy', u'rat_type'], [u'policy', u'messages'], [u'policy', u'apn_sel_mode'], [u'ie_remove_policy', u'remove_ies'],
+                       [u'policy_v2', u'rat_type'], [u'policy_v2', u'messages'], [u'policy_v2', u'apn_sel_mode'], [u'imsi', u'selection_mode'],
+                       [u'apn', u'selection_mode']]
 
     for attr in multilist_attrs:
         flatten_single_path(data, attr, 0)
