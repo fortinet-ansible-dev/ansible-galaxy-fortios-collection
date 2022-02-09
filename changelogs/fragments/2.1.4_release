@@ -1,0 +1,5 @@
+---
+release_summary: patch release of 2.1.3
+bugfixes:
+- Fix bugs in the function of compare_ip_address on check_mode.
+- Fix bugs when adding new members in some modules.
