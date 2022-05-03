@@ -278,8 +278,7 @@ def wireless_controller_hotspot20_h2qp_advice_of_charge(data, fos):
     state = data['state']
 
     wireless_controller_hotspot20_h2qp_advice_of_charge_data = data['wireless_controller_hotspot20_h2qp_advice_of_charge']
-    filtered_data =
-    underscore_to_hyphen(filter_wireless_controller_hotspot20_h2qp_advice_of_charge_data(wireless_controller_hotspot20_h2qp_advice_of_charge_data))
+    filtered_data = underscore_to_hyphen(filter_wireless_controller_hotspot20_h2qp_advice_of_charge_data(wireless_controller_hotspot20_h2qp_advice_of_charge_data))
 
     if state == "present" or state is True:
         return fos.set('wireless-controller.hotspot20',

@@ -233,8 +233,7 @@ def wireless_controller_hotspot20_h2qp_terms_and_conditions(data, fos):
     state = data['state']
 
     wireless_controller_hotspot20_h2qp_terms_and_conditions_data = data['wireless_controller_hotspot20_h2qp_terms_and_conditions']
-    filtered_data =
-    underscore_to_hyphen(filter_wireless_controller_hotspot20_h2qp_terms_and_conditions_data(wireless_controller_hotspot20_h2qp_terms_and_conditions_data))
+    filtered_data = underscore_to_hyphen(filter_wireless_controller_hotspot20_h2qp_terms_and_conditions_data(wireless_controller_hotspot20_h2qp_terms_and_conditions_data))
 
     if state == "present" or state is True:
         return fos.set('wireless-controller.hotspot20',
