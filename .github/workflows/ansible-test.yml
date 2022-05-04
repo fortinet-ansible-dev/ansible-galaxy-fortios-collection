@@ -6,7 +6,7 @@ on:
   # Run CI against all pushes (direct commits, also merged PRs), Pull Requests
   push:
     branches:
-      - main
+      - master
       - stable-*
   pull_request:
   # Run CI once per day (at 06:00 UTC)
