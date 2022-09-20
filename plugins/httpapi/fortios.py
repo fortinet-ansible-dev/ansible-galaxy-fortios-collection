@@ -101,7 +101,7 @@ class HttpApi(HttpApiBase):
         else:
             self.log('login with access token')
             self.send_request(url='/logincheck')
-            status, dummy = self.send_request(url='/api/v2/cmdb/system/interface?vdom=root&action=schema')
+            status, dummy = self.send_request(url='/api/v2/monitor/system/status?vdom=root')
 
             if status == 401:
                 raise Exception('Invalid access token. Please check')
@@ -204,7 +204,7 @@ class HttpApi(HttpApiBase):
         check_system_status = self._conn.get_option('check_system_status') if 'check_system_status' in self._conn._options else True
         if not check_system_status or self._system_version:
             return
-        url = '/api/v2/cmdb/system/interface?vdom=root&action=schema'
+        url = '/api/v2/monitor/system/status?vdom=root'
         status, result = self.send_request(url=url)
         result_json = json.loads(result)
         self._system_version = result_json.get('version', 'undefined')
