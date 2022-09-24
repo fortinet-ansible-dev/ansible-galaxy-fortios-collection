@@ -80,7 +80,11 @@ class HttpApi(HttpApiBase):
             data = "username=" + urllib.parse.quote(username) + "&secretkey=" + urllib.parse.quote(password) + "&ajax=1"
             dummy, result_data = self.send_request(url='/logincheck', data=data, method='POST')
             self.log('login with user: %s %s' % (username, 'succeeds' if result_data[0] == '1' else 'fails'))
-            if result_data[0] != '1':
+            if result_data[0] == '1' and "logindisclaimer" in result_data:
+                dummy, result_data = self.send_request(url='/logindisclaimer', data="confirm=1", method='POST')
+                if "document.location" not in result_data:
+                    raise Exception('Unable to accept Login Disclaimer. Please check')
+            elif result_data[0] != '1':
                 raise Exception('Wrong credentials. Please check')
         # If we succeed to login, we retrieve the system status first
         else:
