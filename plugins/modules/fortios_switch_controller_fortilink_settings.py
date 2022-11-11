@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     switch_controller_fortilink_settings:
         description:
             - Configure integrated FortiLink settings for FortiSwitch.
@@ -101,8 +101,8 @@ options:
                     - Clear NAC and dynamic devices on switch ports on link down event.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             nac_ports:
                 description:
                     - NAC specific configuration.
@@ -114,15 +114,15 @@ options:
                                Helps to re-initiate the DHCP process for a device.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     lan_segment:
                         description:
                             - Enable/disable LAN segment feature on the FortiLink interface.
                         type: str
                         choices:
-                            - enabled
-                            - disabled
+                            - 'enabled'
+                            - 'disabled'
                     member_change:
                         description:
                             - Member change flag.
@@ -174,12 +174,12 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       switch_controller_fortilink_settings:
         fortilink: "<your_own_value> (source system.interface.name)"
-        inactive_timer: "4"
+        inactive_timer: "15"
         link_down_flush: "disable"
         nac_ports:
             bounce_nac_port: "disable"
             lan_segment: "enabled"
-            member_change: "9"
+            member_change: "0"
             nac_lan_interface: "<your_own_value> (source system.interface.name)"
             nac_segment_vlans:
              -
@@ -267,9 +267,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -367,49 +364,282 @@ def fortios_switch_controller(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "fortilink": {
-            "type": "string",
+        "name": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
+            "type": "string",
+        },
+        "fortilink": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": False,
                 "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
+            "type": "string",
         },
         "inactive_timer": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
             "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
         },
-        "name": {
-            "type": "string",
+        "link_down_flush": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                },
+            ],
         },
         "nac_ports": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
             "type": "dict",
             "children": {
+                "onboarding_vlan": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                    "type": "string",
+                },
+                "lan_segment": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enabled",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                            },
+                        },
+                        {
+                            "value": "disabled",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                            },
+                        },
+                    ],
+                },
+                "nac_lan_interface": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": False,
+                    },
+                    "type": "string",
+                },
+                "nac_segment_vlans": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "vlan_name": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                            },
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": False,
+                    },
+                },
+                "parent_key": {
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": False,
+                    },
+                    "type": "string",
+                },
+                "member_change": {
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": False,
+                    },
+                    "type": "integer",
+                },
                 "bounce_nac_port": {
+                    "revisions": {
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
@@ -431,181 +661,23 @@ versioned_schema = {
                             },
                         },
                     ],
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
                 },
-                "parent_key": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": False,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                "member_change": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": False,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                "nac_lan_interface": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": False,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                "nac_segment_vlans": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "vlan_name": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        }
-                    },
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": False,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                "lan_segment": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enabled",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        {
-                            "value": "disabled",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": False,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                "onboarding_vlan": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            },
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "link_down_flush": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.2.0": True,
     },
 }
 

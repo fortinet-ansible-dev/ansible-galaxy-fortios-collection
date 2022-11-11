@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     firewall_access_proxy_ssh_client_cert:
         description:
             - Configure Access Proxy SSH client certificate.
@@ -103,8 +103,8 @@ options:
                             - Critical option.
                         type: str
                         choices:
-                            - no
-                            - yes
+                            - 'no'
+                            - 'yes'
                     data:
                         description:
                             - Data of certificate extension.
@@ -118,8 +118,8 @@ options:
                             - Type of certificate extension.
                         type: str
                         choices:
-                            - fixed
-                            - user
+                            - 'fixed'
+                            - 'user'
             name:
                 description:
                     - SSH client certificate name.
@@ -130,44 +130,44 @@ options:
                     - Enable/disable appending permit-agent-forwarding certificate extension.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             permit_port_forwarding:
                 description:
                     - Enable/disable appending permit-port-forwarding certificate extension.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             permit_pty:
                 description:
                     - Enable/disable appending permit-pty certificate extension.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             permit_user_rc:
                 description:
                     - Enable/disable appending permit-user-rc certificate extension.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             permit_x11_forwarding:
                 description:
                     - Enable/disable appending permit-x11-forwarding certificate extension.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             source_address:
                 description:
                     - Enable/disable appending source-address certificate critical option. This option ensure certificate only accepted from FortiGate source
                        address.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -282,9 +282,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_firewall_access_proxy_ssh_client_cert_data(json):
@@ -385,355 +382,505 @@ def fortios_firewall(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "permit_x11_forwarding": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
         "name": {
-            "type": "string",
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
-        },
-        "auth_ca": {
             "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "permit_port_forwarding": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "permit_pty": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "permit_user_rc": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "permit_agent_forwarding": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
         },
         "source_address": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
             ],
+        },
+        "permit_x11_forwarding": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
-        },
-        "cert_extension": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "data": {
-                    "type": "string",
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "permit_agent_forwarding": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "permit_port_forwarding": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "permit_pty": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "permit_user_rc": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "cert_extension": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                    "type": "string",
+                },
                 "critical": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "no",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
                             },
                         },
                         {
                             "value": "yes",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
                             },
                         },
                     ],
+                },
+                "type": {
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
-                },
-                "type": {
                     "type": "string",
                     "options": [
                         {
                             "value": "fixed",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
                             },
                         },
                         {
                             "value": "user",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
                             },
                         },
                     ],
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
                 },
-                "name": {
-                    "type": "string",
+                "data": {
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
+                    "type": "string",
                 },
             },
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
+            },
+        },
+        "auth_ca": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v7.2.0": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
             },
+            "type": "string",
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.2.0": True,
     },
 }
 

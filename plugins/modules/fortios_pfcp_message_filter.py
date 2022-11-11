@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     pfcp_message_filter:
         description:
             - Message filter for PFCP messages.
@@ -93,29 +93,29 @@ options:
                     - Allow or deny PFCP association release request (9) and PFCP association release response (10).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             association_setup:
                 description:
                     - Allow or deny PFCP association setup request (5) and PFCP association setup response (6).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             association_update:
                 description:
                     - Allow or deny PFCP association update request (7) and PFCP association update response (8).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             heartbeat:
                 description:
                     - Allow or deny PFCP heartbeat request (1) and PFCP heartbeat response (2).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             name:
                 description:
                     - Message filter name.
@@ -126,57 +126,57 @@ options:
                     - Allow or deny PFCP node report request (12) and PFCP node report response (13).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             pfd_management:
                 description:
                     - Allow or deny PFCP PFD management request (3) and PFCP PFD management response (4).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             session_deletion:
                 description:
                     - Allow or deny PFCP session deletion request (54) and PFCP session deletion response (55).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             session_establish:
                 description:
                     - Allow or deny PFCP session establishment request (50) and PFCP session establishment response (51).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             session_modification:
                 description:
                     - Allow or deny PFCP session modification request (52) and PFCP session modification response (53).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             session_report:
                 description:
                     - Allow or deny PFCP session report request (56) and PFCP session report response (57).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             session_set_deletion:
                 description:
                     - Allow or deny PFCP session set deletion request (14) and PFCP session set deletion response (15).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             unknown_message:
                 description:
                     - Allow or deny unknown messages.
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             unknown_message_allow_list:
                 description:
                     - Allow list of unknown messages.
@@ -192,8 +192,8 @@ options:
                     - Allow or deny PFCP version not supported response (11).
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
 """
 
 EXAMPLES = """
@@ -311,9 +311,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_pfcp_message_filter_data(json):
@@ -409,508 +406,508 @@ def fortios_pfcp(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "session_report": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
         "name": {
-            "type": "string",
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
-        },
-        "session_modification": {
             "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "version_not_support": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "session_set_deletion": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "association_release": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "session_establish": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
         },
         "unknown_message": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "node_report": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "heartbeat": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "association_update": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "pfd_management": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "session_deletion": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "association_setup": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
         },
         "unknown_message_allow_list": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "id": {
-                    "type": "integer",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
+                    "type": "integer",
                 }
             },
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
+            },
+        },
+        "heartbeat": {
+            "revisions": {
+                "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v7.2.0": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "pfd_management": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "version_not_support": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "session_establish": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "session_modification": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "session_deletion": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "session_report": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "association_setup": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "association_update": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "association_release": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "node_report": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "session_set_deletion": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
         },
     },
     "revisions": {
+        "v7.2.0": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.2.0": True,
     },
 }
 

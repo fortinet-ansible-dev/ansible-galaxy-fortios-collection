@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     dlp_dictionary:
         description:
             - Configure dictionaries used by DLP blocking.
@@ -111,8 +111,8 @@ options:
                             - Enable/disable ignore case.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     pattern:
                         description:
                             - Pattern to match.
@@ -122,15 +122,15 @@ options:
                             - Enable/disable repeat match.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     status:
                         description:
                             - Enable/disable this pattern.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     type:
                         description:
                             - Pattern type to match. Source dlp.data-type.name.
@@ -140,8 +140,8 @@ options:
                     - Logical relation between entries .
                 type: str
                 choices:
-                    - match-all
-                    - match-any
+                    - 'match-all'
+                    - 'match-any'
             name:
                 description:
                     - Name of table containing the dictionary.
@@ -264,9 +264,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_dlp_dictionary_data(json):
@@ -344,57 +341,126 @@ def fortios_dlp(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {"type": "string", "revisions": {"v7.2.0": True}},
-        "entries": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "status": {
-                    "type": "string",
-                    "options": [
-                        {"value": "enable", "revisions": {"v7.2.0": True}},
-                        {"value": "disable", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "comment": {"type": "string", "revisions": {"v7.2.0": True}},
-                "ignore_case": {
-                    "type": "string",
-                    "options": [
-                        {"value": "enable", "revisions": {"v7.2.0": True}},
-                        {"value": "disable", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "repeat": {
-                    "type": "string",
-                    "options": [
-                        {"value": "enable", "revisions": {"v7.2.0": True}},
-                        {"value": "disable", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "pattern": {"type": "string", "revisions": {"v7.2.0": True}},
-                "type": {"type": "string", "revisions": {"v7.2.0": True}},
-                "id": {"type": "integer", "revisions": {"v7.2.0": True}},
-            },
-            "revisions": {"v7.2.0": True},
+        "uuid": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
+        "name": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
         },
         "match_type": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
             "type": "string",
             "options": [
-                {"value": "match-all", "revisions": {"v7.2.0": True}},
-                {"value": "match-any", "revisions": {"v7.2.0": True}},
+                {
+                    "value": "match-all",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "match-any",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
             ],
-            "revisions": {"v7.2.0": True},
         },
-        "name": {"type": "string", "revisions": {"v7.2.0": True}},
-        "uuid": {"type": "string", "revisions": {"v7.2.0": True}},
+        "comment": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
+        "entries": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "integer",
+                },
+                "type": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
+                "pattern": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
+                "ignore_case": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "repeat": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "status": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "comment": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
+            },
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+        },
     },
-    "revisions": {"v7.2.0": True},
+    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
 }
 
 

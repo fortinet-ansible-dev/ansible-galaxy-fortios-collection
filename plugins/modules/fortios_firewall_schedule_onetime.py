@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     firewall_schedule_onetime:
         description:
             - Onetime schedule configuration.
@@ -105,8 +105,8 @@ options:
                     - Security Fabric global object setting.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             name:
                 description:
                     - Onetime schedule name.
@@ -135,9 +135,9 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       firewall_schedule_onetime:
-        color: "3"
+        color: "0"
         end: "<your_own_value>"
-        expiration_days: "5"
+        expiration_days: "3"
         fabric_object: "enable"
         name: "default_name_7"
         start: "<your_own_value>"
@@ -227,9 +227,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -370,188 +367,233 @@ def fortios_firewall_schedule(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "end": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
         "name": {
-            "type": "string",
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "start": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
                 "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
+        },
+        "end": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
         },
         "color": {
-            "type": "integer",
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "expiration_days": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
                 "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "integer",
         },
         "fabric_object": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v7.2.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "start": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "expiration_days": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.0.5": True,
-        "v6.0.0": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
+        "v6.0.5": True,
         "v6.0.11": True,
+        "v6.0.0": True,
     },
 }
 

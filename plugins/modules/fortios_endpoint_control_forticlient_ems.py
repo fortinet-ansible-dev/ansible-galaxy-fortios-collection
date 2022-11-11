@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     endpoint_control_forticlient_ems:
         description:
             - Configure FortiClient Enterprise Management Server (EMS) entries.
@@ -101,8 +101,8 @@ options:
                     - FortiClient EMS admin type.
                 type: str
                 choices:
-                    - Windows
-                    - LDAP
+                    - 'Windows'
+                    - 'LDAP'
             admin_username:
                 description:
                     - FortiClient EMS admin username.
@@ -125,8 +125,8 @@ options:
                     - FortiClient EMS REST API authentication.
                 type: str
                 choices:
-                    - disable
-                    - userpass
+                    - 'disable'
+                    - 'userpass'
             serial_number:
                 description:
                     - FortiClient EMS Serial Number.
@@ -158,12 +158,12 @@ EXAMPLES = """
         admin_password: "<your_own_value>"
         admin_type: "Windows"
         admin_username: "<your_own_value>"
-        https_port: "7"
-        listen_port: "8"
+        https_port: "32767"
+        listen_port: "32767"
         name: "default_name_9"
         rest_api_auth: "disable"
         serial_number: "<your_own_value>"
-        upload_port: "12"
+        upload_port: "32767"
 
 """
 
@@ -250,9 +250,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -412,71 +409,71 @@ def fortios_endpoint_control(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
         "name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "address": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+        },
+        "serial_number": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
         "listen_port": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
-        "admin_type": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "Windows",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "LDAP",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        "upload_port": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
         },
         "rest_api_auth": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "userpass",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "admin_username": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "admin_password": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "address": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "serial_number": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "upload_port": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
         "https_port": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "admin_username": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+        },
+        "admin_password": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+        },
+        "admin_type": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "Windows",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "LDAP",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

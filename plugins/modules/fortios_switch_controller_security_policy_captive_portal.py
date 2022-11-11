@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     switch_controller_security_policy_captive_portal:
         description:
             - Names of VLANs that use captive portal authentication.
@@ -98,7 +98,7 @@ options:
                     - Policy type.
                 type: str
                 choices:
-                    - captive-portal
+                    - 'captive-portal'
             vlan:
                 description:
                     - Names of VLANs that use captive portal authentication. Source system.interface.name.
@@ -211,9 +211,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -374,49 +371,49 @@ def fortios_switch_controller_security_policy(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "vlan": {
-            "type": "string",
-            "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
         "name": {
-            "type": "string",
             "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
                 "v6.2.3": True,
                 "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
+        },
+        "vlan": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
         },
         "policy_type": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "captive-portal",
                     "revisions": {
-                        "v6.0.11": True,
-                        "v6.0.0": True,
                         "v6.2.3": True,
                         "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 }
             ],
-            "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.2.3": True, "v6.0.5": True},
+    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

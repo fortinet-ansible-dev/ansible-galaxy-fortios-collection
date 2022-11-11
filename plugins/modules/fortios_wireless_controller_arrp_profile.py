@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     wireless_controller_arrp_profile:
         description:
             - Configure WiFi Automatic Radio Resource Provisioning (ARRP) profiles.
@@ -112,19 +112,19 @@ options:
                     - Enable/disable use of DFS channel in DARRP channel selection phase 1 .
                 type: str
                 choices:
-                    - enable
-                    - disable
-                    - yes
-                    - no
+                    - 'enable'
+                    - 'disable'
+                    - 'yes'
+                    - 'no'
             include_weather_channel:
                 description:
                     - Enable/disable use of weather channel in DARRP channel selection phase 1 .
                 type: str
                 choices:
-                    - enable
-                    - disable
-                    - yes
-                    - no
+                    - 'enable'
+                    - 'disable'
+                    - 'yes'
+                    - 'no'
             monitor_period:
                 description:
                     - Period in seconds to measure average transmit retries and receive errors .
@@ -139,8 +139,8 @@ options:
                     - Enable to override setting darrp-optimize and darrp-optimize-schedules .
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             selection_period:
                 description:
                     - Period in seconds to measure average channel load, noise floor, spectral RSSI .
@@ -217,29 +217,29 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       wireless_controller_arrp_profile:
         comment: "Comment."
-        darrp_optimize: "4"
+        darrp_optimize: "86400"
         darrp_optimize_schedules:
          -
             name: "default_name_6 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
         include_dfs_channel: "enable"
         include_weather_channel: "enable"
-        monitor_period: "9"
+        monitor_period: "300"
         name: "default_name_10"
         override_darrp_optimize: "enable"
-        selection_period: "12"
-        threshold_ap: "13"
-        threshold_channel_load: "14"
+        selection_period: "3600"
+        threshold_ap: "250"
+        threshold_channel_load: "60"
         threshold_noise_floor: "<your_own_value>"
-        threshold_rx_errors: "16"
+        threshold_rx_errors: "50"
         threshold_spectral_rssi: "<your_own_value>"
-        threshold_tx_retries: "18"
-        weight_channel_load: "19"
-        weight_dfs_channel: "20"
-        weight_managed_ap: "21"
-        weight_noise_floor: "22"
-        weight_rogue_ap: "23"
-        weight_spectral_rssi: "24"
-        weight_weather_channel: "25"
+        threshold_tx_retries: "300"
+        weight_channel_load: "20"
+        weight_dfs_channel: "500"
+        weight_managed_ap: "50"
+        weight_noise_floor: "40"
+        weight_rogue_ap: "10"
+        weight_spectral_rssi: "40"
+        weight_weather_channel: "1000"
 
 """
 
@@ -326,9 +326,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -500,409 +497,571 @@ def fortios_wireless_controller(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
-            "type": "string",
+        "name": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
                 "v6.4.0": True,
-                "v7.2.0": True,
             },
+            "type": "string",
         },
-        "darrp_optimize": {
-            "type": "integer",
+        "comment": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+        },
+        "selection_period": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "monitor_period": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_managed_ap": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_rogue_ap": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_noise_floor": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_channel_load": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_spectral_rssi": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_weather_channel": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "weight_dfs_channel": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "threshold_ap": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "threshold_noise_floor": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+        },
+        "threshold_channel_load": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "threshold_spectral_rssi": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+        },
+        "threshold_tx_retries": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "threshold_rx_errors": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
+        },
+        "include_weather_channel": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": False,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": False,
+                    },
+                },
+                {"value": "yes", "revisions": {"v6.4.0": True}},
+                {"value": "no", "revisions": {"v6.4.0": True}},
+            ],
+        },
+        "include_dfs_channel": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": False,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": False,
+                    },
+                },
+                {"value": "yes", "revisions": {"v6.4.0": True}},
+                {"value": "no", "revisions": {"v6.4.0": True}},
+            ],
+        },
+        "override_darrp_optimize": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": False,
                 "v7.0.2": False,
                 "v7.0.1": False,
                 "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": False,
                 "v6.4.0": False,
-                "v7.2.0": True,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                    },
+                },
+            ],
         },
-        "weight_rogue_ap": {
-            "type": "integer",
+        "darrp_optimize": {
             "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.0": False,
             },
+            "type": "integer",
         },
         "darrp_optimize_schedules": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                    },
                     "type": "string",
-                    "revisions": {"v7.2.0": True, "v7.0.5": True, "v7.0.4": True},
                 }
             },
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": False,
                 "v7.0.2": False,
                 "v7.0.1": False,
                 "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": False,
                 "v6.4.0": False,
-                "v7.2.0": True,
-            },
-        },
-        "threshold_ap": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "threshold_channel_load": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "threshold_rx_errors": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "override_darrp_optimize": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v7.2.0": True, "v7.0.5": True, "v7.0.4": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v7.2.0": True, "v7.0.5": True, "v7.0.4": True},
-                },
-            ],
-            "revisions": {
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.4.0": False,
-                "v7.2.0": True,
-            },
-        },
-        "threshold_spectral_rssi": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "weight_weather_channel": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "weight_noise_floor": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "threshold_noise_floor": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "include_weather_channel": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": False,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": False,
-                        "v7.2.0": True,
-                    },
-                },
-                {"value": "yes", "revisions": {"v6.4.0": True}},
-                {"value": "no", "revisions": {"v6.4.0": True}},
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "threshold_tx_retries": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "weight_dfs_channel": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "name": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "weight_spectral_rssi": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "selection_period": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "weight_channel_load": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "weight_managed_ap": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "monitor_period": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
-        "include_dfs_channel": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": False,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": False,
-                        "v7.2.0": True,
-                    },
-                },
-                {"value": "yes", "revisions": {"v6.4.0": True}},
-                {"value": "no", "revisions": {"v6.4.0": True}},
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
             },
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
         "v6.4.0": True,
-        "v7.2.0": True,
     },
 }
 

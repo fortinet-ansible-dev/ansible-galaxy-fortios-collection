@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     switch_controller_nac_device:
         description:
             - Configure/list NAC devices learned on the managed FortiSwitch ports which matches NAC policy.
@@ -130,8 +130,8 @@ options:
                     - Status of the learned NAC device. Set enable to authorize the NAC device.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -155,7 +155,7 @@ EXAMPLES = """
         id:  "4"
         last_known_port: "<your_own_value>"
         last_known_switch: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
-        last_seen: "7"
+        last_seen: "2147483647"
         mac: "<your_own_value>"
         mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
         matched_nac_policy: "<your_own_value> (source user.nac-policy.name)"
@@ -241,9 +241,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -337,61 +334,61 @@ def fortios_switch_controller(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "id": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "integer",
+        },
+        "description": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+        },
         "status": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
                 {
                     "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
             ],
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "description": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "port_policy": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "matched_nac_policy": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "mac_policy": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
         "mac": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "last_known_port": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
         "last_known_switch": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+        },
+        "last_known_port": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+        },
+        "matched_nac_policy": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+        },
+        "port_policy": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+        },
+        "mac_policy": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
         },
         "last_seen": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "integer",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
     },
-    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
 }
 
 

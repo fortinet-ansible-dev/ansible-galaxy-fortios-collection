@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     switch_controller_nac_settings:
         description:
             - Configure integrated NAC settings for FortiSwitch.
@@ -93,16 +93,16 @@ options:
                     - Enable/disable NAC device auto authorization when discovered and nac-policy matched.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             bounce_nac_port:
                 description:
                     - Enable/disable bouncing (administratively bring the link down, up) of a switch port when NAC mode is configured on the port. Helps to
                        re-initiate the DHCP process for a device.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             inactive_timer:
                 description:
                     - Time interval(minutes, 0 = no expiry) to be included in the inactive NAC devices expiry calculation (mac age-out + inactive-time +
@@ -113,15 +113,15 @@ options:
                     - Clear NAC devices on switch ports on link down event.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             mode:
                 description:
                     - Set NAC mode to be used on the FortiSwitch ports.
                 type: str
                 choices:
-                    - local
-                    - global
+                    - 'local'
+                    - 'global'
             name:
                 description:
                     - NAC settings name.
@@ -152,7 +152,7 @@ EXAMPLES = """
       switch_controller_nac_settings:
         auto_auth: "disable"
         bounce_nac_port: "disable"
-        inactive_timer: "5"
+        inactive_timer: "720"
         link_down_flush: "disable"
         mode: "local"
         name: "default_name_8"
@@ -243,9 +243,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -400,79 +397,79 @@ def fortios_switch_controller(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "bounce_nac_port": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-                },
-            ],
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
         "name": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "inactive_timer": {
-            "type": "integer",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
         "mode": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "local",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
                 {
                     "value": "global",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
             ],
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
-        "link_down_flush": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-                },
-            ],
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+        "inactive_timer": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "integer",
         },
         "onboarding_vlan": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
         "auto_auth": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
                 {
                     "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
             ],
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+        },
+        "bounce_nac_port": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "disable",
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+                },
+                {
+                    "value": "enable",
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+                },
+            ],
+        },
+        "link_down_flush": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "disable",
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+                },
+                {
+                    "value": "enable",
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+                },
+            ],
         },
     },
-    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
 }
 
 

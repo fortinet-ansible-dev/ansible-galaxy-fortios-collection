@@ -149,3 +149,15 @@ releases:
     fragments:
     - 2.1.7_release.yml
     release_date: '2022-08-12'
+  2.2.0:
+    changes:
+      bugfixes:
+      - Fix issue of missing some options for monitor modules (#196);
+      - Fix issue of filter content could not contain spaces (#208);
+      - Fix list type not match issue;
+      major_changes:
+      - Support FortiOS v7.0.6, v7.0.7, v7.0.8, v7.2.1, v7.2.2.
+      release_summary: patch release of 2.2.0
+    fragments:
+    - 2.2.0_release.yml
+    release_date: '2022-11-09'

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     system_tos_based_priority:
         description:
             - Configure Type of Service (ToS) based priority table to set network traffic priorities.
@@ -98,9 +98,9 @@ options:
                     - ToS based priority level to low, medium or high (these priorities match firewall traffic shaping priorities) .
                 type: str
                 choices:
-                    - low
-                    - medium
-                    - high
+                    - 'low'
+                    - 'medium'
+                    - 'high'
             tos:
                 description:
                     - 'Value of the ToS byte in the IP datagram header (0-15, 8: minimize delay, 4: maximize throughput, 2: maximize reliability, 1: minimize
@@ -127,7 +127,7 @@ EXAMPLES = """
       system_tos_based_priority:
         id:  "3"
         priority: "low"
-        tos: "5"
+        tos: "0"
 
 """
 
@@ -214,9 +214,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -357,162 +354,197 @@ def fortios_system(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "id": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "tos": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
         "priority": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "low",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.0.5": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "medium",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.0.5": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "high",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.0.5": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "tos": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.0.5": True,
-        "v6.0.0": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
+        "v6.0.5": True,
         "v6.0.11": True,
+        "v6.0.0": True,
     },
 }
 

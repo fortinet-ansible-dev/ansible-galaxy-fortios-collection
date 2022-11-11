@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     user_device:
         description:
             - Configure devices.
@@ -102,13 +102,13 @@ options:
                     - Family.
                 type: str
                 choices:
-                    - none
-                    - amazon-device
-                    - android-device
-                    - blackberry-device
-                    - fortinet-device
-                    - ios-device
-                    - windows-device
+                    - 'none'
+                    - 'amazon-device'
+                    - 'android-device'
+                    - 'blackberry-device'
+                    - 'fortinet-device'
+                    - 'ios-device'
+                    - 'windows-device'
             comment:
                 description:
                     - Comment.
@@ -150,27 +150,27 @@ options:
                     - Type.
                 type: str
                 choices:
-                    - unknown
-                    - android-phone
-                    - android-tablet
-                    - blackberry-phone
-                    - blackberry-playbook
-                    - forticam
-                    - fortifone
-                    - fortinet-device
-                    - gaming-console
-                    - ip-phone
-                    - ipad
-                    - iphone
-                    - linux-pc
-                    - mac
-                    - media-streaming
-                    - printer
-                    - router-nat-device
-                    - windows-pc
-                    - windows-phone
-                    - windows-tablet
-                    - other-network-device
+                    - 'unknown'
+                    - 'android-phone'
+                    - 'android-tablet'
+                    - 'blackberry-phone'
+                    - 'blackberry-playbook'
+                    - 'forticam'
+                    - 'fortifone'
+                    - 'fortinet-device'
+                    - 'gaming-console'
+                    - 'ip-phone'
+                    - 'ipad'
+                    - 'iphone'
+                    - 'linux-pc'
+                    - 'mac'
+                    - 'media-streaming'
+                    - 'printer'
+                    - 'router-nat-device'
+                    - 'windows-pc'
+                    - 'windows-phone'
+                    - 'windows-tablet'
+                    - 'other-network-device'
             user:
                 description:
                     - User name.
@@ -295,9 +295,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -442,250 +439,250 @@ def fortios_user(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
-            "type": "string",
-            "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
-        "category": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "none",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "amazon-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "android-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "blackberry-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "fortinet-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "ios-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "windows-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
-        "master_device": {
-            "type": "string",
-            "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
         "alias": {
-            "type": "string",
             "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
                 "v6.2.3": True,
                 "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
         },
         "mac": {
-            "type": "string",
             "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
                 "v6.2.3": True,
                 "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
         },
         "user": {
-            "type": "string",
             "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
                 "v6.2.3": True,
                 "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "master_device": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "comment": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "avatar": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "tagging": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.3": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                },
+                "category": {
+                    "revisions": {
+                        "v6.2.3": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                },
+                "tags": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {
+                                "v6.2.3": True,
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {
+                        "v6.2.3": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            },
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
             },
         },
         "type": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "unknown",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "android-phone",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "android-tablet",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "blackberry-phone",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "blackberry-playbook",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "forticam",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "fortifone",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "fortinet-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "gaming-console",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "ip-phone",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "ipad",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "iphone",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "linux-pc",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "mac",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "media-streaming",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "printer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "router-nat-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "windows-pc",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "windows-phone",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "windows-tablet",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "other-network-device",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
+        },
+        "category": {
             "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
                 "v6.2.3": True,
                 "v6.0.5": True,
-            },
-        },
-        "tagging": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "category": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                    },
-                },
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                    },
-                },
-                "tags": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "name": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.2.3": True,
-                                "v6.0.5": True,
-                            },
-                        }
-                    },
-                    "revisions": {
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                    },
-                },
-            },
-            "revisions": {
                 "v6.0.11": True,
                 "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
             },
-        },
-        "avatar": {
             "type": "string",
-            "revisions": {
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
+            "options": [
+                {
+                    "value": "none",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "amazon-device",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "android-device",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "blackberry-device",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "fortinet-device",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "ios-device",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "windows-device",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.2.3": True, "v6.0.5": True},
+    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

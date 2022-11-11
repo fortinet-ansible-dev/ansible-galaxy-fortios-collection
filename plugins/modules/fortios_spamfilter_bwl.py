@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     spamfilter_bwl:
         description:
             - Configure anti-spam black/white list.
@@ -103,16 +103,16 @@ options:
                             - Reject, mark as spam or good email.
                         type: str
                         choices:
-                            - reject
-                            - spam
-                            - clear
+                            - 'reject'
+                            - 'spam'
+                            - 'clear'
                     addr_type:
                         description:
                             - IP address type.
                         type: str
                         choices:
-                            - ipv4
-                            - ipv6
+                            - 'ipv4'
+                            - 'ipv6'
                     email_pattern:
                         description:
                             - Email address pattern.
@@ -134,22 +134,22 @@ options:
                             - Wildcard pattern or regular expression.
                         type: str
                         choices:
-                            - wildcard
-                            - regexp
+                            - 'wildcard'
+                            - 'regexp'
                     status:
                         description:
                             - Enable/disable status.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     type:
                         description:
                             - Entry type.
                         type: str
                         choices:
-                            - ip
-                            - email
+                            - 'ip'
+                            - 'email'
             id:
                 description:
                     - ID.
@@ -278,9 +278,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -417,164 +414,164 @@ def fortios_spamfilter(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
+        "id": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
+        },
+        "name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "comment": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
         "entries": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "status": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "pattern_type": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "wildcard",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "regexp",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "ip4_subnet": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "email_pattern": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
                 "id": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "ip6_subnet": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "action": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "reject",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "spam",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "clear",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
                 "type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "ip",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "email",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                },
+                "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "reject",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "spam",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "clear",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
                 },
                 "addr_type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "ipv4",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "ipv6",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                },
+                "ip4_subnet": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "ip6_subnet": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "pattern_type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "wildcard",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "regexp",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "email_pattern": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
                 },
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "name": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

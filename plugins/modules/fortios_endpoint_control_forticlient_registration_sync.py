@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     endpoint_control_forticlient_registration_sync:
         description:
             - Configure FortiClient registration synchronization settings.
@@ -203,9 +203,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -366,19 +363,19 @@ def fortios_endpoint_control(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "peer_ip": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
         "peer_name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "peer_ip": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

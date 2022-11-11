@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     system_fortimanager:
         description:
@@ -85,29 +85,29 @@ options:
                     - Enable/disable FortiManager central management.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             central_mgmt_auto_backup:
                 description:
                     - Enable/disable central management auto backup.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             central_mgmt_schedule_config_restore:
                 description:
                     - Enable/disable central management schedule config restore.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             central_mgmt_schedule_script_restore:
                 description:
                     - Enable/disable central management schedule script restore.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ip:
                 description:
                     - IP address.
@@ -117,8 +117,8 @@ options:
                     - Enable/disable FortiManager IPsec tunnel.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             vdom:
                 description:
                     - Virtual domain name. Source system.vdom.name.
@@ -228,9 +228,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_system_fortimanager_data(json):
@@ -307,321 +304,321 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "type": "dict",
-    "children": {
-        "central_management": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "central_mgmt_auto_backup": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ip": {
-            "type": "string",
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "central_mgmt_schedule_script_restore": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ipsec": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "vdom": {
-            "type": "string",
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "central_mgmt_schedule_config_restore": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-    },
     "revisions": {
         "v7.0.1": True,
         "v7.0.0": True,
-        "v6.0.5": True,
         "v6.4.4": True,
-        "v6.0.0": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
+        "v6.0.5": True,
         "v6.0.11": True,
+        "v6.0.0": True,
+    },
+    "type": "dict",
+    "children": {
+        "ip": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "vdom": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "ipsec": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "central_management": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "central_mgmt_auto_backup": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "central_mgmt_schedule_config_restore": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "central_mgmt_schedule_script_restore": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
     },
 }
 

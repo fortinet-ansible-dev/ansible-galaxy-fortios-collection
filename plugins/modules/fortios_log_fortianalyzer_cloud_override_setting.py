@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     log_fortianalyzer_cloud_override_setting:
         description:
@@ -89,15 +89,15 @@ options:
                     - Enable/disable overriding FortiAnalyzer settings or use global settings.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             status:
                 description:
                     - Enable/disable logging to FortiAnalyzer.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -115,7 +115,7 @@ EXAMPLES = """
     fortios_log_fortianalyzer_cloud_override_setting:
       vdom:  "{{ vdom }}"
       log_fortianalyzer_cloud_override_setting:
-        faz_type: "3"
+        faz_type: "2147483647"
         override: "enable"
         status: "enable"
 
@@ -199,9 +199,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_log_fortianalyzer_cloud_override_setting_data(json):
@@ -278,119 +275,139 @@ def fortios_log_fortianalyzer_cloud(data, fos):
 
 
 versioned_schema = {
-    "type": "dict",
-    "children": {
-        "status": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.0.0": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "override": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.2.3": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.2.3": True},
-                },
-            ],
-            "revisions": {
-                "v6.2.0": False,
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-            },
-        },
-        "faz_type": {
-            "type": "integer",
-            "revisions": {
-                "v6.2.0": False,
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-            },
-        },
-    },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.0.0": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
         "v6.0.11": True,
+        "v6.0.0": True,
+    },
+    "type": "dict",
+    "children": {
+        "status": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "faz_type": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.2.0": False,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "override": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.2.0": False,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v6.2.3": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v6.2.3": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
+        },
     },
 }
 

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     spamfilter_profile:
         description:
             - Configure AntiSpam profiles.
@@ -97,15 +97,15 @@ options:
                     - Enable/disable external Email inspection.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             flow_based:
                 description:
                     - Enable/disable flow-based spam filtering.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             gmail:
                 description:
                     - Gmail.
@@ -116,8 +116,8 @@ options:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             imap:
                 description:
                     - IMAP.
@@ -128,15 +128,15 @@ options:
                             - Action for spam email.
                         type: str
                         choices:
-                            - pass
-                            - tag
+                            - 'pass'
+                            - 'tag'
                     log:
                         description:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     tag_msg:
                         description:
                             - Subject text or header added to spam email.
@@ -147,9 +147,9 @@ options:
                         type: list
                         elements: str
                         choices:
-                            - subject
-                            - header
-                            - spaminfo
+                            - 'subject'
+                            - 'header'
+                            - 'spaminfo'
             mapi:
                 description:
                     - MAPI.
@@ -160,15 +160,15 @@ options:
                             - Action for spam email.
                         type: str
                         choices:
-                            - pass
-                            - discard
+                            - 'pass'
+                            - 'discard'
                     log:
                         description:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             msn_hotmail:
                 description:
                     - MSN Hotmail.
@@ -179,8 +179,8 @@ options:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             name:
                 description:
                     - Profile name.
@@ -192,17 +192,17 @@ options:
                 type: list
                 elements: str
                 choices:
-                    - bannedword
-                    - spambwl
-                    - spamfsip
-                    - spamfssubmit
-                    - spamfschksum
-                    - spamfsurl
-                    - spamhelodns
-                    - spamraddrdns
-                    - spamrbl
-                    - spamhdrcheck
-                    - spamfsphish
+                    - 'bannedword'
+                    - 'spambwl'
+                    - 'spamfsip'
+                    - 'spamfssubmit'
+                    - 'spamfschksum'
+                    - 'spamfsurl'
+                    - 'spamhelodns'
+                    - 'spamraddrdns'
+                    - 'spamrbl'
+                    - 'spamhdrcheck'
+                    - 'spamfsphish'
             pop3:
                 description:
                     - POP3.
@@ -213,15 +213,15 @@ options:
                             - Action for spam email.
                         type: str
                         choices:
-                            - pass
-                            - tag
+                            - 'pass'
+                            - 'tag'
                     log:
                         description:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     tag_msg:
                         description:
                             - Subject text or header added to spam email.
@@ -232,9 +232,9 @@ options:
                         type: list
                         elements: str
                         choices:
-                            - subject
-                            - header
-                            - spaminfo
+                            - 'subject'
+                            - 'header'
+                            - 'spaminfo'
             replacemsg_group:
                 description:
                     - Replacement message group. Source system.replacemsg-group.name.
@@ -249,30 +249,30 @@ options:
                             - Action for spam email.
                         type: str
                         choices:
-                            - pass
-                            - tag
-                            - discard
+                            - 'pass'
+                            - 'tag'
+                            - 'discard'
                     hdrip:
                         description:
                             - Enable/disable SMTP email header IP checks for spamfsip, spamrbl and spambwl filters.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     local_override:
                         description:
                             - Enable/disable local filter to override SMTP remote check result.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     log:
                         description:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     tag_msg:
                         description:
                             - Subject text or header added to spam email.
@@ -283,9 +283,9 @@ options:
                         type: list
                         elements: str
                         choices:
-                            - subject
-                            - header
-                            - spaminfo
+                            - 'subject'
+                            - 'header'
+                            - 'spaminfo'
             spam_bwl_table:
                 description:
                     - Anti-spam black/white list table ID. Source spamfilter.bwl.id.
@@ -303,8 +303,8 @@ options:
                     - Enable/disable spam filtering.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             spam_iptrust_table:
                 description:
                     - Anti-spam IP trust table ID. Source spamfilter.iptrust.id.
@@ -314,15 +314,15 @@ options:
                     - Enable/disable spam logging for email filtering.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             spam_log_fortiguard_response:
                 description:
                     - Enable/disable logging FortiGuard spam response.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             spam_mheader_table:
                 description:
                     - Anti-spam MIME header table ID. Source spamfilter.mheader.id.
@@ -341,8 +341,8 @@ options:
                             - Enable/disable logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
 """
 
 EXAMPLES = """
@@ -392,15 +392,15 @@ EXAMPLES = """
             log: "enable"
             tag_msg: "<your_own_value>"
             tag_type: "subject"
-        spam_bwl_table: "33 (source spamfilter.bwl.id)"
-        spam_bword_table: "34 (source spamfilter.bword.id)"
-        spam_bword_threshold: "35"
+        spam_bwl_table: "2147483647"
+        spam_bword_table: "2147483647"
+        spam_bword_threshold: "1073741823"
         spam_filtering: "enable"
-        spam_iptrust_table: "37 (source spamfilter.iptrust.id)"
+        spam_iptrust_table: "2147483647"
         spam_log: "disable"
         spam_log_fortiguard_response: "disable"
-        spam_mheader_table: "40 (source spamfilter.mheader.id)"
-        spam_rbl_table: "41 (source spamfilter.dnsbl.id)"
+        spam_mheader_table: "2147483647"
+        spam_rbl_table: "2147483647"
         yahoo_mail:
             log: "enable"
 
@@ -489,9 +489,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -686,609 +683,609 @@ def fortios_spamfilter(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+        },
         "comment": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_bword_threshold": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_iptrust_table": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_log_fortiguard_response": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "smtp": {
-            "type": "dict",
-            "children": {
-                "local_override": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "hdrip": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "action": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "pass",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "tag",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "discard",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "tag_msg": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "tag_type": {
-                    "elements": "str",
-                    "type": "list",
-                    "options": [
-                        {
-                            "value": "subject",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "header",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "spaminfo",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "replacemsg_group": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "gmail": {
-            "type": "dict",
-            "children": {
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                }
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_mheader_table": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_rbl_table": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "mapi": {
-            "type": "dict",
-            "children": {
-                "action": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "pass",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "discard",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_bword_table": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "yahoo_mail": {
-            "type": "dict",
-            "children": {
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                }
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "msn_hotmail": {
-            "type": "dict",
-            "children": {
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                }
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
         "flow_based": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
-        "pop3": {
-            "type": "dict",
-            "children": {
-                "action": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "pass",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "tag",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "tag_msg": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "tag_type": {
-                    "elements": "str",
-                    "type": "list",
-                    "options": [
-                        {
-                            "value": "subject",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "header",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "spaminfo",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "external": {
+        "replacemsg_group": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "imap": {
-            "type": "dict",
-            "children": {
-                "action": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "pass",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "tag",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "tag_msg": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "tag_type": {
-                    "elements": "str",
-                    "type": "list",
-                    "options": [
-                        {
-                            "value": "subject",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "header",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "spaminfo",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
         "spam_log": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
-        "name": {
+        "spam_log_fortiguard_response": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "options": [
+                {
+                    "value": "disable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "enable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
         },
         "spam_filtering": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "external": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
         },
         "options": {
-            "elements": "str",
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "list",
             "options": [
                 {
                     "value": "bannedword",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spambwl",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamfsip",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamfssubmit",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamfschksum",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamfsurl",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamhelodns",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamraddrdns",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamrbl",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamhdrcheck",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "spamfsphish",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "elements": "str",
+        },
+        "imap": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "pass",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "tag",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "tag_type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "list",
+                    "options": [
+                        {
+                            "value": "subject",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "header",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "spaminfo",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                    "elements": "str",
+                },
+                "tag_msg": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+            },
+        },
+        "pop3": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "pass",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "tag",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "tag_type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "list",
+                    "options": [
+                        {
+                            "value": "subject",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "header",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "spaminfo",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                    "elements": "str",
+                },
+                "tag_msg": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+            },
+        },
+        "smtp": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "pass",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "tag",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "discard",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "tag_type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "list",
+                    "options": [
+                        {
+                            "value": "subject",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "header",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "spaminfo",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                    "elements": "str",
+                },
+                "tag_msg": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "hdrip": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "local_override": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        "mapi": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "pass",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "discard",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        "msn_hotmail": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                }
+            },
+        },
+        "yahoo_mail": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                }
+            },
+        },
+        "gmail": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "log": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                }
+            },
+        },
+        "spam_bword_threshold": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
+        },
+        "spam_bword_table": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
         },
         "spam_bwl_table": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "spam_mheader_table": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
+        },
+        "spam_rbl_table": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
+        },
+        "spam_iptrust_table": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

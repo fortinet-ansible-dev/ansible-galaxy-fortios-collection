@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     firewall_policy6:
         description:
             - Configure IPv6 policies.
@@ -93,16 +93,16 @@ options:
                     - Policy action (allow/deny/ipsec).
                 type: str
                 choices:
-                    - accept
-                    - deny
-                    - ipsec
+                    - 'accept'
+                    - 'deny'
+                    - 'ipsec'
             anti_replay:
                 description:
                     - Enable/disable anti-replay check.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             app_category:
                 description:
                     - Application category ID list.
@@ -142,8 +142,8 @@ options:
                     - Enable/disable policy traffic ASIC offloading.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             av_profile:
                 description:
                     - Name of an existing Antivirus profile. Source antivirus.profile.name.
@@ -181,15 +181,15 @@ options:
                     - Enable to change packet"s DiffServ values to the specified diffservcode-forward value.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             diffserv_reverse:
                 description:
                     - Enable to change packet"s reverse (reply) DiffServ values to the specified diffservcode-rev value.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             diffservcode_forward:
                 description:
                     - Change packet"s DiffServ to this value.
@@ -211,15 +211,15 @@ options:
                     - Enable DSCP check.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             dscp_negate:
                 description:
                     - Enable negated DSCP match.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             dscp_value:
                 description:
                     - DSCP value.
@@ -229,8 +229,8 @@ options:
                     - Enable DSRI to ignore HTTP server responses.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             dstaddr:
                 description:
                     - Destination address and address group names.
@@ -247,8 +247,8 @@ options:
                     - When enabled dstaddr specifies what the destination address must NOT be.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             dstintf:
                 description:
                     - Outgoing (egress) interface.
@@ -268,15 +268,15 @@ options:
                     - How to handle sessions if the configuration of this firewall policy changes.
                 type: str
                 choices:
-                    - check-all
-                    - check-new
+                    - 'check-all'
+                    - 'check-new'
             fixedport:
                 description:
                     - Enable to prevent source NAT from changing a session"s source port.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             fsso_groups:
                 description:
                     - Names of FSSO groups.
@@ -306,8 +306,8 @@ options:
                     - Redirect HTTP(S) traffic to matching transparent web proxy policy.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             icap_profile:
                 description:
                     - Name of an existing ICAP profile. Source icap.profile.name.
@@ -317,22 +317,22 @@ options:
                     - 'Policy-based IPsec VPN: only traffic from the remote network can initiate a VPN.'
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             inspection_mode:
                 description:
                     - Policy inspection mode (Flow/proxy). Default is Flow mode.
                 type: str
                 choices:
-                    - proxy
-                    - flow
+                    - 'proxy'
+                    - 'flow'
             ippool:
                 description:
                     - Enable to use IP Pools for source NAT.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ips_sensor:
                 description:
                     - Name of an existing IPS sensor. Source ips.sensor.name.
@@ -346,16 +346,16 @@ options:
                     - Enable or disable logging. Log all sessions or security profile sessions.
                 type: str
                 choices:
-                    - all
-                    - utm
-                    - disable
+                    - 'all'
+                    - 'utm'
+                    - 'disable'
             logtraffic_start:
                 description:
                     - Record logs when a session starts.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             mms_profile:
                 description:
                     - Name of an existing MMS profile. Source firewall.mms-profile.name.
@@ -369,36 +369,36 @@ options:
                     - Enable/disable source NAT.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             natinbound:
                 description:
                     - 'Policy-based IPsec VPN: apply destination NAT to inbound traffic.'
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             natoutbound:
                 description:
                     - 'Policy-based IPsec VPN: apply source NAT to outbound traffic.'
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             np_acceleration:
                 description:
                     - Enable/disable UTM Network Processor acceleration.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             outbound:
                 description:
                     - 'Policy-based IPsec VPN: only traffic from the internal network can initiate a VPN.'
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             per_ip_shaper:
                 description:
                     - Per-IP traffic shaper. Source firewall.shaper.per-ip-shaper.name.
@@ -431,8 +431,8 @@ options:
                     - Determine whether the firewall policy allows security profile groups or single profiles only.
                 type: str
                 choices:
-                    - single
-                    - group
+                    - 'single'
+                    - 'group'
             replacemsg_override_group:
                 description:
                     - Override the default replacement message group for this policy. Source system.replacemsg-group.name.
@@ -442,8 +442,8 @@ options:
                     - Enable/disable RADIUS single sign-on (RSSO).
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             schedule:
                 description:
                     - Schedule name. Source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name.
@@ -453,8 +453,8 @@ options:
                     - Enable/disable return of deny-packet.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             service:
                 description:
                     - Service and service group names.
@@ -470,8 +470,8 @@ options:
                     - When enabled service specifies what the service must NOT be.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             session_ttl:
                 description:
                     - Session TTL in seconds for sessions accepted by this policy. 0 means use the system default session TTL.
@@ -495,8 +495,8 @@ options:
                     - When enabled srcaddr specifies what the source address must NOT be.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             srcintf:
                 description:
                     - Incoming (ingress) interface.
@@ -516,15 +516,15 @@ options:
                     - Redirect SSH traffic to matching transparent proxy policy.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ssl_mirror:
                 description:
                     - Enable to copy decrypted SSL traffic to a FortiGate interface (called SSL mirroring).
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ssl_mirror_intf:
                 description:
                     - SSL mirror interface name.
@@ -544,8 +544,8 @@ options:
                     - Enable or disable this policy.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             tcp_mss_receiver:
                 description:
                     - Receiver TCP maximum segment size (MSS).
@@ -559,16 +559,16 @@ options:
                     - Enable/disable creation of TCP session without SYN flag.
                 type: str
                 choices:
-                    - all
-                    - data-only
-                    - disable
+                    - 'all'
+                    - 'data-only'
+                    - 'disable'
             timeout_send_rst:
                 description:
                     - Enable/disable sending RST packets when TCP sessions expire.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             tos:
                 description:
                     - ToS (Type of Service) value used for comparison.
@@ -582,8 +582,8 @@ options:
                     - Enable negated TOS match.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             traffic_shaper:
                 description:
                     - Reverse traffic shaper. Source firewall.shaper.traffic-shaper.name.
@@ -617,8 +617,8 @@ options:
                     - Enable AV/web/ips protection profile.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             uuid:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
@@ -652,15 +652,15 @@ options:
                     - Enable/disable web cache.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             webcache_https:
                 description:
                     - Enable/disable web cache for HTTPS.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             webfilter_profile:
                 description:
                     - Name of an existing Web filter profile. Source webfilter.profile.name.
@@ -759,7 +759,7 @@ EXAMPLES = """
         np_acceleration: "enable"
         outbound: "enable"
         per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
-        policyid: "60"
+        policyid: "2147483647"
         poolname:
          -
             name: "default_name_62 (source firewall.ippool6.name)"
@@ -791,8 +791,8 @@ EXAMPLES = """
             name: "default_name_84 (source system.zone.name system.interface.name)"
         ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
         status: "enable"
-        tcp_mss_receiver: "87"
-        tcp_mss_sender: "88"
+        tcp_mss_receiver: "32767"
+        tcp_mss_sender: "32767"
         tcp_session_without_syn: "all"
         timeout_send_rst: "enable"
         tos: "<your_own_value>"
@@ -808,8 +808,8 @@ EXAMPLES = """
             name: "default_name_99 (source user.local.name)"
         utm_status: "enable"
         uuid: "<your_own_value>"
-        vlan_cos_fwd: "102"
-        vlan_cos_rev: "103"
+        vlan_cos_fwd: "3"
+        vlan_cos_rev: "3"
         vlan_filter: "<your_own_value>"
         voip_profile: "<your_own_value> (source voip.profile.name)"
         vpntunnel: "<your_own_value> (source vpn.ipsec.phase1.name vpn.ipsec.manualkey.name)"
@@ -905,9 +905,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -1141,2240 +1138,2240 @@ def fortios_firewall(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "per_ip_shaper": {
-            "type": "string",
+        "policyid": {
             "revisions": {
-                "v6.0.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
                 "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
                 "v6.0.11": True,
-            },
-        },
-        "webproxy_forward_server": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "dscp_match": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "diffserv_reverse": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
                 "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
             },
-        },
-        "traffic_shaper_reverse": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "uuid": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "vpntunnel": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "dlp_sensor": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "custom_log_fields": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "field_id": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "voip_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "np_acceleration": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "fsso_groups": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "emailfilter_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
+            "type": "integer",
         },
         "name": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "natoutbound": {
+        "uuid": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "logtraffic": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "all",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "utm",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "icap_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ssh_filter_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "vlan_cos_rev": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "tcp_session_without_syn": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "all",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "data-only",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "url_category": {
-            "elements": "dict",
+        "srcintf": {
             "type": "list",
-            "children": {
-                "id": {
-                    "type": "integer",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "session_ttl": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "mms_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "poolname": {
             "elements": "dict",
-            "type": "list",
             "children": {
                 "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
                     "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
                 }
             },
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ssl_ssh_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
                 "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "comments": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
+                "v6.2.3": True,
                 "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "label": {
-            "type": "string",
-            "revisions": {
-                "v6.2.0": False,
+                "v6.0.5": True,
                 "v6.0.11": True,
                 "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
-        "app_category": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "id": {
-                    "type": "integer",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "profile_type": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "single",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "group",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "schedule": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "diffservcode_rev": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "tcp_mss_sender": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
             },
         },
         "dstintf": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
-                    "type": "string",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
+                    "type": "string",
                 }
             },
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
         },
-        "srcaddr_negate": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ssl_mirror_intf": {
-            "elements": "dict",
+        "srcaddr": {
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
-                    "type": "string",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
+                    "type": "string",
                 }
             },
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
         },
-        "dscp_negate": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "auto_asic_offload": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "vlan_filter": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "srcintf": {
-            "elements": "dict",
+        "dstaddr": {
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
-                    "type": "string",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
+                    "type": "string",
                 }
             },
             "revisions": {
-                "v6.0.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
                 "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
                 "v6.0.11": True,
-            },
-        },
-        "ssh_policy_redirect": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "anti_replay": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
+                "v6.0.0": True,
             },
         },
         "action": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "accept",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "deny",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "ipsec",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "tos_negate": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "replacemsg_override_group": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "http_policy_redirect": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "groups": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "spamfilter_profile": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "application_list": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "service_negate": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "send_deny_packet": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "webcache": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "ippool": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "service": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "webproxy_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "tos": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "dnsfilter_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "profile_group": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "tcp_mss_receiver": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "global_label": {
-            "type": "string",
-            "revisions": {
-                "v6.2.0": False,
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
-        "inbound": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "srcaddr": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "tos_mask": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "logtraffic_start": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "webcache_https": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "ips_sensor": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "devices": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.2.0": False,
-                "v6.0.11": True,
-                "v6.0.0": True,
-                "v6.2.3": True,
-                "v6.0.5": True,
-            },
-        },
-        "rsso": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "traffic_shaper": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "diffserv_forward": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "natinbound": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "cifs_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "vlan_cos_fwd": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "fixedport": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "dsri": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "outbound": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "application": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "id": {
-                    "type": "integer",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ssl_mirror": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "nat": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "timeout_send_rst": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "status": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "diffservcode_forward": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "users": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "dscp_value": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "utm_status": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "waf_profile": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": False,
-            },
-        },
-        "policyid": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
         "firewall_session_dirty": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "check-all",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "check-new",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "webfilter_profile": {
-            "type": "string",
+        "status": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
-        },
-        "dstaddr_negate": {
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "av_profile": {
+        "vlan_cos_fwd": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "vlan_cos_rev": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "schedule": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "dstaddr": {
-            "elements": "dict",
+        "service": {
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
-                    "type": "string",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
+                    "type": "string",
                 }
             },
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
         },
-        "app_group": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                }
-            },
+        "tos": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
-                "v6.0.11": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
             },
-        },
-        "profile_protocol_options": {
             "type": "string",
+        },
+        "tos_mask": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
-                "v6.0.11": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
             },
+            "type": "string",
+        },
+        "tos_negate": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+            ],
+        },
+        "tcp_session_without_syn": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "all",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "data-only",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "anti_replay": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+            ],
+        },
+        "utm_status": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
         },
         "inspection_mode": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "proxy",
                     "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
                 {
                     "value": "flow",
                     "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
             ],
+        },
+        "webcache": {
             "revisions": {
-                "v6.0.0": False,
-                "v6.0.5": False,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
                 "v6.0.11": False,
+                "v6.0.0": False,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+            ],
+        },
+        "webcache_https": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+            ],
+        },
+        "http_policy_redirect": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+            ],
+        },
+        "ssh_policy_redirect": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
+            ],
+        },
+        "webproxy_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "profile_type": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "single",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "group",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "profile_group": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "profile_protocol_options": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "ssl_ssh_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "av_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "webfilter_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "dnsfilter_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "emailfilter_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "dlp_sensor": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "ips_sensor": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "application_list": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "voip_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "mms_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "icap_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "cifs_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "waf_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "ssh_filter_profile": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "logtraffic": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "all",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "utm",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "logtraffic_start": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "auto_asic_offload": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "np_acceleration": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "webproxy_forward_server": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "traffic_shaper": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "traffic_shaper_reverse": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "per_ip_shaper": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "application": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "integer",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "app_category": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "integer",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "url_category": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "integer",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "app_group": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "nat": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "fixedport": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "ippool": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "poolname": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "session_ttl": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "inbound": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "outbound": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "natinbound": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "natoutbound": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "send_deny_packet": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "vpntunnel": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "diffserv_forward": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "diffserv_reverse": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "diffservcode_forward": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "diffservcode_rev": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "tcp_mss_sender": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "tcp_mss_receiver": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "comments": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "rsso": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "custom_log_fields": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "field_id": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "replacemsg_override_group": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "srcaddr_negate": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "dstaddr_negate": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "service_negate": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "users": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "timeout_send_rst": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "ssl_mirror": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "ssl_mirror_intf": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "dsri": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "vlan_filter": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "fsso_groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+        },
+        "label": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.2.0": False,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "global_label": {
+            "revisions": {
+                "v6.2.3": True,
+                "v6.2.0": False,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "devices": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v6.2.3": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v6.2.3": True,
+                "v6.2.0": False,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+        },
+        "dscp_match": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
+        },
+        "dscp_negate": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
+        },
+        "dscp_value": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+        },
+        "spamfilter_profile": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
     },
     "revisions": {
-        "v6.0.0": True,
-        "v6.0.5": True,
-        "v6.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
+        "v6.0.5": True,
         "v6.0.11": True,
+        "v6.0.0": True,
     },
 }
 

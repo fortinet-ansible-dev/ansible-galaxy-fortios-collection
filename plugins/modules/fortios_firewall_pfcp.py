@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     firewall_pfcp:
         description:
             - Configure PFCP.
@@ -93,22 +93,22 @@ options:
                     - Enable/disable logging denied PFCP packets.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             forwarded_log:
                 description:
                     - Enable/disable logging forwarded PFCP packets.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             invalid_reserved_field:
                 description:
                     - Allow or deny invalid reserved field in PFCP header packets.
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
             log_freq:
                 description:
                     - Logging frequency of PFCP packets.
@@ -130,9 +130,9 @@ options:
                     - PFCP monitor mode.
                 type: str
                 choices:
-                    - enable
-                    - disable
-                    - vdom
+                    - 'enable'
+                    - 'disable'
+                    - 'vdom'
             name:
                 description:
                     - PFCP profile name.
@@ -147,15 +147,15 @@ options:
                     - Enable/disable logging session traffic counter.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             unknown_version:
                 description:
                     - Allow or deny unknown version packets.
                 type: str
                 choices:
-                    - allow
-                    - deny
+                    - 'allow'
+                    - 'deny'
 """
 
 EXAMPLES = """
@@ -178,13 +178,13 @@ EXAMPLES = """
         denied_log: "enable"
         forwarded_log: "enable"
         invalid_reserved_field: "allow"
-        log_freq: "6"
-        max_message_length: "7"
+        log_freq: "0"
+        max_message_length: "1452"
         message_filter: "<your_own_value> (source pfcp.message-filter.name)"
-        min_message_length: "9"
+        min_message_length: "0"
         monitor_mode: "enable"
         name: "default_name_11"
-        pfcp_timeout: "12"
+        pfcp_timeout: "86400"
         traffic_count_log: "enable"
         unknown_version: "allow"
 
@@ -267,9 +267,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -359,304 +356,304 @@ def fortios_firewall(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "name": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+        },
+        "min_message_length": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "integer",
+        },
+        "max_message_length": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "integer",
+        },
         "monitor_mode": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "vdom",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "forwarded_log": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "log_freq": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "unknown_version": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "name": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "max_message_length": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "denied_log": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "traffic_count_log": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "invalid_reserved_field": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "min_message_length": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
         },
         "message_filter": {
-            "type": "string",
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
+            "type": "string",
         },
         "pfcp_timeout": {
-            "type": "integer",
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
+            },
+            "type": "integer",
+        },
+        "unknown_version": {
+            "revisions": {
+                "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v7.2.0": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "invalid_reserved_field": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "forwarded_log": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "denied_log": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "traffic_count_log": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "log_freq": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
+            "type": "integer",
         },
     },
     "revisions": {
+        "v7.2.0": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.2.0": True,
     },
 }
 

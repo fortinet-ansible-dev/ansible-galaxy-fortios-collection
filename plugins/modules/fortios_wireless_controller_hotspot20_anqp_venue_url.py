@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     wireless_controller_hotspot20_anqp_venue_url:
         description:
             - Configure venue URL.
@@ -133,8 +133,8 @@ EXAMPLES = """
         name: "default_name_3"
         value_list:
          -
-            index: "5"
-            number: "6"
+            index: "0"
+            number: "0"
             value: "<your_own_value>"
 
 """
@@ -216,9 +216,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -314,69 +311,99 @@ def fortios_wireless_controller_hotspot20(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "name": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+            },
+            "type": "string",
+        },
         "value_list": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "index": {
-                    "type": "integer",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
+                    "type": "integer",
                 },
                 "number": {
-                    "type": "integer",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
+                    "type": "integer",
                 },
                 "value": {
-                    "type": "string",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
+                    "type": "string",
                 },
             },
             "revisions": {
-                "v7.0.3": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
-                "v7.0.2": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-            },
-        },
-        "name": {
-            "type": "string",
-            "revisions": {
                 "v7.0.3": True,
-                "v7.2.0": True,
                 "v7.0.2": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
             },
         },
     },
     "revisions": {
-        "v7.0.3": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
         "v7.2.0": True,
-        "v7.0.2": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
         "v7.0.5": True,
         "v7.0.4": True,
+        "v7.0.3": True,
+        "v7.0.2": True,
     },
 }
 

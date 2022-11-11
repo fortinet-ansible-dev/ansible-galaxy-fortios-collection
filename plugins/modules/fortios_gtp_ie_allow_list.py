@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     gtp_ie_allow_list:
         description:
             - IE allow list.
@@ -133,8 +133,8 @@ EXAMPLES = """
         entries:
          -
             id:  "4"
-            ie: "5"
-            message: "6"
+            ie: "0"
+            message: "0"
         name: "default_name_7"
 
 """
@@ -217,9 +217,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_gtp_ie_allow_list_data(json):
@@ -297,81 +294,81 @@ def fortios_gtp(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
         "name": {
-            "type": "string",
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
+            "type": "string",
         },
         "entries": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "message": {
-                    "type": "integer",
+                "id": {
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
+                    },
+                    "type": "integer",
+                },
+                "message": {
+                    "revisions": {
+                        "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
-                        "v7.2.0": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
                     },
+                    "type": "integer",
                 },
                 "ie": {
-                    "type": "integer",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
-                },
-                "id": {
                     "type": "integer",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
                 },
             },
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
             },
         },
     },
     "revisions": {
+        "v7.2.0": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.2.0": True,
     },
 }
 

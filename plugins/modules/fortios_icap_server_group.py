@@ -72,8 +72,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -81,8 +81,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     icap_server_group:
         description:
             - Configure an ICAP server group consisting of multiple forward servers. Supports failover and load balancing.
@@ -94,9 +94,9 @@ options:
                     - Load balance method.
                 type: str
                 choices:
-                    - weighted
-                    - least-session
-                    - active-passive
+                    - 'weighted'
+                    - 'least-session'
+                    - 'active-passive'
             name:
                 description:
                     - Configure an ICAP server group consisting one or multiple forward servers. Supports failover and load balancing.
@@ -140,7 +140,7 @@ EXAMPLES = """
         server_list:
          -
             name: "default_name_6 (source icap.server.name)"
-            weight: "7"
+            weight: "10"
 
 """
 
@@ -222,9 +222,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_icap_server_group_data(json):
@@ -302,30 +299,48 @@ def fortios_icap(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "name": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
         "ldb_method": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
             "type": "string",
             "options": [
-                {"value": "weighted", "revisions": {"v7.2.0": True}},
-                {"value": "least-session", "revisions": {"v7.2.0": True}},
-                {"value": "active-passive", "revisions": {"v7.2.0": True}},
+                {
+                    "value": "weighted",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "least-session",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "active-passive",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
             ],
-            "revisions": {"v7.2.0": True},
         },
-        "name": {"type": "string", "revisions": {"v7.2.0": True}},
         "server_list": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "name": {"type": "string", "revisions": {"v7.2.0": True}},
-                "weight": {"type": "integer", "revisions": {"v7.2.0": True}},
+                "name": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
+                "weight": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "integer",
+                },
             },
-            "revisions": {"v7.2.0": True},
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
         },
     },
-    "revisions": {"v7.2.0": True},
+    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
 }
 
 

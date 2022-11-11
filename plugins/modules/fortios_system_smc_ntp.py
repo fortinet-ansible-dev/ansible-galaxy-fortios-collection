@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     system_smc_ntp:
         description:
@@ -103,8 +103,8 @@ options:
                     - Enable/disable setting the FortiGate SMC system time by synchronizing with an NTP server.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             syncinterval:
                 description:
                     - SMC NTP synchronization interval (1 - 65535 secs).
@@ -126,13 +126,13 @@ EXAMPLES = """
     fortios_system_smc_ntp:
       vdom:  "{{ vdom }}"
       system_smc_ntp:
-        channel: "3"
+        channel: "32767"
         ntpserver:
          -
             id:  "5"
             server: "192.168.100.40"
         ntpsync: "enable"
-        syncinterval: "8"
+        syncinterval: "32767"
 
 """
 
@@ -214,9 +214,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_system_smc_ntp_data(json):
@@ -285,29 +282,29 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
+    "revisions": {"v6.2.3": True},
     "type": "dict",
     "children": {
         "ntpsync": {
+            "revisions": {"v6.2.3": True},
             "type": "string",
             "options": [
                 {"value": "enable", "revisions": {"v6.2.3": True}},
                 {"value": "disable", "revisions": {"v6.2.3": True}},
             ],
-            "revisions": {"v6.2.3": True},
         },
-        "syncinterval": {"type": "integer", "revisions": {"v6.2.3": True}},
+        "syncinterval": {"revisions": {"v6.2.3": True}, "type": "integer"},
+        "channel": {"revisions": {"v6.2.3": True}, "type": "integer"},
         "ntpserver": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "id": {"type": "integer", "revisions": {"v6.2.3": True}},
-                "server": {"type": "string", "revisions": {"v6.2.3": True}},
+                "id": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                "server": {"revisions": {"v6.2.3": True}, "type": "string"},
             },
             "revisions": {"v6.2.3": True},
         },
-        "channel": {"type": "integer", "revisions": {"v6.2.3": True}},
     },
-    "revisions": {"v6.2.3": True},
 }
 
 

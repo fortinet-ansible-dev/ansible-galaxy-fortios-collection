@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     system_ipam:
         description:
@@ -84,20 +84,99 @@ options:
                 description:
                     - Configure IPAM pool subnet, Class A - Class B subnet.
                 type: str
+            pools:
+                description:
+                    - Configure IPAM pools.
+                type: list
+                elements: dict
+                suboptions:
+                    description:
+                        description:
+                            - Description.
+                        type: str
+                    name:
+                        description:
+                            - IPAM pool name.
+                        type: str
+                    subnet:
+                        description:
+                            - Configure IPAM pool subnet, Class A - Class B subnet.
+                        type: str
+            rules:
+                description:
+                    - Configure IPAM allocation rules.
+                type: list
+                elements: dict
+                suboptions:
+                    description:
+                        description:
+                            - Description.
+                        type: str
+                    device:
+                        description:
+                            - Configure serial number or wildcard of Fortigate to match.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Fortigate serial number or wildcard.
+                                type: str
+                    dhcp:
+                        description:
+                            - Enable/disable DHCP server for matching IPAM interfaces.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    interface:
+                        description:
+                            - Configure name or wildcard of interface to match.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Interface name or wildcard.
+                                type: str
+                    name:
+                        description:
+                            - IPAM rule name.
+                        type: str
+                    pool:
+                        description:
+                            - Configure name of IPAM pool to use.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Ipam pool name. Source .
+                                type: str
+                    role:
+                        description:
+                            - Configure role of interface to match.
+                        type: str
+                        choices:
+                            - 'any'
+                            - 'lan'
+                            - 'wan'
+                            - 'dmz'
+                            - 'undefined'
             server_type:
                 description:
                     - Configure the type of IPAM server to use.
                 type: str
                 choices:
-                    - cloud
-                    - fabric-root
+                    - 'cloud'
+                    - 'fabric-root'
             status:
                 description:
                     - Enable/disable IP address management services.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -116,6 +195,26 @@ EXAMPLES = """
       vdom:  "{{ vdom }}"
       system_ipam:
         pool_subnet: "<your_own_value>"
+        pools:
+         -
+            description: "<your_own_value>"
+            name: "default_name_6"
+            subnet: "<your_own_value>"
+        rules:
+         -
+            description: "<your_own_value>"
+            device:
+             -
+                name: "default_name_11"
+            dhcp: "enable"
+            interface:
+             -
+                name: "default_name_14"
+            name: "default_name_15"
+            pool:
+             -
+                name: "default_name_17 (source )"
+            role: "any"
         server_type: "cloud"
         status: "enable"
 
@@ -199,13 +298,10 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_system_ipam_data(json):
-    option_list = ["pool_subnet", "server_type", "status"]
+    option_list = ["pool_subnet", "pools", "rules", "server_type", "status"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -268,89 +364,244 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
+    "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
+        "v7.0.3": True,
+        "v7.0.2": True,
+    },
     "type": "dict",
     "children": {
         "status": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.2.0": True,
-                "v7.0.2": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-            },
-        },
-        "pool_subnet": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.2.0": True,
-                "v7.0.2": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-            },
         },
         "server_type": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "cloud",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
                 {
                     "value": "fabric-root",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
             ],
+        },
+        "pools": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+                "description": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+                "subnet": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+            },
             "revisions": {
-                "v7.0.3": True,
-                "v7.2.0": True,
-                "v7.0.2": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
             },
         },
-    },
-    "revisions": {
-        "v7.0.3": True,
-        "v7.2.0": True,
-        "v7.0.2": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
+        "rules": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+                "description": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+                "device": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                },
+                "interface": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                },
+                "role": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                    "options": [
+                        {"value": "any", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                        {"value": "lan", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                        {"value": "wan", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                        {"value": "dmz", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                        {
+                            "value": "undefined",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
+                },
+                "pool": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                },
+                "dhcp": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
+                },
+            },
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+            },
+        },
+        "pool_subnet": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+            },
+            "type": "string",
+        },
     },
 }
 

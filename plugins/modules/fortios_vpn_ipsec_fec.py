@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     vpn_ipsec_fec:
         description:
             - Configure Forward Error Correction (FEC) mapping profiles.
@@ -152,14 +152,14 @@ EXAMPLES = """
       vpn_ipsec_fec:
         mappings:
          -
-            bandwidth_bi_threshold: "4"
-            bandwidth_down_threshold: "5"
-            bandwidth_up_threshold: "6"
-            base: "7"
-            latency_threshold: "8"
-            packet_loss_threshold: "9"
-            redundant: "10"
-            seqno: "11"
+            bandwidth_bi_threshold: "0"
+            bandwidth_down_threshold: "0"
+            bandwidth_up_threshold: "0"
+            base: "0"
+            latency_threshold: "0"
+            packet_loss_threshold: "0"
+            redundant: "0"
+            seqno: "0"
         name: "default_name_12"
 
 """
@@ -242,9 +242,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_vpn_ipsec_fec_data(json):
@@ -320,119 +317,174 @@ def fortios_vpn_ipsec(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
         "name": {
-            "type": "string",
             "revisions": {
-                "v7.0.3": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
-                "v7.0.2": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
             },
+            "type": "string",
         },
         "mappings": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "latency_threshold": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
                 "seqno": {
-                    "type": "integer",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
-                    },
-                },
-                "bandwidth_bi_threshold": {
-                    "type": "integer",
-                    "revisions": {
                         "v7.0.3": True,
-                        "v7.2.0": True,
                         "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                     },
-                },
-                "redundant": {
                     "type": "integer",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                "bandwidth_up_threshold": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
                 },
                 "base": {
-                    "type": "integer",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
+                    "type": "integer",
                 },
-                "bandwidth_down_threshold": {
-                    "type": "integer",
+                "redundant": {
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
+                    "type": "integer",
                 },
                 "packet_loss_threshold": {
-                    "type": "integer",
                     "revisions": {
-                        "v7.0.3": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
+                    "type": "integer",
+                },
+                "latency_threshold": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                    "type": "integer",
+                },
+                "bandwidth_up_threshold": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                    "type": "integer",
+                },
+                "bandwidth_down_threshold": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                    "type": "integer",
+                },
+                "bandwidth_bi_threshold": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                    "type": "integer",
                 },
             },
             "revisions": {
-                "v7.0.3": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
-                "v7.0.2": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
             },
         },
     },
     "revisions": {
-        "v7.0.3": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
         "v7.2.0": True,
-        "v7.0.2": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
         "v7.0.5": True,
         "v7.0.4": True,
+        "v7.0.3": True,
+        "v7.0.2": True,
     },
 }
 

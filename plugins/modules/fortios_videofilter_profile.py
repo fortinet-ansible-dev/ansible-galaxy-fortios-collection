@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     videofilter_profile:
         description:
             - Configure VideoFilter profile.
@@ -97,8 +97,8 @@ options:
                     - Enable/disable Dailymotion video source.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             fortiguard_category:
                 description:
                     - Configure FortiGuard categories.
@@ -115,10 +115,10 @@ options:
                                     - VideoFilter action.
                                 type: str
                                 choices:
-                                    - allow
-                                    - monitor
-                                    - block
-                                    - bypass
+                                    - 'allow'
+                                    - 'monitor'
+                                    - 'block'
+                                    - 'bypass'
                             category_id:
                                 description:
                                     - Category ID.
@@ -132,8 +132,8 @@ options:
                                     - Enable/disable logging.
                                 type: str
                                 choices:
-                                    - enable
-                                    - disable
+                                    - 'enable'
+                                    - 'disable'
             name:
                 description:
                     - Name.
@@ -148,8 +148,8 @@ options:
                     - Enable/disable Vimeo video source.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             vimeo_restrict:
                 description:
                     - Set Vimeo-restrict ("7" = don"t show mature content, "134" = don"t show unrated and mature content). A value of cookie "content_rating".
@@ -159,8 +159,8 @@ options:
                     - Enable/disable YouTube video source.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             youtube_channel_filter:
                 description:
                     - Set YouTube channel filter. Source videofilter.youtube-channel-filter.id.
@@ -170,9 +170,9 @@ options:
                     - Set YouTube-restrict mode.
                 type: str
                 choices:
-                    - none
-                    - strict
-                    - moderate
+                    - 'none'
+                    - 'strict'
+                    - 'moderate'
 """
 
 EXAMPLES = """
@@ -198,7 +198,7 @@ EXAMPLES = """
             filters:
              -
                 action: "allow"
-                category_id: "8"
+                category_id: "0"
                 id:  "9"
                 log: "enable"
         name: "default_name_11"
@@ -206,7 +206,7 @@ EXAMPLES = """
         vimeo: "enable"
         vimeo_restrict: "<your_own_value>"
         youtube: "enable"
-        youtube_channel_filter: "16 (source videofilter.youtube-channel-filter.id)"
+        youtube_channel_filter: "0"
         youtube_restrict: "none"
 
 """
@@ -288,9 +288,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -382,332 +379,457 @@ def fortios_videofilter(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
-            "type": "string",
+        "name": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+            },
+            "type": "string",
+        },
+        "comment": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
+            "type": "string",
+        },
+        "youtube_channel_filter": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
+            "type": "integer",
+        },
+        "fortiguard_category": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
+            "type": "dict",
+            "children": {
+                "filters": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "action": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "allow",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": False,
+                                    },
+                                },
+                                {
+                                    "value": "monitor",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "block",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                    },
+                                },
+                                {"value": "bypass", "revisions": {"v7.0.0": True}},
+                            ],
+                        },
+                        "category_id": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "log": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                }
             },
         },
-        "dailymotion": {
+        "youtube": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
         },
-        "name": {
-            "type": "string",
+        "vimeo": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                },
+            ],
+        },
+        "dailymotion": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v7.2.0": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                },
+            ],
+        },
+        "replacemsg_group": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": False,
+            },
+            "type": "string",
         },
         "youtube_restrict": {
+            "revisions": {"v7.0.0": True},
             "type": "string",
             "options": [
                 {"value": "none", "revisions": {"v7.0.0": True}},
                 {"value": "strict", "revisions": {"v7.0.0": True}},
                 {"value": "moderate", "revisions": {"v7.0.0": True}},
             ],
-            "revisions": {"v7.0.0": True},
         },
-        "vimeo": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "youtube": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "vimeo_restrict": {"type": "string", "revisions": {"v7.0.0": True}},
-        "youtube_channel_filter": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "replacemsg_group": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
-        "fortiguard_category": {
-            "type": "dict",
-            "children": {
-                "filters": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "action": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "allow",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": False,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "monitor",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "block",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                                {"value": "bypass", "revisions": {"v7.0.0": True}},
-                            ],
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "category_id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "log": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                    },
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.2.0": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.2.0": True,
-            },
-        },
+        "vimeo_restrict": {"revisions": {"v7.0.0": True}, "type": "string"},
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.2.0": True,
     },
 }
 

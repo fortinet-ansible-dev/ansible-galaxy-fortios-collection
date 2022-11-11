@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     firewall_internet_service_extension:
         description:
             - Configure Internet Services Extension.
@@ -98,19 +98,26 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    addr_mode:
+                        description:
+                            - Address mode (IPv4 or IPv6)
+                        type: str
+                        choices:
+                            - 'ipv4'
+                            - 'ipv6'
                     id:
                         description:
                             - Disable entry ID.
                         type: int
                     ip_range:
                         description:
-                            - IP ranges in the disable entry.
+                            - IPv4 ranges in the disable entry.
                         type: list
                         elements: dict
                         suboptions:
                             end_ip:
                                 description:
-                                    - End IP address.
+                                    - End IPv4 address.
                                 type: str
                             id:
                                 description:
@@ -118,7 +125,25 @@ options:
                                 type: int
                             start_ip:
                                 description:
-                                    - Start IP address.
+                                    - Start IPv4 address.
+                                type: str
+                    ip6_range:
+                        description:
+                            - IPv6 ranges in the disable entry.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            end_ip6:
+                                description:
+                                    - End IPv6 address.
+                                type: str
+                            id:
+                                description:
+                                    - Disable entry range ID.
+                                type: int
+                            start_ip6:
+                                description:
+                                    - Start IPv6 address.
                                 type: str
                     port_range:
                         description:
@@ -128,7 +153,7 @@ options:
                         suboptions:
                             end_port:
                                 description:
-                                    - Ending TCP/UDP/SCTP destination port (1 to 65535).
+                                    - Ending TCP/UDP/SCTP destination port (0 to 65535).
                                 type: int
                             id:
                                 description:
@@ -136,7 +161,7 @@ options:
                                 type: int
                             start_port:
                                 description:
-                                    - Starting TCP/UDP/SCTP destination port (1 to 65535).
+                                    - Starting TCP/UDP/SCTP destination port (0 to 65535).
                                 type: int
                     protocol:
                         description:
@@ -148,6 +173,13 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    addr_mode:
+                        description:
+                            - Address mode (IPv4 or IPv6)
+                        type: str
+                        choices:
+                            - 'ipv4'
+                            - 'ipv6'
                     dst:
                         description:
                             - Destination address or address group name.
@@ -158,6 +190,16 @@ options:
                                 description:
                                     - Select the destination address or address group object from available options. Source firewall.address.name firewall
                                       .addrgrp.name.
+                                type: str
+                    dst6:
+                        description:
+                            - Destination address6 or address6 group name.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Select the destination address6 or address group object from available options. Source .
                                 type: str
                     id:
                         description:
@@ -171,7 +213,7 @@ options:
                         suboptions:
                             end_port:
                                 description:
-                                    - Integer value for ending TCP/UDP/SCTP destination port in range (1 to 65535).
+                                    - Integer value for ending TCP/UDP/SCTP destination port in range (0 to 65535).
                                 type: int
                             id:
                                 description:
@@ -179,7 +221,7 @@ options:
                                 type: int
                             start_port:
                                 description:
-                                    - Integer value for starting TCP/UDP/SCTP destination port in range (1 to 65535).
+                                    - Integer value for starting TCP/UDP/SCTP destination port in range (0 to 65535).
                                 type: int
                     protocol:
                         description:
@@ -212,31 +254,41 @@ EXAMPLES = """
         comment: "Comment."
         disable_entry:
          -
-            id:  "5"
+            addr_mode: "ipv4"
+            id:  "6"
             ip_range:
              -
                 end_ip: "<your_own_value>"
-                id:  "8"
+                id:  "9"
                 start_ip: "<your_own_value>"
+            ip6_range:
+             -
+                end_ip6: "<your_own_value>"
+                id:  "13"
+                start_ip6: "<your_own_value>"
             port_range:
              -
-                end_port: "11"
-                id:  "12"
-                start_port: "13"
-            protocol: "14"
+                end_port: "65535"
+                id:  "17"
+                start_port: "1"
+            protocol: "0"
         entry:
          -
+            addr_mode: "ipv4"
             dst:
              -
-                name: "default_name_17 (source firewall.address.name firewall.addrgrp.name)"
-            id:  "18"
+                name: "default_name_23 (source firewall.address.name firewall.addrgrp.name)"
+            dst6:
+             -
+                name: "default_name_25 (source )"
+            id:  "26"
             port_range:
              -
-                end_port: "20"
-                id:  "21"
-                start_port: "22"
-            protocol: "23"
-        id:  "24 (source firewall.internet-service.id)"
+                end_port: "65535"
+                id:  "29"
+                start_port: "1"
+            protocol: "0"
+        id:  "32 (source firewall.internet-service.id)"
 
 """
 
@@ -323,9 +375,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -479,461 +528,714 @@ def fortios_firewall(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
-            "type": "string",
+        "id": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+            "type": "integer",
+        },
+        "comment": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
                 "v6.4.4": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
+            "type": "string",
         },
         "entry": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "port_range": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "end_port": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "start_port": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                    },
+                "id": {
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "integer",
+                },
+                "addr_mode": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "ipv4",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "ipv6",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
+                },
+                "protocol": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "integer",
+                },
+                "port_range": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "start_port": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "end_port": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                    },
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
                 "dst": {
-                    "elements": "dict",
                     "type": "list",
+                    "elements": "dict",
                     "children": {
                         "name": {
-                            "type": "string",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
                                 "v6.4.4": True,
-                                "v6.4.0": True,
                                 "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
+                                "v6.4.0": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
                             },
+                            "type": "string",
                         }
                     },
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
-                "protocol": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
+                "dst6": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        }
                     },
-                },
-                "id": {
-                    "type": "integer",
                     "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
                     },
                 },
             },
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-            },
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
                 "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
         },
         "disable_entry": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "port_range": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "end_port": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "start_port": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                    },
+                "id": {
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
+                    "type": "integer",
+                },
+                "addr_mode": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "ipv4",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "ipv6",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
                 },
                 "protocol": {
-                    "type": "integer",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "integer",
+                },
+                "port_range": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "start_port": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "end_port": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                    },
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
                 "ip_range": {
-                    "elements": "dict",
                     "type": "list",
+                    "elements": "dict",
                     "children": {
-                        "start_ip": {
-                            "type": "string",
+                        "id": {
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "start_ip": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
                                 "v6.4.4": True,
-                                "v6.4.0": True,
                                 "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
+                                "v6.4.0": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
                             },
+                            "type": "string",
                         },
                         "end_ip": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.1": True,
+                                "v6.4.0": True,
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
                             "type": "string",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v6.4.1": True,
-                                "v6.2.0": True,
-                                "v7.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
                         },
                     },
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
+                        "v6.4.0": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
-                "id": {
-                    "type": "integer",
+                "ip6_range": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "integer",
+                        },
+                        "start_ip6": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "end_ip6": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                    },
                     "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
                     },
                 },
             },
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
     },
 }
 

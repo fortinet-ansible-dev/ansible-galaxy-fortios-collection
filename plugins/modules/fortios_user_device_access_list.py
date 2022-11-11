@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     user_device_access_list:
         description:
             - Configure device access control lists.
@@ -93,8 +93,8 @@ options:
                     - Accept or deny unknown/unspecified devices.
                 type: str
                 choices:
-                    - accept
-                    - deny
+                    - 'accept'
+                    - 'deny'
             device_list:
                 description:
                     - Device list.
@@ -106,8 +106,8 @@ options:
                             - Allow or block device.
                         type: str
                         choices:
-                            - accept
-                            - deny
+                            - 'accept'
+                            - 'deny'
                     device:
                         description:
                             - Firewall device or device group. Source user.device.alias user.device-group.name user.device-category.name.
@@ -233,9 +233,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -374,66 +371,66 @@ def fortios_user(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
+        "name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+        },
         "default_action": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "accept",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "deny",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "name": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
         "device_list": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
+                "id": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "integer",
+                },
                 "device": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
                 "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "accept",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "deny",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "id": {
-                    "type": "integer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     wireless_controller_mpsk_profile:
         description:
             - Configure MPSK profile.
@@ -113,9 +113,9 @@ options:
                                     - MPSK client limit type options.
                                 type: str
                                 choices:
-                                    - default
-                                    - unlimited
-                                    - specified
+                                    - 'default'
+                                    - 'unlimited'
+                                    - 'specified'
                             concurrent_clients:
                                 description:
                                     - Number of clients that can connect using this pre-shared key (1 - 65535).
@@ -156,8 +156,8 @@ options:
                             - MPSK group VLAN options.
                         type: str
                         choices:
-                            - no-vlan
-                            - fixed-vlan
+                            - 'no-vlan'
+                            - 'fixed-vlan'
             name:
                 description:
                     - MPSK profile name.
@@ -182,14 +182,14 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       wireless_controller_mpsk_profile:
-        mpsk_concurrent_clients: "3"
+        mpsk_concurrent_clients: "0"
         mpsk_group:
          -
             mpsk_key:
              -
                 comment: "Comment."
                 concurrent_client_limit_type: "default"
-                concurrent_clients: "8"
+                concurrent_clients: "256"
                 mac: "<your_own_value>"
                 mpsk_schedules:
                  -
@@ -197,7 +197,7 @@ EXAMPLES = """
                 name: "default_name_12"
                 passphrase: "<your_own_value>"
             name: "default_name_14"
-            vlan_id: "15"
+            vlan_id: "0"
             vlan_type: "no-vlan"
         name: "default_name_17"
 
@@ -286,9 +286,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -437,313 +434,418 @@ def fortios_wireless_controller(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "mpsk_concurrent_clients": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v7.2.0": True,
-            },
-        },
         "name": {
-            "type": "string",
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
                 "v6.4.0": True,
-                "v7.2.0": True,
             },
+            "type": "string",
+        },
+        "mpsk_concurrent_clients": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.0": True,
+            },
+            "type": "integer",
         },
         "mpsk_group": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
-                "mpsk_key": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "comment": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "concurrent_client_limit_type": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "default",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "unlimited",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "specified",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                        "v7.2.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "name": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "mpsk_schedules": {
-                            "elements": "dict",
-                            "type": "list",
-                            "children": {
-                                "name": {
-                                    "type": "string",
-                                    "revisions": {
-                                        "v7.0.3": True,
-                                        "v7.0.2": True,
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v7.0.5": True,
-                                        "v7.0.4": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                        "v7.2.0": True,
-                                    },
-                                }
-                            },
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "mac": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "passphrase": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                        "concurrent_clients": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                                "v7.2.0": True,
-                            },
-                        },
-                    },
+                "name": {
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
                         "v6.4.0": True,
-                        "v7.2.0": True,
                     },
+                    "type": "string",
                 },
                 "vlan_type": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "no-vlan",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
                                 "v6.4.4": True,
                                 "v6.4.0": True,
-                                "v7.2.0": True,
                             },
                         },
                         {
                             "value": "fixed-vlan",
                             "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
                                 "v6.4.4": True,
                                 "v6.4.0": True,
-                                "v7.2.0": True,
                             },
                         },
                     ],
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v7.2.0": True,
-                    },
-                },
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v7.2.0": True,
-                    },
                 },
                 "vlan_id": {
-                    "type": "integer",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
                         "v6.4.0": True,
+                    },
+                    "type": "integer",
+                },
+                "mpsk_key": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "mac": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "passphrase": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "concurrent_client_limit_type": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "default",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "unlimited",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "specified",
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "concurrent_clients": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "comment": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "mpsk_schedules": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "name": {
+                                    "revisions": {
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                        "v7.2.0": True,
+                                        "v7.0.8": True,
+                                        "v7.0.7": True,
+                                        "v7.0.6": True,
+                                        "v7.0.5": True,
+                                        "v7.0.4": True,
+                                        "v7.0.3": True,
+                                        "v7.0.2": True,
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                    "type": "string",
+                                }
+                            },
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                                "v7.0.8": True,
+                                "v7.0.7": True,
+                                "v7.0.6": True,
+                                "v7.0.5": True,
+                                "v7.0.4": True,
+                                "v7.0.3": True,
+                                "v7.0.2": True,
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    },
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
                     },
                 },
             },
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
                 "v6.4.0": True,
-                "v7.2.0": True,
             },
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
         "v6.4.0": True,
-        "v7.2.0": True,
     },
 }
 

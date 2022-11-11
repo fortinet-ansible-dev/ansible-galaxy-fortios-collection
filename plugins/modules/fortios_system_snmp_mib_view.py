@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     system_snmp_mib_view:
         description:
             - SNMP Access Control MIB View configuration.
@@ -206,9 +206,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_system_snmp_mib_view_data(json):
@@ -244,8 +241,8 @@ def flatten_single_path(data, path, index):
 
 def flatten_multilists_attributes(data):
     multilist_attrs = [
-        ["exclude"],
         ["include"],
+        ["exclude"],
     ]
 
     for attr in multilist_attrs:
@@ -319,24 +316,27 @@ def fortios_system_snmp(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "exclude": {
-            "multiple_values": True,
-            "elements": "str",
-            "type": "list",
-            "revisions": {"v7.2.0": True},
+        "name": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
         },
         "include": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "list",
             "multiple_values": True,
             "elements": "str",
-            "type": "list",
-            "revisions": {"v7.2.0": True},
         },
-        "name": {"type": "string", "revisions": {"v7.2.0": True}},
+        "exclude": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "list",
+            "multiple_values": True,
+            "elements": "str",
+        },
     },
-    "revisions": {"v7.2.0": True},
+    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
 }
 
 

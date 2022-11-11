@@ -127,284 +127,293 @@ options:
                 type: str
                 required: true
                 choices:
-                 - firewall_acl6
-                 - firewall_ippool
-                 - webfilter_malicious-urls
-                 - fortiguard_redirect-portal
-                 - firewall_policy-lookup
-                 - system_acquired-dns
-                 - wifi_interfering_ap
-                 - system_botnet-domains
-                 - firewall_address-dynamic
-                 - vpn_ocvpn_status
-                 - wifi_vlan-probe
-                 - system_sandbox_status
-                 - system_running-processes
-                 - system_storage
-                 - router_ipv4
-                 - log_historic-daily-remote-logs
-                 - webfilter_malicious-urls_stat
-                 - ips_anomaly
-                 - wanopt_peer_stats
-                 - wifi_network_status
-                 - log_hourly-disk-usage
-                 - wifi_region-image
-                 - system_object_usage
-                 - wifi_euclid
-                 - system_current-admins
-                 - system_sandbox_test-connect
-                 - system_interface_speed-test-status
-                 - user_info_query
-                 - firewall_central-snat-map
-                 - wifi_rogue_ap
-                 - system_config-revision_info
-                 - ips_hold-signatures
-                 - utm_antivirus_stats
-                 - system_3g-modem
-                 - endpoint-control_installer_download
-                 - network_arp
-                 - firewall_address-fqdns
-                 - wifi_firmware
-                 - user_fsso
-                 - switch-controller_managed-switch_port-stats
-                 - endpoint-control_installer
-                 - utm_app-lookup
-                 - system_firmware
-                 - system_interface_dhcp-status
-                 - user_banned_check
-                 - system_botnet-domains_stat
-                 - wifi_matched-devices
-                 - system_external-resource_entry-list
-                 - webfilter_fortiguard-categories
-                 - system_fortimanager_backup-details
-                 - firewall_internet-service-match
-                 - router_policy6
-                 - virtual-wan_sla-log
-                 - system_security-rating
-                 - switch-controller_managed-switch_dhcp-snooping
-                 - system_time
-                 - log_local-report-list
-                 - vpn-certificate_cert-name-available
-                 - firewall_shaper
-                 - system_available-interfaces
-                 - system_fortimanager_status
-                 - system_sensor-info
-                 - system_status
-                 - firewall_gtp
-                 - nsx_instance
-                 - web-ui_custom-language_download
-                 - wanopt_history
-                 - log_forticloud
-                 - system_vdom-link
-                 - utm_blacklisted-certificates
-                 - switch-controller_managed-switch_port-health
-                 - webcache_stats
-                 - system_config-revision_file
-                 - user_device
-                 - system_dhcp
-                 - router_lookup
-                 - system_ipam_status
-                 - utm_blacklisted-certificates_statistics
-                 - log_device_state
-                 - vpn_one-click_status
-                 - system_sniffer
-                 - system_firmware_upgrade-paths
-                 - router_ospf_neighbors
-                 - system_sandbox_stats
-                 - wanopt_webcache
-                 - network_lldp_neighbors
-                 - log_local-report_download
-                 - system_config-error-log_download
-                 - firewall_load-balance
-                 - vpn_ocvpn_meta
-                 - system_sandbox_cloud-regions
-                 - firewall_address-fqdns6
-                 - firewall_proxy_sessions
-                 - firewall_acl
-                 - system_link-monitor
-                 - system_com-log_download
-                 - user_device_query
-                 - fortiguard_service-communication-stats
-                 - switch-controller_managed-switch_status
-                 - system_available-certificates
-                 - registration_forticloud_domains
-                 - switch-controller_fsw-firmware
-                 - system_ha-table-checksums
-                 - fortiview_statistics
-                 - router_ipv6
-                 - endpoint-control_registration_summary
-                 - firewall_gtp-runtime-statistics
-                 - firewall_uuid-list
-                 - router_statistics
-                 - system_config_usb-filelist
-                 - firewall_internet-service-details
-                 - firewall_internet-service-reputation
-                 - endpoint-control_ems_cert-status
-                 - system_config-script
-                 - user_banned
-                 - system_sdn-connector_nsx-security-tags
-                 - system_object-tagging_usage
-                 - system_com-log_update
-                 - system_global-resources
-                 - system_ipconf
-                 - firewall_vip-overlap
-                 - switch-controller_mclag-icl_eligible-peer
-                 - user_fortitoken-cloud_status
-                 - firewall_per-ip-shaper
-                 - wifi_network_list
-                 - ips_exceed-scan-range
-                 - log_current-disk-usage
-                 - license_status
-                 - firewall_session
-                 - firewall_ippool_mapping
-                 - virtual-wan_members
-                 - switch-controller_managed-switch_faceplate-xml
-                 - firewall_security-policy
-                 - wifi_client
-                 - endpoint-control_record-list
-                 - videofilter_fortiguard-categories
-                 - webfilter_category-quota
-                 - log_forticloud-report-list
-                 - log_policy-archive_download
-                 - wifi_ap-names
-                 - firewall_internet-service-basic
-                 - system_debug_download
-                 - system_automation-action_stats
-                 - log_fortianalyzer-queue
-                 - network_ddns_servers
-                 - system_nat46-ippools
-                 - system_vdom-resource
-                 - system_modem
-                 - firewall_proxy-policy
-                 - nsx_service_status
-                 - azure_application-list
-                 - log_forticloud-report_download
-                 - user_info_thumbnail
-                 - system_sdn-connector_status
-                 - vpn_ipsec
-                 - endpoint-control_ems_status-summary
-                 - firewall_dnat
-                 - firewall_multicast-policy
-                 - switch-controller_validate-switch-prefix
-                 - system_security-rating_history
-                 - system_lte-modem_status
-                 - fortiview_sandbox-file-details
-                 - endpoint-control_summary
-                 - system_csf
-                 - license_forticare-resellers
-                 - switch-controller_managed-switch_models
-                 - endpoint-control_profile_xml
-                 - wifi_ap_status
-                 - user_device-category
-                 - system_ntp_status
-                 - firewall_gtp-statistics
-                 - utm_application-categories
-                 - router_lookup-policy
-                 - system_performance_status
-                 - system_ha-history
-                 - license_forticare-org-list
-                 - system_security-rating_lang
-                 - system_global-search
-                 - router_bgp_paths6
-                 - vpn_one-click_members
-                 - system_interface_kernel-interfaces
-                 - switch-controller_managed-switch_health
-                 - system_timezone
-                 - firewall_sdn-connector-filters
-                 - router_bgp_paths-statistics
-                 - webfilter_trusted-urls
-                 - system_usb-log
-                 - network_lldp_ports
-                 - system_fortiguard-blacklist
-                 - firewall_policy
-                 - system_ha-statistics
-                 - switch-controller_matched-devices
-                 - system_crash-log_download
-                 - network_dns_latency
-                 - system_fortimanager_backup-summary
-                 - firewall_shaper_multi-class-shaper
-                 - system_sniffer_download
-                 - user_detected-device
-                 - system_botnet_stat
-                 - system_vm-information
-                 - system_security-rating_supported-reports
-                 - user_fortitoken
-                 - system_botnet
-                 - user_info_thumbnail-file
-                 - vpn_ssl_stats
-                 - system_ha-checksums
-                 - webfilter_override
-                 - log_stats
-                 - system_csf_pending-authorizations
-                 - system_resolve-fqdn
-                 - log_fortianalyzer
-                 - log_ips-archive_download
-                 - wifi_meta
-                 - system_interface-connected-admins-info
-                 - system_config-revision
-                 - router_bgp_neighbors
-                 - user_collected-email
-                 - ips_rate-based
-                 - switch-controller_detected-device
-                 - webproxy_pacfile_download
-                 - registration_forticloud_device-status
-                 - firewall_policy6
-                 - endpoint-control_ems_status
-                 - system_acme-certificate-status
-                 - router_policy
-                 - switch-controller_managed-switch_transceivers
-                 - fortiview_proxy-statistics
-                 - user_firewall
-                 - firewall_multicast-policy6
-                 - user_device-type
-                 - switch-controller_managed-switch_cable-status
-                 - system_automation-stitch_stats
-                 - system_traffic-history_interface
-                 - network_ddns_lookup
-                 - wifi_managed_ap
-                 - system_interface_transceivers
-                 - system_traffic-history_top-applications
-                 - firewall_uuid-type-lookup
-                 - virtual-wan_interface-log
-                 - network_reverse-ip-lookup
-                 - firewall_health
-                 - router_bgp_neighbors6
-                 - wifi_unassociated-devices
-                 - system_security-rating_status
-                 - registration_forticloud_disclaimer
-                 - wifi_ap_channels
-                 - system_botnet-domains_hits
-                 - system_ipam_list
-                 - log_event
-                 - system_config-sync_status
-                 - network_fortiguard_live-services-latency
-                 - fortiview_sandbox-file-list
-                 - system_fortiguard_server-info
-                 - vpn_ssl
-                 - system_check-port-availability
-                 - log_av-archive_download
-                 - license_fortianalyzer-status
-                 - virtual-wan_health-check
-                 - firewall_address6-dynamic
-                 - system_config_restore-status
-                 - router_bgp_paths
-                 - endpoint-control_avatar_download
-                 - system_resource_usage
-                 - system_certificate_download
-                 - system_ha-peer
-                 - system_sandbox_connection
-                 - log_forticloud_connection
-                 - system_interface_poe
-                 - ips_metadata
-                 - system_interface
-                 - extender-controller_extender
-                 - firewall_local-in
-                 - wifi_spectrum
-                 - firewall_consolidated-policy
-                 - switch-controller_managed-switch
-                 - system_trusted-cert-authorities
-                 - switch-controller_managed-switch_tx-rx
-                 - vpn_ocvpn_members
+                 - 'endpoint-control_profile_xml'
+                 - 'endpoint-control_record-list'
+                 - 'endpoint-control_registration_summary'
+                 - 'endpoint-control_installer'
+                 - 'endpoint-control_installer_download'
+                 - 'endpoint-control_avatar_download'
+                 - 'firewall_health'
+                 - 'firewall_local-in'
+                 - 'firewall_acl'
+                 - 'firewall_acl6'
+                 - 'firewall_internet-service-match'
+                 - 'firewall_internet-service-details'
+                 - 'firewall_policy'
+                 - 'firewall_policy6'
+                 - 'firewall_proxy-policy'
+                 - 'firewall_policy-lookup'
+                 - 'firewall_session'
+                 - 'firewall_shaper'
+                 - 'firewall_per-ip-shaper'
+                 - 'firewall_load-balance'
+                 - 'firewall_address-fqdns'
+                 - 'firewall_address-fqdns6'
+                 - 'firewall_ippool'
+                 - 'firewall_address-dynamic'
+                 - 'firewall_address6-dynamic'
+                 - 'fortiview_statistics'
+                 - 'fortiview_sandbox-file-details'
+                 - 'geoip_geoip-query'
+                 - 'ips_rate-based'
+                 - 'license_status'
+                 - 'license_forticare-resellers'
+                 - 'license_forticare-org-list'
+                 - 'log_current-disk-usage'
+                 - 'log_device_state'
+                 - 'log_forticloud'
+                 - 'log_fortianalyzer'
+                 - 'log_fortianalyzer-queue'
+                 - 'log_hourly-disk-usage'
+                 - 'log_historic-daily-remote-logs'
+                 - 'log_stats'
+                 - 'log_forticloud-report_download'
+                 - 'log_ips-archive_download'
+                 - 'log_policy-archive_download'
+                 - 'log_av-archive_download'
+                 - 'log_event'
+                 - 'registration_forticloud_disclaimer'
+                 - 'registration_forticloud_domains'
+                 - 'router_ipv4'
+                 - 'router_ipv6'
+                 - 'router_statistics'
+                 - 'router_lookup'
+                 - 'router_policy'
+                 - 'router_policy6'
+                 - 'system_config-revision'
+                 - 'system_config-revision_file'
+                 - 'system_config-revision_info'
+                 - 'system_current-admins'
+                 - 'system_time'
+                 - 'system_global-resources'
+                 - 'system_vdom-resource'
+                 - 'system_dhcp'
+                 - 'system_firmware'
+                 - 'system_firmware_upgrade-paths'
+                 - 'system_storage'
+                 - 'system_csf'
+                 - 'system_csf_pending-authorizations'
+                 - 'system_modem'
+                 - 'system_3g-modem'
+                 - 'system_resource_usage'
+                 - 'system_sniffer'
+                 - 'system_sniffer_download'
+                 - 'system_automation-stitch_stats'
+                 - 'switch-controller_managed-switch'
+                 - 'switch-controller_managed-switch_faceplate-xml'
+                 - 'switch-controller_managed-switch_dhcp-snooping'
+                 - 'switch-controller_fsw-firmware'
+                 - 'switch-controller_detected-device'
+                 - 'switch-controller_validate-switch-prefix'
+                 - 'system_interface'
+                 - 'system_interface_dhcp-status'
+                 - 'system_available-interfaces'
+                 - 'system_acquired-dns'
+                 - 'system_resolve-fqdn'
+                 - 'system_nat46-ippools'
+                 - 'system_usb-log'
+                 - 'system_ipconf'
+                 - 'system_fortiguard_server-info'
+                 - 'system_fortimanager_status'
+                 - 'system_fortimanager_backup-summary'
+                 - 'system_fortimanager_backup-details'
+                 - 'system_available-certificates'
+                 - 'system_certificate_download'
+                 - 'system_debug_download'
+                 - 'system_com-log_update'
+                 - 'system_com-log_download'
+                 - 'system_botnet_stat'
+                 - 'system_botnet'
+                 - 'system_botnet-domains'
+                 - 'system_botnet-domains_stat'
+                 - 'system_botnet-domains_hits'
+                 - 'system_ha-statistics'
+                 - 'system_ha-history'
+                 - 'system_ha-checksums'
+                 - 'system_ha-peer'
+                 - 'system_link-monitor'
+                 - 'system_config_backup'
+                 - 'system_config_usb-filelist'
+                 - 'system_sandbox_stats'
+                 - 'system_sandbox_status'
+                 - 'system_sandbox_test-connect'
+                 - 'system_object_usage'
+                 - 'system_object-tagging_usage'
+                 - 'system_status'
+                 - 'system_timezone'
+                 - 'system_sensor-info'
+                 - 'system_security-rating'
+                 - 'system_security-rating_history'
+                 - 'system_security-rating_status'
+                 - 'system_security-rating_lang'
+                 - 'system_fortiguard-blacklist'
+                 - 'system_check-port-availability'
+                 - 'system_external-resource_entry-list'
+                 - 'extender-controller_extender'
+                 - 'system_sdn-connector_status'
+                 - 'user_firewall'
+                 - 'user_banned'
+                 - 'user_fortitoken'
+                 - 'user_detected-device'
+                 - 'user_device'
+                 - 'user_device-type'
+                 - 'user_device-category'
+                 - 'user_fsso'
+                 - 'utm_rating-lookup'
+                 - 'utm_app-lookup'
+                 - 'utm_application-categories'
+                 - 'utm_antivirus_stats'
+                 - 'virtual-wan_health-check'
+                 - 'virtual-wan_members'
+                 - 'webfilter_override'
+                 - 'webfilter_malicious-urls'
+                 - 'webfilter_malicious-urls_stat'
+                 - 'webfilter_category-quota'
+                 - 'webfilter_fortiguard-categories'
+                 - 'webfilter_trusted-urls'
+                 - 'vpn_ipsec'
+                 - 'vpn_one-click_members'
+                 - 'vpn_one-click_status'
+                 - 'vpn_ssl'
+                 - 'vpn_ssl_stats'
+                 - 'wanopt_history'
+                 - 'wanopt_webcache'
+                 - 'wanopt_peer_stats'
+                 - 'webproxy_pacfile_download'
+                 - 'webcache_stats'
+                 - 'wifi_client'
+                 - 'wifi_managed_ap'
+                 - 'wifi_firmware'
+                 - 'wifi_ap_status'
+                 - 'wifi_interfering_ap'
+                 - 'wifi_euclid'
+                 - 'wifi_rogue_ap'
+                 - 'wifi_spectrum'
+                 - 'endpoint-control_summary'
+                 - 'endpoint-control_ems_status'
+                 - 'firewall_consolidated-policy'
+                 - 'firewall_security-policy'
+                 - 'firewall_uuid-list'
+                 - 'firewall_uuid-type-lookup'
+                 - 'fortiguard_redirect-portal'
+                 - 'firewall_sdn-connector-filters'
+                 - 'fortiview_sandbox-file-list'
+                 - 'ips_metadata'
+                 - 'ips_anomaly'
+                 - 'license_fortianalyzer-status'
+                 - 'log_forticloud-report-list'
+                 - 'log_local-report-list'
+                 - 'log_local-report_download'
+                 - 'network_lldp_neighbors'
+                 - 'network_lldp_ports'
+                 - 'network_dns_latency'
+                 - 'network_fortiguard_live-services-latency'
+                 - 'network_ddns_servers'
+                 - 'network_ddns_lookup'
+                 - 'router_lookup-policy'
+                 - 'system_config-script'
+                 - 'system_config-sync_status'
+                 - 'system_vdom-link'
+                 - 'switch-controller_managed-switch_transceivers'
+                 - 'system_interface_poe'
+                 - 'system_trusted-cert-authorities'
+                 - 'system_sandbox_cloud-regions'
+                 - 'system_interface_transceivers'
+                 - 'system_vm-information'
+                 - 'system_security-rating_supported-reports'
+                 - 'nsx_service_status'
+                 - 'nsx_instance'
+                 - 'system_sdn-connector_nsx-security-tags'
+                 - 'web-ui_custom-language_download'
+                 - 'user_collected-email'
+                 - 'user_info_query'
+                 - 'user_info_thumbnail'
+                 - 'utm_blacklisted-certificates'
+                 - 'utm_blacklisted-certificates_statistics'
+                 - 'virtual-wan_interface-log'
+                 - 'virtual-wan_sla-log'
+                 - 'vpn_ocvpn_members'
+                 - 'vpn_ocvpn_status'
+                 - 'vpn_ocvpn_meta'
+                 - 'wifi_network_list'
+                 - 'wifi_network_status'
+                 - 'wifi_region-image'
+                 - 'azure_application-list'
+                 - 'endpoint-control_ems_cert-status'
+                 - 'endpoint-control_ems_status-summary'
+                 - 'fortiguard_service-communication-stats'
+                 - 'network_reverse-ip-lookup'
+                 - 'registration_forticloud_device-status'
+                 - 'switch-controller_managed-switch_health'
+                 - 'switch-controller_managed-switch_cable-status'
+                 - 'switch-controller_mclag-icl_eligible-peer'
+                 - 'system_interface_speed-test-status'
+                 - 'user_fortitoken-cloud_status'
+                 - 'wifi_vlan-probe'
+                 - 'firewall_ippool_mapping'
+                 - 'network_arp'
+                 - 'system_interface-connected-admins-info'
+                 - 'system_ntp_status'
+                 - 'system_config-error-log_download'
+                 - 'system_running-processes'
+                 - 'user_device_query'
+                 - 'ips_exceed-scan-range'
+                 - 'firewall_multicast-policy'
+                 - 'firewall_multicast-policy6'
+                 - 'firewall_gtp-statistics'
+                 - 'firewall_gtp-runtime-statistics'
+                 - 'router_bgp_neighbors'
+                 - 'router_bgp_neighbors6'
+                 - 'router_bgp_paths'
+                 - 'router_bgp_paths6'
+                 - 'router_ospf_neighbors'
+                 - 'system_automation-action_stats'
+                 - 'switch-controller_matched-devices'
+                 - 'system_ha-table-checksums'
+                 - 'system_sandbox_connection'
+                 - 'system_traffic-history_interface'
+                 - 'system_traffic-history_top-applications'
+                 - 'videofilter_fortiguard-categories'
+                 - 'firewall_central-snat-map'
+                 - 'firewall_dnat'
+                 - 'ips_hold-signatures'
+                 - 'router_bgp_paths-statistics'
+                 - 'system_lte-modem_status'
+                 - 'system_global-search'
+                 - 'switch-controller_managed-switch_status'
+                 - 'switch-controller_managed-switch_port-stats'
+                 - 'switch-controller_managed-switch_models'
+                 - 'system_interface_kernel-interfaces'
+                 - 'system_config_restore-status'
+                 - 'wifi_meta'
+                 - 'wifi_ap_channels'
+                 - 'wifi_ap-names'
+                 - 'firewall_internet-service-reputation'
+                 - 'firewall_shaper_multi-class-shaper'
+                 - 'log_forticloud_connection'
+                 - 'system_performance_status'
+                 - 'system_ipam_list'
+                 - 'system_ipam_status'
+                 - 'system_acme-certificate-status'
+                 - 'system_crash-log_download'
+                 - 'user_banned_check'
+                 - 'user_info_thumbnail-file'
+                 - 'vpn-certificate_cert-name-available'
+                 - 'wifi_unassociated-devices'
+                 - 'wifi_matched-devices'
+                 - 'firewall_proxy_sessions'
+                 - 'firewall_gtp'
+                 - 'fortiview_proxy-statistics'
+                 - 'system_ha-hw-interface'
+                 - 'user_firewall_count'
+                 - 'firewall_internet-service-basic'
+                 - 'firewall_vip-overlap'
+                 - 'switch-controller_managed-switch_port-health'
+                 - 'switch-controller_managed-switch_tx-rx'
+                 - 'firewall_network-service-dynamic'
+                 - 'system_ipam_utilization'
+                 - 'system_ha-nonsync-checksums'
+                 - 'wifi_station-capability'
 
     selector:
         description:
@@ -412,284 +421,293 @@ options:
         type: str
         required: false
         choices:
-         - firewall_acl6
-         - firewall_ippool
-         - webfilter_malicious-urls
-         - fortiguard_redirect-portal
-         - firewall_policy-lookup
-         - system_acquired-dns
-         - wifi_interfering_ap
-         - system_botnet-domains
-         - firewall_address-dynamic
-         - vpn_ocvpn_status
-         - wifi_vlan-probe
-         - system_sandbox_status
-         - system_running-processes
-         - system_storage
-         - router_ipv4
-         - log_historic-daily-remote-logs
-         - webfilter_malicious-urls_stat
-         - ips_anomaly
-         - wanopt_peer_stats
-         - wifi_network_status
-         - log_hourly-disk-usage
-         - wifi_region-image
-         - system_object_usage
-         - wifi_euclid
-         - system_current-admins
-         - system_sandbox_test-connect
-         - system_interface_speed-test-status
-         - user_info_query
-         - firewall_central-snat-map
-         - wifi_rogue_ap
-         - system_config-revision_info
-         - ips_hold-signatures
-         - utm_antivirus_stats
-         - system_3g-modem
-         - endpoint-control_installer_download
-         - network_arp
-         - firewall_address-fqdns
-         - wifi_firmware
-         - user_fsso
-         - switch-controller_managed-switch_port-stats
-         - endpoint-control_installer
-         - utm_app-lookup
-         - system_firmware
-         - system_interface_dhcp-status
-         - user_banned_check
-         - system_botnet-domains_stat
-         - wifi_matched-devices
-         - system_external-resource_entry-list
-         - webfilter_fortiguard-categories
-         - system_fortimanager_backup-details
-         - firewall_internet-service-match
-         - router_policy6
-         - virtual-wan_sla-log
-         - system_security-rating
-         - switch-controller_managed-switch_dhcp-snooping
-         - system_time
-         - log_local-report-list
-         - vpn-certificate_cert-name-available
-         - firewall_shaper
-         - system_available-interfaces
-         - system_fortimanager_status
-         - system_sensor-info
-         - system_status
-         - firewall_gtp
-         - nsx_instance
-         - web-ui_custom-language_download
-         - wanopt_history
-         - log_forticloud
-         - system_vdom-link
-         - utm_blacklisted-certificates
-         - switch-controller_managed-switch_port-health
-         - webcache_stats
-         - system_config-revision_file
-         - user_device
-         - system_dhcp
-         - router_lookup
-         - system_ipam_status
-         - utm_blacklisted-certificates_statistics
-         - log_device_state
-         - vpn_one-click_status
-         - system_sniffer
-         - system_firmware_upgrade-paths
-         - router_ospf_neighbors
-         - system_sandbox_stats
-         - wanopt_webcache
-         - network_lldp_neighbors
-         - log_local-report_download
-         - system_config-error-log_download
-         - firewall_load-balance
-         - vpn_ocvpn_meta
-         - system_sandbox_cloud-regions
-         - firewall_address-fqdns6
-         - firewall_proxy_sessions
-         - firewall_acl
-         - system_link-monitor
-         - system_com-log_download
-         - user_device_query
-         - fortiguard_service-communication-stats
-         - switch-controller_managed-switch_status
-         - system_available-certificates
-         - registration_forticloud_domains
-         - switch-controller_fsw-firmware
-         - system_ha-table-checksums
-         - fortiview_statistics
-         - router_ipv6
-         - endpoint-control_registration_summary
-         - firewall_gtp-runtime-statistics
-         - firewall_uuid-list
-         - router_statistics
-         - system_config_usb-filelist
-         - firewall_internet-service-details
-         - firewall_internet-service-reputation
-         - endpoint-control_ems_cert-status
-         - system_config-script
-         - user_banned
-         - system_sdn-connector_nsx-security-tags
-         - system_object-tagging_usage
-         - system_com-log_update
-         - system_global-resources
-         - system_ipconf
-         - firewall_vip-overlap
-         - switch-controller_mclag-icl_eligible-peer
-         - user_fortitoken-cloud_status
-         - firewall_per-ip-shaper
-         - wifi_network_list
-         - ips_exceed-scan-range
-         - log_current-disk-usage
-         - license_status
-         - firewall_session
-         - firewall_ippool_mapping
-         - virtual-wan_members
-         - switch-controller_managed-switch_faceplate-xml
-         - firewall_security-policy
-         - wifi_client
-         - endpoint-control_record-list
-         - videofilter_fortiguard-categories
-         - webfilter_category-quota
-         - log_forticloud-report-list
-         - log_policy-archive_download
-         - wifi_ap-names
-         - firewall_internet-service-basic
-         - system_debug_download
-         - system_automation-action_stats
-         - log_fortianalyzer-queue
-         - network_ddns_servers
-         - system_nat46-ippools
-         - system_vdom-resource
-         - system_modem
-         - firewall_proxy-policy
-         - nsx_service_status
-         - azure_application-list
-         - log_forticloud-report_download
-         - user_info_thumbnail
-         - system_sdn-connector_status
-         - vpn_ipsec
-         - endpoint-control_ems_status-summary
-         - firewall_dnat
-         - firewall_multicast-policy
-         - switch-controller_validate-switch-prefix
-         - system_security-rating_history
-         - system_lte-modem_status
-         - fortiview_sandbox-file-details
-         - endpoint-control_summary
-         - system_csf
-         - license_forticare-resellers
-         - switch-controller_managed-switch_models
-         - endpoint-control_profile_xml
-         - wifi_ap_status
-         - user_device-category
-         - system_ntp_status
-         - firewall_gtp-statistics
-         - utm_application-categories
-         - router_lookup-policy
-         - system_performance_status
-         - system_ha-history
-         - license_forticare-org-list
-         - system_security-rating_lang
-         - system_global-search
-         - router_bgp_paths6
-         - vpn_one-click_members
-         - system_interface_kernel-interfaces
-         - switch-controller_managed-switch_health
-         - system_timezone
-         - firewall_sdn-connector-filters
-         - router_bgp_paths-statistics
-         - webfilter_trusted-urls
-         - system_usb-log
-         - network_lldp_ports
-         - system_fortiguard-blacklist
-         - firewall_policy
-         - system_ha-statistics
-         - switch-controller_matched-devices
-         - system_crash-log_download
-         - network_dns_latency
-         - system_fortimanager_backup-summary
-         - firewall_shaper_multi-class-shaper
-         - system_sniffer_download
-         - user_detected-device
-         - system_botnet_stat
-         - system_vm-information
-         - system_security-rating_supported-reports
-         - user_fortitoken
-         - system_botnet
-         - user_info_thumbnail-file
-         - vpn_ssl_stats
-         - system_ha-checksums
-         - webfilter_override
-         - log_stats
-         - system_csf_pending-authorizations
-         - system_resolve-fqdn
-         - log_fortianalyzer
-         - log_ips-archive_download
-         - wifi_meta
-         - system_interface-connected-admins-info
-         - system_config-revision
-         - router_bgp_neighbors
-         - user_collected-email
-         - ips_rate-based
-         - switch-controller_detected-device
-         - webproxy_pacfile_download
-         - registration_forticloud_device-status
-         - firewall_policy6
-         - endpoint-control_ems_status
-         - system_acme-certificate-status
-         - router_policy
-         - switch-controller_managed-switch_transceivers
-         - fortiview_proxy-statistics
-         - user_firewall
-         - firewall_multicast-policy6
-         - user_device-type
-         - switch-controller_managed-switch_cable-status
-         - system_automation-stitch_stats
-         - system_traffic-history_interface
-         - network_ddns_lookup
-         - wifi_managed_ap
-         - system_interface_transceivers
-         - system_traffic-history_top-applications
-         - firewall_uuid-type-lookup
-         - virtual-wan_interface-log
-         - network_reverse-ip-lookup
-         - firewall_health
-         - router_bgp_neighbors6
-         - wifi_unassociated-devices
-         - system_security-rating_status
-         - registration_forticloud_disclaimer
-         - wifi_ap_channels
-         - system_botnet-domains_hits
-         - system_ipam_list
-         - log_event
-         - system_config-sync_status
-         - network_fortiguard_live-services-latency
-         - fortiview_sandbox-file-list
-         - system_fortiguard_server-info
-         - vpn_ssl
-         - system_check-port-availability
-         - log_av-archive_download
-         - license_fortianalyzer-status
-         - virtual-wan_health-check
-         - firewall_address6-dynamic
-         - system_config_restore-status
-         - router_bgp_paths
-         - endpoint-control_avatar_download
-         - system_resource_usage
-         - system_certificate_download
-         - system_ha-peer
-         - system_sandbox_connection
-         - log_forticloud_connection
-         - system_interface_poe
-         - ips_metadata
-         - system_interface
-         - extender-controller_extender
-         - firewall_local-in
-         - wifi_spectrum
-         - firewall_consolidated-policy
-         - switch-controller_managed-switch
-         - system_trusted-cert-authorities
-         - switch-controller_managed-switch_tx-rx
-         - vpn_ocvpn_members
+         - 'endpoint-control_profile_xml'
+         - 'endpoint-control_record-list'
+         - 'endpoint-control_registration_summary'
+         - 'endpoint-control_installer'
+         - 'endpoint-control_installer_download'
+         - 'endpoint-control_avatar_download'
+         - 'firewall_health'
+         - 'firewall_local-in'
+         - 'firewall_acl'
+         - 'firewall_acl6'
+         - 'firewall_internet-service-match'
+         - 'firewall_internet-service-details'
+         - 'firewall_policy'
+         - 'firewall_policy6'
+         - 'firewall_proxy-policy'
+         - 'firewall_policy-lookup'
+         - 'firewall_session'
+         - 'firewall_shaper'
+         - 'firewall_per-ip-shaper'
+         - 'firewall_load-balance'
+         - 'firewall_address-fqdns'
+         - 'firewall_address-fqdns6'
+         - 'firewall_ippool'
+         - 'firewall_address-dynamic'
+         - 'firewall_address6-dynamic'
+         - 'fortiview_statistics'
+         - 'fortiview_sandbox-file-details'
+         - 'geoip_geoip-query'
+         - 'ips_rate-based'
+         - 'license_status'
+         - 'license_forticare-resellers'
+         - 'license_forticare-org-list'
+         - 'log_current-disk-usage'
+         - 'log_device_state'
+         - 'log_forticloud'
+         - 'log_fortianalyzer'
+         - 'log_fortianalyzer-queue'
+         - 'log_hourly-disk-usage'
+         - 'log_historic-daily-remote-logs'
+         - 'log_stats'
+         - 'log_forticloud-report_download'
+         - 'log_ips-archive_download'
+         - 'log_policy-archive_download'
+         - 'log_av-archive_download'
+         - 'log_event'
+         - 'registration_forticloud_disclaimer'
+         - 'registration_forticloud_domains'
+         - 'router_ipv4'
+         - 'router_ipv6'
+         - 'router_statistics'
+         - 'router_lookup'
+         - 'router_policy'
+         - 'router_policy6'
+         - 'system_config-revision'
+         - 'system_config-revision_file'
+         - 'system_config-revision_info'
+         - 'system_current-admins'
+         - 'system_time'
+         - 'system_global-resources'
+         - 'system_vdom-resource'
+         - 'system_dhcp'
+         - 'system_firmware'
+         - 'system_firmware_upgrade-paths'
+         - 'system_storage'
+         - 'system_csf'
+         - 'system_csf_pending-authorizations'
+         - 'system_modem'
+         - 'system_3g-modem'
+         - 'system_resource_usage'
+         - 'system_sniffer'
+         - 'system_sniffer_download'
+         - 'system_automation-stitch_stats'
+         - 'switch-controller_managed-switch'
+         - 'switch-controller_managed-switch_faceplate-xml'
+         - 'switch-controller_managed-switch_dhcp-snooping'
+         - 'switch-controller_fsw-firmware'
+         - 'switch-controller_detected-device'
+         - 'switch-controller_validate-switch-prefix'
+         - 'system_interface'
+         - 'system_interface_dhcp-status'
+         - 'system_available-interfaces'
+         - 'system_acquired-dns'
+         - 'system_resolve-fqdn'
+         - 'system_nat46-ippools'
+         - 'system_usb-log'
+         - 'system_ipconf'
+         - 'system_fortiguard_server-info'
+         - 'system_fortimanager_status'
+         - 'system_fortimanager_backup-summary'
+         - 'system_fortimanager_backup-details'
+         - 'system_available-certificates'
+         - 'system_certificate_download'
+         - 'system_debug_download'
+         - 'system_com-log_update'
+         - 'system_com-log_download'
+         - 'system_botnet_stat'
+         - 'system_botnet'
+         - 'system_botnet-domains'
+         - 'system_botnet-domains_stat'
+         - 'system_botnet-domains_hits'
+         - 'system_ha-statistics'
+         - 'system_ha-history'
+         - 'system_ha-checksums'
+         - 'system_ha-peer'
+         - 'system_link-monitor'
+         - 'system_config_backup'
+         - 'system_config_usb-filelist'
+         - 'system_sandbox_stats'
+         - 'system_sandbox_status'
+         - 'system_sandbox_test-connect'
+         - 'system_object_usage'
+         - 'system_object-tagging_usage'
+         - 'system_status'
+         - 'system_timezone'
+         - 'system_sensor-info'
+         - 'system_security-rating'
+         - 'system_security-rating_history'
+         - 'system_security-rating_status'
+         - 'system_security-rating_lang'
+         - 'system_fortiguard-blacklist'
+         - 'system_check-port-availability'
+         - 'system_external-resource_entry-list'
+         - 'extender-controller_extender'
+         - 'system_sdn-connector_status'
+         - 'user_firewall'
+         - 'user_banned'
+         - 'user_fortitoken'
+         - 'user_detected-device'
+         - 'user_device'
+         - 'user_device-type'
+         - 'user_device-category'
+         - 'user_fsso'
+         - 'utm_rating-lookup'
+         - 'utm_app-lookup'
+         - 'utm_application-categories'
+         - 'utm_antivirus_stats'
+         - 'virtual-wan_health-check'
+         - 'virtual-wan_members'
+         - 'webfilter_override'
+         - 'webfilter_malicious-urls'
+         - 'webfilter_malicious-urls_stat'
+         - 'webfilter_category-quota'
+         - 'webfilter_fortiguard-categories'
+         - 'webfilter_trusted-urls'
+         - 'vpn_ipsec'
+         - 'vpn_one-click_members'
+         - 'vpn_one-click_status'
+         - 'vpn_ssl'
+         - 'vpn_ssl_stats'
+         - 'wanopt_history'
+         - 'wanopt_webcache'
+         - 'wanopt_peer_stats'
+         - 'webproxy_pacfile_download'
+         - 'webcache_stats'
+         - 'wifi_client'
+         - 'wifi_managed_ap'
+         - 'wifi_firmware'
+         - 'wifi_ap_status'
+         - 'wifi_interfering_ap'
+         - 'wifi_euclid'
+         - 'wifi_rogue_ap'
+         - 'wifi_spectrum'
+         - 'endpoint-control_summary'
+         - 'endpoint-control_ems_status'
+         - 'firewall_consolidated-policy'
+         - 'firewall_security-policy'
+         - 'firewall_uuid-list'
+         - 'firewall_uuid-type-lookup'
+         - 'fortiguard_redirect-portal'
+         - 'firewall_sdn-connector-filters'
+         - 'fortiview_sandbox-file-list'
+         - 'ips_metadata'
+         - 'ips_anomaly'
+         - 'license_fortianalyzer-status'
+         - 'log_forticloud-report-list'
+         - 'log_local-report-list'
+         - 'log_local-report_download'
+         - 'network_lldp_neighbors'
+         - 'network_lldp_ports'
+         - 'network_dns_latency'
+         - 'network_fortiguard_live-services-latency'
+         - 'network_ddns_servers'
+         - 'network_ddns_lookup'
+         - 'router_lookup-policy'
+         - 'system_config-script'
+         - 'system_config-sync_status'
+         - 'system_vdom-link'
+         - 'switch-controller_managed-switch_transceivers'
+         - 'system_interface_poe'
+         - 'system_trusted-cert-authorities'
+         - 'system_sandbox_cloud-regions'
+         - 'system_interface_transceivers'
+         - 'system_vm-information'
+         - 'system_security-rating_supported-reports'
+         - 'nsx_service_status'
+         - 'nsx_instance'
+         - 'system_sdn-connector_nsx-security-tags'
+         - 'web-ui_custom-language_download'
+         - 'user_collected-email'
+         - 'user_info_query'
+         - 'user_info_thumbnail'
+         - 'utm_blacklisted-certificates'
+         - 'utm_blacklisted-certificates_statistics'
+         - 'virtual-wan_interface-log'
+         - 'virtual-wan_sla-log'
+         - 'vpn_ocvpn_members'
+         - 'vpn_ocvpn_status'
+         - 'vpn_ocvpn_meta'
+         - 'wifi_network_list'
+         - 'wifi_network_status'
+         - 'wifi_region-image'
+         - 'azure_application-list'
+         - 'endpoint-control_ems_cert-status'
+         - 'endpoint-control_ems_status-summary'
+         - 'fortiguard_service-communication-stats'
+         - 'network_reverse-ip-lookup'
+         - 'registration_forticloud_device-status'
+         - 'switch-controller_managed-switch_health'
+         - 'switch-controller_managed-switch_cable-status'
+         - 'switch-controller_mclag-icl_eligible-peer'
+         - 'system_interface_speed-test-status'
+         - 'user_fortitoken-cloud_status'
+         - 'wifi_vlan-probe'
+         - 'firewall_ippool_mapping'
+         - 'network_arp'
+         - 'system_interface-connected-admins-info'
+         - 'system_ntp_status'
+         - 'system_config-error-log_download'
+         - 'system_running-processes'
+         - 'user_device_query'
+         - 'ips_exceed-scan-range'
+         - 'firewall_multicast-policy'
+         - 'firewall_multicast-policy6'
+         - 'firewall_gtp-statistics'
+         - 'firewall_gtp-runtime-statistics'
+         - 'router_bgp_neighbors'
+         - 'router_bgp_neighbors6'
+         - 'router_bgp_paths'
+         - 'router_bgp_paths6'
+         - 'router_ospf_neighbors'
+         - 'system_automation-action_stats'
+         - 'switch-controller_matched-devices'
+         - 'system_ha-table-checksums'
+         - 'system_sandbox_connection'
+         - 'system_traffic-history_interface'
+         - 'system_traffic-history_top-applications'
+         - 'videofilter_fortiguard-categories'
+         - 'firewall_central-snat-map'
+         - 'firewall_dnat'
+         - 'ips_hold-signatures'
+         - 'router_bgp_paths-statistics'
+         - 'system_lte-modem_status'
+         - 'system_global-search'
+         - 'switch-controller_managed-switch_status'
+         - 'switch-controller_managed-switch_port-stats'
+         - 'switch-controller_managed-switch_models'
+         - 'system_interface_kernel-interfaces'
+         - 'system_config_restore-status'
+         - 'wifi_meta'
+         - 'wifi_ap_channels'
+         - 'wifi_ap-names'
+         - 'firewall_internet-service-reputation'
+         - 'firewall_shaper_multi-class-shaper'
+         - 'log_forticloud_connection'
+         - 'system_performance_status'
+         - 'system_ipam_list'
+         - 'system_ipam_status'
+         - 'system_acme-certificate-status'
+         - 'system_crash-log_download'
+         - 'user_banned_check'
+         - 'user_info_thumbnail-file'
+         - 'vpn-certificate_cert-name-available'
+         - 'wifi_unassociated-devices'
+         - 'wifi_matched-devices'
+         - 'firewall_proxy_sessions'
+         - 'firewall_gtp'
+         - 'fortiview_proxy-statistics'
+         - 'system_ha-hw-interface'
+         - 'user_firewall_count'
+         - 'firewall_internet-service-basic'
+         - 'firewall_vip-overlap'
+         - 'switch-controller_managed-switch_port-health'
+         - 'switch-controller_managed-switch_tx-rx'
+         - 'firewall_network-service-dynamic'
+         - 'system_ipam_utilization'
+         - 'system_ha-nonsync-checksums'
+         - 'wifi_station-capability'
 
     params:
         description:
@@ -799,213 +817,42 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import (
     FAIL_SOCKET_MSG,
 )
+from urllib.parse import quote
 
 module_selectors_defs = {
-    "firewall_acl6": {"url": "firewall/acl6", "params": {}},
-    "firewall_ippool": {"url": "firewall/ippool", "params": {}},
-    "webfilter_malicious-urls": {"url": "webfilter/malicious-urls", "params": {}},
-    "fortiguard_redirect-portal": {"url": "fortiguard/redirect-portal", "params": {}},
-    "firewall_policy-lookup": {
-        "url": "firewall/policy-lookup",
-        "params": {
-            "protocol": {"type": "string", "required": "True"},
-            "dest": {"type": "string", "required": "True"},
-            "icmpcode": {"type": "int", "required": "False"},
-            "icmptype": {"type": "int", "required": "False"},
-            "srcintf": {"type": "string", "required": "True"},
-            "ipv6": {"type": "boolean", "required": "False"},
-            "sourceport": {"type": "int", "required": "False"},
-            "sourceip": {"type": "string", "required": "False"},
-            "destport": {"type": "int", "required": "False"},
-        },
-    },
-    "system_acquired-dns": {"url": "system/acquired-dns", "params": {}},
-    "wifi_interfering_ap": {
-        "url": "wifi/interfering_ap",
-        "params": {
-            "wtp": {"type": "string", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "radio": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-        },
-    },
-    "system_botnet-domains": {
-        "url": "system/botnet-domains",
-        "params": {
-            "count": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-        },
-    },
-    "firewall_address-dynamic": {
-        "url": "firewall/address-dynamic",
+    "endpoint-control_profile_xml": {
+        "url": "endpoint-control/profile/xml",
         "params": {"mkey": {"type": "string", "required": "False"}},
     },
-    "vpn_ocvpn_status": {"url": "vpn/ocvpn/status", "params": {}},
-    "wifi_vlan-probe": {
-        "url": "wifi/vlan-probe",
-        "params": {
-            "wtp": {"type": "string", "required": "True"},
-            "ap_interface": {"type": "int", "required": "True"},
-        },
+    "endpoint-control_record-list": {
+        "url": "endpoint-control/record-list",
+        "params": {"intf_name": {"type": "string", "required": "False"}},
     },
-    "system_sandbox_status": {"url": "system/sandbox/status", "params": {}},
-    "system_running-processes": {"url": "system/running-processes", "params": {}},
-    "system_storage": {"url": "system/storage", "params": {}},
-    "router_ipv4": {
-        "url": "router/ipv4",
-        "params": {
-            "count": {"type": "int", "required": "False"},
-            "ip_mask": {"type": "string", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "interface": {"type": "string", "required": "False"},
-            "type": {"type": "string", "required": "False"},
-            "gateway": {"type": "string", "required": "False"},
-        },
-    },
-    "log_historic-daily-remote-logs": {
-        "url": "log/historic-daily-remote-logs",
-        "params": {"server": {"type": "string", "required": "True"}},
-    },
-    "webfilter_malicious-urls_stat": {
-        "url": "webfilter/malicious-urls/stat",
+    "endpoint-control_registration_summary": {
+        "url": "endpoint-control/registration/summary",
         "params": {},
-    },
-    "ips_anomaly": {"url": "ips/anomaly", "params": {}},
-    "wanopt_peer_stats": {"url": "wanopt/peer_stats", "params": {}},
-    "wifi_network_status": {"url": "wifi/network/status", "params": {}},
-    "log_hourly-disk-usage": {"url": "log/hourly-disk-usage", "params": {}},
-    "wifi_region-image": {
-        "url": "wifi/region-image",
-        "params": {"region_name": {"type": "string", "required": "True"}},
-    },
-    "system_object_usage": {
-        "url": "system/object/usage",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "q_name": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
-            "qtypes": {"type": "array", "required": "False"},
-            "q_path": {"type": "string", "required": "False"},
-        },
-    },
-    "wifi_euclid": {"url": "wifi/euclid", "params": {}},
-    "system_current-admins": {"url": "system/current-admins", "params": {}},
-    "system_sandbox_test-connect": {
-        "url": "system/sandbox/test-connect",
-        "params": {"server": {"type": "string", "required": "True"}},
-    },
-    "system_interface_speed-test-status": {
-        "url": "system/interface/speed-test-status",
-        "params": {"id": {"type": "int", "required": "True"}},
-    },
-    "user_info_query": {
-        "url": "user/info/query",
-        "params": {
-            "timestamp_from": {"type": "int", "required": "False"},
-            "query_type": {"type": "string", "required": "False"},
-            "number": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "query_id": {"type": "int", "required": "False"},
-            "filter_logic": {"type": "string", "required": "False"},
-            "filters": {"type": "array", "required": "False"},
-            "timestamp_to": {"type": "int", "required": "False"},
-            "cache_query": {"type": "boolean", "required": "False"},
-            "key_only": {"type": "boolean", "required": "False"},
-        },
-    },
-    "firewall_central-snat-map": {
-        "url": "firewall/central-snat-map",
-        "params": {
-            "ip_version": {"type": "string", "required": "False"},
-            "policyid": {"type": "int", "required": "False"},
-        },
-    },
-    "wifi_rogue_ap": {
-        "url": "wifi/rogue_ap",
-        "params": {
-            "count": {"type": "int", "required": "False"},
-            "managed_ssid_only": {"type": "boolean", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-        },
-    },
-    "system_config-revision_info": {
-        "url": "system/config-revision/info",
-        "params": {"config_id": {"type": "int", "required": "False"}},
-    },
-    "ips_hold-signatures": {
-        "url": "ips/hold-signatures",
-        "params": {"ips_sensor": {"type": "string", "required": "False"}},
-    },
-    "utm_antivirus_stats": {"url": "utm/antivirus/stats", "params": {}},
-    "system_3g-modem": {"url": "system/3g-modem", "params": {}},
-    "endpoint-control_installer_download": {
-        "url": "endpoint-control/installer/download",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "network_arp": {"url": "network/arp", "params": {}},
-    "firewall_address-fqdns": {"url": "firewall/address-fqdns", "params": {}},
-    "wifi_firmware": {
-        "url": "wifi/firmware",
-        "params": {
-            "version": {"type": "object", "required": "False"},
-            "timeout": {"type": "int", "required": "False"},
-        },
-    },
-    "user_fsso": {
-        "url": "user/fsso",
-        "params": {
-            "type": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
-    "switch-controller_managed-switch_port-stats": {
-        "url": "switch-controller/managed-switch/port-stats",
-        "params": {"mkey": {"type": "string", "required": "False"}},
     },
     "endpoint-control_installer": {
         "url": "endpoint-control/installer",
         "params": {"min_version": {"type": "string", "required": "False"}},
     },
-    "utm_app-lookup": {
-        "url": "utm/app-lookup",
-        "params": {"hosts": {"type": "array", "required": "False"}},
+    "endpoint-control_installer_download": {
+        "url": "endpoint-control/installer/download",
+        "params": {"mkey": {"type": "string", "required": "True"}},
     },
-    "system_firmware": {"url": "system/firmware", "params": {}},
-    "system_interface_dhcp-status": {
-        "url": "system/interface/dhcp-status",
+    "endpoint-control_avatar_download": {
+        "url": "endpoint-control/avatar/download",
         "params": {
-            "mkey": {"type": "string", "required": "True"},
-            "ipv6": {"type": "boolean", "required": "False"},
+            "uid": {"type": "string", "required": "False"},
+            "user": {"type": "string", "required": "False"},
+            "fingerprint": {"type": "string", "required": "False"},
+            "default": {"type": "string", "required": "False"},
         },
     },
-    "user_banned_check": {
-        "url": "user/banned/check",
-        "params": {"ip_address": {"type": "string", "required": "True"}},
-    },
-    "system_botnet-domains_stat": {"url": "system/botnet-domains/stat", "params": {}},
-    "wifi_matched-devices": {"url": "wifi/matched-devices", "params": {}},
-    "system_external-resource_entry-list": {
-        "url": "system/external-resource/entry-list",
-        "params": {
-            "status_only": {"type": "boolean", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
-            "include_notes": {"type": "boolean", "required": "False"},
-        },
-    },
-    "webfilter_fortiguard-categories": {
-        "url": "webfilter/fortiguard-categories",
-        "params": {
-            "convert_unrated_id": {"type": "boolean", "required": "False"},
-            "include_unrated": {"type": "boolean", "required": "False"},
-        },
-    },
-    "system_fortimanager_backup-details": {
-        "url": "system/fortimanager/backup-details",
-        "params": {
-            "datasource": {"type": "string", "required": "True"},
-            "mkey": {"type": "string", "required": "True"},
-        },
-    },
+    "firewall_health": {"url": "firewall/health", "params": {}},
+    "firewall_local-in": {"url": "firewall/local-in", "params": {}},
+    "firewall_acl": {"url": "firewall/acl", "params": {}},
+    "firewall_acl6": {"url": "firewall/acl6", "params": {}},
     "firewall_internet-service-match": {
         "url": "firewall/internet-service-match",
         "params": {
@@ -1013,324 +860,375 @@ module_selectors_defs = {
             "mask": {"type": "string", "required": "True"},
         },
     },
-    "router_policy6": {
-        "url": "router/policy6",
+    "firewall_internet-service-details": {
+        "url": "firewall/internet-service-details",
         "params": {
-            "count": {"type": "int", "required": "False"},
+            "id": {"type": "int", "required": "True"},
+            "country_id": {"type": "int", "required": "False"},
+            "region_id": {"type": "int", "required": "False"},
+            "city_id": {"type": "int", "required": "False"},
             "start": {"type": "int", "required": "False"},
-            "count_only": {"type": "boolean", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "summary_only": {"type": "boolean", "required": "False"},
         },
     },
-    "virtual-wan_sla-log": {
-        "url": "virtual-wan/sla-log",
+    "firewall_policy": {
+        "url": "firewall/policy",
         "params": {
-            "interface": {"type": "string", "required": "False"},
-            "seconds": {"type": "int", "required": "False"},
+            "policyid": {"type": "int", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+        },
+    },
+    "firewall_policy6": {
+        "url": "firewall/policy6",
+        "params": {"policyid": {"type": "int", "required": "False"}},
+    },
+    "firewall_proxy-policy": {
+        "url": "firewall/proxy-policy",
+        "params": {"policyid": {"type": "int", "required": "False"}},
+    },
+    "firewall_policy-lookup": {
+        "url": "firewall/policy-lookup",
+        "params": {
+            "ipv6": {"type": "boolean", "required": "False"},
+            "srcintf": {"type": "string", "required": "True"},
+            "sourceport": {"type": "int", "required": "False"},
+            "sourceip": {"type": "string", "required": "False"},
+            "protocol": {"type": "string", "required": "True"},
+            "dest": {"type": "string", "required": "True"},
+            "destport": {"type": "int", "required": "False"},
+            "icmptype": {"type": "int", "required": "False"},
+            "icmpcode": {"type": "int", "required": "False"},
+        },
+    },
+    "firewall_session": {
+        "url": "firewall/session",
+        "params": {
+            "ip_version": {"type": "string", "required": "False"},
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "True"},
+            "summary": {"type": "boolean", "required": "False"},
+            "sourceport": {"type": "int", "required": "False"},
+            "policyid": {"type": "int", "required": "False"},
+            "security-policyid": {"type": "int", "required": "False"},
+            "application": {"type": "string", "required": "False"},
+            "protocol": {"type": "string", "required": "False"},
+            "destport": {"type": "int", "required": "False"},
+            "srcintf": {"type": "string", "required": "False"},
+            "dstintf": {"type": "string", "required": "False"},
+            "srcintfrole": {"type": "string", "required": "False"},
+            "dstintfrole": {"type": "string", "required": "False"},
+            "source": {"type": "string", "required": "False"},
+            "srcuuid": {"type": "string", "required": "False"},
+            "destination": {"type": "string", "required": "False"},
+            "dstuuid": {"type": "string", "required": "False"},
+            "username": {"type": "string", "required": "False"},
+            "shaper": {"type": "string", "required": "False"},
+            "country": {"type": "string", "required": "False"},
+            "owner": {"type": "string", "required": "False"},
+            "natsourceaddress": {"type": "string", "required": "False"},
+            "natsourceport": {"type": "int", "required": "False"},
+            "filter-csf": {"type": "boolean", "required": "False"},
             "since": {"type": "int", "required": "False"},
-            "sla": {"type": "string", "required": "False"},
-            "sampling_interval": {"type": "int", "required": "False"},
-        },
-    },
-    "system_security-rating": {
-        "url": "system/security-rating",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "id": {"type": "int", "required": "False"},
-            "report_type": {"type": "string", "required": "False"},
-        },
-    },
-    "switch-controller_managed-switch_dhcp-snooping": {
-        "url": "switch-controller/managed-switch/dhcp-snooping",
-        "params": {},
-    },
-    "system_time": {"url": "system/time", "params": {}},
-    "log_local-report-list": {"url": "log/local-report-list", "params": {}},
-    "vpn-certificate_cert-name-available": {
-        "url": "vpn-certificate/cert-name-available",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
+            "seconds": {"type": "int", "required": "False"},
+            "web-domain": {"type": "string", "required": "False"},
+            "web-category": {"type": "string", "required": "False"},
+            "fortiasic": {"type": "int", "required": "False"},
         },
     },
     "firewall_shaper": {"url": "firewall/shaper", "params": {}},
-    "system_available-interfaces": {
-        "url": "system/available-interfaces",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "view_type": {"type": "string", "required": "False"},
-        },
-    },
-    "system_fortimanager_status": {"url": "system/fortimanager/status", "params": {}},
-    "system_sensor-info": {"url": "system/sensor-info", "params": {}},
-    "system_status": {"url": "system/status", "params": {}},
-    "firewall_gtp": {"url": "firewall/gtp", "params": {}},
-    "nsx_instance": {
-        "url": "nsx/instance",
-        "params": {"mkey": {"type": "string", "required": "False"}},
-    },
-    "web-ui_custom-language_download": {
-        "url": "web-ui/custom-language/download",
-        "params": {"filename": {"type": "string", "required": "True"}},
-    },
-    "wanopt_history": {
-        "url": "wanopt/history",
-        "params": {"period": {"type": "string", "required": "False"}},
-    },
-    "log_forticloud": {"url": "log/forticloud", "params": {}},
-    "system_vdom-link": {
-        "url": "system/vdom-link",
-        "params": {"scope": {"type": "string", "required": "False"}},
-    },
-    "utm_blacklisted-certificates": {
-        "url": "utm/blacklisted-certificates",
-        "params": {
-            "count": {"type": "int", "required": "True"},
-            "start": {"type": "int", "required": "True"},
-        },
-    },
-    "switch-controller_managed-switch_port-health": {
-        "url": "switch-controller/managed-switch/port-health",
-        "params": {"mkey": {"type": "string", "required": "False"}},
-    },
-    "webcache_stats": {
-        "url": "webcache/stats",
-        "params": {"period": {"type": "string", "required": "False"}},
-    },
-    "system_config-revision_file": {
-        "url": "system/config-revision/file",
-        "params": {"config_id": {"type": "int", "required": "False"}},
-    },
-    "user_device": {
-        "url": "user/device",
-        "params": {
-            "master_mac": {"type": "string", "required": "False"},
-            "master_only": {"type": "boolean", "required": "False"},
-        },
-    },
-    "system_dhcp": {
-        "url": "system/dhcp",
-        "params": {
-            "interface": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-            "ipv6": {"type": "boolean", "required": "False"},
-        },
-    },
-    "router_lookup": {
-        "url": "router/lookup",
-        "params": {
-            "destination": {"type": "string", "required": "True"},
-            "ipv6": {"type": "boolean", "required": "False"},
-        },
-    },
-    "system_ipam_status": {"url": "system/ipam/status", "params": {}},
-    "utm_blacklisted-certificates_statistics": {
-        "url": "utm/blacklisted-certificates/statistics",
-        "params": {},
-    },
-    "log_device_state": {"url": "log/device/state", "params": {}},
-    "vpn_one-click_status": {"url": "vpn/one-click/status", "params": {}},
-    "system_sniffer": {"url": "system/sniffer", "params": {}},
-    "system_firmware_upgrade-paths": {
-        "url": "system/firmware/upgrade-paths",
-        "params": {},
-    },
-    "router_ospf_neighbors": {"url": "router/ospf/neighbors", "params": {}},
-    "system_sandbox_stats": {"url": "system/sandbox/stats", "params": {}},
-    "wanopt_webcache": {
-        "url": "wanopt/webcache",
-        "params": {"period": {"type": "string", "required": "False"}},
-    },
-    "network_lldp_neighbors": {"url": "network/lldp/neighbors", "params": {}},
-    "log_local-report_download": {
-        "url": "log/local-report/download",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "system_config-error-log_download": {
-        "url": "system/config-error-log/download",
-        "params": {},
-    },
+    "firewall_per-ip-shaper": {"url": "firewall/per-ip-shaper", "params": {}},
     "firewall_load-balance": {
         "url": "firewall/load-balance",
         "params": {
-            "count": {"type": "int", "required": "True"},
             "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "True"},
         },
     },
-    "vpn_ocvpn_meta": {"url": "vpn/ocvpn/meta", "params": {}},
-    "system_sandbox_cloud-regions": {
-        "url": "system/sandbox/cloud-regions",
-        "params": {},
-    },
+    "firewall_address-fqdns": {"url": "firewall/address-fqdns", "params": {}},
     "firewall_address-fqdns6": {"url": "firewall/address-fqdns6", "params": {}},
-    "firewall_proxy_sessions": {
-        "url": "firewall/proxy/sessions",
+    "firewall_ippool": {"url": "firewall/ippool", "params": {}},
+    "firewall_address-dynamic": {
+        "url": "firewall/address-dynamic",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "firewall_address6-dynamic": {
+        "url": "firewall/address6-dynamic",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "fortiview_statistics": {
+        "url": "fortiview/statistics",
         "params": {
-            "src_uuid": {"type": "object", "required": "False"},
-            "protocol": {"type": "object", "required": "False"},
-            "owner": {"type": "object", "required": "False"},
+            "realtime": {"type": "boolean", "required": "False"},
+            "filter": {"type": "object", "required": "False"},
+            "sessionid": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "device": {"type": "string", "required": "False"},
+            "report_by": {"type": "string", "required": "False"},
+            "sort_by": {"type": "string", "required": "False"},
+            "chart_only": {"type": "boolean", "required": "False"},
             "start": {"type": "int", "required": "False"},
-            "since": {"type": "object", "required": "False"},
-            "application": {"type": "object", "required": "False"},
-            "dstport": {"type": "object", "required": "False"},
-            "username": {"type": "object", "required": "False"},
-            "seconds": {"type": "object", "required": "False"},
-            "dstaddr6": {"type": "object", "required": "False"},
-            "srcaddr": {"type": "object", "required": "False"},
-            "dst_uuid": {"type": "object", "required": "False"},
-            "dstintf": {"type": "object", "required": "False"},
-            "srcintf": {"type": "object", "required": "False"},
-            "proxy-policyid": {"type": "object", "required": "False"},
-            "count": {"type": "int", "required": "True"},
-            "dstaddr": {"type": "object", "required": "False"},
-            "country": {"type": "object", "required": "False"},
-            "srcport": {"type": "object", "required": "False"},
-            "summary": {"type": "boolean", "required": "False"},
+            "end": {"type": "int", "required": "False"},
             "ip_version": {"type": "string", "required": "False"},
-            "srcaddr6": {"type": "object", "required": "False"},
-            "policyid": {"type": "object", "required": "False"},
         },
     },
-    "firewall_acl": {"url": "firewall/acl", "params": {}},
-    "system_link-monitor": {
-        "url": "system/link-monitor",
-        "params": {"mkey": {"type": "string", "required": "False"}},
+    "fortiview_sandbox-file-details": {
+        "url": "fortiview/sandbox-file-details",
+        "params": {"checksum": {"type": "string", "required": "True"}},
     },
-    "system_com-log_download": {"url": "system/com-log/download", "params": {}},
-    "user_device_query": {
-        "url": "user/device/query",
+    "geoip_geoip-query": {
+        "url": "geoip/geoip-query",
+        "params": {"ip_addresses": {"type": "string", "required": "True"}},
+    },
+    "ips_rate-based": {"url": "ips/rate-based", "params": {}},
+    "license_status": {"url": "license/status", "params": {}},
+    "license_forticare-resellers": {
+        "url": "license/forticare-resellers",
+        "params": {"country_code": {"type": "int", "required": "False"}},
+    },
+    "license_forticare-org-list": {"url": "license/forticare-org-list", "params": {}},
+    "log_current-disk-usage": {"url": "log/current-disk-usage", "params": {}},
+    "log_device_state": {"url": "log/device/state", "params": {}},
+    "log_forticloud": {"url": "log/forticloud", "params": {}},
+    "log_fortianalyzer": {
+        "url": "log/fortianalyzer",
         "params": {
-            "timestamp_from": {"type": "int", "required": "False"},
-            "query_type": {"type": "string", "required": "False"},
-            "number": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "query_id": {"type": "int", "required": "False"},
-            "filter_logic": {"type": "string", "required": "False"},
-            "filters": {"type": "array", "required": "False"},
-            "timestamp_to": {"type": "int", "required": "False"},
-            "cache_query": {"type": "boolean", "required": "False"},
-            "key_only": {"type": "boolean", "required": "False"},
-        },
-    },
-    "fortiguard_service-communication-stats": {
-        "url": "fortiguard/service-communication-stats",
-        "params": {
-            "service_type": {"type": "string", "required": "False"},
-            "timeslot": {"type": "string", "required": "False"},
-        },
-    },
-    "switch-controller_managed-switch_status": {
-        "url": "switch-controller/managed-switch/status",
-        "params": {"mkey": {"type": "string", "required": "False"}},
-    },
-    "system_available-certificates": {
-        "url": "system/available-certificates",
-        "params": {
-            "with_crl": {"type": "boolean", "required": "False"},
-            "find_all_references": {"type": "boolean", "required": "False"},
-            "with_remote": {"type": "boolean", "required": "False"},
-            "with_ca": {"type": "boolean", "required": "False"},
             "scope": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
+            "server": {"type": "string", "required": "False"},
+            "srcip": {"type": "string", "required": "False"},
         },
+    },
+    "log_fortianalyzer-queue": {
+        "url": "log/fortianalyzer-queue",
+        "params": {"scope": {"type": "string", "required": "False"}},
+    },
+    "log_hourly-disk-usage": {"url": "log/hourly-disk-usage", "params": {}},
+    "log_historic-daily-remote-logs": {
+        "url": "log/historic-daily-remote-logs",
+        "params": {"server": {"type": "string", "required": "True"}},
+    },
+    "log_stats": {
+        "url": "log/stats",
+        "params": {"dev": {"type": "string", "required": "False"}},
+    },
+    "log_forticloud-report_download": {
+        "url": "log/forticloud-report/download",
+        "params": {
+            "mkey": {"type": "int", "required": "True"},
+            "report_name": {"type": "string", "required": "True"},
+            "inline": {"type": "int", "required": "False"},
+        },
+    },
+    "log_ips-archive_download": {
+        "url": "log/ips-archive/download",
+        "params": {
+            "mkey": {"type": "int", "required": "True"},
+            "pcap_no": {"type": "int", "required": "False"},
+            "pcap_category": {"type": "int", "required": "False"},
+        },
+    },
+    "log_policy-archive_download": {
+        "url": "log/policy-archive/download",
+        "params": {
+            "mkey": {"type": "int", "required": "True"},
+            "srcip": {"type": "string", "required": "True"},
+            "dstip": {"type": "string", "required": "True"},
+        },
+    },
+    "log_av-archive_download": {
+        "url": "log/av-archive/download",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "log_event": {"url": "log/event", "params": {}},
+    "registration_forticloud_disclaimer": {
+        "url": "registration/forticloud/disclaimer",
+        "params": {},
     },
     "registration_forticloud_domains": {
         "url": "registration/forticloud/domains",
         "params": {},
     },
-    "switch-controller_fsw-firmware": {
-        "url": "switch-controller/fsw-firmware",
+    "router_ipv4": {
+        "url": "router/ipv4",
         "params": {
-            "version": {"type": "object", "required": "False"},
-            "timeout": {"type": "int", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
-    "system_ha-table-checksums": {
-        "url": "system/ha-table-checksums",
-        "params": {
-            "vdom_name": {"type": "string", "required": "False"},
-            "serial_no": {"type": "string", "required": "True"},
-        },
-    },
-    "fortiview_statistics": {
-        "url": "fortiview/statistics",
-        "params": {
-            "count": {"type": "int", "required": "False"},
-            "end": {"type": "int", "required": "False"},
-            "realtime": {"type": "boolean", "required": "False"},
-            "chart_only": {"type": "boolean", "required": "False"},
-            "sort_by": {"type": "string", "required": "False"},
-            "filter": {"type": "object", "required": "False"},
             "start": {"type": "int", "required": "False"},
-            "sessionid": {"type": "int", "required": "False"},
-            "report_by": {"type": "string", "required": "False"},
-            "device": {"type": "string", "required": "False"},
-            "ip_version": {"type": "string", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "ip_mask": {"type": "string", "required": "False"},
+            "gateway": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+            "interface": {"type": "string", "required": "False"},
         },
     },
     "router_ipv6": {
         "url": "router/ipv6",
         "params": {
+            "start": {"type": "int", "required": "False"},
             "count": {"type": "int", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "interface": {"type": "string", "required": "False"},
-            "type": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+            "interface": {"type": "string", "required": "False"},
         },
     },
-    "endpoint-control_registration_summary": {
-        "url": "endpoint-control/registration/summary",
-        "params": {},
-    },
-    "firewall_gtp-runtime-statistics": {
-        "url": "firewall/gtp-runtime-statistics",
-        "params": {},
-    },
-    "firewall_uuid-list": {"url": "firewall/uuid-list", "params": {}},
     "router_statistics": {
         "url": "router/statistics",
         "params": {
             "ip_version": {"type": "int", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
-            "interface": {"type": "string", "required": "False"},
-            "type": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+            "interface": {"type": "string", "required": "False"},
         },
     },
-    "system_config_usb-filelist": {"url": "system/config/usb-filelist", "params": {}},
-    "firewall_internet-service-details": {
-        "url": "firewall/internet-service-details",
+    "router_lookup": {
+        "url": "router/lookup",
         "params": {
-            "count": {"type": "int", "required": "False"},
-            "region_id": {"type": "int", "required": "False"},
-            "summary_only": {"type": "boolean", "required": "False"},
-            "city_id": {"type": "int", "required": "False"},
-            "country_id": {"type": "int", "required": "False"},
+            "ipv6": {"type": "boolean", "required": "False"},
+            "destination": {"type": "string", "required": "True"},
+        },
+    },
+    "router_policy": {
+        "url": "router/policy",
+        "params": {
             "start": {"type": "int", "required": "False"},
-            "id": {"type": "int", "required": "True"},
+            "count": {"type": "int", "required": "False"},
+            "count_only": {"type": "boolean", "required": "False"},
         },
     },
-    "firewall_internet-service-reputation": {
-        "url": "firewall/internet-service-reputation",
-        "params": {"ip": {"type": "string", "required": "True"}},
-    },
-    "endpoint-control_ems_cert-status": {
-        "url": "endpoint-control/ems/cert-status",
+    "router_policy6": {
+        "url": "router/policy6",
         "params": {
-            "with_cert": {"type": "boolean", "required": "False"},
-            "ems_name": {"type": "string", "required": "True"},
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "count_only": {"type": "boolean", "required": "False"},
         },
     },
-    "system_config-script": {"url": "system/config-script", "params": {}},
-    "user_banned": {"url": "user/banned", "params": {}},
-    "system_sdn-connector_nsx-security-tags": {
-        "url": "system/sdn-connector/nsx-security-tags",
+    "system_config-revision": {"url": "system/config-revision", "params": {}},
+    "system_config-revision_file": {
+        "url": "system/config-revision/file",
+        "params": {"config_id": {"type": "int", "required": "False"}},
+    },
+    "system_config-revision_info": {
+        "url": "system/config-revision/info",
+        "params": {"config_id": {"type": "int", "required": "False"}},
+    },
+    "system_current-admins": {"url": "system/current-admins", "params": {}},
+    "system_time": {"url": "system/time", "params": {}},
+    "system_global-resources": {"url": "system/global-resources", "params": {}},
+    "system_vdom-resource": {"url": "system/vdom-resource", "params": {}},
+    "system_dhcp": {
+        "url": "system/dhcp",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "ipv6": {"type": "boolean", "required": "False"},
+            "interface": {"type": "string", "required": "False"},
+        },
+    },
+    "system_firmware": {"url": "system/firmware", "params": {}},
+    "system_firmware_upgrade-paths": {
+        "url": "system/firmware/upgrade-paths",
+        "params": {},
+    },
+    "system_storage": {"url": "system/storage", "params": {}},
+    "system_csf": {
+        "url": "system/csf",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "all_vdoms": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_csf_pending-authorizations": {
+        "url": "system/csf/pending-authorizations",
+        "params": {},
+    },
+    "system_modem": {"url": "system/modem", "params": {}},
+    "system_3g-modem": {"url": "system/3g-modem", "params": {}},
+    "system_resource_usage": {
+        "url": "system/resource/usage",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "resource": {"type": "string", "required": "False"},
+            "interval": {"type": "string", "required": "False"},
+        },
+    },
+    "system_sniffer": {"url": "system/sniffer", "params": {}},
+    "system_sniffer_download": {
+        "url": "system/sniffer/download",
+        "params": {"mkey": {"type": "int", "required": "True"}},
+    },
+    "system_automation-stitch_stats": {
+        "url": "system/automation-stitch/stats",
         "params": {"mkey": {"type": "string", "required": "False"}},
     },
-    "system_object-tagging_usage": {"url": "system/object-tagging/usage", "params": {}},
-    "system_com-log_update": {"url": "system/com-log/update", "params": {}},
-    "system_global-resources": {"url": "system/global-resources", "params": {}},
+    "switch-controller_managed-switch": {
+        "url": "switch-controller/managed-switch",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "poe": {"type": "boolean", "required": "False"},
+            "port_stats": {"type": "boolean", "required": "False"},
+            "qos_stats": {"type": "boolean", "required": "False"},
+            "stp_status": {"type": "boolean", "required": "False"},
+            "igmp_snooping_group": {"type": "boolean", "required": "False"},
+            "transceiver": {"type": "boolean", "required": "False"},
+        },
+    },
+    "switch-controller_managed-switch_faceplate-xml": {
+        "url": "switch-controller/managed-switch/faceplate-xml",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "switch-controller_managed-switch_dhcp-snooping": {
+        "url": "switch-controller/managed-switch/dhcp-snooping",
+        "params": {},
+    },
+    "switch-controller_fsw-firmware": {
+        "url": "switch-controller/fsw-firmware",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "timeout": {"type": "int", "required": "False"},
+            "version": {"type": "object", "required": "False"},
+        },
+    },
+    "switch-controller_detected-device": {
+        "url": "switch-controller/detected-device",
+        "params": {},
+    },
+    "switch-controller_validate-switch-prefix": {
+        "url": "switch-controller/validate-switch-prefix",
+        "params": {"prefix": {"type": "string", "required": "False"}},
+    },
+    "system_interface": {
+        "url": "system/interface",
+        "params": {
+            "interface_name": {"type": "string", "required": "False"},
+            "include_vlan": {"type": "boolean", "required": "False"},
+            "include_aggregate": {"type": "boolean", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "system_interface_dhcp-status": {
+        "url": "system/interface/dhcp-status",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "ipv6": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_available-interfaces": {
+        "url": "system/available-interfaces",
+        "params": {
+            "view_type": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "system_acquired-dns": {"url": "system/acquired-dns", "params": {}},
+    "system_resolve-fqdn": {
+        "url": "system/resolve-fqdn",
+        "params": {
+            "ipv6": {"type": "boolean", "required": "False"},
+            "fqdn": {"type": "array", "required": "False"},
+        },
+    },
+    "system_nat46-ippools": {"url": "system/nat46-ippools", "params": {}},
+    "system_usb-log": {"url": "system/usb-log", "params": {}},
     "system_ipconf": {
         "url": "system/ipconf",
         "params": {
@@ -1338,87 +1236,226 @@ module_selectors_defs = {
             "ipaddr": {"type": "string", "required": "True"},
         },
     },
-    "firewall_vip-overlap": {"url": "firewall/vip-overlap", "params": {}},
-    "switch-controller_mclag-icl_eligible-peer": {
-        "url": "switch-controller/mclag-icl/eligible-peer",
-        "params": {"fortilink": {"type": "string", "required": "True"}},
-    },
-    "user_fortitoken-cloud_status": {
-        "url": "user/fortitoken-cloud/status",
+    "system_fortiguard_server-info": {
+        "url": "system/fortiguard/server-info",
         "params": {},
     },
-    "firewall_per-ip-shaper": {"url": "firewall/per-ip-shaper", "params": {}},
-    "wifi_network_list": {"url": "wifi/network/list", "params": {}},
-    "ips_exceed-scan-range": {
-        "url": "ips/exceed-scan-range",
-        "params": {"ids": {"type": "array", "required": "True"}},
+    "system_fortimanager_status": {"url": "system/fortimanager/status", "params": {}},
+    "system_fortimanager_backup-summary": {
+        "url": "system/fortimanager/backup-summary",
+        "params": {},
     },
-    "log_current-disk-usage": {"url": "log/current-disk-usage", "params": {}},
-    "license_status": {"url": "license/status", "params": {}},
-    "firewall_session": {
-        "url": "firewall/session",
+    "system_fortimanager_backup-details": {
+        "url": "system/fortimanager/backup-details",
         "params": {
-            "since": {"type": "int", "required": "False"},
-            "protocol": {"type": "string", "required": "False"},
-            "nturbo": {"type": "int", "required": "False"},
-            "web-domain": {"type": "string", "required": "False"},
-            "srcintfrole": {"type": "string", "required": "False"},
-            "owner": {"type": "string", "required": "False"},
-            "srcuuid": {"type": "string", "required": "False"},
-            "dstintfrole": {"type": "string", "required": "False"},
-            "security-policyid": {"type": "int", "required": "False"},
-            "natsourceaddress": {"type": "string", "required": "False"},
-            "source": {"type": "string", "required": "False"},
-            "destination": {"type": "string", "required": "False"},
-            "application": {"type": "string", "required": "False"},
-            "sourceport": {"type": "int", "required": "False"},
-            "natsourceport": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "dstuuid": {"type": "string", "required": "False"},
-            "username": {"type": "string", "required": "False"},
-            "seconds": {"type": "int", "required": "False"},
-            "policyid": {"type": "int", "required": "False"},
-            "srcintf": {"type": "string", "required": "False"},
-            "fortiasic": {"type": "int", "required": "False"},
-            "destport": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "True"},
-            "filter-csf": {"type": "boolean", "required": "False"},
-            "country": {"type": "string", "required": "False"},
-            "summary": {"type": "boolean", "required": "False"},
-            "shaper": {"type": "string", "required": "False"},
-            "web-category": {"type": "string", "required": "False"},
-            "ip_version": {"type": "string", "required": "False"},
-            "dstintf": {"type": "string", "required": "False"},
+            "mkey": {"type": "string", "required": "True"},
+            "datasource": {"type": "string", "required": "True"},
         },
     },
-    "firewall_ippool_mapping": {
-        "url": "firewall/ippool/mapping",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "virtual-wan_members": {"url": "virtual-wan/members", "params": {}},
-    "switch-controller_managed-switch_faceplate-xml": {
-        "url": "switch-controller/managed-switch/faceplate-xml",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "firewall_security-policy": {
-        "url": "firewall/security-policy",
-        "params": {"policyid": {"type": "int", "required": "False"}},
-    },
-    "wifi_client": {
-        "url": "wifi/client",
+    "system_available-certificates": {
+        "url": "system/available-certificates",
         "params": {
-            "count": {"type": "int", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+            "with_remote": {"type": "boolean", "required": "False"},
+            "with_ca": {"type": "boolean", "required": "False"},
+            "with_crl": {"type": "boolean", "required": "False"},
+            "mkey": {"type": "string", "required": "False"},
+            "find_all_references": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_certificate_download": {
+        "url": "system/certificate/download",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "type": {"type": "string", "required": "True"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "system_debug_download": {"url": "system/debug/download", "params": {}},
+    "system_com-log_update": {"url": "system/com-log/update", "params": {}},
+    "system_com-log_download": {"url": "system/com-log/download", "params": {}},
+    "system_botnet_stat": {"url": "system/botnet/stat", "params": {}},
+    "system_botnet": {
+        "url": "system/botnet",
+        "params": {
             "start": {"type": "int", "required": "False"},
-            "with_triangulation": {"type": "boolean", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "include_hit_only": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_botnet-domains": {
+        "url": "system/botnet-domains",
+        "params": {
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+        },
+    },
+    "system_botnet-domains_stat": {"url": "system/botnet-domains/stat", "params": {}},
+    "system_botnet-domains_hits": {"url": "system/botnet-domains/hits", "params": {}},
+    "system_ha-statistics": {"url": "system/ha-statistics", "params": {}},
+    "system_ha-history": {"url": "system/ha-history", "params": {}},
+    "system_ha-checksums": {"url": "system/ha-checksums", "params": {}},
+    "system_ha-peer": {
+        "url": "system/ha-peer",
+        "params": {
+            "serial_no": {"type": "string", "required": "False"},
+            "vcluster_id": {"type": "int", "required": "False"},
+        },
+    },
+    "system_link-monitor": {
+        "url": "system/link-monitor",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "system_config_backup": {
+        "url": "system/config/backup",
+        "params": {
+            "destination": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "True"},
+            "vdom": {"type": "string", "required": "False"},
+            "password_mask": {"type": "boolean", "required": "False"},
+            "file_format": {"type": "string", "required": "False"},
+        },
+    },
+    "system_config_usb-filelist": {"url": "system/config/usb-filelist", "params": {}},
+    "system_sandbox_stats": {"url": "system/sandbox/stats", "params": {}},
+    "system_sandbox_status": {"url": "system/sandbox/status", "params": {}},
+    "system_sandbox_test-connect": {
+        "url": "system/sandbox/test-connect",
+        "params": {"server": {"type": "string", "required": "True"}},
+    },
+    "system_object_usage": {
+        "url": "system/object/usage",
+        "params": {
+            "q_path": {"type": "string", "required": "False"},
+            "q_name": {"type": "string", "required": "False"},
+            "qtypes": {"type": "array", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+            "mkey": {"type": "string", "required": "False"},
+            "child_path": {"type": "string", "required": "False"},
+        },
+    },
+    "system_object-tagging_usage": {"url": "system/object-tagging/usage", "params": {}},
+    "system_status": {"url": "system/status", "params": {}},
+    "system_timezone": {"url": "system/timezone", "params": {}},
+    "system_sensor-info": {"url": "system/sensor-info", "params": {}},
+    "system_security-rating": {
+        "url": "system/security-rating",
+        "params": {
+            "id": {"type": "int", "required": "False"},
+            "report_type": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "system_security-rating_history": {
+        "url": "system/security-rating/history",
+        "params": {"report_type": {"type": "string", "required": "False"}},
+    },
+    "system_security-rating_status": {
+        "url": "system/security-rating/status",
+        "params": {
+            "id": {"type": "int", "required": "False"},
+            "report_type": {"type": "string", "required": "False"},
+            "progress": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_security-rating_lang": {
+        "url": "system/security-rating/lang",
+        "params": {"key": {"type": "string", "required": "False"}},
+    },
+    "system_fortiguard-blacklist": {
+        "url": "system/fortiguard-blacklist",
+        "params": {
+            "ip": {"type": "string", "required": "True"},
+            "timeout": {"type": "int", "required": "False"},
+        },
+    },
+    "system_check-port-availability": {
+        "url": "system/check-port-availability",
+        "params": {
+            "port_ranges": {"type": "array", "required": "True"},
+            "service": {"type": "string", "required": "False"},
+        },
+    },
+    "system_external-resource_entry-list": {
+        "url": "system/external-resource/entry-list",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "status_only": {"type": "boolean", "required": "False"},
+            "include_notes": {"type": "boolean", "required": "False"},
+        },
+    },
+    "extender-controller_extender": {
+        "url": "extender-controller/extender",
+        "params": {
+            "name": {"type": "array", "required": "False"},
+            "fortiextender-name": {"type": "array", "required": "False"},
             "type": {"type": "string", "required": "False"},
         },
     },
-    "endpoint-control_record-list": {
-        "url": "endpoint-control/record-list",
-        "params": {"intf_name": {"type": "string", "required": "False"}},
+    "system_sdn-connector_status": {
+        "url": "system/sdn-connector/status",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+        },
     },
-    "videofilter_fortiguard-categories": {
-        "url": "videofilter/fortiguard-categories",
+    "user_firewall": {
+        "url": "user/firewall",
+        "params": {
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "ipv4": {"type": "boolean", "required": "False"},
+            "ipv6": {"type": "boolean", "required": "False"},
+            "include_wad": {"type": "boolean", "required": "False"},
+            "include_fsso": {"type": "boolean", "required": "False"},
+        },
+    },
+    "user_banned": {"url": "user/banned", "params": {}},
+    "user_fortitoken": {"url": "user/fortitoken", "params": {}},
+    "user_detected-device": {
+        "url": "user/detected-device",
+        "params": {
+            "expand_child_macs": {"type": "boolean", "required": "False"},
+            "with_dhcp": {"type": "boolean", "required": "False"},
+            "with_endpoint": {"type": "boolean", "required": "False"},
+            "with_fortilink": {"type": "boolean", "required": "False"},
+            "with_fortiap": {"type": "boolean", "required": "False"},
+            "with_user": {"type": "boolean", "required": "False"},
+        },
+    },
+    "user_device": {
+        "url": "user/device",
+        "params": {
+            "master_only": {"type": "boolean", "required": "False"},
+            "master_mac": {"type": "string", "required": "False"},
+        },
+    },
+    "user_device-type": {"url": "user/device-type", "params": {}},
+    "user_device-category": {"url": "user/device-category", "params": {}},
+    "user_fsso": {
+        "url": "user/fsso",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+        },
+    },
+    "utm_rating-lookup": {
+        "url": "utm/rating-lookup",
+        "params": {"url": {"type": "array", "required": "False"}},
+    },
+    "utm_app-lookup": {
+        "url": "utm/app-lookup",
+        "params": {"hosts": {"type": "array", "required": "False"}},
+    },
+    "utm_application-categories": {"url": "utm/application-categories", "params": {}},
+    "utm_antivirus_stats": {"url": "utm/antivirus/stats", "params": {}},
+    "virtual-wan_health-check": {"url": "virtual-wan/health-check", "params": {}},
+    "virtual-wan_members": {"url": "virtual-wan/members", "params": {}},
+    "webfilter_override": {"url": "webfilter/override", "params": {}},
+    "webfilter_malicious-urls": {"url": "webfilter/malicious-urls", "params": {}},
+    "webfilter_malicious-urls_stat": {
+        "url": "webfilter/malicious-urls/stat",
         "params": {},
     },
     "webfilter_category-quota": {
@@ -1428,61 +1465,14 @@ module_selectors_defs = {
             "user": {"type": "string", "required": "False"},
         },
     },
-    "log_forticloud-report-list": {"url": "log/forticloud-report-list", "params": {}},
-    "log_policy-archive_download": {
-        "url": "log/policy-archive/download",
+    "webfilter_fortiguard-categories": {
+        "url": "webfilter/fortiguard-categories",
         "params": {
-            "srcip": {"type": "string", "required": "True"},
-            "dstip": {"type": "string", "required": "True"},
-            "mkey": {"type": "int", "required": "True"},
+            "include_unrated": {"type": "boolean", "required": "False"},
+            "convert_unrated_id": {"type": "boolean", "required": "False"},
         },
     },
-    "wifi_ap-names": {"url": "wifi/ap-names", "params": {}},
-    "firewall_internet-service-basic": {
-        "url": "firewall/internet-service-basic",
-        "params": {},
-    },
-    "system_debug_download": {"url": "system/debug/download", "params": {}},
-    "system_automation-action_stats": {
-        "url": "system/automation-action/stats",
-        "params": {"mkey": {"type": "string", "required": "False"}},
-    },
-    "log_fortianalyzer-queue": {
-        "url": "log/fortianalyzer-queue",
-        "params": {"scope": {"type": "string", "required": "False"}},
-    },
-    "network_ddns_servers": {"url": "network/ddns/servers", "params": {}},
-    "system_nat46-ippools": {"url": "system/nat46-ippools", "params": {}},
-    "system_vdom-resource": {"url": "system/vdom-resource", "params": {}},
-    "system_modem": {"url": "system/modem", "params": {}},
-    "firewall_proxy-policy": {
-        "url": "firewall/proxy-policy",
-        "params": {"policyid": {"type": "int", "required": "False"}},
-    },
-    "nsx_service_status": {
-        "url": "nsx/service/status",
-        "params": {"mkey": {"type": "string", "required": "False"}},
-    },
-    "azure_application-list": {"url": "azure/application-list", "params": {}},
-    "log_forticloud-report_download": {
-        "url": "log/forticloud-report/download",
-        "params": {
-            "inline": {"type": "int", "required": "False"},
-            "mkey": {"type": "int", "required": "True"},
-            "report_name": {"type": "string", "required": "True"},
-        },
-    },
-    "user_info_thumbnail": {
-        "url": "user/info/thumbnail",
-        "params": {"filters": {"type": "array", "required": "True"}},
-    },
-    "system_sdn-connector_status": {
-        "url": "system/sdn-connector/status",
-        "params": {
-            "type": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
+    "webfilter_trusted-urls": {"url": "webfilter/trusted-urls", "params": {}},
     "vpn_ipsec": {
         "url": "vpn/ipsec",
         "params": {
@@ -1491,231 +1481,266 @@ module_selectors_defs = {
             "count": {"type": "int", "required": "False"},
         },
     },
-    "endpoint-control_ems_status-summary": {
-        "url": "endpoint-control/ems/status-summary",
-        "params": {},
+    "vpn_one-click_members": {"url": "vpn/one-click/members", "params": {}},
+    "vpn_one-click_status": {"url": "vpn/one-click/status", "params": {}},
+    "vpn_ssl": {"url": "vpn/ssl", "params": {}},
+    "vpn_ssl_stats": {"url": "vpn/ssl/stats", "params": {}},
+    "wanopt_history": {
+        "url": "wanopt/history",
+        "params": {"period": {"type": "string", "required": "False"}},
     },
-    "firewall_dnat": {
-        "url": "firewall/dnat",
+    "wanopt_webcache": {
+        "url": "wanopt/webcache",
+        "params": {"period": {"type": "string", "required": "False"}},
+    },
+    "wanopt_peer_stats": {"url": "wanopt/peer_stats", "params": {}},
+    "webproxy_pacfile_download": {"url": "webproxy/pacfile/download", "params": {}},
+    "webcache_stats": {
+        "url": "webcache/stats",
+        "params": {"period": {"type": "string", "required": "False"}},
+    },
+    "wifi_client": {
+        "url": "wifi/client",
         "params": {
-            "ip_version": {"type": "string", "required": "False"},
-            "uuid": {"type": "string", "required": "False"},
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+            "with_triangulation": {"type": "boolean", "required": "False"},
         },
     },
-    "firewall_multicast-policy": {
-        "url": "firewall/multicast-policy",
-        "params": {"policyid": {"type": "int", "required": "False"}},
+    "wifi_managed_ap": {
+        "url": "wifi/managed_ap",
+        "params": {
+            "wtp_id": {"type": "string", "required": "False"},
+            "incl_local": {"type": "boolean", "required": "False"},
+        },
     },
-    "switch-controller_validate-switch-prefix": {
-        "url": "switch-controller/validate-switch-prefix",
-        "params": {"prefix": {"type": "string", "required": "False"}},
-    },
-    "system_security-rating_history": {
-        "url": "system/security-rating/history",
-        "params": {"report_type": {"type": "string", "required": "False"}},
-    },
-    "system_lte-modem_status": {"url": "system/lte-modem/status", "params": {}},
-    "fortiview_sandbox-file-details": {
-        "url": "fortiview/sandbox-file-details",
-        "params": {"checksum": {"type": "string", "required": "True"}},
-    },
-    "endpoint-control_summary": {"url": "endpoint-control/summary", "params": {}},
-    "system_csf": {
-        "url": "system/csf",
-        "params": {"scope": {"type": "string", "required": "False"}},
-    },
-    "license_forticare-resellers": {
-        "url": "license/forticare-resellers",
-        "params": {"country_code": {"type": "int", "required": "False"}},
-    },
-    "switch-controller_managed-switch_models": {
-        "url": "switch-controller/managed-switch/models",
-        "params": {},
-    },
-    "endpoint-control_profile_xml": {
-        "url": "endpoint-control/profile/xml",
-        "params": {"mkey": {"type": "string", "required": "False"}},
+    "wifi_firmware": {
+        "url": "wifi/firmware",
+        "params": {
+            "timeout": {"type": "int", "required": "False"},
+            "version": {"type": "object", "required": "False"},
+        },
     },
     "wifi_ap_status": {"url": "wifi/ap_status", "params": {}},
-    "user_device-category": {"url": "user/device-category", "params": {}},
-    "system_ntp_status": {"url": "system/ntp/status", "params": {}},
-    "firewall_gtp-statistics": {"url": "firewall/gtp-statistics", "params": {}},
-    "utm_application-categories": {"url": "utm/application-categories", "params": {}},
-    "router_lookup-policy": {
-        "url": "router/lookup-policy",
+    "wifi_interfering_ap": {
+        "url": "wifi/interfering_ap",
         "params": {
-            "protocol_number": {"type": "int", "required": "False"},
-            "destination": {"type": "string", "required": "True"},
-            "source": {"type": "string", "required": "False"},
-            "ipv6": {"type": "boolean", "required": "False"},
-            "destination_port": {"type": "int", "required": "False"},
-            "interface_name": {"type": "string", "required": "False"},
-        },
-    },
-    "system_performance_status": {"url": "system/performance/status", "params": {}},
-    "system_ha-history": {"url": "system/ha-history", "params": {}},
-    "license_forticare-org-list": {"url": "license/forticare-org-list", "params": {}},
-    "system_security-rating_lang": {
-        "url": "system/security-rating/lang",
-        "params": {"key": {"type": "string", "required": "False"}},
-    },
-    "system_global-search": {
-        "url": "system/global-search",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "search": {"type": "string", "required": "True"},
-            "skip_tables": {"type": "array", "required": "False"},
-            "search_tables": {"type": "array", "required": "False"},
-        },
-    },
-    "router_bgp_paths6": {
-        "url": "router/bgp/paths6",
-        "params": {
-            "count": {"type": "int", "required": "False"},
+            "wtp": {"type": "string", "required": "False"},
+            "radio": {"type": "int", "required": "False"},
             "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
         },
     },
-    "vpn_one-click_members": {"url": "vpn/one-click/members", "params": {}},
-    "system_interface_kernel-interfaces": {
-        "url": "system/interface/kernel-interfaces",
-        "params": {},
+    "wifi_euclid": {"url": "wifi/euclid", "params": {}},
+    "wifi_rogue_ap": {
+        "url": "wifi/rogue_ap",
+        "params": {
+            "managed_ssid_only": {"type": "boolean", "required": "False"},
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+        },
     },
-    "switch-controller_managed-switch_health": {
-        "url": "switch-controller/managed-switch/health",
-        "params": {"mkey": {"type": "string", "required": "False"}},
+    "wifi_spectrum": {
+        "url": "wifi/spectrum",
+        "params": {"wtp_id": {"type": "string", "required": "True"}},
     },
-    "system_timezone": {"url": "system/timezone", "params": {}},
+    "endpoint-control_summary": {"url": "endpoint-control/summary", "params": {}},
+    "endpoint-control_ems_status": {
+        "url": "endpoint-control/ems/status",
+        "params": {"ems_id": {"type": "int", "required": "False"}},
+    },
+    "firewall_consolidated-policy": {
+        "url": "firewall/consolidated-policy",
+        "params": {"policyid": {"type": "int", "required": "False"}},
+    },
+    "firewall_security-policy": {
+        "url": "firewall/security-policy",
+        "params": {"policyid": {"type": "int", "required": "False"}},
+    },
+    "firewall_uuid-list": {"url": "firewall/uuid-list", "params": {}},
+    "firewall_uuid-type-lookup": {
+        "url": "firewall/uuid-type-lookup",
+        "params": {"uuids": {"type": "array", "required": "False"}},
+    },
+    "fortiguard_redirect-portal": {"url": "fortiguard/redirect-portal", "params": {}},
     "firewall_sdn-connector-filters": {
         "url": "firewall/sdn-connector-filters",
         "params": {"connector": {"type": "string", "required": "True"}},
     },
-    "router_bgp_paths-statistics": {
-        "url": "router/bgp/paths-statistics",
-        "params": {"ip_version": {"type": "string", "required": "False"}},
+    "fortiview_sandbox-file-list": {"url": "fortiview/sandbox-file-list", "params": {}},
+    "ips_metadata": {"url": "ips/metadata", "params": {}},
+    "ips_anomaly": {"url": "ips/anomaly", "params": {}},
+    "license_fortianalyzer-status": {
+        "url": "license/fortianalyzer-status",
+        "params": {},
     },
-    "webfilter_trusted-urls": {"url": "webfilter/trusted-urls", "params": {}},
-    "system_usb-log": {"url": "system/usb-log", "params": {}},
+    "log_forticloud-report-list": {"url": "log/forticloud-report-list", "params": {}},
+    "log_local-report-list": {"url": "log/local-report-list", "params": {}},
+    "log_local-report_download": {
+        "url": "log/local-report/download",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "network_lldp_neighbors": {"url": "network/lldp/neighbors", "params": {}},
     "network_lldp_ports": {
         "url": "network/lldp/ports",
         "params": {"mkey": {"type": "string", "required": "False"}},
     },
-    "system_fortiguard-blacklist": {
-        "url": "system/fortiguard-blacklist",
-        "params": {
-            "ip": {"type": "string", "required": "True"},
-            "timeout": {"type": "int", "required": "False"},
-        },
-    },
-    "firewall_policy": {
-        "url": "firewall/policy",
-        "params": {
-            "ip_version": {"type": "string", "required": "False"},
-            "policyid": {"type": "int", "required": "False"},
-        },
-    },
-    "system_ha-statistics": {"url": "system/ha-statistics", "params": {}},
-    "switch-controller_matched-devices": {
-        "url": "switch-controller/matched-devices",
-        "params": {
-            "include_dynamic": {"type": "boolean", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
-    "system_crash-log_download": {"url": "system/crash-log/download", "params": {}},
     "network_dns_latency": {"url": "network/dns/latency", "params": {}},
-    "system_fortimanager_backup-summary": {
-        "url": "system/fortimanager/backup-summary",
+    "network_fortiguard_live-services-latency": {
+        "url": "network/fortiguard/live-services-latency",
         "params": {},
     },
-    "firewall_shaper_multi-class-shaper": {
-        "url": "firewall/shaper/multi-class-shaper",
-        "params": {},
+    "network_ddns_servers": {"url": "network/ddns/servers", "params": {}},
+    "network_ddns_lookup": {
+        "url": "network/ddns/lookup",
+        "params": {"domain": {"type": "string", "required": "True"}},
     },
-    "system_sniffer_download": {
-        "url": "system/sniffer/download",
-        "params": {"mkey": {"type": "int", "required": "True"}},
-    },
-    "user_detected-device": {
-        "url": "user/detected-device",
+    "router_lookup-policy": {
+        "url": "router/lookup-policy",
         "params": {
-            "with_fortiap": {"type": "boolean", "required": "False"},
-            "with_user": {"type": "boolean", "required": "False"},
-            "with_endpoint": {"type": "boolean", "required": "False"},
-            "with_dhcp": {"type": "boolean", "required": "False"},
-            "expand_child_macs": {"type": "boolean", "required": "False"},
-            "with_fortilink": {"type": "boolean", "required": "False"},
+            "ipv6": {"type": "boolean", "required": "False"},
+            "destination": {"type": "string", "required": "True"},
+            "source": {"type": "string", "required": "False"},
+            "destination_port": {"type": "int", "required": "False"},
+            "interface_name": {"type": "string", "required": "False"},
+            "protocol_number": {"type": "int", "required": "False"},
         },
     },
-    "system_botnet_stat": {"url": "system/botnet/stat", "params": {}},
+    "system_config-script": {"url": "system/config-script", "params": {}},
+    "system_config-sync_status": {"url": "system/config-sync/status", "params": {}},
+    "system_vdom-link": {
+        "url": "system/vdom-link",
+        "params": {"scope": {"type": "string", "required": "False"}},
+    },
+    "switch-controller_managed-switch_transceivers": {
+        "url": "switch-controller/managed-switch/transceivers",
+        "params": {},
+    },
+    "system_interface_poe": {
+        "url": "system/interface/poe",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "system_trusted-cert-authorities": {
+        "url": "system/trusted-cert-authorities",
+        "params": {"scope": {"type": "string", "required": "False"}},
+    },
+    "system_sandbox_cloud-regions": {
+        "url": "system/sandbox/cloud-regions",
+        "params": {},
+    },
+    "system_interface_transceivers": {
+        "url": "system/interface/transceivers",
+        "params": {"scope": {"type": "string", "required": "False"}},
+    },
     "system_vm-information": {"url": "system/vm-information", "params": {}},
     "system_security-rating_supported-reports": {
         "url": "system/security-rating/supported-reports",
         "params": {},
     },
-    "user_fortitoken": {"url": "user/fortitoken", "params": {}},
-    "system_botnet": {
-        "url": "system/botnet",
-        "params": {
-            "count": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "include_hit_only": {"type": "boolean", "required": "False"},
-        },
+    "nsx_service_status": {
+        "url": "nsx/service/status",
+        "params": {"mkey": {"type": "string", "required": "False"}},
     },
-    "user_info_thumbnail-file": {
-        "url": "user/info/thumbnail-file",
+    "nsx_instance": {
+        "url": "nsx/instance",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "system_sdn-connector_nsx-security-tags": {
+        "url": "system/sdn-connector/nsx-security-tags",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "web-ui_custom-language_download": {
+        "url": "web-ui/custom-language/download",
         "params": {"filename": {"type": "string", "required": "True"}},
     },
-    "vpn_ssl_stats": {"url": "vpn/ssl/stats", "params": {}},
-    "system_ha-checksums": {"url": "system/ha-checksums", "params": {}},
-    "webfilter_override": {"url": "webfilter/override", "params": {}},
-    "log_stats": {
-        "url": "log/stats",
-        "params": {"dev": {"type": "string", "required": "False"}},
-    },
-    "system_csf_pending-authorizations": {
-        "url": "system/csf/pending-authorizations",
-        "params": {},
-    },
-    "system_resolve-fqdn": {
-        "url": "system/resolve-fqdn",
-        "params": {
-            "fqdn": {"type": "array", "required": "False"},
-            "ipv6": {"type": "boolean", "required": "False"},
-        },
-    },
-    "log_fortianalyzer": {
-        "url": "log/fortianalyzer",
-        "params": {
-            "srcip": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-            "server": {"type": "string", "required": "False"},
-        },
-    },
-    "log_ips-archive_download": {
-        "url": "log/ips-archive/download",
-        "params": {
-            "pcap_no": {"type": "int", "required": "False"},
-            "pcap_category": {"type": "int", "required": "False"},
-            "mkey": {"type": "int", "required": "True"},
-        },
-    },
-    "wifi_meta": {"url": "wifi/meta", "params": {}},
-    "system_interface-connected-admins-info": {
-        "url": "system/interface-connected-admins-info",
-        "params": {"interface": {"type": "string", "required": "True"}},
-    },
-    "system_config-revision": {"url": "system/config-revision", "params": {}},
-    "router_bgp_neighbors": {"url": "router/bgp/neighbors", "params": {}},
     "user_collected-email": {
         "url": "user/collected-email",
         "params": {"ipv6": {"type": "boolean", "required": "False"}},
     },
-    "ips_rate-based": {"url": "ips/rate-based", "params": {}},
-    "switch-controller_detected-device": {
-        "url": "switch-controller/detected-device",
+    "user_info_query": {
+        "url": "user/info/query",
+        "params": {
+            "start": {"type": "int", "required": "False"},
+            "number": {"type": "int", "required": "False"},
+            "timestamp_from": {"type": "int", "required": "False"},
+            "timestamp_to": {"type": "int", "required": "False"},
+            "filters": {"type": "array", "required": "False"},
+            "query_type": {"type": "string", "required": "False"},
+            "query_id": {"type": "int", "required": "False"},
+            "cache_query": {"type": "boolean", "required": "False"},
+            "key_only": {"type": "boolean", "required": "False"},
+            "filter_logic": {"type": "string", "required": "False"},
+        },
+    },
+    "user_info_thumbnail": {
+        "url": "user/info/thumbnail",
+        "params": {"filters": {"type": "array", "required": "True"}},
+    },
+    "utm_blacklisted-certificates": {
+        "url": "utm/blacklisted-certificates",
+        "params": {
+            "start": {"type": "int", "required": "True"},
+            "count": {"type": "int", "required": "True"},
+        },
+    },
+    "utm_blacklisted-certificates_statistics": {
+        "url": "utm/blacklisted-certificates/statistics",
         "params": {},
     },
-    "webproxy_pacfile_download": {"url": "webproxy/pacfile/download", "params": {}},
+    "virtual-wan_interface-log": {
+        "url": "virtual-wan/interface-log",
+        "params": {
+            "interface": {"type": "string", "required": "False"},
+            "since": {"type": "int", "required": "False"},
+            "seconds": {"type": "int", "required": "False"},
+        },
+    },
+    "virtual-wan_sla-log": {
+        "url": "virtual-wan/sla-log",
+        "params": {
+            "sla": {"type": "string", "required": "False"},
+            "interface": {"type": "string", "required": "False"},
+            "since": {"type": "int", "required": "False"},
+            "seconds": {"type": "int", "required": "False"},
+            "sampling_interval": {"type": "int", "required": "False"},
+        },
+    },
+    "vpn_ocvpn_members": {"url": "vpn/ocvpn/members", "params": {}},
+    "vpn_ocvpn_status": {"url": "vpn/ocvpn/status", "params": {}},
+    "vpn_ocvpn_meta": {"url": "vpn/ocvpn/meta", "params": {}},
+    "wifi_network_list": {"url": "wifi/network/list", "params": {}},
+    "wifi_network_status": {"url": "wifi/network/status", "params": {}},
+    "wifi_region-image": {
+        "url": "wifi/region-image",
+        "params": {"region_name": {"type": "string", "required": "True"}},
+    },
+    "azure_application-list": {"url": "azure/application-list", "params": {}},
+    "endpoint-control_ems_cert-status": {
+        "url": "endpoint-control/ems/cert-status",
+        "params": {
+            "ems_id": {"type": "int", "required": "True"},
+            "with_cert": {"type": "boolean", "required": "False"},
+        },
+    },
+    "endpoint-control_ems_status-summary": {
+        "url": "endpoint-control/ems/status-summary",
+        "params": {},
+    },
+    "fortiguard_service-communication-stats": {
+        "url": "fortiguard/service-communication-stats",
+        "params": {
+            "service_type": {"type": "string", "required": "False"},
+            "timeslot": {"type": "string", "required": "False"},
+        },
+    },
+    "network_reverse-ip-lookup": {
+        "url": "network/reverse-ip-lookup",
+        "params": {"ip": {"type": "string", "required": "True"}},
+    },
     "registration_forticloud_device-status": {
         "url": "registration/forticloud/device-status",
         "params": {
@@ -1723,88 +1748,121 @@ module_selectors_defs = {
             "update_cache": {"type": "boolean", "required": "False"},
         },
     },
-    "firewall_policy6": {
-        "url": "firewall/policy6",
-        "params": {"policyid": {"type": "int", "required": "False"}},
+    "switch-controller_managed-switch_health": {
+        "url": "switch-controller/managed-switch/health",
+        "params": {"mkey": {"type": "string", "required": "False"}},
     },
-    "endpoint-control_ems_status": {
-        "url": "endpoint-control/ems/status",
+    "switch-controller_managed-switch_cable-status": {
+        "url": "switch-controller/managed-switch/cable-status",
         "params": {
-            "ems_name": {"type": "string", "required": "False"},
-            "ems_serial": {"type": "string", "required": "False"},
-        },
-    },
-    "system_acme-certificate-status": {
-        "url": "system/acme-certificate-status",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
             "mkey": {"type": "string", "required": "True"},
+            "port": {"type": "string", "required": "True"},
         },
     },
-    "router_policy": {
-        "url": "router/policy",
-        "params": {
-            "count": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count_only": {"type": "boolean", "required": "False"},
-        },
+    "switch-controller_mclag-icl_eligible-peer": {
+        "url": "switch-controller/mclag-icl/eligible-peer",
+        "params": {"fortilink": {"type": "string", "required": "True"}},
     },
-    "switch-controller_managed-switch_transceivers": {
-        "url": "switch-controller/managed-switch/transceivers",
+    "system_interface_speed-test-status": {
+        "url": "system/interface/speed-test-status",
+        "params": {"id": {"type": "int", "required": "True"}},
+    },
+    "user_fortitoken-cloud_status": {
+        "url": "user/fortitoken-cloud/status",
         "params": {},
     },
-    "fortiview_proxy-statistics": {
-        "url": "fortiview/proxy-statistics",
+    "wifi_vlan-probe": {
+        "url": "wifi/vlan-probe",
         "params": {
-            "protocol": {"type": "object", "required": "False"},
-            "owner": {"type": "object", "required": "False"},
-            "srcuuid": {"type": "object", "required": "False"},
-            "since": {"type": "object", "required": "False"},
-            "application": {"type": "object", "required": "False"},
-            "dstport": {"type": "object", "required": "False"},
-            "dstuuid": {"type": "object", "required": "False"},
-            "username": {"type": "object", "required": "False"},
-            "seconds": {"type": "object", "required": "False"},
-            "dstaddr6": {"type": "object", "required": "False"},
-            "srcaddr": {"type": "object", "required": "False"},
-            "dstintf": {"type": "object", "required": "False"},
-            "srcintf": {"type": "object", "required": "False"},
-            "proxy-policyid": {"type": "object", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-            "dstaddr": {"type": "object", "required": "False"},
-            "country": {"type": "object", "required": "False"},
-            "srcport": {"type": "object", "required": "False"},
-            "sort_by": {"type": "string", "required": "False"},
-            "report_by": {"type": "string", "required": "False"},
-            "ip_version": {"type": "string", "required": "False"},
-            "srcaddr6": {"type": "object", "required": "False"},
-            "policyid": {"type": "object", "required": "False"},
+            "ap_interface": {"type": "int", "required": "True"},
+            "wtp": {"type": "string", "required": "True"},
         },
     },
-    "user_firewall": {
-        "url": "user/firewall",
+    "firewall_ippool_mapping": {
+        "url": "firewall/ippool/mapping",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "network_arp": {"url": "network/arp", "params": {}},
+    "system_interface-connected-admins-info": {
+        "url": "system/interface-connected-admins-info",
+        "params": {"interface": {"type": "string", "required": "True"}},
+    },
+    "system_ntp_status": {"url": "system/ntp/status", "params": {}},
+    "system_config-error-log_download": {
+        "url": "system/config-error-log/download",
+        "params": {},
+    },
+    "system_running-processes": {"url": "system/running-processes", "params": {}},
+    "user_device_query": {
+        "url": "user/device/query",
         "params": {
-            "count": {"type": "int", "required": "False"},
             "start": {"type": "int", "required": "False"},
-            "ipv4": {"type": "boolean", "required": "False"},
-            "ipv6": {"type": "boolean", "required": "False"},
+            "number": {"type": "int", "required": "False"},
+            "timestamp_from": {"type": "int", "required": "False"},
+            "timestamp_to": {"type": "int", "required": "False"},
+            "filters": {"type": "array", "required": "False"},
+            "query_type": {"type": "string", "required": "False"},
+            "query_id": {"type": "int", "required": "False"},
+            "cache_query": {"type": "boolean", "required": "False"},
+            "key_only": {"type": "boolean", "required": "False"},
+            "filter_logic": {"type": "string", "required": "False"},
         },
+    },
+    "ips_exceed-scan-range": {
+        "url": "ips/exceed-scan-range",
+        "params": {"ids": {"type": "array", "required": "True"}},
+    },
+    "firewall_multicast-policy": {
+        "url": "firewall/multicast-policy",
+        "params": {"policyid": {"type": "int", "required": "False"}},
     },
     "firewall_multicast-policy6": {
         "url": "firewall/multicast-policy6",
         "params": {"policyid": {"type": "int", "required": "False"}},
     },
-    "user_device-type": {"url": "user/device-type", "params": {}},
-    "switch-controller_managed-switch_cable-status": {
-        "url": "switch-controller/managed-switch/cable-status",
+    "firewall_gtp-statistics": {"url": "firewall/gtp-statistics", "params": {}},
+    "firewall_gtp-runtime-statistics": {
+        "url": "firewall/gtp-runtime-statistics",
+        "params": {},
+    },
+    "router_bgp_neighbors": {"url": "router/bgp/neighbors", "params": {}},
+    "router_bgp_neighbors6": {"url": "router/bgp/neighbors6", "params": {}},
+    "router_bgp_paths": {
+        "url": "router/bgp/paths",
         "params": {
-            "port": {"type": "string", "required": "True"},
-            "mkey": {"type": "string", "required": "True"},
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
         },
     },
-    "system_automation-stitch_stats": {
-        "url": "system/automation-stitch/stats",
+    "router_bgp_paths6": {
+        "url": "router/bgp/paths6",
+        "params": {
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+        },
+    },
+    "router_ospf_neighbors": {"url": "router/ospf/neighbors", "params": {}},
+    "system_automation-action_stats": {
+        "url": "system/automation-action/stats",
         "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "switch-controller_matched-devices": {
+        "url": "switch-controller/matched-devices",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "include_dynamic": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_ha-table-checksums": {
+        "url": "system/ha-table-checksums",
+        "params": {
+            "serial_no": {"type": "string", "required": "True"},
+            "vdom_name": {"type": "string", "required": "False"},
+        },
+    },
+    "system_sandbox_connection": {
+        "url": "system/sandbox/connection",
+        "params": {"server": {"type": "string", "required": "False"}},
     },
     "system_traffic-history_interface": {
         "url": "system/traffic-history/interface",
@@ -1813,206 +1871,209 @@ module_selectors_defs = {
             "time_period": {"type": "string", "required": "True"},
         },
     },
-    "network_ddns_lookup": {
-        "url": "network/ddns/lookup",
-        "params": {"domain": {"type": "string", "required": "True"}},
-    },
-    "wifi_managed_ap": {
-        "url": "wifi/managed_ap",
-        "params": {
-            "incl_local": {"type": "boolean", "required": "False"},
-            "wtp_id": {"type": "string", "required": "False"},
-        },
-    },
-    "system_interface_transceivers": {
-        "url": "system/interface/transceivers",
-        "params": {"scope": {"type": "string", "required": "False"}},
-    },
     "system_traffic-history_top-applications": {
         "url": "system/traffic-history/top-applications",
         "params": {"time_period": {"type": "string", "required": "True"}},
     },
-    "firewall_uuid-type-lookup": {
-        "url": "firewall/uuid-type-lookup",
-        "params": {"uuids": {"type": "array", "required": "False"}},
-    },
-    "virtual-wan_interface-log": {
-        "url": "virtual-wan/interface-log",
-        "params": {
-            "interface": {"type": "string", "required": "False"},
-            "seconds": {"type": "int", "required": "False"},
-            "since": {"type": "int", "required": "False"},
-        },
-    },
-    "network_reverse-ip-lookup": {
-        "url": "network/reverse-ip-lookup",
-        "params": {"ip": {"type": "string", "required": "True"}},
-    },
-    "firewall_health": {"url": "firewall/health", "params": {}},
-    "router_bgp_neighbors6": {"url": "router/bgp/neighbors6", "params": {}},
-    "wifi_unassociated-devices": {
-        "url": "wifi/unassociated-devices",
-        "params": {"with_triangulation": {"type": "boolean", "required": "False"}},
-    },
-    "system_security-rating_status": {
-        "url": "system/security-rating/status",
-        "params": {
-            "progress": {"type": "boolean", "required": "False"},
-            "id": {"type": "int", "required": "False"},
-            "report_type": {"type": "string", "required": "False"},
-        },
-    },
-    "registration_forticloud_disclaimer": {
-        "url": "registration/forticloud/disclaimer",
+    "videofilter_fortiguard-categories": {
+        "url": "videofilter/fortiguard-categories",
         "params": {},
     },
-    "wifi_ap_channels": {
-        "url": "wifi/ap_channels",
+    "firewall_central-snat-map": {
+        "url": "firewall/central-snat-map",
         "params": {
-            "country": {"type": "string", "required": "False"},
-            "indoor_outdoor": {"type": "int", "required": "False"},
-            "platform_type": {"type": "string", "required": "True"},
+            "policyid": {"type": "int", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
         },
     },
-    "system_botnet-domains_hits": {"url": "system/botnet-domains/hits", "params": {}},
-    "system_ipam_list": {"url": "system/ipam/list", "params": {}},
-    "log_event": {"url": "log/event", "params": {}},
-    "system_config-sync_status": {"url": "system/config-sync/status", "params": {}},
-    "network_fortiguard_live-services-latency": {
-        "url": "network/fortiguard/live-services-latency",
-        "params": {},
-    },
-    "fortiview_sandbox-file-list": {"url": "fortiview/sandbox-file-list", "params": {}},
-    "system_fortiguard_server-info": {
-        "url": "system/fortiguard/server-info",
-        "params": {},
-    },
-    "vpn_ssl": {"url": "vpn/ssl", "params": {}},
-    "system_check-port-availability": {
-        "url": "system/check-port-availability",
+    "firewall_dnat": {
+        "url": "firewall/dnat",
         "params": {
-            "port_ranges": {"type": "array", "required": "True"},
-            "service": {"type": "string", "required": "False"},
+            "uuid": {"type": "string", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
         },
     },
-    "log_av-archive_download": {
-        "url": "log/av-archive/download",
-        "params": {"mkey": {"type": "string", "required": "True"}},
+    "ips_hold-signatures": {
+        "url": "ips/hold-signatures",
+        "params": {"ips_sensor": {"type": "string", "required": "False"}},
     },
-    "license_fortianalyzer-status": {
-        "url": "license/fortianalyzer-status",
-        "params": {},
+    "router_bgp_paths-statistics": {
+        "url": "router/bgp/paths-statistics",
+        "params": {"ip_version": {"type": "string", "required": "False"}},
     },
-    "virtual-wan_health-check": {"url": "virtual-wan/health-check", "params": {}},
-    "firewall_address6-dynamic": {
-        "url": "firewall/address6-dynamic",
+    "system_lte-modem_status": {"url": "system/lte-modem/status", "params": {}},
+    "system_global-search": {
+        "url": "system/global-search",
+        "params": {
+            "search": {"type": "string", "required": "True"},
+            "scope": {"type": "string", "required": "False"},
+            "search_tables": {"type": "array", "required": "False"},
+            "skip_tables": {"type": "array", "required": "False"},
+        },
+    },
+    "switch-controller_managed-switch_status": {
+        "url": "switch-controller/managed-switch/status",
         "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "switch-controller_managed-switch_port-stats": {
+        "url": "switch-controller/managed-switch/port-stats",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "switch-controller_managed-switch_models": {
+        "url": "switch-controller/managed-switch/models",
+        "params": {},
+    },
+    "system_interface_kernel-interfaces": {
+        "url": "system/interface/kernel-interfaces",
+        "params": {},
     },
     "system_config_restore-status": {
         "url": "system/config/restore-status",
         "params": {"session_id": {"type": "string", "required": "True"}},
     },
-    "router_bgp_paths": {
-        "url": "router/bgp/paths",
+    "wifi_meta": {"url": "wifi/meta", "params": {}},
+    "wifi_ap_channels": {
+        "url": "wifi/ap_channels",
         "params": {
-            "count": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
+            "country": {"type": "string", "required": "False"},
+            "platform_type": {"type": "string", "required": "True"},
+            "indoor_outdoor": {"type": "int", "required": "False"},
         },
     },
-    "endpoint-control_avatar_download": {
-        "url": "endpoint-control/avatar/download",
-        "params": {
-            "default": {"type": "string", "required": "False"},
-            "fingerprint": {"type": "string", "required": "False"},
-            "uid": {"type": "string", "required": "False"},
-            "user": {"type": "string", "required": "False"},
-        },
+    "wifi_ap-names": {"url": "wifi/ap-names", "params": {}},
+    "firewall_internet-service-reputation": {
+        "url": "firewall/internet-service-reputation",
+        "params": {"ip": {"type": "string", "required": "True"}},
     },
-    "system_resource_usage": {
-        "url": "system/resource/usage",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "interval": {"type": "string", "required": "False"},
-            "resource": {"type": "string", "required": "False"},
-        },
-    },
-    "system_certificate_download": {
-        "url": "system/certificate/download",
-        "params": {
-            "scope": {"type": "string", "required": "False"},
-            "type": {"type": "string", "required": "True"},
-            "mkey": {"type": "string", "required": "True"},
-        },
-    },
-    "system_ha-peer": {
-        "url": "system/ha-peer",
-        "params": {
-            "serial_no": {"type": "string", "required": "False"},
-            "vcluster_id": {"type": "int", "required": "False"},
-        },
-    },
-    "system_sandbox_connection": {
-        "url": "system/sandbox/connection",
-        "params": {"server": {"type": "string", "required": "False"}},
+    "firewall_shaper_multi-class-shaper": {
+        "url": "firewall/shaper/multi-class-shaper",
+        "params": {},
     },
     "log_forticloud_connection": {"url": "log/forticloud/connection", "params": {}},
-    "system_interface_poe": {
-        "url": "system/interface/poe",
+    "system_performance_status": {"url": "system/performance/status", "params": {}},
+    "system_ipam_list": {"url": "system/ipam/list", "params": {}},
+    "system_ipam_status": {"url": "system/ipam/status", "params": {}},
+    "system_acme-certificate-status": {
+        "url": "system/acme-certificate-status",
         "params": {
+            "mkey": {"type": "string", "required": "True"},
             "scope": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
         },
     },
-    "ips_metadata": {"url": "ips/metadata", "params": {}},
-    "system_interface": {
-        "url": "system/interface",
+    "system_crash-log_download": {"url": "system/crash-log/download", "params": {}},
+    "user_banned_check": {
+        "url": "user/banned/check",
+        "params": {"ip_address": {"type": "string", "required": "True"}},
+    },
+    "user_info_thumbnail-file": {
+        "url": "user/info/thumbnail-file",
+        "params": {"filename": {"type": "string", "required": "True"}},
+    },
+    "vpn-certificate_cert-name-available": {
+        "url": "vpn-certificate/cert-name-available",
         "params": {
+            "mkey": {"type": "string", "required": "True"},
             "scope": {"type": "string", "required": "False"},
-            "interface_name": {"type": "string", "required": "False"},
-            "include_vlan": {"type": "boolean", "required": "False"},
-            "include_aggregate": {"type": "boolean", "required": "False"},
         },
     },
-    "extender-controller_extender": {
-        "url": "extender-controller/extender",
+    "wifi_unassociated-devices": {
+        "url": "wifi/unassociated-devices",
+        "params": {"with_triangulation": {"type": "boolean", "required": "False"}},
+    },
+    "wifi_matched-devices": {"url": "wifi/matched-devices", "params": {}},
+    "firewall_proxy_sessions": {
+        "url": "firewall/proxy/sessions",
         "params": {
-            "type": {"type": "string", "required": "False"},
-            "name": {"type": "array", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+            "start": {"type": "int", "required": "False"},
+            "count": {"type": "int", "required": "True"},
+            "summary": {"type": "boolean", "required": "False"},
+            "srcaddr": {"type": "object", "required": "False"},
+            "dstaddr": {"type": "object", "required": "False"},
+            "srcaddr6": {"type": "object", "required": "False"},
+            "dstaddr6": {"type": "object", "required": "False"},
+            "srcport": {"type": "object", "required": "False"},
+            "dstport": {"type": "object", "required": "False"},
+            "srcintf": {"type": "object", "required": "False"},
+            "dstintf": {"type": "object", "required": "False"},
+            "policyid": {"type": "object", "required": "False"},
+            "proxy-policyid": {"type": "object", "required": "False"},
+            "protocol": {"type": "object", "required": "False"},
+            "application": {"type": "object", "required": "False"},
+            "country": {"type": "object", "required": "False"},
+            "seconds": {"type": "object", "required": "False"},
+            "since": {"type": "object", "required": "False"},
+            "owner": {"type": "object", "required": "False"},
+            "username": {"type": "object", "required": "False"},
+            "src_uuid": {"type": "object", "required": "False"},
+            "dst_uuid": {"type": "object", "required": "False"},
         },
     },
-    "firewall_local-in": {"url": "firewall/local-in", "params": {}},
-    "wifi_spectrum": {
-        "url": "wifi/spectrum",
-        "params": {"wtp_id": {"type": "string", "required": "True"}},
-    },
-    "firewall_consolidated-policy": {
-        "url": "firewall/consolidated-policy",
-        "params": {"policyid": {"type": "int", "required": "False"}},
-    },
-    "switch-controller_managed-switch": {
-        "url": "switch-controller/managed-switch",
+    "firewall_gtp": {"url": "firewall/gtp", "params": {}},
+    "fortiview_proxy-statistics": {
+        "url": "fortiview/proxy-statistics",
         "params": {
-            "port_stats": {"type": "boolean", "required": "False"},
-            "stp_status": {"type": "boolean", "required": "False"},
-            "igmp_snooping_group": {"type": "boolean", "required": "False"},
-            "qos_stats": {"type": "boolean", "required": "False"},
-            "transceiver": {"type": "boolean", "required": "False"},
-            "poe": {"type": "boolean", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
+            "report_by": {"type": "string", "required": "False"},
+            "sort_by": {"type": "string", "required": "False"},
+            "count": {"type": "int", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+            "srcaddr": {"type": "object", "required": "False"},
+            "dstaddr": {"type": "object", "required": "False"},
+            "srcaddr6": {"type": "object", "required": "False"},
+            "dstaddr6": {"type": "object", "required": "False"},
+            "srcport": {"type": "object", "required": "False"},
+            "dstport": {"type": "object", "required": "False"},
+            "srcintf": {"type": "object", "required": "False"},
+            "dstintf": {"type": "object", "required": "False"},
+            "policyid": {"type": "object", "required": "False"},
+            "proxy-policyid": {"type": "object", "required": "False"},
+            "protocol": {"type": "object", "required": "False"},
+            "application": {"type": "object", "required": "False"},
+            "country": {"type": "object", "required": "False"},
+            "seconds": {"type": "object", "required": "False"},
+            "since": {"type": "object", "required": "False"},
+            "owner": {"type": "object", "required": "False"},
+            "username": {"type": "object", "required": "False"},
+            "srcuuid": {"type": "object", "required": "False"},
+            "dstuuid": {"type": "object", "required": "False"},
         },
     },
-    "system_trusted-cert-authorities": {
-        "url": "system/trusted-cert-authorities",
-        "params": {"scope": {"type": "string", "required": "False"}},
+    "system_ha-hw-interface": {"url": "system/ha-hw-interface", "params": {}},
+    "user_firewall_count": {
+        "url": "user/firewall/count",
+        "params": {
+            "ipv4": {"type": "boolean", "required": "False"},
+            "ipv6": {"type": "boolean", "required": "False"},
+            "include_wad": {"type": "boolean", "required": "False"},
+            "include_fsso": {"type": "boolean", "required": "False"},
+        },
+    },
+    "firewall_internet-service-basic": {
+        "url": "firewall/internet-service-basic",
+        "params": {},
+    },
+    "firewall_vip-overlap": {"url": "firewall/vip-overlap", "params": {}},
+    "switch-controller_managed-switch_port-health": {
+        "url": "switch-controller/managed-switch/port-health",
+        "params": {"mkey": {"type": "string", "required": "False"}},
     },
     "switch-controller_managed-switch_tx-rx": {
         "url": "switch-controller/managed-switch/tx-rx",
         "params": {
-            "port": {"type": "string", "required": "True"},
             "mkey": {"type": "string", "required": "True"},
+            "port": {"type": "string", "required": "True"},
         },
     },
-    "vpn_ocvpn_members": {"url": "vpn/ocvpn/members", "params": {}},
+    "firewall_network-service-dynamic": {
+        "url": "firewall/network-service-dynamic",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "system_ipam_utilization": {"url": "system/ipam/utilization", "params": {}},
+    "system_ha-nonsync-checksums": {"url": "system/ha-nonsync-checksums", "params": {}},
+    "wifi_station-capability": {
+        "url": "wifi/station-capability",
+        "params": {"mac_address": {"type": "string", "required": "False"}},
+    },
 }
 
 
@@ -2085,13 +2146,12 @@ def fortios_monitor_fact(params, fos):
         return True, False, result
 
     selector = params["selector"]
-    selector_params = params["params"]
 
     url_params = dict()
     if params["filters"] and len(params["filters"]):
-        filter_body = params["filters"][0]
+        filter_body = quote(params["filters"][0])
         for filter_item in params["filters"][1:]:
-            filter_body = "%s&filter=%s" % (filter_body, filter_item)
+            filter_body = "%s&filter=%s" % (filter_body, quote(filter_item))
         url_params["filter"] = filter_body
     if params["sorters"] and len(params["sorters"]):
         sorter_body = params["sorters"][0]
@@ -2127,284 +2187,293 @@ def main():
             "required": False,
             "type": "str",
             "choices": [
-                "firewall_acl6",
-                "firewall_ippool",
-                "webfilter_malicious-urls",
-                "fortiguard_redirect-portal",
-                "firewall_policy-lookup",
-                "system_acquired-dns",
-                "wifi_interfering_ap",
-                "system_botnet-domains",
-                "firewall_address-dynamic",
-                "vpn_ocvpn_status",
-                "wifi_vlan-probe",
-                "system_sandbox_status",
-                "system_running-processes",
-                "system_storage",
-                "router_ipv4",
-                "log_historic-daily-remote-logs",
-                "webfilter_malicious-urls_stat",
-                "ips_anomaly",
-                "wanopt_peer_stats",
-                "wifi_network_status",
-                "log_hourly-disk-usage",
-                "wifi_region-image",
-                "system_object_usage",
-                "wifi_euclid",
-                "system_current-admins",
-                "system_sandbox_test-connect",
-                "system_interface_speed-test-status",
-                "user_info_query",
-                "firewall_central-snat-map",
-                "wifi_rogue_ap",
-                "system_config-revision_info",
-                "ips_hold-signatures",
-                "utm_antivirus_stats",
-                "system_3g-modem",
-                "endpoint-control_installer_download",
-                "network_arp",
-                "firewall_address-fqdns",
-                "wifi_firmware",
-                "user_fsso",
-                "switch-controller_managed-switch_port-stats",
-                "endpoint-control_installer",
-                "utm_app-lookup",
-                "system_firmware",
-                "system_interface_dhcp-status",
-                "user_banned_check",
-                "system_botnet-domains_stat",
-                "wifi_matched-devices",
-                "system_external-resource_entry-list",
-                "webfilter_fortiguard-categories",
-                "system_fortimanager_backup-details",
-                "firewall_internet-service-match",
-                "router_policy6",
-                "virtual-wan_sla-log",
-                "system_security-rating",
-                "switch-controller_managed-switch_dhcp-snooping",
-                "system_time",
-                "log_local-report-list",
-                "vpn-certificate_cert-name-available",
-                "firewall_shaper",
-                "system_available-interfaces",
-                "system_fortimanager_status",
-                "system_sensor-info",
-                "system_status",
-                "firewall_gtp",
-                "nsx_instance",
-                "web-ui_custom-language_download",
-                "wanopt_history",
-                "log_forticloud",
-                "system_vdom-link",
-                "utm_blacklisted-certificates",
-                "switch-controller_managed-switch_port-health",
-                "webcache_stats",
-                "system_config-revision_file",
-                "user_device",
-                "system_dhcp",
-                "router_lookup",
-                "system_ipam_status",
-                "utm_blacklisted-certificates_statistics",
-                "log_device_state",
-                "vpn_one-click_status",
-                "system_sniffer",
-                "system_firmware_upgrade-paths",
-                "router_ospf_neighbors",
-                "system_sandbox_stats",
-                "wanopt_webcache",
-                "network_lldp_neighbors",
-                "log_local-report_download",
-                "system_config-error-log_download",
-                "firewall_load-balance",
-                "vpn_ocvpn_meta",
-                "system_sandbox_cloud-regions",
-                "firewall_address-fqdns6",
-                "firewall_proxy_sessions",
-                "firewall_acl",
-                "system_link-monitor",
-                "system_com-log_download",
-                "user_device_query",
-                "fortiguard_service-communication-stats",
-                "switch-controller_managed-switch_status",
-                "system_available-certificates",
-                "registration_forticloud_domains",
-                "switch-controller_fsw-firmware",
-                "system_ha-table-checksums",
-                "fortiview_statistics",
-                "router_ipv6",
-                "endpoint-control_registration_summary",
-                "firewall_gtp-runtime-statistics",
-                "firewall_uuid-list",
-                "router_statistics",
-                "system_config_usb-filelist",
-                "firewall_internet-service-details",
-                "firewall_internet-service-reputation",
-                "endpoint-control_ems_cert-status",
-                "system_config-script",
-                "user_banned",
-                "system_sdn-connector_nsx-security-tags",
-                "system_object-tagging_usage",
-                "system_com-log_update",
-                "system_global-resources",
-                "system_ipconf",
-                "firewall_vip-overlap",
-                "switch-controller_mclag-icl_eligible-peer",
-                "user_fortitoken-cloud_status",
-                "firewall_per-ip-shaper",
-                "wifi_network_list",
-                "ips_exceed-scan-range",
-                "log_current-disk-usage",
-                "license_status",
-                "firewall_session",
-                "firewall_ippool_mapping",
-                "virtual-wan_members",
-                "switch-controller_managed-switch_faceplate-xml",
-                "firewall_security-policy",
-                "wifi_client",
-                "endpoint-control_record-list",
-                "videofilter_fortiguard-categories",
-                "webfilter_category-quota",
-                "log_forticloud-report-list",
-                "log_policy-archive_download",
-                "wifi_ap-names",
-                "firewall_internet-service-basic",
-                "system_debug_download",
-                "system_automation-action_stats",
-                "log_fortianalyzer-queue",
-                "network_ddns_servers",
-                "system_nat46-ippools",
-                "system_vdom-resource",
-                "system_modem",
-                "firewall_proxy-policy",
-                "nsx_service_status",
-                "azure_application-list",
-                "log_forticloud-report_download",
-                "user_info_thumbnail",
-                "system_sdn-connector_status",
-                "vpn_ipsec",
-                "endpoint-control_ems_status-summary",
-                "firewall_dnat",
-                "firewall_multicast-policy",
-                "switch-controller_validate-switch-prefix",
-                "system_security-rating_history",
-                "system_lte-modem_status",
-                "fortiview_sandbox-file-details",
-                "endpoint-control_summary",
-                "system_csf",
-                "license_forticare-resellers",
-                "switch-controller_managed-switch_models",
                 "endpoint-control_profile_xml",
-                "wifi_ap_status",
-                "user_device-category",
-                "system_ntp_status",
-                "firewall_gtp-statistics",
-                "utm_application-categories",
-                "router_lookup-policy",
-                "system_performance_status",
-                "system_ha-history",
-                "license_forticare-org-list",
-                "system_security-rating_lang",
-                "system_global-search",
-                "router_bgp_paths6",
-                "vpn_one-click_members",
-                "system_interface_kernel-interfaces",
-                "switch-controller_managed-switch_health",
-                "system_timezone",
-                "firewall_sdn-connector-filters",
-                "router_bgp_paths-statistics",
-                "webfilter_trusted-urls",
-                "system_usb-log",
-                "network_lldp_ports",
-                "system_fortiguard-blacklist",
+                "endpoint-control_record-list",
+                "endpoint-control_registration_summary",
+                "endpoint-control_installer",
+                "endpoint-control_installer_download",
+                "endpoint-control_avatar_download",
+                "firewall_health",
+                "firewall_local-in",
+                "firewall_acl",
+                "firewall_acl6",
+                "firewall_internet-service-match",
+                "firewall_internet-service-details",
                 "firewall_policy",
-                "system_ha-statistics",
-                "switch-controller_matched-devices",
-                "system_crash-log_download",
-                "network_dns_latency",
-                "system_fortimanager_backup-summary",
-                "firewall_shaper_multi-class-shaper",
+                "firewall_policy6",
+                "firewall_proxy-policy",
+                "firewall_policy-lookup",
+                "firewall_session",
+                "firewall_shaper",
+                "firewall_per-ip-shaper",
+                "firewall_load-balance",
+                "firewall_address-fqdns",
+                "firewall_address-fqdns6",
+                "firewall_ippool",
+                "firewall_address-dynamic",
+                "firewall_address6-dynamic",
+                "fortiview_statistics",
+                "fortiview_sandbox-file-details",
+                "geoip_geoip-query",
+                "ips_rate-based",
+                "license_status",
+                "license_forticare-resellers",
+                "license_forticare-org-list",
+                "log_current-disk-usage",
+                "log_device_state",
+                "log_forticloud",
+                "log_fortianalyzer",
+                "log_fortianalyzer-queue",
+                "log_hourly-disk-usage",
+                "log_historic-daily-remote-logs",
+                "log_stats",
+                "log_forticloud-report_download",
+                "log_ips-archive_download",
+                "log_policy-archive_download",
+                "log_av-archive_download",
+                "log_event",
+                "registration_forticloud_disclaimer",
+                "registration_forticloud_domains",
+                "router_ipv4",
+                "router_ipv6",
+                "router_statistics",
+                "router_lookup",
+                "router_policy",
+                "router_policy6",
+                "system_config-revision",
+                "system_config-revision_file",
+                "system_config-revision_info",
+                "system_current-admins",
+                "system_time",
+                "system_global-resources",
+                "system_vdom-resource",
+                "system_dhcp",
+                "system_firmware",
+                "system_firmware_upgrade-paths",
+                "system_storage",
+                "system_csf",
+                "system_csf_pending-authorizations",
+                "system_modem",
+                "system_3g-modem",
+                "system_resource_usage",
+                "system_sniffer",
                 "system_sniffer_download",
-                "user_detected-device",
+                "system_automation-stitch_stats",
+                "switch-controller_managed-switch",
+                "switch-controller_managed-switch_faceplate-xml",
+                "switch-controller_managed-switch_dhcp-snooping",
+                "switch-controller_fsw-firmware",
+                "switch-controller_detected-device",
+                "switch-controller_validate-switch-prefix",
+                "system_interface",
+                "system_interface_dhcp-status",
+                "system_available-interfaces",
+                "system_acquired-dns",
+                "system_resolve-fqdn",
+                "system_nat46-ippools",
+                "system_usb-log",
+                "system_ipconf",
+                "system_fortiguard_server-info",
+                "system_fortimanager_status",
+                "system_fortimanager_backup-summary",
+                "system_fortimanager_backup-details",
+                "system_available-certificates",
+                "system_certificate_download",
+                "system_debug_download",
+                "system_com-log_update",
+                "system_com-log_download",
                 "system_botnet_stat",
+                "system_botnet",
+                "system_botnet-domains",
+                "system_botnet-domains_stat",
+                "system_botnet-domains_hits",
+                "system_ha-statistics",
+                "system_ha-history",
+                "system_ha-checksums",
+                "system_ha-peer",
+                "system_link-monitor",
+                "system_config_backup",
+                "system_config_usb-filelist",
+                "system_sandbox_stats",
+                "system_sandbox_status",
+                "system_sandbox_test-connect",
+                "system_object_usage",
+                "system_object-tagging_usage",
+                "system_status",
+                "system_timezone",
+                "system_sensor-info",
+                "system_security-rating",
+                "system_security-rating_history",
+                "system_security-rating_status",
+                "system_security-rating_lang",
+                "system_fortiguard-blacklist",
+                "system_check-port-availability",
+                "system_external-resource_entry-list",
+                "extender-controller_extender",
+                "system_sdn-connector_status",
+                "user_firewall",
+                "user_banned",
+                "user_fortitoken",
+                "user_detected-device",
+                "user_device",
+                "user_device-type",
+                "user_device-category",
+                "user_fsso",
+                "utm_rating-lookup",
+                "utm_app-lookup",
+                "utm_application-categories",
+                "utm_antivirus_stats",
+                "virtual-wan_health-check",
+                "virtual-wan_members",
+                "webfilter_override",
+                "webfilter_malicious-urls",
+                "webfilter_malicious-urls_stat",
+                "webfilter_category-quota",
+                "webfilter_fortiguard-categories",
+                "webfilter_trusted-urls",
+                "vpn_ipsec",
+                "vpn_one-click_members",
+                "vpn_one-click_status",
+                "vpn_ssl",
+                "vpn_ssl_stats",
+                "wanopt_history",
+                "wanopt_webcache",
+                "wanopt_peer_stats",
+                "webproxy_pacfile_download",
+                "webcache_stats",
+                "wifi_client",
+                "wifi_managed_ap",
+                "wifi_firmware",
+                "wifi_ap_status",
+                "wifi_interfering_ap",
+                "wifi_euclid",
+                "wifi_rogue_ap",
+                "wifi_spectrum",
+                "endpoint-control_summary",
+                "endpoint-control_ems_status",
+                "firewall_consolidated-policy",
+                "firewall_security-policy",
+                "firewall_uuid-list",
+                "firewall_uuid-type-lookup",
+                "fortiguard_redirect-portal",
+                "firewall_sdn-connector-filters",
+                "fortiview_sandbox-file-list",
+                "ips_metadata",
+                "ips_anomaly",
+                "license_fortianalyzer-status",
+                "log_forticloud-report-list",
+                "log_local-report-list",
+                "log_local-report_download",
+                "network_lldp_neighbors",
+                "network_lldp_ports",
+                "network_dns_latency",
+                "network_fortiguard_live-services-latency",
+                "network_ddns_servers",
+                "network_ddns_lookup",
+                "router_lookup-policy",
+                "system_config-script",
+                "system_config-sync_status",
+                "system_vdom-link",
+                "switch-controller_managed-switch_transceivers",
+                "system_interface_poe",
+                "system_trusted-cert-authorities",
+                "system_sandbox_cloud-regions",
+                "system_interface_transceivers",
                 "system_vm-information",
                 "system_security-rating_supported-reports",
-                "user_fortitoken",
-                "system_botnet",
-                "user_info_thumbnail-file",
-                "vpn_ssl_stats",
-                "system_ha-checksums",
-                "webfilter_override",
-                "log_stats",
-                "system_csf_pending-authorizations",
-                "system_resolve-fqdn",
-                "log_fortianalyzer",
-                "log_ips-archive_download",
-                "wifi_meta",
-                "system_interface-connected-admins-info",
-                "system_config-revision",
-                "router_bgp_neighbors",
+                "nsx_service_status",
+                "nsx_instance",
+                "system_sdn-connector_nsx-security-tags",
+                "web-ui_custom-language_download",
                 "user_collected-email",
-                "ips_rate-based",
-                "switch-controller_detected-device",
-                "webproxy_pacfile_download",
-                "registration_forticloud_device-status",
-                "firewall_policy6",
-                "endpoint-control_ems_status",
-                "system_acme-certificate-status",
-                "router_policy",
-                "switch-controller_managed-switch_transceivers",
-                "fortiview_proxy-statistics",
-                "user_firewall",
-                "firewall_multicast-policy6",
-                "user_device-type",
-                "switch-controller_managed-switch_cable-status",
-                "system_automation-stitch_stats",
-                "system_traffic-history_interface",
-                "network_ddns_lookup",
-                "wifi_managed_ap",
-                "system_interface_transceivers",
-                "system_traffic-history_top-applications",
-                "firewall_uuid-type-lookup",
+                "user_info_query",
+                "user_info_thumbnail",
+                "utm_blacklisted-certificates",
+                "utm_blacklisted-certificates_statistics",
                 "virtual-wan_interface-log",
-                "network_reverse-ip-lookup",
-                "firewall_health",
-                "router_bgp_neighbors6",
-                "wifi_unassociated-devices",
-                "system_security-rating_status",
-                "registration_forticloud_disclaimer",
-                "wifi_ap_channels",
-                "system_botnet-domains_hits",
-                "system_ipam_list",
-                "log_event",
-                "system_config-sync_status",
-                "network_fortiguard_live-services-latency",
-                "fortiview_sandbox-file-list",
-                "system_fortiguard_server-info",
-                "vpn_ssl",
-                "system_check-port-availability",
-                "log_av-archive_download",
-                "license_fortianalyzer-status",
-                "virtual-wan_health-check",
-                "firewall_address6-dynamic",
-                "system_config_restore-status",
-                "router_bgp_paths",
-                "endpoint-control_avatar_download",
-                "system_resource_usage",
-                "system_certificate_download",
-                "system_ha-peer",
-                "system_sandbox_connection",
-                "log_forticloud_connection",
-                "system_interface_poe",
-                "ips_metadata",
-                "system_interface",
-                "extender-controller_extender",
-                "firewall_local-in",
-                "wifi_spectrum",
-                "firewall_consolidated-policy",
-                "switch-controller_managed-switch",
-                "system_trusted-cert-authorities",
-                "switch-controller_managed-switch_tx-rx",
+                "virtual-wan_sla-log",
                 "vpn_ocvpn_members",
+                "vpn_ocvpn_status",
+                "vpn_ocvpn_meta",
+                "wifi_network_list",
+                "wifi_network_status",
+                "wifi_region-image",
+                "azure_application-list",
+                "endpoint-control_ems_cert-status",
+                "endpoint-control_ems_status-summary",
+                "fortiguard_service-communication-stats",
+                "network_reverse-ip-lookup",
+                "registration_forticloud_device-status",
+                "switch-controller_managed-switch_health",
+                "switch-controller_managed-switch_cable-status",
+                "switch-controller_mclag-icl_eligible-peer",
+                "system_interface_speed-test-status",
+                "user_fortitoken-cloud_status",
+                "wifi_vlan-probe",
+                "firewall_ippool_mapping",
+                "network_arp",
+                "system_interface-connected-admins-info",
+                "system_ntp_status",
+                "system_config-error-log_download",
+                "system_running-processes",
+                "user_device_query",
+                "ips_exceed-scan-range",
+                "firewall_multicast-policy",
+                "firewall_multicast-policy6",
+                "firewall_gtp-statistics",
+                "firewall_gtp-runtime-statistics",
+                "router_bgp_neighbors",
+                "router_bgp_neighbors6",
+                "router_bgp_paths",
+                "router_bgp_paths6",
+                "router_ospf_neighbors",
+                "system_automation-action_stats",
+                "switch-controller_matched-devices",
+                "system_ha-table-checksums",
+                "system_sandbox_connection",
+                "system_traffic-history_interface",
+                "system_traffic-history_top-applications",
+                "videofilter_fortiguard-categories",
+                "firewall_central-snat-map",
+                "firewall_dnat",
+                "ips_hold-signatures",
+                "router_bgp_paths-statistics",
+                "system_lte-modem_status",
+                "system_global-search",
+                "switch-controller_managed-switch_status",
+                "switch-controller_managed-switch_port-stats",
+                "switch-controller_managed-switch_models",
+                "system_interface_kernel-interfaces",
+                "system_config_restore-status",
+                "wifi_meta",
+                "wifi_ap_channels",
+                "wifi_ap-names",
+                "firewall_internet-service-reputation",
+                "firewall_shaper_multi-class-shaper",
+                "log_forticloud_connection",
+                "system_performance_status",
+                "system_ipam_list",
+                "system_ipam_status",
+                "system_acme-certificate-status",
+                "system_crash-log_download",
+                "user_banned_check",
+                "user_info_thumbnail-file",
+                "vpn-certificate_cert-name-available",
+                "wifi_unassociated-devices",
+                "wifi_matched-devices",
+                "firewall_proxy_sessions",
+                "firewall_gtp",
+                "fortiview_proxy-statistics",
+                "system_ha-hw-interface",
+                "user_firewall_count",
+                "firewall_internet-service-basic",
+                "firewall_vip-overlap",
+                "switch-controller_managed-switch_port-health",
+                "switch-controller_managed-switch_tx-rx",
+                "firewall_network-service-dynamic",
+                "system_ipam_utilization",
+                "system_ha-nonsync-checksums",
+                "wifi_station-capability",
             ],
         },
         "selectors": {
@@ -2420,284 +2489,293 @@ def main():
                     "required": True,
                     "type": "str",
                     "choices": [
-                        "firewall_acl6",
-                        "firewall_ippool",
-                        "webfilter_malicious-urls",
-                        "fortiguard_redirect-portal",
-                        "firewall_policy-lookup",
-                        "system_acquired-dns",
-                        "wifi_interfering_ap",
-                        "system_botnet-domains",
-                        "firewall_address-dynamic",
-                        "vpn_ocvpn_status",
-                        "wifi_vlan-probe",
-                        "system_sandbox_status",
-                        "system_running-processes",
-                        "system_storage",
-                        "router_ipv4",
-                        "log_historic-daily-remote-logs",
-                        "webfilter_malicious-urls_stat",
-                        "ips_anomaly",
-                        "wanopt_peer_stats",
-                        "wifi_network_status",
-                        "log_hourly-disk-usage",
-                        "wifi_region-image",
-                        "system_object_usage",
-                        "wifi_euclid",
-                        "system_current-admins",
-                        "system_sandbox_test-connect",
-                        "system_interface_speed-test-status",
-                        "user_info_query",
-                        "firewall_central-snat-map",
-                        "wifi_rogue_ap",
-                        "system_config-revision_info",
-                        "ips_hold-signatures",
-                        "utm_antivirus_stats",
-                        "system_3g-modem",
-                        "endpoint-control_installer_download",
-                        "network_arp",
-                        "firewall_address-fqdns",
-                        "wifi_firmware",
-                        "user_fsso",
-                        "switch-controller_managed-switch_port-stats",
-                        "endpoint-control_installer",
-                        "utm_app-lookup",
-                        "system_firmware",
-                        "system_interface_dhcp-status",
-                        "user_banned_check",
-                        "system_botnet-domains_stat",
-                        "wifi_matched-devices",
-                        "system_external-resource_entry-list",
-                        "webfilter_fortiguard-categories",
-                        "system_fortimanager_backup-details",
-                        "firewall_internet-service-match",
-                        "router_policy6",
-                        "virtual-wan_sla-log",
-                        "system_security-rating",
-                        "switch-controller_managed-switch_dhcp-snooping",
-                        "system_time",
-                        "log_local-report-list",
-                        "vpn-certificate_cert-name-available",
-                        "firewall_shaper",
-                        "system_available-interfaces",
-                        "system_fortimanager_status",
-                        "system_sensor-info",
-                        "system_status",
-                        "firewall_gtp",
-                        "nsx_instance",
-                        "web-ui_custom-language_download",
-                        "wanopt_history",
-                        "log_forticloud",
-                        "system_vdom-link",
-                        "utm_blacklisted-certificates",
-                        "switch-controller_managed-switch_port-health",
-                        "webcache_stats",
-                        "system_config-revision_file",
-                        "user_device",
-                        "system_dhcp",
-                        "router_lookup",
-                        "system_ipam_status",
-                        "utm_blacklisted-certificates_statistics",
-                        "log_device_state",
-                        "vpn_one-click_status",
-                        "system_sniffer",
-                        "system_firmware_upgrade-paths",
-                        "router_ospf_neighbors",
-                        "system_sandbox_stats",
-                        "wanopt_webcache",
-                        "network_lldp_neighbors",
-                        "log_local-report_download",
-                        "system_config-error-log_download",
-                        "firewall_load-balance",
-                        "vpn_ocvpn_meta",
-                        "system_sandbox_cloud-regions",
-                        "firewall_address-fqdns6",
-                        "firewall_proxy_sessions",
-                        "firewall_acl",
-                        "system_link-monitor",
-                        "system_com-log_download",
-                        "user_device_query",
-                        "fortiguard_service-communication-stats",
-                        "switch-controller_managed-switch_status",
-                        "system_available-certificates",
-                        "registration_forticloud_domains",
-                        "switch-controller_fsw-firmware",
-                        "system_ha-table-checksums",
-                        "fortiview_statistics",
-                        "router_ipv6",
-                        "endpoint-control_registration_summary",
-                        "firewall_gtp-runtime-statistics",
-                        "firewall_uuid-list",
-                        "router_statistics",
-                        "system_config_usb-filelist",
-                        "firewall_internet-service-details",
-                        "firewall_internet-service-reputation",
-                        "endpoint-control_ems_cert-status",
-                        "system_config-script",
-                        "user_banned",
-                        "system_sdn-connector_nsx-security-tags",
-                        "system_object-tagging_usage",
-                        "system_com-log_update",
-                        "system_global-resources",
-                        "system_ipconf",
-                        "firewall_vip-overlap",
-                        "switch-controller_mclag-icl_eligible-peer",
-                        "user_fortitoken-cloud_status",
-                        "firewall_per-ip-shaper",
-                        "wifi_network_list",
-                        "ips_exceed-scan-range",
-                        "log_current-disk-usage",
-                        "license_status",
-                        "firewall_session",
-                        "firewall_ippool_mapping",
-                        "virtual-wan_members",
-                        "switch-controller_managed-switch_faceplate-xml",
-                        "firewall_security-policy",
-                        "wifi_client",
-                        "endpoint-control_record-list",
-                        "videofilter_fortiguard-categories",
-                        "webfilter_category-quota",
-                        "log_forticloud-report-list",
-                        "log_policy-archive_download",
-                        "wifi_ap-names",
-                        "firewall_internet-service-basic",
-                        "system_debug_download",
-                        "system_automation-action_stats",
-                        "log_fortianalyzer-queue",
-                        "network_ddns_servers",
-                        "system_nat46-ippools",
-                        "system_vdom-resource",
-                        "system_modem",
-                        "firewall_proxy-policy",
-                        "nsx_service_status",
-                        "azure_application-list",
-                        "log_forticloud-report_download",
-                        "user_info_thumbnail",
-                        "system_sdn-connector_status",
-                        "vpn_ipsec",
-                        "endpoint-control_ems_status-summary",
-                        "firewall_dnat",
-                        "firewall_multicast-policy",
-                        "switch-controller_validate-switch-prefix",
-                        "system_security-rating_history",
-                        "system_lte-modem_status",
-                        "fortiview_sandbox-file-details",
-                        "endpoint-control_summary",
-                        "system_csf",
-                        "license_forticare-resellers",
-                        "switch-controller_managed-switch_models",
                         "endpoint-control_profile_xml",
-                        "wifi_ap_status",
-                        "user_device-category",
-                        "system_ntp_status",
-                        "firewall_gtp-statistics",
-                        "utm_application-categories",
-                        "router_lookup-policy",
-                        "system_performance_status",
-                        "system_ha-history",
-                        "license_forticare-org-list",
-                        "system_security-rating_lang",
-                        "system_global-search",
-                        "router_bgp_paths6",
-                        "vpn_one-click_members",
-                        "system_interface_kernel-interfaces",
-                        "switch-controller_managed-switch_health",
-                        "system_timezone",
-                        "firewall_sdn-connector-filters",
-                        "router_bgp_paths-statistics",
-                        "webfilter_trusted-urls",
-                        "system_usb-log",
-                        "network_lldp_ports",
-                        "system_fortiguard-blacklist",
+                        "endpoint-control_record-list",
+                        "endpoint-control_registration_summary",
+                        "endpoint-control_installer",
+                        "endpoint-control_installer_download",
+                        "endpoint-control_avatar_download",
+                        "firewall_health",
+                        "firewall_local-in",
+                        "firewall_acl",
+                        "firewall_acl6",
+                        "firewall_internet-service-match",
+                        "firewall_internet-service-details",
                         "firewall_policy",
-                        "system_ha-statistics",
-                        "switch-controller_matched-devices",
-                        "system_crash-log_download",
-                        "network_dns_latency",
-                        "system_fortimanager_backup-summary",
-                        "firewall_shaper_multi-class-shaper",
+                        "firewall_policy6",
+                        "firewall_proxy-policy",
+                        "firewall_policy-lookup",
+                        "firewall_session",
+                        "firewall_shaper",
+                        "firewall_per-ip-shaper",
+                        "firewall_load-balance",
+                        "firewall_address-fqdns",
+                        "firewall_address-fqdns6",
+                        "firewall_ippool",
+                        "firewall_address-dynamic",
+                        "firewall_address6-dynamic",
+                        "fortiview_statistics",
+                        "fortiview_sandbox-file-details",
+                        "geoip_geoip-query",
+                        "ips_rate-based",
+                        "license_status",
+                        "license_forticare-resellers",
+                        "license_forticare-org-list",
+                        "log_current-disk-usage",
+                        "log_device_state",
+                        "log_forticloud",
+                        "log_fortianalyzer",
+                        "log_fortianalyzer-queue",
+                        "log_hourly-disk-usage",
+                        "log_historic-daily-remote-logs",
+                        "log_stats",
+                        "log_forticloud-report_download",
+                        "log_ips-archive_download",
+                        "log_policy-archive_download",
+                        "log_av-archive_download",
+                        "log_event",
+                        "registration_forticloud_disclaimer",
+                        "registration_forticloud_domains",
+                        "router_ipv4",
+                        "router_ipv6",
+                        "router_statistics",
+                        "router_lookup",
+                        "router_policy",
+                        "router_policy6",
+                        "system_config-revision",
+                        "system_config-revision_file",
+                        "system_config-revision_info",
+                        "system_current-admins",
+                        "system_time",
+                        "system_global-resources",
+                        "system_vdom-resource",
+                        "system_dhcp",
+                        "system_firmware",
+                        "system_firmware_upgrade-paths",
+                        "system_storage",
+                        "system_csf",
+                        "system_csf_pending-authorizations",
+                        "system_modem",
+                        "system_3g-modem",
+                        "system_resource_usage",
+                        "system_sniffer",
                         "system_sniffer_download",
-                        "user_detected-device",
+                        "system_automation-stitch_stats",
+                        "switch-controller_managed-switch",
+                        "switch-controller_managed-switch_faceplate-xml",
+                        "switch-controller_managed-switch_dhcp-snooping",
+                        "switch-controller_fsw-firmware",
+                        "switch-controller_detected-device",
+                        "switch-controller_validate-switch-prefix",
+                        "system_interface",
+                        "system_interface_dhcp-status",
+                        "system_available-interfaces",
+                        "system_acquired-dns",
+                        "system_resolve-fqdn",
+                        "system_nat46-ippools",
+                        "system_usb-log",
+                        "system_ipconf",
+                        "system_fortiguard_server-info",
+                        "system_fortimanager_status",
+                        "system_fortimanager_backup-summary",
+                        "system_fortimanager_backup-details",
+                        "system_available-certificates",
+                        "system_certificate_download",
+                        "system_debug_download",
+                        "system_com-log_update",
+                        "system_com-log_download",
                         "system_botnet_stat",
+                        "system_botnet",
+                        "system_botnet-domains",
+                        "system_botnet-domains_stat",
+                        "system_botnet-domains_hits",
+                        "system_ha-statistics",
+                        "system_ha-history",
+                        "system_ha-checksums",
+                        "system_ha-peer",
+                        "system_link-monitor",
+                        "system_config_backup",
+                        "system_config_usb-filelist",
+                        "system_sandbox_stats",
+                        "system_sandbox_status",
+                        "system_sandbox_test-connect",
+                        "system_object_usage",
+                        "system_object-tagging_usage",
+                        "system_status",
+                        "system_timezone",
+                        "system_sensor-info",
+                        "system_security-rating",
+                        "system_security-rating_history",
+                        "system_security-rating_status",
+                        "system_security-rating_lang",
+                        "system_fortiguard-blacklist",
+                        "system_check-port-availability",
+                        "system_external-resource_entry-list",
+                        "extender-controller_extender",
+                        "system_sdn-connector_status",
+                        "user_firewall",
+                        "user_banned",
+                        "user_fortitoken",
+                        "user_detected-device",
+                        "user_device",
+                        "user_device-type",
+                        "user_device-category",
+                        "user_fsso",
+                        "utm_rating-lookup",
+                        "utm_app-lookup",
+                        "utm_application-categories",
+                        "utm_antivirus_stats",
+                        "virtual-wan_health-check",
+                        "virtual-wan_members",
+                        "webfilter_override",
+                        "webfilter_malicious-urls",
+                        "webfilter_malicious-urls_stat",
+                        "webfilter_category-quota",
+                        "webfilter_fortiguard-categories",
+                        "webfilter_trusted-urls",
+                        "vpn_ipsec",
+                        "vpn_one-click_members",
+                        "vpn_one-click_status",
+                        "vpn_ssl",
+                        "vpn_ssl_stats",
+                        "wanopt_history",
+                        "wanopt_webcache",
+                        "wanopt_peer_stats",
+                        "webproxy_pacfile_download",
+                        "webcache_stats",
+                        "wifi_client",
+                        "wifi_managed_ap",
+                        "wifi_firmware",
+                        "wifi_ap_status",
+                        "wifi_interfering_ap",
+                        "wifi_euclid",
+                        "wifi_rogue_ap",
+                        "wifi_spectrum",
+                        "endpoint-control_summary",
+                        "endpoint-control_ems_status",
+                        "firewall_consolidated-policy",
+                        "firewall_security-policy",
+                        "firewall_uuid-list",
+                        "firewall_uuid-type-lookup",
+                        "fortiguard_redirect-portal",
+                        "firewall_sdn-connector-filters",
+                        "fortiview_sandbox-file-list",
+                        "ips_metadata",
+                        "ips_anomaly",
+                        "license_fortianalyzer-status",
+                        "log_forticloud-report-list",
+                        "log_local-report-list",
+                        "log_local-report_download",
+                        "network_lldp_neighbors",
+                        "network_lldp_ports",
+                        "network_dns_latency",
+                        "network_fortiguard_live-services-latency",
+                        "network_ddns_servers",
+                        "network_ddns_lookup",
+                        "router_lookup-policy",
+                        "system_config-script",
+                        "system_config-sync_status",
+                        "system_vdom-link",
+                        "switch-controller_managed-switch_transceivers",
+                        "system_interface_poe",
+                        "system_trusted-cert-authorities",
+                        "system_sandbox_cloud-regions",
+                        "system_interface_transceivers",
                         "system_vm-information",
                         "system_security-rating_supported-reports",
-                        "user_fortitoken",
-                        "system_botnet",
-                        "user_info_thumbnail-file",
-                        "vpn_ssl_stats",
-                        "system_ha-checksums",
-                        "webfilter_override",
-                        "log_stats",
-                        "system_csf_pending-authorizations",
-                        "system_resolve-fqdn",
-                        "log_fortianalyzer",
-                        "log_ips-archive_download",
-                        "wifi_meta",
-                        "system_interface-connected-admins-info",
-                        "system_config-revision",
-                        "router_bgp_neighbors",
+                        "nsx_service_status",
+                        "nsx_instance",
+                        "system_sdn-connector_nsx-security-tags",
+                        "web-ui_custom-language_download",
                         "user_collected-email",
-                        "ips_rate-based",
-                        "switch-controller_detected-device",
-                        "webproxy_pacfile_download",
-                        "registration_forticloud_device-status",
-                        "firewall_policy6",
-                        "endpoint-control_ems_status",
-                        "system_acme-certificate-status",
-                        "router_policy",
-                        "switch-controller_managed-switch_transceivers",
-                        "fortiview_proxy-statistics",
-                        "user_firewall",
-                        "firewall_multicast-policy6",
-                        "user_device-type",
-                        "switch-controller_managed-switch_cable-status",
-                        "system_automation-stitch_stats",
-                        "system_traffic-history_interface",
-                        "network_ddns_lookup",
-                        "wifi_managed_ap",
-                        "system_interface_transceivers",
-                        "system_traffic-history_top-applications",
-                        "firewall_uuid-type-lookup",
+                        "user_info_query",
+                        "user_info_thumbnail",
+                        "utm_blacklisted-certificates",
+                        "utm_blacklisted-certificates_statistics",
                         "virtual-wan_interface-log",
-                        "network_reverse-ip-lookup",
-                        "firewall_health",
-                        "router_bgp_neighbors6",
-                        "wifi_unassociated-devices",
-                        "system_security-rating_status",
-                        "registration_forticloud_disclaimer",
-                        "wifi_ap_channels",
-                        "system_botnet-domains_hits",
-                        "system_ipam_list",
-                        "log_event",
-                        "system_config-sync_status",
-                        "network_fortiguard_live-services-latency",
-                        "fortiview_sandbox-file-list",
-                        "system_fortiguard_server-info",
-                        "vpn_ssl",
-                        "system_check-port-availability",
-                        "log_av-archive_download",
-                        "license_fortianalyzer-status",
-                        "virtual-wan_health-check",
-                        "firewall_address6-dynamic",
-                        "system_config_restore-status",
-                        "router_bgp_paths",
-                        "endpoint-control_avatar_download",
-                        "system_resource_usage",
-                        "system_certificate_download",
-                        "system_ha-peer",
-                        "system_sandbox_connection",
-                        "log_forticloud_connection",
-                        "system_interface_poe",
-                        "ips_metadata",
-                        "system_interface",
-                        "extender-controller_extender",
-                        "firewall_local-in",
-                        "wifi_spectrum",
-                        "firewall_consolidated-policy",
-                        "switch-controller_managed-switch",
-                        "system_trusted-cert-authorities",
-                        "switch-controller_managed-switch_tx-rx",
+                        "virtual-wan_sla-log",
                         "vpn_ocvpn_members",
+                        "vpn_ocvpn_status",
+                        "vpn_ocvpn_meta",
+                        "wifi_network_list",
+                        "wifi_network_status",
+                        "wifi_region-image",
+                        "azure_application-list",
+                        "endpoint-control_ems_cert-status",
+                        "endpoint-control_ems_status-summary",
+                        "fortiguard_service-communication-stats",
+                        "network_reverse-ip-lookup",
+                        "registration_forticloud_device-status",
+                        "switch-controller_managed-switch_health",
+                        "switch-controller_managed-switch_cable-status",
+                        "switch-controller_mclag-icl_eligible-peer",
+                        "system_interface_speed-test-status",
+                        "user_fortitoken-cloud_status",
+                        "wifi_vlan-probe",
+                        "firewall_ippool_mapping",
+                        "network_arp",
+                        "system_interface-connected-admins-info",
+                        "system_ntp_status",
+                        "system_config-error-log_download",
+                        "system_running-processes",
+                        "user_device_query",
+                        "ips_exceed-scan-range",
+                        "firewall_multicast-policy",
+                        "firewall_multicast-policy6",
+                        "firewall_gtp-statistics",
+                        "firewall_gtp-runtime-statistics",
+                        "router_bgp_neighbors",
+                        "router_bgp_neighbors6",
+                        "router_bgp_paths",
+                        "router_bgp_paths6",
+                        "router_ospf_neighbors",
+                        "system_automation-action_stats",
+                        "switch-controller_matched-devices",
+                        "system_ha-table-checksums",
+                        "system_sandbox_connection",
+                        "system_traffic-history_interface",
+                        "system_traffic-history_top-applications",
+                        "videofilter_fortiguard-categories",
+                        "firewall_central-snat-map",
+                        "firewall_dnat",
+                        "ips_hold-signatures",
+                        "router_bgp_paths-statistics",
+                        "system_lte-modem_status",
+                        "system_global-search",
+                        "switch-controller_managed-switch_status",
+                        "switch-controller_managed-switch_port-stats",
+                        "switch-controller_managed-switch_models",
+                        "system_interface_kernel-interfaces",
+                        "system_config_restore-status",
+                        "wifi_meta",
+                        "wifi_ap_channels",
+                        "wifi_ap-names",
+                        "firewall_internet-service-reputation",
+                        "firewall_shaper_multi-class-shaper",
+                        "log_forticloud_connection",
+                        "system_performance_status",
+                        "system_ipam_list",
+                        "system_ipam_status",
+                        "system_acme-certificate-status",
+                        "system_crash-log_download",
+                        "user_banned_check",
+                        "user_info_thumbnail-file",
+                        "vpn-certificate_cert-name-available",
+                        "wifi_unassociated-devices",
+                        "wifi_matched-devices",
+                        "firewall_proxy_sessions",
+                        "firewall_gtp",
+                        "fortiview_proxy-statistics",
+                        "system_ha-hw-interface",
+                        "user_firewall_count",
+                        "firewall_internet-service-basic",
+                        "firewall_vip-overlap",
+                        "switch-controller_managed-switch_port-health",
+                        "switch-controller_managed-switch_tx-rx",
+                        "firewall_network-service-dynamic",
+                        "system_ipam_utilization",
+                        "system_ha-nonsync-checksums",
+                        "wifi_station-capability",
                     ],
                 },
             },

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     system_fortiai:
         description:
@@ -89,9 +89,9 @@ options:
                     - Specify how to select outgoing interface to reach server.
                 type: str
                 choices:
-                    - auto
-                    - sdwan
-                    - specify
+                    - 'auto'
+                    - 'sdwan'
+                    - 'specify'
             source_ip:
                 description:
                     - Source IP address for communications to FortiAI.
@@ -101,8 +101,8 @@ options:
                     - Enable/disable FortiAI.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
 """
 
 EXAMPLES = """
@@ -205,9 +205,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_system_fortiai_data(json):
@@ -276,82 +273,120 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
+    "revisions": {
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
+        "v7.0.3": True,
+        "v7.0.2": True,
+        "v7.0.1": True,
+    },
     "type": "dict",
     "children": {
         "status": {
+            "revisions": {
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                     },
                 },
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
+                    },
+                },
+            ],
+        },
+        "source_ip": {
+            "revisions": {
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+            },
+            "type": "string",
+        },
+        "interface_select_method": {
+            "revisions": {
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "auto",
+                    "revisions": {
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                    },
+                },
+                {
+                    "value": "sdwan",
+                    "revisions": {
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                    },
+                },
+                {
+                    "value": "specify",
+                    "revisions": {
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                     },
                 },
             ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-            },
         },
         "interface": {
-            "type": "string",
             "revisions": {
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": False,
                 "v7.0.2": False,
                 "v7.0.1": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
             },
-        },
-        "interface_select_method": {
             "type": "string",
-            "options": [
-                {"value": "auto", "revisions": {"v7.0.5": True, "v7.0.4": True}},
-                {"value": "sdwan", "revisions": {"v7.0.5": True, "v7.0.4": True}},
-                {"value": "specify", "revisions": {"v7.0.5": True, "v7.0.4": True}},
-            ],
-            "revisions": {
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.1": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-            },
         },
-        "source_ip": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.1": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-            },
-        },
-    },
-    "revisions": {
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
     },
 }
 

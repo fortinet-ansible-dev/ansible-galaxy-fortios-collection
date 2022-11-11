@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     spamfilter_fortishield:
         description:
@@ -85,8 +85,8 @@ options:
                     - Enable/disable force insertion of a new mime entity for the submission text.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             spam_submit_srv:
                 description:
                     - Hostname of the spam submission server.
@@ -96,8 +96,8 @@ options:
                     - Enable/disable conversion of text email to HTML email.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -199,9 +199,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_spamfilter_fortishield_data(json):
@@ -270,42 +267,42 @@ def fortios_spamfilter(data, fos):
 
 
 versioned_schema = {
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
     "type": "dict",
     "children": {
         "spam_submit_srv": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "spam_submit_txt2htm": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
         "spam_submit_force": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "enable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 {
                     "value": "disable",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "spam_submit_txt2htm": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+            ],
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
 }
 
 

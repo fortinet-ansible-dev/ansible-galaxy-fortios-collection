@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     spamfilter_bword:
         description:
             - Configure AntiSpam banned word list.
@@ -103,8 +103,8 @@ options:
                             - Mark spam or good.
                         type: str
                         choices:
-                            - spam
-                            - clear
+                            - 'spam'
+                            - 'clear'
                     id:
                         description:
                             - Banned word entry ID.
@@ -114,14 +114,14 @@ options:
                             - Language for the banned word.
                         type: str
                         choices:
-                            - western
-                            - simch
-                            - trach
-                            - japanese
-                            - korean
-                            - french
-                            - thai
-                            - spanish
+                            - 'western'
+                            - 'simch'
+                            - 'trach'
+                            - 'japanese'
+                            - 'korean'
+                            - 'french'
+                            - 'thai'
+                            - 'spanish'
                     pattern:
                         description:
                             - Pattern for the banned word.
@@ -131,8 +131,8 @@ options:
                             - Wildcard pattern or regular expression.
                         type: str
                         choices:
-                            - wildcard
-                            - regexp
+                            - 'wildcard'
+                            - 'regexp'
                     score:
                         description:
                             - Score value.
@@ -142,16 +142,16 @@ options:
                             - Enable/disable status.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     where:
                         description:
                             - Component of the email to be scanned.
                         type: str
                         choices:
-                            - subject
-                            - body
-                            - all
+                            - 'subject'
+                            - 'body'
+                            - 'all'
             id:
                 description:
                     - ID.
@@ -188,7 +188,7 @@ EXAMPLES = """
             language: "western"
             pattern: "<your_own_value>"
             pattern_type: "wildcard"
-            score: "10"
+            score: "49999"
             status: "enable"
             where: "subject"
         id:  "13"
@@ -279,9 +279,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -418,208 +415,208 @@ def fortios_spamfilter(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
+        "id": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
+        },
+        "name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "comment": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
         "entries": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "status": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                },
+                "id": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "integer",
+                },
+                "pattern": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
                 },
                 "pattern_type": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "wildcard",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "regexp",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "language": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "western",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "simch",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "trach",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "japanese",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "korean",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "french",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "thai",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "spanish",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "pattern": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "score": {
-                    "type": "integer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
                 "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "spam",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "clear",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
                 "where": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "subject",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "body",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "all",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "id": {
+                "language": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "western",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "simch",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "trach",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "japanese",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "korean",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "french",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "thai",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "spanish",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "score": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "name": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     endpoint_control_profile:
         description:
             - Configure FortiClient endpoint control profiles.
@@ -112,15 +112,15 @@ options:
                             - Enable/disable FortiClient web category filtering when protected by FortiGate.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_advanced_vpn:
                         description:
                             - Enable/disable advanced FortiClient VPN configuration.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_advanced_vpn_buffer:
                         description:
                             - Advanced FortiClient VPN configuration.
@@ -130,8 +130,8 @@ options:
                             - Enable/disable FortiClient VPN provisioning.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_vpn_settings:
                         description:
                             - FortiClient VPN settings.
@@ -143,8 +143,8 @@ options:
                                     - Authentication method.
                                 type: str
                                 choices:
-                                    - psk
-                                    - certificate
+                                    - 'psk'
+                                    - 'certificate'
                             name:
                                 description:
                                     - VPN name.
@@ -166,22 +166,22 @@ options:
                                     - Enable/disable requiring SSL VPN client certificate.
                                 type: str
                                 choices:
-                                    - enable
-                                    - disable
+                                    - 'enable'
+                                    - 'disable'
                             type:
                                 description:
                                     - VPN type (IPsec or SSL VPN).
                                 type: str
                                 choices:
-                                    - ipsec
-                                    - ssl
+                                    - 'ipsec'
+                                    - 'ssl'
                     forticlient_wf:
                         description:
                             - Enable/disable FortiClient web filtering.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_wf_profile:
                         description:
                             - The FortiClient web filter profile to apply. Source webfilter.profile.name.
@@ -196,8 +196,8 @@ options:
                             - FortiClient VPN provisioning.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     client_vpn_settings:
                         description:
                             - FortiClient VPN settings.
@@ -209,8 +209,8 @@ options:
                                     - Authentication method.
                                 type: str
                                 choices:
-                                    - psk
-                                    - certificate
+                                    - 'psk'
+                                    - 'certificate'
                             name:
                                 description:
                                     - VPN name.
@@ -232,15 +232,15 @@ options:
                                     - Enable/disable requiring SSL VPN client certificate.
                                 type: str
                                 choices:
-                                    - enable
-                                    - disable
+                                    - 'enable'
+                                    - 'disable'
                             type:
                                 description:
                                     - VPN type (IPsec or SSL VPN).
                                 type: str
                                 choices:
-                                    - ipsec
-                                    - ssl
+                                    - 'ipsec'
+                                    - 'ssl'
                             vpn_configuration_content:
                                 description:
                                     - Content of VPN configuration.
@@ -262,22 +262,22 @@ options:
                             - Enable/disable FortiClient web category filtering when protected by FortiGate.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     distribute_configuration_profile:
                         description:
                             - Enable/disable configuration profile (.mobileconfig file) distribution.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_wf:
                         description:
                             - Enable/disable FortiClient web filtering.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_wf_profile:
                         description:
                             - The FortiClient web filter profile to apply. Source webfilter.profile.name.
@@ -292,22 +292,22 @@ options:
                             - Enable/disable FortiClient AntiVirus real-time protection.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     av_signature_up_to_date:
                         description:
                             - Enable/disable FortiClient AV signature updates.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_application_firewall:
                         description:
                             - Enable/disable the FortiClient application firewall.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_application_firewall_list:
                         description:
                             - FortiClient application firewall rule list. Source application.list.name.
@@ -317,22 +317,22 @@ options:
                             - Enable/disable FortiClient AntiVirus scanning.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_ems_compliance:
                         description:
                             - Enable/disable FortiClient Enterprise Management Server (EMS) compliance.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_ems_compliance_action:
                         description:
                             - FortiClient EMS compliance action.
                         type: str
                         choices:
-                            - block
-                            - warning
+                            - 'block'
+                            - 'warning'
                     forticlient_ems_entries:
                         description:
                             - FortiClient EMS entries.
@@ -352,16 +352,16 @@ options:
                             - Enable/disable uploading FortiClient logs.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_log_upload_level:
                         description:
                             - Select the FortiClient logs to upload.
                         type: str
                         choices:
-                            - traffic
-                            - vulnerability
-                            - event
+                            - 'traffic'
+                            - 'vulnerability'
+                            - 'event'
                     forticlient_log_upload_server:
                         description:
                             - IP address or FQDN of the server to which to upload FortiClient logs.
@@ -375,8 +375,8 @@ options:
                             - Enable/disable requiring clients to run FortiClient with a minimum software version number.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_operating_system:
                         description:
                             - FortiClient operating system.
@@ -396,28 +396,28 @@ options:
                                     - Operating system type.
                                 type: str
                                 choices:
-                                    - custom
-                                    - mac-os
-                                    - win-7
-                                    - win-80
-                                    - win-81
-                                    - win-10
-                                    - win-2000
-                                    - win-home-svr
-                                    - win-svr-10
-                                    - win-svr-2003
-                                    - win-svr-2003-r2
-                                    - win-svr-2008
-                                    - win-svr-2008-r2
-                                    - win-svr-2012
-                                    - win-svr-2012-r2
-                                    - win-sto-svr-2003
-                                    - win-vista
-                                    - win-xp
-                                    - ubuntu-linux
-                                    - centos-linux
-                                    - redhat-linux
-                                    - fedora-linux
+                                    - 'custom'
+                                    - 'mac-os'
+                                    - 'win-7'
+                                    - 'win-80'
+                                    - 'win-81'
+                                    - 'win-10'
+                                    - 'win-2000'
+                                    - 'win-home-svr'
+                                    - 'win-svr-10'
+                                    - 'win-svr-2003'
+                                    - 'win-svr-2003-r2'
+                                    - 'win-svr-2008'
+                                    - 'win-svr-2008-r2'
+                                    - 'win-svr-2012'
+                                    - 'win-svr-2012-r2'
+                                    - 'win-sto-svr-2003'
+                                    - 'win-vista'
+                                    - 'win-xp'
+                                    - 'ubuntu-linux'
+                                    - 'centos-linux'
+                                    - 'redhat-linux'
+                                    - 'fedora-linux'
                     forticlient_own_file:
                         description:
                             - Checking the path and filename of the FortiClient application.
@@ -437,8 +437,8 @@ options:
                             - FortiClient registration compliance action.
                         type: str
                         choices:
-                            - block
-                            - warning
+                            - 'block'
+                            - 'warning'
                     forticlient_registry_entry:
                         description:
                             - FortiClient registry entry.
@@ -484,8 +484,8 @@ options:
                                     - Application check rule.
                                 type: str
                                 choices:
-                                    - present
-                                    - absent
+                                    - 'present'
+                                    - 'absent'
                             id:
                                 description:
                                     - Application ID.
@@ -511,53 +511,53 @@ options:
                             - Enable/disable FortiClient security posture check options.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_security_posture_compliance_action:
                         description:
                             - FortiClient security posture compliance action.
                         type: str
                         choices:
-                            - block
-                            - warning
+                            - 'block'
+                            - 'warning'
                     forticlient_system_compliance:
                         description:
                             - Enable/disable enforcement of FortiClient system compliance.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_system_compliance_action:
                         description:
                             - Block or warn clients not compliant with FortiClient requirements.
                         type: str
                         choices:
-                            - block
-                            - warning
+                            - 'block'
+                            - 'warning'
                     forticlient_vuln_scan:
                         description:
                             - Enable/disable FortiClient vulnerability scanning.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_vuln_scan_compliance_action:
                         description:
                             - FortiClient vulnerability compliance action.
                         type: str
                         choices:
-                            - block
-                            - warning
+                            - 'block'
+                            - 'warning'
                     forticlient_vuln_scan_enforce:
                         description:
                             - Configure the level of the vulnerability found that causes a FortiClient vulnerability compliance action.
                         type: str
                         choices:
-                            - critical
-                            - high
-                            - medium
-                            - low
-                            - info
+                            - 'critical'
+                            - 'high'
+                            - 'medium'
+                            - 'low'
+                            - 'info'
                     forticlient_vuln_scan_enforce_grace:
                         description:
                             - FortiClient vulnerability scan enforcement grace period (0 - 30 days).
@@ -567,15 +567,15 @@ options:
                             - Enable/disable compliance exemption for vulnerabilities that cannot be patched automatically.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_wf:
                         description:
                             - Enable/disable FortiClient web filtering.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     forticlient_wf_profile:
                         description:
                             - The FortiClient web filter profile to apply. Source webfilter.profile.name.
@@ -589,8 +589,8 @@ options:
                             - Enable/disable checking for OS recognized AntiVirus software.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     sandbox_address:
                         description:
                             - FortiSandbox address.
@@ -600,8 +600,8 @@ options:
                             - Enable/disable sending files to FortiSandbox for analysis.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             on_net_addr:
                 description:
                     - Addresses for on-net detection.
@@ -684,7 +684,7 @@ EXAMPLES = """
                 name: "default_name_13"
                 preshared_key: "<your_own_value>"
                 remote_gw: "<your_own_value>"
-                sslvpn_access_port: "16"
+                sslvpn_access_port: "32767"
                 sslvpn_require_certificate: "enable"
                 type: "ipsec"
             forticlient_wf: "enable"
@@ -697,7 +697,7 @@ EXAMPLES = """
                 name: "default_name_25"
                 preshared_key: "<your_own_value>"
                 remote_gw: "<your_own_value>"
-                sslvpn_access_port: "28"
+                sslvpn_access_port: "32767"
                 sslvpn_require_certificate: "enable"
                 type: "ipsec"
                 vpn_configuration_content: "<your_own_value>"
@@ -759,7 +759,7 @@ EXAMPLES = """
             forticlient_vuln_scan: "enable"
             forticlient_vuln_scan_compliance_action: "block"
             forticlient_vuln_scan_enforce: "critical"
-            forticlient_vuln_scan_enforce_grace: "85"
+            forticlient_vuln_scan_enforce_grace: "15"
             forticlient_vuln_scan_exempt: "enable"
             forticlient_wf: "enable"
             forticlient_wf_profile: "<your_own_value> (source webfilter.profile.name)"
@@ -867,9 +867,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -1022,1451 +1019,1451 @@ def fortios_endpoint_control(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "forticlient_ios_settings": {
-            "type": "dict",
-            "children": {
-                "forticlient_wf": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "client_vpn_settings": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "vpn_configuration_content": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "vpn_configuration_name": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "sslvpn_access_port": {
-                            "type": "integer",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "sslvpn_require_certificate": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "preshared_key": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "remote_gw": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "type": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "ipsec",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "ssl",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "auth_method": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "psk",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "certificate",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "name": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "configuration_name": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "client_vpn_provisioning": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "distribute_configuration_profile": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "disable_wf_when_protected": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_wf_profile": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "configuration_content": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "forticlient_android_settings": {
-            "type": "dict",
-            "children": {
-                "forticlient_wf": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_vpn_provisioning": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_advanced_vpn_buffer": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "disable_wf_when_protected": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_advanced_vpn": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_vpn_settings": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "name": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "sslvpn_access_port": {
-                            "type": "integer",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "sslvpn_require_certificate": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "preshared_key": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "remote_gw": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "type": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "ipsec",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "ssl",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "auth_method": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "psk",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "certificate",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_wf_profile": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "on_net_addr": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                }
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "description": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "user_groups": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                }
-            },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
         "profile_name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
         "forticlient_winmac_settings": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "dict",
             "children": {
-                "forticlient_wf": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_vuln_scan_compliance_action": {
+                "forticlient_registration_compliance_action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "block",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "warning",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_vuln_scan": {
+                "forticlient_ems_compliance": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_application_firewall": {
+                "forticlient_ems_compliance_action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
-                            "value": "enable",
+                            "value": "block",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
-                            "value": "disable",
+                            "value": "warning",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_own_file": {
-                    "elements": "dict",
+                "forticlient_ems_entries": {
                     "type": "list",
+                    "elements": "dict",
                     "children": {
-                        "id": {
-                            "type": "integer",
+                        "name": {
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
-                        },
-                        "file": {
                             "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
+                        }
                     },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_security_posture_compliance_action": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "block",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "warning",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "sandbox_address": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_log_upload": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_log_upload_level": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "traffic",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "vulnerability",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "event",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_vuln_scan_exempt": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_vuln_scan_enforce": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "critical",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "high",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "medium",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "low",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "info",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "av_realtime_protection": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_minimum_software_version": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_mac_ver": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_application_firewall_list": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "sandbox_analysis": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_vuln_scan_enforce_grace": {
-                    "type": "integer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 "forticlient_security_posture": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_registration_compliance_action": {
+                "forticlient_security_posture_compliance_action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "block",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "warning",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_system_compliance_action": {
+                "forticlient_av": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
-                            "value": "block",
+                            "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
-                            "value": "warning",
+                            "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                },
+                "av_realtime_protection": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "av_signature_up_to_date": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sandbox_analysis": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sandbox_address": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "os_av_software_installed": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_application_firewall": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_application_firewall_list": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "forticlient_wf": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_wf_profile": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
                 },
                 "forticlient_system_compliance": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_running_app": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "process_name3": {
-                            "type": "string",
+                "forticlient_system_compliance_action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "block",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
-                        "app_name": {
-                            "type": "string",
+                        {
+                            "value": "warning",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
-                        "app_sha256_signature3": {
-                            "type": "string",
+                    ],
+                },
+                "forticlient_minimum_software_version": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
-                        "app_sha256_signature2": {
-                            "type": "string",
+                        {
+                            "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
-                        "process_name2": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "process_name": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "process_name4": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "app_sha256_signature": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "app_sha256_signature4": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "application_check_rule": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "present",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                                {
-                                    "value": "absent",
-                                    "revisions": {
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                        "v6.0.5": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    ],
+                },
+                "forticlient_win_ver": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "forticlient_mac_ver": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "forticlient_linux_ver": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
                 },
                 "forticlient_operating_system": {
-                    "elements": "dict",
                     "type": "list",
+                    "elements": "dict",
                     "children": {
+                        "id": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "integer",
+                        },
                         "os_type": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "custom",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "mac-os",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-7",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-80",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-81",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-10",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-2000",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-home-svr",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-10",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-2003",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-2003-r2",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-2008",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-2008-r2",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-2012",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-svr-2012-r2",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-sto-svr-2003",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-vista",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "win-xp",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "ubuntu-linux",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "centos-linux",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "redhat-linux",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                                 {
                                     "value": "fedora-linux",
                                     "revisions": {
+                                        "v6.0.5": True,
                                         "v6.0.11": True,
                                         "v6.0.0": True,
-                                        "v6.0.5": True,
                                     },
                                 },
                             ],
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
                         },
                         "os_name": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
                             "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        "id": {
-                            "type": "integer",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
                         },
                     },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
-                "forticlient_log_upload_server": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "av_signature_up_to_date": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
+                "forticlient_running_app": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
+                            "type": "integer",
                         },
-                        {
-                            "value": "disable",
+                        "app_name": {
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
+                            "type": "string",
                         },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                        "application_check_rule": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "present",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "absent",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "process_name": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "app_sha256_signature": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "process_name2": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "app_sha256_signature2": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "process_name3": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "app_sha256_signature3": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "process_name4": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "app_sha256_signature4": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                    },
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
                 "forticlient_registry_entry": {
-                    "elements": "dict",
                     "type": "list",
+                    "elements": "dict",
                     "children": {
-                        "registry_entry": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
                         "id": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
                             "type": "integer",
+                        },
+                        "registry_entry": {
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
-                        },
-                    },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_wf_profile": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_ems_entries": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "name": {
                             "type": "string",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        }
+                        },
                     },
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
-                "forticlient_ems_compliance": {
+                "forticlient_own_file": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "file": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                    },
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                "forticlient_log_upload": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_linux_ver": {
+                "forticlient_log_upload_level": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                    "options": [
+                        {
+                            "value": "traffic",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "vulnerability",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "event",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
                 },
-                "os_av_software_installed": {
+                "forticlient_log_upload_server": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "forticlient_vuln_scan": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
-                "forticlient_av": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                            },
-                        },
-                    ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_win_ver": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "forticlient_ems_compliance_action": {
+                "forticlient_vuln_scan_compliance_action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "block",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "warning",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                },
+                "forticlient_vuln_scan_enforce": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "critical",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "high",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "medium",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "low",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "info",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_vuln_scan_enforce_grace": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "integer",
+                },
+                "forticlient_vuln_scan_exempt": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
                 },
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
         },
-        "device_groups": {
-            "elements": "dict",
-            "type": "list",
+        "forticlient_android_settings": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
             "children": {
-                "name": {
+                "forticlient_wf": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                }
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_wf_profile": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "disable_wf_when_protected": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_vpn_provisioning": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_advanced_vpn": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_advanced_vpn_buffer": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "forticlient_vpn_settings": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "type": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "ipsec",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "ssl",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "remote_gw": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "sslvpn_access_port": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "sslvpn_require_certificate": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "auth_method": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "psk",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "certificate",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "preshared_key": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                    },
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "forticlient_ios_settings": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "dict",
+            "children": {
+                "forticlient_wf": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "forticlient_wf_profile": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "disable_wf_when_protected": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "client_vpn_provisioning": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "client_vpn_settings": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "type": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "ipsec",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "ssl",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "vpn_configuration_name": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "vpn_configuration_content": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "remote_gw": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "sslvpn_access_port": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "sslvpn_require_certificate": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "auth_method": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "psk",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "certificate",
+                                    "revisions": {
+                                        "v6.0.5": True,
+                                        "v6.0.11": True,
+                                        "v6.0.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "preshared_key": {
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                            "type": "string",
+                        },
+                    },
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                },
+                "distribute_configuration_profile": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                },
+                "configuration_name": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+                "configuration_content": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                },
+            },
+        },
+        "description": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
         "src_addr": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 }
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
         },
-        "replacemsg_override_group": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        "device_groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                }
+            },
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
         },
         "users": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "name": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 }
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+        },
+        "user_groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                }
+            },
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+        },
+        "on_net_addr": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
+                }
+            },
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+        },
+        "replacemsg_override_group": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     spamfilter_dnsbl:
         description:
             - Configure AntiSpam DNSBL/ORBL.
@@ -103,8 +103,8 @@ options:
                             - Reject connection or mark as spam email.
                         type: str
                         choices:
-                            - reject
-                            - spam
+                            - 'reject'
+                            - 'spam'
                     id:
                         description:
                             - DNSBL/ORBL entry ID.
@@ -118,8 +118,8 @@ options:
                             - Enable/disable status.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             id:
                 description:
                     - ID.
@@ -243,9 +243,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -382,82 +379,82 @@ def fortios_spamfilter(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
+        "id": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "integer",
+        },
+        "name": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+        },
+        "comment": {
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "type": "string",
         },
         "entries": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
                 "status": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+                },
+                "id": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "integer",
+                },
+                "server": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "type": "string",
                 },
                 "action": {
+                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "reject",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                         {
                             "value": "spam",
                             "revisions": {
+                                "v6.0.5": True,
                                 "v6.0.11": True,
                                 "v6.0.0": True,
-                                "v6.0.5": True,
                             },
                         },
                     ],
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "id": {
-                    "type": "integer",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-                },
-                "server": {
-                    "type": "string",
-                    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
                 },
             },
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
-        },
-        "name": {
-            "type": "string",
-            "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
         },
     },
-    "revisions": {"v6.0.11": True, "v6.0.0": True, "v6.0.5": True},
+    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
 }
 
 

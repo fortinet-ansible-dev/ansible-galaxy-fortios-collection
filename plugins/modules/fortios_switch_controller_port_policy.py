@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     switch_controller_port_policy:
         description:
             - Configure port policy to be applied on the managed FortiSwitch ports through NAC device.
@@ -99,8 +99,8 @@ options:
                        and reassign VLAN from lldp-profile.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             description:
                 description:
                     - Description for the port policy.
@@ -239,9 +239,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -395,53 +392,53 @@ def fortios_switch_controller(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "fortilink": {
+        "name": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+        },
+        "description": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
+        },
+        "fortilink": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
         },
         "lldp_profile": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
-        "name": {
+        "qos_policy": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+        },
+        "802_1x": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
         },
         "vlan_policy": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
         "bounce_port_link": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
             "options": [
                 {
                     "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
                 {
                     "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
             ],
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "802_1x": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "qos_policy": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
-        },
-        "description": {
-            "type": "string",
-            "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
         },
     },
-    "revisions": {"v6.4.4": True, "v6.4.0": True, "v6.4.1": True},
+    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
 }
 
 

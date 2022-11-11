@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     system_standalone_cluster:
         description:
@@ -80,13 +80,123 @@ options:
         default: null
         type: dict
         suboptions:
+            cluster_peer:
+                description:
+                    - Configure FortiGate Session Life Support Protocol (FGSP) session synchronization.
+                type: list
+                elements: dict
+                suboptions:
+                    down_intfs_before_sess_sync:
+                        description:
+                            - List of interfaces to be turned down before session synchronization is complete.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Interface name. Source .
+                                type: str
+                    hb_interval:
+                        description:
+                            - Heartbeat interval (1 - 20 (100*ms). Increase to reduce false positives.
+                        type: int
+                    hb_lost_threshold:
+                        description:
+                            - Lost heartbeat threshold (1 - 60). Increase to reduce false positives.
+                        type: int
+                    ipsec_tunnel_sync:
+                        description:
+                            - Enable/disable IPsec tunnel synchronization.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    peerip:
+                        description:
+                            - IP address of the interface on the peer unit that is used for the session synchronization link.
+                        type: str
+                    peervd:
+                        description:
+                            - VDOM that contains the session synchronization link interface on the peer unit. Usually both peers would have the same peervd.
+                               Source .
+                        type: str
+                    secondary_add_ipsec_routes:
+                        description:
+                            - Enable/disable IKE route announcement on the backup unit.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    session_sync_filter:
+                        description:
+                            - Add one or more filters if you only want to synchronize some sessions. Use the filter to configure the types of sessions to
+                               synchronize.
+                        type: dict
+                        suboptions:
+                            custom_service:
+                                description:
+                                    - Only sessions using these custom services are synchronized. Use source and destination port ranges to define these
+                                       custom services.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    dst_port_range:
+                                        description:
+                                            - Custom service destination port range.
+                                        type: str
+                                    id:
+                                        description:
+                                            - Custom service ID.
+                                        type: int
+                                    src_port_range:
+                                        description:
+                                            - Custom service source port range.
+                                        type: str
+                            dstaddr:
+                                description:
+                                    - Only sessions to this IPv4 address are synchronized.
+                                type: str
+                            dstaddr6:
+                                description:
+                                    - Only sessions to this IPv6 address are synchronized.
+                                type: str
+                            dstintf:
+                                description:
+                                    - Only sessions to this interface are synchronized. Source .
+                                type: str
+                            srcaddr:
+                                description:
+                                    - Only sessions from this IPv4 address are synchronized.
+                                type: str
+                            srcaddr6:
+                                description:
+                                    - Only sessions from this IPv6 address are synchronized.
+                                type: str
+                            srcintf:
+                                description:
+                                    - Only sessions from this interface are synchronized. Source .
+                                type: str
+                    sync_id:
+                        description:
+                            - Sync ID.
+                        type: int
+                    syncvd:
+                        description:
+                            - Sessions from these VDOMs are synchronized using this session synchronization configuration.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - VDOM name. Source .
+                                type: str
             encryption:
                 description:
                     - Enable/disable encryption when synchronizing sessions.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             group_member_id:
                 description:
                     - Cluster member ID (0 - 15).
@@ -96,8 +206,8 @@ options:
                     - Indicate whether layer 2 connections are present among FGSP members.
                 type: str
                 choices:
-                    - available
-                    - unavailable
+                    - 'available'
+                    - 'unavailable'
             psksecret:
                 description:
                     - Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
@@ -128,12 +238,39 @@ EXAMPLES = """
     fortios_system_standalone_cluster:
       vdom:  "{{ vdom }}"
       system_standalone_cluster:
+        cluster_peer:
+         -
+            down_intfs_before_sess_sync:
+             -
+                name: "default_name_5 (source )"
+            hb_interval: "2"
+            hb_lost_threshold: "10"
+            ipsec_tunnel_sync: "enable"
+            peerip: "<your_own_value>"
+            peervd: "<your_own_value> (source )"
+            secondary_add_ipsec_routes: "enable"
+            session_sync_filter:
+                custom_service:
+                 -
+                    dst_port_range: "<your_own_value>"
+                    id:  "15"
+                    src_port_range: "<your_own_value>"
+                dstaddr: "<your_own_value>"
+                dstaddr6: "<your_own_value>"
+                dstintf: "<your_own_value> (source )"
+                srcaddr: "<your_own_value>"
+                srcaddr6: "<your_own_value>"
+                srcintf: "<your_own_value> (source )"
+            sync_id: "0"
+            syncvd:
+             -
+                name: "default_name_25 (source )"
         encryption: "enable"
-        group_member_id: "4"
+        group_member_id: "0"
         layer2_connection: "available"
         psksecret: "<your_own_value>"
         session_sync_dev: "<your_own_value> (source system.interface.name)"
-        standalone_group_id: "8"
+        standalone_group_id: "0"
 
 """
 
@@ -215,13 +352,11 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_system_standalone_cluster_data(json):
     option_list = [
+        "cluster_peer",
         "encryption",
         "group_member_id",
         "layer2_connection",
@@ -327,176 +462,373 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
+    "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
+        "v7.0.3": True,
+        "v7.0.2": True,
+        "v7.0.1": True,
+        "v7.0.0": True,
+        "v6.4.4": True,
+        "v6.4.1": True,
+        "v6.4.0": True,
+    },
     "type": "dict",
     "children": {
         "standalone_group_id": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+            },
             "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v7.2.0": True,
-            },
-        },
-        "encryption": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v7.2.0": True,
-            },
-        },
-        "psksecret": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v7.2.0": True,
-            },
         },
         "group_member_id": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+            },
             "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v7.2.0": True,
-            },
-        },
-        "session_sync_dev": {
-            "multiple_values": True,
-            "elements": "str",
-            "type": "list",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v7.2.0": True,
-            },
         },
         "layer2_connection": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "available",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v7.2.0": True,
+                        "v6.4.0": True,
                     },
                 },
                 {
                     "value": "unavailable",
                     "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
-                        "v6.4.0": True,
                         "v6.4.1": True,
-                        "v7.2.0": True,
+                        "v6.4.0": True,
                     },
                 },
             ],
+        },
+        "session_sync_dev": {
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+            },
+            "type": "list",
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "encryption": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
                 "v6.4.4": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                    },
+                },
+            ],
+        },
+        "psksecret": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+            },
+            "type": "string",
+        },
+        "cluster_peer": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "sync_id": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "integer",
+                },
+                "peervd": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+                "peerip": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                },
+                "syncvd": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                },
+                "down_intfs_before_sess_sync": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                },
+                "hb_interval": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "integer",
+                },
+                "hb_lost_threshold": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "integer",
+                },
+                "ipsec_tunnel_sync": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
+                },
+                "secondary_add_ipsec_routes": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
+                },
+                "session_sync_filter": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "type": "dict",
+                    "children": {
+                        "srcintf": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "dstintf": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "srcaddr": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "dstaddr": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "srcaddr6": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "dstaddr6": {
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "type": "string",
+                        },
+                        "custom_service": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "id": {
+                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "type": "integer",
+                                },
+                                "src_port_range": {
+                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "type": "string",
+                                },
+                                "dst_port_range": {
+                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "type": "string",
+                                },
+                            },
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    },
+                },
+            },
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
             },
         },
-    },
-    "revisions": {
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v6.4.4": True,
-        "v6.4.0": True,
-        "v6.4.1": True,
-        "v7.2.0": True,
     },
 }
 

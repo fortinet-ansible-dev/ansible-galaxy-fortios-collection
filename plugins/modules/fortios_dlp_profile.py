@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     dlp_profile:
         description:
             - Configure DLP profiles.
@@ -97,45 +97,45 @@ options:
                     - Enable/disable DLP logging.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             extended_log:
                 description:
                     - Enable/disable extended logging for data leak prevention.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             feature_set:
                 description:
                     - Flow/proxy feature set.
                 type: str
                 choices:
-                    - flow
-                    - proxy
+                    - 'flow'
+                    - 'proxy'
             full_archive_proto:
                 description:
                     - Protocols to always content archive.
                 type: list
                 elements: str
                 choices:
-                    - smtp
-                    - pop3
-                    - imap
-                    - http-get
-                    - http-post
-                    - ftp
-                    - nntp
-                    - mapi
-                    - ssh
-                    - cifs
+                    - 'smtp'
+                    - 'pop3'
+                    - 'imap'
+                    - 'http-get'
+                    - 'http-post'
+                    - 'ftp'
+                    - 'nntp'
+                    - 'mapi'
+                    - 'ssh'
+                    - 'cifs'
             nac_quar_log:
                 description:
                     - Enable/disable NAC quarantine logging.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             name:
                 description:
                     - Name of the DLP profile.
@@ -156,17 +156,17 @@ options:
                             - Action to take with content that this DLP profile matches.
                         type: str
                         choices:
-                            - allow
-                            - log-only
-                            - block
-                            - quarantine-ip
+                            - 'allow'
+                            - 'log-only'
+                            - 'block'
+                            - 'quarantine-ip'
                     archive:
                         description:
                             - Enable/disable DLP archiving.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     expiry:
                         description:
                             - Quarantine duration in days, hours, minutes (format = dddhhmm).
@@ -184,11 +184,11 @@ options:
                             - Select the type of content to match.
                         type: str
                         choices:
-                            - sensor
-                            - mip
-                            - fingerprint
-                            - encrypted
-                            - none
+                            - 'sensor'
+                            - 'mip'
+                            - 'fingerprint'
+                            - 'encrypted'
+                            - 'none'
                     id:
                         description:
                             - ID.
@@ -211,16 +211,16 @@ options:
                         type: list
                         elements: str
                         choices:
-                            - smtp
-                            - pop3
-                            - imap
-                            - http-get
-                            - http-post
-                            - ftp
-                            - nntp
-                            - mapi
-                            - ssh
-                            - cifs
+                            - 'smtp'
+                            - 'pop3'
+                            - 'imap'
+                            - 'http-get'
+                            - 'http-post'
+                            - 'ftp'
+                            - 'nntp'
+                            - 'mapi'
+                            - 'ssh'
+                            - 'cifs'
                     sensitivity:
                         description:
                             - Select a DLP file pattern sensitivity to match.
@@ -246,34 +246,34 @@ options:
                             - Select the severity or threat level that matches this filter.
                         type: str
                         choices:
-                            - info
-                            - low
-                            - medium
-                            - high
-                            - critical
+                            - 'info'
+                            - 'low'
+                            - 'medium'
+                            - 'high'
+                            - 'critical'
                     type:
                         description:
                             - Select whether to check the content of messages (an email message) or files (downloaded files or email attachments).
                         type: str
                         choices:
-                            - file
-                            - message
+                            - 'file'
+                            - 'message'
             summary_proto:
                 description:
                     - Protocols to always log summary.
                 type: list
                 elements: str
                 choices:
-                    - smtp
-                    - pop3
-                    - imap
-                    - http-get
-                    - http-post
-                    - ftp
-                    - nntp
-                    - mapi
-                    - ssh
-                    - cifs
+                    - 'smtp'
+                    - 'pop3'
+                    - 'imap'
+                    - 'http-get'
+                    - 'http-post'
+                    - 'ftp'
+                    - 'nntp'
+                    - 'mapi'
+                    - 'ssh'
+                    - 'cifs'
 """
 
 EXAMPLES = """
@@ -306,12 +306,12 @@ EXAMPLES = """
             action: "allow"
             archive: "disable"
             expiry: "<your_own_value>"
-            file_size: "15"
-            file_type: "16 (source dlp.filepattern.id)"
+            file_size: "0"
+            file_type: "0"
             filter_by: "sensor"
             id:  "18"
             label: "<your_own_value> (source dlp.dictionary.name)"
-            match_percentage: "20"
+            match_percentage: "10"
             name: "default_name_21"
             proto: "smtp"
             sensitivity:
@@ -403,9 +403,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -525,178 +522,502 @@ def fortios_dlp(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {"type": "string", "revisions": {"v7.2.0": True}},
+        "name": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
+        "comment": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
         "feature_set": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
             "type": "string",
             "options": [
-                {"value": "flow", "revisions": {"v7.2.0": True}},
-                {"value": "proxy", "revisions": {"v7.2.0": True}},
+                {
+                    "value": "flow",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "proxy",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
             ],
-            "revisions": {"v7.2.0": True},
         },
-        "dlp_log": {
+        "replacemsg_group": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.2.0": True}},
-                {"value": "disable", "revisions": {"v7.2.0": True}},
-            ],
-            "revisions": {"v7.2.0": True},
-        },
-        "name": {"type": "string", "revisions": {"v7.2.0": True}},
-        "extended_log": {
-            "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.2.0": True}},
-                {"value": "disable", "revisions": {"v7.2.0": True}},
-            ],
-            "revisions": {"v7.2.0": True},
         },
         "rule": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
+                "id": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "integer",
+                },
+                "name": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
                 "severity": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "info", "revisions": {"v7.2.0": True}},
-                        {"value": "low", "revisions": {"v7.2.0": True}},
-                        {"value": "medium", "revisions": {"v7.2.0": True}},
-                        {"value": "high", "revisions": {"v7.2.0": True}},
-                        {"value": "critical", "revisions": {"v7.2.0": True}},
+                        {
+                            "value": "info",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "low",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "medium",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "high",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "critical",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
                     ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "proto": {
-                    "multiple_values": True,
-                    "elements": "str",
-                    "type": "list",
-                    "options": [
-                        {"value": "smtp", "revisions": {"v7.2.0": True}},
-                        {"value": "pop3", "revisions": {"v7.2.0": True}},
-                        {"value": "imap", "revisions": {"v7.2.0": True}},
-                        {"value": "http-get", "revisions": {"v7.2.0": True}},
-                        {"value": "http-post", "revisions": {"v7.2.0": True}},
-                        {"value": "ftp", "revisions": {"v7.2.0": True}},
-                        {"value": "nntp", "revisions": {"v7.2.0": True}},
-                        {"value": "mapi", "revisions": {"v7.2.0": True}},
-                        {"value": "ssh", "revisions": {"v7.2.0": True}},
-                        {"value": "cifs", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "file_type": {"type": "integer", "revisions": {"v7.2.0": True}},
-                "sensor": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "name": {"type": "string", "revisions": {"v7.2.0": True}}
-                    },
-                    "revisions": {"v7.2.0": True},
-                },
-                "sensitivity": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "name": {"type": "string", "revisions": {"v7.2.0": True}}
-                    },
-                    "revisions": {"v7.2.0": True},
-                },
-                "expiry": {"type": "string", "revisions": {"v7.2.0": True}},
-                "label": {"type": "string", "revisions": {"v7.2.0": True}},
-                "archive": {
-                    "type": "string",
-                    "options": [
-                        {"value": "disable", "revisions": {"v7.2.0": True}},
-                        {"value": "enable", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "file_size": {"type": "integer", "revisions": {"v7.2.0": True}},
-                "action": {
-                    "type": "string",
-                    "options": [
-                        {"value": "allow", "revisions": {"v7.2.0": True}},
-                        {"value": "log-only", "revisions": {"v7.2.0": True}},
-                        {"value": "block", "revisions": {"v7.2.0": True}},
-                        {"value": "quarantine-ip", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
-                },
-                "filter_by": {
-                    "type": "string",
-                    "options": [
-                        {"value": "sensor", "revisions": {"v7.2.0": True}},
-                        {"value": "mip", "revisions": {"v7.2.0": True}},
-                        {"value": "fingerprint", "revisions": {"v7.2.0": True}},
-                        {"value": "encrypted", "revisions": {"v7.2.0": True}},
-                        {"value": "none", "revisions": {"v7.2.0": True}},
-                    ],
-                    "revisions": {"v7.2.0": True},
                 },
                 "type": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "file", "revisions": {"v7.2.0": True}},
-                        {"value": "message", "revisions": {"v7.2.0": True}},
+                        {
+                            "value": "file",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "message",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
                     ],
-                    "revisions": {"v7.2.0": True},
                 },
-                "id": {"type": "integer", "revisions": {"v7.2.0": True}},
-                "match_percentage": {"type": "integer", "revisions": {"v7.2.0": True}},
-                "name": {"type": "string", "revisions": {"v7.2.0": True}},
+                "proto": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "list",
+                    "options": [
+                        {
+                            "value": "smtp",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "pop3",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "imap",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "http-get",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "http-post",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "ftp",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "nntp",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "mapi",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "ssh",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "cifs",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "filter_by": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "sensor",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "mip",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "fingerprint",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "encrypted",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "none",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "file_size": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "integer",
+                },
+                "sensitivity": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                "match_percentage": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "integer",
+                },
+                "file_type": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "integer",
+                },
+                "sensor": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                            "type": "string",
+                        }
+                    },
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                "label": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
+                "archive": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "action": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "allow",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "log-only",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "block",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "quarantine-ip",
+                            "revisions": {
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                                "v7.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "expiry": {
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "type": "string",
+                },
             },
-            "revisions": {"v7.2.0": True},
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
         },
-        "full_archive_proto": {
-            "multiple_values": True,
-            "elements": "str",
-            "type": "list",
-            "options": [
-                {"value": "smtp", "revisions": {"v7.2.0": True}},
-                {"value": "pop3", "revisions": {"v7.2.0": True}},
-                {"value": "imap", "revisions": {"v7.2.0": True}},
-                {"value": "http-get", "revisions": {"v7.2.0": True}},
-                {"value": "http-post", "revisions": {"v7.2.0": True}},
-                {"value": "ftp", "revisions": {"v7.2.0": True}},
-                {"value": "nntp", "revisions": {"v7.2.0": True}},
-                {"value": "mapi", "revisions": {"v7.2.0": True}},
-                {"value": "ssh", "revisions": {"v7.2.0": True}},
-                {"value": "cifs", "revisions": {"v7.2.0": True}},
-            ],
-            "revisions": {"v7.2.0": True},
-        },
-        "summary_proto": {
-            "multiple_values": True,
-            "elements": "str",
-            "type": "list",
-            "options": [
-                {"value": "smtp", "revisions": {"v7.2.0": True}},
-                {"value": "pop3", "revisions": {"v7.2.0": True}},
-                {"value": "imap", "revisions": {"v7.2.0": True}},
-                {"value": "http-get", "revisions": {"v7.2.0": True}},
-                {"value": "http-post", "revisions": {"v7.2.0": True}},
-                {"value": "ftp", "revisions": {"v7.2.0": True}},
-                {"value": "nntp", "revisions": {"v7.2.0": True}},
-                {"value": "mapi", "revisions": {"v7.2.0": True}},
-                {"value": "ssh", "revisions": {"v7.2.0": True}},
-                {"value": "cifs", "revisions": {"v7.2.0": True}},
-            ],
-            "revisions": {"v7.2.0": True},
-        },
-        "replacemsg_group": {"type": "string", "revisions": {"v7.2.0": True}},
-        "nac_quar_log": {
+        "dlp_log": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.0": True}},
-                {"value": "disable", "revisions": {"v7.2.0": True}},
+                {
+                    "value": "enable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
             ],
-            "revisions": {"v7.2.0": True},
+        },
+        "extended_log": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+            ],
+        },
+        "nac_quar_log": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+            ],
+        },
+        "full_archive_proto": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "list",
+            "options": [
+                {
+                    "value": "smtp",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "pop3",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "imap",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "http-get",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "http-post",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "ftp",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "nntp",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "mapi",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "ssh",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "cifs",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "summary_proto": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "list",
+            "options": [
+                {
+                    "value": "smtp",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "pop3",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "imap",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "http-get",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "http-post",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "ftp",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "nntp",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "mapi",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "ssh",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "cifs",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+            ],
+            "multiple_values": True,
+            "elements": "str",
         },
     },
-    "revisions": {"v7.2.0": True},
+    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
 }
 
 

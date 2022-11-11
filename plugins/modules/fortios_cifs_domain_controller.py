@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     cifs_domain_controller:
         description:
             - Define known domain controller servers.
@@ -139,7 +139,7 @@ EXAMPLES = """
         ip: "<your_own_value>"
         ip6: "<your_own_value>"
         password: "<your_own_value>"
-        port: "7"
+        port: "32767"
         server_name: "<your_own_value>"
         username: "<your_own_value>"
 
@@ -228,9 +228,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -377,86 +374,86 @@ def fortios_cifs(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "username": {
-            "type": "string",
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.4.1": True,
-            },
-        },
         "server_name": {
-            "type": "string",
             "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
+                "v6.4.1": True,
                 "v6.2.7": True,
                 "v6.2.5": True,
-                "v6.4.1": True,
-            },
-        },
-        "ip": {
-            "type": "string",
-            "revisions": {
                 "v6.2.3": True,
                 "v6.2.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.4.1": True,
             },
+            "type": "string",
         },
         "domain_name": {
-            "type": "string",
             "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
+                "v6.4.1": True,
                 "v6.2.7": True,
                 "v6.2.5": True,
-                "v6.4.1": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
+            "type": "string",
         },
-        "ip6": {
-            "type": "string",
+        "username": {
             "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
+                "v6.4.1": True,
                 "v6.2.7": True,
                 "v6.2.5": True,
-                "v6.4.1": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
+            "type": "string",
         },
         "password": {
-            "type": "string",
             "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
+                "v6.4.1": True,
                 "v6.2.7": True,
                 "v6.2.5": True,
-                "v6.4.1": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
+            "type": "string",
         },
         "port": {
-            "type": "integer",
             "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
+                "v6.4.1": True,
                 "v6.2.7": True,
                 "v6.2.5": True,
-                "v6.4.1": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
+            "type": "integer",
+        },
+        "ip": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+            "type": "string",
+        },
+        "ip6": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+            "type": "string",
         },
     },
     "revisions": {
-        "v6.2.3": True,
-        "v6.2.0": True,
+        "v6.4.1": True,
         "v6.2.7": True,
         "v6.2.5": True,
-        "v6.4.1": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
     },
 }
 

@@ -7,12 +7,11 @@
 # (at your option) any later version.
 
 from __future__ import (absolute_import, division, print_function)
-from urllib import response
 __metaclass__ = type
 
 DOCUMENTATION = """
 ---
-module: fortios
+name: fortios
 short_description: HttpApi Plugin for Fortinet FortiOS Appliance or VM
 description:
   - This HttpApi plugin provides methods to connect to Fortinet FortiOS Appliance or VM via REST API
@@ -38,7 +37,7 @@ class HttpApi(HttpApiBase):
         self._ccsrftoken = ''
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.1.7'
+        self._ansible_galaxy_version = '2.2.0'
         self._log = None
 
         # workaround for HttApiBase: it always tries to do a basic auth for the first request to update auth headers

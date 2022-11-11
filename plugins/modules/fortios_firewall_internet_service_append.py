@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     firewall_internet_service_append:
         description:
@@ -80,6 +80,14 @@ options:
         default: null
         type: dict
         suboptions:
+            addr_mode:
+                description:
+                    - Address mode (IPv4 or IPv6)
+                type: str
+                choices:
+                    - 'ipv4'
+                    - 'ipv6'
+                    - 'both'
             append_port:
                 description:
                     - Appending TCP/UDP/SCTP destination port (1 to 65535).
@@ -105,8 +113,9 @@ EXAMPLES = """
     fortios_firewall_internet_service_append:
       vdom:  "{{ vdom }}"
       firewall_internet_service_append:
-        append_port: "3"
-        match_port: "4"
+        addr_mode: "ipv4"
+        append_port: "0"
+        match_port: "0"
 
 """
 
@@ -188,13 +197,10 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_firewall_internet_service_append_data(json):
-    option_list = ["append_port", "match_port"]
+    option_list = ["addr_mode", "append_port", "match_port"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -263,59 +269,102 @@ def fortios_firewall(data, fos):
 
 
 versioned_schema = {
-    "type": "dict",
-    "children": {
-        "append_port": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-            },
-        },
-        "match_port": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-            },
-        },
-    },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.0": True,
+    },
+    "type": "dict",
+    "children": {
+        "addr_mode": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "ipv4", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {"value": "ipv6", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {"value": "both", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+            ],
+        },
+        "match_port": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.0": True,
+            },
+            "type": "integer",
+        },
+        "append_port": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.0": True,
+            },
+            "type": "integer",
+        },
     },
 }
 

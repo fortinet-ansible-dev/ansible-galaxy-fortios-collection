@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     automation_setting:
         description:
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_automation_setting:
       vdom:  "{{ vdom }}"
       automation_setting:
-        max_concurrent_stitches: "3"
+        max_concurrent_stitches: "512"
 
 """
 
@@ -183,9 +183,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_automation_setting_data(json):
@@ -254,11 +251,14 @@ def fortios_automation(data, fos):
 
 
 versioned_schema = {
+    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
     "type": "dict",
     "children": {
-        "max_concurrent_stitches": {"type": "integer", "revisions": {"v7.2.0": True}}
+        "max_concurrent_stitches": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "integer",
+        }
     },
-    "revisions": {"v7.2.0": True},
 }
 
 

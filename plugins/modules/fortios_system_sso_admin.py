@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     system_sso_admin:
         description:
             - Configure SSO admin users.
@@ -111,8 +111,8 @@ options:
                             - Layout type.
                         type: str
                         choices:
-                            - responsive
-                            - fixed
+                            - 'responsive'
+                            - 'fixed'
                     name:
                         description:
                             - Dashboard name.
@@ -122,8 +122,8 @@ options:
                             - Permanent dashboard (can"t be removed via the GUI).
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     vdom:
                         description:
                             - Virtual domain. Source system.vdom.name.
@@ -197,8 +197,8 @@ options:
                                     - Security Audit Rating industry.
                                 type: str
                                 choices:
-                                    - default
-                                    - custom
+                                    - 'default'
+                                    - 'custom'
                             interface:
                                 description:
                                     - Interface to monitor. Source system.interface.name.
@@ -208,8 +208,8 @@ options:
                                     - Security Audit Rating region.
                                 type: str
                                 choices:
-                                    - default
-                                    - custom
+                                    - 'default'
+                                    - 'custom'
                             title:
                                 description:
                                     - Widget title.
@@ -219,28 +219,28 @@ options:
                                     - Widget type.
                                 type: str
                                 choices:
-                                    - sysinfo
-                                    - licinfo
-                                    - forticloud
-                                    - cpu-usage
-                                    - memory-usage
-                                    - disk-usage
-                                    - log-rate
-                                    - sessions
-                                    - session-rate
-                                    - tr-history
-                                    - analytics
-                                    - usb-modem
-                                    - admins
-                                    - security-fabric
-                                    - security-fabric-ranking
-                                    - sensor-info
-                                    - ha-status
-                                    - vulnerability-summary
-                                    - host-scan-summary
-                                    - fortiview
-                                    - botnet-activity
-                                    - fabric-device
+                                    - 'sysinfo'
+                                    - 'licinfo'
+                                    - 'forticloud'
+                                    - 'cpu-usage'
+                                    - 'memory-usage'
+                                    - 'disk-usage'
+                                    - 'log-rate'
+                                    - 'sessions'
+                                    - 'session-rate'
+                                    - 'tr-history'
+                                    - 'analytics'
+                                    - 'usb-modem'
+                                    - 'admins'
+                                    - 'security-fabric'
+                                    - 'security-fabric-ranking'
+                                    - 'sensor-info'
+                                    - 'ha-status'
+                                    - 'vulnerability-summary'
+                                    - 'host-scan-summary'
+                                    - 'fortiview'
+                                    - 'botnet-activity'
+                                    - 'fabric-device'
                             width:
                                 description:
                                     - Width.
@@ -324,7 +324,7 @@ EXAMPLES = """
         accprofile: "<your_own_value> (source system.accprofile.name)"
         gui_dashboard:
          -
-            columns: "5"
+            columns: "10"
             id:  "6"
             layout_type: "responsive"
             name: "default_name_8"
@@ -345,16 +345,16 @@ EXAMPLES = """
                 fortiview_timeframe: "<your_own_value>"
                 fortiview_type: "<your_own_value>"
                 fortiview_visualization: "<your_own_value>"
-                height: "24"
+                height: "25"
                 id:  "25"
                 industry: "default"
                 interface: "<your_own_value> (source system.interface.name)"
                 region: "default"
                 title: "<your_own_value>"
                 type: "sysinfo"
-                width: "31"
-                x_pos: "32"
-                y_pos: "33"
+                width: "25"
+                x_pos: "500"
+                y_pos: "500"
         gui_global_menu_favorites:
          -
             id:  "35"
@@ -455,9 +455,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -603,158 +600,150 @@ def fortios_system(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "gui_vdom_menu_favorites": {
-            "elements": "dict",
-            "type": "list",
-            "children": {"id": {"type": "string", "revisions": {"v6.2.3": True}}},
-            "revisions": {"v6.2.0": False, "v6.2.3": True},
-        },
         "name": {
-            "type": "string",
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
+                "v6.4.1": True,
                 "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
-        },
-        "gui_new_feature_acknowledge": {
-            "elements": "dict",
-            "type": "list",
-            "children": {"id": {"type": "string", "revisions": {"v6.2.3": True}}},
-            "revisions": {"v6.2.0": False, "v6.2.3": True},
-        },
-        "gui_ignore_release_overview_version": {
             "type": "string",
-            "revisions": {
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": False,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-            },
         },
         "accprofile": {
-            "type": "string",
             "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+            "type": "string",
+        },
+        "vdom": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.4.0": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "string",
+                }
+            },
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
                 "v6.4.4": True,
-                "v6.4.0": True,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
         },
-        "gui_global_menu_favorites": {
-            "elements": "dict",
-            "type": "list",
-            "children": {"id": {"type": "string", "revisions": {"v6.2.3": True}}},
-            "revisions": {"v6.2.0": False, "v6.2.3": True},
+        "gui_ignore_release_overview_version": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+            },
+            "type": "string",
         },
         "gui_dashboard": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
+                "id": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                "name": {"revisions": {"v6.2.3": True}, "type": "string"},
+                "vdom": {"revisions": {"v6.2.3": True}, "type": "string"},
+                "layout_type": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "string",
+                    "options": [
+                        {"value": "responsive", "revisions": {"v6.2.3": True}},
+                        {"value": "fixed", "revisions": {"v6.2.3": True}},
+                    ],
+                },
+                "permanent": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "string",
+                    "options": [
+                        {"value": "disable", "revisions": {"v6.2.3": True}},
+                        {"value": "enable", "revisions": {"v6.2.3": True}},
+                    ],
+                },
+                "columns": {"revisions": {"v6.2.3": True}, "type": "integer"},
                 "widget": {
-                    "elements": "dict",
                     "type": "list",
+                    "elements": "dict",
                     "children": {
-                        "x_pos": {"type": "integer", "revisions": {"v6.2.3": True}},
-                        "title": {"type": "string", "revisions": {"v6.2.3": True}},
-                        "fortiview_type": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "industry": {
-                            "type": "string",
-                            "options": [
-                                {"value": "default", "revisions": {"v6.2.3": True}},
-                                {"value": "custom", "revisions": {"v6.2.3": True}},
-                            ],
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "region": {
-                            "type": "string",
-                            "options": [
-                                {"value": "default", "revisions": {"v6.2.3": True}},
-                                {"value": "custom", "revisions": {"v6.2.3": True}},
-                            ],
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "fortiview_sort_by": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "fortiview_device": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "fortiview_filters": {
-                            "elements": "dict",
-                            "type": "list",
-                            "children": {
-                                "value": {
-                                    "type": "string",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                "id": {
-                                    "type": "integer",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                "key": {
-                                    "type": "string",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                            },
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "height": {"type": "integer", "revisions": {"v6.2.3": True}},
-                        "fabric_device": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "interface": {"type": "string", "revisions": {"v6.2.3": True}},
-                        "fortiview_visualization": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "fabric_device_widget_visualization_type": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "y_pos": {"type": "integer", "revisions": {"v6.2.3": True}},
-                        "id": {"type": "integer", "revisions": {"v6.2.3": True}},
-                        "fabric_device_widget_name": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
-                        "fortiview_timeframe": {
-                            "type": "string",
-                            "revisions": {"v6.2.3": True},
-                        },
+                        "id": {"revisions": {"v6.2.3": True}, "type": "integer"},
                         "type": {
+                            "revisions": {"v6.2.3": True},
                             "type": "string",
                             "options": [
                                 {"value": "sysinfo", "revisions": {"v6.2.3": True}},
@@ -804,92 +793,125 @@ versioned_schema = {
                                     "revisions": {"v6.2.3": True},
                                 },
                             ],
+                        },
+                        "x_pos": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                        "y_pos": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                        "width": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                        "height": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                        "interface": {"revisions": {"v6.2.3": True}, "type": "string"},
+                        "region": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                            "options": [
+                                {"value": "default", "revisions": {"v6.2.3": True}},
+                                {"value": "custom", "revisions": {"v6.2.3": True}},
+                            ],
+                        },
+                        "industry": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                            "options": [
+                                {"value": "default", "revisions": {"v6.2.3": True}},
+                                {"value": "custom", "revisions": {"v6.2.3": True}},
+                            ],
+                        },
+                        "fabric_device": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fabric_device_widget_name": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fabric_device_widget_visualization_type": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "title": {"revisions": {"v6.2.3": True}, "type": "string"},
+                        "fortiview_type": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fortiview_sort_by": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fortiview_timeframe": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fortiview_visualization": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fortiview_device": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "string",
+                        },
+                        "fortiview_filters": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "id": {
+                                    "revisions": {"v6.2.3": True},
+                                    "type": "integer",
+                                },
+                                "key": {
+                                    "revisions": {"v6.2.3": True},
+                                    "type": "string",
+                                },
+                                "value": {
+                                    "revisions": {"v6.2.3": True},
+                                    "type": "string",
+                                },
+                            },
                             "revisions": {"v6.2.3": True},
                         },
-                        "width": {"type": "integer", "revisions": {"v6.2.3": True}},
                     },
                     "revisions": {"v6.2.3": True},
                 },
-                "name": {"type": "string", "revisions": {"v6.2.3": True}},
-                "permanent": {
-                    "type": "string",
-                    "options": [
-                        {"value": "disable", "revisions": {"v6.2.3": True}},
-                        {"value": "enable", "revisions": {"v6.2.3": True}},
-                    ],
-                    "revisions": {"v6.2.3": True},
-                },
-                "vdom": {"type": "string", "revisions": {"v6.2.3": True}},
-                "layout_type": {
-                    "type": "string",
-                    "options": [
-                        {"value": "responsive", "revisions": {"v6.2.3": True}},
-                        {"value": "fixed", "revisions": {"v6.2.3": True}},
-                    ],
-                    "revisions": {"v6.2.3": True},
-                },
-                "id": {"type": "integer", "revisions": {"v6.2.3": True}},
-                "columns": {"type": "integer", "revisions": {"v6.2.3": True}},
             },
-            "revisions": {"v6.2.0": False, "v6.2.3": True},
+            "revisions": {"v6.2.3": True, "v6.2.0": False},
         },
-        "vdom": {
-            "elements": "dict",
+        "gui_global_menu_favorites": {
             "type": "list",
-            "children": {
-                "name": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v7.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                }
-            },
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-            },
+            "elements": "dict",
+            "children": {"id": {"revisions": {"v6.2.3": True}, "type": "string"}},
+            "revisions": {"v6.2.3": True, "v6.2.0": False},
+        },
+        "gui_vdom_menu_favorites": {
+            "type": "list",
+            "elements": "dict",
+            "children": {"id": {"revisions": {"v6.2.3": True}, "type": "string"}},
+            "revisions": {"v6.2.3": True, "v6.2.0": False},
+        },
+        "gui_new_feature_acknowledge": {
+            "type": "list",
+            "elements": "dict",
+            "children": {"id": {"revisions": {"v6.2.3": True}, "type": "string"}},
+            "revisions": {"v6.2.3": True, "v6.2.0": False},
         },
     },
     "revisions": {
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
     },
 }
 

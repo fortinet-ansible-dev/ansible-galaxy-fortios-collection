@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     system_isf_queue_profile:
         description:
             - Create a queue profile of switch.
@@ -93,41 +93,41 @@ options:
                     - Unit of measurement for guaranteed and maximum bandwidth.
                 type: str
                 choices:
-                    - kbps
-                    - pps
+                    - 'kbps'
+                    - 'pps'
             burst_bps_granularity:
                 description:
                     - Burst granularity based on bytes per second.
                 type: str
                 choices:
-                    - disable
-                    - 512-bytes
-                    - 1k-bytes
-                    - 2k-bytes
-                    - 4k-bytes
-                    - 8k-bytes
-                    - 16k-bytes
-                    - 32k-bytes
+                    - 'disable'
+                    - '512-bytes'
+                    - '1k-bytes'
+                    - '2k-bytes'
+                    - '4k-bytes'
+                    - '8k-bytes'
+                    - '16k-bytes'
+                    - '32k-bytes'
             burst_control:
                 description:
                     - Burst control.
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             burst_pps_granularity:
                 description:
                     - Burst granularity based on packets per second.
                 type: str
                 choices:
-                    - disable
-                    - half-packet
-                    - 1-packet
-                    - 2-packets
-                    - 4-packets
-                    - 16-packets
-                    - 65-packets
-                    - 262-packets
+                    - 'disable'
+                    - 'half-packet'
+                    - '1-packet'
+                    - '2-packets'
+                    - '4-packets'
+                    - '16-packets'
+                    - '65-packets'
+                    - '262-packets'
             guaranteed_bandwidth:
                 description:
                     - Guaranteed bandwidth.
@@ -164,8 +164,8 @@ EXAMPLES = """
         burst_bps_granularity: "disable"
         burst_control: "disable"
         burst_pps_granularity: "disable"
-        guaranteed_bandwidth: "7"
-        maximum_bandwidth: "8"
+        guaranteed_bandwidth: "0"
+        maximum_bandwidth: "0"
         name: "default_name_9"
 
 """
@@ -253,9 +253,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -404,37 +401,28 @@ def fortios_system(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "burst_pps_granularity": {
-            "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v7.2.0": True}},
-                {"value": "half-packet", "revisions": {"v7.2.0": True}},
-                {"value": "1-packet", "revisions": {"v7.2.0": True}},
-                {"value": "2-packets", "revisions": {"v7.2.0": True}},
-                {"value": "4-packets", "revisions": {"v7.2.0": True}},
-                {"value": "16-packets", "revisions": {"v7.2.0": True}},
-                {"value": "65-packets", "revisions": {"v7.2.0": True}},
-                {"value": "262-packets", "revisions": {"v7.2.0": True}},
-            ],
-            "revisions": {"v7.2.0": True, "v6.4.0": False},
+        "name": {"revisions": {"v7.2.0": True, "v6.4.0": True}, "type": "string"},
+        "guaranteed_bandwidth": {
+            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "type": "integer",
         },
-        "name": {"type": "string", "revisions": {"v7.2.0": True, "v6.4.0": True}},
+        "maximum_bandwidth": {
+            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "type": "integer",
+        },
         "bandwidth_unit": {
+            "revisions": {"v7.2.0": True, "v6.4.0": True},
             "type": "string",
             "options": [
                 {"value": "kbps", "revisions": {"v7.2.0": True, "v6.4.0": True}},
                 {"value": "pps", "revisions": {"v7.2.0": True, "v6.4.0": True}},
             ],
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
-        },
-        "maximum_bandwidth": {
-            "type": "integer",
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
         },
         "burst_bps_granularity": {
+            "revisions": {"v7.2.0": True, "v6.4.0": False},
             "type": "string",
             "options": [
                 {"value": "disable", "revisions": {"v7.2.0": True}},
@@ -446,19 +434,28 @@ versioned_schema = {
                 {"value": "16k-bytes", "revisions": {"v7.2.0": True}},
                 {"value": "32k-bytes", "revisions": {"v7.2.0": True}},
             ],
-            "revisions": {"v7.2.0": True, "v6.4.0": False},
         },
-        "guaranteed_bandwidth": {
-            "type": "integer",
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
+        "burst_pps_granularity": {
+            "revisions": {"v7.2.0": True, "v6.4.0": False},
+            "type": "string",
+            "options": [
+                {"value": "disable", "revisions": {"v7.2.0": True}},
+                {"value": "half-packet", "revisions": {"v7.2.0": True}},
+                {"value": "1-packet", "revisions": {"v7.2.0": True}},
+                {"value": "2-packets", "revisions": {"v7.2.0": True}},
+                {"value": "4-packets", "revisions": {"v7.2.0": True}},
+                {"value": "16-packets", "revisions": {"v7.2.0": True}},
+                {"value": "65-packets", "revisions": {"v7.2.0": True}},
+                {"value": "262-packets", "revisions": {"v7.2.0": True}},
+            ],
         },
         "burst_control": {
+            "revisions": {"v6.4.0": True},
             "type": "string",
             "options": [
                 {"value": "disable", "revisions": {"v6.4.0": True}},
                 {"value": "enable", "revisions": {"v6.4.0": True}},
             ],
-            "revisions": {"v6.4.0": True},
         },
     },
     "revisions": {"v7.2.0": True, "v6.4.0": True},

@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     firewall_carrier_endpoint_bwl:
         description:
             - Carrier end point black/white list tables.
@@ -104,9 +104,9 @@ options:
                         type: list
                         elements: str
                         choices:
-                            - block
-                            - exempt
-                            - exempt-mass-mms
+                            - 'block'
+                            - 'exempt'
+                            - 'exempt-mass-mms'
                     carrier_endpoint:
                         description:
                             - End point to act on.
@@ -117,22 +117,22 @@ options:
                         type: list
                         elements: str
                         choices:
-                            - archive
+                            - 'archive'
                     pattern_type:
                         description:
                             - Wildcard pattern or regular expression.
                         type: str
                         choices:
-                            - wildcard
-                            - regexp
-                            - simple
+                            - 'wildcard'
+                            - 'regexp'
+                            - 'simple'
                     status:
                         description:
                             - Enable/disable specified action(s) for this end point.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             id:
                 description:
                     - ID.
@@ -257,9 +257,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -437,249 +434,249 @@ def fortios_firewall(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {
-            "type": "string",
+        "id": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "integer",
+        },
+        "name": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "comment": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
         },
         "entries": {
-            "elements": "dict",
             "type": "list",
+            "elements": "dict",
             "children": {
+                "carrier_endpoint": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "string",
+                },
                 "status": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
                                 "v6.0.11": True,
+                                "v6.0.0": True,
                             },
                         },
                         {
                             "value": "disable",
                             "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
                                 "v6.0.11": True,
+                                "v6.0.0": True,
                             },
                         },
                     ],
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                "action": {
-                    "multiple_values": True,
-                    "elements": "str",
-                    "type": "list",
-                    "options": [
-                        {
-                            "value": "block",
-                            "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                                "v6.0.11": True,
-                            },
-                        },
-                        {
-                            "value": "exempt",
-                            "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                                "v6.0.11": True,
-                            },
-                        },
-                        {
-                            "value": "exempt-mass-mms",
-                            "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                                "v6.0.11": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                "carrier_endpoint": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                "log_action": {
-                    "multiple_values": True,
-                    "elements": "str",
-                    "type": "list",
-                    "options": [
-                        {
-                            "value": "archive",
-                            "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                                "v6.0.11": True,
-                            },
-                        }
-                    ],
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
                 },
                 "pattern_type": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "wildcard",
                             "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
                                 "v6.0.11": True,
+                                "v6.0.0": True,
                             },
                         },
                         {
                             "value": "regexp",
                             "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
                                 "v6.0.11": True,
+                                "v6.0.0": True,
                             },
                         },
                         {
                             "value": "simple",
                             "revisions": {
-                                "v6.0.0": True,
-                                "v6.0.5": True,
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
                                 "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
                                 "v6.0.11": True,
+                                "v6.0.0": True,
                             },
                         },
                     ],
+                },
+                "action": {
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
+                    "type": "list",
+                    "options": [
+                        {
+                            "value": "block",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "exempt",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                        {
+                            "value": "exempt-mass-mms",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        },
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "log_action": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                    "type": "list",
+                    "options": [
+                        {
+                            "value": "archive",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                                "v6.0.5": True,
+                                "v6.0.11": True,
+                                "v6.0.0": True,
+                            },
+                        }
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
             },
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "id": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
                 "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "name": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.2.0": True,
                 "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
         },
     },
     "revisions": {
-        "v6.0.0": True,
-        "v6.0.5": True,
-        "v6.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
+        "v6.0.5": True,
         "v6.0.11": True,
+        "v6.0.0": True,
     },
 }
 

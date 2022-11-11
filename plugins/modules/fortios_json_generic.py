@@ -71,10 +71,10 @@ options:
                     - HTTP methods
                 type: str
                 choices:
-                    - GET
-                    - PUT
-                    - POST
-                    - DELETE
+                    - 'GET'
+                    - 'PUT'
+                    - 'POST'
+                    - 'DELETE'
             path:
                 description:
                     - URL path, e.g./api/v2/cmdb/firewall/address

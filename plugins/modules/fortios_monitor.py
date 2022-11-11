@@ -70,200 +70,205 @@ options:
         type: str
         required: true
         choices:
-         - format.system.logdisk
-         - update.switch-controller.managed-switch
-         - update.system.ha-peer
-         - add-license.registration.vdom
-         - geoip.geoip-query
-         - clear-statistics.system.fortiguard
-         - enable-app-bandwidth-tracking.system.traffic-history
-         - upgrade.license.database
-         - run.system.compliance
-         - clear_counters.firewall.policy
-         - upgrade.system.firmware
-         - download.wifi.firmware
-         - manual-update.system.fortiguard
-         - provision.user.fortitoken
-         - reset.firewall.per-ip-shaper
-         - clear-counters.firewall.central-snat-map
-         - update.system.modem
-         - update.web-ui.custom-language
-         - stop.wifi.vlan-probe
-         - import.vpn-certificate.local
-         - create.registration.forticare
-         - download.system.vmlicense
-         - save.system.config
-         - tunnel_reset_stats.vpn.ipsec
-         - toggle-vdom-mode.system.admin
-         - register-device.registration.forticloud
-         - quarantine.endpoint-control.registration
-         - set_status.wifi.rogue_ap
-         - email.user.guest
-         - add.firewall.clearpass-address
-         - transfer.registration.forticare
-         - import.vpn-certificate.crl
-         - reset.firewall.dnat
-         - disassociate.wifi.client
-         - reset.webfilter.category-quota
-         - close-multiple.firewall.session6
-         - test-availability.system.fortiguard
-         - tunnel_up.vpn.ipsec
-         - read-info.system.certificate
-         - deregister.endpoint-control.registration
-         - clear-soft-out.router.bgp
-         - factory-reset.switch-controller.managed-switch
-         - clear-soft-in.router.bgp
-         - stop.system.sniffer
-         - delete.log.local-report
-         - add-license.registration.forticare
-         - verify-cert.endpoint-control.ems
-         - stop.network.debug-flow
-         - cancel.fortiview.session
-         - restart.wifi.managed_ap
-         - start.network.debug-flow
-         - delete.webfilter.override
-         - unblock.endpoint-control.registration
-         - port-stats-reset.switch-controller.managed-switch
-         - stop.system.usb-log
-         - close.firewall.session
-         - reset.firewall.shaper
-         - clear_all.firewall.session
-         - clear_counters.firewall.acl
-         - reset.wifi.euclid
-         - abort.user.query
-         - revoke.system.dhcp
-         - add_users.user.banned
-         - start.system.fsck
-         - clear_counters.firewall.multicast-policy6
-         - clear_counters.firewall.policy6
-         - change-vdom-mode.system.admin
-         - refresh-server.user.fsso
-         - clear_counters.firewall.consolidated-policy
-         - trigger.system.security-rating
-         - webhook.system.automation-stitch
-         - generate.vpn-certificate.csr
-         - upload.system.vmlicense
-         - reset.firewall.multicast-policy6
-         - backup.system.config
-         - push.wifi.firmware
-         - eject.system.usb-device
-         - start.system.sniffer
-         - kill.system.process
-         - reboot.system.os
-         - reset.firewall.consolidated-policy
-         - set.system.time
-         - remove.user.device
-         - import.vpn-certificate.remote
-         - upload.webproxy.pacfile
-         - push.switch-controller.fsw-firmware
-         - reset.wanopt.peer_stats
-         - delete.vpn.ssl
-         - block.endpoint-control.registration
-         - backup-action.system.fortimanager
-         - start.system.usb-log
-         - save.system.config-revision
-         - create.vpn-certificate.local
-         - tunnel_down.vpn.ipsec
-         - clear_all.wifi.rogue_ap
-         - import-seed.user.fortitoken
-         - wake-on-lan.system.interface
-         - poe-reset.switch-controller.managed-switch
-         - logout.registration.forticloud
-         - clear_counters.firewall.acl6
-         - restore.system.config
-         - import.vpn-certificate.ca
-         - upload.switch-controller.fsw-firmware
-         - test.user.tacacs-plus
-         - upload.system.config-script
-         - system.password-policy-conform
-         - sms.user.guest
-         - delete.system.config-script
-         - reset.wanopt.history
-         - reset.firewall.policy6
-         - import-mobile.user.fortitoken
-         - download.switch-controller.fsw-firmware
-         - stop.wifi.spectrum
-         - reset.firewall.central-snat-map
-         - clear.system.crash-log
-         - bounce-port.switch-controller.managed-switch
-         - upgrade.system.lte-modem
-         - close-all.firewall.session
-         - login.registration.forticare
-         - close-multiple.firewall.session
-         - create.registration.forticloud
-         - upload.wifi.firmware
-         - start.wifi.spectrum
-         - disconnect.system.modem
-         - disconnect.system.ha-peer
-         - keep-alive.wifi.spectrum
-         - reset.system.modem
-         - activate.user.fortitoken
-         - register-appliance.system.csf
-         - refresh.azure.application-list
-         - start.wifi.vlan-probe
-         - clear.system.sniffer
-         - reset.extender-controller.extender
-         - validate-gcp-key.system.sdn-connector
-         - restart.system.sniffer
-         - import.web-ui.language
-         - import-trial.user.fortitoken
-         - flush.firewall.gtp
-         - dump.system.com-log
-         - diagnose.extender-controller.extender
-         - update-comments.system.config-revision
-         - refresh.user.fortitoken
-         - reset.firewall.policy
-         - shutdown.system.os
-         - reset.log.stats
-         - revoke.system.dhcp6
-         - login.registration.forticloud
-         - reset.wanopt.webcache
-         - system.change-password
-         - set_status.wifi.managed_ap
-         - deauth.user.firewall
-         - upgrade.extender-controller.extender
-         - delete.system.config-revision
-         - clear_users.user.banned
-         - reset.firewall.multicast-policy
-         - send-activation.user.fortitoken
-         - reset.webcache.stats
-         - clear_counters.firewall.proxy-policy
-         - utm.rating-lookup
-         - test.system.automation-stitch
-         - refresh.system.external-resource
-         - auth.user.firewall
-         - dhcp-renew.system.interface
-         - migrate.registration.forticloud
-         - clear_counters.firewall.multicast-policy
-         - connect.wifi.network
-         - test-connect.user.radius
-         - speed-test-trigger.system.interface
-         - generate-key.system.api-user
-         - upload.wifi.region-image
-         - run.system.config-script
-         - purdue-level.user.device
-         - clear_tunnel.vpn.ssl
-         - add.nsx.service
-         - update.system.fortiguard
-         - restart.switch-controller.managed-switch
-         - unquarantine.endpoint-control.registration
-         - led-blink.wifi.managed_ap
-         - update.system.sdn-connector
-         - config.system.fortimanager
-         - set-tier1.switch-controller.mclag-icl
-         - system.disconnect-admins
-         - provision-user.vpn.ssl
-         - create.web-ui.custom-language
-         - check.endpoint-control.registration-password
-         - clear-counters.firewall.dnat
-         - scan.wifi.network
-         - clear.vpn.ike
-         - clear_counters.firewall.security-policy
-         - clear_all.user.banned
-         - delete.firewall.clearpass-address
-         - connect.system.modem
-         - generate-keys.wifi.ssid
-         - upload.system.lte-modem
+         - 'check.endpoint-control.registration-password'
+         - 'quarantine.endpoint-control.registration'
+         - 'unquarantine.endpoint-control.registration'
+         - 'block.endpoint-control.registration'
+         - 'unblock.endpoint-control.registration'
+         - 'deregister.endpoint-control.registration'
+         - 'clear_counters.firewall.acl'
+         - 'clear_counters.firewall.acl6'
+         - 'reset.firewall.policy'
+         - 'clear_counters.firewall.policy'
+         - 'reset.firewall.policy6'
+         - 'clear_counters.firewall.policy6'
+         - 'clear_counters.firewall.proxy-policy'
+         - 'clear_all.firewall.session'
+         - 'close.firewall.session'
+         - 'reset.firewall.shaper'
+         - 'reset.firewall.per-ip-shaper'
+         - 'cancel.fortiview.session'
+         - 'upgrade.license.database'
+         - 'reset.log.stats'
+         - 'login.registration.forticloud'
+         - 'create.registration.forticloud'
+         - 'logout.registration.forticloud'
+         - 'login.registration.forticare'
+         - 'create.registration.forticare'
+         - 'add-license.registration.forticare'
+         - 'add-license.registration.vdom'
+         - 'toggle-vdom-mode.system.admin'
+         - 'generate-key.system.api-user'
+         - 'update-comments.system.config-revision'
+         - 'delete.system.config-revision'
+         - 'save.system.config-revision'
+         - 'system.disconnect-admins'
+         - 'set.system.time'
+         - 'reboot.system.os'
+         - 'shutdown.system.os'
+         - 'revoke.system.dhcp'
+         - 'revoke.system.dhcp6'
+         - 'upgrade.system.firmware'
+         - 'start.system.fsck'
+         - 'system.change-password'
+         - 'system.password-policy-conform'
+         - 'reset.system.modem'
+         - 'connect.system.modem'
+         - 'disconnect.system.modem'
+         - 'update.system.modem'
+         - 'restart.system.sniffer'
+         - 'start.system.sniffer'
+         - 'stop.system.sniffer'
+         - 'test.system.automation-stitch'
+         - 'update.switch-controller.managed-switch'
+         - 'restart.switch-controller.managed-switch'
+         - 'poe-reset.switch-controller.managed-switch'
+         - 'factory-reset.switch-controller.managed-switch'
+         - 'download.switch-controller.fsw-firmware'
+         - 'push.switch-controller.fsw-firmware'
+         - 'upload.switch-controller.fsw-firmware'
+         - 'dhcp-renew.system.interface'
+         - 'start.system.usb-log'
+         - 'stop.system.usb-log'
+         - 'eject.system.usb-device'
+         - 'update.system.fortiguard'
+         - 'clear-statistics.system.fortiguard'
+         - 'test-availability.system.fortiguard'
+         - 'config.system.fortimanager'
+         - 'backup-action.system.fortimanager'
+         - 'dump.system.com-log'
+         - 'update.system.ha-peer'
+         - 'disconnect.system.ha-peer'
+         - 'run.system.compliance'
+         - 'restore.system.config'
+         - 'upload.system.vmlicense'
+         - 'trigger.system.security-rating'
+         - 'reset.extender-controller.extender'
+         - 'validate-gcp-key.system.sdn-connector'
+         - 'deauth.user.firewall'
+         - 'clear_users.user.banned'
+         - 'add_users.user.banned'
+         - 'clear_all.user.banned'
+         - 'activate.user.fortitoken'
+         - 'refresh.user.fortitoken'
+         - 'provision.user.fortitoken'
+         - 'send-activation.user.fortitoken'
+         - 'import-trial.user.fortitoken'
+         - 'import-mobile.user.fortitoken'
+         - 'import-seed.user.fortitoken'
+         - 'refresh-server.user.fsso'
+         - 'test-connect.user.radius'
+         - 'test.user.tacacs-plus'
+         - 'delete.webfilter.override'
+         - 'reset.webfilter.category-quota'
+         - 'tunnel_up.vpn.ipsec'
+         - 'tunnel_down.vpn.ipsec'
+         - 'tunnel_reset_stats.vpn.ipsec'
+         - 'clear_tunnel.vpn.ssl'
+         - 'delete.vpn.ssl'
+         - 'import.vpn-certificate.ca'
+         - 'import.vpn-certificate.crl'
+         - 'import.vpn-certificate.local'
+         - 'import.vpn-certificate.remote'
+         - 'generate.vpn-certificate.csr'
+         - 'reset.wanopt.history'
+         - 'reset.wanopt.webcache'
+         - 'reset.wanopt.peer_stats'
+         - 'reset.webcache.stats'
+         - 'set_status.wifi.managed_ap'
+         - 'download.wifi.firmware'
+         - 'push.wifi.firmware'
+         - 'upload.wifi.firmware'
+         - 'restart.wifi.managed_ap'
+         - 'reset.wifi.euclid'
+         - 'clear_all.wifi.rogue_ap'
+         - 'set_status.wifi.rogue_ap'
+         - 'reset.firewall.consolidated-policy'
+         - 'clear_counters.firewall.consolidated-policy'
+         - 'clear_counters.firewall.security-policy'
+         - 'add.firewall.clearpass-address'
+         - 'delete.firewall.clearpass-address'
+         - 'delete.log.local-report'
+         - 'migrate.registration.forticloud'
+         - 'change-vdom-mode.system.admin'
+         - 'delete.system.config-script'
+         - 'run.system.config-script'
+         - 'upload.system.config-script'
+         - 'diagnose.extender-controller.extender'
+         - 'upgrade.extender-controller.extender'
+         - 'add.nsx.service'
+         - 'update.system.sdn-connector'
+         - 'import.web-ui.language'
+         - 'create.web-ui.custom-language'
+         - 'update.web-ui.custom-language'
+         - 'email.user.guest'
+         - 'sms.user.guest'
+         - 'utm.rating-lookup'
+         - 'connect.wifi.network'
+         - 'scan.wifi.network'
+         - 'upload.wifi.region-image'
+         - 'refresh.azure.application-list'
+         - 'verify-cert.endpoint-control.ems'
+         - 'geoip.geoip-query'
+         - 'transfer.registration.forticare'
+         - 'register-device.registration.forticloud'
+         - 'register-appliance.system.csf'
+         - 'clear.system.sniffer'
+         - 'webhook.system.automation-stitch'
+         - 'format.system.logdisk'
+         - 'speed-test-trigger.system.interface'
+         - 'read-info.system.certificate'
+         - 'provision-user.vpn.ssl'
+         - 'upload.webproxy.pacfile'
+         - 'disassociate.wifi.client'
+         - 'start.wifi.spectrum'
+         - 'keep-alive.wifi.spectrum'
+         - 'stop.wifi.spectrum'
+         - 'start.wifi.vlan-probe'
+         - 'stop.wifi.vlan-probe'
+         - 'generate-keys.wifi.ssid'
+         - 'save.system.config'
+         - 'led-blink.wifi.managed_ap'
+         - 'auth.user.firewall'
+         - 'remove.user.device'
+         - 'clear.vpn.ike'
+         - 'reset.firewall.multicast-policy'
+         - 'reset.firewall.multicast-policy6'
+         - 'clear_counters.firewall.multicast-policy'
+         - 'clear_counters.firewall.multicast-policy6'
+         - 'clear-soft-in.router.bgp'
+         - 'clear-soft-out.router.bgp'
+         - 'enable-app-bandwidth-tracking.system.traffic-history'
+         - 'refresh.system.external-resource'
+         - 'reset.firewall.central-snat-map'
+         - 'clear-counters.firewall.central-snat-map'
+         - 'reset.firewall.dnat'
+         - 'clear-counters.firewall.dnat'
+         - 'close-multiple.firewall.session'
+         - 'close-multiple.firewall.session6'
+         - 'close-all.firewall.session'
+         - 'clear.system.crash-log'
+         - 'backup.system.config'
+         - 'abort.user.query'
+         - 'create.vpn-certificate.local'
+         - 'flush.firewall.gtp'
+         - 'kill.system.process'
+         - 'upload.system.hscalefw-license'
+         - 'download.system.vmlicense'
+         - 'start.network.debug-flow'
+         - 'stop.network.debug-flow'
+         - 'upload.system.lte-modem'
+         - 'upgrade.system.lte-modem'
+         - 'port-stats-reset.switch-controller.managed-switch'
+         - 'bounce-port.switch-controller.managed-switch'
+         - 'set-tier1.switch-controller.mclag-icl'
+         - 'wake-on-lan.system.interface'
+         - 'manual-update.system.fortiguard'
+         - 'purdue-level.user.device'
+         - 'deregister-device.registration.forticare'
+         - 'soft-reset-neighbor.router.bgp'
+         - 'download-eval.system.vmlicense'
+         - 'dynamic.system.external-resource'
 
     params:
         description:
@@ -367,601 +372,306 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 )
 
 module_selectors_defs = {
-    "format.system.logdisk": {
-        "url": "system/logdisk/format",
-        "params": {"raid": {"type": "string", "required": "True"}},
-    },
-    "update.switch-controller.managed-switch": {
-        "url": "switch-controller/managed-switch/update",
-        "params": {
-            "admin": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
-    "update.system.ha-peer": {
-        "url": "system/ha-peer/update",
-        "params": {
-            "priority": {"type": "int", "required": "False"},
-            "serial_no": {"type": "string", "required": "True"},
-            "hostname": {"type": "string", "required": "False"},
-            "vcluster_id": {"type": "int", "required": "False"},
-        },
-    },
-    "add-license.registration.vdom": {
-        "url": "registration/vdom/add-license",
-        "params": {"license": {"type": "string", "required": "True"}},
-    },
-    "geoip.geoip-query": {
-        "url": "geoip/geoip-query/select",
-        "params": {"ip_addresses": {"type": "array", "required": "True"}},
-    },
-    "clear-statistics.system.fortiguard": {
-        "url": "system/fortiguard/clear-statistics",
-        "params": {},
-    },
-    "enable-app-bandwidth-tracking.system.traffic-history": {
-        "url": "system/traffic-history/enable-app-bandwidth-tracking",
-        "params": {},
-    },
-    "upgrade.license.database": {
-        "url": "license/database/upgrade",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "db_name": {"type": "string", "required": "True"},
-            "file_id": {"type": "string", "required": "False"},
-            "confirm_not_signed": {"type": "boolean", "required": "False"},
-        },
-    },
-    "run.system.compliance": {"url": "system/compliance/run", "params": {}},
-    "clear_counters.firewall.policy": {
-        "url": "firewall/policy/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "upgrade.system.firmware": {
-        "url": "system/firmware/upgrade",
-        "params": {
-            "format_partition": {"type": "boolean", "required": "False"},
-            "file_content": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-            "source": {"type": "string", "required": "True"},
-            "file_id": {"type": "string", "required": "False"},
-            "ignore_invalid_signature": {"type": "boolean", "required": "False"},
-        },
-    },
-    "download.wifi.firmware": {
-        "url": "wifi/firmware/download",
-        "params": {"image_id": {"type": "string", "required": "True"}},
-    },
-    "manual-update.system.fortiguard": {
-        "url": "system/fortiguard/manual-update",
-        "params": {"file_content": {"type": "string", "required": "False"}},
-    },
-    "provision.user.fortitoken": {
-        "url": "user/fortitoken/provision",
-        "params": {"tokens": {"type": "array", "required": "False"}},
-    },
-    "reset.firewall.per-ip-shaper": {
-        "url": "firewall/per-ip-shaper/reset",
-        "params": {},
-    },
-    "clear-counters.firewall.central-snat-map": {
-        "url": "firewall/central-snat-map/clear-counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "update.system.modem": {"url": "system/modem/update", "params": {}},
-    "update.web-ui.custom-language": {
-        "url": "web-ui/custom-language/update",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-            "lang_comments": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
-            "lang_name": {"type": "string", "required": "False"},
-        },
-    },
-    "stop.wifi.vlan-probe": {
-        "url": "wifi/vlan-probe/stop",
-        "params": {
-            "wtp": {"type": "string", "required": "True"},
-            "ap_interface": {"type": "int", "required": "True"},
-        },
-    },
-    "import.vpn-certificate.local": {
-        "url": "vpn-certificate/local/import",
-        "params": {
-            "acme_rsa_key_size": {"type": "int", "required": "False"},
-            "file_content": {"type": "string", "required": "False"},
-            "acme_ca_url": {"type": "string", "required": "False"},
-            "acme_renew_window": {"type": "int", "required": "False"},
-            "certname": {"type": "string", "required": "False"},
-            "key_file_content": {"type": "string", "required": "False"},
-            "acme_email": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-            "password": {"type": "string", "required": "False"},
-            "type": {"type": "string", "required": "True"},
-            "acme_domain": {"type": "string", "required": "False"},
-        },
-    },
-    "create.registration.forticare": {
-        "url": "registration/forticare/create",
-        "params": {
-            "city": {"type": "string", "required": "True"},
-            "first_name": {"type": "string", "required": "True"},
-            "last_name": {"type": "string", "required": "True"},
-            "industry_id": {"type": "int", "required": "True"},
-            "orgsize_id": {"type": "int", "required": "True"},
-            "title": {"type": "string", "required": "False"},
-            "industry": {"type": "string", "required": "True"},
-            "company": {"type": "string", "required": "True"},
-            "reseller_id": {"type": "int", "required": "True"},
-            "state_code": {"type": "string", "required": "False"},
-            "phone": {"type": "string", "required": "True"},
-            "state": {"type": "string", "required": "True"},
-            "postal_code": {"type": "string", "required": "True"},
-            "country_code": {"type": "int", "required": "True"},
-            "address": {"type": "string", "required": "True"},
-            "reseller_name": {"type": "string", "required": "True"},
-            "password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
-        },
-    },
-    "download.system.vmlicense": {
-        "url": "system/vmlicense/download",
-        "params": {
-            "token": {"type": "string", "required": "False"},
-            "proxy_url": {"type": "string", "required": "False"},
-        },
-    },
-    "save.system.config": {"url": "system/config/save", "params": {}},
-    "tunnel_reset_stats.vpn.ipsec": {
-        "url": "vpn/ipsec/tunnel_reset_stats",
-        "params": {"p1name": {"type": "string", "required": "True"}},
-    },
-    "toggle-vdom-mode.system.admin": {
-        "url": "system/admin/toggle-vdom-mode",
-        "params": {},
-    },
-    "register-device.registration.forticloud": {
-        "url": "registration/forticloud/register-device",
-        "params": {
-            "country": {"type": "string", "required": "True"},
-            "serial": {"type": "string", "required": "True"},
-            "password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
-            "reseller": {"type": "string", "required": "True"},
-        },
+    "check.endpoint-control.registration-password": {
+        "url": "endpoint-control/registration-password/check",
+        "params": {"password": {"type": "string", "required": "True"}},
     },
     "quarantine.endpoint-control.registration": {
         "url": "endpoint-control/registration/quarantine",
         "params": {
-            "mac": {"type": "string", "required": "False"},
             "uid": {"type": "string", "required": "False"},
-        },
-    },
-    "set_status.wifi.rogue_ap": {
-        "url": "wifi/rogue_ap/set_status",
-        "params": {
-            "status": {"type": "string", "required": "False"},
-            "ssid": {"type": "array", "required": "False"},
-            "bssid": {"type": "array", "required": "False"},
-        },
-    },
-    "email.user.guest": {
-        "url": "user/guest/email",
-        "params": {
-            "group": {"type": "string", "required": "True"},
-            "guest": {"type": "array", "required": "True"},
-        },
-    },
-    "add.firewall.clearpass-address": {
-        "url": "firewall/clearpass-address/add",
-        "params": {
-            "endpoint_ip": {"type": "array", "required": "True"},
-            "spt": {"type": "string", "required": "False"},
-        },
-    },
-    "transfer.registration.forticare": {
-        "url": "registration/forticare/transfer",
-        "params": {
-            "password": {"type": "string", "required": "True"},
-            "old_password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
-            "old_email": {"type": "string", "required": "True"},
-        },
-    },
-    "import.vpn-certificate.crl": {
-        "url": "vpn-certificate/crl/import",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-        },
-    },
-    "reset.firewall.dnat": {"url": "firewall/dnat/reset", "params": {}},
-    "disassociate.wifi.client": {
-        "url": "wifi/client/disassociate",
-        "params": {"mac": {"type": "string", "required": "True"}},
-    },
-    "reset.webfilter.category-quota": {
-        "url": "webfilter/category-quota/reset",
-        "params": {
-            "profile": {"type": "string", "required": "False"},
-            "user": {"type": "string", "required": "False"},
-        },
-    },
-    "close-multiple.firewall.session6": {
-        "url": "firewall/session6/close-multiple",
-        "params": {
-            "proto": {"type": "string", "required": "False"},
-            "daddr": {"type": "string", "required": "False"},
-            "policy": {"type": "int", "required": "False"},
-            "saddr": {"type": "string", "required": "False"},
-            "dport": {"type": "int", "required": "False"},
-            "sport": {"type": "int", "required": "False"},
-        },
-    },
-    "test-availability.system.fortiguard": {
-        "url": "system/fortiguard/test-availability",
-        "params": {
-            "protocol": {"type": "string", "required": "True"},
-            "port": {"type": "int", "required": "True"},
-            "service": {"type": "string", "required": "True"},
-        },
-    },
-    "tunnel_up.vpn.ipsec": {
-        "url": "vpn/ipsec/tunnel_up",
-        "params": {
-            "p2name": {"type": "string", "required": "True"},
-            "p2serial": {"type": "int", "required": "False"},
-            "p1name": {"type": "string", "required": "True"},
-        },
-    },
-    "read-info.system.certificate": {
-        "url": "system/certificate/read-info",
-        "params": {"value": {"type": "string", "required": "True"}},
-    },
-    "deregister.endpoint-control.registration": {
-        "url": "endpoint-control/registration/deregister",
-        "params": {
             "mac": {"type": "string", "required": "False"},
+        },
+    },
+    "unquarantine.endpoint-control.registration": {
+        "url": "endpoint-control/registration/unquarantine",
+        "params": {
             "uid": {"type": "string", "required": "False"},
-        },
-    },
-    "clear-soft-out.router.bgp": {"url": "router/bgp/clear-soft-out", "params": {}},
-    "factory-reset.switch-controller.managed-switch": {
-        "url": "switch-controller/managed-switch/factory-reset",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "clear-soft-in.router.bgp": {"url": "router/bgp/clear-soft-in", "params": {}},
-    "stop.system.sniffer": {
-        "url": "system/sniffer/stop",
-        "params": {"mkey": {"type": "int", "required": "True"}},
-    },
-    "delete.log.local-report": {
-        "url": "log/local-report/delete",
-        "params": {"mkeys": {"type": "array", "required": "True"}},
-    },
-    "add-license.registration.forticare": {
-        "url": "registration/forticare/add-license",
-        "params": {"registration_code": {"type": "string", "required": "True"}},
-    },
-    "verify-cert.endpoint-control.ems": {
-        "url": "endpoint-control/ems/verify-cert",
-        "params": {
-            "ems_name": {"type": "string", "required": "True"},
-            "fingerprint": {"type": "string", "required": "True"},
-        },
-    },
-    "stop.network.debug-flow": {"url": "network/debug-flow/stop", "params": {}},
-    "cancel.fortiview.session": {
-        "url": "fortiview/session/cancel",
-        "params": {
-            "device": {"type": "string", "required": "False"},
-            "sessionid": {"type": "int", "required": "False"},
-            "view_level": {"type": "string", "required": "False"},
-            "report_by": {"type": "string", "required": "False"},
-        },
-    },
-    "restart.wifi.managed_ap": {
-        "url": "wifi/managed_ap/restart",
-        "params": {"wtpname": {"type": "string", "required": "False"}},
-    },
-    "start.network.debug-flow": {
-        "url": "network/debug-flow/start",
-        "params": {
-            "dport_from": {"type": "int", "required": "False"},
-            "dport_to": {"type": "int", "required": "False"},
-            "saddr_from": {"type": "string", "required": "False"},
-            "addr_to": {"type": "string", "required": "False"},
-            "daddr_from": {"type": "string", "required": "False"},
-            "proto": {"type": "int", "required": "False"},
-            "addr_from": {"type": "string", "required": "False"},
-            "sport_from": {"type": "int", "required": "False"},
-            "port_to": {"type": "int", "required": "False"},
-            "num_packets": {"type": "int", "required": "True"},
-            "port_from": {"type": "int", "required": "False"},
-            "sport_to": {"type": "int", "required": "False"},
-            "ipv6": {"type": "boolean", "required": "True"},
-            "negate": {"type": "boolean", "required": "False"},
-            "daddr_to": {"type": "string", "required": "False"},
-            "saddr_to": {"type": "string", "required": "False"},
-        },
-    },
-    "delete.webfilter.override": {
-        "url": "webfilter/override/delete",
-        "params": {"mkey": {"type": "string", "required": "False"}},
-    },
-    "unblock.endpoint-control.registration": {
-        "url": "endpoint-control/registration/unblock",
-        "params": {
             "mac": {"type": "string", "required": "False"},
-            "uid": {"type": "string", "required": "False"},
-        },
-    },
-    "port-stats-reset.switch-controller.managed-switch": {
-        "url": "switch-controller/managed-switch/port-stats-reset",
-        "params": {
-            "ports": {"type": "array", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
-        },
-    },
-    "stop.system.usb-log": {"url": "system/usb-log/stop", "params": {}},
-    "close.firewall.session": {
-        "url": "firewall/session/close",
-        "params": {
-            "daddr": {"type": "string", "required": "True"},
-            "dport": {"type": "int", "required": "True"},
-            "pro": {"type": "string", "required": "True"},
-            "sport": {"type": "int", "required": "True"},
-            "saddr": {"type": "string", "required": "True"},
-        },
-    },
-    "reset.firewall.shaper": {"url": "firewall/shaper/reset", "params": {}},
-    "clear_all.firewall.session": {"url": "firewall/session/clear_all", "params": {}},
-    "clear_counters.firewall.acl": {
-        "url": "firewall/acl/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "reset.wifi.euclid": {"url": "wifi/euclid/reset", "params": {}},
-    "abort.user.query": {
-        "url": "user/query/abort",
-        "params": {"query_id": {"type": "int", "required": "True"}},
-    },
-    "revoke.system.dhcp": {
-        "url": "system/dhcp/revoke",
-        "params": {"ip": {"type": "array", "required": "False"}},
-    },
-    "add_users.user.banned": {
-        "url": "user/banned/add_users",
-        "params": {
-            "ip_addresses": {"type": "array", "required": "True"},
-            "expiry": {"type": "int", "required": "False"},
-        },
-    },
-    "start.system.fsck": {"url": "system/fsck/start", "params": {}},
-    "clear_counters.firewall.multicast-policy6": {
-        "url": "firewall/multicast-policy6/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "clear_counters.firewall.policy6": {
-        "url": "firewall/policy6/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "change-vdom-mode.system.admin": {
-        "url": "system/admin/change-vdom-mode",
-        "params": {"vdom-mode": {"type": "string", "required": "True"}},
-    },
-    "refresh-server.user.fsso": {"url": "user/fsso/refresh-server", "params": {}},
-    "clear_counters.firewall.consolidated-policy": {
-        "url": "firewall/consolidated-policy/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "trigger.system.security-rating": {
-        "url": "system/security-rating/trigger",
-        "params": {
-            "report_types": {"type": "array", "required": "False"},
-            "report_type": {"type": "string", "required": "False"},
-        },
-    },
-    "webhook.system.automation-stitch": {
-        "url": "system/automation-stitch/webhook",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "generate.vpn-certificate.csr": {
-        "url": "vpn-certificate/csr/generate",
-        "params": {
-            "city": {"type": "string", "required": "False"},
-            "orgunits": {"type": "array", "required": "False"},
-            "subject_alt_name": {"type": "string", "required": "False"},
-            "countrycode": {"type": "string", "required": "False"},
-            "scep_url": {"type": "string", "required": "False"},
-            "curvename": {"type": "string", "required": "False"},
-            "keytype": {"type": "string", "required": "True"},
-            "certname": {"type": "string", "required": "True"},
-            "scep_password": {"type": "string", "required": "False"},
-            "state": {"type": "string", "required": "False"},
-            "keysize": {"type": "int", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-            "org": {"type": "string", "required": "False"},
-            "password": {"type": "string", "required": "False"},
-            "email": {"type": "string", "required": "False"},
-            "subject": {"type": "string", "required": "True"},
-        },
-    },
-    "upload.system.vmlicense": {
-        "url": "system/vmlicense/upload",
-        "params": {"file_content": {"type": "string", "required": "False"}},
-    },
-    "reset.firewall.multicast-policy6": {
-        "url": "firewall/multicast-policy6/reset",
-        "params": {},
-    },
-    "backup.system.config": {
-        "url": "system/config/backup",
-        "params": {
-            "password": {"type": "string", "required": "False"},
-            "usb_filename": {"type": "string", "required": "False"},
-            "destination": {"type": "string", "required": "False"},
-            "vdom": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "True"},
-        },
-    },
-    "push.wifi.firmware": {
-        "url": "wifi/firmware/push",
-        "params": {
-            "image_id": {"type": "string", "required": "True"},
-            "serial": {"type": "string", "required": "True"},
-        },
-    },
-    "eject.system.usb-device": {"url": "system/usb-device/eject", "params": {}},
-    "start.system.sniffer": {
-        "url": "system/sniffer/start",
-        "params": {"mkey": {"type": "int", "required": "True"}},
-    },
-    "kill.system.process": {
-        "url": "system/process/kill",
-        "params": {
-            "signal": {"type": "int", "required": "False"},
-            "pid": {"type": "int", "required": "True"},
-        },
-    },
-    "reboot.system.os": {
-        "url": "system/os/reboot",
-        "params": {"event_log_message": {"type": "string", "required": "False"}},
-    },
-    "reset.firewall.consolidated-policy": {
-        "url": "firewall/consolidated-policy/reset",
-        "params": {},
-    },
-    "set.system.time": {
-        "url": "system/time/set",
-        "params": {
-            "hour": {"type": "int", "required": "True"},
-            "month": {"type": "int", "required": "True"},
-            "second": {"type": "int", "required": "True"},
-            "year": {"type": "int", "required": "True"},
-            "day": {"type": "int", "required": "True"},
-            "minute": {"type": "int", "required": "True"},
-        },
-    },
-    "remove.user.device": {
-        "url": "user/device/remove",
-        "params": {"macs": {"type": "array", "required": "False"}},
-    },
-    "import.vpn-certificate.remote": {
-        "url": "vpn-certificate/remote/import",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-        },
-    },
-    "upload.webproxy.pacfile": {
-        "url": "webproxy/pacfile/upload",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
-    },
-    "push.switch-controller.fsw-firmware": {
-        "url": "switch-controller/fsw-firmware/push",
-        "params": {
-            "image_id": {"type": "string", "required": "True"},
-            "serial": {"type": "string", "required": "True"},
-        },
-    },
-    "reset.wanopt.peer_stats": {"url": "wanopt/peer_stats/reset", "params": {}},
-    "delete.vpn.ssl": {
-        "url": "vpn/ssl/delete",
-        "params": {
-            "index": {"type": "int", "required": "True"},
-            "type": {"type": "string", "required": "True"},
         },
     },
     "block.endpoint-control.registration": {
         "url": "endpoint-control/registration/block",
         "params": {
-            "mac": {"type": "string", "required": "False"},
             "uid": {"type": "string", "required": "False"},
+            "mac": {"type": "string", "required": "False"},
         },
     },
-    "backup-action.system.fortimanager": {
-        "url": "system/fortimanager/backup-action",
+    "unblock.endpoint-control.registration": {
+        "url": "endpoint-control/registration/unblock",
         "params": {
-            "operation": {"type": "string", "required": "True"},
-            "objects": {"type": "array", "required": "True"},
+            "uid": {"type": "string", "required": "False"},
+            "mac": {"type": "string", "required": "False"},
         },
     },
-    "start.system.usb-log": {"url": "system/usb-log/start", "params": {}},
-    "save.system.config-revision": {
-        "url": "system/config-revision/save",
-        "params": {"comments": {"type": "string", "required": "False"}},
-    },
-    "create.vpn-certificate.local": {
-        "url": "vpn-certificate/local/create",
+    "deregister.endpoint-control.registration": {
+        "url": "endpoint-control/registration/deregister",
         "params": {
-            "common_name": {"type": "string", "required": "True"},
-            "scope": {"type": "string", "required": "True"},
-            "certname": {"type": "string", "required": "True"},
+            "uid": {"type": "string", "required": "False"},
+            "mac": {"type": "string", "required": "False"},
         },
     },
-    "tunnel_down.vpn.ipsec": {
-        "url": "vpn/ipsec/tunnel_down",
+    "clear_counters.firewall.acl": {
+        "url": "firewall/acl/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "clear_counters.firewall.acl6": {
+        "url": "firewall/acl6/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "reset.firewall.policy": {"url": "firewall/policy/reset", "params": {}},
+    "clear_counters.firewall.policy": {
+        "url": "firewall/policy/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "reset.firewall.policy6": {"url": "firewall/policy6/reset", "params": {}},
+    "clear_counters.firewall.policy6": {
+        "url": "firewall/policy6/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "clear_counters.firewall.proxy-policy": {
+        "url": "firewall/proxy-policy/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "clear_all.firewall.session": {"url": "firewall/session/clear_all", "params": {}},
+    "close.firewall.session": {
+        "url": "firewall/session/close",
         "params": {
-            "p2name": {"type": "string", "required": "True"},
-            "p2serial": {"type": "int", "required": "False"},
-            "p1name": {"type": "string", "required": "True"},
+            "pro": {"type": "string", "required": "True"},
+            "saddr": {"type": "string", "required": "True"},
+            "daddr": {"type": "string", "required": "True"},
+            "sport": {"type": "int", "required": "True"},
+            "dport": {"type": "int", "required": "True"},
         },
     },
-    "clear_all.wifi.rogue_ap": {"url": "wifi/rogue_ap/clear_all", "params": {}},
-    "import-seed.user.fortitoken": {
-        "url": "user/fortitoken/import-seed",
-        "params": {"file_content": {"type": "string", "required": "False"}},
+    "reset.firewall.shaper": {"url": "firewall/shaper/reset", "params": {}},
+    "reset.firewall.per-ip-shaper": {
+        "url": "firewall/per-ip-shaper/reset",
+        "params": {},
     },
-    "wake-on-lan.system.interface": {
-        "url": "system/interface/wake-on-lan",
+    "cancel.fortiview.session": {
+        "url": "fortiview/session/cancel",
         "params": {
-            "mac": {"type": "string", "required": "True"},
-            "secureon_password": {"type": "string", "required": "False"},
-            "address": {"type": "string", "required": "False"},
-            "port": {"type": "int", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
-            "protocol_option": {"type": "string", "required": "False"},
+            "sessionid": {"type": "int", "required": "False"},
+            "device": {"type": "string", "required": "False"},
+            "report_by": {"type": "string", "required": "False"},
+            "view_level": {"type": "string", "required": "False"},
         },
     },
-    "poe-reset.switch-controller.managed-switch": {
-        "url": "switch-controller/managed-switch/poe-reset",
+    "upgrade.license.database": {
+        "url": "license/database/upgrade",
         "params": {
-            "port": {"type": "string", "required": "True"},
-            "mkey": {"type": "string", "required": "True"},
+            "db_name": {"type": "string", "required": "True"},
+            "confirm_not_signed": {"type": "boolean", "required": "False"},
+            "file_id": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "reset.log.stats": {"url": "log/stats/reset", "params": {}},
+    "login.registration.forticloud": {
+        "url": "registration/forticloud/login",
+        "params": {
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+            "send_logs": {"type": "boolean", "required": "False"},
+            "domain": {"type": "string", "required": "False"},
+        },
+    },
+    "create.registration.forticloud": {
+        "url": "registration/forticloud/create",
+        "params": {
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+            "send_logs": {"type": "boolean", "required": "False"},
         },
     },
     "logout.registration.forticloud": {
         "url": "registration/forticloud/logout",
         "params": {},
     },
-    "clear_counters.firewall.acl6": {
-        "url": "firewall/acl6/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "restore.system.config": {
-        "url": "system/config/restore",
+    "login.registration.forticare": {
+        "url": "registration/forticare/login",
         "params": {
-            "config_id": {"type": "int", "required": "False"},
-            "file_content": {"type": "string", "required": "False"},
-            "usb_filename": {"type": "string", "required": "False"},
-            "source": {"type": "string", "required": "True"},
-            "scope": {"type": "string", "required": "True"},
-            "password": {"type": "string", "required": "False"},
-            "vdom": {"type": "string", "required": "False"},
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+            "reseller_name": {"type": "string", "required": "True"},
+            "reseller_id": {"type": "int", "required": "True"},
+            "is_government": {"type": "boolean", "required": "False"},
         },
     },
-    "import.vpn-certificate.ca": {
-        "url": "vpn-certificate/ca/import",
+    "create.registration.forticare": {
+        "url": "registration/forticare/create",
         "params": {
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+            "first_name": {"type": "string", "required": "True"},
+            "last_name": {"type": "string", "required": "True"},
+            "title": {"type": "string", "required": "False"},
+            "company": {"type": "string", "required": "True"},
+            "address": {"type": "string", "required": "True"},
+            "city": {"type": "string", "required": "True"},
+            "country_code": {"type": "int", "required": "True"},
+            "state": {"type": "string", "required": "True"},
+            "state_code": {"type": "string", "required": "False"},
+            "postal_code": {"type": "string", "required": "True"},
+            "phone": {"type": "string", "required": "True"},
+            "industry": {"type": "string", "required": "True"},
+            "industry_id": {"type": "int", "required": "True"},
+            "orgsize_id": {"type": "int", "required": "True"},
+            "reseller_name": {"type": "string", "required": "True"},
+            "reseller_id": {"type": "int", "required": "True"},
+            "is_government": {"type": "boolean", "required": "False"},
+        },
+    },
+    "add-license.registration.forticare": {
+        "url": "registration/forticare/add-license",
+        "params": {"registration_code": {"type": "string", "required": "True"}},
+    },
+    "add-license.registration.vdom": {
+        "url": "registration/vdom/add-license",
+        "params": {"license": {"type": "string", "required": "True"}},
+    },
+    "toggle-vdom-mode.system.admin": {
+        "url": "system/admin/toggle-vdom-mode",
+        "params": {},
+    },
+    "generate-key.system.api-user": {
+        "url": "system/api-user/generate-key",
+        "params": {"api-user": {"type": "string", "required": "True"}},
+    },
+    "update-comments.system.config-revision": {
+        "url": "system/config-revision/update-comments",
+        "params": {
+            "config_id": {"type": "int", "required": "False"},
+            "comments": {"type": "string", "required": "False"},
+        },
+    },
+    "delete.system.config-revision": {
+        "url": "system/config-revision/delete",
+        "params": {"config_ids": {"type": "array", "required": "True"}},
+    },
+    "save.system.config-revision": {
+        "url": "system/config-revision/save",
+        "params": {"comments": {"type": "string", "required": "False"}},
+    },
+    "system.disconnect-admins": {
+        "url": "system/disconnect-admins/select",
+        "params": {
+            "id": {"type": "int", "required": "False"},
+            "method": {"type": "string", "required": "False"},
+            "admins": {"type": "array", "required": "False"},
+        },
+    },
+    "set.system.time": {
+        "url": "system/time/set",
+        "params": {
+            "year": {"type": "int", "required": "True"},
+            "month": {"type": "int", "required": "True"},
+            "day": {"type": "int", "required": "True"},
+            "hour": {"type": "int", "required": "True"},
+            "minute": {"type": "int", "required": "True"},
+            "second": {"type": "int", "required": "True"},
+        },
+    },
+    "reboot.system.os": {
+        "url": "system/os/reboot",
+        "params": {"event_log_message": {"type": "string", "required": "False"}},
+    },
+    "shutdown.system.os": {
+        "url": "system/os/shutdown",
+        "params": {"event_log_message": {"type": "string", "required": "False"}},
+    },
+    "revoke.system.dhcp": {
+        "url": "system/dhcp/revoke",
+        "params": {"ip": {"type": "array", "required": "False"}},
+    },
+    "revoke.system.dhcp6": {
+        "url": "system/dhcp6/revoke",
+        "params": {"ip": {"type": "array", "required": "False"}},
+    },
+    "upgrade.system.firmware": {
+        "url": "system/firmware/upgrade",
+        "params": {
+            "source": {"type": "string", "required": "True"},
+            "filename": {"type": "string", "required": "False"},
+            "format_partition": {"type": "boolean", "required": "False"},
+            "ignore_invalid_signature": {"type": "boolean", "required": "False"},
+            "file_id": {"type": "string", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-            "import_method": {"type": "string", "required": "True"},
-            "scep_ca_id": {"type": "string", "required": "False"},
-            "scep_url": {"type": "string", "required": "False"},
+        },
+    },
+    "start.system.fsck": {"url": "system/fsck/start", "params": {}},
+    "system.change-password": {
+        "url": "system/change-password/select",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "old_password": {"type": "string", "required": "False"},
+            "new_password": {"type": "string", "required": "True"},
+        },
+    },
+    "system.password-policy-conform": {
+        "url": "system/password-policy-conform/select",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "apply_to": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+            "old_password": {"type": "string", "required": "False"},
+        },
+    },
+    "reset.system.modem": {"url": "system/modem/reset", "params": {}},
+    "connect.system.modem": {"url": "system/modem/connect", "params": {}},
+    "disconnect.system.modem": {"url": "system/modem/disconnect", "params": {}},
+    "update.system.modem": {"url": "system/modem/update", "params": {}},
+    "restart.system.sniffer": {
+        "url": "system/sniffer/restart",
+        "params": {"mkey": {"type": "int", "required": "True"}},
+    },
+    "start.system.sniffer": {
+        "url": "system/sniffer/start",
+        "params": {"mkey": {"type": "int", "required": "True"}},
+    },
+    "stop.system.sniffer": {
+        "url": "system/sniffer/stop",
+        "params": {"mkey": {"type": "int", "required": "True"}},
+    },
+    "test.system.automation-stitch": {
+        "url": "system/automation-stitch/test",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "log": {"type": "string", "required": "False"},
+        },
+    },
+    "update.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/update",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "admin": {"type": "string", "required": "False"},
+        },
+    },
+    "restart.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/restart",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "poe-reset.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/poe-reset",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "port": {"type": "string", "required": "True"},
+        },
+    },
+    "factory-reset.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/factory-reset",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "download.switch-controller.fsw-firmware": {
+        "url": "switch-controller/fsw-firmware/download",
+        "params": {"image_id": {"type": "string", "required": "True"}},
+    },
+    "push.switch-controller.fsw-firmware": {
+        "url": "switch-controller/fsw-firmware/push",
+        "params": {
+            "serial": {"type": "string", "required": "True"},
+            "image_id": {"type": "string", "required": "True"},
         },
     },
     "upload.switch-controller.fsw-firmware": {
@@ -971,175 +681,87 @@ module_selectors_defs = {
             "file_content": {"type": "string", "required": "False"},
         },
     },
-    "test.user.tacacs-plus": {
-        "url": "user/tacacs-plus/test",
+    "dhcp-renew.system.interface": {
+        "url": "system/interface/dhcp-renew",
         "params": {
-            "ordinal": {"type": "string", "required": "False"},
-            "source_ip": {"type": "string", "required": "False"},
-            "server": {"type": "string", "required": "False"},
-            "secret": {"type": "string", "required": "False"},
-            "port": {"type": "int", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
+            "mkey": {"type": "string", "required": "True"},
+            "ipv6": {"type": "boolean", "required": "False"},
         },
     },
-    "upload.system.config-script": {
-        "url": "system/config-script/upload",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
-    },
-    "system.password-policy-conform": {
-        "url": "system/password-policy-conform/select",
-        "params": {
-            "apply_to": {"type": "string", "required": "False"},
-            "password": {"type": "string", "required": "False"},
-            "old_password": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
-    "sms.user.guest": {
-        "url": "user/guest/sms",
-        "params": {
-            "group": {"type": "string", "required": "True"},
-            "guest": {"type": "array", "required": "True"},
-        },
-    },
-    "delete.system.config-script": {
-        "url": "system/config-script/delete",
-        "params": {"id_list": {"type": "array", "required": "True"}},
-    },
-    "reset.wanopt.history": {"url": "wanopt/history/reset", "params": {}},
-    "reset.firewall.policy6": {"url": "firewall/policy6/reset", "params": {}},
-    "import-mobile.user.fortitoken": {
-        "url": "user/fortitoken/import-mobile",
-        "params": {"code": {"type": "string", "required": "True"}},
-    },
-    "download.switch-controller.fsw-firmware": {
-        "url": "switch-controller/fsw-firmware/download",
-        "params": {"image_id": {"type": "string", "required": "True"}},
-    },
-    "stop.wifi.spectrum": {
-        "url": "wifi/spectrum/stop",
-        "params": {
-            "radio_id": {"type": "int", "required": "True"},
-            "wtp_id": {"type": "string", "required": "True"},
-        },
-    },
-    "reset.firewall.central-snat-map": {
-        "url": "firewall/central-snat-map/reset",
+    "start.system.usb-log": {"url": "system/usb-log/start", "params": {}},
+    "stop.system.usb-log": {"url": "system/usb-log/stop", "params": {}},
+    "eject.system.usb-device": {"url": "system/usb-device/eject", "params": {}},
+    "update.system.fortiguard": {"url": "system/fortiguard/update", "params": {}},
+    "clear-statistics.system.fortiguard": {
+        "url": "system/fortiguard/clear-statistics",
         "params": {},
     },
-    "clear.system.crash-log": {"url": "system/crash-log/clear", "params": {}},
-    "bounce-port.switch-controller.managed-switch": {
-        "url": "switch-controller/managed-switch/bounce-port",
+    "test-availability.system.fortiguard": {
+        "url": "system/fortiguard/test-availability",
         "params": {
-            "duration": {"type": "int", "required": "False"},
-            "stop": {"type": "boolean", "required": "False"},
-            "port": {"type": "string", "required": "True"},
-            "mkey": {"type": "string", "required": "True"},
+            "protocol": {"type": "string", "required": "True"},
+            "port": {"type": "int", "required": "True"},
+            "service": {"type": "string", "required": "True"},
         },
     },
-    "upgrade.system.lte-modem": {"url": "system/lte-modem/upgrade", "params": {}},
-    "close-all.firewall.session": {"url": "firewall/session/close-all", "params": {}},
-    "login.registration.forticare": {
-        "url": "registration/forticare/login",
+    "config.system.fortimanager": {
+        "url": "system/fortimanager/config",
         "params": {
-            "reseller_name": {"type": "string", "required": "True"},
-            "password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
-            "reseller_id": {"type": "int", "required": "True"},
+            "fortimanager_ip": {"type": "string", "required": "False"},
+            "unregister": {"type": "boolean", "required": "False"},
         },
     },
-    "close-multiple.firewall.session": {
-        "url": "firewall/session/close-multiple",
+    "backup-action.system.fortimanager": {
+        "url": "system/fortimanager/backup-action",
         "params": {
-            "nport": {"type": "int", "required": "False"},
-            "proto": {"type": "string", "required": "False"},
-            "daddr": {"type": "string", "required": "False"},
-            "policy": {"type": "int", "required": "False"},
-            "naddr": {"type": "string", "required": "False"},
-            "saddr": {"type": "string", "required": "False"},
-            "dport": {"type": "int", "required": "False"},
-            "sport": {"type": "int", "required": "False"},
+            "operation": {"type": "string", "required": "True"},
+            "objects": {"type": "array", "required": "True"},
         },
     },
-    "create.registration.forticloud": {
-        "url": "registration/forticloud/create",
+    "dump.system.com-log": {"url": "system/com-log/dump", "params": {}},
+    "update.system.ha-peer": {
+        "url": "system/ha-peer/update",
         "params": {
-            "send_logs": {"type": "boolean", "required": "False"},
-            "password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
+            "serial_no": {"type": "string", "required": "True"},
+            "vcluster_id": {"type": "int", "required": "False"},
+            "priority": {"type": "int", "required": "False"},
+            "hostname": {"type": "string", "required": "False"},
         },
     },
-    "upload.wifi.firmware": {
-        "url": "wifi/firmware/upload",
-        "params": {
-            "serials": {"type": "string", "required": "False"},
-            "file_content": {"type": "string", "required": "False"},
-        },
-    },
-    "start.wifi.spectrum": {
-        "url": "wifi/spectrum/start",
-        "params": {
-            "radio_id": {"type": "int", "required": "True"},
-            "channels": {"type": "array", "required": "True"},
-            "duration": {"type": "int", "required": "True"},
-            "wtp_id": {"type": "string", "required": "True"},
-        },
-    },
-    "disconnect.system.modem": {"url": "system/modem/disconnect", "params": {}},
     "disconnect.system.ha-peer": {
         "url": "system/ha-peer/disconnect",
         "params": {
+            "serial_no": {"type": "string", "required": "True"},
             "interface": {"type": "string", "required": "True"},
             "ip": {"type": "string", "required": "True"},
-            "serial_no": {"type": "string", "required": "True"},
             "mask": {"type": "string", "required": "True"},
         },
     },
-    "keep-alive.wifi.spectrum": {
-        "url": "wifi/spectrum/keep-alive",
+    "run.system.compliance": {"url": "system/compliance/run", "params": {}},
+    "restore.system.config": {
+        "url": "system/config/restore",
         "params": {
-            "radio_id": {"type": "int", "required": "True"},
-            "duration": {"type": "int", "required": "True"},
-            "wtp_id": {"type": "string", "required": "True"},
+            "source": {"type": "string", "required": "True"},
+            "usb_filename": {"type": "string", "required": "False"},
+            "config_id": {"type": "int", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "True"},
+            "vdom": {"type": "string", "required": "False"},
+            "file_format": {"type": "string", "required": "False"},
+            "confirm_password_mask": {"type": "boolean", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
         },
     },
-    "reset.system.modem": {"url": "system/modem/reset", "params": {}},
-    "activate.user.fortitoken": {
-        "url": "user/fortitoken/activate",
-        "params": {"tokens": {"type": "array", "required": "False"}},
+    "upload.system.vmlicense": {
+        "url": "system/vmlicense/upload",
+        "params": {"file_content": {"type": "string", "required": "False"}},
     },
-    "register-appliance.system.csf": {
-        "url": "system/csf/register-appliance",
+    "trigger.system.security-rating": {
+        "url": "system/security-rating/trigger",
         "params": {
-            "mgmt_ip": {"type": "string", "required": "True"},
-            "mgmt_port": {"type": "int", "required": "False"},
-            "hostname": {"type": "string", "required": "False"},
-            "mgmt_url_parameters": {"type": "array", "required": "False"},
-            "serial": {"type": "string", "required": "True"},
-            "type": {"type": "string", "required": "True"},
+            "report_type": {"type": "string", "required": "False"},
+            "report_types": {"type": "array", "required": "False"},
         },
-    },
-    "refresh.azure.application-list": {
-        "url": "azure/application-list/refresh",
-        "params": {"last_update_time": {"type": "int", "required": "False"}},
-    },
-    "start.wifi.vlan-probe": {
-        "url": "wifi/vlan-probe/start",
-        "params": {
-            "wtp": {"type": "string", "required": "True"},
-            "retries": {"type": "int", "required": "True"},
-            "start_vlan_id": {"type": "int", "required": "True"},
-            "end_vlan_id": {"type": "int", "required": "True"},
-            "timeout": {"type": "int", "required": "True"},
-            "ap_interface": {"type": "int", "required": "True"},
-        },
-    },
-    "clear.system.sniffer": {
-        "url": "system/sniffer/clear",
-        "params": {"mkey": {"type": "int", "required": "True"}},
     },
     "reset.extender-controller.extender": {
         "url": "extender-controller/extender/reset",
@@ -1149,135 +771,344 @@ module_selectors_defs = {
         "url": "system/sdn-connector/validate-gcp-key",
         "params": {"private-key": {"type": "string", "required": "True"}},
     },
-    "restart.system.sniffer": {
-        "url": "system/sniffer/restart",
-        "params": {"mkey": {"type": "int", "required": "True"}},
-    },
-    "import.web-ui.language": {
-        "url": "web-ui/language/import",
-        "params": {"file_content": {"type": "string", "required": "False"}},
-    },
-    "import-trial.user.fortitoken": {
-        "url": "user/fortitoken/import-trial",
-        "params": {},
-    },
-    "flush.firewall.gtp": {
-        "url": "firewall/gtp/flush",
-        "params": {
-            "fteid_addr": {"type": "string", "required": "False"},
-            "ms_addr": {"type": "string", "required": "False"},
-            "msisdn": {"type": "string", "required": "False"},
-            "cteid_addr": {"type": "string", "required": "False"},
-            "cteid_addr6": {"type": "string", "required": "False"},
-            "version": {"type": "int", "required": "False"},
-            "apn": {"type": "string", "required": "False"},
-            "gtp_profile": {"type": "string", "required": "False"},
-            "fteid_addr6": {"type": "string", "required": "False"},
-            "ms_addr6": {"type": "string", "required": "False"},
-            "scope": {"type": "string", "required": "False"},
-            "cteid": {"type": "int", "required": "False"},
-            "imsi": {"type": "string", "required": "False"},
-            "fteid": {"type": "int", "required": "False"},
-        },
-    },
-    "dump.system.com-log": {"url": "system/com-log/dump", "params": {}},
-    "diagnose.extender-controller.extender": {
-        "url": "extender-controller/extender/diagnose",
-        "params": {
-            "cmd": {"type": "string", "required": "True"},
-            "id": {"type": "string", "required": "True"},
-        },
-    },
-    "update-comments.system.config-revision": {
-        "url": "system/config-revision/update-comments",
-        "params": {
-            "config_id": {"type": "int", "required": "False"},
-            "comments": {"type": "string", "required": "False"},
-        },
-    },
-    "refresh.user.fortitoken": {
-        "url": "user/fortitoken/refresh",
-        "params": {"tokens": {"type": "array", "required": "False"}},
-    },
-    "reset.firewall.policy": {"url": "firewall/policy/reset", "params": {}},
-    "shutdown.system.os": {
-        "url": "system/os/shutdown",
-        "params": {"event_log_message": {"type": "string", "required": "False"}},
-    },
-    "reset.log.stats": {"url": "log/stats/reset", "params": {}},
-    "revoke.system.dhcp6": {
-        "url": "system/dhcp6/revoke",
-        "params": {"ip": {"type": "array", "required": "False"}},
-    },
-    "login.registration.forticloud": {
-        "url": "registration/forticloud/login",
-        "params": {
-            "send_logs": {"type": "boolean", "required": "False"},
-            "domain": {"type": "string", "required": "False"},
-            "password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
-        },
-    },
-    "reset.wanopt.webcache": {"url": "wanopt/webcache/reset", "params": {}},
-    "system.change-password": {
-        "url": "system/change-password/select",
-        "params": {
-            "new_password": {"type": "string", "required": "True"},
-            "old_password": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
-        },
-    },
-    "set_status.wifi.managed_ap": {
-        "url": "wifi/managed_ap/set_status",
-        "params": {
-            "admin": {"type": "string", "required": "False"},
-            "wtpname": {"type": "string", "required": "False"},
-        },
-    },
     "deauth.user.firewall": {
         "url": "user/firewall/deauth",
         "params": {
-            "all": {"type": "boolean", "required": "False"},
-            "users": {"type": "array", "required": "False"},
-            "ip": {"type": "string", "required": "False"},
             "user_type": {"type": "string", "required": "False"},
             "id": {"type": "int", "required": "False"},
+            "ip": {"type": "string", "required": "False"},
             "ip_version": {"type": "string", "required": "False"},
             "method": {"type": "string", "required": "False"},
+            "all": {"type": "boolean", "required": "False"},
+            "users": {"type": "array", "required": "False"},
         },
-    },
-    "upgrade.extender-controller.extender": {
-        "url": "extender-controller/extender/upgrade",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "id": {"type": "string", "required": "True"},
-        },
-    },
-    "delete.system.config-revision": {
-        "url": "system/config-revision/delete",
-        "params": {"config_ids": {"type": "array", "required": "True"}},
     },
     "clear_users.user.banned": {
         "url": "user/banned/clear_users",
         "params": {"ip_addresses": {"type": "array", "required": "True"}},
     },
-    "reset.firewall.multicast-policy": {
-        "url": "firewall/multicast-policy/reset",
-        "params": {},
+    "add_users.user.banned": {
+        "url": "user/banned/add_users",
+        "params": {
+            "ip_addresses": {"type": "array", "required": "True"},
+            "expiry": {"type": "int", "required": "False"},
+        },
+    },
+    "clear_all.user.banned": {"url": "user/banned/clear_all", "params": {}},
+    "activate.user.fortitoken": {
+        "url": "user/fortitoken/activate",
+        "params": {"tokens": {"type": "array", "required": "False"}},
+    },
+    "refresh.user.fortitoken": {
+        "url": "user/fortitoken/refresh",
+        "params": {"tokens": {"type": "array", "required": "False"}},
+    },
+    "provision.user.fortitoken": {
+        "url": "user/fortitoken/provision",
+        "params": {"tokens": {"type": "array", "required": "False"}},
     },
     "send-activation.user.fortitoken": {
         "url": "user/fortitoken/send-activation",
         "params": {
             "token": {"type": "string", "required": "True"},
-            "sms_phone": {"type": "string", "required": "False"},
             "method": {"type": "string", "required": "False"},
             "email": {"type": "string", "required": "False"},
+            "sms_phone": {"type": "string", "required": "False"},
         },
     },
+    "import-trial.user.fortitoken": {
+        "url": "user/fortitoken/import-trial",
+        "params": {},
+    },
+    "import-mobile.user.fortitoken": {
+        "url": "user/fortitoken/import-mobile",
+        "params": {"code": {"type": "string", "required": "True"}},
+    },
+    "import-seed.user.fortitoken": {
+        "url": "user/fortitoken/import-seed",
+        "params": {"file_content": {"type": "string", "required": "False"}},
+    },
+    "refresh-server.user.fsso": {"url": "user/fsso/refresh-server", "params": {}},
+    "test-connect.user.radius": {
+        "url": "user/radius/test-connect",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "ordinal": {"type": "string", "required": "False"},
+            "server": {"type": "string", "required": "False"},
+            "secret": {"type": "string", "required": "False"},
+            "auth_type": {"type": "string", "required": "False"},
+            "user": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+        },
+    },
+    "test.user.tacacs-plus": {
+        "url": "user/tacacs-plus/test",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "ordinal": {"type": "string", "required": "False"},
+            "server": {"type": "string", "required": "False"},
+            "secret": {"type": "string", "required": "False"},
+            "port": {"type": "int", "required": "False"},
+            "source_ip": {"type": "string", "required": "False"},
+        },
+    },
+    "delete.webfilter.override": {
+        "url": "webfilter/override/delete",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "reset.webfilter.category-quota": {
+        "url": "webfilter/category-quota/reset",
+        "params": {
+            "profile": {"type": "string", "required": "False"},
+            "user": {"type": "string", "required": "False"},
+        },
+    },
+    "tunnel_up.vpn.ipsec": {
+        "url": "vpn/ipsec/tunnel_up",
+        "params": {
+            "p1name": {"type": "string", "required": "True"},
+            "p2name": {"type": "string", "required": "True"},
+            "p2serial": {"type": "int", "required": "False"},
+        },
+    },
+    "tunnel_down.vpn.ipsec": {
+        "url": "vpn/ipsec/tunnel_down",
+        "params": {
+            "p1name": {"type": "string", "required": "True"},
+            "p2name": {"type": "string", "required": "True"},
+            "p2serial": {"type": "int", "required": "False"},
+        },
+    },
+    "tunnel_reset_stats.vpn.ipsec": {
+        "url": "vpn/ipsec/tunnel_reset_stats",
+        "params": {"p1name": {"type": "string", "required": "True"}},
+    },
+    "clear_tunnel.vpn.ssl": {"url": "vpn/ssl/clear_tunnel", "params": {}},
+    "delete.vpn.ssl": {
+        "url": "vpn/ssl/delete",
+        "params": {
+            "type": {"type": "string", "required": "True"},
+            "index": {"type": "int", "required": "True"},
+        },
+    },
+    "import.vpn-certificate.ca": {
+        "url": "vpn-certificate/ca/import",
+        "params": {
+            "import_method": {"type": "string", "required": "True"},
+            "scep_url": {"type": "string", "required": "False"},
+            "scep_ca_id": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "import.vpn-certificate.crl": {
+        "url": "vpn-certificate/crl/import",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "import.vpn-certificate.local": {
+        "url": "vpn-certificate/local/import",
+        "params": {
+            "type": {"type": "string", "required": "True"},
+            "certname": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+            "key_file_content": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+            "acme_domain": {"type": "string", "required": "False"},
+            "acme_email": {"type": "string", "required": "False"},
+            "acme_ca_url": {"type": "string", "required": "False"},
+            "acme_rsa_key_size": {"type": "int", "required": "False"},
+            "acme_renew_window": {"type": "int", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "import.vpn-certificate.remote": {
+        "url": "vpn-certificate/remote/import",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "generate.vpn-certificate.csr": {
+        "url": "vpn-certificate/csr/generate",
+        "params": {
+            "certname": {"type": "string", "required": "True"},
+            "subject": {"type": "string", "required": "True"},
+            "keytype": {"type": "string", "required": "True"},
+            "keysize": {"type": "int", "required": "False"},
+            "curvename": {"type": "string", "required": "False"},
+            "orgunits": {"type": "array", "required": "False"},
+            "org": {"type": "string", "required": "False"},
+            "city": {"type": "string", "required": "False"},
+            "state": {"type": "string", "required": "False"},
+            "countrycode": {"type": "string", "required": "False"},
+            "email": {"type": "string", "required": "False"},
+            "subject_alt_name": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+            "scep_url": {"type": "string", "required": "False"},
+            "scep_password": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "reset.wanopt.history": {"url": "wanopt/history/reset", "params": {}},
+    "reset.wanopt.webcache": {"url": "wanopt/webcache/reset", "params": {}},
+    "reset.wanopt.peer_stats": {"url": "wanopt/peer_stats/reset", "params": {}},
     "reset.webcache.stats": {"url": "webcache/stats/reset", "params": {}},
-    "clear_counters.firewall.proxy-policy": {
-        "url": "firewall/proxy-policy/clear_counters",
+    "set_status.wifi.managed_ap": {
+        "url": "wifi/managed_ap/set_status",
+        "params": {
+            "wtpname": {"type": "string", "required": "False"},
+            "admin": {"type": "string", "required": "False"},
+        },
+    },
+    "download.wifi.firmware": {
+        "url": "wifi/firmware/download",
+        "params": {"image_id": {"type": "string", "required": "True"}},
+    },
+    "push.wifi.firmware": {
+        "url": "wifi/firmware/push",
+        "params": {
+            "serial": {"type": "string", "required": "True"},
+            "image_id": {"type": "string", "required": "True"},
+        },
+    },
+    "upload.wifi.firmware": {
+        "url": "wifi/firmware/upload",
+        "params": {
+            "serials": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "restart.wifi.managed_ap": {
+        "url": "wifi/managed_ap/restart",
+        "params": {"wtpname": {"type": "string", "required": "False"}},
+    },
+    "reset.wifi.euclid": {"url": "wifi/euclid/reset", "params": {}},
+    "clear_all.wifi.rogue_ap": {"url": "wifi/rogue_ap/clear_all", "params": {}},
+    "set_status.wifi.rogue_ap": {
+        "url": "wifi/rogue_ap/set_status",
+        "params": {
+            "bssid": {"type": "array", "required": "False"},
+            "ssid": {"type": "array", "required": "False"},
+            "status": {"type": "string", "required": "False"},
+        },
+    },
+    "reset.firewall.consolidated-policy": {
+        "url": "firewall/consolidated-policy/reset",
+        "params": {},
+    },
+    "clear_counters.firewall.consolidated-policy": {
+        "url": "firewall/consolidated-policy/clear_counters",
         "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "clear_counters.firewall.security-policy": {
+        "url": "firewall/security-policy/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "add.firewall.clearpass-address": {
+        "url": "firewall/clearpass-address/add",
+        "params": {
+            "endpoint_ip": {"type": "array", "required": "True"},
+            "spt": {"type": "string", "required": "False"},
+        },
+    },
+    "delete.firewall.clearpass-address": {
+        "url": "firewall/clearpass-address/delete",
+        "params": {
+            "endpoint_ip": {"type": "array", "required": "True"},
+            "spt": {"type": "string", "required": "False"},
+        },
+    },
+    "delete.log.local-report": {
+        "url": "log/local-report/delete",
+        "params": {"mkeys": {"type": "array", "required": "True"}},
+    },
+    "migrate.registration.forticloud": {
+        "url": "registration/forticloud/migrate",
+        "params": {
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+        },
+    },
+    "change-vdom-mode.system.admin": {
+        "url": "system/admin/change-vdom-mode",
+        "params": {"vdom-mode": {"type": "string", "required": "True"}},
+    },
+    "delete.system.config-script": {
+        "url": "system/config-script/delete",
+        "params": {"id_list": {"type": "array", "required": "True"}},
+    },
+    "run.system.config-script": {
+        "url": "system/config-script/run",
+        "params": {"remote_script": {"type": "string", "required": "True"}},
+    },
+    "upload.system.config-script": {
+        "url": "system/config-script/upload",
+        "params": {
+            "filename": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "diagnose.extender-controller.extender": {
+        "url": "extender-controller/extender/diagnose",
+        "params": {
+            "id": {"type": "string", "required": "True"},
+            "cmd": {"type": "string", "required": "True"},
+        },
+    },
+    "upgrade.extender-controller.extender": {
+        "url": "extender-controller/extender/upgrade",
+        "params": {
+            "id": {"type": "string", "required": "True"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "add.nsx.service": {
+        "url": "nsx/service/add",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "update.system.sdn-connector": {
+        "url": "system/sdn-connector/update",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "import.web-ui.language": {
+        "url": "web-ui/language/import",
+        "params": {"file_content": {"type": "string", "required": "False"}},
+    },
+    "create.web-ui.custom-language": {
+        "url": "web-ui/custom-language/create",
+        "params": {
+            "filename": {"type": "string", "required": "True"},
+            "lang_name": {"type": "string", "required": "True"},
+            "lang_comments": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "update.web-ui.custom-language": {
+        "url": "web-ui/custom-language/update",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "lang_name": {"type": "string", "required": "False"},
+            "filename": {"type": "string", "required": "False"},
+            "lang_comments": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "email.user.guest": {
+        "url": "user/guest/email",
+        "params": {
+            "group": {"type": "string", "required": "True"},
+            "guest": {"type": "array", "required": "True"},
+        },
+    },
+    "sms.user.guest": {
+        "url": "user/guest/sms",
+        "params": {
+            "group": {"type": "string", "required": "True"},
+            "guest": {"type": "array", "required": "True"},
+        },
     },
     "utm.rating-lookup": {
         "url": "utm/rating-lookup/select",
@@ -1286,19 +1117,167 @@ module_selectors_defs = {
             "lang": {"type": "string", "required": "False"},
         },
     },
-    "test.system.automation-stitch": {
-        "url": "system/automation-stitch/test",
+    "connect.wifi.network": {
+        "url": "wifi/network/connect",
+        "params": {"ssid": {"type": "string", "required": "True"}},
+    },
+    "scan.wifi.network": {"url": "wifi/network/scan", "params": {}},
+    "upload.wifi.region-image": {
+        "url": "wifi/region-image/upload",
         "params": {
-            "log": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
+            "region_name": {"type": "string", "required": "True"},
+            "image_type": {"type": "string", "required": "True"},
+            "file_content": {"type": "string", "required": "False"},
         },
     },
-    "refresh.system.external-resource": {
-        "url": "system/external-resource/refresh",
+    "refresh.azure.application-list": {
+        "url": "azure/application-list/refresh",
+        "params": {"last_update_time": {"type": "int", "required": "False"}},
+    },
+    "verify-cert.endpoint-control.ems": {
+        "url": "endpoint-control/ems/verify-cert",
         "params": {
-            "last_connection_time": {"type": "int", "required": "False"},
-            "mkey": {"type": "string", "required": "True"},
-            "check_status_only": {"type": "boolean", "required": "False"},
+            "ems_id": {"type": "int", "required": "True"},
+            "fingerprint": {"type": "string", "required": "True"},
+        },
+    },
+    "geoip.geoip-query": {
+        "url": "geoip/geoip-query/select",
+        "params": {"ip_addresses": {"type": "array", "required": "True"}},
+    },
+    "transfer.registration.forticare": {
+        "url": "registration/forticare/transfer",
+        "params": {
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+            "old_email": {"type": "string", "required": "True"},
+            "old_password": {"type": "string", "required": "True"},
+        },
+    },
+    "register-device.registration.forticloud": {
+        "url": "registration/forticloud/register-device",
+        "params": {
+            "serial": {"type": "string", "required": "True"},
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
+            "reseller": {"type": "string", "required": "True"},
+            "reseller_id": {"type": "int", "required": "True"},
+            "country": {"type": "string", "required": "True"},
+            "is_government": {"type": "boolean", "required": "False"},
+        },
+    },
+    "register-appliance.system.csf": {
+        "url": "system/csf/register-appliance",
+        "params": {
+            "type": {"type": "string", "required": "True"},
+            "mgmt_ip": {"type": "string", "required": "True"},
+            "mgmt_port": {"type": "int", "required": "False"},
+            "mgmt_url_parameters": {"type": "array", "required": "False"},
+            "serial": {"type": "string", "required": "True"},
+            "hostname": {"type": "string", "required": "False"},
+        },
+    },
+    "clear.system.sniffer": {
+        "url": "system/sniffer/clear",
+        "params": {"mkey": {"type": "int", "required": "True"}},
+    },
+    "webhook.system.automation-stitch": {
+        "url": "system/automation-stitch/webhook",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "format.system.logdisk": {"url": "system/logdisk/format", "params": {}},
+    "speed-test-trigger.system.interface": {
+        "url": "system/interface/speed-test-trigger",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "read-info.system.certificate": {
+        "url": "system/certificate/read-info",
+        "params": {"value": {"type": "string", "required": "True"}},
+    },
+    "provision-user.vpn.ssl": {
+        "url": "vpn/ssl/provision-user",
+        "params": {
+            "host": {"type": "string", "required": "True"},
+            "port": {"type": "int", "required": "True"},
+            "vpn_name": {"type": "string", "required": "True"},
+            "method": {"type": "string", "required": "False"},
+            "email_list": {"type": "string", "required": "False"},
+            "phone_user_list": {"type": "string", "required": "False"},
+            "phone_number_list": {"type": "string", "required": "False"},
+            "sms_method": {"type": "string", "required": "False"},
+            "sms_server": {"type": "string", "required": "False"},
+        },
+    },
+    "upload.webproxy.pacfile": {
+        "url": "webproxy/pacfile/upload",
+        "params": {
+            "filename": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "disassociate.wifi.client": {
+        "url": "wifi/client/disassociate",
+        "params": {"mac": {"type": "string", "required": "True"}},
+    },
+    "start.wifi.spectrum": {
+        "url": "wifi/spectrum/start",
+        "params": {
+            "wtp_id": {"type": "string", "required": "True"},
+            "radio_id": {"type": "int", "required": "True"},
+            "channels": {"type": "array", "required": "True"},
+            "duration": {"type": "int", "required": "True"},
+        },
+    },
+    "keep-alive.wifi.spectrum": {
+        "url": "wifi/spectrum/keep-alive",
+        "params": {
+            "wtp_id": {"type": "string", "required": "True"},
+            "radio_id": {"type": "int", "required": "True"},
+            "duration": {"type": "int", "required": "True"},
+        },
+    },
+    "stop.wifi.spectrum": {
+        "url": "wifi/spectrum/stop",
+        "params": {
+            "wtp_id": {"type": "string", "required": "True"},
+            "radio_id": {"type": "int", "required": "True"},
+        },
+    },
+    "start.wifi.vlan-probe": {
+        "url": "wifi/vlan-probe/start",
+        "params": {
+            "ap_interface": {"type": "int", "required": "True"},
+            "wtp": {"type": "string", "required": "True"},
+            "start_vlan_id": {"type": "int", "required": "True"},
+            "end_vlan_id": {"type": "int", "required": "True"},
+            "retries": {"type": "int", "required": "True"},
+            "timeout": {"type": "int", "required": "True"},
+        },
+    },
+    "stop.wifi.vlan-probe": {
+        "url": "wifi/vlan-probe/stop",
+        "params": {
+            "ap_interface": {"type": "int", "required": "True"},
+            "wtp": {"type": "string", "required": "True"},
+        },
+    },
+    "generate-keys.wifi.ssid": {
+        "url": "wifi/ssid/generate-keys",
+        "params": {
+            "mpsk_profile": {"type": "string", "required": "True"},
+            "group": {"type": "string", "required": "True"},
+            "prefix": {"type": "string", "required": "True"},
+            "count": {"type": "int", "required": "True"},
+            "key_length": {"type": "int", "required": "True"},
+        },
+    },
+    "save.system.config": {"url": "system/config/save", "params": {}},
+    "led-blink.wifi.managed_ap": {
+        "url": "wifi/managed_ap/led-blink",
+        "params": {
+            "serials": {"type": "array", "required": "True"},
+            "blink": {"type": "boolean", "required": "True"},
+            "duration": {"type": "int", "required": "False"},
         },
     },
     "auth.user.firewall": {
@@ -1309,185 +1288,243 @@ module_selectors_defs = {
             "server": {"type": "string", "required": "False"},
         },
     },
-    "dhcp-renew.system.interface": {
-        "url": "system/interface/dhcp-renew",
-        "params": {
-            "mkey": {"type": "string", "required": "True"},
-            "ipv6": {"type": "boolean", "required": "False"},
-        },
+    "remove.user.device": {
+        "url": "user/device/remove",
+        "params": {"macs": {"type": "array", "required": "False"}},
     },
-    "migrate.registration.forticloud": {
-        "url": "registration/forticloud/migrate",
-        "params": {
-            "password": {"type": "string", "required": "True"},
-            "email": {"type": "string", "required": "True"},
-        },
+    "clear.vpn.ike": {
+        "url": "vpn/ike/clear",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "reset.firewall.multicast-policy": {
+        "url": "firewall/multicast-policy/reset",
+        "params": {},
+    },
+    "reset.firewall.multicast-policy6": {
+        "url": "firewall/multicast-policy6/reset",
+        "params": {},
     },
     "clear_counters.firewall.multicast-policy": {
         "url": "firewall/multicast-policy/clear_counters",
         "params": {"policy": {"type": "int", "required": "False"}},
     },
-    "connect.wifi.network": {
-        "url": "wifi/network/connect",
-        "params": {"ssid": {"type": "string", "required": "True"}},
+    "clear_counters.firewall.multicast-policy6": {
+        "url": "firewall/multicast-policy6/clear_counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
     },
-    "test-connect.user.radius": {
-        "url": "user/radius/test-connect",
+    "clear-soft-in.router.bgp": {"url": "router/bgp/clear-soft-in", "params": {}},
+    "clear-soft-out.router.bgp": {"url": "router/bgp/clear-soft-out", "params": {}},
+    "enable-app-bandwidth-tracking.system.traffic-history": {
+        "url": "system/traffic-history/enable-app-bandwidth-tracking",
+        "params": {},
+    },
+    "refresh.system.external-resource": {
+        "url": "system/external-resource/refresh",
         "params": {
-            "ordinal": {"type": "string", "required": "False"},
-            "auth_type": {"type": "string", "required": "False"},
-            "server": {"type": "string", "required": "False"},
-            "secret": {"type": "string", "required": "False"},
-            "user": {"type": "string", "required": "False"},
+            "mkey": {"type": "string", "required": "True"},
+            "check_status_only": {"type": "boolean", "required": "False"},
+            "last_connection_time": {"type": "int", "required": "False"},
+        },
+    },
+    "reset.firewall.central-snat-map": {
+        "url": "firewall/central-snat-map/reset",
+        "params": {},
+    },
+    "clear-counters.firewall.central-snat-map": {
+        "url": "firewall/central-snat-map/clear-counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "reset.firewall.dnat": {"url": "firewall/dnat/reset", "params": {}},
+    "clear-counters.firewall.dnat": {
+        "url": "firewall/dnat/clear-counters",
+        "params": {"id": {"type": "int", "required": "False"}},
+    },
+    "close-multiple.firewall.session": {
+        "url": "firewall/session/close-multiple",
+        "params": {
+            "proto": {"type": "string", "required": "False"},
+            "saddr": {"type": "string", "required": "False"},
+            "daddr": {"type": "string", "required": "False"},
+            "sport": {"type": "int", "required": "False"},
+            "dport": {"type": "int", "required": "False"},
+            "naddr": {"type": "string", "required": "False"},
+            "nport": {"type": "int", "required": "False"},
+            "policy": {"type": "int", "required": "False"},
+        },
+    },
+    "close-multiple.firewall.session6": {
+        "url": "firewall/session6/close-multiple",
+        "params": {
+            "proto": {"type": "string", "required": "False"},
+            "saddr": {"type": "string", "required": "False"},
+            "daddr": {"type": "string", "required": "False"},
+            "sport": {"type": "int", "required": "False"},
+            "dport": {"type": "int", "required": "False"},
+            "policy": {"type": "int", "required": "False"},
+        },
+    },
+    "close-all.firewall.session": {"url": "firewall/session/close-all", "params": {}},
+    "clear.system.crash-log": {"url": "system/crash-log/clear", "params": {}},
+    "backup.system.config": {
+        "url": "system/config/backup",
+        "params": {
+            "destination": {"type": "string", "required": "False"},
+            "usb_filename": {"type": "string", "required": "False"},
             "password": {"type": "string", "required": "False"},
-            "mkey": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "True"},
+            "vdom": {"type": "string", "required": "False"},
+            "password_mask": {"type": "boolean", "required": "False"},
+            "file_format": {"type": "string", "required": "False"},
         },
     },
-    "speed-test-trigger.system.interface": {
-        "url": "system/interface/speed-test-trigger",
-        "params": {"mkey": {"type": "string", "required": "True"}},
+    "abort.user.query": {
+        "url": "user/query/abort",
+        "params": {"query_id": {"type": "int", "required": "True"}},
     },
-    "generate-key.system.api-user": {
-        "url": "system/api-user/generate-key",
-        "params": {"api-user": {"type": "string", "required": "True"}},
-    },
-    "upload.wifi.region-image": {
-        "url": "wifi/region-image/upload",
+    "create.vpn-certificate.local": {
+        "url": "vpn-certificate/local/create",
         "params": {
-            "image_type": {"type": "string", "required": "True"},
+            "certname": {"type": "string", "required": "True"},
+            "common_name": {"type": "string", "required": "True"},
+            "scope": {"type": "string", "required": "True"},
+        },
+    },
+    "flush.firewall.gtp": {
+        "url": "firewall/gtp/flush",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "gtp_profile": {"type": "string", "required": "False"},
+            "version": {"type": "int", "required": "False"},
+            "imsi": {"type": "string", "required": "False"},
+            "msisdn": {"type": "string", "required": "False"},
+            "ms_addr": {"type": "string", "required": "False"},
+            "ms_addr6": {"type": "string", "required": "False"},
+            "cteid": {"type": "int", "required": "False"},
+            "cteid_addr": {"type": "string", "required": "False"},
+            "cteid_addr6": {"type": "string", "required": "False"},
+            "fteid": {"type": "int", "required": "False"},
+            "fteid_addr": {"type": "string", "required": "False"},
+            "fteid_addr6": {"type": "string", "required": "False"},
+            "apn": {"type": "string", "required": "False"},
+        },
+    },
+    "kill.system.process": {
+        "url": "system/process/kill",
+        "params": {
+            "pid": {"type": "int", "required": "True"},
+            "signal": {"type": "int", "required": "False"},
+        },
+    },
+    "upload.system.hscalefw-license": {
+        "url": "system/hscalefw-license/upload",
+        "params": {"license_key": {"type": "string", "required": "True"}},
+    },
+    "download.system.vmlicense": {
+        "url": "system/vmlicense/download",
+        "params": {
+            "token": {"type": "string", "required": "False"},
+            "proxy_url": {"type": "string", "required": "False"},
+        },
+    },
+    "start.network.debug-flow": {
+        "url": "network/debug-flow/start",
+        "params": {
+            "num_packets": {"type": "int", "required": "True"},
+            "ipv6": {"type": "boolean", "required": "True"},
+            "negate": {"type": "boolean", "required": "False"},
+            "addr_from": {"type": "string", "required": "False"},
+            "addr_to": {"type": "string", "required": "False"},
+            "daddr_from": {"type": "string", "required": "False"},
+            "daddr_to": {"type": "string", "required": "False"},
+            "saddr_from": {"type": "string", "required": "False"},
+            "saddr_to": {"type": "string", "required": "False"},
+            "port_from": {"type": "int", "required": "False"},
+            "port_to": {"type": "int", "required": "False"},
+            "dport_from": {"type": "int", "required": "False"},
+            "dport_to": {"type": "int", "required": "False"},
+            "sport_from": {"type": "int", "required": "False"},
+            "sport_to": {"type": "int", "required": "False"},
+            "proto": {"type": "int", "required": "False"},
+        },
+    },
+    "stop.network.debug-flow": {"url": "network/debug-flow/stop", "params": {}},
+    "upload.system.lte-modem": {
+        "url": "system/lte-modem/upload",
+        "params": {
+            "filename": {"type": "string", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
-            "region_name": {"type": "string", "required": "True"},
         },
     },
-    "run.system.config-script": {
-        "url": "system/config-script/run",
-        "params": {"remote_script": {"type": "string", "required": "True"}},
-    },
-    "purdue-level.user.device": {
-        "url": "user/device/purdue-level",
+    "upgrade.system.lte-modem": {"url": "system/lte-modem/upgrade", "params": {}},
+    "port-stats-reset.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/port-stats-reset",
         "params": {
-            "ip": {"type": "string", "required": "False"},
-            "mac": {"type": "string", "required": "True"},
-            "level": {"type": "string", "required": "True"},
+            "mkey": {"type": "string", "required": "True"},
+            "ports": {"type": "array", "required": "False"},
         },
     },
-    "clear_tunnel.vpn.ssl": {"url": "vpn/ssl/clear_tunnel", "params": {}},
-    "add.nsx.service": {
-        "url": "nsx/service/add",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "update.system.fortiguard": {"url": "system/fortiguard/update", "params": {}},
-    "restart.switch-controller.managed-switch": {
-        "url": "switch-controller/managed-switch/restart",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "unquarantine.endpoint-control.registration": {
-        "url": "endpoint-control/registration/unquarantine",
+    "bounce-port.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/bounce-port",
         "params": {
-            "mac": {"type": "string", "required": "False"},
-            "uid": {"type": "string", "required": "False"},
-        },
-    },
-    "led-blink.wifi.managed_ap": {
-        "url": "wifi/managed_ap/led-blink",
-        "params": {
-            "serials": {"type": "array", "required": "True"},
+            "mkey": {"type": "string", "required": "True"},
+            "port": {"type": "string", "required": "True"},
             "duration": {"type": "int", "required": "False"},
-            "blink": {"type": "boolean", "required": "True"},
-        },
-    },
-    "update.system.sdn-connector": {
-        "url": "system/sdn-connector/update",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "config.system.fortimanager": {
-        "url": "system/fortimanager/config",
-        "params": {
-            "unregister": {"type": "boolean", "required": "False"},
-            "fortimanager_ip": {"type": "string", "required": "False"},
+            "stop": {"type": "boolean", "required": "False"},
         },
     },
     "set-tier1.switch-controller.mclag-icl": {
         "url": "switch-controller/mclag-icl/set-tier1",
         "params": {
-            "peer1": {"type": "string", "required": "True"},
             "fortilink": {"type": "string", "required": "True"},
+            "peer1": {"type": "string", "required": "True"},
             "peer2": {"type": "string", "required": "True"},
         },
     },
-    "system.disconnect-admins": {
-        "url": "system/disconnect-admins/select",
+    "wake-on-lan.system.interface": {
+        "url": "system/interface/wake-on-lan",
         "params": {
-            "admins": {"type": "array", "required": "False"},
-            "id": {"type": "int", "required": "False"},
-            "method": {"type": "string", "required": "False"},
+            "mkey": {"type": "string", "required": "True"},
+            "mac": {"type": "string", "required": "True"},
+            "protocol_option": {"type": "string", "required": "False"},
+            "port": {"type": "int", "required": "False"},
+            "address": {"type": "string", "required": "False"},
+            "secureon_password": {"type": "string", "required": "False"},
         },
     },
-    "provision-user.vpn.ssl": {
-        "url": "vpn/ssl/provision-user",
+    "manual-update.system.fortiguard": {
+        "url": "system/fortiguard/manual-update",
+        "params": {"file_content": {"type": "string", "required": "False"}},
+    },
+    "purdue-level.user.device": {
+        "url": "user/device/purdue-level",
         "params": {
-            "sms_server": {"type": "string", "required": "False"},
-            "vpn_name": {"type": "string", "required": "True"},
-            "phone_user_list": {"type": "string", "required": "False"},
-            "method": {"type": "string", "required": "False"},
-            "email_list": {"type": "string", "required": "False"},
-            "host": {"type": "string", "required": "True"},
-            "sms_method": {"type": "string", "required": "False"},
-            "port": {"type": "int", "required": "True"},
-            "phone_number_list": {"type": "string", "required": "False"},
+            "mac": {"type": "string", "required": "True"},
+            "ip": {"type": "string", "required": "False"},
+            "level": {"type": "string", "required": "True"},
         },
     },
-    "create.web-ui.custom-language": {
-        "url": "web-ui/custom-language/create",
+    "deregister-device.registration.forticare": {
+        "url": "registration/forticare/deregister-device",
         "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "lang_name": {"type": "string", "required": "True"},
-            "lang_comments": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "True"},
+            "email": {"type": "string", "required": "True"},
+            "password": {"type": "string", "required": "True"},
         },
     },
-    "check.endpoint-control.registration-password": {
-        "url": "endpoint-control/registration-password/check",
-        "params": {"password": {"type": "string", "required": "True"}},
+    "soft-reset-neighbor.router.bgp": {
+        "url": "router/bgp/soft-reset-neighbor",
+        "params": {"ip": {"type": "string", "required": "True"}},
     },
-    "clear-counters.firewall.dnat": {
-        "url": "firewall/dnat/clear-counters",
-        "params": {"id": {"type": "int", "required": "False"}},
-    },
-    "scan.wifi.network": {"url": "wifi/network/scan", "params": {}},
-    "clear.vpn.ike": {
-        "url": "vpn/ike/clear",
-        "params": {"mkey": {"type": "string", "required": "True"}},
-    },
-    "clear_counters.firewall.security-policy": {
-        "url": "firewall/security-policy/clear_counters",
-        "params": {"policy": {"type": "int", "required": "False"}},
-    },
-    "clear_all.user.banned": {"url": "user/banned/clear_all", "params": {}},
-    "delete.firewall.clearpass-address": {
-        "url": "firewall/clearpass-address/delete",
+    "download-eval.system.vmlicense": {
+        "url": "system/vmlicense/download-eval",
         "params": {
-            "endpoint_ip": {"type": "array", "required": "True"},
-            "spt": {"type": "string", "required": "False"},
+            "account_id": {"type": "string", "required": "True"},
+            "account_password": {"type": "string", "required": "True"},
+            "is_government": {"type": "boolean", "required": "False"},
         },
     },
-    "connect.system.modem": {"url": "system/modem/connect", "params": {}},
-    "generate-keys.wifi.ssid": {
-        "url": "wifi/ssid/generate-keys",
-        "params": {
-            "count": {"type": "int", "required": "True"},
-            "prefix": {"type": "string", "required": "True"},
-            "group": {"type": "string", "required": "True"},
-            "key_length": {"type": "int", "required": "True"},
-            "mpsk_profile": {"type": "string", "required": "True"},
-        },
-    },
-    "upload.system.lte-modem": {
-        "url": "system/lte-modem/upload",
-        "params": {
-            "file_content": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
+    "dynamic.system.external-resource": {
+        "url": "system/external-resource/dynamic",
+        "params": {"commands": {"type": "array", "required": "True"}},
     },
 }
 
@@ -1577,200 +1614,205 @@ def main():
             "required": True,
             "type": "str",
             "choices": [
-                "format.system.logdisk",
-                "update.switch-controller.managed-switch",
-                "update.system.ha-peer",
-                "add-license.registration.vdom",
-                "geoip.geoip-query",
-                "clear-statistics.system.fortiguard",
-                "enable-app-bandwidth-tracking.system.traffic-history",
-                "upgrade.license.database",
-                "run.system.compliance",
-                "clear_counters.firewall.policy",
-                "upgrade.system.firmware",
-                "download.wifi.firmware",
-                "manual-update.system.fortiguard",
-                "provision.user.fortitoken",
-                "reset.firewall.per-ip-shaper",
-                "clear-counters.firewall.central-snat-map",
-                "update.system.modem",
-                "update.web-ui.custom-language",
-                "stop.wifi.vlan-probe",
-                "import.vpn-certificate.local",
-                "create.registration.forticare",
-                "download.system.vmlicense",
-                "save.system.config",
-                "tunnel_reset_stats.vpn.ipsec",
-                "toggle-vdom-mode.system.admin",
-                "register-device.registration.forticloud",
+                "check.endpoint-control.registration-password",
                 "quarantine.endpoint-control.registration",
-                "set_status.wifi.rogue_ap",
-                "email.user.guest",
-                "add.firewall.clearpass-address",
-                "transfer.registration.forticare",
-                "import.vpn-certificate.crl",
-                "reset.firewall.dnat",
-                "disassociate.wifi.client",
-                "reset.webfilter.category-quota",
-                "close-multiple.firewall.session6",
-                "test-availability.system.fortiguard",
-                "tunnel_up.vpn.ipsec",
-                "read-info.system.certificate",
-                "deregister.endpoint-control.registration",
-                "clear-soft-out.router.bgp",
-                "factory-reset.switch-controller.managed-switch",
-                "clear-soft-in.router.bgp",
-                "stop.system.sniffer",
-                "delete.log.local-report",
-                "add-license.registration.forticare",
-                "verify-cert.endpoint-control.ems",
-                "stop.network.debug-flow",
-                "cancel.fortiview.session",
-                "restart.wifi.managed_ap",
-                "start.network.debug-flow",
-                "delete.webfilter.override",
+                "unquarantine.endpoint-control.registration",
+                "block.endpoint-control.registration",
                 "unblock.endpoint-control.registration",
-                "port-stats-reset.switch-controller.managed-switch",
-                "stop.system.usb-log",
+                "deregister.endpoint-control.registration",
+                "clear_counters.firewall.acl",
+                "clear_counters.firewall.acl6",
+                "reset.firewall.policy",
+                "clear_counters.firewall.policy",
+                "reset.firewall.policy6",
+                "clear_counters.firewall.policy6",
+                "clear_counters.firewall.proxy-policy",
+                "clear_all.firewall.session",
                 "close.firewall.session",
                 "reset.firewall.shaper",
-                "clear_all.firewall.session",
-                "clear_counters.firewall.acl",
-                "reset.wifi.euclid",
-                "abort.user.query",
-                "revoke.system.dhcp",
-                "add_users.user.banned",
-                "start.system.fsck",
-                "clear_counters.firewall.multicast-policy6",
-                "clear_counters.firewall.policy6",
-                "change-vdom-mode.system.admin",
-                "refresh-server.user.fsso",
-                "clear_counters.firewall.consolidated-policy",
-                "trigger.system.security-rating",
-                "webhook.system.automation-stitch",
-                "generate.vpn-certificate.csr",
-                "upload.system.vmlicense",
-                "reset.firewall.multicast-policy6",
-                "backup.system.config",
-                "push.wifi.firmware",
-                "eject.system.usb-device",
-                "start.system.sniffer",
-                "kill.system.process",
-                "reboot.system.os",
-                "reset.firewall.consolidated-policy",
-                "set.system.time",
-                "remove.user.device",
-                "import.vpn-certificate.remote",
-                "upload.webproxy.pacfile",
-                "push.switch-controller.fsw-firmware",
-                "reset.wanopt.peer_stats",
-                "delete.vpn.ssl",
-                "block.endpoint-control.registration",
-                "backup-action.system.fortimanager",
-                "start.system.usb-log",
-                "save.system.config-revision",
-                "create.vpn-certificate.local",
-                "tunnel_down.vpn.ipsec",
-                "clear_all.wifi.rogue_ap",
-                "import-seed.user.fortitoken",
-                "wake-on-lan.system.interface",
-                "poe-reset.switch-controller.managed-switch",
-                "logout.registration.forticloud",
-                "clear_counters.firewall.acl6",
-                "restore.system.config",
-                "import.vpn-certificate.ca",
-                "upload.switch-controller.fsw-firmware",
-                "test.user.tacacs-plus",
-                "upload.system.config-script",
-                "system.password-policy-conform",
-                "sms.user.guest",
-                "delete.system.config-script",
-                "reset.wanopt.history",
-                "reset.firewall.policy6",
-                "import-mobile.user.fortitoken",
-                "download.switch-controller.fsw-firmware",
-                "stop.wifi.spectrum",
-                "reset.firewall.central-snat-map",
-                "clear.system.crash-log",
-                "bounce-port.switch-controller.managed-switch",
-                "upgrade.system.lte-modem",
-                "close-all.firewall.session",
-                "login.registration.forticare",
-                "close-multiple.firewall.session",
+                "reset.firewall.per-ip-shaper",
+                "cancel.fortiview.session",
+                "upgrade.license.database",
+                "reset.log.stats",
+                "login.registration.forticloud",
                 "create.registration.forticloud",
-                "upload.wifi.firmware",
-                "start.wifi.spectrum",
-                "disconnect.system.modem",
-                "disconnect.system.ha-peer",
-                "keep-alive.wifi.spectrum",
+                "logout.registration.forticloud",
+                "login.registration.forticare",
+                "create.registration.forticare",
+                "add-license.registration.forticare",
+                "add-license.registration.vdom",
+                "toggle-vdom-mode.system.admin",
+                "generate-key.system.api-user",
+                "update-comments.system.config-revision",
+                "delete.system.config-revision",
+                "save.system.config-revision",
+                "system.disconnect-admins",
+                "set.system.time",
+                "reboot.system.os",
+                "shutdown.system.os",
+                "revoke.system.dhcp",
+                "revoke.system.dhcp6",
+                "upgrade.system.firmware",
+                "start.system.fsck",
+                "system.change-password",
+                "system.password-policy-conform",
                 "reset.system.modem",
-                "activate.user.fortitoken",
-                "register-appliance.system.csf",
-                "refresh.azure.application-list",
-                "start.wifi.vlan-probe",
-                "clear.system.sniffer",
+                "connect.system.modem",
+                "disconnect.system.modem",
+                "update.system.modem",
+                "restart.system.sniffer",
+                "start.system.sniffer",
+                "stop.system.sniffer",
+                "test.system.automation-stitch",
+                "update.switch-controller.managed-switch",
+                "restart.switch-controller.managed-switch",
+                "poe-reset.switch-controller.managed-switch",
+                "factory-reset.switch-controller.managed-switch",
+                "download.switch-controller.fsw-firmware",
+                "push.switch-controller.fsw-firmware",
+                "upload.switch-controller.fsw-firmware",
+                "dhcp-renew.system.interface",
+                "start.system.usb-log",
+                "stop.system.usb-log",
+                "eject.system.usb-device",
+                "update.system.fortiguard",
+                "clear-statistics.system.fortiguard",
+                "test-availability.system.fortiguard",
+                "config.system.fortimanager",
+                "backup-action.system.fortimanager",
+                "dump.system.com-log",
+                "update.system.ha-peer",
+                "disconnect.system.ha-peer",
+                "run.system.compliance",
+                "restore.system.config",
+                "upload.system.vmlicense",
+                "trigger.system.security-rating",
                 "reset.extender-controller.extender",
                 "validate-gcp-key.system.sdn-connector",
-                "restart.system.sniffer",
-                "import.web-ui.language",
-                "import-trial.user.fortitoken",
-                "flush.firewall.gtp",
-                "dump.system.com-log",
-                "diagnose.extender-controller.extender",
-                "update-comments.system.config-revision",
-                "refresh.user.fortitoken",
-                "reset.firewall.policy",
-                "shutdown.system.os",
-                "reset.log.stats",
-                "revoke.system.dhcp6",
-                "login.registration.forticloud",
-                "reset.wanopt.webcache",
-                "system.change-password",
-                "set_status.wifi.managed_ap",
                 "deauth.user.firewall",
-                "upgrade.extender-controller.extender",
-                "delete.system.config-revision",
                 "clear_users.user.banned",
-                "reset.firewall.multicast-policy",
-                "send-activation.user.fortitoken",
-                "reset.webcache.stats",
-                "clear_counters.firewall.proxy-policy",
-                "utm.rating-lookup",
-                "test.system.automation-stitch",
-                "refresh.system.external-resource",
-                "auth.user.firewall",
-                "dhcp-renew.system.interface",
-                "migrate.registration.forticloud",
-                "clear_counters.firewall.multicast-policy",
-                "connect.wifi.network",
-                "test-connect.user.radius",
-                "speed-test-trigger.system.interface",
-                "generate-key.system.api-user",
-                "upload.wifi.region-image",
-                "run.system.config-script",
-                "purdue-level.user.device",
-                "clear_tunnel.vpn.ssl",
-                "add.nsx.service",
-                "update.system.fortiguard",
-                "restart.switch-controller.managed-switch",
-                "unquarantine.endpoint-control.registration",
-                "led-blink.wifi.managed_ap",
-                "update.system.sdn-connector",
-                "config.system.fortimanager",
-                "set-tier1.switch-controller.mclag-icl",
-                "system.disconnect-admins",
-                "provision-user.vpn.ssl",
-                "create.web-ui.custom-language",
-                "check.endpoint-control.registration-password",
-                "clear-counters.firewall.dnat",
-                "scan.wifi.network",
-                "clear.vpn.ike",
-                "clear_counters.firewall.security-policy",
+                "add_users.user.banned",
                 "clear_all.user.banned",
+                "activate.user.fortitoken",
+                "refresh.user.fortitoken",
+                "provision.user.fortitoken",
+                "send-activation.user.fortitoken",
+                "import-trial.user.fortitoken",
+                "import-mobile.user.fortitoken",
+                "import-seed.user.fortitoken",
+                "refresh-server.user.fsso",
+                "test-connect.user.radius",
+                "test.user.tacacs-plus",
+                "delete.webfilter.override",
+                "reset.webfilter.category-quota",
+                "tunnel_up.vpn.ipsec",
+                "tunnel_down.vpn.ipsec",
+                "tunnel_reset_stats.vpn.ipsec",
+                "clear_tunnel.vpn.ssl",
+                "delete.vpn.ssl",
+                "import.vpn-certificate.ca",
+                "import.vpn-certificate.crl",
+                "import.vpn-certificate.local",
+                "import.vpn-certificate.remote",
+                "generate.vpn-certificate.csr",
+                "reset.wanopt.history",
+                "reset.wanopt.webcache",
+                "reset.wanopt.peer_stats",
+                "reset.webcache.stats",
+                "set_status.wifi.managed_ap",
+                "download.wifi.firmware",
+                "push.wifi.firmware",
+                "upload.wifi.firmware",
+                "restart.wifi.managed_ap",
+                "reset.wifi.euclid",
+                "clear_all.wifi.rogue_ap",
+                "set_status.wifi.rogue_ap",
+                "reset.firewall.consolidated-policy",
+                "clear_counters.firewall.consolidated-policy",
+                "clear_counters.firewall.security-policy",
+                "add.firewall.clearpass-address",
                 "delete.firewall.clearpass-address",
-                "connect.system.modem",
+                "delete.log.local-report",
+                "migrate.registration.forticloud",
+                "change-vdom-mode.system.admin",
+                "delete.system.config-script",
+                "run.system.config-script",
+                "upload.system.config-script",
+                "diagnose.extender-controller.extender",
+                "upgrade.extender-controller.extender",
+                "add.nsx.service",
+                "update.system.sdn-connector",
+                "import.web-ui.language",
+                "create.web-ui.custom-language",
+                "update.web-ui.custom-language",
+                "email.user.guest",
+                "sms.user.guest",
+                "utm.rating-lookup",
+                "connect.wifi.network",
+                "scan.wifi.network",
+                "upload.wifi.region-image",
+                "refresh.azure.application-list",
+                "verify-cert.endpoint-control.ems",
+                "geoip.geoip-query",
+                "transfer.registration.forticare",
+                "register-device.registration.forticloud",
+                "register-appliance.system.csf",
+                "clear.system.sniffer",
+                "webhook.system.automation-stitch",
+                "format.system.logdisk",
+                "speed-test-trigger.system.interface",
+                "read-info.system.certificate",
+                "provision-user.vpn.ssl",
+                "upload.webproxy.pacfile",
+                "disassociate.wifi.client",
+                "start.wifi.spectrum",
+                "keep-alive.wifi.spectrum",
+                "stop.wifi.spectrum",
+                "start.wifi.vlan-probe",
+                "stop.wifi.vlan-probe",
                 "generate-keys.wifi.ssid",
+                "save.system.config",
+                "led-blink.wifi.managed_ap",
+                "auth.user.firewall",
+                "remove.user.device",
+                "clear.vpn.ike",
+                "reset.firewall.multicast-policy",
+                "reset.firewall.multicast-policy6",
+                "clear_counters.firewall.multicast-policy",
+                "clear_counters.firewall.multicast-policy6",
+                "clear-soft-in.router.bgp",
+                "clear-soft-out.router.bgp",
+                "enable-app-bandwidth-tracking.system.traffic-history",
+                "refresh.system.external-resource",
+                "reset.firewall.central-snat-map",
+                "clear-counters.firewall.central-snat-map",
+                "reset.firewall.dnat",
+                "clear-counters.firewall.dnat",
+                "close-multiple.firewall.session",
+                "close-multiple.firewall.session6",
+                "close-all.firewall.session",
+                "clear.system.crash-log",
+                "backup.system.config",
+                "abort.user.query",
+                "create.vpn-certificate.local",
+                "flush.firewall.gtp",
+                "kill.system.process",
+                "upload.system.hscalefw-license",
+                "download.system.vmlicense",
+                "start.network.debug-flow",
+                "stop.network.debug-flow",
                 "upload.system.lte-modem",
+                "upgrade.system.lte-modem",
+                "port-stats-reset.switch-controller.managed-switch",
+                "bounce-port.switch-controller.managed-switch",
+                "set-tier1.switch-controller.mclag-icl",
+                "wake-on-lan.system.interface",
+                "manual-update.system.fortiguard",
+                "purdue-level.user.device",
+                "deregister-device.registration.forticare",
+                "soft-reset-neighbor.router.bgp",
+                "download-eval.system.vmlicense",
+                "dynamic.system.external-resource",
             ],
         },
     }

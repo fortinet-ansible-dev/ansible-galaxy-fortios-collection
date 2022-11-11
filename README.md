@@ -9,28 +9,25 @@ The collection is the FortiOS Ansible Automation project. It includes the module
 This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/), the installation steps are as follows:
 
 1. Install or upgrade to Ansible 2.9+
-2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.1.7`
+2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.2.0`
 
 ## Requirements
 * Ansible 2.9+ is required to support the newer Ansible Collections format
 
 ## Supported FortiOS Versions
+From `v2.0.0` on, FortiOS galaxy collections are unified, and cover FortiOS 6.0, 6.2, 6.4, 7.0, 7.2 versions. There is only one sequential collection at any moment. users who install these collections are expected to find the version compatibility information for each module and its parameters.
+
+The latest version is 2.2.0, path to install: `ansible-galaxy collection install fortinet.fortios:2.2.0`
+
+Prior to FortiOS collection `v2.0.0`, FortiOS Galaxy collections were built over three FOS major versions, i.e. `v6.0`, `v6.2` and `v6.4`, thus, users are expected to install the collection according to the following table to avoid potential compatibility issues.
+
 | FOS version|Galaxy  Version| Release date|Path to Install |
 |----------|:-------------:|:-------------:|:------:|
 |6.0.0|1.0.13 |2020/5/26|`ansible-galaxy collection install fortinet.fortios:1.0.13`|
 |6.0.0|1.1.2 |2020/12/4|`ansible-galaxy collection install fortinet.fortios:1.1.2`|
 |6.0.0|1.1.5 |2020/12/7|`ansible-galaxy collection install fortinet.fortios:1.1.5`|
 |6.0.0|1.1.8 |2020/12/21|`ansible-galaxy collection install fortinet.fortios:1.1.8`|
-|6.0.0|1.1.9 |2021/3/1|`ansible-galaxy collection install fortinet.fortios:1.1.9`|
-|6.0.0|2.0.0 |2021/4/6|`ansible-galaxy collection install fortinet.fortios:2.0.0`|
-|6.0.0|2.0.1 |2021/4/7|`ansible-galaxy collection install fortinet.fortios:2.0.1`|
-|6.0.0|2.0.2 |2021/5/14|`ansible-galaxy collection install fortinet.fortios:2.0.2`|
-|6.0.0|2.1.0 |2021/6/25|`ansible-galaxy collection install fortinet.fortios:2.1.0`|
-|6.0.0|2.1.1 |2021/6/29|`ansible-galaxy collection install fortinet.fortios:2.1.1`|
-|6.0.0|2.1.2 |2021/7/15|`ansible-galaxy collection install fortinet.fortios:2.1.2`|
-|6.0.0|2.1.3 |2021/11/11|`ansible-galaxy collection install fortinet.fortios:2.1.3`|
-|6.0.0|2.1.4 |2022/2/7|`ansible-galaxy collection install fortinet.fortios:2.1.4`|
-|6.0.0|2.1.5 `latest`|2022/4/22|`ansible-galaxy collection install fortinet.fortios:2.1.5`|
+|6.0.0|1.1.9 `latest`|2021/3/1|`ansible-galaxy collection install fortinet.fortios:1.1.9`|
 |6.2.0|1.0.10 |2020/5/6|`ansible-galaxy collection install fortinet.fortios:1.0.10`|
 |6.2.0|1.1.0 |2020/12/4|`ansible-galaxy collection install fortinet.fortios:1.1.0`|
 |6.2.0|1.1.3 |2020/12/7|`ansible-galaxy collection install fortinet.fortios:1.1.3`|
@@ -109,6 +106,11 @@ The collection provides the following modules:
 * `fortios_extender_lte_carrier_list` Display FortiExtender modem carrier list in Fortinet's FortiOS and FortiGate.
 * `fortios_extender_modem_status` Display detailed FortiExtender modem status in Fortinet's FortiOS and FortiGate.
 * `fortios_extender_sys_info` Display detailed FortiExtender system information in Fortinet's FortiOS and FortiGate.
+* `fortios_extension_controller_dataplan` FortiExtender dataplan configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_extension_controller_extender` Extender controller configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_extension_controller_extender_profile` FortiExtender extender profile configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_extension_controller_fortigate` FortiGate controller configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_extension_controller_fortigate_profile` FortiGate connector profile configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_file_filter_profile` Configure file-filter profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_access_proxy6` Configure IPv6 access proxy in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_access_proxy` Configure IPv4 access proxy in Fortinet's FortiOS and FortiGate.
@@ -131,6 +133,7 @@ The collection provides the following modules:
 * `fortios_firewall_dnstranslation` Configure DNS translation in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_dos_policy6` Configure IPv6 DoS policies in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_dos_policy` Configure IPv4 DoS policies in Fortinet's FortiOS and FortiGate.
+* `fortios_firewall_global` Global firewall settings in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_gtp` Configure GTP in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_identity_based_route` Configure identity based routing in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_interface_policy6` Configure IPv6 interface policies in Fortinet's FortiOS and FortiGate.
@@ -166,6 +169,7 @@ The collection provides the following modules:
 * `fortios_firewall_multicast_address` Configure multicast addresses in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_multicast_policy6` Configure IPv6 multicast NAT policies in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_multicast_policy` Configure multicast NAT policies in Fortinet's FortiOS and FortiGate.
+* `fortios_firewall_network_service_dynamic` Configure Dynamic Network Services in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_pfcp` Configure PFCP in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_policy46` Configure IPv4 to IPv6 policies in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_policy64` Configure IPv6 to IPv4 policies in Fortinet's FortiOS and FortiGate.

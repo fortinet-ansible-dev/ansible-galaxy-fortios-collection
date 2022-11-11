@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     cifs_profile:
         description:
             - Configure CIFS profile.
@@ -108,8 +108,8 @@ options:
                                     - Action taken for matched file.
                                 type: str
                                 choices:
-                                    - log
-                                    - block
+                                    - 'log'
+                                    - 'block'
                             comment:
                                 description:
                                     - Comment.
@@ -119,9 +119,9 @@ options:
                                     - Match files transmitted in the session"s originating or reply direction.
                                 type: str
                                 choices:
-                                    - incoming
-                                    - outgoing
-                                    - any
+                                    - 'incoming'
+                                    - 'outgoing'
+                                    - 'any'
                             file_type:
                                 description:
                                     - Select file type.
@@ -141,21 +141,21 @@ options:
                                     - Protocols to apply with.
                                 type: str
                                 choices:
-                                    - cifs
+                                    - 'cifs'
                     log:
                         description:
                             - Enable/disable file filter logging.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
                     status:
                         description:
                             - Enable/disable file filter.
                         type: str
                         choices:
-                            - enable
-                            - disable
+                            - 'enable'
+                            - 'disable'
             name:
                 description:
                     - Profile name.
@@ -166,13 +166,14 @@ options:
                     - CIFS server credential type.
                 type: str
                 choices:
-                    - none
-                    - credential-replication
-                    - credential-keytab
+                    - 'none'
+                    - 'credential-replication'
+                    - 'credential-keytab'
             server_keytab:
                 description:
                     - Server keytab.
-                type: str
+                type: list
+                elements: dict
                 suboptions:
                     keytab:
                         description:
@@ -312,9 +313,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -485,311 +483,311 @@ def fortios_cifs(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "file_filter": {
-            "type": "dict",
-            "children": {
-                "status": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                "log": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-                "entries": {
-                    "elements": "dict",
-                    "type": "list",
-                    "children": {
-                        "comment": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "direction": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "incoming",
-                                    "revisions": {
-                                        "v6.2.0": True,
-                                        "v6.2.3": True,
-                                        "v6.2.5": True,
-                                        "v6.2.7": True,
-                                    },
-                                },
-                                {
-                                    "value": "outgoing",
-                                    "revisions": {
-                                        "v6.2.0": True,
-                                        "v6.2.3": True,
-                                        "v6.2.5": True,
-                                        "v6.2.7": True,
-                                    },
-                                },
-                                {
-                                    "value": "any",
-                                    "revisions": {
-                                        "v6.2.0": True,
-                                        "v6.2.3": True,
-                                        "v6.2.5": True,
-                                        "v6.2.7": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "protocol": {
-                            "multiple_values": True,
-                            "elements": "str",
-                            "type": "list",
-                            "options": [
-                                {"value": "cifs", "revisions": {"v6.2.3": True}}
-                            ],
-                            "revisions": {"v6.2.0": False, "v6.2.3": True},
-                        },
-                        "file_type": {
-                            "elements": "dict",
-                            "type": "list",
-                            "children": {
-                                "name": {
-                                    "type": "string",
-                                    "revisions": {
-                                        "v6.2.0": True,
-                                        "v6.2.3": True,
-                                        "v6.2.5": True,
-                                        "v6.2.7": True,
-                                    },
-                                }
-                            },
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "filter": {
-                            "type": "string",
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                        "action": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "log",
-                                    "revisions": {
-                                        "v6.2.0": True,
-                                        "v6.2.3": True,
-                                        "v6.2.5": True,
-                                        "v6.2.7": True,
-                                    },
-                                },
-                                {
-                                    "value": "block",
-                                    "revisions": {
-                                        "v6.2.0": True,
-                                        "v6.2.3": True,
-                                        "v6.2.5": True,
-                                        "v6.2.7": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v6.2.0": True,
-                                "v6.2.3": True,
-                                "v6.2.5": True,
-                                "v6.2.7": True,
-                            },
-                        },
-                    },
-                    "revisions": {
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                    },
-                },
-            },
+        "name": {
             "revisions": {
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-            },
-        },
-        "server_keytab": {
-            "elements": "dict",
-            "type": "list",
-            "children": {
-                "password": {
-                    "type": "string",
-                    "revisions": {"v6.2.0": False, "v6.2.3": True},
-                },
-                "keytab": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.4.1": True,
-                    },
-                },
-                "principal": {
-                    "type": "string",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.4.1": True,
-                    },
-                },
-            },
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
                 "v6.4.1": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
             },
+            "type": "string",
         },
         "server_credential_type": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "none",
                     "revisions": {
-                        "v6.2.3": True,
-                        "v6.2.0": True,
+                        "v6.4.1": True,
                         "v6.2.7": True,
                         "v6.2.5": True,
-                        "v6.4.1": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
                 {
                     "value": "credential-replication",
                     "revisions": {
-                        "v6.2.3": True,
-                        "v6.2.0": True,
+                        "v6.4.1": True,
                         "v6.2.7": True,
                         "v6.2.5": True,
-                        "v6.4.1": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
                 {
                     "value": "credential-keytab",
                     "revisions": {
-                        "v6.2.3": True,
-                        "v6.2.0": True,
+                        "v6.4.1": True,
                         "v6.2.7": True,
                         "v6.2.5": True,
-                        "v6.4.1": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.4.1": True,
-            },
-        },
-        "name": {
-            "type": "string",
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.4.1": True,
-            },
         },
         "domain_controller": {
-            "type": "string",
             "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": True,
+                "v6.4.1": True,
                 "v6.2.7": True,
                 "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+            "type": "string",
+        },
+        "server_keytab": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "principal": {
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "string",
+                },
+                "keytab": {
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "string",
+                },
+                "password": {
+                    "revisions": {"v6.2.3": True, "v6.2.0": False},
+                    "type": "string",
+                },
+            },
+            "revisions": {
                 "v6.4.1": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+        },
+        "file_filter": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+            },
+            "type": "dict",
+            "children": {
+                "status": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "log": {
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                        },
+                    ],
+                },
+                "entries": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "filter": {
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "comment": {
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "action": {
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "log",
+                                    "revisions": {
+                                        "v6.2.7": True,
+                                        "v6.2.5": True,
+                                        "v6.2.3": True,
+                                        "v6.2.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "block",
+                                    "revisions": {
+                                        "v6.2.7": True,
+                                        "v6.2.5": True,
+                                        "v6.2.3": True,
+                                        "v6.2.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "direction": {
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "incoming",
+                                    "revisions": {
+                                        "v6.2.7": True,
+                                        "v6.2.5": True,
+                                        "v6.2.3": True,
+                                        "v6.2.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "outgoing",
+                                    "revisions": {
+                                        "v6.2.7": True,
+                                        "v6.2.5": True,
+                                        "v6.2.3": True,
+                                        "v6.2.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "any",
+                                    "revisions": {
+                                        "v6.2.7": True,
+                                        "v6.2.5": True,
+                                        "v6.2.3": True,
+                                        "v6.2.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "file_type": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "name": {
+                                    "revisions": {
+                                        "v6.2.7": True,
+                                        "v6.2.5": True,
+                                        "v6.2.3": True,
+                                        "v6.2.0": True,
+                                    },
+                                    "type": "string",
+                                }
+                            },
+                            "revisions": {
+                                "v6.2.7": True,
+                                "v6.2.5": True,
+                                "v6.2.3": True,
+                                "v6.2.0": True,
+                            },
+                        },
+                        "protocol": {
+                            "revisions": {"v6.2.3": True, "v6.2.0": False},
+                            "type": "list",
+                            "options": [
+                                {"value": "cifs", "revisions": {"v6.2.3": True}}
+                            ],
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                    },
+                    "revisions": {
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                    },
+                },
             },
         },
     },
     "revisions": {
-        "v6.2.3": True,
-        "v6.2.0": True,
+        "v6.4.1": True,
         "v6.2.7": True,
         "v6.2.5": True,
-        "v6.4.1": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
     },
 }
 

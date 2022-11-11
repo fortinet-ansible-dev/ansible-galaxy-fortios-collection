@@ -16,7 +16,6 @@ import traceback
 
 from ansible.module_utils._text import to_text
 import json
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import is_secret_field
 
 try:
     import urllib.parse as urlencoding
@@ -438,7 +437,7 @@ class FortiOSHandler(object):
 
             if 'options' not in attr_spec:
                 raise AssertionError('Attribute %s not member operable, no children options' % (attr))
-            attr_last = attr == attribute_path[-1]
+            attr == attribute_path[-1]
             attr_blob = dict()
             attr_blob['name'] = attr
             attr_blob['mkey'] = attr_mkey

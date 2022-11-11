@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     dlp_data_type:
         description:
             - Configure predefined data type used by DLP blocking.
@@ -122,8 +122,8 @@ options:
                     - Enable/disable verification for transformed pattern.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -144,8 +144,8 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       dlp_data_type:
         comment: "Optional comments."
-        look_ahead: "4"
-        look_back: "5"
+        look_ahead: "1"
+        look_back: "1"
         name: "default_name_6"
         pattern: "<your_own_value>"
         transform: "<your_own_value>"
@@ -232,9 +232,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.comm
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
     remove_invalid_fields,
 )
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
-)
 
 
 def filter_dlp_data_type_data(json):
@@ -319,26 +316,53 @@ def fortios_dlp(data, fos):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "comment": {"type": "string", "revisions": {"v7.2.0": True}},
+        "name": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
+        "pattern": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
+        "verify": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
+        "look_back": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "integer",
+        },
+        "look_ahead": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "integer",
+        },
+        "transform": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
         "verify_transformed_pattern": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.0": True}},
-                {"value": "disable", "revisions": {"v7.2.0": True}},
+                {
+                    "value": "enable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                },
             ],
-            "revisions": {"v7.2.0": True},
         },
-        "name": {"type": "string", "revisions": {"v7.2.0": True}},
-        "pattern": {"type": "string", "revisions": {"v7.2.0": True}},
-        "transform": {"type": "string", "revisions": {"v7.2.0": True}},
-        "look_ahead": {"type": "integer", "revisions": {"v7.2.0": True}},
-        "verify": {"type": "string", "revisions": {"v7.2.0": True}},
-        "look_back": {"type": "integer", "revisions": {"v7.2.0": True}},
+        "comment": {
+            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "type": "string",
+        },
     },
-    "revisions": {"v7.2.0": True},
+    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
 }
 
 

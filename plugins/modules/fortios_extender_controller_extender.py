@@ -71,8 +71,8 @@ options:
             - Add or delete a member under specified attribute path.
             - When member_state is specified, the state option is ignored.
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
 
     state:
         description:
@@ -80,8 +80,8 @@ options:
         type: str
         required: true
         choices:
-            - present
-            - absent
+            - 'present'
+            - 'absent'
     extender_controller_extender:
         description:
             - Extender controller configuration.
@@ -101,21 +101,21 @@ options:
                     - FortiExtender Administration (enable or disable).
                 type: str
                 choices:
-                    - disable
-                    - discovered
-                    - enable
+                    - 'disable'
+                    - 'discovered'
+                    - 'enable'
             allowaccess:
                 description:
                     - Control management access to the managed extender. Separate entries with a space.
                 type: list
                 elements: str
                 choices:
-                    - ping
-                    - telnet
-                    - http
-                    - https
-                    - ssh
-                    - snmp
+                    - 'ping'
+                    - 'telnet'
+                    - 'http'
+                    - 'https'
+                    - 'ssh'
+                    - 'snmp'
             at_dial_script:
                 description:
                     - Initialization AT commands specific to the MODEM.
@@ -125,8 +125,8 @@ options:
                     - FortiExtender Administration (enable or disable).
                 type: str
                 choices:
-                    - disable
-                    - enable
+                    - 'disable'
+                    - 'enable'
             bandwidth_limit:
                 description:
                     - FortiExtender LAN extension bandwidth limit (Mbps).
@@ -169,8 +169,8 @@ options:
                             - FortiExtender controller report status.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
             description:
                 description:
                     - Description.
@@ -184,8 +184,8 @@ options:
                     - Dial mode (dial-on-demand or always-connect).
                 type: str
                 choices:
-                    - dial-on-demand
-                    - always-connect
+                    - 'dial-on-demand'
+                    - 'always-connect'
             dial_status:
                 description:
                     - Dial status.
@@ -195,8 +195,8 @@ options:
                     - Enable/disable enforcement of bandwidth on LAN extension interface.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ext_name:
                 description:
                     - FortiExtender name.
@@ -206,8 +206,8 @@ options:
                     - Extension type for this FortiExtender.
                 type: str
                 choices:
-                    - wan-extension
-                    - lan-extension
+                    - 'wan-extension'
+                    - 'lan-extension'
             ha_shared_secret:
                 description:
                     - HA shared secret.
@@ -225,8 +225,8 @@ options:
                     - Allow/disallow network initiated updates to the MODEM.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             login_password:
                 description:
                     - Set the managed extender"s administrator password.
@@ -236,16 +236,16 @@ options:
                     - Change or reset the administrator password of a managed extender (yes, default, or no).
                 type: str
                 choices:
-                    - yes
-                    - default
-                    - no
+                    - 'yes'
+                    - 'default'
+                    - 'no'
             mode:
                 description:
                     - FortiExtender mode.
                 type: str
                 choices:
-                    - standalone
-                    - redundant
+                    - 'standalone'
+                    - 'redundant'
             modem_passwd:
                 description:
                     - MODEM password.
@@ -255,9 +255,9 @@ options:
                     - MODEM type (CDMA, GSM/LTE or WIMAX).
                 type: str
                 choices:
-                    - cdma
-                    - gsm/lte
-                    - wimax
+                    - 'cdma'
+                    - 'gsm/lte'
+                    - 'wimax'
             modem1:
                 description:
                     - Configuration options for modem 1.
@@ -273,15 +273,15 @@ options:
                                     - Automatically switch based on data usage.
                                 type: str
                                 choices:
-                                    - disable
-                                    - enable
+                                    - 'disable'
+                                    - 'enable'
                             disconnect:
                                 description:
                                     - Auto switch by disconnect.
                                 type: str
                                 choices:
-                                    - disable
-                                    - enable
+                                    - 'disable'
+                                    - 'enable'
                             disconnect_period:
                                 description:
                                     - Automatically switch based on disconnect period.
@@ -295,15 +295,15 @@ options:
                                     - Automatically switch based on signal strength.
                                 type: str
                                 choices:
-                                    - disable
-                                    - enable
+                                    - 'disable'
+                                    - 'enable'
                             switch_back:
                                 description:
                                     - Auto switch with switch back multi-options.
                                 type: str
                                 choices:
-                                    - time
-                                    - timer
+                                    - 'time'
+                                    - 'timer'
                             switch_back_time:
                                 description:
                                     - 'Automatically switch over to preferred SIM/carrier at a specified time in UTC (HH:MM).'
@@ -321,17 +321,17 @@ options:
                             - Default SIM selection.
                         type: str
                         choices:
-                            - sim1
-                            - sim2
-                            - carrier
-                            - cost
+                            - 'sim1'
+                            - 'sim2'
+                            - 'carrier'
+                            - 'cost'
                     gps:
                         description:
                             - FortiExtender GPS enable/disable.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     ifname:
                         description:
                             - FortiExtender interface name. Source system.interface.name.
@@ -349,15 +349,15 @@ options:
                             - FortiExtender mode.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     sim1_pin:
                         description:
                             - SIM #1 PIN status.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     sim1_pin_code:
                         description:
                             - SIM #1 PIN password.
@@ -367,8 +367,8 @@ options:
                             - SIM #2 PIN status.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     sim2_pin_code:
                         description:
                             - SIM #2 PIN password.
@@ -388,15 +388,15 @@ options:
                                     - Automatically switch based on data usage.
                                 type: str
                                 choices:
-                                    - disable
-                                    - enable
+                                    - 'disable'
+                                    - 'enable'
                             disconnect:
                                 description:
                                     - Auto switch by disconnect.
                                 type: str
                                 choices:
-                                    - disable
-                                    - enable
+                                    - 'disable'
+                                    - 'enable'
                             disconnect_period:
                                 description:
                                     - Automatically switch based on disconnect period.
@@ -410,15 +410,15 @@ options:
                                     - Automatically switch based on signal strength.
                                 type: str
                                 choices:
-                                    - disable
-                                    - enable
+                                    - 'disable'
+                                    - 'enable'
                             switch_back:
                                 description:
                                     - Auto switch with switch back multi-options.
                                 type: str
                                 choices:
-                                    - time
-                                    - timer
+                                    - 'time'
+                                    - 'timer'
                             switch_back_time:
                                 description:
                                     - 'Automatically switch over to preferred SIM/carrier at a specified time in UTC (HH:MM).'
@@ -436,17 +436,17 @@ options:
                             - Default SIM selection.
                         type: str
                         choices:
-                            - sim1
-                            - sim2
-                            - carrier
-                            - cost
+                            - 'sim1'
+                            - 'sim2'
+                            - 'carrier'
+                            - 'cost'
                     gps:
                         description:
                             - FortiExtender GPS enable/disable.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     ifname:
                         description:
                             - FortiExtender interface name. Source system.interface.name.
@@ -464,15 +464,15 @@ options:
                             - FortiExtender mode.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     sim1_pin:
                         description:
                             - SIM #1 PIN status.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     sim1_pin_code:
                         description:
                             - SIM #1 PIN password.
@@ -482,8 +482,8 @@ options:
                             - SIM #2 PIN status.
                         type: str
                         choices:
-                            - disable
-                            - enable
+                            - 'disable'
+                            - 'enable'
                     sim2_pin_code:
                         description:
                             - SIM #2 PIN password.
@@ -493,11 +493,11 @@ options:
                     - MODEM mode of operation(3G,LTE,etc).
                 type: str
                 choices:
-                    - auto
-                    - auto-3g
-                    - force-lte
-                    - force-3g
-                    - force-2g
+                    - 'auto'
+                    - 'auto-3g'
+                    - 'force-lte'
+                    - 'force-3g'
+                    - 'force-2g'
             name:
                 description:
                     - FortiExtender entry name.
@@ -508,37 +508,37 @@ options:
                     - Enable to override the extender profile management access configuration.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             override_enforce_bandwidth:
                 description:
                     - Enable to override the extender profile enforce-bandwidth setting.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             override_login_password_change:
                 description:
                     - Enable to override the extender profile login-password (administrator password) setting.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ppp_auth_protocol:
                 description:
                     - PPP authentication protocol (PAP,CHAP or auto).
                 type: str
                 choices:
-                    - auto
-                    - pap
-                    - chap
+                    - 'auto'
+                    - 'pap'
+                    - 'chap'
             ppp_echo_request:
                 description:
                     - Enable/disable PPP echo request.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             ppp_password:
                 description:
                     - PPP password.
@@ -564,17 +564,17 @@ options:
                     - Number of redials allowed based on failed attempts.
                 type: str
                 choices:
-                    - none
-                    - 1
-                    - 2
-                    - 3
-                    - 4
-                    - 5
-                    - 6
-                    - 7
-                    - 8
-                    - 9
-                    - 10
+                    - 'none'
+                    - '1'
+                    - '2'
+                    - '3'
+                    - '4'
+                    - '5'
+                    - '6'
+                    - '7'
+                    - '8'
+                    - '9'
+                    - '10'
             redundant_intf:
                 description:
                     - Redundant interface.
@@ -584,16 +584,16 @@ options:
                     - Enable/disable MODEM roaming.
                 type: str
                 choices:
-                    - enable
-                    - disable
+                    - 'enable'
+                    - 'disable'
             role:
                 description:
                     - FortiExtender work role(Primary, Secondary, None).
                 type: str
                 choices:
-                    - none
-                    - primary
-                    - secondary
+                    - 'none'
+                    - 'primary'
+                    - 'secondary'
             secondary_ha:
                 description:
                     - Secondary HA.
@@ -624,8 +624,8 @@ options:
                     - WiMax authentication protocol(TLS or TTLS).
                 type: str
                 choices:
-                    - tls
-                    - ttls
+                    - 'tls'
+                    - 'ttls'
             wimax_carrier:
                 description:
                     - WiMax carrier.
@@ -659,20 +659,20 @@ EXAMPLES = """
         allowaccess: "ping"
         at_dial_script: "<your_own_value>"
         authorized: "disable"
-        bandwidth_limit: "9"
-        billing_start_day: "10"
+        bandwidth_limit: "1024"
+        billing_start_day: "14"
         cdma_aaa_spi: "<your_own_value>"
         cdma_ha_spi: "<your_own_value>"
         cdma_nai: "<your_own_value>"
-        conn_status: "14"
+        conn_status: "2147483647"
         controller_report:
-            interval: "16"
-            signal_threshold: "17"
+            interval: "300"
+            signal_threshold: "10"
             status: "disable"
         description: "<your_own_value>"
-        device_id: "20"
+        device_id: "1024"
         dial_mode: "dial-on-demand"
-        dial_status: "22"
+        dial_status: "2147483647"
         enforce_bandwidth: "enable"
         ext_name: "<your_own_value>"
         extension_type: "wan-extension"
@@ -689,13 +689,13 @@ EXAMPLES = """
             auto_switch:
                 dataplan: "disable"
                 disconnect: "disable"
-                disconnect_period: "39"
-                disconnect_threshold: "40"
+                disconnect_period: "600"
+                disconnect_threshold: "3"
                 signal: "disable"
                 switch_back: "time"
                 switch_back_time: "<your_own_value>"
-                switch_back_timer: "44"
-            conn_status: "45"
+                switch_back_timer: "86400"
+            conn_status: "0"
             default_sim: "sim1"
             gps: "disable"
             ifname: "<your_own_value> (source system.interface.name)"
@@ -710,13 +710,13 @@ EXAMPLES = """
             auto_switch:
                 dataplan: "disable"
                 disconnect: "disable"
-                disconnect_period: "60"
-                disconnect_threshold: "61"
+                disconnect_period: "600"
+                disconnect_threshold: "3"
                 signal: "disable"
                 switch_back: "time"
                 switch_back_time: "<your_own_value>"
-                switch_back_timer: "65"
-            conn_status: "66"
+                switch_back_timer: "86400"
+            conn_status: "0"
             default_sim: "sim1"
             gps: "disable"
             ifname: "<your_own_value> (source system.interface.name)"
@@ -738,14 +738,14 @@ EXAMPLES = """
         ppp_username: "<your_own_value>"
         primary_ha: "<your_own_value>"
         profile: "<your_own_value> (source extender-controller.extender-profile.name)"
-        quota_limit_mb: "88"
+        quota_limit_mb: "5242880"
         redial: "none"
         redundant_intf: "<your_own_value>"
         roaming: "enable"
         role: "none"
         secondary_ha: "<your_own_value>"
         sim_pin: "<your_own_value>"
-        vdom: "95"
+        vdom: "0"
         wan_extension:
             modem1_extension: "<your_own_value> (source system.interface.name)"
             modem2_extension: "<your_own_value> (source system.interface.name)"
@@ -838,9 +838,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
-)
-from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import (
-    is_secret_field,
 )
 
 
@@ -1070,2556 +1067,2679 @@ def fortios_extender_controller(data, fos, check_mode):
 
 
 versioned_schema = {
-    "elements": "dict",
     "type": "list",
+    "elements": "dict",
     "children": {
-        "override_allowaccess": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            ],
+        "name": {
             "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "controller_report": {
-            "type": "dict",
-            "children": {
-                "status": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "interval": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "signal_threshold": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-            },
-            "revisions": {
+                "v7.0.3": True,
+                "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v6.0.5": False,
                 "v6.4.4": True,
-                "v6.0.0": False,
+                "v6.4.1": False,
                 "v6.4.0": True,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v6.2.3": False,
-                "v6.2.5": False,
                 "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "cdma_nai": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "wimax_auth_protocol": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "tls",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "ttls",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "secondary_ha": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "wimax_realm": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "cdma_aaa_spi": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "wan_extension": {
-            "type": "dict",
-            "children": {
-                "modem1_extension": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                "modem2_extension": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            },
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
                 "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
                 "v6.0.11": False,
+                "v6.0.0": False,
             },
-        },
-        "redial": {
             "type": "string",
-            "options": [
-                {
-                    "value": "none",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "1",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "2",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "3",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "4",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "5",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "6",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "7",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "8",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "9",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "10",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
         "id": {
-            "type": "string",
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
+                "v6.4.1": True,
                 "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
                 "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ppp_auth_protocol": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "auto",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "pap",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "chap",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
                 "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
                 "v6.0.11": True,
-            },
-        },
-        "enforce_bandwidth": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "initiated_update": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
                 "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
             },
-        },
-        "multi_mode": {
             "type": "string",
-            "options": [
-                {
-                    "value": "auto",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "auto-3g",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "force-lte",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "force-3g",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "force-2g",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ppp_echo_request": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "override_enforce_bandwidth": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "conn_status": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ext_name": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "role": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "none",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "primary",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "secondary",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
         "authorized": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": False,
+                "v6.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
                         "v6.4.0": True,
-                        "v7.2.0": True,
                     },
                 },
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
                         "v6.4.4": True,
                         "v6.4.0": True,
-                        "v7.2.0": True,
                     },
                 },
             ],
+        },
+        "ext_name": {
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": True,
-                "v6.0.5": False,
-                "v6.0.0": False,
+                "v6.4.1": True,
                 "v6.4.0": True,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
             },
-        },
-        "allowaccess": {
-            "multiple_values": True,
-            "elements": "str",
-            "type": "list",
-            "options": [
-                {
-                    "value": "ping",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "telnet",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "http",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "https",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "ssh",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "snmp",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "ppp_username": {
             "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "quota_limit_mb": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ifname": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "profile": {
-            "type": "string",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "dial_status": {
-            "type": "integer",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "wimax_carrier": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
         "description": {
-            "type": "string",
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "vdom": {
+            "revisions": {
+                "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
                 "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
+                "v6.4.1": True,
                 "v6.4.0": True,
-                "v6.4.1": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
                 "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "device_id": {
+            "revisions": {
                 "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ha_shared_secret": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "modem_type": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "cdma",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "gsm/lte",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-                {
-                    "value": "wimax",
-                    "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
-                    },
-                },
-            ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "at_dial_script": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "ppp_password": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "override_login_password_change": {
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.3": True,
-                        "v7.2.0": True,
-                        "v7.0.2": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            ],
-            "revisions": {
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": False,
                 "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
                 "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
                 "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
+                "v6.4.0": False,
                 "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
                 "v6.0.11": False,
+                "v6.0.0": False,
             },
+            "type": "integer",
         },
         "extension_type": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "wan-extension",
                     "revisions": {
-                        "v7.0.3": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
                 {
                     "value": "lan-extension",
                     "revisions": {
-                        "v7.0.3": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
             ],
+        },
+        "profile": {
             "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": False,
                 "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "override_allowaccess": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "modem1": {
-            "type": "dict",
-            "children": {
-                "sim1_pin": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "auto_switch": {
-                    "type": "dict",
-                    "children": {
-                        "dataplan": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "disconnect": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "switch_back_time": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "switch_back_timer": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "switch_back": {
-                            "multiple_values": True,
-                            "elements": "str",
-                            "type": "list",
-                            "options": [
-                                {
-                                    "value": "time",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "timer",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "signal": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "disconnect_period": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "disconnect_threshold": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    },
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "sim2_pin_code": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "conn_status": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "sim1_pin_code": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "default_sim": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "sim1",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "sim2",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "carrier",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "cost",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "redundant_intf": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "redundant_mode": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "ifname": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "preferred_carrier": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "sim2_pin": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "gps": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-            },
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": False,
-                "v6.4.4": True,
-                "v6.0.0": False,
-                "v6.4.0": True,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "modem2": {
-            "type": "dict",
-            "children": {
-                "sim1_pin": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "auto_switch": {
-                    "type": "dict",
-                    "children": {
-                        "dataplan": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "disconnect": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "switch_back_time": {
-                            "type": "string",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "switch_back_timer": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "switch_back": {
-                            "multiple_values": True,
-                            "elements": "str",
-                            "type": "list",
-                            "options": [
-                                {
-                                    "value": "time",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "timer",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "signal": {
-                            "type": "string",
-                            "options": [
-                                {
-                                    "value": "disable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "enable",
-                                    "revisions": {
-                                        "v7.0.1": True,
-                                        "v7.0.0": True,
-                                        "v6.4.4": True,
-                                        "v6.4.0": True,
-                                    },
-                                },
-                            ],
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "disconnect_period": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        "disconnect_threshold": {
-                            "type": "integer",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    },
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "sim2_pin_code": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "conn_status": {
-                    "type": "integer",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "sim1_pin_code": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "default_sim": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "sim1",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "sim2",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "carrier",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "cost",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "redundant_intf": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "redundant_mode": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "ifname": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "preferred_carrier": {
-                    "type": "string",
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "sim2_pin": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-                "gps": {
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                                "v6.4.4": True,
-                                "v6.4.0": True,
-                            },
-                        },
-                    ],
-                    "revisions": {
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.0": True,
-                    },
-                },
-            },
-            "revisions": {
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.0.5": False,
-                "v6.4.4": True,
-                "v6.0.0": False,
-                "v6.4.0": True,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "login_password": {
-            "type": "string",
-            "revisions": {
                 "v7.0.3": True,
                 "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
                 "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
+                "v6.4.0": False,
                 "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
                 "v6.0.11": False,
+                "v6.0.0": False,
             },
-        },
-        "roaming": {
             "type": "string",
             "options": [
                 {
                     "value": "enable",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
                 {
                     "value": "disable",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
-                        "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
-                        "v6.2.7": True,
-                        "v6.0.11": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "billing_start_day": {
-            "type": "integer",
+        "allowaccess": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "device_id": {
-            "type": "integer",
-            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": False,
                 "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "list",
+            "options": [
+                {
+                    "value": "ping",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "telnet",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "http",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "https",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "ssh",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "snmp",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "override_login_password_change": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
                 "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
                 "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "access_point_name": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
                 "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
         },
         "login_password_change": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "yes",
                     "revisions": {
-                        "v7.0.3": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
                 {
                     "value": "default",
                     "revisions": {
-                        "v7.0.3": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
                 {
                     "value": "no",
                     "revisions": {
-                        "v7.0.3": True,
                         "v7.2.0": True,
-                        "v7.0.2": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
                     },
                 },
             ],
+        },
+        "login_password": {
             "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
-        },
-        "cdma_ha_spi": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "name": {
-            "type": "string",
-            "revisions": {
                 "v7.0.3": True,
                 "v7.0.2": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": False,
+                "v6.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "override_enforce_bandwidth": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
                 "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
+                "v6.4.0": False,
                 "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
                 "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
+        },
+        "enforce_bandwidth": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
+        },
+        "bandwidth_limit": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
+        "wan_extension": {
+            "revisions": {
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "dict",
+            "children": {
+                "modem1_extension": {
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                    "type": "string",
+                },
+                "modem2_extension": {
+                    "revisions": {
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                    "type": "string",
+                },
             },
         },
-        "modem_passwd": {
-            "type": "string",
+        "controller_report": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": False,
+                "v6.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "dict",
+            "children": {
+                "status": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "interval": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "integer",
+                },
+                "signal_threshold": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "integer",
+                },
+            },
+        },
+        "modem1": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": False,
+                "v6.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "dict",
+            "children": {
+                "ifname": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "redundant_mode": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "redundant_intf": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "conn_status": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "integer",
+                },
+                "default_sim": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "sim1",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "sim2",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "carrier",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "cost",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "gps": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sim1_pin": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sim2_pin": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sim1_pin_code": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "sim2_pin_code": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "preferred_carrier": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "auto_switch": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "dict",
+                    "children": {
+                        "disconnect": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "disconnect_threshold": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "disconnect_period": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "signal": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "dataplan": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "switch_back": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "list",
+                            "options": [
+                                {
+                                    "value": "time",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "timer",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                        "switch_back_time": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "switch_back_timer": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                    },
+                },
+            },
+        },
+        "modem2": {
+            "revisions": {
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": False,
+                "v6.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "dict",
+            "children": {
+                "ifname": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "redundant_mode": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "redundant_intf": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "conn_status": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "integer",
+                },
+                "default_sim": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "sim1",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "sim2",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "carrier",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "cost",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "gps": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sim1_pin": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sim2_pin": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "disable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                        },
+                    ],
+                },
+                "sim1_pin_code": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "sim2_pin_code": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "preferred_carrier": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "string",
+                },
+                "auto_switch": {
+                    "revisions": {
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.0": True,
+                    },
+                    "type": "dict",
+                    "children": {
+                        "disconnect": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "disconnect_threshold": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "disconnect_period": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                        "signal": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "dataplan": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                            "options": [
+                                {
+                                    "value": "disable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "enable",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                        },
+                        "switch_back": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "list",
+                            "options": [
+                                {
+                                    "value": "time",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                                {
+                                    "value": "timer",
+                                    "revisions": {
+                                        "v7.0.1": True,
+                                        "v7.0.0": True,
+                                        "v6.4.4": True,
+                                        "v6.4.0": True,
+                                    },
+                                },
+                            ],
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                        "switch_back_time": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "string",
+                        },
+                        "switch_back_timer": {
+                            "revisions": {
+                                "v7.0.1": True,
+                                "v7.0.0": True,
+                                "v6.4.4": True,
+                                "v6.4.0": True,
+                            },
+                            "type": "integer",
+                        },
+                    },
+                },
             },
         },
         "admin": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "disable",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "discovered",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "enable",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
         },
-        "dial_mode": {
+        "ifname": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "role": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
-                    "value": "dial-on-demand",
+                    "value": "none",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
-                    "value": "always-connect",
+                    "value": "primary",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "secondary",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "primary_ha": {
-            "type": "string",
-            "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "vdom": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": True,
-                "v6.0.5": True,
-                "v6.0.0": True,
-                "v6.4.0": True,
-                "v6.4.1": True,
-                "v6.2.0": True,
-                "v7.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
-                "v6.2.7": True,
-                "v6.0.11": True,
-            },
-        },
-        "bandwidth_limit": {
-            "type": "integer",
-            "revisions": {
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v6.4.4": False,
-                "v6.0.5": False,
-                "v6.0.0": False,
-                "v6.4.0": False,
-                "v6.4.1": False,
-                "v6.2.0": False,
-                "v7.2.0": True,
-                "v6.2.3": False,
-                "v6.2.5": False,
-                "v6.2.7": False,
-                "v6.0.11": False,
-            },
         },
         "mode": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "standalone",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
                 {
                     "value": "redundant",
                     "revisions": {
-                        "v6.0.0": True,
-                        "v6.0.5": True,
                         "v6.4.1": True,
-                        "v6.2.0": True,
-                        "v6.2.3": True,
-                        "v6.2.5": True,
                         "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
                         "v6.0.11": True,
+                        "v6.0.0": True,
                     },
                 },
             ],
+        },
+        "dial_mode": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": False,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
+            "options": [
+                {
+                    "value": "dial-on-demand",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "always-connect",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "redial": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "none",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "1",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "2",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "3",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "4",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "5",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "6",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "7",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "8",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "9",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "10",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
         },
         "redundant_intf": {
-            "type": "string",
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": False,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
         },
-        "aaa_shared_secret": {
-            "type": "string",
+        "dial_status": {
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": False,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "integer",
+        },
+        "conn_status": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "quota_limit_mb": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "billing_start_day": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "at_dial_script": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "modem_passwd": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "initiated_update": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "modem_type": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "cdma",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "gsm/lte",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "wimax",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "ppp_username": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "ppp_password": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "ppp_auth_protocol": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "auto",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "pap",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "chap",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "ppp_echo_request": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "wimax_carrier": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "wimax_realm": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "wimax_auth_protocol": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "tls",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "ttls",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
         },
         "sim_pin": {
-            "type": "string",
             "revisions": {
-                "v6.0.0": True,
-                "v6.0.5": True,
-                "v6.4.0": False,
                 "v6.4.1": True,
-                "v6.2.0": True,
-                "v6.2.3": True,
-                "v6.2.5": True,
+                "v6.4.0": False,
                 "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
                 "v6.0.11": True,
+                "v6.0.0": True,
             },
+            "type": "string",
+        },
+        "access_point_name": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "multi_mode": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "auto",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "auto-3g",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "force-lte",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "force-3g",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "force-2g",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "roaming": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "cdma_nai": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "aaa_shared_secret": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "ha_shared_secret": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "primary_ha": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "secondary_ha": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "cdma_aaa_spi": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+        },
+        "cdma_ha_spi": {
+            "revisions": {
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
         },
     },
     "revisions": {
+        "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
+        "v7.0.5": True,
+        "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
         "v7.0.1": True,
         "v7.0.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
         "v6.4.4": True,
-        "v6.0.5": True,
-        "v6.0.0": True,
-        "v6.4.0": True,
         "v6.4.1": True,
-        "v6.2.0": True,
-        "v7.2.0": True,
-        "v6.2.3": True,
-        "v6.2.5": True,
+        "v6.4.0": True,
         "v6.2.7": True,
+        "v6.2.5": True,
+        "v6.2.3": True,
+        "v6.2.0": True,
+        "v6.0.5": True,
         "v6.0.11": True,
+        "v6.0.0": True,
     },
 }
 
