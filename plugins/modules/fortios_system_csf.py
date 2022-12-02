@@ -146,7 +146,7 @@ options:
                     access_token:
                         description:
                             - Device access token.
-                        type: varlen_password
+                        type: str
                     device_ip:
                         description:
                             - Device IP.
@@ -266,7 +266,8 @@ options:
                     ha_members:
                         description:
                             - HA members.
-                        type: str
+                        type: list
+                        elements: str
                     name:
                         description:
                             - Name.

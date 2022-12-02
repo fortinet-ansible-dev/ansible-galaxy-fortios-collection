@@ -5,6 +5,27 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.2.1
+======
+
+Release Summary
+---------------
+
+patch release of 2.2.1
+
+Bugfixes
+--------
+
+- Fix invalid arguments in version_schemas;
+- Fix list type arguments inconsistency;
+- Fix validate-modules error: type not match and name not validate;
+- Fix supports_check_mode issue for _info and _facts modules;
+
+Improvements
+--------
+- Remove ignore-x.txt files;
+- Update required ansible to >=2.9.10;
+
 v2.2.0
 ======
 

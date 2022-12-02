@@ -133,7 +133,7 @@ options:
                 type: list
                 elements: dict
                 suboptions:
-                    default value:
+                    default_value:
                         description:
                             - Parameter default value.
                         type: str
@@ -200,7 +200,7 @@ EXAMPLES = """
         parameter: "<your_own_value>"
         parameters:
          -
-            default value: "<your_own_value>"
+            default_value: "<your_own_value>"
             name: "default_name_14"
         popularity: "0"
         protocol: "<your_own_value>"
@@ -339,6 +339,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"default value": "default_value"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def application_name(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -349,6 +372,7 @@ def application_name(data, fos, check_mode=False):
     filtered_data = underscore_to_hyphen(
         filter_application_name_data(application_name_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -407,7 +431,7 @@ def application_name(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("application", "name", data=filtered_data, vdom=vdom)
+        return fos.set("application", "name", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("application", "name", mkey=filtered_data["name"], vdom=vdom)
@@ -688,7 +712,7 @@ versioned_schema = {
                     },
                     "type": "string",
                 },
-                "default value": {
+                "default_value": {
                     "revisions": {
                         "v7.2.0": True,
                         "v7.0.5": True,

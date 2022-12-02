@@ -223,7 +223,8 @@ options:
                             link_cost_factor:
                                 description:
                                     - Criteria on which to base link selection.
-                                type: str
+                                type: list
+                                elements: str
                                 choices:
                                     - 'latency'
                                     - 'jitter'

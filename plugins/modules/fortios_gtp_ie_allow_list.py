@@ -94,6 +94,10 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    fos_message:
+                        description:
+                            - Message ID (1 - 255).
+                        type: int
                     id:
                         description:
                             - Entry ID.
@@ -101,10 +105,6 @@ options:
                     ie:
                         description:
                             - IE ID (1 - 255).
-                        type: int
-                    message:
-                        description:
-                            - Message ID (1 - 255).
                         type: int
             name:
                 description:
@@ -132,9 +132,9 @@ EXAMPLES = """
       gtp_ie_allow_list:
         entries:
          -
-            id:  "4"
+            fos_message: "0"
+            id:  "5"
             ie: "0"
-            message: "0"
         name: "default_name_7"
 
 """
@@ -245,6 +245,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"message": "fos_message"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def gtp_ie_allow_list(data, fos):
     vdom = data["vdom"]
 
@@ -254,9 +277,10 @@ def gtp_ie_allow_list(data, fos):
     filtered_data = underscore_to_hyphen(
         filter_gtp_ie_allow_list_data(gtp_ie_allow_list_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("gtp", "ie-allow-list", data=filtered_data, vdom=vdom)
+        return fos.set("gtp", "ie-allow-list", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("gtp", "ie-allow-list", mkey=filtered_data["name"], vdom=vdom)
@@ -325,7 +349,7 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "message": {
+                "ie": {
                     "revisions": {
                         "v7.2.0": True,
                         "v7.0.5": True,
@@ -337,7 +361,7 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "ie": {
+                "fos_message": {
                     "revisions": {
                         "v7.2.0": True,
                         "v7.0.5": True,

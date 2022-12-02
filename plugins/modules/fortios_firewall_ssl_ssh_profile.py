@@ -287,7 +287,7 @@ options:
                         description:
                             - Ports to use for scanning (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     revoked_server_cert:
                         description:
                             - Action based on server certificate is revoked.
@@ -437,7 +437,7 @@ options:
                         description:
                             - Ports to use for scanning (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -578,7 +578,7 @@ options:
                         description:
                             - Ports to use for scanning (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -730,7 +730,7 @@ options:
                         description:
                             - Ports to use for scanning (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -894,7 +894,7 @@ options:
                         description:
                             - Ports to use for scanning (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -987,7 +987,7 @@ options:
                         description:
                             - Ports to use for scanning (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -1455,7 +1455,7 @@ EXAMPLES = """
             expired_server_cert: "allow"
             invalid_server_cert: "allow"
             min_allowed_ssl_version: "ssl-3.0"
-            ports: ""
+            ports: "<your_own_value>"
             revoked_server_cert: "allow"
             sni_server_cert_check: "enable"
             status: "disable"
@@ -1475,7 +1475,7 @@ EXAMPLES = """
             expired_server_cert: "allow"
             invalid_server_cert: "allow"
             min_allowed_ssl_version: "ssl-3.0"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             revoked_server_cert: "allow"
             sni_server_cert_check: "enable"
@@ -1494,7 +1494,7 @@ EXAMPLES = """
             client_certificate: "bypass"
             expired_server_cert: "allow"
             invalid_server_cert: "allow"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             revoked_server_cert: "allow"
             sni_server_cert_check: "enable"
@@ -1515,7 +1515,7 @@ EXAMPLES = """
             client_certificate: "bypass"
             expired_server_cert: "allow"
             invalid_server_cert: "allow"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             revoked_server_cert: "allow"
             sni_server_cert_check: "enable"
@@ -1539,7 +1539,7 @@ EXAMPLES = """
             client_certificate: "bypass"
             expired_server_cert: "allow"
             invalid_server_cert: "allow"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             revoked_server_cert: "allow"
             sni_server_cert_check: "enable"
@@ -1552,7 +1552,7 @@ EXAMPLES = """
             untrusted_server_cert: "allow"
         ssh:
             inspect_all: "disable"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             ssh_algorithm: "compatible"
             ssh_policy_check: "disable"

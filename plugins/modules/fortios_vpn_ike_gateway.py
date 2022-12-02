@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <name>:
+            name:
                 description:
                     - Name of IKE gateway to list.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_vpn_ike_gateway:
       vdom:  "{{ vdom }}"
       vpn_ike_gateway:
-        <name>: "<your_own_value>"
+        name: "default_name_3"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_vpn_ike_gateway_data(json):
-    option_list = ["<name>"]
+    option_list = ["name"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<name>": "name"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def vpn_ike_gateway(data, fos):
     vdom = data["vdom"]
     vpn_ike_gateway_data = data["vpn_ike_gateway"]
     filtered_data = underscore_to_hyphen(
         filter_vpn_ike_gateway_data(vpn_ike_gateway_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("vpn.ike", "gateway", data=filtered_data, vdom=vdom)
+    return fos.set("vpn.ike", "gateway", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -268,7 +292,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<name>": {
+        "name": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

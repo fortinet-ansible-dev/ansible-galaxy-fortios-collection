@@ -120,7 +120,8 @@ options:
                     services:
                         description:
                             - Bonjour services for the VLAN connecting to the Bonjour network.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'all'
                             - 'airplay'

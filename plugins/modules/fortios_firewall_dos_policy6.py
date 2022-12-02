@@ -143,7 +143,7 @@ options:
                             - Anomaly threshold. Number of detected instances (packets per second or concurrent session number) that triggers the anomaly
                                action.
                         type: int
-                    threshold(default):
+                    threshold_default:
                         description:
                             - Number of detected instances per minute which triggers action (1 - 2147483647). Note that each anomaly has a different threshold
                                value assigned to it.
@@ -231,7 +231,7 @@ EXAMPLES = """
             quarantine_log: "disable"
             status: "disable"
             threshold: "0"
-            threshold(default): "0"
+            threshold_default: "0"
         comments: "<your_own_value>"
         dstaddr:
          -
@@ -371,6 +371,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"threshold(default)": "threshold_default"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def firewall_dos_policy6(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -381,6 +404,7 @@ def firewall_dos_policy6(data, fos, check_mode=False):
     filtered_data = underscore_to_hyphen(
         filter_firewall_dos_policy6_data(firewall_dos_policy6_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -439,7 +463,7 @@ def firewall_dos_policy6(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "DoS-policy6", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "DoS-policy6", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -1370,7 +1394,7 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "threshold(default)": {
+                "threshold_default": {
                     "revisions": {
                         "v7.2.0": True,
                         "v7.0.5": True,

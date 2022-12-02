@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <fortiswitch_id>:
+            fortiswitch_id:
                 description:
                     - FortiSwitch device ID.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_switch_controller_poe:
       vdom:  "{{ vdom }}"
       switch_controller_poe:
-        <fortiswitch_id>: "<your_own_value>"
+        fortiswitch_id: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_switch_controller_poe_data(json):
-    option_list = ["<fortiswitch_id>"]
+    option_list = ["fortiswitch_id"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<fortiswitch_id>": "fortiswitch_id"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def switch_controller_poe(data, fos):
     vdom = data["vdom"]
     switch_controller_poe_data = data["switch_controller_poe"]
     filtered_data = underscore_to_hyphen(
         filter_switch_controller_poe_data(switch_controller_poe_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("switch-controller", "poe", data=filtered_data, vdom=vdom)
+    return fos.set("switch-controller", "poe", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -254,7 +278,7 @@ versioned_schema = {
     "revisions": {"v6.4.1": True, "v6.2.7": True, "v6.2.5": True, "v6.2.0": True},
     "type": "dict",
     "children": {
-        "<fortiswitch_id>": {
+        "fortiswitch_id": {
             "revisions": {
                 "v6.4.1": True,
                 "v6.2.7": True,

@@ -175,7 +175,8 @@ options:
                             fortiguard_category:
                                 description:
                                     - FortiGuard category to match.
-                                type: str
+                                type: list
+                                elements: str
                             name:
                                 description:
                                     - Inspection target name.
@@ -267,7 +268,8 @@ options:
                             protocol:
                                 description:
                                     - Protocols to apply with.
-                                type: str
+                                type: list
+                                elements: str
                                 choices:
                                     - 'http'
                                     - 'ftp'
@@ -300,7 +302,8 @@ options:
                     exempt_quota:
                         description:
                             - Do not stop quota for these categories.
-                        type: str
+                        type: list
+                        elements: str
                     filters:
                         description:
                             - FortiGuard filters.
@@ -370,7 +373,8 @@ options:
                     options:
                         description:
                             - Options for FortiGuard Web Filter.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'error-allow'
                             - 'rate-server-ip'
@@ -379,7 +383,8 @@ options:
                     ovrd:
                         description:
                             - Allow web filter profile overrides.
-                        type: str
+                        type: list
+                        elements: str
                     quota:
                         description:
                             - FortiGuard traffic quota settings.
@@ -389,7 +394,8 @@ options:
                             category:
                                 description:
                                     - FortiGuard categories to apply quota to (category action must be set to monitor).
-                                type: str
+                                type: list
+                                elements: str
                             duration:
                                 description:
                                     - Duration of quota.

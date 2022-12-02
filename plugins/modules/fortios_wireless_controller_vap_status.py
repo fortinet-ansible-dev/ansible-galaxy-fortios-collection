@@ -294,7 +294,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "[1]": {
+        "set_1": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

@@ -107,7 +107,7 @@ options:
                 type: list
                 elements: dict
                 suboptions:
-                    802_1x:
+                    set_802_1x:
                         description:
                             - 802.1x security policy to be applied when using this policy. Source switch-controller.security-policy.802-1X.name
                                switch-controller.security-policy.captive-portal.name.
@@ -208,7 +208,7 @@ EXAMPLES = """
         name: "default_name_5"
         policy:
          -
-            802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
+            set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
             bounce_port_link: "disable"
             category: "device"
             description: "<your_own_value>"
@@ -334,6 +334,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"802_1x": "set_802_1x"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def switch_controller_dynamic_port_policy(data, fos):
     vdom = data["vdom"]
 
@@ -347,10 +370,11 @@ def switch_controller_dynamic_port_policy(data, fos):
             switch_controller_dynamic_port_policy_data
         )
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller", "dynamic-port-policy", data=filtered_data, vdom=vdom
+            "switch-controller", "dynamic-port-policy", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":
@@ -750,23 +774,6 @@ versioned_schema = {
                     },
                     "type": "string",
                 },
-                "802_1x": {
-                    "revisions": {
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
                 "vlan_policy": {
                     "revisions": {
                         "v7.2.2": True,
@@ -836,6 +843,23 @@ versioned_schema = {
                             },
                         },
                     ],
+                },
+                "set_802_1x": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                    },
+                    "type": "string",
                 },
             },
             "revisions": {

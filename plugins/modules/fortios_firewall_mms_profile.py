@@ -589,7 +589,8 @@ options:
                     threshold:
                         description:
                             - Thresholds on which this MSISDN will receive an alert.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'flood-thresh-1'
                             - 'flood-thresh-2'

@@ -289,7 +289,8 @@ options:
                     remove_ies:
                         description:
                             - GTP IEs to be removed.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'apn-restriction'
                             - 'rat-type'
@@ -1104,7 +1105,8 @@ options:
                     apn_sel_mode:
                         description:
                             - APN selection mode.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'ms'
                             - 'net'
@@ -1144,7 +1146,8 @@ options:
                     messages:
                         description:
                             - GTP messages.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'create-ses-req'
                             - 'create-ses-res'
@@ -1157,7 +1160,8 @@ options:
                     rat_type:
                         description:
                             - RAT Type.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'any'
                             - 'utran'
@@ -1173,7 +1177,8 @@ options:
                     uli:
                         description:
                             - GTPv2 ULI patterns (in order of CGI SAI RAI TAI ECGI LAI).
-                        type: str
+                        type: list
+                        elements: str
             port_notify:
                 description:
                     - overbilling notify port

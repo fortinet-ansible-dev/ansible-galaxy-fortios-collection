@@ -221,7 +221,8 @@ options:
                     server_type:
                         description:
                             - FortiGuard service type.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'update'
                             - 'rating'

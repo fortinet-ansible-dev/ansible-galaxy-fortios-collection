@@ -237,7 +237,8 @@ options:
                     ip:
                         description:
                             - DHCP option IPs.
-                        type: str
+                        type: list
+                        elements: str
                     type:
                         description:
                             - DHCP client option type.
@@ -920,7 +921,8 @@ options:
                             rdnss:
                                 description:
                                     - Recursive DNS server option.
-                                type: str
+                                type: list
+                                elements: str
                             rdnss_service:
                                 description:
                                     - Recursive DNS service option.
@@ -1034,7 +1036,8 @@ options:
                             rdnss:
                                 description:
                                     - Recursive DNS server option.
-                                type: str
+                                type: list
+                                elements: str
                             valid_life_time:
                                 description:
                                     - Valid life time (sec).
@@ -2242,7 +2245,7 @@ EXAMPLES = """
             dhcp6_relay_service: "disable"
             dhcp6_relay_type: "regular"
             icmp6_send_redirect: "enable"
-            interface_identifier: "<your_own_value>"
+            interface_identifier:  "myId_137"
             ip6_address: "<your_own_value>"
             ip6_allowaccess: "ping"
             ip6_default_life: "1800"

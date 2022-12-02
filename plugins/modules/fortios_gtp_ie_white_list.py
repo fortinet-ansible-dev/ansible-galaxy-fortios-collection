@@ -94,6 +94,10 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    fos_message:
+                        description:
+                            - Message ID (1 - 255).
+                        type: int
                     id:
                         description:
                             - Entry ID.
@@ -101,10 +105,6 @@ options:
                     ie:
                         description:
                             - IE ID (1 - 255).
-                        type: int
-                    message:
-                        description:
-                            - Message ID (1 - 255).
                         type: int
             name:
                 description:
@@ -132,9 +132,9 @@ EXAMPLES = """
       gtp_ie_white_list:
         entries:
          -
-            id:  "4"
+            fos_message: "127"
+            id:  "5"
             ie: "127"
-            message: "127"
         name: "default_name_7"
 
 """
@@ -251,6 +251,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"message": "fos_message"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def gtp_ie_white_list(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -261,6 +284,7 @@ def gtp_ie_white_list(data, fos, check_mode=False):
     filtered_data = underscore_to_hyphen(
         filter_gtp_ie_white_list_data(gtp_ie_white_list_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -319,7 +343,7 @@ def gtp_ie_white_list(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("gtp", "ie-white-list", data=filtered_data, vdom=vdom)
+        return fos.set("gtp", "ie-white-list", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("gtp", "ie-white-list", mkey=filtered_data["name"], vdom=vdom)
@@ -395,7 +419,7 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "message": {
+                "ie": {
                     "revisions": {
                         "v6.4.4": True,
                         "v6.4.1": True,
@@ -410,7 +434,7 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "ie": {
+                "fos_message": {
                     "revisions": {
                         "v6.4.4": True,
                         "v6.4.1": True,

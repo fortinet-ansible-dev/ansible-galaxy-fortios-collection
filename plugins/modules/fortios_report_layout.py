@@ -101,7 +101,8 @@ options:
                     chart_options:
                         description:
                             - Report chart options.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'include-no-data'
                             - 'hide-title'

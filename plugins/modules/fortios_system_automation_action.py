@@ -240,6 +240,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fos_message:
+                description:
+                    - Message content.
+                type: str
             gcp_function:
                 description:
                     - Google Cloud function name.
@@ -288,10 +292,6 @@ options:
                         description:
                             - Request header value.
                         type: str
-            message:
-                description:
-                    - Message content.
-                type: str
             message_type:
                 description:
                     - Message type.
@@ -446,6 +446,7 @@ EXAMPLES = """
          -
             name: "default_name_31"
         execute_security_fabric: "enable"
+        fos_message: "<your_own_value>"
         gcp_function: "<your_own_value>"
         gcp_function_domain: "<your_own_value>"
         gcp_function_region: "<your_own_value>"
@@ -456,10 +457,9 @@ EXAMPLES = """
         http_body: "<your_own_value>"
         http_headers:
          -
-            id:  "41"
+            id:  "42"
             key: "<your_own_value>"
             value: "<your_own_value>"
-        message: "<your_own_value>"
         message_type: "text"
         method: "post"
         minimum_interval: "0"
@@ -600,6 +600,7 @@ def filter_system_automation_action_data(json):
         "email_subject",
         "email_to",
         "execute_security_fabric",
+        "fos_message",
         "gcp_function",
         "gcp_function_domain",
         "gcp_function_region",
@@ -607,7 +608,6 @@ def filter_system_automation_action_data(json):
         "headers",
         "http_body",
         "http_headers",
-        "message",
         "message_type",
         "method",
         "minimum_interval",
@@ -651,6 +651,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"message": "fos_message"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def system_automation_action(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -661,6 +684,7 @@ def system_automation_action(data, fos, check_mode=False):
     filtered_data = underscore_to_hyphen(
         filter_system_automation_action_data(system_automation_action_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -719,7 +743,7 @@ def system_automation_action(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "automation-action", data=filtered_data, vdom=vdom)
+        return fos.set("system", "automation-action", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -1897,33 +1921,6 @@ versioned_schema = {
                     },
                 },
             ],
-        },
-        "message": {
-            "revisions": {
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": False,
-                "v6.2.5": False,
-                "v6.2.3": False,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
         },
         "replacement_message": {
             "revisions": {
@@ -3106,6 +3103,33 @@ versioned_schema = {
                 "v6.2.5": True,
                 "v6.2.3": True,
                 "v6.2.0": True,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "fos_message": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
                 "v6.0.5": False,
                 "v6.0.11": False,
                 "v6.0.0": False,

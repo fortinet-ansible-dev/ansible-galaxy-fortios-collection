@@ -944,13 +944,6 @@ options:
                     - Configuration options for radio 1.
                 type: dict
                 suboptions:
-                    80211d:
-                        description:
-                            - Enable/disable 802.11d countryie.
-                        type: str
-                        choices:
-                            - 'enable'
-                            - 'disable'
                     airtime_fairness:
                         description:
                             - Enable/disable airtime fairness .
@@ -1240,7 +1233,8 @@ options:
                     powersave_optimize:
                         description:
                             - Enable client power-saving features such as TIM, AC VO, and OBSS etc.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'tim'
                             - 'ac-vo'
@@ -1348,6 +1342,13 @@ options:
                         description:
                             - Username for WiFi network connection.
                         type: str
+                    set_80211d:
+                        description:
+                            - Enable/disable 802.11d countryie.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -1367,7 +1368,8 @@ options:
                         description:
                             - Packet transmission optimization options including power saving, aggregation limiting, retry limiting, etc. All are enabled by
                                default.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'disable'
                             - 'power-save'
@@ -1410,13 +1412,6 @@ options:
                     - Configuration options for radio 2.
                 type: dict
                 suboptions:
-                    80211d:
-                        description:
-                            - Enable/disable 802.11d countryie.
-                        type: str
-                        choices:
-                            - 'enable'
-                            - 'disable'
                     airtime_fairness:
                         description:
                             - Enable/disable airtime fairness .
@@ -1706,7 +1701,8 @@ options:
                     powersave_optimize:
                         description:
                             - Enable client power-saving features such as TIM, AC VO, and OBSS etc.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'tim'
                             - 'ac-vo'
@@ -1814,6 +1810,13 @@ options:
                         description:
                             - Username for WiFi network connection.
                         type: str
+                    set_80211d:
+                        description:
+                            - Enable/disable 802.11d countryie.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -1833,7 +1836,8 @@ options:
                         description:
                             - Packet transmission optimization options including power saving, aggregation limiting, retry limiting, etc. All are enabled by
                                default.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'disable'
                             - 'power-save'
@@ -1876,13 +1880,6 @@ options:
                     - Configuration options for radio 3.
                 type: dict
                 suboptions:
-                    80211d:
-                        description:
-                            - Enable/disable 802.11d countryie.
-                        type: str
-                        choices:
-                            - 'enable'
-                            - 'disable'
                     airtime_fairness:
                         description:
                             - Enable/disable airtime fairness .
@@ -2172,7 +2169,8 @@ options:
                     powersave_optimize:
                         description:
                             - Enable client power-saving features such as TIM, AC VO, and OBSS etc.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'tim'
                             - 'ac-vo'
@@ -2280,6 +2278,13 @@ options:
                         description:
                             - Username for WiFi network connection.
                         type: str
+                    set_80211d:
+                        description:
+                            - Enable/disable 802.11d countryie.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -2299,7 +2304,8 @@ options:
                         description:
                             - Packet transmission optimization options including power saving, aggregation limiting, retry limiting, etc. All are enabled by
                                default.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'disable'
                             - 'power-save'
@@ -2342,13 +2348,6 @@ options:
                     - Configuration options for radio 4.
                 type: dict
                 suboptions:
-                    80211d:
-                        description:
-                            - Enable/disable 802.11d countryie.
-                        type: str
-                        choices:
-                            - 'enable'
-                            - 'disable'
                     airtime_fairness:
                         description:
                             - Enable/disable airtime fairness .
@@ -2638,7 +2637,8 @@ options:
                     powersave_optimize:
                         description:
                             - Enable client power-saving features such as TIM, AC VO, and OBSS etc.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'tim'
                             - 'ac-vo'
@@ -2742,6 +2742,13 @@ options:
                         description:
                             - Username for WiFi network connection.
                         type: str
+                    set_80211d:
+                        description:
+                            - Enable/disable 802.11d countryie.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -2761,7 +2768,8 @@ options:
                         description:
                             - Packet transmission optimization options including power saving, aggregation limiting, retry limiting, etc. All are enabled by
                                default.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'disable'
                             - 'power-save'
@@ -2984,7 +2992,6 @@ EXAMPLES = """
             type: "AP-11N"
         poe_mode: "auto"
         radio_1:
-            80211d: "enable"
             airtime_fairness: "enable"
             amsdu: "enable"
             ap_handoff: "enable"
@@ -3052,6 +3059,7 @@ EXAMPLES = """
             sam_ssid: "<your_own_value>"
             sam_test: "ping"
             sam_username: "<your_own_value>"
+            set_80211d: "enable"
             short_guard_interval: "enable"
             spectrum_analysis: "enable"
             transmit_optimize: "disable"
@@ -3062,7 +3070,6 @@ EXAMPLES = """
             wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
             zero_wait_dfs: "enable"
         radio_2:
-            80211d: "enable"
             airtime_fairness: "enable"
             amsdu: "enable"
             ap_handoff: "enable"
@@ -3130,6 +3137,7 @@ EXAMPLES = """
             sam_ssid: "<your_own_value>"
             sam_test: "ping"
             sam_username: "<your_own_value>"
+            set_80211d: "enable"
             short_guard_interval: "enable"
             spectrum_analysis: "enable"
             transmit_optimize: "disable"
@@ -3140,7 +3148,6 @@ EXAMPLES = """
             wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
             zero_wait_dfs: "enable"
         radio_3:
-            80211d: "enable"
             airtime_fairness: "enable"
             amsdu: "enable"
             ap_handoff: "enable"
@@ -3208,6 +3215,7 @@ EXAMPLES = """
             sam_ssid: "<your_own_value>"
             sam_test: "ping"
             sam_username: "<your_own_value>"
+            set_80211d: "enable"
             short_guard_interval: "enable"
             spectrum_analysis: "enable"
             transmit_optimize: "disable"
@@ -3218,7 +3226,6 @@ EXAMPLES = """
             wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
             zero_wait_dfs: "enable"
         radio_4:
-            80211d: "enable"
             airtime_fairness: "enable"
             amsdu: "enable"
             ap_handoff: "enable"
@@ -3285,6 +3292,7 @@ EXAMPLES = """
             sam_ssid: "<your_own_value>"
             sam_test: "ping"
             sam_username: "<your_own_value>"
+            set_80211d: "enable"
             short_guard_interval: "enable"
             spectrum_analysis: "enable"
             transmit_optimize: "disable"
@@ -3510,6 +3518,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"80211d": "set_80211d"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def wireless_controller_wtp_profile(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -3525,6 +3556,7 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
             wireless_controller_wtp_profile_data
         )
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -3588,7 +3620,7 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "wireless-controller", "wtp-profile", data=filtered_data, vdom=vdom
+            "wireless-controller", "wtp-profile", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":
@@ -17436,43 +17468,6 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "80211d": {
-                    "revisions": {
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": False,
-                        "v7.0.8": False,
-                        "v7.0.7": False,
-                        "v7.0.6": False,
-                        "v7.0.5": False,
-                        "v7.0.4": False,
-                        "v7.0.3": False,
-                        "v7.0.2": False,
-                        "v7.0.1": False,
-                        "v7.0.0": False,
-                        "v6.4.4": False,
-                        "v6.4.1": False,
-                        "v6.4.0": False,
-                        "v6.2.7": False,
-                        "v6.2.5": False,
-                        "v6.2.3": False,
-                        "v6.2.0": False,
-                        "v6.0.5": False,
-                        "v6.0.11": False,
-                        "v6.0.0": False,
-                    },
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                    ],
-                },
                 "rts_threshold": {
                     "revisions": {
                         "v7.2.2": True,
@@ -19629,6 +19624,43 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                },
+                "set_80211d": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
                 },
             },
         },
@@ -22093,43 +22125,6 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "80211d": {
-                    "revisions": {
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": False,
-                        "v7.0.8": False,
-                        "v7.0.7": False,
-                        "v7.0.6": False,
-                        "v7.0.5": False,
-                        "v7.0.4": False,
-                        "v7.0.3": False,
-                        "v7.0.2": False,
-                        "v7.0.1": False,
-                        "v7.0.0": False,
-                        "v6.4.4": False,
-                        "v6.4.1": False,
-                        "v6.4.0": False,
-                        "v6.2.7": False,
-                        "v6.2.5": False,
-                        "v6.2.3": False,
-                        "v6.2.0": False,
-                        "v6.0.5": False,
-                        "v6.0.11": False,
-                        "v6.0.0": False,
-                    },
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                    ],
-                },
                 "rts_threshold": {
                     "revisions": {
                         "v7.2.2": True,
@@ -24286,6 +24281,43 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                },
+                "set_80211d": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
                 },
             },
         },
@@ -26519,40 +26551,6 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "80211d": {
-                    "revisions": {
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": False,
-                        "v7.0.8": False,
-                        "v7.0.7": False,
-                        "v7.0.6": False,
-                        "v7.0.5": False,
-                        "v7.0.4": False,
-                        "v7.0.3": False,
-                        "v7.0.2": False,
-                        "v7.0.1": False,
-                        "v7.0.0": False,
-                        "v6.4.4": False,
-                        "v6.4.1": False,
-                        "v6.4.0": False,
-                        "v6.2.7": False,
-                        "v6.2.5": False,
-                        "v6.2.3": False,
-                        "v6.2.0": False,
-                    },
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                    ],
-                },
                 "rts_threshold": {
                     "revisions": {
                         "v7.2.2": True,
@@ -28469,6 +28467,40 @@ versioned_schema = {
                 "radio_id": {
                     "revisions": {"v6.2.3": True, "v6.2.0": False},
                     "type": "integer",
+                },
+                "set_80211d": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                    ],
                 },
             },
         },
@@ -30623,39 +30655,6 @@ versioned_schema = {
                     },
                     "type": "integer",
                 },
-                "80211d": {
-                    "revisions": {
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": False,
-                        "v7.0.8": False,
-                        "v7.0.7": False,
-                        "v7.0.6": False,
-                        "v7.0.5": False,
-                        "v7.0.4": False,
-                        "v7.0.3": False,
-                        "v7.0.2": False,
-                        "v7.0.1": False,
-                        "v7.0.0": False,
-                        "v6.4.4": False,
-                        "v6.4.1": False,
-                        "v6.4.0": False,
-                        "v6.2.7": False,
-                        "v6.2.5": False,
-                        "v6.2.0": False,
-                    },
-                    "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
-                        },
-                    ],
-                },
                 "rts_threshold": {
                     "revisions": {
                         "v7.2.2": True,
@@ -32480,6 +32479,39 @@ versioned_schema = {
                                 "v6.2.5": True,
                                 "v6.2.0": True,
                             },
+                        },
+                    ],
+                },
+                "set_80211d": {
+                    "revisions": {
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.2.2": True, "v7.2.1": True},
                         },
                     ],
                 },

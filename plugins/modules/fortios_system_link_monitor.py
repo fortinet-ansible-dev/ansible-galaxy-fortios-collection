@@ -235,7 +235,8 @@ options:
                     protocol:
                         description:
                             - Protocols used to monitor the server.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'ping'
                             - 'tcp-echo'

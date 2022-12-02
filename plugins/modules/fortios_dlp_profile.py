@@ -257,7 +257,7 @@ options:
                         type: str
                         choices:
                             - 'file'
-                            - 'message'
+                            - 'fos_message'
             summary_proto:
                 description:
                     - Protocols to always log summary.
@@ -474,6 +474,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"message": "fos_message"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def dlp_profile(data, fos):
     vdom = data["vdom"]
 
@@ -482,9 +505,10 @@ def dlp_profile(data, fos):
     dlp_profile_data = data["dlp_profile"]
     dlp_profile_data = flatten_multilists_attributes(dlp_profile_data)
     filtered_data = underscore_to_hyphen(filter_dlp_profile_data(dlp_profile_data))
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("dlp", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("dlp", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("dlp", "profile", mkey=filtered_data["name"], vdom=vdom)
@@ -622,7 +646,7 @@ versioned_schema = {
                             },
                         },
                         {
-                            "value": "message",
+                            "value": "fos_message",
                             "revisions": {
                                 "v7.2.2": True,
                                 "v7.2.1": True,

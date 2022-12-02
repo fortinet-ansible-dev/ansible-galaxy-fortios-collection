@@ -181,7 +181,8 @@ options:
                                     switch_back:
                                         description:
                                             - Auto switch with switch back multi-options.
-                                        type: str
+                                        type: list
+                                        elements: str
                                         choices:
                                             - 'time'
                                             - 'timer'
@@ -288,7 +289,8 @@ options:
                                     switch_back:
                                         description:
                                             - Auto switch with switch back multi-options.
-                                        type: str
+                                        type: list
+                                        elements: str
                                         choices:
                                             - 'time'
                                             - 'timer'
@@ -400,7 +402,8 @@ options:
                                     alert:
                                         description:
                                             - Alert multi-options.
-                                        type: str
+                                        type: list
+                                        elements: str
                                         choices:
                                             - 'system-reboot'
                                             - 'data-exhausted'

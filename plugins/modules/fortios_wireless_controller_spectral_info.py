@@ -234,7 +234,8 @@ def valid_attr_to_invalid_attrs(data):
     return data
 
 
-def wireless_controller_spectral_info(data, fos):
+def wireless_controller_spectral_info(data, fos, check_mode=False):
+
     vdom = data["vdom"]
     wireless_controller_spectral_info_data = data["wireless_controller_spectral_info"]
     filtered_data = underscore_to_hyphen(
@@ -261,16 +262,17 @@ def is_successful_status(resp):
     )
 
 
-def fortios_wireless_controller(data, fos):
+def fortios_wireless_controller(data, fos, check_mode):
 
     fos.do_member_operation("wireless-controller", "spectral-info")
     if data["wireless_controller_spectral_info"]:
-        resp = wireless_controller_spectral_info(data, fos)
+        resp = wireless_controller_spectral_info(data, fos, check_mode)
     else:
         fos._module.fail_json(
             msg="missing task body: %s" % ("wireless_controller_spectral_info")
         )
-
+    if check_mode:
+        return resp
     return (
         not is_successful_status(resp),
         is_successful_status(resp)
@@ -298,7 +300,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "[wtp_id]": {
+        "set_wtp_id": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,
@@ -349,7 +351,7 @@ def main():
                 "required"
             ] = True
 
-    module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
+    module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
 
     versions_check_result = None
@@ -368,7 +370,7 @@ def main():
         )
 
         is_error, has_changed, result, diff = fortios_wireless_controller(
-            module.params, fos
+            module.params, fos, module.check_mode
         )
 
     else:

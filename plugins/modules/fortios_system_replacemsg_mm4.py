@@ -125,6 +125,10 @@ options:
                     - 'text'
                     - 'html'
                     - 'wml'
+            fos_message:
+                description:
+                    - message text
+                type: str
             from:
                 description:
                     - from address
@@ -147,10 +151,6 @@ options:
             image:
                 description:
                     - Message string. Source system.replacemsg-image.name.
-                type: str
-            message:
-                description:
-                    - message text
                 type: str
             msg_type:
                 description:
@@ -210,11 +210,11 @@ EXAMPLES = """
         class: "not-included"
         domain: "<your_own_value>"
         format: "none"
+        fos_message: "<your_own_value>"
         from: "<your_own_value>"
         from_sender: "enable"
         header: "none"
         image: "<your_own_value> (source system.replacemsg-image.name)"
-        message: "<your_own_value>"
         msg_type: "<your_own_value>"
         priority: "not-included"
         rsp_status: "ok"
@@ -316,11 +316,11 @@ def filter_system_replacemsg_mm4_data(json):
         "class",
         "domain",
         "format",
+        "fos_message",
         "from",
         "from_sender",
         "header",
         "image",
-        "message",
         "msg_type",
         "priority",
         "rsp_status",
@@ -351,6 +351,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"message": "fos_message"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def system_replacemsg_mm4(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -361,6 +384,7 @@ def system_replacemsg_mm4(data, fos, check_mode=False):
     filtered_data = underscore_to_hyphen(
         filter_system_replacemsg_mm4_data(system_replacemsg_mm4_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -419,7 +443,7 @@ def system_replacemsg_mm4(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system.replacemsg", "mm4", data=filtered_data, vdom=vdom)
+        return fos.set("system.replacemsg", "mm4", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -845,18 +869,6 @@ versioned_schema = {
             },
             "type": "string",
         },
-        "message": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
         "charset": {
             "revisions": {
                 "v6.2.7": True,
@@ -1018,6 +1030,18 @@ versioned_schema = {
                     },
                 },
             ],
+        },
+        "fos_message": {
+            "revisions": {
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
         },
     },
     "revisions": {

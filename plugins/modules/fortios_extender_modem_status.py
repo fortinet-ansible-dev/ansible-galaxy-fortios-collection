@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <sn>:
+            sn:
                 description:
                     - FortiExtender serial number. Source extender-controller.extender.id.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_extender_modem_status:
       vdom:  "{{ vdom }}"
       extender_modem_status:
-        <sn>: "<your_own_value> (source extender-controller.extender.id)"
+        sn: "<your_own_value> (source extender-controller.extender.id)"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_extender_modem_status_data(json):
-    option_list = ["<sn>"]
+    option_list = ["sn"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -212,7 +212,7 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"[1|2]": "set_1_2"}
+    specillist = {"<sn>": "sn", "[1|2]": "set_1_2"}
 
     for k, v in specillist.items():
         if v == data:
@@ -292,7 +292,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<sn>": {
+        "sn": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

@@ -110,7 +110,7 @@ options:
             n_mhae_key:
                 description:
                     - NEMO authentication key.
-                type: password_aes256
+                type: str
             n_mhae_key_type:
                 description:
                     - NEMO authentication key type (ASCII or base64).

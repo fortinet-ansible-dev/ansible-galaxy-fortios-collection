@@ -348,7 +348,8 @@ options:
                     action:
                         description:
                             - Actions taken for detected offending SSID.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'log'
                             - 'suppress'

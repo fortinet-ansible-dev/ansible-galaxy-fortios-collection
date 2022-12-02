@@ -214,7 +214,8 @@ options:
                     options:
                         description:
                             - FortiGuard DNS filter options.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'error-allow'
                             - 'ftgd-disable'

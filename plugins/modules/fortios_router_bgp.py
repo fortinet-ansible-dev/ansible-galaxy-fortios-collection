@@ -1211,7 +1211,8 @@ options:
                     attribute_unchanged:
                         description:
                             - IPv4 List of attributes that should be unchanged.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'as-path'
                             - 'med'
@@ -1219,7 +1220,8 @@ options:
                     attribute_unchanged_vpnv4:
                         description:
                             - List of attributes that should be unchanged for VPNv4 route.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'as-path'
                             - 'med'
@@ -1227,7 +1229,8 @@ options:
                     attribute_unchanged6:
                         description:
                             - IPv6 List of attributes that should be unchanged.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'as-path'
                             - 'med'

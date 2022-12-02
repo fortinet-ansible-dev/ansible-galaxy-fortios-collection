@@ -104,7 +104,7 @@ options:
                                 description:
                                     - EAP auth param.
                                 type: list
-                                elements: str
+                                elements: dict
                                 suboptions:
                                     id:
                                         description:

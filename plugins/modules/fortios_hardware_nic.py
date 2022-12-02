@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <nic>:
+            nic:
                 description:
                     - NIC name.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_hardware_nic:
       vdom:  "{{ vdom }}"
       hardware_nic:
-        <nic>: "<your_own_value>"
+        nic: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_hardware_nic_data(json):
-    option_list = ["<nic>"]
+    option_list = ["nic"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,12 +211,36 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<nic>": "nic"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def hardware_nic(data, fos):
     vdom = data["vdom"]
     hardware_nic_data = data["hardware_nic"]
     filtered_data = underscore_to_hyphen(filter_hardware_nic_data(hardware_nic_data))
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("hardware", "nic", data=filtered_data, vdom=vdom)
+    return fos.set("hardware", "nic", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -266,7 +290,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<nic>": {
+        "nic": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

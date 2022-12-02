@@ -98,7 +98,7 @@ options:
         description:
             - Indicates whether to create or remove the object.
         type: str
-        required: true
+        required: false
         choices:
             - 'present'
             - 'absent'

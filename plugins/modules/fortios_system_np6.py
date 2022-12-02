@@ -386,7 +386,7 @@ options:
             hpe:
                 description:
                     - HPE configuration.
-                type: str
+                type: dict
                 suboptions:
                     arp_max:
                         description:

@@ -817,6 +817,7 @@ versioned_schema = {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                 },
             ],
+            "multiple_values": True,
             "elements": "str",
         },
         "imap": {
@@ -896,6 +897,7 @@ versioned_schema = {
                             },
                         },
                     ],
+                    "multiple_values": True,
                     "elements": "str",
                 },
                 "tag_msg": {
@@ -981,6 +983,7 @@ versioned_schema = {
                             },
                         },
                     ],
+                    "multiple_values": True,
                     "elements": "str",
                 },
                 "tag_msg": {
@@ -1074,6 +1077,7 @@ versioned_schema = {
                             },
                         },
                     ],
+                    "multiple_values": True,
                     "elements": "str",
                 },
                 "tag_msg": {

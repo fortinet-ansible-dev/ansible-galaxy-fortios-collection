@@ -170,7 +170,7 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
-            tacacs+_server:
+            tacacs_plus_server:
                 description:
                     - Name of TACACS+ server with which the user must authenticate. Source user.tacacs+.name.
                 type: str
@@ -264,7 +264,7 @@ EXAMPLES = """
         sms_phone: "<your_own_value>"
         sms_server: "fortiguard"
         status: "enable"
-        tacacs+_server: "<your_own_value> (source user.tacacs+.name)"
+        tacacs_plus_server: "<your_own_value> (source user.tacacs+.name)"
         two_factor: "disable"
         two_factor_authentication: "fortitoken"
         two_factor_notification: "email"
@@ -381,7 +381,7 @@ def filter_user_local_data(json):
         "sms_phone",
         "sms_server",
         "status",
-        "tacacs+_server",
+        "tacacs_plus_server",
         "two_factor",
         "two_factor_authentication",
         "two_factor_notification",
@@ -414,6 +414,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"tacacs+_server": "tacacs_plus_server"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def user_local(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -422,6 +445,7 @@ def user_local(data, fos, check_mode=False):
 
     user_local_data = data["user_local"]
     filtered_data = underscore_to_hyphen(filter_user_local_data(user_local_data))
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -480,7 +504,7 @@ def user_local(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("user", "local", data=filtered_data, vdom=vdom)
+        return fos.set("user", "local", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("user", "local", mkey=filtered_data["name"], vdom=vdom)
@@ -824,33 +848,6 @@ versioned_schema = {
             "type": "string",
         },
         "radius_server": {
-            "revisions": {
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
-        "tacacs+_server": {
             "revisions": {
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -1805,6 +1802,33 @@ versioned_schema = {
                     },
                 },
             ],
+        },
+        "tacacs_plus_server": {
+            "revisions": {
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
         },
     },
     "revisions": {

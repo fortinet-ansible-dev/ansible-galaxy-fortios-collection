@@ -152,7 +152,8 @@ options:
                             protocol:
                                 description:
                                     - Protocols to apply with.
-                                type: str
+                                type: list
+                                elements: str
                                 choices:
                                     - 'smtp'
                                     - 'imap'

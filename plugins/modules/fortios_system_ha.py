@@ -387,7 +387,8 @@ options:
                     monitor:
                         description:
                             - Interfaces to check for port monitoring (or link failure). Source system.interface.name.
-                        type: str
+                        type: list
+                        elements: str
                     override:
                         description:
                             - Enable and increase the priority of the unit that should always be primary.
@@ -406,7 +407,8 @@ options:
                     pingserver_monitor_interface:
                         description:
                             - Interfaces to check for remote IP monitoring. Source system.interface.name.
-                        type: str
+                        type: list
+                        elements: str
                     pingserver_secondary_force_reset:
                         description:
                             - Enable to force the cluster to negotiate after a remote IP monitoring failover.

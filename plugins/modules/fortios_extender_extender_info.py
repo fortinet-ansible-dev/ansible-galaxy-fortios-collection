@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <sn>:
+            sn:
                 description:
                     - FortiExtender serial number. Source extender-controller.extender.id.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_extender_extender_info:
       vdom:  "{{ vdom }}"
       extender_extender_info:
-        <sn>: "<your_own_value> (source extender-controller.extender.id)"
+        sn: "<your_own_value> (source extender-controller.extender.id)"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_extender_extender_info_data(json):
-    option_list = ["<sn>"]
+    option_list = ["sn"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,39 @@ def underscore_to_hyphen(data):
     return data
 
 
-def extender_extender_info(data, fos):
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<sn>": "sn"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
+def extender_extender_info(data, fos, check_mode=False):
+
     vdom = data["vdom"]
     extender_extender_info_data = data["extender_extender_info"]
     filtered_data = underscore_to_hyphen(
         filter_extender_extender_info_data(extender_extender_info_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("extender", "extender-info", data=filtered_data, vdom=vdom)
+    return fos.set("extender", "extender-info", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -233,14 +258,15 @@ def is_successful_status(resp):
     )
 
 
-def fortios_extender(data, fos):
+def fortios_extender(data, fos, check_mode):
 
     fos.do_member_operation("extender", "extender-info")
     if data["extender_extender_info"]:
-        resp = extender_extender_info(data, fos)
+        resp = extender_extender_info(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("extender_extender_info"))
-
+    if check_mode:
+        return resp
     return (
         not is_successful_status(resp),
         is_successful_status(resp)
@@ -264,7 +290,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<sn>": {
+        "sn": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,
@@ -311,7 +337,7 @@ def main():
                 "required"
             ] = True
 
-    module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
+    module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
 
     versions_check_result = None
@@ -329,7 +355,9 @@ def main():
             fos, versioned_schema, "extender_extender_info"
         )
 
-        is_error, has_changed, result, diff = fortios_extender(module.params, fos)
+        is_error, has_changed, result, diff = fortios_extender(
+            module.params, fos, module.check_mode
+        )
 
     else:
         module.fail_json(**FAIL_SOCKET_MSG)

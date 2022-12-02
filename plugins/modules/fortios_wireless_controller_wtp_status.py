@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <wtp_id>:
+            wtp_id:
                 description:
                     - WTP ID.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_wireless_controller_wtp_status:
       vdom:  "{{ vdom }}"
       wireless_controller_wtp_status:
-        <wtp_id>: "<your_own_value>"
+        wtp_id: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_wireless_controller_wtp_status_data(json):
-    option_list = ["<wtp_id>"]
+    option_list = ["wtp_id"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<wtp_id>": "wtp_id"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def wireless_controller_wtp_status(data, fos):
     vdom = data["vdom"]
     wireless_controller_wtp_status_data = data["wireless_controller_wtp_status"]
     filtered_data = underscore_to_hyphen(
         filter_wireless_controller_wtp_status_data(wireless_controller_wtp_status_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("wireless-controller", "wtp-status", data=filtered_data, vdom=vdom)
+    return fos.set("wireless-controller", "wtp-status", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -270,7 +294,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<wtp_id>": {
+        "wtp_id": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

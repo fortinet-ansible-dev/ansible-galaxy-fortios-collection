@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <sn>:
+            sn:
                 description:
                     - FortiExtender serial number. Source extender-controller.extender.id.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_extender_lte_carrier_by_mcc_mnc:
       vdom:  "{{ vdom }}"
       extender_lte_carrier_by_mcc_mnc:
-        <sn>: "<your_own_value> (source extender-controller.extender.id)"
+        sn: "<your_own_value> (source extender-controller.extender.id)"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_extender_lte_carrier_by_mcc_mnc_data(json):
-    option_list = ["<sn>"]
+    option_list = ["sn"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,6 +211,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<sn>": "sn"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def extender_lte_carrier_by_mcc_mnc(data, fos):
     vdom = data["vdom"]
     extender_lte_carrier_by_mcc_mnc_data = data["extender_lte_carrier_by_mcc_mnc"]
@@ -219,8 +242,9 @@ def extender_lte_carrier_by_mcc_mnc(data, fos):
             extender_lte_carrier_by_mcc_mnc_data
         )
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("extender", "lte-carrier-by-mcc-mnc", data=filtered_data, vdom=vdom)
+    return fos.set("extender", "lte-carrier-by-mcc-mnc", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -268,7 +292,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<sn>": {
+        "sn": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

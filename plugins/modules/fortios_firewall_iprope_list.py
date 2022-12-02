@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <group_number>:
+            group_number:
                 description:
                     - Number, hexadecimal.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_firewall_iprope_list:
       vdom:  "{{ vdom }}"
       firewall_iprope_list:
-        <group_number>: "<your_own_value>"
+        group_number: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_firewall_iprope_list_data(json):
-    option_list = ["<group_number>"]
+    option_list = ["group_number"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<group_number>": "group_number"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def firewall_iprope_list(data, fos):
     vdom = data["vdom"]
     firewall_iprope_list_data = data["firewall_iprope_list"]
     filtered_data = underscore_to_hyphen(
         filter_firewall_iprope_list_data(firewall_iprope_list_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("firewall.iprope", "list", data=filtered_data, vdom=vdom)
+    return fos.set("firewall.iprope", "list", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -268,7 +292,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<group_number>": {
+        "group_number": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

@@ -152,7 +152,7 @@ EXAMPLES = """
       vdom:  "{{ vdom }}"
       system_vne_tunnel:
         auto_asic_offload: "enable"
-        bmr_hostname: "<your_own_value>"
+        bmr_hostname: "myhostname"
         br: "<your_own_value>"
         http_password: "<your_own_value>"
         http_username: "<your_own_value>"

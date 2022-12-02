@@ -105,7 +105,7 @@ options:
                 description:
                     - Block specific Hop-by-Hop and/or Destination Option types (max. 7 types, each between 0 and 255).
                 type: list
-                elements: str
+                elements: int
             hop_opt:
                 description:
                     - Enable/disable blocking packets with the Hop-by-Hop Options header .
@@ -131,7 +131,7 @@ options:
                 description:
                     - Block specific Routing header types (max. 7 types, each between 0 and 255).
                 type: list
-                elements: str
+                elements: int
 """
 
 EXAMPLES = """
@@ -152,11 +152,11 @@ EXAMPLES = """
         auth: "enable"
         dest_opt: "enable"
         fragment: "enable"
-        hdopt_type: ""
+        hdopt_type: "<your_own_value>"
         hop_opt: "enable"
         no_next: "enable"
         routing: "enable"
-        routing_type: "0"
+        routing_type: "<your_own_value>"
 
 """
 

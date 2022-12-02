@@ -957,12 +957,12 @@ options:
                 description:
                     - TCP port the SIP proxy monitors for SIP traffic (0 - 65535).
                 type: list
-                elements: str
+                elements: int
             sip_udp_port:
                 description:
                     - UDP port the SIP proxy monitors for SIP traffic (0 - 65535).
                 type: list
-                elements: str
+                elements: int
             snat_hairpin_traffic:
                 description:
                     - Enable/disable source NAT (SNAT) for hairpin traffic.
@@ -1192,8 +1192,8 @@ EXAMPLES = """
         sip_helper: "enable"
         sip_nat_trace: "enable"
         sip_ssl_port: "5061"
-        sip_tcp_port: "5060"
-        sip_udp_port: "5060"
+        sip_tcp_port: "<your_own_value>"
+        sip_udp_port: "<your_own_value>"
         snat_hairpin_traffic: "enable"
         ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
         status: "enable"

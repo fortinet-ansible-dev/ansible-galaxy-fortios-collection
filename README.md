@@ -9,7 +9,7 @@ The collection is the FortiOS Ansible Automation project. It includes the module
 This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/), the installation steps are as follows:
 
 1. Install or upgrade to Ansible 2.9+
-2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.2.0`
+2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.2.1`
 
 ## Requirements
 * Ansible 2.9+ is required to support the newer Ansible Collections format
@@ -17,7 +17,7 @@ This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/)
 ## Supported FortiOS Versions
 From `v2.0.0` on, FortiOS galaxy collections are unified, and cover FortiOS 6.0, 6.2, 6.4, 7.0, 7.2 versions. There is only one sequential collection at any moment. users who install these collections are expected to find the version compatibility information for each module and its parameters.
 
-The latest version is 2.2.0, path to install: `ansible-galaxy collection install fortinet.fortios:2.2.0`
+The latest version is 2.2.1, path to install: `ansible-galaxy collection install fortinet.fortios:2.2.1`
 
 Prior to FortiOS collection `v2.0.0`, FortiOS Galaxy collections were built over three FOS major versions, i.e. `v6.0`, `v6.2` and `v6.4`, thus, users are expected to install the collection according to the following table to avoid potential compatibility issues.
 

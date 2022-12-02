@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <delay>:
+            delay:
                 description:
                     - Delay in seconds .
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_system_performance_top:
       vdom:  "{{ vdom }}"
       system_performance_top:
-        <delay>: "<your_own_value>"
+        delay: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_system_performance_top_data(json):
-    option_list = ["<delay>"]
+    option_list = ["delay"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<delay>": "delay"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def system_performance_top(data, fos):
     vdom = data["vdom"]
     system_performance_top_data = data["system_performance_top"]
     filtered_data = underscore_to_hyphen(
         filter_system_performance_top_data(system_performance_top_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("system.performance", "top", data=filtered_data, vdom=vdom)
+    return fos.set("system.performance", "top", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -268,7 +292,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<delay>": {
+        "delay": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

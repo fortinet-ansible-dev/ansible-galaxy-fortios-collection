@@ -161,3 +161,14 @@ releases:
     fragments:
     - 2.2.0_release.yml
     release_date: '2022-11-09'
+  2.2.1:
+    changes:
+      bugfixes:
+      - Fix invalid arguments in version_schemas;
+      - Fix list type arguments inconsistency;
+      - Fix validate-modules error: type not match and name not validate;
+      - Fix supports_check_mode issue for _info and _facts modules;
+      release_summary: patch release of 2.2.1
+    fragments:
+    - 2.2.1_release.yml
+    release_date: '2022-12-02'

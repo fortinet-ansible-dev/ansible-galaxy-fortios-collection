@@ -239,7 +239,7 @@ options:
             priority_protocol:
                 description:
                     - Configure NPU priority protocol.
-                type: str
+                type: dict
                 suboptions:
                     bfd:
                         description:

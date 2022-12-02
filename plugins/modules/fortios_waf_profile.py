@@ -792,7 +792,8 @@ options:
                             allowed_methods:
                                 description:
                                     - Allowed Methods.
-                                type: str
+                                type: list
+                                elements: str
                                 choices:
                                     - 'get'
                                     - 'post'
@@ -908,7 +909,8 @@ options:
                             target:
                                 description:
                                     - Match HTTP target.
-                                type: str
+                                type: list
+                                elements: str
                                 choices:
                                     - 'arg'
                                     - 'arg-name'

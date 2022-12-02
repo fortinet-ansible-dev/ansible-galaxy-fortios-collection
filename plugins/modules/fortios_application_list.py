@@ -130,7 +130,8 @@ options:
                     services:
                         description:
                             - Network protocols.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'http'
                             - 'ssh'

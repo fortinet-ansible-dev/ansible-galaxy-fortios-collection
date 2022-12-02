@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <vfid>:
+            vfid:
                 description:
                     - VFID.
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_wireless_controller_client_info:
       vdom:  "{{ vdom }}"
       wireless_controller_client_info:
-        <vfid>: "<your_own_value>"
+        vfid: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_wireless_controller_client_info_data(json):
-    option_list = ["<vfid>"]
+    option_list = ["vfid"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,7 +211,31 @@ def underscore_to_hyphen(data):
     return data
 
 
-def wireless_controller_client_info(data, fos):
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<vfid>": "vfid"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
+def wireless_controller_client_info(data, fos, check_mode=False):
+
     vdom = data["vdom"]
     wireless_controller_client_info_data = data["wireless_controller_client_info"]
     filtered_data = underscore_to_hyphen(
@@ -219,8 +243,9 @@ def wireless_controller_client_info(data, fos):
             wireless_controller_client_info_data
         )
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("wireless-controller", "client-info", data=filtered_data, vdom=vdom)
+    return fos.set("wireless-controller", "client-info", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -235,16 +260,17 @@ def is_successful_status(resp):
     )
 
 
-def fortios_wireless_controller(data, fos):
+def fortios_wireless_controller(data, fos, check_mode):
 
     fos.do_member_operation("wireless-controller", "client-info")
     if data["wireless_controller_client_info"]:
-        resp = wireless_controller_client_info(data, fos)
+        resp = wireless_controller_client_info(data, fos, check_mode)
     else:
         fos._module.fail_json(
             msg="missing task body: %s" % ("wireless_controller_client_info")
         )
-
+    if check_mode:
+        return resp
     return (
         not is_successful_status(resp),
         is_successful_status(resp)
@@ -272,7 +298,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<vfid>": {
+        "vfid": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,
@@ -323,7 +349,7 @@ def main():
                 "required"
             ] = True
 
-    module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
+    module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
 
     versions_check_result = None
@@ -342,7 +368,7 @@ def main():
         )
 
         is_error, has_changed, result, diff = fortios_wireless_controller(
-            module.params, fos
+            module.params, fos, module.check_mode
         )
 
     else:

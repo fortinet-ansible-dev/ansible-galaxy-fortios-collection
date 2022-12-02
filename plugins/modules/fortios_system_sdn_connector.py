@@ -316,7 +316,7 @@ options:
             password:
                 description:
                     - Password of the remote SDN connector as login credentials.
-                type: password_aes256
+                type: str
             private_key:
                 description:
                     - Private key of GCP service account.
@@ -463,7 +463,7 @@ options:
             vcenter_password:
                 description:
                     - vCenter server password for NSX quarantine.
-                type: password_aes256
+                type: str
             vcenter_server:
                 description:
                     - vCenter server address for NSX quarantine.

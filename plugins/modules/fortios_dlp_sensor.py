@@ -266,7 +266,7 @@ options:
                         type: str
                         choices:
                             - 'file'
-                            - 'message'
+                            - 'fos_message'
             flow_based:
                 description:
                     - Enable/disable flow-based DLP.
@@ -564,6 +564,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"message": "fos_message"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def dlp_sensor(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -573,6 +596,7 @@ def dlp_sensor(data, fos, check_mode=False):
     dlp_sensor_data = data["dlp_sensor"]
     dlp_sensor_data = flatten_multilists_attributes(dlp_sensor_data)
     filtered_data = underscore_to_hyphen(filter_dlp_sensor_data(dlp_sensor_data))
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -631,7 +655,7 @@ def dlp_sensor(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("dlp", "sensor", data=filtered_data, vdom=vdom)
+        return fos.set("dlp", "sensor", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("dlp", "sensor", mkey=filtered_data["name"], vdom=vdom)
@@ -1190,7 +1214,7 @@ versioned_schema = {
                             },
                         },
                         {
-                            "value": "message",
+                            "value": "fos_message",
                             "revisions": {
                                 "v7.0.8": True,
                                 "v7.0.7": True,

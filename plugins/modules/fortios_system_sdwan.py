@@ -374,7 +374,8 @@ options:
                     server:
                         description:
                             - IP address or FQDN name of the server.
-                        type: str
+                        type: list
+                        elements: str
                     sla:
                         description:
                             - Service level agreement (SLA).
@@ -396,7 +397,8 @@ options:
                             link_cost_factor:
                                 description:
                                     - Criteria on which to base link selection.
-                                type: str
+                                type: list
+                                elements: str
                                 choices:
                                     - 'latency'
                                     - 'jitter'

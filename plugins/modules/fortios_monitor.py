@@ -1549,7 +1549,7 @@ def validate_parameters(fos):
 
     if params:
         for param_key, param_value in params.items():
-            if type(param_value) not in [bool, int, str, list]:
+            if isinstance(param_value) not in [bool, int, str, list]:
                 return False, {
                     "message": "value of param:%s must be atomic" % (param_key)
                 }

@@ -189,8 +189,8 @@ EXAMPLES = """
         trusthost:
          -
             id:  "12"
-            ipv4_trusthost: "<your_own_value>"
-            ipv6_trusthost: "<your_own_value>"
+            ipv4_trusthost: "myhostname"
+            ipv6_trusthost: "myhostname"
             type: "ipv4-trusthost"
         vdom:
          -

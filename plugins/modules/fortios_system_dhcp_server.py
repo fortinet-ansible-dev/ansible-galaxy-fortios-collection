@@ -116,7 +116,7 @@ options:
             ddns_key:
                 description:
                     - DDNS update key (base 64 encoding).
-                type: password_aes256
+                type: str
             ddns_keyname:
                 description:
                     - DDNS update key name.

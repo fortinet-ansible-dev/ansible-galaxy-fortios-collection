@@ -496,7 +496,8 @@ options:
                     versions:
                         description:
                             - SSL/TLS versions that the cipher suite can be used with.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'ssl-3.0'
                             - 'tls-1.0'
@@ -756,7 +757,8 @@ options:
                     versions:
                         description:
                             - SSL/TLS versions that the cipher suite can be used with.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - 'ssl-3.0'
                             - 'tls-1.0'

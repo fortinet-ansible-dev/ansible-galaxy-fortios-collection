@@ -70,6 +70,7 @@ options:
                 description:
                     - HTTP methods
                 type: str
+                required: true
                 choices:
                     - 'GET'
                     - 'PUT'
@@ -79,6 +80,7 @@ options:
                 description:
                     - URL path, e.g./api/v2/cmdb/firewall/address
                 type: str
+                required: true
             specialparams:
                 description:
                     - Extra URL parameters, e.g.start=1&count=10

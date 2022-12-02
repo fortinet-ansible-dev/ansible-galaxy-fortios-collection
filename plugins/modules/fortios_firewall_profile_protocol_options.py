@@ -112,7 +112,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     scan_bzip2:
                         description:
                             - Enable/disable scanning of BZip2 compressed files.
@@ -191,7 +191,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     status:
                         description:
                             - Enable/disable the active status of scanning for this protocol.
@@ -245,7 +245,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     scan_bzip2:
                         description:
                             - Enable/disable scanning of BZip2 compressed files.
@@ -375,7 +375,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     post_lang:
                         description:
                             - ID codes for character sets to be used to convert to UTF-8 for banned words and DLP on HTTP posts (maximum of 5 character sets).
@@ -548,7 +548,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -622,7 +622,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     scan_bzip2:
                         description:
                             - Enable/disable scanning of BZip2 compressed files.
@@ -678,7 +678,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -743,7 +743,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -820,7 +820,7 @@ options:
                         description:
                             - Ports to scan for content (1 - 65535).
                         type: list
-                        elements: str
+                        elements: int
                     proxy_after_tcp_handshake:
                         description:
                             - Proxy traffic after the TCP 3-way handshake has been established (not before).
@@ -968,7 +968,7 @@ EXAMPLES = """
             domain_controller: "<your_own_value> (source user.domain-controller.name credential-store.domain-controller.server-name)"
             options: "oversize"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             scan_bzip2: "enable"
             server_credential_type: "none"
             server_keytab:
@@ -984,7 +984,7 @@ EXAMPLES = """
             uncompressed_oversize_limit: "10"
         comment: "Optional comments."
         dns:
-            ports: ""
+            ports: "<your_own_value>"
             status: "enable"
         ftp:
             comfort_amount: "1"
@@ -993,7 +993,7 @@ EXAMPLES = """
             inspect_all: "enable"
             options: "clientcomfort"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             scan_bzip2: "enable"
             ssl_offloaded: "no"
             status: "enable"
@@ -1016,7 +1016,7 @@ EXAMPLES = """
             inspect_all: "enable"
             options: "clientcomfort"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             post_lang: "jisx0201"
             proxy_after_tcp_handshake: "enable"
             range_block: "disable"
@@ -1041,7 +1041,7 @@ EXAMPLES = """
             inspect_all: "enable"
             options: "fragmail"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             scan_bzip2: "enable"
             ssl_offloaded: "no"
@@ -1054,7 +1054,7 @@ EXAMPLES = """
         mapi:
             options: "fragmail"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             scan_bzip2: "enable"
             status: "enable"
             uncompressed_nest_limit: "12"
@@ -1064,7 +1064,7 @@ EXAMPLES = """
             inspect_all: "enable"
             options: "oversize"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             scan_bzip2: "enable"
             status: "enable"
@@ -1075,7 +1075,7 @@ EXAMPLES = """
             inspect_all: "enable"
             options: "fragmail"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             scan_bzip2: "enable"
             ssl_offloaded: "no"
@@ -1088,7 +1088,7 @@ EXAMPLES = """
             inspect_all: "enable"
             options: "fragmail"
             oversize_limit: "10"
-            ports: ""
+            ports: "<your_own_value>"
             proxy_after_tcp_handshake: "enable"
             scan_bzip2: "enable"
             server_busy: "enable"

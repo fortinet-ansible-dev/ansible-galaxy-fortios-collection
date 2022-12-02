@@ -152,7 +152,7 @@ EXAMPLES = """
         radius_port: "0"
         radius_server: "<your_own_value> (source user.radius.name)"
         url_path: "<your_own_value>"
-        virtual_host: "<your_own_value>"
+        virtual_host: "myhostname"
         virtual_host_only: "enable"
         virtual_host_server_cert: "myhostname (source vpn.certificate.local.name)"
 

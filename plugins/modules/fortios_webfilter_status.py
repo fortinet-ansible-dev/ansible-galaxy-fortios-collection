@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <refresh_rate>:
+            refresh_rate:
                 description:
                     - Frequency to refresh the server list (sec).
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_webfilter_status:
       vdom:  "{{ vdom }}"
       webfilter_status:
-        <refresh_rate>: "<your_own_value>"
+        refresh_rate: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_webfilter_status_data(json):
-    option_list = ["<refresh_rate>"]
+    option_list = ["refresh_rate"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<refresh_rate>": "refresh_rate"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def webfilter_status(data, fos):
     vdom = data["vdom"]
     webfilter_status_data = data["webfilter_status"]
     filtered_data = underscore_to_hyphen(
         filter_webfilter_status_data(webfilter_status_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("webfilter", "status", data=filtered_data, vdom=vdom)
+    return fos.set("webfilter", "status", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -268,7 +292,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<refresh_rate>": {
+        "refresh_rate": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

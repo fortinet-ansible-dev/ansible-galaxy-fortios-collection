@@ -80,7 +80,7 @@ options:
         default: null
         type: dict
         suboptions:
-            <dev_id>:
+            dev_id:
                 description:
                     - NP6 ID
                 type: str
@@ -101,7 +101,7 @@ EXAMPLES = """
     fortios_hardware_npu_np6_sse_stats:
       vdom:  "{{ vdom }}"
       hardware_npu_np6_sse_stats:
-        <dev_id>: "<your_own_value>"
+        dev_id: "<your_own_value>"
 
 """
 
@@ -186,7 +186,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_hardware_npu_np6_sse_stats_data(json):
-    option_list = ["<dev_id>"]
+    option_list = ["dev_id"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -211,14 +211,38 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"<dev_id>": "dev_id"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def hardware_npu_np6_sse_stats(data, fos):
     vdom = data["vdom"]
     hardware_npu_np6_sse_stats_data = data["hardware_npu_np6_sse_stats"]
     filtered_data = underscore_to_hyphen(
         filter_hardware_npu_np6_sse_stats_data(hardware_npu_np6_sse_stats_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
-    return fos.set("hardware.npu.np6", "sse-stats", data=filtered_data, vdom=vdom)
+    return fos.set("hardware.npu.np6", "sse-stats", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -270,7 +294,7 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
-        "<dev_id>": {
+        "dev_id": {
             "revisions": {
                 "v7.2.0": True,
                 "v7.0.5": True,

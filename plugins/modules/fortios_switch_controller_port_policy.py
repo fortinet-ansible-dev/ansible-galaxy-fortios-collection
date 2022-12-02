@@ -88,7 +88,7 @@ options:
         default: null
         type: dict
         suboptions:
-            802_1x:
+            set_802_1x:
                 description:
                     - 802.1x security policy to be applied when using this port-policy. Source switch-controller.security-policy.802-1X.name switch-controller
                       .security-policy.captive-portal.name.
@@ -145,7 +145,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_port_policy:
-        802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
+        set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
         bounce_port_link: "disable"
         description: "<your_own_value>"
         fortilink: "<your_own_value> (source system.interface.name)"
@@ -244,7 +244,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_switch_controller_port_policy_data(json):
     option_list = [
-        "802_1x",
+        "set_802_1x",
         "bounce_port_link",
         "description",
         "fortilink",
@@ -277,6 +277,29 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    specillist = {"802_1x": "set_802_1x"}
+
+    for k, v in specillist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def switch_controller_port_policy(data, fos, check_mode=False):
 
     vdom = data["vdom"]
@@ -287,6 +310,7 @@ def switch_controller_port_policy(data, fos, check_mode=False):
     filtered_data = underscore_to_hyphen(
         filter_switch_controller_port_policy_data(switch_controller_port_policy_data)
     )
+    converted_data = valid_attr_to_invalid_attrs(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -348,7 +372,7 @@ def switch_controller_port_policy(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller", "port-policy", data=filtered_data, vdom=vdom
+            "switch-controller", "port-policy", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":
@@ -415,10 +439,6 @@ versioned_schema = {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
         },
-        "802_1x": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
         "vlan_policy": {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
@@ -436,6 +456,10 @@ versioned_schema = {
                     "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
                 },
             ],
+        },
+        "set_802_1x": {
+            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "type": "string",
         },
     },
     "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
