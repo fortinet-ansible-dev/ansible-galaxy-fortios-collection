@@ -5,6 +5,21 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.2.2
+======
+
+Release Summary
+---------------
+
+patch release of 2.2.2
+
+Bugfixes
+--------
+
+- Fix runtime issue (#214);
+- Add required field for module log_fact;
+- Fix sanity test errors in validate-modules test;
+
 v2.2.1
 ======
 

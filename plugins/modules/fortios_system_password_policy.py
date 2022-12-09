@@ -984,6 +984,7 @@ def main():
             "required": False,
             "type": "dict",
             "default": None,
+            "no_log": True,
             "options": {},
         },
     }

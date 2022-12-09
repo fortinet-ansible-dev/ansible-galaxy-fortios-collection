@@ -172,3 +172,13 @@ releases:
     fragments:
     - 2.2.1_release.yml
     release_date: '2022-12-02'
+  2.2.2:
+    changes:
+      bugfixes:
+      - Fix runtime issue (#214);
+      - Add required field for module log_fact;
+      - Fix sanity test errors in validate-modules test;
+      release_summary: patch release of 2.2.2
+    fragments:
+    - 2.2.2_release.yml
+    release_date: '2022-12-08'

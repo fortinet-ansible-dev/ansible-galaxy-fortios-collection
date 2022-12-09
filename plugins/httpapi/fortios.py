@@ -37,7 +37,7 @@ class HttpApi(HttpApiBase):
         self._ccsrftoken = ''
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.2.1'
+        self._ansible_galaxy_version = '2.2.2'
         self._log = None
 
         # workaround for HttApiBase: it always tries to do a basic auth for the first request to update auth headers

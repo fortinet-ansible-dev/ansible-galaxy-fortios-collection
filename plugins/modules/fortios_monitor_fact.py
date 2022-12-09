@@ -2099,7 +2099,7 @@ def validate_parameters(params, fos):
 
     if selector_params:
         for param_key, param_value in selector_params.items():
-            if isinstance(param_value) not in [bool, int, str]:
+            if not isinstance(param_value, (bool, int, str, list)):
                 return False, {
                     "message": "value of param:%s must be atomic" % (param_key)
                 }
@@ -2110,7 +2110,7 @@ def validate_parameters(params, fos):
         return True, {}
 
     acceptable_param_names = list(definition.get("params").keys())
-    provided_param_names = list(params.keys() if params else [])
+    provided_param_names = list(selector_params.keys() if selector_params else [])
 
     params_valid = True
     for param_name in acceptable_param_names:
