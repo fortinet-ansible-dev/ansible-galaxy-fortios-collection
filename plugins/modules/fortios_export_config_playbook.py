@@ -5038,7 +5038,7 @@ def fortios_configuration_fact(params, fos):
 
         target_playbook.append(copied_element)
 
-    with open(selector + "_playbook.yml", "w") as f:
+    with open(params["output_path"] + "/" + selector + "_playbook.yml", "w") as f:
         yaml.dump(target_playbook, f, sort_keys=False)
 
     return not is_successful_status(fact), False, fact

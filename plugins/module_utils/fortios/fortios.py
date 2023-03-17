@@ -16,6 +16,9 @@ import traceback
 
 from ansible.module_utils._text import to_text
 import json
+from ansible_collections.fortinet.fortios.plugins.module_utils.common.type_utils import (
+    underscore_to_hyphen,
+)
 
 try:
     import urllib.parse as urlencoding
@@ -279,6 +282,7 @@ class FortiOSHandler(object):
             del trace_param[-1]
             return
 
+        # when attr_params is a list
         for param in attr_params:
             if current_attr_mkey not in param or not param[current_attr_mkey]:
                 self._module.fail_json('parameter %s.%s is empty' % (self._trace_to_string(trace), current_attr_mkey))
@@ -322,7 +326,7 @@ class FortiOSHandler(object):
             for token in url_tokens:
                 token_name = str(list(token.keys())[0])
                 token_value = str(token[token_name][0])
-                token_payload = token[token_name][1]
+                token_payload = underscore_to_hyphen(token[token_name][1])
                 token_islast = token == url_tokens[-1]
                 if token[token_name][0]:
                     url_get += '/%s/%s' % (token_name.replace('_', '-'), urlencoding.quote(token_value, safe=''))
@@ -414,6 +418,8 @@ class FortiOSHandler(object):
         toplevel_url_token = ''
         if state_present:
             toplevel_url_token = '/%s' % (data[toplevel_name][self._mkeyname])
+
+        # here we get both module arg spec and provided params
         arg_spec = self._module.argument_spec[toplevel_name]['options']
         attr_spec = arg_spec
 
@@ -437,7 +443,7 @@ class FortiOSHandler(object):
 
             if 'options' not in attr_spec:
                 raise AssertionError('Attribute %s not member operable, no children options' % (attr))
-            attr == attribute_path[-1]
+
             attr_blob = dict()
             attr_blob['name'] = attr
             attr_blob['mkey'] = attr_mkey

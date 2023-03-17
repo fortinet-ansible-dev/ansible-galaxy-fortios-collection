@@ -5,6 +5,29 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.2.3
+======
+
+Release Summary
+---------------
+
+patch release of 2.2.3
+
+Major Changes
+-------------
+
+- Add annotations of member operation for every module.
+- Update ``fortios.py`` for higher performance;
+- supports temporary session key and pre/post login banner;
+- update the examples on how to use member operation in Q&A.
+
+Bugfixes
+--------
+
+- Fix the issue that all the params with underscore cannot be set under member operation;
+- Fix the login issue (#232);
+- Fix the output path issue (#227);
+
 v2.2.2
 ======
 
@@ -16,8 +39,8 @@ patch release of 2.2.2
 Bugfixes
 --------
 
-- Fix runtime issue (#214);
 - Add required field for module log_fact;
+- Fix runtime issue (#214);
 - Fix sanity test errors in validate-modules test;
 
 v2.2.1
@@ -33,13 +56,7 @@ Bugfixes
 
 - Fix invalid arguments in version_schemas;
 - Fix list type arguments inconsistency;
-- Fix validate-modules error: type not match and name not validate;
 - Fix supports_check_mode issue for _info and _facts modules;
-
-Improvements
---------
-- Remove ignore-x.txt files;
-- Update required ansible to >=2.9.10;
 
 v2.2.0
 ======
@@ -57,24 +74,9 @@ Major Changes
 Bugfixes
 --------
 
-- Fix issue of missing some options for monitor modules (#196);
 - Fix issue of filter content could not contain spaces (#208);
+- Fix issue of missing some options for monitor modules (#196);
 - Fix list type not match issue;
-
-New modules
---------
-- ``fortios_extension_controller_dataplan`` - FortiExtender dataplan configuration in Fortinet's FortiOS and FortiGate;
-- ``fortios_extension_controller_extender_profile`` - FortiExtender extender profile configuration in Fortinet's FortiOS and FortiGate;
-- ``fortios_extension_controller_extender`` - Extender controller configuration in Fortinet's FortiOS and FortiGate.
-- ``fortios_extension_controller_fortigate_profile`` - FortiGate connector profile configuration in Fortinet's FortiOS and FortiGate.
-- ``fortios_extension_controller_fortigate`` - FortiGate controller configuration in Fortinet's FortiOS and FortiGate.
-- ``fortios_firewall_global`` - Global firewall settings in Fortinet's FortiOS and FortiGate.
-- ``fortios_firewall_network_service_dynamic`` - Configure Dynamic Network Services in Fortinet's FortiOS and FortiGate.
-
-Improvements
---------
-- Update arguments' value in example;
-- Update document to reflect accurate version map;
 
 v2.1.7
 ======

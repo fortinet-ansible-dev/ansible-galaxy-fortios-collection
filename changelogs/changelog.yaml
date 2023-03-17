@@ -152,8 +152,8 @@ releases:
   2.2.0:
     changes:
       bugfixes:
-      - Fix issue of missing some options for monitor modules (#196);
       - Fix issue of filter content could not contain spaces (#208);
+      - Fix issue of missing some options for monitor modules (#196);
       - Fix list type not match issue;
       major_changes:
       - Support FortiOS v7.0.6, v7.0.7, v7.0.8, v7.2.1, v7.2.2.
@@ -166,7 +166,6 @@ releases:
       bugfixes:
       - Fix invalid arguments in version_schemas;
       - Fix list type arguments inconsistency;
-      - Fix validate-modules error: type not match and name not validate;
       - Fix supports_check_mode issue for _info and _facts modules;
       release_summary: patch release of 2.2.1
     fragments:
@@ -175,10 +174,26 @@ releases:
   2.2.2:
     changes:
       bugfixes:
-      - Fix runtime issue (#214);
       - Add required field for module log_fact;
+      - Fix runtime issue (#214);
       - Fix sanity test errors in validate-modules test;
       release_summary: patch release of 2.2.2
     fragments:
     - 2.2.2_release.yml
     release_date: '2022-12-08'
+  2.2.3:
+    changes:
+      bugfixes:
+      - Fix the issue that all the params with underscore cannot be set under member
+        operation;
+      - Fix the login issue (#232);
+      - Fix the output path issue (#227);
+      major_changes:
+      - Add annotations of member operation for every module.
+      - Update ``fortios.py`` for higher performance;
+      - supports temporary session key and pre/post login banner;
+      - update the examples on how to use member operation in Q&A.
+      release_summary: patch release of 2.2.3
+    fragments:
+    - 2.2.3_release.yml
+    release_date: '2023-03-17'
