@@ -131,6 +131,7 @@ options:
                     name:
                         description:
                             - Cos queue ID.
+                        required: true
                         type: str
                     weight:
                         description:
@@ -431,6 +432,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -455,9 +458,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "schedule": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -486,6 +492,8 @@ versioned_schema = {
                 {
                     "value": "strict",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -513,6 +521,8 @@ versioned_schema = {
                 {
                     "value": "round-robin",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -540,6 +550,8 @@ versioned_schema = {
                 {
                     "value": "weighted",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -568,6 +580,8 @@ versioned_schema = {
         },
         "rate_by": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -596,6 +610,8 @@ versioned_schema = {
                 {
                     "value": "kbps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -620,6 +636,8 @@ versioned_schema = {
                 {
                     "value": "percent",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -649,6 +667,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -673,9 +693,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "description": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -703,6 +726,8 @@ versioned_schema = {
                 },
                 "min_rate": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -730,6 +755,8 @@ versioned_schema = {
                 },
                 "max_rate": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -757,6 +784,8 @@ versioned_schema = {
                 },
                 "min_rate_percent": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -784,6 +813,8 @@ versioned_schema = {
                 },
                 "max_rate_percent": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -811,6 +842,8 @@ versioned_schema = {
                 },
                 "drop_policy": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -839,6 +872,8 @@ versioned_schema = {
                         {
                             "value": "taildrop",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -866,6 +901,8 @@ versioned_schema = {
                         {
                             "value": "weighted-random-early-detection",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -894,6 +931,8 @@ versioned_schema = {
                 },
                 "ecn": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -922,6 +961,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -941,6 +982,8 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -961,6 +1004,8 @@ versioned_schema = {
                 },
                 "weight": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -988,6 +1033,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1014,6 +1061,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

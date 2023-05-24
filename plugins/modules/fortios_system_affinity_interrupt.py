@@ -290,6 +290,7 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -303,9 +304,11 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "interrupt": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -322,6 +325,7 @@ versioned_schema = {
         },
         "affinity_cpumask": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -338,6 +342,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.0.8": True,

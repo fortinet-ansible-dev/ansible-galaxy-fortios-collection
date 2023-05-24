@@ -102,6 +102,7 @@ options:
                     index:
                         description:
                             - URL index.
+                        required: true
                         type: int
                     number:
                         description:
@@ -316,6 +317,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -328,6 +331,7 @@ versioned_schema = {
                 "v7.0.2": True,
             },
             "type": "string",
+            "required": True,
         },
         "value_list": {
             "type": "list",
@@ -335,6 +339,8 @@ versioned_schema = {
             "children": {
                 "index": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -347,9 +353,12 @@ versioned_schema = {
                         "v7.0.2": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "number": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -365,6 +374,8 @@ versioned_schema = {
                 },
                 "value": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -380,6 +391,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -394,6 +407,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

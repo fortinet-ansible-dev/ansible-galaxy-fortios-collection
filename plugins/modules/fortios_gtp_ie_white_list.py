@@ -101,6 +101,7 @@ options:
                     id:
                         description:
                             - Entry ID.
+                        required: true
                         type: int
                     ie:
                         description:
@@ -399,6 +400,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "entries": {
             "type": "list",
@@ -418,6 +420,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "ie": {
                     "revisions": {

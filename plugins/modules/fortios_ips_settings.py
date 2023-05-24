@@ -270,6 +270,8 @@ def fortios_ips(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -297,6 +299,8 @@ versioned_schema = {
     "children": {
         "packet_log_history": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -324,6 +328,8 @@ versioned_schema = {
         },
         "packet_log_post_attack": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -351,6 +357,8 @@ versioned_schema = {
         },
         "packet_log_memory": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -378,6 +386,8 @@ versioned_schema = {
         },
         "ips_packet_quota": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,

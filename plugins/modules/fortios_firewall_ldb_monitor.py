@@ -426,6 +426,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -450,9 +452,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "type": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -481,6 +486,8 @@ versioned_schema = {
                 {
                     "value": "ping",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -508,6 +515,8 @@ versioned_schema = {
                 {
                     "value": "tcp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -535,6 +544,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -562,6 +573,8 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -589,6 +602,8 @@ versioned_schema = {
                 {
                     "value": "dns",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -616,6 +631,9 @@ versioned_schema = {
                 {
                     "value": "passive-sip",
                     "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
                         "v7.2.0": True,
                         "v7.0.8": False,
                         "v7.0.7": False,
@@ -642,6 +660,8 @@ versioned_schema = {
         },
         "interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -669,6 +689,8 @@ versioned_schema = {
         },
         "timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -696,6 +718,8 @@ versioned_schema = {
         },
         "retry": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -723,6 +747,8 @@ versioned_schema = {
         },
         "port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -750,6 +776,8 @@ versioned_schema = {
         },
         "src_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -777,6 +805,8 @@ versioned_schema = {
         },
         "http_get": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -804,6 +834,8 @@ versioned_schema = {
         },
         "http_match": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -831,6 +863,8 @@ versioned_schema = {
         },
         "http_max_redirects": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -858,6 +892,8 @@ versioned_schema = {
         },
         "dns_protocol": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -886,6 +922,8 @@ versioned_schema = {
                 {
                     "value": "udp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -903,6 +941,8 @@ versioned_schema = {
                 {
                     "value": "tcp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -921,6 +961,8 @@ versioned_schema = {
         },
         "dns_request_domain": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -948,6 +990,8 @@ versioned_schema = {
         },
         "dns_match_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -975,6 +1019,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

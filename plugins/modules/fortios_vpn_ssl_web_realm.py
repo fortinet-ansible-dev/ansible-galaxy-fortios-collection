@@ -111,6 +111,7 @@ options:
             url_path:
                 description:
                     - URL path to access SSL-VPN login page.
+                required: true
                 type: str
             virtual_host:
                 description:
@@ -394,6 +395,8 @@ versioned_schema = {
     "children": {
         "url_path": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -418,9 +421,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "max_concurrent_user": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -448,6 +454,8 @@ versioned_schema = {
         },
         "login_page": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -475,6 +483,8 @@ versioned_schema = {
         },
         "virtual_host": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -502,6 +512,8 @@ versioned_schema = {
         },
         "virtual_host_only": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -530,6 +542,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -550,6 +564,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -571,6 +587,8 @@ versioned_schema = {
         },
         "virtual_host_server_cert": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -598,6 +616,8 @@ versioned_schema = {
         },
         "radius_server": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -625,6 +645,8 @@ versioned_schema = {
         },
         "nas_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -652,6 +674,8 @@ versioned_schema = {
         },
         "radius_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -679,6 +703,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

@@ -116,7 +116,7 @@ EXAMPLES = """
         full_final_warning_threshold: "95"
         full_first_warning_threshold: "75"
         full_second_warning_threshold: "90"
-        max_size: "21052579"
+        max_size: "20912414"
 
 """
 
@@ -274,6 +274,8 @@ def fortios_log_memory(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -301,6 +303,8 @@ versioned_schema = {
     "children": {
         "max_size": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -328,6 +332,8 @@ versioned_schema = {
         },
         "full_first_warning_threshold": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -355,6 +361,8 @@ versioned_schema = {
         },
         "full_second_warning_threshold": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -382,6 +390,8 @@ versioned_schema = {
         },
         "full_final_warning_threshold": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,

@@ -112,6 +112,7 @@ options:
                     id:
                         description:
                             - Category IDs.
+                        required: true
                         type: int
             app_group:
                 description:
@@ -122,6 +123,7 @@ options:
                     name:
                         description:
                             - Application group names. Source application.group.name.
+                        required: true
                         type: str
             application:
                 description:
@@ -132,6 +134,7 @@ options:
                     id:
                         description:
                             - Application IDs.
+                        required: true
                         type: int
             application_list:
                 description:
@@ -165,6 +168,7 @@ options:
                     field_id:
                         description:
                             - Custom log field. Source log.custom-field.id.
+                        required: true
                         type: str
             devices:
                 description:
@@ -175,6 +179,7 @@ options:
                     name:
                         description:
                             - Device or group name. Source user.device.alias user.device-group.name user.device-category.name.
+                        required: true
                         type: str
             diffserv_forward:
                 description:
@@ -241,6 +246,7 @@ options:
                         description:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
                               .external-resource.name.
+                        required: true
                         type: str
             dstaddr_negate:
                 description:
@@ -258,6 +264,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.interface.name system.zone.name.
+                        required: true
                         type: str
             emailfilter_profile:
                 description:
@@ -286,6 +293,7 @@ options:
                     name:
                         description:
                             - Names of FSSO groups. Source user.adgrp.name.
+                        required: true
                         type: str
             global_label:
                 description:
@@ -300,6 +308,7 @@ options:
                     name:
                         description:
                             - Group name. Source user.group.name.
+                        required: true
                         type: str
             http_policy_redirect:
                 description:
@@ -417,6 +426,7 @@ options:
                     name:
                         description:
                             - IP pool name. Source firewall.ippool6.name.
+                        required: true
                         type: str
             profile_group:
                 description:
@@ -464,6 +474,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.service.custom.name firewall.service.group.name.
+                        required: true
                         type: str
             service_negate:
                 description:
@@ -489,6 +500,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+                        required: true
                         type: str
             srcaddr_negate:
                 description:
@@ -506,6 +518,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.zone.name system.interface.name.
+                        required: true
                         type: str
             ssh_filter_profile:
                 description:
@@ -534,6 +547,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.zone.name system.interface.name.
+                        required: true
                         type: str
             ssl_ssh_profile:
                 description:
@@ -601,6 +615,7 @@ options:
                     id:
                         description:
                             - URL category ID.
+                        required: true
                         type: int
             users:
                 description:
@@ -611,6 +626,7 @@ options:
                     name:
                         description:
                             - Names of individual users that can authenticate with this policy. Source user.local.name.
+                        required: true
                         type: str
             utm_status:
                 description:
@@ -1152,6 +1168,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -1192,6 +1209,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1219,6 +1237,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1246,6 +1265,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1273,6 +1293,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1462,6 +1483,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2279,6 +2301,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2306,6 +2329,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2333,6 +2357,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2360,6 +2385,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2501,6 +2527,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2916,6 +2943,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -3069,6 +3097,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -3096,6 +3125,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -3199,6 +3229,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -3273,6 +3304,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -3317,6 +3349,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

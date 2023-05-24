@@ -107,6 +107,7 @@ options:
                     tunnel_name:
                         description:
                             - Tunnel name. Source vpn.ipsec.phase1-interface.name.
+                        required: true
                         type: str
             name:
                 description:
@@ -366,6 +367,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -387,6 +390,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "member": {
             "type": "list",
@@ -394,6 +398,8 @@ versioned_schema = {
             "children": {
                 "tunnel_name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -415,9 +421,12 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -441,6 +450,8 @@ versioned_schema = {
         },
         "algorithm": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -466,6 +477,8 @@ versioned_schema = {
                 {
                     "value": "L3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -490,6 +503,8 @@ versioned_schema = {
                 {
                     "value": "L4",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -514,6 +529,8 @@ versioned_schema = {
                 {
                     "value": "round-robin",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -538,6 +555,8 @@ versioned_schema = {
                 {
                     "value": "redundant",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -562,6 +581,8 @@ versioned_schema = {
                 {
                     "value": "weighted-round-robin",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -587,6 +608,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

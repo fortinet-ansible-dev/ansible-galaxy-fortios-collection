@@ -131,10 +131,12 @@ options:
                                     name:
                                         description:
                                             - File type name. Source antivirus.filetype.name.
+                                        required: true
                                         type: str
                             filter:
                                 description:
                                     - Add a file filter.
+                                required: true
                                 type: str
                             protocol:
                                 description:
@@ -187,6 +189,7 @@ options:
                     principal:
                         description:
                             - Service principal.  For example, "host/cifsserver.example.com@example.com".
+                        required: true
                         type: str
 """
 
@@ -496,6 +499,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "server_credential_type": {
             "revisions": {
@@ -562,6 +566,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "keytab": {
                     "revisions": {
@@ -665,6 +670,7 @@ versioned_schema = {
                                 "v6.2.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "comment": {
                             "revisions": {
@@ -754,6 +760,7 @@ versioned_schema = {
                                         "v6.2.0": True,
                                     },
                                     "type": "string",
+                                    "required": True,
                                 }
                             },
                             "revisions": {

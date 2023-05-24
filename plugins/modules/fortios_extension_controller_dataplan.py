@@ -416,96 +416,365 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+            "required": True,
+        },
         "modem_id": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "modem1", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "modem2", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "all", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "modem1",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "modem2",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "all",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "type": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "carrier", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "slot", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "iccid", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "generic", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "carrier",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "slot",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "iccid",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "generic",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "slot": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "sim1", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "sim2", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "sim1",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "sim2",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
-        "iccid": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "carrier": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "apn": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "iccid": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "carrier": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "apn": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
         "auth_type": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "none", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "pap", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "chap", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "none",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "pap",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "chap",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
-        "username": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "password": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "username": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "password": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
         "pdn": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "ipv4-only", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "ipv6-only", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "ipv4-ipv6", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "ipv4-only",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "ipv6-only",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "ipv4-ipv6",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "signal_threshold": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
         "signal_period": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
-        "capacity": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "integer"},
+        "capacity": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "integer",
+        },
         "monthly_fee": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
         "billing_date": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
         "overage": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "preferred_subnet": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
         "private_network": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
 }
 
 

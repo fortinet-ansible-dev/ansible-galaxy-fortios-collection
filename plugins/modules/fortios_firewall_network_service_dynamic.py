@@ -103,7 +103,7 @@ options:
                 type: str
             sdn:
                 description:
-                    - SDN connector name. Source .
+                    - SDN connector name. Source system.sdn-connector.name.
                 type: str
 """
 
@@ -127,7 +127,7 @@ EXAMPLES = """
         comment: "Comment."
         filter: "<your_own_value>"
         name: "default_name_5"
-        sdn: "<your_own_value> (source )"
+        sdn: "<your_own_value> (source system.sdn-connector.name)"
 
 """
 
@@ -297,12 +297,45 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "sdn": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "comment": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "filter": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+            "required": True,
+        },
+        "sdn": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "comment": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "filter": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
 }
 
 

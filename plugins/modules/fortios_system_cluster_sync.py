@@ -97,6 +97,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.interface.name.
+                        required: true
                         type: str
             hb_interval:
                 description:
@@ -167,6 +168,7 @@ options:
                             id:
                                 description:
                                     - Custom service ID.
+                                required: true
                                 type: int
                             src_port_range:
                                 description:
@@ -206,6 +208,7 @@ options:
             sync_id:
                 description:
                     - Sync ID.
+                required: true
                 type: int
             syncvd:
                 description:
@@ -216,6 +219,7 @@ options:
                     name:
                         description:
                             - VDOM name. Source system.vdom.name.
+                        required: true
                         type: str
 """
 
@@ -533,6 +537,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "peervd": {
             "revisions": {
@@ -612,6 +617,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -665,6 +671,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1174,6 +1181,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "src_port_range": {
                             "revisions": {

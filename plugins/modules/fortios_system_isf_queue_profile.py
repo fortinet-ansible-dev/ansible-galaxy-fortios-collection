@@ -404,7 +404,11 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.0": True, "v6.4.0": True}, "type": "string"},
+        "name": {
+            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "type": "string",
+            "required": True,
+        },
         "guaranteed_bandwidth": {
             "revisions": {"v7.2.0": True, "v6.4.0": True},
             "type": "integer",

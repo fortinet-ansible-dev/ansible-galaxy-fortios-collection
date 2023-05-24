@@ -377,6 +377,8 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -401,9 +403,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -432,6 +437,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -459,6 +466,8 @@ versioned_schema = {
                 {
                     "value": "tftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -486,6 +495,8 @@ versioned_schema = {
                 {
                     "value": "ras",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -513,6 +524,8 @@ versioned_schema = {
                 {
                     "value": "h323",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -540,6 +553,8 @@ versioned_schema = {
                 {
                     "value": "tns",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -567,6 +582,8 @@ versioned_schema = {
                 {
                     "value": "mms",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -594,6 +611,8 @@ versioned_schema = {
                 {
                     "value": "sip",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -621,6 +640,8 @@ versioned_schema = {
                 {
                     "value": "pptp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -648,6 +669,8 @@ versioned_schema = {
                 {
                     "value": "rtsp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -675,6 +698,8 @@ versioned_schema = {
                 {
                     "value": "dns-udp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -702,6 +727,8 @@ versioned_schema = {
                 {
                     "value": "dns-tcp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -729,6 +756,8 @@ versioned_schema = {
                 {
                     "value": "pmap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -756,6 +785,8 @@ versioned_schema = {
                 {
                     "value": "rsh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -783,6 +814,8 @@ versioned_schema = {
                 {
                     "value": "dcerpc",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -810,6 +843,8 @@ versioned_schema = {
                 {
                     "value": "mgcp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -837,6 +872,9 @@ versioned_schema = {
                 {
                     "value": "gtp-c",
                     "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
                         "v7.2.0": True,
                         "v7.0.8": False,
                         "v7.0.7": False,
@@ -862,6 +900,9 @@ versioned_schema = {
                 {
                     "value": "gtp-u",
                     "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
                         "v7.2.0": True,
                         "v7.0.8": False,
                         "v7.0.7": False,
@@ -887,6 +928,9 @@ versioned_schema = {
                 {
                     "value": "gtp-b",
                     "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
                         "v7.2.0": True,
                         "v7.0.8": False,
                         "v7.0.7": False,
@@ -912,6 +956,9 @@ versioned_schema = {
                 {
                     "value": "pfcp",
                     "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
                         "v7.2.0": True,
                         "v7.0.8": False,
                         "v7.0.7": False,
@@ -938,6 +985,8 @@ versioned_schema = {
         },
         "protocol": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -965,6 +1014,8 @@ versioned_schema = {
         },
         "port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -992,6 +1043,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

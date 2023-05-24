@@ -105,6 +105,7 @@ options:
                     name:
                         description:
                             - entry name, for administrator reference
+                        required: true
                         type: str
                     status:
                         description:
@@ -387,6 +388,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -427,6 +429,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "checksum": {
                     "revisions": {

@@ -101,9 +101,16 @@ options:
                 description:
                     - Physical interface name on which to perform packet redistribution. Source system.interface.name.
                 type: str
+            round_robin:
+                description:
+                    - Enable/disable round-robin redistribution to multiple CPUs.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             rxqid:
                 description:
-                    - ID of the receive queue (when the interface has multiple queues) on which to perform packet redistribution.
+                    - ID of the receive queue (when the interface has multiple queues) on which to perform packet redistribution (255 = all queues).
                 type: int
 """
 
@@ -127,6 +134,7 @@ EXAMPLES = """
         affinity_cpumask: "<your_own_value>"
         id:  "4"
         interface: "<your_own_value> (source system.interface.name)"
+        round_robin: "enable"
         rxqid: "0"
 
 """
@@ -212,7 +220,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_system_affinity_packet_redistribution_data(json):
-    option_list = ["affinity_cpumask", "id", "interface", "rxqid"]
+    option_list = ["affinity_cpumask", "id", "interface", "round_robin", "rxqid"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -304,6 +312,7 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -317,9 +326,11 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "interface": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -336,6 +347,7 @@ versioned_schema = {
         },
         "rxqid": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -350,8 +362,30 @@ versioned_schema = {
             },
             "type": "integer",
         },
+        "round_robin": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "affinity_cpumask": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -368,6 +402,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.0.8": True,

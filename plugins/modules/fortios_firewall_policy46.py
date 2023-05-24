@@ -108,6 +108,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.vip46.name firewall.vipgrp46.name.
+                        required: true
                         type: str
             dstintf:
                 description:
@@ -170,6 +171,7 @@ options:
                     name:
                         description:
                             - IP pool name. Source firewall.ippool6.name.
+                        required: true
                         type: str
             schedule:
                 description:
@@ -184,6 +186,7 @@ options:
                     name:
                         description:
                             - Service name. Source firewall.service.custom.name firewall.service.group.name.
+                        required: true
                         type: str
             srcaddr:
                 description:
@@ -194,6 +197,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.address.name firewall.addrgrp.name.
+                        required: true
                         type: str
             srcintf:
                 description:
@@ -592,6 +596,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -676,6 +681,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -711,6 +717,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -862,6 +869,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1187,6 +1195,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

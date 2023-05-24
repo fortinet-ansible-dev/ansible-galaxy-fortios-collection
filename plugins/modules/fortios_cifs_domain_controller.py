@@ -111,6 +111,7 @@ options:
             server_name:
                 description:
                     - Name of the server to connect to.
+                required: true
                 type: str
             username:
                 description:
@@ -386,6 +387,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "domain_name": {
             "revisions": {

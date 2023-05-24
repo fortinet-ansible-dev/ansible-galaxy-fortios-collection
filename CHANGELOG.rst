@@ -5,6 +5,27 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.0
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.0
+
+Major Changes
+-------------
+
+- Improve the `no_log` feature in some modules;
+- Improve the documentation and example for `seq_num` in `fortios_router_static`;
+- Improve the documentation for `member_path` in all the modules;
+- Support new FOS versions.
+
+Bugfixes
+--------
+
+- Fix the error of pure number password.
+
 v2.2.3
 ======
 

@@ -403,6 +403,7 @@ versioned_schema = {
         "name": {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
+            "required": True,
         },
         "mode": {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},

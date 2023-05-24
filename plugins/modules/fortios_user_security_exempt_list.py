@@ -112,6 +112,7 @@ options:
                             name:
                                 description:
                                     - Device or group name. Source user.device.alias user.device-group.name user.device-category.name.
+                                required: true
                                 type: str
                     dstaddr:
                         description:
@@ -122,10 +123,12 @@ options:
                             name:
                                 description:
                                     - Address or group name. Source firewall.address.name firewall.addrgrp.name.
+                                required: true
                                 type: str
                     id:
                         description:
                             - ID.
+                        required: true
                         type: int
                     service:
                         description:
@@ -136,6 +139,7 @@ options:
                             name:
                                 description:
                                     - Service name. Source firewall.service.custom.name firewall.service.group.name.
+                                required: true
                                 type: str
                     srcaddr:
                         description:
@@ -146,6 +150,7 @@ options:
                             name:
                                 description:
                                     - Address or group name. Source firewall.address.name firewall.addrgrp.name.
+                                required: true
                                 type: str
 """
 
@@ -414,6 +419,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -438,9 +445,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "description": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -472,6 +482,8 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -496,6 +508,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "srcaddr": {
                     "type": "list",
@@ -503,6 +516,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -527,9 +542,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -560,6 +578,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -584,9 +604,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -617,6 +640,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -641,9 +666,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -680,6 +708,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -692,6 +721,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -718,6 +749,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

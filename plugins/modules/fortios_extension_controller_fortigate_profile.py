@@ -99,7 +99,7 @@ options:
                 suboptions:
                     backhaul_interface:
                         description:
-                            - IPsec phase1 interface. Source .
+                            - IPsec phase1 interface. Source system.interface.name.
                         type: str
                     backhaul_ip:
                         description:
@@ -135,7 +135,7 @@ EXAMPLES = """
       extension_controller_fortigate_profile:
         id:  "3"
         lan_extension:
-            backhaul_interface: "<your_own_value> (source )"
+            backhaul_interface: "<your_own_value> (source system.interface.name)"
             backhaul_ip: "<your_own_value>"
             ipsec_tunnel: "<your_own_value>"
         name: "default_name_8"
@@ -313,28 +313,65 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "id": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "integer"},
+        "name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+            "required": True,
+        },
+        "id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "integer",
+        },
         "lan_extension": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "dict",
             "children": {
                 "ipsec_tunnel": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "backhaul_interface": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "backhaul_ip": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
             },
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
 }
 
 

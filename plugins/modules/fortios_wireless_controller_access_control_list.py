@@ -124,6 +124,7 @@ options:
                     rule_id:
                         description:
                             - Rule ID (1 - 65535).
+                        required: true
                         type: int
                     srcaddr:
                         description:
@@ -165,6 +166,7 @@ options:
                     rule_id:
                         description:
                             - Rule ID (1 - 65535).
+                        required: true
                         type: int
                     srcaddr:
                         description:
@@ -464,6 +466,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -481,9 +485,12 @@ versioned_schema = {
                 "v6.4.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -508,6 +515,8 @@ versioned_schema = {
             "children": {
                 "rule_id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -525,9 +534,12 @@ versioned_schema = {
                         "v6.4.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "comment": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -548,6 +560,8 @@ versioned_schema = {
                 },
                 "srcaddr": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -568,6 +582,8 @@ versioned_schema = {
                 },
                 "srcport": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -588,6 +604,8 @@ versioned_schema = {
                 },
                 "dstaddr": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -608,6 +626,8 @@ versioned_schema = {
                 },
                 "dstport": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -628,6 +648,8 @@ versioned_schema = {
                 },
                 "protocol": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -648,6 +670,8 @@ versioned_schema = {
                 },
                 "action": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -669,6 +693,8 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -689,6 +715,8 @@ versioned_schema = {
                         {
                             "value": "deny",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -710,6 +738,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -733,6 +763,8 @@ versioned_schema = {
             "children": {
                 "rule_id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -750,9 +782,12 @@ versioned_schema = {
                         "v6.4.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "comment": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -773,6 +808,8 @@ versioned_schema = {
                 },
                 "srcaddr": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -793,6 +830,8 @@ versioned_schema = {
                 },
                 "srcport": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -813,6 +852,8 @@ versioned_schema = {
                 },
                 "dstaddr": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -833,6 +874,8 @@ versioned_schema = {
                 },
                 "dstport": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -853,6 +896,8 @@ versioned_schema = {
                 },
                 "protocol": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -873,6 +918,8 @@ versioned_schema = {
                 },
                 "action": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -894,6 +941,8 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -914,6 +963,8 @@ versioned_schema = {
                         {
                             "value": "deny",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -935,6 +986,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -954,6 +1007,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

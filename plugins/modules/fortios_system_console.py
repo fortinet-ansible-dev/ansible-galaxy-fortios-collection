@@ -290,6 +290,8 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -317,6 +319,8 @@ versioned_schema = {
     "children": {
         "mode": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -345,6 +349,8 @@ versioned_schema = {
                 {
                     "value": "batch",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -372,6 +378,8 @@ versioned_schema = {
                 {
                     "value": "line",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -400,6 +408,8 @@ versioned_schema = {
         },
         "baudrate": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -428,6 +438,8 @@ versioned_schema = {
                 {
                     "value": "9600",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -455,6 +467,8 @@ versioned_schema = {
                 {
                     "value": "19200",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -482,6 +496,8 @@ versioned_schema = {
                 {
                     "value": "38400",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -509,6 +525,8 @@ versioned_schema = {
                 {
                     "value": "57600",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -536,6 +554,8 @@ versioned_schema = {
                 {
                     "value": "115200",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -564,6 +584,8 @@ versioned_schema = {
         },
         "output": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -592,6 +614,8 @@ versioned_schema = {
                 {
                     "value": "standard",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -619,6 +643,8 @@ versioned_schema = {
                 {
                     "value": "more",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -647,6 +673,8 @@ versioned_schema = {
         },
         "login": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -675,6 +703,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -702,6 +732,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -730,6 +762,9 @@ versioned_schema = {
         },
         "fortiexplorer": {
             "revisions": {
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
                 "v7.2.0": True,
                 "v7.0.8": False,
                 "v7.0.7": False,
@@ -756,6 +791,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -778,6 +814,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,

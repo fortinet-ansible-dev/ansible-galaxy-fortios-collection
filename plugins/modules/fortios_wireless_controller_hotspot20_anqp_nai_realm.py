@@ -118,6 +118,7 @@ options:
                                     index:
                                         description:
                                             - Param index.
+                                        required: true
                                         type: int
                                     val:
                                         description:
@@ -157,6 +158,7 @@ options:
                             index:
                                 description:
                                     - EAP method index.
+                                required: true
                                 type: int
                             method:
                                 description:
@@ -185,6 +187,7 @@ options:
                     name:
                         description:
                             - NAI realm name.
+                        required: true
                         type: str
             name:
                 description:
@@ -473,6 +476,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -497,6 +502,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "nai_list": {
             "type": "list",
@@ -504,6 +510,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -528,9 +536,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "encoding": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -559,6 +570,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -586,6 +599,8 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -614,6 +629,8 @@ versioned_schema = {
                 },
                 "nai_realm": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -645,6 +662,8 @@ versioned_schema = {
                     "children": {
                         "index": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -669,9 +688,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "method": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -700,6 +722,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-identity",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -727,6 +751,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-md5",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -754,6 +780,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-tls",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -781,6 +809,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-ttls",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -808,6 +838,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-peap",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -835,6 +867,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-sim",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -862,6 +896,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-aka",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -889,6 +925,8 @@ versioned_schema = {
                                 {
                                     "value": "eap-aka-prime",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -921,6 +959,8 @@ versioned_schema = {
                             "children": {
                                 "index": {
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -945,9 +985,12 @@ versioned_schema = {
                                         "v6.0.0": True,
                                     },
                                     "type": "integer",
+                                    "required": True,
                                 },
                                 "id": {
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -976,6 +1019,8 @@ versioned_schema = {
                                         {
                                             "value": "non-eap-inner-auth",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1003,6 +1048,8 @@ versioned_schema = {
                                         {
                                             "value": "inner-auth-eap",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1030,6 +1077,8 @@ versioned_schema = {
                                         {
                                             "value": "credential",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1057,6 +1106,8 @@ versioned_schema = {
                                         {
                                             "value": "tunneled-credential",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1085,6 +1136,8 @@ versioned_schema = {
                                 },
                                 "val": {
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -1113,6 +1166,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-identity",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1140,6 +1195,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-md5",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1167,6 +1224,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-tls",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1194,6 +1253,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-ttls",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1221,6 +1282,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-peap",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1248,6 +1311,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-sim",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1275,6 +1340,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-aka",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1302,6 +1369,8 @@ versioned_schema = {
                                         {
                                             "value": "eap-aka-prime",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1329,6 +1398,8 @@ versioned_schema = {
                                         {
                                             "value": "non-eap-pap",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1356,6 +1427,8 @@ versioned_schema = {
                                         {
                                             "value": "non-eap-chap",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1383,6 +1456,8 @@ versioned_schema = {
                                         {
                                             "value": "non-eap-mschap",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1410,6 +1485,8 @@ versioned_schema = {
                                         {
                                             "value": "non-eap-mschapv2",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1437,6 +1514,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-sim",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1464,6 +1543,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-usim",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1491,6 +1572,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-nfc",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1518,6 +1601,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-hardware-token",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1545,6 +1630,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-softoken",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1572,6 +1659,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-certificate",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1599,6 +1688,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-user-pwd",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1626,6 +1717,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-none",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1653,6 +1746,8 @@ versioned_schema = {
                                         {
                                             "value": "cred-vendor-specific",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1680,6 +1775,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-sim",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1707,6 +1804,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-usim",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1734,6 +1833,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-nfc",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1761,6 +1862,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-hardware-token",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1788,6 +1891,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-softoken",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1815,6 +1920,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-certificate",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1842,6 +1949,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-user-pwd",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1869,6 +1978,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-anonymous",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1896,6 +2007,8 @@ versioned_schema = {
                                         {
                                             "value": "tun-cred-vendor-specific",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                                 "v7.2.0": True,
@@ -1924,6 +2037,8 @@ versioned_schema = {
                                 },
                             },
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1950,6 +2065,8 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1976,6 +2093,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2002,6 +2121,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

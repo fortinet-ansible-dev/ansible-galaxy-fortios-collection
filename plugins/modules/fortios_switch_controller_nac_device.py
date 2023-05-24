@@ -340,6 +340,7 @@ versioned_schema = {
         "id": {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "integer",
+            "required": True,
         },
         "description": {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},

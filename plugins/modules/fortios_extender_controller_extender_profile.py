@@ -138,6 +138,7 @@ options:
                             name:
                                 description:
                                     - Dataplan name. Source extender-controller.dataplan.name.
+                                required: true
                                 type: str
                     modem1:
                         description:
@@ -423,6 +424,7 @@ options:
                                     name:
                                         description:
                                             - FortiExtender SMS notification receiver name.
+                                        required: true
                                         type: str
                                     phone_number:
                                         description:
@@ -474,6 +476,7 @@ options:
                             name:
                                 description:
                                     - FortiExtender LAN extension backhaul name.
+                                required: true
                                 type: str
                             port:
                                 description:
@@ -897,6 +900,7 @@ versioned_schema = {
                 "v7.0.2": True,
             },
             "type": "string",
+            "required": True,
         },
         "id": {
             "revisions": {
@@ -1470,6 +1474,7 @@ versioned_schema = {
                                 "v7.0.2": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -1741,6 +1746,7 @@ versioned_schema = {
                                         "v7.0.2": True,
                                     },
                                     "type": "string",
+                                    "required": True,
                                 },
                                 "status": {
                                     "revisions": {
@@ -3111,6 +3117,7 @@ versioned_schema = {
                                 "v7.0.2": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "port": {
                             "revisions": {

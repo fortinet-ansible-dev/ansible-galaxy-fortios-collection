@@ -1096,6 +1096,7 @@ versioned_schema = {
                 "v6.0.0": False,
             },
             "type": "string",
+            "required": True,
         },
         "id": {
             "revisions": {

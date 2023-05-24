@@ -414,6 +414,31 @@ options:
                  - 'system_ipam_utilization'
                  - 'system_ha-nonsync-checksums'
                  - 'wifi_station-capability'
+                 - 'fortiguard_answers'
+                 - 'ips_session_performance'
+                 - 'switch-controller_nac-device_stats'
+                 - 'switch-controller_isl-lockdown_status'
+                 - 'wifi_nac-device_stats'
+                 - 'firewall_sessions'
+                 - 'fortiview_realtime-statistics'
+                 - 'fortiview_historical-statistics'
+                 - 'fortiview_realtime-proxy-statistics'
+                 - 'log_feature-set'
+                 - 'forticonverter_eligibility'
+                 - 'forticonverter_ticket_status'
+                 - 'forticonverter_sn-list'
+                 - 'forticonverter_intf-list'
+                 - 'forticonverter_custom-operation_status'
+                 - 'forticonverter_intf-mapping'
+                 - 'forticonverter_mgmt-intf'
+                 - 'forticonverter_notes'
+                 - 'forticonverter_download_ready'
+                 - 'forticonverter_file_download'
+                 - 'forticonverter_download_status'
+                 - 'switch-controller_managed-switch_bios'
+                 - 'system_available-interfaces_meta'
+                 - 'system_central-management_status'
+                 - 'user_device_stats'
 
     selector:
         description:
@@ -708,6 +733,31 @@ options:
          - 'system_ipam_utilization'
          - 'system_ha-nonsync-checksums'
          - 'wifi_station-capability'
+         - 'fortiguard_answers'
+         - 'ips_session_performance'
+         - 'switch-controller_nac-device_stats'
+         - 'switch-controller_isl-lockdown_status'
+         - 'wifi_nac-device_stats'
+         - 'firewall_sessions'
+         - 'fortiview_realtime-statistics'
+         - 'fortiview_historical-statistics'
+         - 'fortiview_realtime-proxy-statistics'
+         - 'log_feature-set'
+         - 'forticonverter_eligibility'
+         - 'forticonverter_ticket_status'
+         - 'forticonverter_sn-list'
+         - 'forticonverter_intf-list'
+         - 'forticonverter_custom-operation_status'
+         - 'forticonverter_intf-mapping'
+         - 'forticonverter_mgmt-intf'
+         - 'forticonverter_notes'
+         - 'forticonverter_download_ready'
+         - 'forticonverter_file_download'
+         - 'forticonverter_download_status'
+         - 'switch-controller_managed-switch_bios'
+         - 'system_available-interfaces_meta'
+         - 'system_central-management_status'
+         - 'user_device_stats'
 
     params:
         description:
@@ -857,7 +907,9 @@ module_selectors_defs = {
         "url": "firewall/internet-service-match",
         "params": {
             "ip": {"type": "string", "required": "True"},
-            "mask": {"type": "string", "required": "True"},
+            "is_ipv6": {"type": "boolean", "required": "False"},
+            "ipv4_mask": {"type": "string", "required": "False"},
+            "ipv6_prefix": {"type": "int", "required": "False"},
         },
     },
     "firewall_internet-service-details": {
@@ -867,9 +919,8 @@ module_selectors_defs = {
             "country_id": {"type": "int", "required": "False"},
             "region_id": {"type": "int", "required": "False"},
             "city_id": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
             "summary_only": {"type": "boolean", "required": "False"},
+            "ipv6_only": {"type": "boolean", "required": "False"},
         },
     },
     "firewall_policy": {
@@ -905,8 +956,6 @@ module_selectors_defs = {
         "url": "firewall/session",
         "params": {
             "ip_version": {"type": "string", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "True"},
             "summary": {"type": "boolean", "required": "False"},
             "sourceport": {"type": "int", "required": "False"},
             "policyid": {"type": "int", "required": "False"},
@@ -936,17 +985,20 @@ module_selectors_defs = {
             "fortiasic": {"type": "int", "required": "False"},
         },
     },
-    "firewall_shaper": {"url": "firewall/shaper", "params": {}},
-    "firewall_per-ip-shaper": {"url": "firewall/per-ip-shaper", "params": {}},
-    "firewall_load-balance": {
-        "url": "firewall/load-balance",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "True"},
-        },
+    "firewall_shaper": {
+        "url": "firewall/shaper",
+        "params": {"shaper_name": {"type": "string", "required": "False"}},
     },
-    "firewall_address-fqdns": {"url": "firewall/address-fqdns", "params": {}},
-    "firewall_address-fqdns6": {"url": "firewall/address-fqdns6", "params": {}},
+    "firewall_per-ip-shaper": {"url": "firewall/per-ip-shaper", "params": {}},
+    "firewall_load-balance": {"url": "firewall/load-balance", "params": {}},
+    "firewall_address-fqdns": {
+        "url": "firewall/address-fqdns",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "firewall_address-fqdns6": {
+        "url": "firewall/address-fqdns6",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
     "firewall_ippool": {"url": "firewall/ippool", "params": {}},
     "firewall_address-dynamic": {
         "url": "firewall/address-dynamic",
@@ -962,12 +1014,10 @@ module_selectors_defs = {
             "realtime": {"type": "boolean", "required": "False"},
             "filter": {"type": "object", "required": "False"},
             "sessionid": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
             "device": {"type": "string", "required": "False"},
             "report_by": {"type": "string", "required": "False"},
             "sort_by": {"type": "string", "required": "False"},
             "chart_only": {"type": "boolean", "required": "False"},
-            "start": {"type": "int", "required": "False"},
             "end": {"type": "int", "required": "False"},
             "ip_version": {"type": "string", "required": "False"},
         },
@@ -1051,8 +1101,6 @@ module_selectors_defs = {
     "router_ipv4": {
         "url": "router/ipv4",
         "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
@@ -1062,8 +1110,6 @@ module_selectors_defs = {
     "router_ipv6": {
         "url": "router/ipv6",
         "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
@@ -1089,19 +1135,11 @@ module_selectors_defs = {
     },
     "router_policy": {
         "url": "router/policy",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-            "count_only": {"type": "boolean", "required": "False"},
-        },
+        "params": {"count_only": {"type": "boolean", "required": "False"}},
     },
     "router_policy6": {
         "url": "router/policy6",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-            "count_only": {"type": "boolean", "required": "False"},
-        },
+        "params": {"count_only": {"type": "boolean", "required": "False"}},
     },
     "system_config-revision": {"url": "system/config-revision", "params": {}},
     "system_config-revision_file": {
@@ -1215,6 +1253,8 @@ module_selectors_defs = {
     "system_available-interfaces": {
         "url": "system/available-interfaces",
         "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "include_ha": {"type": "boolean", "required": "False"},
             "view_type": {"type": "string", "required": "False"},
             "scope": {"type": "string", "required": "False"},
         },
@@ -1277,19 +1317,9 @@ module_selectors_defs = {
     "system_botnet_stat": {"url": "system/botnet/stat", "params": {}},
     "system_botnet": {
         "url": "system/botnet",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-            "include_hit_only": {"type": "boolean", "required": "False"},
-        },
+        "params": {"include_hit_only": {"type": "boolean", "required": "False"}},
     },
-    "system_botnet-domains": {
-        "url": "system/botnet-domains",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-        },
-    },
+    "system_botnet-domains": {"url": "system/botnet-domains", "params": {}},
     "system_botnet-domains_stat": {"url": "system/botnet-domains/stat", "params": {}},
     "system_botnet-domains_hits": {"url": "system/botnet-domains/hits", "params": {}},
     "system_ha-statistics": {"url": "system/ha-statistics", "params": {}},
@@ -1388,7 +1418,6 @@ module_selectors_defs = {
     "extender-controller_extender": {
         "url": "extender-controller/extender",
         "params": {
-            "name": {"type": "array", "required": "False"},
             "fortiextender-name": {"type": "array", "required": "False"},
             "type": {"type": "string", "required": "False"},
         },
@@ -1403,8 +1432,6 @@ module_selectors_defs = {
     "user_firewall": {
         "url": "user/firewall",
         "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
             "ipv4": {"type": "boolean", "required": "False"},
             "ipv6": {"type": "boolean", "required": "False"},
             "include_wad": {"type": "boolean", "required": "False"},
@@ -1475,11 +1502,7 @@ module_selectors_defs = {
     "webfilter_trusted-urls": {"url": "webfilter/trusted-urls", "params": {}},
     "vpn_ipsec": {
         "url": "vpn/ipsec",
-        "params": {
-            "tunnel": {"type": "string", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-        },
+        "params": {"tunnel": {"type": "string", "required": "False"}},
     },
     "vpn_one-click_members": {"url": "vpn/one-click/members", "params": {}},
     "vpn_one-click_status": {"url": "vpn/one-click/status", "params": {}},
@@ -1502,8 +1525,6 @@ module_selectors_defs = {
     "wifi_client": {
         "url": "wifi/client",
         "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
             "type": {"type": "string", "required": "False"},
             "with_triangulation": {"type": "boolean", "required": "False"},
         },
@@ -1528,18 +1549,12 @@ module_selectors_defs = {
         "params": {
             "wtp": {"type": "string", "required": "False"},
             "radio": {"type": "int", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
         },
     },
     "wifi_euclid": {"url": "wifi/euclid", "params": {}},
     "wifi_rogue_ap": {
         "url": "wifi/rogue_ap",
-        "params": {
-            "managed_ssid_only": {"type": "boolean", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-        },
+        "params": {"managed_ssid_only": {"type": "boolean", "required": "False"}},
     },
     "wifi_spectrum": {
         "url": "wifi/spectrum",
@@ -1548,7 +1563,10 @@ module_selectors_defs = {
     "endpoint-control_summary": {"url": "endpoint-control/summary", "params": {}},
     "endpoint-control_ems_status": {
         "url": "endpoint-control/ems/status",
-        "params": {"ems_id": {"type": "int", "required": "False"}},
+        "params": {
+            "ems_id": {"type": "int", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
     },
     "firewall_consolidated-policy": {
         "url": "firewall/consolidated-policy",
@@ -1579,7 +1597,10 @@ module_selectors_defs = {
     "log_local-report-list": {"url": "log/local-report-list", "params": {}},
     "log_local-report_download": {
         "url": "log/local-report/download",
-        "params": {"mkey": {"type": "string", "required": "True"}},
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "layout": {"type": "string", "required": "False"},
+        },
     },
     "network_lldp_neighbors": {"url": "network/lldp/neighbors", "params": {}},
     "network_lldp_ports": {
@@ -1655,7 +1676,7 @@ module_selectors_defs = {
     },
     "web-ui_custom-language_download": {
         "url": "web-ui/custom-language/download",
-        "params": {"filename": {"type": "string", "required": "True"}},
+        "params": {"lang_name": {"type": "string", "required": "True"}},
     },
     "user_collected-email": {
         "url": "user/collected-email",
@@ -1664,8 +1685,6 @@ module_selectors_defs = {
     "user_info_query": {
         "url": "user/info/query",
         "params": {
-            "start": {"type": "int", "required": "False"},
-            "number": {"type": "int", "required": "False"},
             "timestamp_from": {"type": "int", "required": "False"},
             "timestamp_to": {"type": "int", "required": "False"},
             "filters": {"type": "array", "required": "False"},
@@ -1674,6 +1693,7 @@ module_selectors_defs = {
             "cache_query": {"type": "boolean", "required": "False"},
             "key_only": {"type": "boolean", "required": "False"},
             "filter_logic": {"type": "string", "required": "False"},
+            "total_only": {"type": "boolean", "required": "False"},
         },
     },
     "user_info_thumbnail": {
@@ -1682,10 +1702,7 @@ module_selectors_defs = {
     },
     "utm_blacklisted-certificates": {
         "url": "utm/blacklisted-certificates",
-        "params": {
-            "start": {"type": "int", "required": "True"},
-            "count": {"type": "int", "required": "True"},
-        },
+        "params": {},
     },
     "utm_blacklisted-certificates_statistics": {
         "url": "utm/blacklisted-certificates/statistics",
@@ -1723,12 +1740,13 @@ module_selectors_defs = {
         "url": "endpoint-control/ems/cert-status",
         "params": {
             "ems_id": {"type": "int", "required": "True"},
+            "scope": {"type": "string", "required": "False"},
             "with_cert": {"type": "boolean", "required": "False"},
         },
     },
     "endpoint-control_ems_status-summary": {
         "url": "endpoint-control/ems/status-summary",
-        "params": {},
+        "params": {"scope": {"type": "string", "required": "False"}},
     },
     "fortiguard_service-communication-stats": {
         "url": "fortiguard/service-communication-stats",
@@ -1796,8 +1814,6 @@ module_selectors_defs = {
     "user_device_query": {
         "url": "user/device/query",
         "params": {
-            "start": {"type": "int", "required": "False"},
-            "number": {"type": "int", "required": "False"},
             "timestamp_from": {"type": "int", "required": "False"},
             "timestamp_to": {"type": "int", "required": "False"},
             "filters": {"type": "array", "required": "False"},
@@ -1806,6 +1822,7 @@ module_selectors_defs = {
             "cache_query": {"type": "boolean", "required": "False"},
             "key_only": {"type": "boolean", "required": "False"},
             "filter_logic": {"type": "string", "required": "False"},
+            "total_only": {"type": "boolean", "required": "False"},
         },
     },
     "ips_exceed-scan-range": {
@@ -1827,20 +1844,8 @@ module_selectors_defs = {
     },
     "router_bgp_neighbors": {"url": "router/bgp/neighbors", "params": {}},
     "router_bgp_neighbors6": {"url": "router/bgp/neighbors6", "params": {}},
-    "router_bgp_paths": {
-        "url": "router/bgp/paths",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-        },
-    },
-    "router_bgp_paths6": {
-        "url": "router/bgp/paths6",
-        "params": {
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "False"},
-        },
-    },
+    "router_bgp_paths": {"url": "router/bgp/paths", "params": {}},
+    "router_bgp_paths6": {"url": "router/bgp/paths6", "params": {}},
     "router_ospf_neighbors": {"url": "router/ospf/neighbors", "params": {}},
     "system_automation-action_stats": {
         "url": "system/automation-action/stats",
@@ -1889,7 +1894,7 @@ module_selectors_defs = {
     "firewall_dnat": {
         "url": "firewall/dnat",
         "params": {
-            "uuid": {"type": "string", "required": "False"},
+            "uuid": {"type": "array", "required": "False"},
             "ip_version": {"type": "string", "required": "False"},
         },
     },
@@ -1943,7 +1948,10 @@ module_selectors_defs = {
     "wifi_ap-names": {"url": "wifi/ap-names", "params": {}},
     "firewall_internet-service-reputation": {
         "url": "firewall/internet-service-reputation",
-        "params": {"ip": {"type": "string", "required": "True"}},
+        "params": {
+            "ip": {"type": "string", "required": "True"},
+            "is_ipv6": {"type": "boolean", "required": "False"},
+        },
     },
     "firewall_shaper_multi-class-shaper": {
         "url": "firewall/shaper/multi-class-shaper",
@@ -1985,8 +1993,6 @@ module_selectors_defs = {
         "url": "firewall/proxy/sessions",
         "params": {
             "ip_version": {"type": "string", "required": "False"},
-            "start": {"type": "int", "required": "False"},
-            "count": {"type": "int", "required": "True"},
             "summary": {"type": "boolean", "required": "False"},
             "srcaddr": {"type": "object", "required": "False"},
             "dstaddr": {"type": "object", "required": "False"},
@@ -2050,7 +2056,7 @@ module_selectors_defs = {
     },
     "firewall_internet-service-basic": {
         "url": "firewall/internet-service-basic",
-        "params": {},
+        "params": {"ipv6_only": {"type": "boolean", "required": "False"}},
     },
     "firewall_vip-overlap": {"url": "firewall/vip-overlap", "params": {}},
     "switch-controller_managed-switch_port-health": {
@@ -2072,7 +2078,213 @@ module_selectors_defs = {
     "system_ha-nonsync-checksums": {"url": "system/ha-nonsync-checksums", "params": {}},
     "wifi_station-capability": {
         "url": "wifi/station-capability",
-        "params": {"mac_address": {"type": "string", "required": "False"}},
+        "params": {
+            "mac_address": {"type": "string", "required": "False"},
+            "min_age": {"type": "int", "required": "False"},
+            "max_age": {"type": "int", "required": "False"},
+        },
+    },
+    "fortiguard_answers": {
+        "url": "fortiguard/answers",
+        "params": {
+            "page": {"type": "int", "required": "False"},
+            "pagesize": {"type": "int", "required": "False"},
+            "sortkey": {"type": "string", "required": "False"},
+            "topics": {"type": "string", "required": "False"},
+            "limit": {"type": "int", "required": "False"},
+        },
+    },
+    "ips_session_performance": {"url": "ips/session/performance", "params": {}},
+    "switch-controller_nac-device_stats": {
+        "url": "switch-controller/nac-device/stats",
+        "params": {},
+    },
+    "switch-controller_isl-lockdown_status": {
+        "url": "switch-controller/isl-lockdown/status",
+        "params": {"fortilink": {"type": "string", "required": "True"}},
+    },
+    "wifi_nac-device_stats": {"url": "wifi/nac-device/stats", "params": {}},
+    "firewall_sessions": {
+        "url": "firewall/sessions",
+        "params": {
+            "ip_version": {"type": "string", "required": "False"},
+            "summary": {"type": "boolean", "required": "False"},
+            "srcport": {"type": "object", "required": "False"},
+            "policyid": {"type": "object", "required": "False"},
+            "security-policyid": {"type": "object", "required": "False"},
+            "application": {"type": "object", "required": "False"},
+            "protocol": {"type": "object", "required": "False"},
+            "dstport": {"type": "object", "required": "False"},
+            "srcintf": {"type": "object", "required": "False"},
+            "dstintf": {"type": "object", "required": "False"},
+            "srcintfrole": {"type": "array", "required": "False"},
+            "dstintfrole": {"type": "array", "required": "False"},
+            "srcaddr": {"type": "object", "required": "False"},
+            "srcaddr6": {"type": "object", "required": "False"},
+            "srcuuid": {"type": "object", "required": "False"},
+            "dstaddr": {"type": "object", "required": "False"},
+            "dstaddr6": {"type": "object", "required": "False"},
+            "dstuuid": {"type": "object", "required": "False"},
+            "username": {"type": "object", "required": "False"},
+            "shaper": {"type": "object", "required": "False"},
+            "country": {"type": "object", "required": "False"},
+            "owner": {"type": "object", "required": "False"},
+            "natsourceaddress": {"type": "object", "required": "False"},
+            "natsourceport": {"type": "object", "required": "False"},
+            "since": {"type": "object", "required": "False"},
+            "seconds": {"type": "object", "required": "False"},
+            "fortiasic": {"type": "object", "required": "False"},
+        },
+    },
+    "fortiview_realtime-statistics": {
+        "url": "fortiview/realtime-statistics",
+        "params": {
+            "srcaddr": {"type": "object", "required": "False"},
+            "dstaddr": {"type": "object", "required": "False"},
+            "srcaddr6": {"type": "object", "required": "False"},
+            "dstaddr6": {"type": "object", "required": "False"},
+            "srcport": {"type": "object", "required": "False"},
+            "dstport": {"type": "object", "required": "False"},
+            "srcintf": {"type": "object", "required": "False"},
+            "srcintfrole": {"type": "array", "required": "False"},
+            "dstintf": {"type": "object", "required": "False"},
+            "dstintfrole": {"type": "array", "required": "False"},
+            "policyid": {"type": "object", "required": "False"},
+            "security-policyid": {"type": "object", "required": "False"},
+            "protocol": {"type": "object", "required": "False"},
+            "web-category": {"type": "object", "required": "False"},
+            "web-domain": {"type": "object", "required": "False"},
+            "application": {"type": "object", "required": "False"},
+            "country": {"type": "object", "required": "False"},
+            "seconds": {"type": "object", "required": "False"},
+            "since": {"type": "object", "required": "False"},
+            "owner": {"type": "object", "required": "False"},
+            "username": {"type": "object", "required": "False"},
+            "shaper": {"type": "object", "required": "False"},
+            "srcuuid": {"type": "object", "required": "False"},
+            "dstuuid": {"type": "object", "required": "False"},
+            "sessionid": {"type": "int", "required": "False"},
+            "report_by": {"type": "string", "required": "False"},
+            "sort_by": {"type": "string", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+        },
+    },
+    "fortiview_historical-statistics": {
+        "url": "fortiview/historical-statistics",
+        "params": {
+            "filter": {"type": "object", "required": "False"},
+            "sessionid": {"type": "int", "required": "False"},
+            "device": {"type": "string", "required": "False"},
+            "report_by": {"type": "string", "required": "False"},
+            "sort_by": {"type": "string", "required": "False"},
+            "chart_only": {"type": "boolean", "required": "False"},
+            "end": {"type": "int", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+        },
+    },
+    "fortiview_realtime-proxy-statistics": {
+        "url": "fortiview/realtime-proxy-statistics",
+        "params": {
+            "report_by": {"type": "string", "required": "False"},
+            "sort_by": {"type": "string", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+            "srcaddr": {"type": "object", "required": "False"},
+            "dstaddr": {"type": "object", "required": "False"},
+            "srcaddr6": {"type": "object", "required": "False"},
+            "dstaddr6": {"type": "object", "required": "False"},
+            "srcport": {"type": "object", "required": "False"},
+            "dstport": {"type": "object", "required": "False"},
+            "srcintf": {"type": "object", "required": "False"},
+            "dstintf": {"type": "object", "required": "False"},
+            "policyid": {"type": "object", "required": "False"},
+            "proxy-policyid": {"type": "object", "required": "False"},
+            "protocol": {"type": "object", "required": "False"},
+            "application": {"type": "object", "required": "False"},
+            "country": {"type": "object", "required": "False"},
+            "seconds": {"type": "object", "required": "False"},
+            "since": {"type": "object", "required": "False"},
+            "owner": {"type": "object", "required": "False"},
+            "username": {"type": "object", "required": "False"},
+            "srcuuid": {"type": "object", "required": "False"},
+            "dstuuid": {"type": "object", "required": "False"},
+        },
+    },
+    "log_feature-set": {"url": "log/feature-set", "params": {}},
+    "forticonverter_eligibility": {"url": "forticonverter/eligibility", "params": {}},
+    "forticonverter_ticket_status": {
+        "url": "forticonverter/ticket/status",
+        "params": {},
+    },
+    "forticonverter_sn-list": {
+        "url": "forticonverter/sn-list",
+        "params": {"ticket_id": {"type": "string", "required": "True"}},
+    },
+    "forticonverter_intf-list": {
+        "url": "forticonverter/intf-list",
+        "params": {"ticket_id": {"type": "string", "required": "True"}},
+    },
+    "forticonverter_custom-operation_status": {
+        "url": "forticonverter/custom-operation/status",
+        "params": {"id": {"type": "int", "required": "True"}},
+    },
+    "forticonverter_intf-mapping": {
+        "url": "forticonverter/intf-mapping",
+        "params": {"ticket_id": {"type": "string", "required": "True"}},
+    },
+    "forticonverter_mgmt-intf": {
+        "url": "forticonverter/mgmt-intf",
+        "params": {"ticket_id": {"type": "string", "required": "True"}},
+    },
+    "forticonverter_notes": {
+        "url": "forticonverter/notes",
+        "params": {"ticket_id": {"type": "string", "required": "True"}},
+    },
+    "forticonverter_download_ready": {
+        "url": "forticonverter/download/ready",
+        "params": {
+            "ticket_id": {"type": "string", "required": "True"},
+            "extension": {"type": "string", "required": "True"},
+        },
+    },
+    "forticonverter_file_download": {
+        "url": "forticonverter/file/download",
+        "params": {
+            "ticket_id": {"type": "string", "required": "True"},
+            "extension": {"type": "string", "required": "True"},
+        },
+    },
+    "forticonverter_download_status": {
+        "url": "forticonverter/download/status",
+        "params": {
+            "ticket_id": {"type": "string", "required": "True"},
+            "extension": {"type": "string", "required": "True"},
+        },
+    },
+    "switch-controller_managed-switch_bios": {
+        "url": "switch-controller/managed-switch/bios",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "system_available-interfaces_meta": {
+        "url": "system/available-interfaces/meta",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "include_ha": {"type": "boolean", "required": "False"},
+        },
+    },
+    "system_central-management_status": {
+        "url": "system/central-management/status",
+        "params": {},
+    },
+    "user_device_stats": {
+        "url": "user/device/stats",
+        "params": {
+            "stat-query-type": {"type": "string", "required": "False"},
+            "stat-key": {"type": "string", "required": "True"},
+            "timestamp_from": {"type": "int", "required": "False"},
+            "timestamp_to": {"type": "int", "required": "True"},
+            "filters": {"type": "array", "required": "False"},
+            "filter_logic": {"type": "string", "required": "False"},
+        },
     },
 }
 
@@ -2474,6 +2686,31 @@ def main():
                 "system_ipam_utilization",
                 "system_ha-nonsync-checksums",
                 "wifi_station-capability",
+                "fortiguard_answers",
+                "ips_session_performance",
+                "switch-controller_nac-device_stats",
+                "switch-controller_isl-lockdown_status",
+                "wifi_nac-device_stats",
+                "firewall_sessions",
+                "fortiview_realtime-statistics",
+                "fortiview_historical-statistics",
+                "fortiview_realtime-proxy-statistics",
+                "log_feature-set",
+                "forticonverter_eligibility",
+                "forticonverter_ticket_status",
+                "forticonverter_sn-list",
+                "forticonverter_intf-list",
+                "forticonverter_custom-operation_status",
+                "forticonverter_intf-mapping",
+                "forticonverter_mgmt-intf",
+                "forticonverter_notes",
+                "forticonverter_download_ready",
+                "forticonverter_file_download",
+                "forticonverter_download_status",
+                "switch-controller_managed-switch_bios",
+                "system_available-interfaces_meta",
+                "system_central-management_status",
+                "user_device_stats",
             ],
         },
         "selectors": {
@@ -2776,6 +3013,31 @@ def main():
                         "system_ipam_utilization",
                         "system_ha-nonsync-checksums",
                         "wifi_station-capability",
+                        "fortiguard_answers",
+                        "ips_session_performance",
+                        "switch-controller_nac-device_stats",
+                        "switch-controller_isl-lockdown_status",
+                        "wifi_nac-device_stats",
+                        "firewall_sessions",
+                        "fortiview_realtime-statistics",
+                        "fortiview_historical-statistics",
+                        "fortiview_realtime-proxy-statistics",
+                        "log_feature-set",
+                        "forticonverter_eligibility",
+                        "forticonverter_ticket_status",
+                        "forticonverter_sn-list",
+                        "forticonverter_intf-list",
+                        "forticonverter_custom-operation_status",
+                        "forticonverter_intf-mapping",
+                        "forticonverter_mgmt-intf",
+                        "forticonverter_notes",
+                        "forticonverter_download_ready",
+                        "forticonverter_file_download",
+                        "forticonverter_download_status",
+                        "switch-controller_managed-switch_bios",
+                        "system_available-interfaces_meta",
+                        "system_central-management_status",
+                        "user_device_stats",
                     ],
                 },
             },

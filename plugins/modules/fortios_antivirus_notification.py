@@ -101,6 +101,7 @@ options:
                     name:
                         description:
                             - virus name or prefix
+                        required: true
                         type: str
                     prefix:
                         description:
@@ -390,6 +391,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -430,6 +432,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "status": {
                     "revisions": {

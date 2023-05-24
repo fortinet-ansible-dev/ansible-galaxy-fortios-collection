@@ -108,6 +108,14 @@ options:
                 description:
                     - SSL interface to send/receive traffic over. Source system.interface.name.
                 type: str
+            ipv4_subnets:
+                description:
+                    - IPv4 subnets that the client is protecting. Source firewall.address.name firewall.addrgrp.name.
+                type: str
+            ipv6_subnets:
+                description:
+                    - IPv6 subnets that the client is protecting. Source firewall.address6.name firewall.addrgrp6.name.
+                type: str
             name:
                 description:
                     - SSL-VPN tunnel name.
@@ -176,7 +184,9 @@ EXAMPLES = """
         comment: "Comment."
         distance: "10"
         interface: "<your_own_value> (source system.interface.name)"
-        name: "default_name_8"
+        ipv4_subnets: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
+        ipv6_subnets: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
+        name: "default_name_10"
         peer: "<your_own_value> (source user.peer.name user.peergrp.name)"
         port: "443"
         priority: "1"
@@ -276,6 +286,8 @@ def filter_vpn_ssl_client_data(json):
         "comment",
         "distance",
         "interface",
+        "ipv4_subnets",
+        "ipv6_subnets",
         "name",
         "peer",
         "port",
@@ -365,6 +377,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -379,9 +393,12 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -399,6 +416,8 @@ versioned_schema = {
         },
         "interface": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -416,6 +435,8 @@ versioned_schema = {
         },
         "user": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -433,6 +454,8 @@ versioned_schema = {
         },
         "psk": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -450,6 +473,8 @@ versioned_schema = {
         },
         "peer": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -467,6 +492,8 @@ versioned_schema = {
         },
         "server": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -484,6 +511,8 @@ versioned_schema = {
         },
         "port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -501,6 +530,8 @@ versioned_schema = {
         },
         "realm": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -518,6 +549,8 @@ versioned_schema = {
         },
         "status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -536,6 +569,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -553,6 +588,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -571,6 +608,8 @@ versioned_schema = {
         },
         "certificate": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -588,6 +627,8 @@ versioned_schema = {
         },
         "source_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -605,6 +646,8 @@ versioned_schema = {
         },
         "distance": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -622,6 +665,8 @@ versioned_schema = {
         },
         "priority": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -639,6 +684,8 @@ versioned_schema = {
         },
         "class_id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -654,8 +701,48 @@ versioned_schema = {
             },
             "type": "integer",
         },
+        "ipv4_subnets": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+        },
+        "ipv6_subnets": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+        },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

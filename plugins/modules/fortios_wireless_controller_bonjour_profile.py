@@ -116,6 +116,7 @@ options:
                     policy_id:
                         description:
                             - Policy ID.
+                        required: true
                         type: int
                     services:
                         description:
@@ -135,6 +136,7 @@ options:
                             - 'scanners'
                             - 'ssh'
                             - 'chromecast'
+                            - 'miracast'
                     to_vlan:
                         description:
                             - VLAN ID to which the Bonjour service is made available (0 - 4094).
@@ -444,6 +446,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -468,9 +472,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -502,6 +509,8 @@ versioned_schema = {
             "children": {
                 "policy_id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -526,9 +535,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "description": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -556,6 +568,8 @@ versioned_schema = {
                 },
                 "from_vlan": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -583,6 +597,8 @@ versioned_schema = {
                 },
                 "to_vlan": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -610,6 +626,8 @@ versioned_schema = {
                 },
                 "services": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -638,6 +656,8 @@ versioned_schema = {
                         {
                             "value": "all",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -665,6 +685,8 @@ versioned_schema = {
                         {
                             "value": "airplay",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -692,6 +714,8 @@ versioned_schema = {
                         {
                             "value": "afp",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -719,6 +743,8 @@ versioned_schema = {
                         {
                             "value": "bit-torrent",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -746,6 +772,8 @@ versioned_schema = {
                         {
                             "value": "ftp",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -773,6 +801,8 @@ versioned_schema = {
                         {
                             "value": "ichat",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -800,6 +830,8 @@ versioned_schema = {
                         {
                             "value": "itunes",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -827,6 +859,8 @@ versioned_schema = {
                         {
                             "value": "printers",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -854,6 +888,8 @@ versioned_schema = {
                         {
                             "value": "samba",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -881,6 +917,8 @@ versioned_schema = {
                         {
                             "value": "scanners",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -908,6 +946,8 @@ versioned_schema = {
                         {
                             "value": "ssh",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -935,6 +975,8 @@ versioned_schema = {
                         {
                             "value": "chromecast",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -959,12 +1001,43 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                         },
+                        {
+                            "value": "miracast",
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": False,
+                                "v7.2.2": False,
+                                "v7.2.1": False,
+                                "v7.2.0": False,
+                                "v7.0.8": False,
+                                "v7.0.7": False,
+                                "v7.0.6": False,
+                                "v7.0.5": False,
+                                "v7.0.4": False,
+                                "v7.0.3": False,
+                                "v7.0.2": False,
+                                "v7.0.1": False,
+                                "v7.0.0": False,
+                                "v6.4.4": False,
+                                "v6.4.1": False,
+                                "v6.4.0": False,
+                                "v6.2.7": False,
+                                "v6.2.5": False,
+                                "v6.2.3": False,
+                                "v6.2.0": False,
+                                "v6.0.5": False,
+                                "v6.0.11": False,
+                                "v6.0.0": False,
+                            },
+                        },
                     ],
                     "multiple_values": True,
                     "elements": "str",
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -991,6 +1064,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

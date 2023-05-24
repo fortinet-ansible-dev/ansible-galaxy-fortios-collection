@@ -420,6 +420,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -444,9 +446,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "addr_type": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -474,20 +479,40 @@ versioned_schema = {
             "options": [
                 {
                     "value": "ip4",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
                 {
                     "value": "ip6",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
                 {
                     "value": "fqdn",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
             ],
         },
         "ip_address": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -515,6 +540,8 @@ versioned_schema = {
         },
         "ip6_address": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -542,6 +569,8 @@ versioned_schema = {
         },
         "fqdn": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -569,6 +598,8 @@ versioned_schema = {
         },
         "port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -596,6 +627,8 @@ versioned_schema = {
         },
         "max_connections": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -623,6 +656,8 @@ versioned_schema = {
         },
         "secure": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -651,6 +686,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -668,6 +705,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -686,6 +725,8 @@ versioned_schema = {
         },
         "ssl_cert": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -713,6 +754,8 @@ versioned_schema = {
         },
         "healthcheck": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -740,16 +783,30 @@ versioned_schema = {
             "options": [
                 {
                     "value": "disable",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
                 {
                     "value": "enable",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
             ],
         },
         "healthcheck_service": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -851,6 +908,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

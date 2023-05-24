@@ -143,6 +143,7 @@ options:
                  - 'system_api-user'
                  - 'system_sso-admin'
                  - 'system_sso-forticloud-admin'
+                 - 'system_sso-fortigate-cloud-admin'
                  - 'system_settings'
                  - 'system_sit-tunnel'
                  - 'system_fsso-polling'
@@ -175,6 +176,7 @@ options:
                  - 'system_management-tunnel'
                  - 'system_central-management'
                  - 'system_zone'
+                 - 'system_sdn-proxy'
                  - 'system_sdn-connector'
                  - 'system_ipv6-tunnel'
                  - 'system_external-resource'
@@ -182,6 +184,7 @@ options:
                  - 'system_ips-urlfilter-dns6'
                  - 'system_network-visibility'
                  - 'system_sdwan'
+                 - 'system_evpn'
                  - 'system_gre-tunnel'
                  - 'system_ipsec-aggregate'
                  - 'system_ipip-tunnel'
@@ -196,6 +199,7 @@ options:
                  - 'system_vdom-property'
                  - 'system_speed-test-server'
                  - 'system.lldp_network-policy'
+                 - 'system_pcp-server'
                  - 'system_speed-test-schedule'
                  - 'system_standalone-cluster'
                  - 'system_fortiguard'
@@ -232,10 +236,12 @@ options:
                  - 'system_nd-proxy'
                  - 'system_saml'
                  - 'system_federated-upgrade'
+                 - 'system_device-upgrade'
                  - 'system_vne-tunnel'
                  - 'system_ike'
                  - 'system_acme'
                  - 'system_ipam'
+                 - 'system_fabric-vpn'
                  - 'wireless-controller_inter-controller'
                  - 'wireless-controller_global'
                  - 'wireless-controller.hotspot20_anqp-venue-name'
@@ -304,6 +310,8 @@ options:
                  - 'switch-controller.ptp_settings'
                  - 'switch-controller.ptp_policy'
                  - 'switch-controller_vlan-policy'
+                 - 'switch-controller.acl_ingress'
+                 - 'switch-controller.acl_group'
                  - 'switch-controller_dynamic-port-policy'
                  - 'switch-controller_managed-switch'
                  - 'switch-controller_switch-group'
@@ -412,6 +420,7 @@ options:
                  - 'vpn.ssl.web_user-bookmark'
                  - 'vpn.ssl_settings'
                  - 'vpn.ssl_client'
+                 - 'vpn_kmip-server'
                  - 'vpn.ipsec_phase1'
                  - 'vpn.ipsec_phase2'
                  - 'vpn.ipsec_manualkey'
@@ -423,7 +432,6 @@ options:
                  - 'vpn.ipsec_forticlient'
                  - 'vpn_pptp'
                  - 'vpn_l2tp'
-                 - 'vpn_ocvpn'
                  - 'certificate_ca'
                  - 'certificate_remote'
                  - 'certificate_local'
@@ -572,6 +580,7 @@ options:
                  - 'nsxt_service-chain'
                  - 'antivirus_settings'
                  - 'antivirus_quarantine'
+                 - 'antivirus_exempt-list'
                  - 'antivirus_profile'
                  - 'ssh-filter_profile'
                  - 'file-filter_profile'
@@ -590,6 +599,8 @@ options:
                  - 'extension-controller_fortigate-profile'
                  - 'extension-controller_fortigate'
                  - 'endpoint-control_fctems'
+                 - 'endpoint-control_settings'
+                 - 'endpoint-control_fctems-override'
                  - 'alertemail_setting'
                  - 'router_access-list'
                  - 'router_access-list6'
@@ -598,6 +609,7 @@ options:
                  - 'router_prefix-list6'
                  - 'router_key-chain'
                  - 'router_community-list'
+                 - 'router_extcommunity-list'
                  - 'router_route-map'
                  - 'router_rip'
                  - 'router_ripng'
@@ -619,11 +631,32 @@ options:
                  - 'automation_setting'
                  - 'dpdk_global'
                  - 'dpdk_cpus'
-                 - 'system_isf-queue-profile'
                  - 'system_npu'
                  - 'system_np6'
                  - 'system_lte-modem'
+                 - 'system_physical-switch'
+                 - 'system_virtual-switch'
+                 - 'system_stp'
                  - 'system_gi-gk'
+                 - 'system_modem'
+                 - 'system.3g-modem_custom'
+                 - 'firewall_gtp'
+                 - 'firewall_pfcp'
+                 - 'firewall_acl'
+                 - 'firewall_acl6'
+                 - 'vpn_ocvpn'
+                 - 'gtp_apn'
+                 - 'gtp_apngrp'
+                 - 'gtp_message-filter-v0v1'
+                 - 'gtp_message-filter-v2'
+                 - 'gtp_rat-timeout-profile'
+                 - 'gtp_ie-allow-list'
+                 - 'gtp_tunnel-limit'
+                 - 'gtp_apn-shaper'
+                 - 'pfcp_message-filter'
+                 - 'monitoring_np6-ipsec-engine'
+                 - 'monitoring_npu-hpe'
+                 - 'system_isf-queue-profile'
                  - 'system.replacemsg_mail'
                  - 'system.replacemsg_http'
                  - 'system.replacemsg_webproxy'
@@ -639,8 +672,6 @@ options:
                  - 'system.replacemsg_utm'
                  - 'system.replacemsg_icap'
                  - 'system.replacemsg_automation'
-                 - 'system_modem'
-                 - 'system.3g-modem_custom'
                  - 'system_status'
                  - 'system.performance_status'
                  - 'system.performance_top'
@@ -696,10 +727,6 @@ options:
                  - 'firewall_vendor-mac-summary'
                  - 'firewall.shaper_traffic'
                  - 'firewall.shaper_per-ip'
-                 - 'firewall_gtp'
-                 - 'firewall_pfcp'
-                 - 'firewall_acl'
-                 - 'firewall_acl6'
                  - 'firewall.iprope_list'
                  - 'firewall.iprope.appctrl_list'
                  - 'firewall.iprope.appctrl_status'
@@ -728,15 +755,6 @@ options:
                  - 'application_name'
                  - 'application_rule-settings'
                  - 'report.sql_status'
-                 - 'gtp_apn'
-                 - 'gtp_apngrp'
-                 - 'gtp_message-filter-v0v1'
-                 - 'gtp_message-filter-v2'
-                 - 'gtp_rat-timeout-profile'
-                 - 'gtp_ie-allow-list'
-                 - 'gtp_tunnel-limit'
-                 - 'gtp_apn-shaper'
-                 - 'pfcp_message-filter'
                  - 'extender-controller_dataplan'
                  - 'extender-controller_extender-profile'
                  - 'extender-controller_extender'
@@ -761,14 +779,9 @@ options:
                  - 'extender_modem-status'
                  - 'extender_lte-carrier-list'
                  - 'extender_lte-carrier-by-mcc-mnc'
-                 - 'monitoring_np6-ipsec-engine'
-                 - 'monitoring_npu-hpe'
                  - 'wireless-controller_address'
                  - 'wireless-controller_addrgrp'
                  - 'system_fortiai'
-                 - 'system_physical-switch'
-                 - 'system_virtual-switch'
-                 - 'system_stp'
                  - 'system_fortimanager'
                  - 'system_fm'
                  - 'system_nat64'
@@ -808,7 +821,6 @@ options:
                  - 'firewall_policy6'
                  - 'antivirus_notification'
                  - 'antivirus_mms-checksum'
-                 - 'endpoint-control_settings'
                  - 'system_smc-ntp'
                  - 'switch-controller_vlan'
                  - 'switch-controller.security-policy_captive-portal'
@@ -854,6 +866,7 @@ options:
          - 'system_api-user'
          - 'system_sso-admin'
          - 'system_sso-forticloud-admin'
+         - 'system_sso-fortigate-cloud-admin'
          - 'system_settings'
          - 'system_sit-tunnel'
          - 'system_fsso-polling'
@@ -886,6 +899,7 @@ options:
          - 'system_management-tunnel'
          - 'system_central-management'
          - 'system_zone'
+         - 'system_sdn-proxy'
          - 'system_sdn-connector'
          - 'system_ipv6-tunnel'
          - 'system_external-resource'
@@ -893,6 +907,7 @@ options:
          - 'system_ips-urlfilter-dns6'
          - 'system_network-visibility'
          - 'system_sdwan'
+         - 'system_evpn'
          - 'system_gre-tunnel'
          - 'system_ipsec-aggregate'
          - 'system_ipip-tunnel'
@@ -907,6 +922,7 @@ options:
          - 'system_vdom-property'
          - 'system_speed-test-server'
          - 'system.lldp_network-policy'
+         - 'system_pcp-server'
          - 'system_speed-test-schedule'
          - 'system_standalone-cluster'
          - 'system_fortiguard'
@@ -943,10 +959,12 @@ options:
          - 'system_nd-proxy'
          - 'system_saml'
          - 'system_federated-upgrade'
+         - 'system_device-upgrade'
          - 'system_vne-tunnel'
          - 'system_ike'
          - 'system_acme'
          - 'system_ipam'
+         - 'system_fabric-vpn'
          - 'wireless-controller_inter-controller'
          - 'wireless-controller_global'
          - 'wireless-controller.hotspot20_anqp-venue-name'
@@ -1015,6 +1033,8 @@ options:
          - 'switch-controller.ptp_settings'
          - 'switch-controller.ptp_policy'
          - 'switch-controller_vlan-policy'
+         - 'switch-controller.acl_ingress'
+         - 'switch-controller.acl_group'
          - 'switch-controller_dynamic-port-policy'
          - 'switch-controller_managed-switch'
          - 'switch-controller_switch-group'
@@ -1123,6 +1143,7 @@ options:
          - 'vpn.ssl.web_user-bookmark'
          - 'vpn.ssl_settings'
          - 'vpn.ssl_client'
+         - 'vpn_kmip-server'
          - 'vpn.ipsec_phase1'
          - 'vpn.ipsec_phase2'
          - 'vpn.ipsec_manualkey'
@@ -1134,7 +1155,6 @@ options:
          - 'vpn.ipsec_forticlient'
          - 'vpn_pptp'
          - 'vpn_l2tp'
-         - 'vpn_ocvpn'
          - 'certificate_ca'
          - 'certificate_remote'
          - 'certificate_local'
@@ -1283,6 +1303,7 @@ options:
          - 'nsxt_service-chain'
          - 'antivirus_settings'
          - 'antivirus_quarantine'
+         - 'antivirus_exempt-list'
          - 'antivirus_profile'
          - 'ssh-filter_profile'
          - 'file-filter_profile'
@@ -1301,6 +1322,8 @@ options:
          - 'extension-controller_fortigate-profile'
          - 'extension-controller_fortigate'
          - 'endpoint-control_fctems'
+         - 'endpoint-control_settings'
+         - 'endpoint-control_fctems-override'
          - 'alertemail_setting'
          - 'router_access-list'
          - 'router_access-list6'
@@ -1309,6 +1332,7 @@ options:
          - 'router_prefix-list6'
          - 'router_key-chain'
          - 'router_community-list'
+         - 'router_extcommunity-list'
          - 'router_route-map'
          - 'router_rip'
          - 'router_ripng'
@@ -1330,11 +1354,32 @@ options:
          - 'automation_setting'
          - 'dpdk_global'
          - 'dpdk_cpus'
-         - 'system_isf-queue-profile'
          - 'system_npu'
          - 'system_np6'
          - 'system_lte-modem'
+         - 'system_physical-switch'
+         - 'system_virtual-switch'
+         - 'system_stp'
          - 'system_gi-gk'
+         - 'system_modem'
+         - 'system.3g-modem_custom'
+         - 'firewall_gtp'
+         - 'firewall_pfcp'
+         - 'firewall_acl'
+         - 'firewall_acl6'
+         - 'vpn_ocvpn'
+         - 'gtp_apn'
+         - 'gtp_apngrp'
+         - 'gtp_message-filter-v0v1'
+         - 'gtp_message-filter-v2'
+         - 'gtp_rat-timeout-profile'
+         - 'gtp_ie-allow-list'
+         - 'gtp_tunnel-limit'
+         - 'gtp_apn-shaper'
+         - 'pfcp_message-filter'
+         - 'monitoring_np6-ipsec-engine'
+         - 'monitoring_npu-hpe'
+         - 'system_isf-queue-profile'
          - 'system.replacemsg_mail'
          - 'system.replacemsg_http'
          - 'system.replacemsg_webproxy'
@@ -1350,8 +1395,6 @@ options:
          - 'system.replacemsg_utm'
          - 'system.replacemsg_icap'
          - 'system.replacemsg_automation'
-         - 'system_modem'
-         - 'system.3g-modem_custom'
          - 'system_status'
          - 'system.performance_status'
          - 'system.performance_top'
@@ -1407,10 +1450,6 @@ options:
          - 'firewall_vendor-mac-summary'
          - 'firewall.shaper_traffic'
          - 'firewall.shaper_per-ip'
-         - 'firewall_gtp'
-         - 'firewall_pfcp'
-         - 'firewall_acl'
-         - 'firewall_acl6'
          - 'firewall.iprope_list'
          - 'firewall.iprope.appctrl_list'
          - 'firewall.iprope.appctrl_status'
@@ -1439,15 +1478,6 @@ options:
          - 'application_name'
          - 'application_rule-settings'
          - 'report.sql_status'
-         - 'gtp_apn'
-         - 'gtp_apngrp'
-         - 'gtp_message-filter-v0v1'
-         - 'gtp_message-filter-v2'
-         - 'gtp_rat-timeout-profile'
-         - 'gtp_ie-allow-list'
-         - 'gtp_tunnel-limit'
-         - 'gtp_apn-shaper'
-         - 'pfcp_message-filter'
          - 'extender-controller_dataplan'
          - 'extender-controller_extender-profile'
          - 'extender-controller_extender'
@@ -1472,14 +1502,9 @@ options:
          - 'extender_modem-status'
          - 'extender_lte-carrier-list'
          - 'extender_lte-carrier-by-mcc-mnc'
-         - 'monitoring_np6-ipsec-engine'
-         - 'monitoring_npu-hpe'
          - 'wireless-controller_address'
          - 'wireless-controller_addrgrp'
          - 'system_fortiai'
-         - 'system_physical-switch'
-         - 'system_virtual-switch'
-         - 'system_stp'
          - 'system_fortimanager'
          - 'system_fm'
          - 'system_nat64'
@@ -1519,7 +1544,6 @@ options:
          - 'firewall_policy6'
          - 'antivirus_notification'
          - 'antivirus_mms-checksum'
-         - 'endpoint-control_settings'
          - 'system_smc-ntp'
          - 'switch-controller_vlan'
          - 'switch-controller.security-policy_captive-portal'
@@ -1738,6 +1762,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_sso-fortigate-cloud-admin": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "system_settings": {
         "mkey": "None",
         "mkey_type": None,
@@ -1866,6 +1894,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_sdn-proxy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "system_sdn-connector": {
         "mkey": "name",
         "mkey_type": str,
@@ -1893,6 +1925,10 @@ MODULE_MKEY_DEFINITONS = {
     "system_sdwan": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "system_evpn": {
+        "mkey": "id",
+        "mkey_type": int,
     },
     "system_gre-tunnel": {
         "mkey": "name",
@@ -1949,6 +1985,10 @@ MODULE_MKEY_DEFINITONS = {
     "system.lldp_network-policy": {
         "mkey": "name",
         "mkey_type": str,
+    },
+    "system_pcp-server": {
+        "mkey": "None",
+        "mkey_type": None,
     },
     "system_speed-test-schedule": {
         "mkey": "interface",
@@ -2094,6 +2134,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "system_device-upgrade": {
+        "mkey": "serial",
+        "mkey_type": str,
+    },
     "system_vne-tunnel": {
         "mkey": "None",
         "mkey_type": None,
@@ -2107,6 +2151,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "system_ipam": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_fabric-vpn": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -2379,6 +2427,14 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "switch-controller_vlan-policy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "switch-controller.acl_ingress": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "switch-controller.acl_group": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -2814,6 +2870,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "vpn_kmip-server": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "vpn.ipsec_phase1": {
         "mkey": "name",
         "mkey_type": str,
@@ -2855,10 +2915,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "vpn_l2tp": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "vpn_ocvpn": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -3454,6 +3510,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "antivirus_exempt-list": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "antivirus_profile": {
         "mkey": "name",
         "mkey_type": str,
@@ -3526,6 +3586,14 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "ems_id",
         "mkey_type": int,
     },
+    "endpoint-control_settings": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "endpoint-control_fctems-override": {
+        "mkey": "ems_id",
+        "mkey_type": int,
+    },
     "alertemail_setting": {
         "mkey": "None",
         "mkey_type": None,
@@ -3555,6 +3623,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "router_community-list": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "router_extcommunity-list": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3642,10 +3714,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "system_isf-queue-profile": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
     "system_npu": {
         "mkey": "None",
         "mkey_type": None,
@@ -3658,9 +3726,97 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "system_physical-switch": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_virtual-switch": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_stp": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
     "system_gi-gk": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "system_modem": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system.3g-modem_custom": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "firewall_gtp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "firewall_pfcp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "firewall_acl": {
+        "mkey": "policyid",
+        "mkey_type": int,
+    },
+    "firewall_acl6": {
+        "mkey": "policyid",
+        "mkey_type": int,
+    },
+    "vpn_ocvpn": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "gtp_apn": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_apngrp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_message-filter-v0v1": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_message-filter-v2": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_rat-timeout-profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_ie-allow-list": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_tunnel-limit": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_apn-shaper": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "pfcp_message-filter": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "monitoring_np6-ipsec-engine": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "monitoring_npu-hpe": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_isf-queue-profile": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "system.replacemsg_mail": {
         "mkey": "msg_type",
@@ -3721,14 +3877,6 @@ MODULE_MKEY_DEFINITONS = {
     "system.replacemsg_automation": {
         "mkey": "msg_type",
         "mkey_type": str,
-    },
-    "system_modem": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system.3g-modem_custom": {
-        "mkey": "id",
-        "mkey_type": int,
     },
     "system_status": {
         "mkey": "None",
@@ -3950,22 +4098,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "firewall_gtp": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_pfcp": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_acl": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
-    "firewall_acl6": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
     "firewall.iprope_list": {
         "mkey": "None",
         "mkey_type": None,
@@ -4078,42 +4210,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "gtp_apn": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_apngrp": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_message-filter-v0v1": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_message-filter-v2": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_rat-timeout-profile": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_ie-allow-list": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_tunnel-limit": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_apn-shaper": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
-    "pfcp_message-filter": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
     "extender-controller_dataplan": {
         "mkey": "name",
         "mkey_type": str,
@@ -4210,14 +4306,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "monitoring_np6-ipsec-engine": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "monitoring_npu-hpe": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
     "wireless-controller_address": {
         "mkey": "id",
         "mkey_type": str,
@@ -4227,18 +4315,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "system_fortiai": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system_physical-switch": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "system_virtual-switch": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "system_stp": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -4397,10 +4473,6 @@ MODULE_MKEY_DEFINITONS = {
     "antivirus_mms-checksum": {
         "mkey": "id",
         "mkey_type": int,
-    },
-    "endpoint-control_settings": {
-        "mkey": "None",
-        "mkey_type": None,
     },
     "system_smc-ntp": {
         "mkey": "None",
@@ -4611,6 +4683,7 @@ def main():
                 "system_api-user",
                 "system_sso-admin",
                 "system_sso-forticloud-admin",
+                "system_sso-fortigate-cloud-admin",
                 "system_settings",
                 "system_sit-tunnel",
                 "system_fsso-polling",
@@ -4643,6 +4716,7 @@ def main():
                 "system_management-tunnel",
                 "system_central-management",
                 "system_zone",
+                "system_sdn-proxy",
                 "system_sdn-connector",
                 "system_ipv6-tunnel",
                 "system_external-resource",
@@ -4650,6 +4724,7 @@ def main():
                 "system_ips-urlfilter-dns6",
                 "system_network-visibility",
                 "system_sdwan",
+                "system_evpn",
                 "system_gre-tunnel",
                 "system_ipsec-aggregate",
                 "system_ipip-tunnel",
@@ -4664,6 +4739,7 @@ def main():
                 "system_vdom-property",
                 "system_speed-test-server",
                 "system.lldp_network-policy",
+                "system_pcp-server",
                 "system_speed-test-schedule",
                 "system_standalone-cluster",
                 "system_fortiguard",
@@ -4700,10 +4776,12 @@ def main():
                 "system_nd-proxy",
                 "system_saml",
                 "system_federated-upgrade",
+                "system_device-upgrade",
                 "system_vne-tunnel",
                 "system_ike",
                 "system_acme",
                 "system_ipam",
+                "system_fabric-vpn",
                 "wireless-controller_inter-controller",
                 "wireless-controller_global",
                 "wireless-controller.hotspot20_anqp-venue-name",
@@ -4772,6 +4850,8 @@ def main():
                 "switch-controller.ptp_settings",
                 "switch-controller.ptp_policy",
                 "switch-controller_vlan-policy",
+                "switch-controller.acl_ingress",
+                "switch-controller.acl_group",
                 "switch-controller_dynamic-port-policy",
                 "switch-controller_managed-switch",
                 "switch-controller_switch-group",
@@ -4880,6 +4960,7 @@ def main():
                 "vpn.ssl.web_user-bookmark",
                 "vpn.ssl_settings",
                 "vpn.ssl_client",
+                "vpn_kmip-server",
                 "vpn.ipsec_phase1",
                 "vpn.ipsec_phase2",
                 "vpn.ipsec_manualkey",
@@ -4891,7 +4972,6 @@ def main():
                 "vpn.ipsec_forticlient",
                 "vpn_pptp",
                 "vpn_l2tp",
-                "vpn_ocvpn",
                 "certificate_ca",
                 "certificate_remote",
                 "certificate_local",
@@ -5040,6 +5120,7 @@ def main():
                 "nsxt_service-chain",
                 "antivirus_settings",
                 "antivirus_quarantine",
+                "antivirus_exempt-list",
                 "antivirus_profile",
                 "ssh-filter_profile",
                 "file-filter_profile",
@@ -5058,6 +5139,8 @@ def main():
                 "extension-controller_fortigate-profile",
                 "extension-controller_fortigate",
                 "endpoint-control_fctems",
+                "endpoint-control_settings",
+                "endpoint-control_fctems-override",
                 "alertemail_setting",
                 "router_access-list",
                 "router_access-list6",
@@ -5066,6 +5149,7 @@ def main():
                 "router_prefix-list6",
                 "router_key-chain",
                 "router_community-list",
+                "router_extcommunity-list",
                 "router_route-map",
                 "router_rip",
                 "router_ripng",
@@ -5087,11 +5171,32 @@ def main():
                 "automation_setting",
                 "dpdk_global",
                 "dpdk_cpus",
-                "system_isf-queue-profile",
                 "system_npu",
                 "system_np6",
                 "system_lte-modem",
+                "system_physical-switch",
+                "system_virtual-switch",
+                "system_stp",
                 "system_gi-gk",
+                "system_modem",
+                "system.3g-modem_custom",
+                "firewall_gtp",
+                "firewall_pfcp",
+                "firewall_acl",
+                "firewall_acl6",
+                "vpn_ocvpn",
+                "gtp_apn",
+                "gtp_apngrp",
+                "gtp_message-filter-v0v1",
+                "gtp_message-filter-v2",
+                "gtp_rat-timeout-profile",
+                "gtp_ie-allow-list",
+                "gtp_tunnel-limit",
+                "gtp_apn-shaper",
+                "pfcp_message-filter",
+                "monitoring_np6-ipsec-engine",
+                "monitoring_npu-hpe",
+                "system_isf-queue-profile",
                 "system.replacemsg_mail",
                 "system.replacemsg_http",
                 "system.replacemsg_webproxy",
@@ -5107,8 +5212,6 @@ def main():
                 "system.replacemsg_utm",
                 "system.replacemsg_icap",
                 "system.replacemsg_automation",
-                "system_modem",
-                "system.3g-modem_custom",
                 "system_status",
                 "system.performance_status",
                 "system.performance_top",
@@ -5164,10 +5267,6 @@ def main():
                 "firewall_vendor-mac-summary",
                 "firewall.shaper_traffic",
                 "firewall.shaper_per-ip",
-                "firewall_gtp",
-                "firewall_pfcp",
-                "firewall_acl",
-                "firewall_acl6",
                 "firewall.iprope_list",
                 "firewall.iprope.appctrl_list",
                 "firewall.iprope.appctrl_status",
@@ -5196,15 +5295,6 @@ def main():
                 "application_name",
                 "application_rule-settings",
                 "report.sql_status",
-                "gtp_apn",
-                "gtp_apngrp",
-                "gtp_message-filter-v0v1",
-                "gtp_message-filter-v2",
-                "gtp_rat-timeout-profile",
-                "gtp_ie-allow-list",
-                "gtp_tunnel-limit",
-                "gtp_apn-shaper",
-                "pfcp_message-filter",
                 "extender-controller_dataplan",
                 "extender-controller_extender-profile",
                 "extender-controller_extender",
@@ -5229,14 +5319,9 @@ def main():
                 "extender_modem-status",
                 "extender_lte-carrier-list",
                 "extender_lte-carrier-by-mcc-mnc",
-                "monitoring_np6-ipsec-engine",
-                "monitoring_npu-hpe",
                 "wireless-controller_address",
                 "wireless-controller_addrgrp",
                 "system_fortiai",
-                "system_physical-switch",
-                "system_virtual-switch",
-                "system_stp",
                 "system_fortimanager",
                 "system_fm",
                 "system_nat64",
@@ -5276,7 +5361,6 @@ def main():
                 "firewall_policy6",
                 "antivirus_notification",
                 "antivirus_mms-checksum",
-                "endpoint-control_settings",
                 "system_smc-ntp",
                 "switch-controller_vlan",
                 "switch-controller.security-policy_captive-portal",
@@ -5330,6 +5414,7 @@ def main():
                         "system_api-user",
                         "system_sso-admin",
                         "system_sso-forticloud-admin",
+                        "system_sso-fortigate-cloud-admin",
                         "system_settings",
                         "system_sit-tunnel",
                         "system_fsso-polling",
@@ -5362,6 +5447,7 @@ def main():
                         "system_management-tunnel",
                         "system_central-management",
                         "system_zone",
+                        "system_sdn-proxy",
                         "system_sdn-connector",
                         "system_ipv6-tunnel",
                         "system_external-resource",
@@ -5369,6 +5455,7 @@ def main():
                         "system_ips-urlfilter-dns6",
                         "system_network-visibility",
                         "system_sdwan",
+                        "system_evpn",
                         "system_gre-tunnel",
                         "system_ipsec-aggregate",
                         "system_ipip-tunnel",
@@ -5383,6 +5470,7 @@ def main():
                         "system_vdom-property",
                         "system_speed-test-server",
                         "system.lldp_network-policy",
+                        "system_pcp-server",
                         "system_speed-test-schedule",
                         "system_standalone-cluster",
                         "system_fortiguard",
@@ -5419,10 +5507,12 @@ def main():
                         "system_nd-proxy",
                         "system_saml",
                         "system_federated-upgrade",
+                        "system_device-upgrade",
                         "system_vne-tunnel",
                         "system_ike",
                         "system_acme",
                         "system_ipam",
+                        "system_fabric-vpn",
                         "wireless-controller_inter-controller",
                         "wireless-controller_global",
                         "wireless-controller.hotspot20_anqp-venue-name",
@@ -5491,6 +5581,8 @@ def main():
                         "switch-controller.ptp_settings",
                         "switch-controller.ptp_policy",
                         "switch-controller_vlan-policy",
+                        "switch-controller.acl_ingress",
+                        "switch-controller.acl_group",
                         "switch-controller_dynamic-port-policy",
                         "switch-controller_managed-switch",
                         "switch-controller_switch-group",
@@ -5599,6 +5691,7 @@ def main():
                         "vpn.ssl.web_user-bookmark",
                         "vpn.ssl_settings",
                         "vpn.ssl_client",
+                        "vpn_kmip-server",
                         "vpn.ipsec_phase1",
                         "vpn.ipsec_phase2",
                         "vpn.ipsec_manualkey",
@@ -5610,7 +5703,6 @@ def main():
                         "vpn.ipsec_forticlient",
                         "vpn_pptp",
                         "vpn_l2tp",
-                        "vpn_ocvpn",
                         "certificate_ca",
                         "certificate_remote",
                         "certificate_local",
@@ -5759,6 +5851,7 @@ def main():
                         "nsxt_service-chain",
                         "antivirus_settings",
                         "antivirus_quarantine",
+                        "antivirus_exempt-list",
                         "antivirus_profile",
                         "ssh-filter_profile",
                         "file-filter_profile",
@@ -5777,6 +5870,8 @@ def main():
                         "extension-controller_fortigate-profile",
                         "extension-controller_fortigate",
                         "endpoint-control_fctems",
+                        "endpoint-control_settings",
+                        "endpoint-control_fctems-override",
                         "alertemail_setting",
                         "router_access-list",
                         "router_access-list6",
@@ -5785,6 +5880,7 @@ def main():
                         "router_prefix-list6",
                         "router_key-chain",
                         "router_community-list",
+                        "router_extcommunity-list",
                         "router_route-map",
                         "router_rip",
                         "router_ripng",
@@ -5806,11 +5902,32 @@ def main():
                         "automation_setting",
                         "dpdk_global",
                         "dpdk_cpus",
-                        "system_isf-queue-profile",
                         "system_npu",
                         "system_np6",
                         "system_lte-modem",
+                        "system_physical-switch",
+                        "system_virtual-switch",
+                        "system_stp",
                         "system_gi-gk",
+                        "system_modem",
+                        "system.3g-modem_custom",
+                        "firewall_gtp",
+                        "firewall_pfcp",
+                        "firewall_acl",
+                        "firewall_acl6",
+                        "vpn_ocvpn",
+                        "gtp_apn",
+                        "gtp_apngrp",
+                        "gtp_message-filter-v0v1",
+                        "gtp_message-filter-v2",
+                        "gtp_rat-timeout-profile",
+                        "gtp_ie-allow-list",
+                        "gtp_tunnel-limit",
+                        "gtp_apn-shaper",
+                        "pfcp_message-filter",
+                        "monitoring_np6-ipsec-engine",
+                        "monitoring_npu-hpe",
+                        "system_isf-queue-profile",
                         "system.replacemsg_mail",
                         "system.replacemsg_http",
                         "system.replacemsg_webproxy",
@@ -5826,8 +5943,6 @@ def main():
                         "system.replacemsg_utm",
                         "system.replacemsg_icap",
                         "system.replacemsg_automation",
-                        "system_modem",
-                        "system.3g-modem_custom",
                         "system_status",
                         "system.performance_status",
                         "system.performance_top",
@@ -5883,10 +5998,6 @@ def main():
                         "firewall_vendor-mac-summary",
                         "firewall.shaper_traffic",
                         "firewall.shaper_per-ip",
-                        "firewall_gtp",
-                        "firewall_pfcp",
-                        "firewall_acl",
-                        "firewall_acl6",
                         "firewall.iprope_list",
                         "firewall.iprope.appctrl_list",
                         "firewall.iprope.appctrl_status",
@@ -5915,15 +6026,6 @@ def main():
                         "application_name",
                         "application_rule-settings",
                         "report.sql_status",
-                        "gtp_apn",
-                        "gtp_apngrp",
-                        "gtp_message-filter-v0v1",
-                        "gtp_message-filter-v2",
-                        "gtp_rat-timeout-profile",
-                        "gtp_ie-allow-list",
-                        "gtp_tunnel-limit",
-                        "gtp_apn-shaper",
-                        "pfcp_message-filter",
                         "extender-controller_dataplan",
                         "extender-controller_extender-profile",
                         "extender-controller_extender",
@@ -5948,14 +6050,9 @@ def main():
                         "extender_modem-status",
                         "extender_lte-carrier-list",
                         "extender_lte-carrier-by-mcc-mnc",
-                        "monitoring_np6-ipsec-engine",
-                        "monitoring_npu-hpe",
                         "wireless-controller_address",
                         "wireless-controller_addrgrp",
                         "system_fortiai",
-                        "system_physical-switch",
-                        "system_virtual-switch",
-                        "system_stp",
                         "system_fortimanager",
                         "system_fm",
                         "system_nat64",
@@ -5995,7 +6092,6 @@ def main():
                         "firewall_policy6",
                         "antivirus_notification",
                         "antivirus_mms-checksum",
-                        "endpoint-control_settings",
                         "system_smc-ntp",
                         "switch-controller_vlan",
                         "switch-controller.security-policy_captive-portal",

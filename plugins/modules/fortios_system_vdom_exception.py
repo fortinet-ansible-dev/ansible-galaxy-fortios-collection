@@ -135,6 +135,8 @@ options:
                     - 'system.saml'
                     - 'router.policy'
                     - 'router.policy6'
+                    - 'log.syslogd.setting'
+                    - 'log.syslogd.override-setting'
                     - 'firewall.vip46'
                     - 'firewall.vip64'
             oid:
@@ -158,6 +160,7 @@ options:
                     name:
                         description:
                             - VDOM name. Source system.vdom.name.
+                        required: true
                         type: str
 """
 
@@ -414,6 +417,8 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -438,9 +443,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "object": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -469,6 +477,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -496,6 +506,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -523,6 +535,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer2.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -550,6 +564,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer2.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -577,6 +593,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer3.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -604,6 +622,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer3.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -631,6 +651,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer-cloud.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -658,6 +680,8 @@ versioned_schema = {
                 {
                     "value": "log.fortianalyzer-cloud.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -685,6 +709,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -712,6 +738,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -739,6 +767,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd2.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -766,6 +796,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd2.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -793,6 +825,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd3.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -820,6 +854,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd3.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -847,6 +883,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd4.setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -874,6 +912,8 @@ versioned_schema = {
                 {
                     "value": "log.syslogd4.override-setting",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -901,6 +941,8 @@ versioned_schema = {
                 {
                     "value": "system.gre-tunnel",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -928,6 +970,8 @@ versioned_schema = {
                 {
                     "value": "system.central-management",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -955,6 +999,8 @@ versioned_schema = {
                 {
                     "value": "system.csf",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -982,6 +1028,8 @@ versioned_schema = {
                 {
                     "value": "user.radius",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1009,6 +1057,8 @@ versioned_schema = {
                 {
                     "value": "system.interface",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1036,6 +1086,8 @@ versioned_schema = {
                 {
                     "value": "vpn.ipsec.phase1-interface",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1063,6 +1115,8 @@ versioned_schema = {
                 {
                     "value": "vpn.ipsec.phase2-interface",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1090,6 +1144,8 @@ versioned_schema = {
                 {
                     "value": "router.bgp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1117,6 +1173,8 @@ versioned_schema = {
                 {
                     "value": "router.route-map",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1144,6 +1202,8 @@ versioned_schema = {
                 {
                     "value": "router.prefix-list",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1171,6 +1231,8 @@ versioned_schema = {
                 {
                     "value": "firewall.ippool",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1198,6 +1260,8 @@ versioned_schema = {
                 {
                     "value": "firewall.ippool6",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1225,6 +1289,8 @@ versioned_schema = {
                 {
                     "value": "router.static",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1252,6 +1318,8 @@ versioned_schema = {
                 {
                     "value": "router.static6",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1279,6 +1347,8 @@ versioned_schema = {
                 {
                     "value": "firewall.vip",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1306,6 +1376,8 @@ versioned_schema = {
                 {
                     "value": "firewall.vip6",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1333,6 +1405,8 @@ versioned_schema = {
                 {
                     "value": "system.sdwan",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1360,6 +1434,8 @@ versioned_schema = {
                 {
                     "value": "system.saml",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1387,6 +1463,8 @@ versioned_schema = {
                 {
                     "value": "router.policy",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1414,6 +1492,8 @@ versioned_schema = {
                 {
                     "value": "router.policy6",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -1429,6 +1509,32 @@ versioned_schema = {
                         "v6.4.4": False,
                         "v6.4.1": False,
                         "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                },
+                {
+                    "value": "log.syslogd.setting",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                },
+                {
+                    "value": "log.syslogd.override-setting",
+                    "revisions": {
+                        "v7.4.0": True,
                         "v6.2.7": False,
                         "v6.2.5": False,
                         "v6.2.3": False,
@@ -1474,6 +1580,8 @@ versioned_schema = {
         },
         "scope": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1502,6 +1610,8 @@ versioned_schema = {
                 {
                     "value": "all",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1529,6 +1639,8 @@ versioned_schema = {
                 {
                     "value": "inclusive",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1556,6 +1668,8 @@ versioned_schema = {
                 {
                     "value": "exclusive",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1588,6 +1702,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1612,9 +1728,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1651,6 +1770,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

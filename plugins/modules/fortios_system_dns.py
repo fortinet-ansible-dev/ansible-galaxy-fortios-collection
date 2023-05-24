@@ -120,10 +120,15 @@ options:
                     domain:
                         description:
                             - DNS search domain list separated by space (maximum 8 domains).
+                        required: true
                         type: str
             fqdn_cache_ttl:
                 description:
                     - FQDN cache time to live in seconds (0 - 86400).
+                type: int
+            fqdn_max_refresh:
+                description:
+                    - FQDN cache maximum refresh time in seconds (3600 - 86400).
                 type: int
             fqdn_min_refresh:
                 description:
@@ -187,6 +192,7 @@ options:
                     hostname:
                         description:
                             - DNS server host name list separated by space (maximum 4 domains).
+                        required: true
                         type: str
             server_select_method:
                 description:
@@ -234,6 +240,7 @@ EXAMPLES = """
          -
             domain: "<your_own_value>"
         fqdn_cache_ttl: "0"
+        fqdn_max_refresh: "3600"
         fqdn_min_refresh: "60"
         interface: "<your_own_value> (source system.interface.name)"
         interface_select_method: "auto"
@@ -344,6 +351,7 @@ def filter_system_dns_data(json):
         "dns_over_tls",
         "domain",
         "fqdn_cache_ttl",
+        "fqdn_max_refresh",
         "fqdn_min_refresh",
         "interface",
         "interface_select_method",
@@ -453,6 +461,8 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -480,6 +490,8 @@ versioned_schema = {
     "children": {
         "primary": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -507,6 +519,8 @@ versioned_schema = {
         },
         "secondary": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -534,6 +548,8 @@ versioned_schema = {
         },
         "protocol": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -562,6 +578,8 @@ versioned_schema = {
                 {
                     "value": "cleartext",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -579,6 +597,8 @@ versioned_schema = {
                 {
                     "value": "dot",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -596,6 +616,8 @@ versioned_schema = {
                 {
                     "value": "doh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -616,6 +638,8 @@ versioned_schema = {
         },
         "ssl_certificate": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -647,6 +671,8 @@ versioned_schema = {
             "children": {
                 "hostname": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -668,9 +694,12 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -701,6 +730,8 @@ versioned_schema = {
             "children": {
                 "domain": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -725,9 +756,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -754,6 +788,8 @@ versioned_schema = {
         },
         "ip6_primary": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -781,6 +817,8 @@ versioned_schema = {
         },
         "ip6_secondary": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -808,6 +846,8 @@ versioned_schema = {
         },
         "timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -835,6 +875,8 @@ versioned_schema = {
         },
         "retry": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -862,6 +904,8 @@ versioned_schema = {
         },
         "dns_cache_limit": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -889,6 +933,8 @@ versioned_schema = {
         },
         "dns_cache_ttl": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -916,6 +962,8 @@ versioned_schema = {
         },
         "cache_notfound_responses": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -944,6 +992,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -971,6 +1021,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -999,6 +1051,8 @@ versioned_schema = {
         },
         "source_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1026,6 +1080,8 @@ versioned_schema = {
         },
         "interface_select_method": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1054,6 +1110,8 @@ versioned_schema = {
                 {
                     "value": "auto",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1077,6 +1135,8 @@ versioned_schema = {
                 {
                     "value": "sdwan",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1100,6 +1160,8 @@ versioned_schema = {
                 {
                     "value": "specify",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1124,6 +1186,8 @@ versioned_schema = {
         },
         "interface": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1151,6 +1215,8 @@ versioned_schema = {
         },
         "server_select_method": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1179,6 +1245,8 @@ versioned_schema = {
                 {
                     "value": "least-rtt",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1195,6 +1263,8 @@ versioned_schema = {
                 {
                     "value": "failover",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1212,6 +1282,8 @@ versioned_schema = {
         },
         "alt_primary": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1239,6 +1311,8 @@ versioned_schema = {
         },
         "alt_secondary": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1266,6 +1340,8 @@ versioned_schema = {
         },
         "log": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1294,6 +1370,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1310,6 +1388,8 @@ versioned_schema = {
                 {
                     "value": "error",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1326,6 +1406,8 @@ versioned_schema = {
                 {
                     "value": "all",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1343,6 +1425,8 @@ versioned_schema = {
         },
         "fqdn_cache_ttl": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,
@@ -1368,8 +1452,39 @@ versioned_schema = {
             },
             "type": "integer",
         },
+        "fqdn_max_refresh": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
         "fqdn_min_refresh": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,

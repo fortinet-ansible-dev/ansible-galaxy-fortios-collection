@@ -80,6 +80,18 @@ options:
         default: null
         type: dict
         suboptions:
+            interface:
+                description:
+                    - Specify outgoing interface to reach server. Source system.interface.name.
+                type: str
+            interface_select_method:
+                description:
+                    - Specify how to select outgoing interface to reach server.
+                type: str
+                choices:
+                    - 'auto'
+                    - 'sdwan'
+                    - 'specify'
             server:
                 description:
                     - Address of TACACS+ server.
@@ -87,6 +99,10 @@ options:
             server_key:
                 description:
                     - Key to access the TACACS+ server.
+                type: str
+            source_ip:
+                description:
+                    - Source IP address for communication to TACACS+ server.
                 type: str
             status:
                 description:
@@ -112,8 +128,11 @@ EXAMPLES = """
     fortios_log_tacacsplusaccounting_setting:
       vdom:  "{{ vdom }}"
       log_tacacsplusaccounting_setting:
+        interface: "<your_own_value> (source system.interface.name)"
+        interface_select_method: "auto"
         server: "192.168.100.40"
         server_key: "<your_own_value>"
+        source_ip: "84.230.14.43"
         status: "enable"
 
 """
@@ -199,7 +218,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_log_tacacsplusaccounting_setting_data(json):
-    option_list = ["server", "server_key", "status"]
+    option_list = [
+        "interface",
+        "interface_select_method",
+        "server",
+        "server_key",
+        "source_ip",
+        "status",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -269,6 +295,8 @@ def fortios_log_tacacsplusaccounting(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -284,6 +312,8 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -300,6 +330,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -315,6 +347,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -331,6 +365,8 @@ versioned_schema = {
         },
         "server": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -346,6 +382,8 @@ versioned_schema = {
         },
         "server_key": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -356,6 +394,62 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+            },
+            "type": "string",
+        },
+        "source_ip": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+            },
+            "type": "string",
+        },
+        "interface_select_method": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "auto", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "sdwan", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "specify", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+            ],
+        },
+        "interface": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
             },
             "type": "string",
         },

@@ -111,6 +111,7 @@ options:
             msg_type:
                 description:
                     - Message type.
+                required: true
                 type: str
 """
 
@@ -311,6 +312,7 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "buffer": {
             "revisions": {

@@ -90,12 +90,12 @@ options:
         suboptions:
             exclude:
                 description:
-                    - The OID subtrees to be excluded in the view. Maximum 64 allowed.
+                    - OID subtrees to be excluded in the view. Maximum 64 allowed.
                 type: list
                 elements: str
             include:
                 description:
-                    - The OID subtrees to be included in the view. Maximum 16 allowed.
+                    - OID subtrees to be included in the view. Maximum 16 allowed.
                 type: list
                 elements: str
             name:
@@ -320,23 +320,48 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
+            "required": True,
         },
         "include": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "list",
             "multiple_values": True,
             "elements": "str",
         },
         "exclude": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "list",
             "multiple_values": True,
             "elements": "str",
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+    "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+    },
 }
 
 

@@ -301,6 +301,7 @@ def fortios_monitoring(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,
@@ -323,6 +324,7 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -346,6 +348,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -368,6 +371,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -391,6 +395,7 @@ versioned_schema = {
         },
         "interval": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -413,6 +418,7 @@ versioned_schema = {
         },
         "threshold": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,

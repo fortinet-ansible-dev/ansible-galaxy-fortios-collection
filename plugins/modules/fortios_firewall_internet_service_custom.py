@@ -101,6 +101,7 @@ options:
                     id:
                         description:
                             - Disable entry ID.
+                        required: true
                         type: int
                     ip_range:
                         description:
@@ -115,6 +116,7 @@ options:
                             id:
                                 description:
                                     - Disable entry range ID.
+                                required: true
                                 type: int
                             start_ip:
                                 description:
@@ -136,7 +138,7 @@ options:
                 suboptions:
                     addr_mode:
                         description:
-                            - Address mode (IPv4 or IPv6)
+                            - Address mode (IPv4 or IPv6).
                         type: str
                         choices:
                             - 'ipv4'
@@ -151,6 +153,7 @@ options:
                                 description:
                                     - Select the destination address or address group object from available options. Source firewall.address.name firewall
                                       .addrgrp.name.
+                                required: true
                                 type: str
                     dst6:
                         description:
@@ -160,11 +163,14 @@ options:
                         suboptions:
                             name:
                                 description:
-                                    - Select the destination address6 or address group object from available options. Source .
+                                    - Select the destination address6 or address group object from available options. Source firewall.address6.name firewall
+                                      .addrgrp6.name.
+                                required: true
                                 type: str
                     id:
                         description:
                             - Entry ID(1-255).
+                        required: true
                         type: int
                     port_range:
                         description:
@@ -179,6 +185,7 @@ options:
                             id:
                                 description:
                                     - Custom entry port range ID.
+                                required: true
                                 type: int
                             start_port:
                                 description:
@@ -239,7 +246,7 @@ EXAMPLES = """
                 name: "default_name_15 (source firewall.address.name firewall.addrgrp.name)"
             dst6:
              -
-                name: "default_name_17 (source )"
+                name: "default_name_17 (source firewall.address6.name firewall.addrgrp6.name)"
             id:  "18"
             port_range:
              -
@@ -496,6 +503,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -520,9 +529,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "reputation": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -550,6 +562,8 @@ versioned_schema = {
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -581,6 +595,8 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -605,9 +621,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "addr_mode": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -635,16 +654,28 @@ versioned_schema = {
                     "options": [
                         {
                             "value": "ipv4",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                         {
                             "value": "ipv6",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     ],
                 },
                 "protocol": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -676,6 +707,8 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -700,9 +733,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "start_port": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -730,6 +766,8 @@ versioned_schema = {
                         },
                         "end_port": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -757,6 +795,8 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -787,6 +827,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -811,9 +853,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -843,11 +888,19 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -874,6 +927,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -909,6 +964,7 @@ versioned_schema = {
                 "id": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
+                    "required": True,
                 },
                 "protocol": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -929,6 +985,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "start_ip": {
                             "revisions": {
@@ -954,6 +1011,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

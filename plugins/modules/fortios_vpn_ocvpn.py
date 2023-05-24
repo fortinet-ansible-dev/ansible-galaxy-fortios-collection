@@ -123,6 +123,7 @@ options:
                             name:
                                 description:
                                     - Group name.
+                                required: true
                                 type: str
                             overlays:
                                 description:
@@ -133,6 +134,7 @@ options:
                                     overlay_name:
                                         description:
                                             - Overlay name. Source vpn.ocvpn.overlays.overlay-name.
+                                        required: true
                                         type: str
                     psksecret:
                         description:
@@ -206,6 +208,7 @@ options:
                     overlay_name:
                         description:
                             - Overlay name.
+                        required: true
                         type: str
                     subnets:
                         description:
@@ -216,6 +219,7 @@ options:
                             id:
                                 description:
                                     - ID.
+                                required: true
                                 type: int
                             interface:
                                 description:
@@ -271,6 +275,7 @@ options:
                     id:
                         description:
                             - ID.
+                        required: true
                         type: int
                     interface:
                         description:
@@ -296,6 +301,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.interface.name.
+                        required: true
                         type: str
 """
 
@@ -527,6 +533,7 @@ def fortios_vpn(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -554,6 +561,7 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -582,6 +590,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -609,6 +618,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -637,6 +647,7 @@ versioned_schema = {
         },
         "role": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -665,6 +676,7 @@ versioned_schema = {
                 {
                     "value": "spoke",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -689,6 +701,7 @@ versioned_schema = {
                 {
                     "value": "primary-hub",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -713,6 +726,7 @@ versioned_schema = {
                 {
                     "value": "secondary-hub",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -738,6 +752,7 @@ versioned_schema = {
         },
         "multipath": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -766,6 +781,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -786,6 +802,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -807,6 +824,7 @@ versioned_schema = {
         },
         "sdwan": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -835,6 +853,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -855,6 +874,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -876,6 +896,7 @@ versioned_schema = {
         },
         "sdwan_zone": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -907,6 +928,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -924,9 +946,11 @@ versioned_schema = {
                         "v6.4.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -953,6 +977,7 @@ versioned_schema = {
         },
         "nat": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -981,6 +1006,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1005,6 +1031,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1030,6 +1057,7 @@ versioned_schema = {
         },
         "ip_allocation_block": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1061,6 +1089,7 @@ versioned_schema = {
             "children": {
                 "overlay_name": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1082,9 +1111,11 @@ versioned_schema = {
                         "v6.2.0": False,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "inter_overlay": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1110,6 +1141,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1130,6 +1162,7 @@ versioned_schema = {
                         {
                             "value": "deny",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1155,6 +1188,7 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1176,9 +1210,11 @@ versioned_schema = {
                                 "v6.2.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "type": {
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1204,6 +1240,7 @@ versioned_schema = {
                                 {
                                     "value": "subnet",
                                     "revisions": {
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -1228,6 +1265,7 @@ versioned_schema = {
                                 {
                                     "value": "interface",
                                     "revisions": {
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -1253,6 +1291,7 @@ versioned_schema = {
                         },
                         "subnet": {
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1277,6 +1316,7 @@ versioned_schema = {
                         },
                         "interface": {
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1301,6 +1341,7 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1409,6 +1450,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1435,6 +1477,7 @@ versioned_schema = {
         },
         "forticlient_access": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1462,6 +1505,7 @@ versioned_schema = {
             "children": {
                 "status": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1483,6 +1527,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1503,6 +1548,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1524,6 +1570,7 @@ versioned_schema = {
                 },
                 "psksecret": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1548,6 +1595,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1565,9 +1613,11 @@ versioned_schema = {
                                 "v6.4.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "auth_group": {
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1592,6 +1642,7 @@ versioned_schema = {
                             "children": {
                                 "overlay_name": {
                                     "revisions": {
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -1609,9 +1660,11 @@ versioned_schema = {
                                         "v6.4.0": True,
                                     },
                                     "type": "string",
+                                    "required": True,
                                 }
                             },
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1631,6 +1684,7 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1652,6 +1706,7 @@ versioned_schema = {
         },
         "auto_discovery": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1680,6 +1735,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1704,6 +1760,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1729,6 +1786,7 @@ versioned_schema = {
         },
         "auto_discovery_shortcut_mode": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1757,6 +1815,7 @@ versioned_schema = {
                 {
                     "value": "independent",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1773,6 +1832,7 @@ versioned_schema = {
                 {
                     "value": "dependent",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1790,6 +1850,7 @@ versioned_schema = {
         },
         "poll_interval": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1817,6 +1878,7 @@ versioned_schema = {
         },
         "eap": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1845,6 +1907,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1869,6 +1932,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1894,6 +1958,7 @@ versioned_schema = {
         },
         "eap_users": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1936,6 +2001,7 @@ versioned_schema = {
                 "id": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
+                    "required": True,
                 },
                 "type": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

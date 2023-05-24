@@ -115,6 +115,7 @@ options:
                             id:
                                 description:
                                     - Custom entry port range ID.
+                                required: true
                                 type: int
                             start_port:
                                 description:
@@ -127,6 +128,7 @@ options:
                     seq_num:
                         description:
                             - Entry sequence number.
+                        required: true
                         type: int
             id:
                 description:
@@ -412,6 +414,8 @@ versioned_schema = {
             "children": {
                 "seq_num": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -433,6 +437,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "port_range": {
                     "type": "list",
@@ -440,6 +445,8 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -461,6 +468,7 @@ versioned_schema = {
                                 "v6.2.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "start_port": {
                             "revisions": {
@@ -502,6 +510,8 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -582,6 +592,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -621,9 +633,12 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "integer",
+            "required": True,
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

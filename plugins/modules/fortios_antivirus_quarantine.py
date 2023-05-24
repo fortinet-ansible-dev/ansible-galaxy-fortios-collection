@@ -107,6 +107,7 @@ options:
                     - 'imaps'
                     - 'smtps'
                     - 'pop3s'
+                    - 'https'
                     - 'ftps'
                     - 'mapi'
                     - 'cifs'
@@ -236,6 +237,7 @@ options:
                     - 'imaps'
                     - 'smtps'
                     - 'pop3s'
+                    - 'https'
                     - 'ftps'
                     - 'mapi'
                     - 'cifs'
@@ -570,6 +572,8 @@ def fortios_antivirus(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -597,6 +601,8 @@ versioned_schema = {
     "children": {
         "agelimit": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -624,6 +630,8 @@ versioned_schema = {
         },
         "maxfilesize": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -651,6 +659,8 @@ versioned_schema = {
         },
         "quarantine_quota": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -678,6 +688,8 @@ versioned_schema = {
         },
         "drop_infected": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -706,6 +718,8 @@ versioned_schema = {
                 {
                     "value": "imap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -733,6 +747,8 @@ versioned_schema = {
                 {
                     "value": "smtp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -760,6 +776,8 @@ versioned_schema = {
                 {
                     "value": "pop3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -787,6 +805,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -814,6 +834,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -841,6 +863,8 @@ versioned_schema = {
                 {
                     "value": "nntp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -868,6 +892,8 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -895,6 +921,8 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -922,6 +950,8 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -949,6 +979,8 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -976,6 +1008,8 @@ versioned_schema = {
                 {
                     "value": "ftps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1003,6 +1037,8 @@ versioned_schema = {
                 {
                     "value": "mapi",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1030,6 +1066,8 @@ versioned_schema = {
                 {
                     "value": "cifs",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1057,6 +1095,8 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1135,6 +1175,8 @@ versioned_schema = {
         },
         "store_infected": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1163,6 +1205,8 @@ versioned_schema = {
                 {
                     "value": "imap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1190,6 +1234,8 @@ versioned_schema = {
                 {
                     "value": "smtp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1217,6 +1263,8 @@ versioned_schema = {
                 {
                     "value": "pop3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1244,6 +1292,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1271,6 +1321,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1298,6 +1350,8 @@ versioned_schema = {
                 {
                     "value": "nntp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1325,6 +1379,8 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1352,6 +1408,8 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1379,6 +1437,8 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1406,6 +1466,8 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1433,6 +1495,8 @@ versioned_schema = {
                 {
                     "value": "ftps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1460,6 +1524,8 @@ versioned_schema = {
                 {
                     "value": "mapi",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1487,6 +1553,8 @@ versioned_schema = {
                 {
                     "value": "cifs",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1514,6 +1582,8 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1592,6 +1662,8 @@ versioned_schema = {
         },
         "drop_blocked": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1620,6 +1692,8 @@ versioned_schema = {
                 {
                     "value": "imap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1647,6 +1721,8 @@ versioned_schema = {
                 {
                     "value": "smtp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1674,6 +1750,8 @@ versioned_schema = {
                 {
                     "value": "pop3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1701,6 +1779,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1728,6 +1808,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1755,6 +1837,8 @@ versioned_schema = {
                 {
                     "value": "nntp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1782,6 +1866,8 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1809,6 +1895,8 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1836,6 +1924,8 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1861,8 +1951,39 @@ versioned_schema = {
                     },
                 },
                 {
+                    "value": "https",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                },
+                {
                     "value": "ftps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1890,6 +2011,8 @@ versioned_schema = {
                 {
                     "value": "mapi",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1917,6 +2040,8 @@ versioned_schema = {
                 {
                     "value": "cifs",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1944,6 +2069,8 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2022,6 +2149,8 @@ versioned_schema = {
         },
         "store_blocked": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2050,6 +2179,8 @@ versioned_schema = {
                 {
                     "value": "imap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2077,6 +2208,8 @@ versioned_schema = {
                 {
                     "value": "smtp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2104,6 +2237,8 @@ versioned_schema = {
                 {
                     "value": "pop3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2131,6 +2266,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2158,6 +2295,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2185,6 +2324,8 @@ versioned_schema = {
                 {
                     "value": "nntp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2212,6 +2353,8 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2239,6 +2382,8 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2266,6 +2411,8 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2291,8 +2438,39 @@ versioned_schema = {
                     },
                 },
                 {
+                    "value": "https",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                },
+                {
                     "value": "ftps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2320,6 +2498,8 @@ versioned_schema = {
                 {
                     "value": "mapi",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2347,6 +2527,8 @@ versioned_schema = {
                 {
                     "value": "cifs",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2374,6 +2556,8 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2452,6 +2636,8 @@ versioned_schema = {
         },
         "drop_machine_learning": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2480,6 +2666,8 @@ versioned_schema = {
                 {
                     "value": "imap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2496,6 +2684,8 @@ versioned_schema = {
                 {
                     "value": "smtp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2512,6 +2702,8 @@ versioned_schema = {
                 {
                     "value": "pop3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2528,6 +2720,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2544,6 +2738,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2560,6 +2756,8 @@ versioned_schema = {
                 {
                     "value": "nntp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2576,6 +2774,8 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2592,6 +2792,8 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2608,6 +2810,8 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2624,6 +2828,8 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2640,6 +2846,8 @@ versioned_schema = {
                 {
                     "value": "ftps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2656,6 +2864,8 @@ versioned_schema = {
                 {
                     "value": "mapi",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2672,6 +2882,8 @@ versioned_schema = {
                 {
                     "value": "cifs",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2688,6 +2900,8 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2707,6 +2921,8 @@ versioned_schema = {
         },
         "store_machine_learning": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2735,6 +2951,8 @@ versioned_schema = {
                 {
                     "value": "imap",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2751,6 +2969,8 @@ versioned_schema = {
                 {
                     "value": "smtp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2767,6 +2987,8 @@ versioned_schema = {
                 {
                     "value": "pop3",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2783,6 +3005,8 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2799,6 +3023,8 @@ versioned_schema = {
                 {
                     "value": "ftp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2815,6 +3041,8 @@ versioned_schema = {
                 {
                     "value": "nntp",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2831,6 +3059,8 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2847,6 +3077,8 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2863,6 +3095,8 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2879,6 +3113,8 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2895,6 +3131,8 @@ versioned_schema = {
                 {
                     "value": "ftps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2911,6 +3149,8 @@ versioned_schema = {
                 {
                     "value": "mapi",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2927,6 +3167,8 @@ versioned_schema = {
                 {
                     "value": "cifs",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2943,6 +3185,8 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2962,6 +3206,8 @@ versioned_schema = {
         },
         "lowspace": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2990,6 +3236,8 @@ versioned_schema = {
                 {
                     "value": "drop-new",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -3017,6 +3265,8 @@ versioned_schema = {
                 {
                     "value": "ovrw-old",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -3045,6 +3295,8 @@ versioned_schema = {
         },
         "destination": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -3073,6 +3325,8 @@ versioned_schema = {
                 {
                     "value": "NULL",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -3100,6 +3354,8 @@ versioned_schema = {
                 {
                     "value": "disk",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -3127,6 +3383,8 @@ versioned_schema = {
                 {
                     "value": "FortiAnalyzer",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,

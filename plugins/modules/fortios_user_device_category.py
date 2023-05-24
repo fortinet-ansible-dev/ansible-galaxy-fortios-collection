@@ -353,6 +353,7 @@ versioned_schema = {
         "name": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
+            "required": True,
         },
         "desc": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

@@ -84,6 +84,10 @@ options:
                 description:
                     - Maximum percentage of available memory allocated to caching (1 - 15).
                 type: int
+            cache_mem_permille:
+                description:
+                    - Maximum permille of available memory allocated to caching (1 - 150).
+                type: int
             cache_mode:
                 description:
                     - Cache entry expiration mode.
@@ -101,6 +105,13 @@ options:
             close_ports:
                 description:
                     - Close ports used for HTTP/HTTPS override authentication and disable user overrides.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            embed_image:
+                description:
+                    - Enable/disable embedding images into replacement messages .
                 type: str
                 choices:
                     - 'enable'
@@ -161,9 +172,11 @@ EXAMPLES = """
       vdom:  "{{ vdom }}"
       webfilter_fortiguard:
         cache_mem_percent: "2"
+        cache_mem_permille: "1"
         cache_mode: "ttl"
         cache_prefix_match: "enable"
         close_ports: "enable"
+        embed_image: "enable"
         ovrd_auth_https: "enable"
         ovrd_auth_port: "32767"
         ovrd_auth_port_http: "8008"
@@ -258,9 +271,11 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 def filter_webfilter_fortiguard_data(json):
     option_list = [
         "cache_mem_percent",
+        "cache_mem_permille",
         "cache_mode",
         "cache_prefix_match",
         "close_ports",
+        "embed_image",
         "ovrd_auth_https",
         "ovrd_auth_port",
         "ovrd_auth_port_http",
@@ -335,6 +350,8 @@ def fortios_webfilter(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -362,6 +379,8 @@ versioned_schema = {
     "children": {
         "cache_mode": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -390,6 +409,8 @@ versioned_schema = {
                 {
                     "value": "ttl",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -417,6 +438,8 @@ versioned_schema = {
                 {
                     "value": "db-ver",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -445,6 +468,8 @@ versioned_schema = {
         },
         "cache_prefix_match": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -473,6 +498,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -500,6 +527,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -526,35 +555,39 @@ versioned_schema = {
                 },
             ],
         },
-        "cache_mem_percent": {
+        "cache_mem_permille": {
             "revisions": {
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
             },
             "type": "integer",
         },
         "ovrd_auth_port_http": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -582,6 +615,8 @@ versioned_schema = {
         },
         "ovrd_auth_port_https": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -609,6 +644,8 @@ versioned_schema = {
         },
         "ovrd_auth_port_https_flow": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -636,6 +673,8 @@ versioned_schema = {
         },
         "ovrd_auth_port_warning": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -663,6 +702,8 @@ versioned_schema = {
         },
         "ovrd_auth_https": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -691,6 +732,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -718,6 +761,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -746,6 +791,8 @@ versioned_schema = {
         },
         "warn_auth_https": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -774,6 +821,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -801,6 +850,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -829,6 +880,8 @@ versioned_schema = {
         },
         "close_ports": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -857,6 +910,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -884,6 +939,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -912,6 +969,69 @@ versioned_schema = {
         },
         "request_packet_size_limit": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": True,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "integer",
+        },
+        "embed_image": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+            ],
+        },
+        "cache_mem_percent": {
+            "revisions": {
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,

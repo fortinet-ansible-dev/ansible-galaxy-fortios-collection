@@ -93,6 +93,7 @@ options:
                     - Enable/disable FortiGate administration.
                 type: str
                 choices:
+                    - 'discovered'
                     - 'disable'
                     - 'enable'
             description:
@@ -101,7 +102,7 @@ options:
                 type: str
             device_id:
                 description:
-                    - device-id
+                    - Device ID.
                 type: int
             hostname:
                 description:
@@ -118,7 +119,7 @@ options:
                 type: str
             profile:
                 description:
-                    - FortiGate profile configuration. Source .
+                    - FortiGate profile configuration. Source extension-controller.fortigate-profile.name.
                 type: str
 """
 
@@ -139,13 +140,13 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       extension_controller_fortigate:
-        authorized: "disable"
+        authorized: "discovered"
         description: "<your_own_value>"
         device_id: "1024"
         hostname: "myhostname"
         id:  "7"
         name: "default_name_8"
-        profile: "<your_own_value> (source )"
+        profile: "<your_own_value> (source extension-controller.fortigate-profile.name)"
 
 """
 
@@ -321,25 +322,101 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "id": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+            "required": True,
+        },
+        "id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
         "authorized": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "discovered",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
-        "hostname": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "description": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+        "hostname": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
         },
-        "device_id": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "integer"},
-        "profile": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "description": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "device_id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "integer",
+        },
+        "profile": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
 }
 
 

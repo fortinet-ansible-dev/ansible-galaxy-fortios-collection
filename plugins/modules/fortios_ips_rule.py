@@ -135,6 +135,7 @@ options:
                     id:
                         description:
                             - ID.
+                        required: true
                         type: int
                     metaid:
                         description:
@@ -504,6 +505,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "status": {
             "revisions": {
@@ -1002,6 +1004,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "metaid": {
                     "revisions": {

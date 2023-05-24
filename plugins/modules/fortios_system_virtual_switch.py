@@ -117,6 +117,7 @@ options:
                     name:
                         description:
                             - Physical interface name. Source system.interface.name.
+                        required: true
                         type: str
                     speed:
                         description:
@@ -434,6 +435,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -451,9 +453,11 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "physical_switch": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -478,6 +482,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -495,9 +500,11 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "alias": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -809,6 +816,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -828,6 +836,7 @@ versioned_schema = {
         },
         "span": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -849,6 +858,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -869,6 +879,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -890,6 +901,7 @@ versioned_schema = {
         },
         "span_source_port": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -910,6 +922,7 @@ versioned_schema = {
         },
         "span_dest_port": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -930,6 +943,7 @@ versioned_schema = {
         },
         "span_direction": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -951,6 +965,7 @@ versioned_schema = {
                 {
                     "value": "rx",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -971,6 +986,7 @@ versioned_schema = {
                 {
                     "value": "tx",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -991,6 +1007,7 @@ versioned_schema = {
                 {
                     "value": "both",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1012,6 +1029,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.0.5": True,
         "v7.0.4": True,
         "v7.0.3": True,

@@ -94,13 +94,26 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    distance:
+                        description:
+                            - Speed test host distance.
+                        type: int
                     id:
                         description:
                             - Server host ID.
+                        required: true
                         type: int
                     ip:
                         description:
                             - Server host IPv4 address.
+                        type: str
+                    latitude:
+                        description:
+                            - Speed test host latitude.
+                        type: str
+                    longitude:
+                        description:
+                            - Speed test host longitude.
                         type: str
                     password:
                         description:
@@ -144,12 +157,15 @@ EXAMPLES = """
       system_speed_test_server:
         host:
          -
-            id:  "4"
+            distance: "0"
+            id:  "5"
             ip: "<your_own_value>"
+            latitude: "<your_own_value>"
+            longitude: "<your_own_value>"
             password: "<your_own_value>"
             port: "5204"
             user: "<your_own_value>"
-        name: "default_name_9"
+        name: "default_name_12"
         timestamp: "0"
 
 """
@@ -382,6 +398,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -403,9 +421,12 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "timestamp": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -434,6 +455,8 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -455,9 +478,12 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "ip": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -482,6 +508,8 @@ versioned_schema = {
                 },
                 "port": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -506,6 +534,8 @@ versioned_schema = {
                 },
                 "user": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -530,6 +560,8 @@ versioned_schema = {
                 },
                 "password": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -552,8 +584,88 @@ versioned_schema = {
                     },
                     "type": "string",
                 },
+                "longitude": {
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "string",
+                },
+                "latitude": {
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "string",
+                },
+                "distance": {
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                    },
+                    "type": "integer",
+                },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -577,6 +689,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

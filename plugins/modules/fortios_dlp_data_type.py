@@ -100,6 +100,11 @@ options:
                 description:
                     - Number of characters required to save for verification (1 - 255).
                 type: int
+            match_around:
+                description:
+                    - Dictionary to check whether it has a match around (Only support match-any and basic types, no repeat supported). Source dlp.dictionary
+                      .name.
+                type: str
             name:
                 description:
                     - Name of table containing the data type.
@@ -146,7 +151,8 @@ EXAMPLES = """
         comment: "Optional comments."
         look_ahead: "1"
         look_back: "1"
-        name: "default_name_6"
+        match_around: "<your_own_value> (source dlp.dictionary.name)"
+        name: "default_name_7"
         pattern: "<your_own_value>"
         transform: "<your_own_value>"
         verify: "<your_own_value>"
@@ -239,6 +245,7 @@ def filter_dlp_data_type_data(json):
         "comment",
         "look_ahead",
         "look_back",
+        "match_around",
         "name",
         "pattern",
         "transform",
@@ -320,49 +327,126 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
+            "required": True,
         },
         "pattern": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
         },
         "verify": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
+            "type": "string",
+        },
+        "match_around": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+            },
             "type": "string",
         },
         "look_back": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "integer",
         },
         "look_ahead": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "integer",
         },
         "transform": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
         },
         "verify_transformed_pattern": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "enable",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
                 {
                     "value": "disable",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
             ],
         },
         "comment": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+    "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+    },
 }
 
 

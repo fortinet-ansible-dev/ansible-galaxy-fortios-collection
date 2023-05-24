@@ -136,7 +136,20 @@ options:
                     serial:
                         description:
                             - Serial.
+                        required: true
                         type: str
+                    vdom:
+                        description:
+                            - Virtual domains that the connector has access to. If none are set, the connector will only have access to the VDOM that it joins
+                               the Security Fabric through.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Virtual domain name. Source system.vdom.name.
+                                required: true
+                                type: str
             fabric_device:
                 description:
                     - Fabric device configuration.
@@ -168,6 +181,7 @@ options:
                     name:
                         description:
                             - Device name.
+                        required: true
                         type: str
                     password:
                         description:
@@ -183,6 +197,21 @@ options:
             fabric_workers:
                 description:
                     - Number of worker processes for Security Fabric daemon.
+                type: int
+            file_mgmt:
+                description:
+                    - Enable/disable Security Fabric daemon file management.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            file_quota:
+                description:
+                    - Maximum amount of memory that can be used by the daemon files (in bytes).
+                type: int
+            file_quota_warning:
+                description:
+                    - Warn when the set percentage of quota has been used.
                 type: int
             fixed_key:
                 description:
@@ -268,9 +297,14 @@ options:
                             - HA members.
                         type: list
                         elements: str
+                    index:
+                        description:
+                            - Index of the downstream in tree.
+                        type: int
                     name:
                         description:
                             - Name.
+                        required: true
                         type: str
                     serial:
                         description:
@@ -316,6 +350,9 @@ EXAMPLES = """
             accprofile: "<your_own_value> (source system.accprofile.name)"
             configuration_write_access: "enable"
             serial: "<your_own_value>"
+            vdom:
+             -
+                name: "default_name_14 (source system.vdom.name)"
         fabric_device:
          -
             access_token: "<your_own_value>"
@@ -323,10 +360,13 @@ EXAMPLES = """
             device_type: "fortimail"
             https_port: "443"
             login: "<your_own_value>"
-            name: "default_name_19"
+            name: "default_name_21"
             password: "<your_own_value>"
         fabric_object_unification: "default"
         fabric_workers: "2"
+        file_mgmt: "enable"
+        file_quota: "0"
+        file_quota_warning: "90"
         fixed_key: "<your_own_value>"
         forticloud_account_enforcement: "enable"
         group_name: "<your_own_value>"
@@ -343,7 +383,8 @@ EXAMPLES = """
             certificate: "<your_own_value>"
             downstream_authorization: "enable"
             ha_members: "<your_own_value>"
-            name: "default_name_38"
+            index: "0"
+            name: "default_name_44"
             serial: "<your_own_value>"
         upstream: "<your_own_value>"
         upstream_ip: "<your_own_value>"
@@ -443,6 +484,9 @@ def filter_system_csf_data(json):
         "fabric_device",
         "fabric_object_unification",
         "fabric_workers",
+        "file_mgmt",
+        "file_quota",
+        "file_quota_warning",
         "fixed_key",
         "forticloud_account_enforcement",
         "group_name",
@@ -550,6 +594,8 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -577,6 +623,8 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -605,6 +653,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -632,6 +682,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -660,6 +712,8 @@ versioned_schema = {
         },
         "upstream": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -687,6 +741,8 @@ versioned_schema = {
         },
         "upstream_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -714,6 +770,8 @@ versioned_schema = {
         },
         "group_name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -741,6 +799,8 @@ versioned_schema = {
         },
         "group_password": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -768,6 +828,8 @@ versioned_schema = {
         },
         "accept_auth_by_cert": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -796,6 +858,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -815,6 +879,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -835,6 +901,8 @@ versioned_schema = {
         },
         "log_unification": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -863,6 +931,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -880,6 +950,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -898,6 +970,8 @@ versioned_schema = {
         },
         "authorization_request_type": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -926,6 +1000,8 @@ versioned_schema = {
                 {
                     "value": "serial",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -945,6 +1021,8 @@ versioned_schema = {
                 {
                     "value": "certificate",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -965,6 +1043,8 @@ versioned_schema = {
         },
         "certificate": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -992,6 +1072,8 @@ versioned_schema = {
         },
         "fabric_workers": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1019,6 +1101,8 @@ versioned_schema = {
         },
         "downstream_access": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1047,6 +1131,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1064,6 +1150,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1082,6 +1170,8 @@ versioned_schema = {
         },
         "downstream_accprofile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1109,6 +1199,8 @@ versioned_schema = {
         },
         "configuration_sync": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1137,6 +1229,8 @@ versioned_schema = {
                 {
                     "value": "default",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1164,6 +1258,8 @@ versioned_schema = {
                 {
                     "value": "local",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1192,6 +1288,8 @@ versioned_schema = {
         },
         "fabric_object_unification": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1220,6 +1318,8 @@ versioned_schema = {
                 {
                     "value": "default",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1240,6 +1340,8 @@ versioned_schema = {
                 {
                     "value": "local",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1261,6 +1363,8 @@ versioned_schema = {
         },
         "saml_configuration_sync": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1289,6 +1393,8 @@ versioned_schema = {
                 {
                     "value": "default",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1308,6 +1414,8 @@ versioned_schema = {
                 {
                     "value": "local",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1332,6 +1440,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1356,9 +1466,12 @@ versioned_schema = {
                         "v6.0.0": False,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "authorization_type": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1387,6 +1500,8 @@ versioned_schema = {
                         {
                             "value": "serial",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1406,6 +1521,8 @@ versioned_schema = {
                         {
                             "value": "certificate",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1426,6 +1543,8 @@ versioned_schema = {
                 },
                 "serial": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1453,6 +1572,8 @@ versioned_schema = {
                 },
                 "certificate": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1480,6 +1601,8 @@ versioned_schema = {
                 },
                 "action": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1508,6 +1631,8 @@ versioned_schema = {
                         {
                             "value": "accept",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1535,6 +1660,8 @@ versioned_schema = {
                         {
                             "value": "deny",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1563,6 +1690,8 @@ versioned_schema = {
                 },
                 "ha_members": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1592,6 +1721,8 @@ versioned_schema = {
                 },
                 "downstream_authorization": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1620,6 +1751,8 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1647,6 +1780,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1673,8 +1808,39 @@ versioned_schema = {
                         },
                     ],
                 },
+                "index": {
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                    "type": "integer",
+                },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1705,6 +1871,8 @@ versioned_schema = {
             "children": {
                 "serial": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1719,9 +1887,12 @@ versioned_schema = {
                         "v7.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "accprofile": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1739,6 +1910,8 @@ versioned_schema = {
                 },
                 "configuration_write_access": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1757,6 +1930,8 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1774,6 +1949,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1790,8 +1967,37 @@ versioned_schema = {
                         },
                     ],
                 },
+                "vdom": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "revisions": {"v7.4.0": True},
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                    },
+                },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1818,6 +2024,8 @@ versioned_schema = {
         },
         "forticloud_account_enforcement": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1846,6 +2054,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1859,6 +2069,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1870,6 +2082,97 @@ versioned_schema = {
                     },
                 },
             ],
+        },
+        "file_mgmt": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
+        "file_quota": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
+        "file_quota_warning": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
         },
         "fabric_device": {
             "type": "list",
@@ -1898,6 +2201,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "device_ip": {
                     "revisions": {

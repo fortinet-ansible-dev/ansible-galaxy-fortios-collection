@@ -105,6 +105,7 @@ options:
                     id:
                         description:
                             - Dashboard ID.
+                        required: true
                         type: int
                     layout_type:
                         description:
@@ -159,6 +160,7 @@ options:
                                     id:
                                         description:
                                             - FortiView Filter ID.
+                                        required: true
                                         type: int
                                     key:
                                         description:
@@ -191,6 +193,7 @@ options:
                             id:
                                 description:
                                     - Widget ID.
+                                required: true
                                 type: int
                             industry:
                                 description:
@@ -262,6 +265,7 @@ options:
                     id:
                         description:
                             - Select menu ID.
+                        required: true
                         type: str
             gui_ignore_release_overview_version:
                 description:
@@ -276,6 +280,7 @@ options:
                     id:
                         description:
                             - Select menu ID.
+                        required: true
                         type: str
             gui_vdom_menu_favorites:
                 description:
@@ -286,6 +291,7 @@ options:
                     id:
                         description:
                             - Select menu ID.
+                        required: true
                         type: str
             name:
                 description:
@@ -301,6 +307,7 @@ options:
                     name:
                         description:
                             - Virtual domain name. Source system.vdom.name.
+                        required: true
                         type: str
 """
 
@@ -605,6 +612,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -626,9 +635,12 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "accprofile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -657,6 +669,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -678,9 +692,12 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -717,7 +734,11 @@ versioned_schema = {
             "type": "list",
             "elements": "dict",
             "children": {
-                "id": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                "id": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "integer",
+                    "required": True,
+                },
                 "name": {"revisions": {"v6.2.3": True}, "type": "string"},
                 "vdom": {"revisions": {"v6.2.3": True}, "type": "string"},
                 "layout_type": {
@@ -741,7 +762,11 @@ versioned_schema = {
                     "type": "list",
                     "elements": "dict",
                     "children": {
-                        "id": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                        "id": {
+                            "revisions": {"v6.2.3": True},
+                            "type": "integer",
+                            "required": True,
+                        },
                         "type": {
                             "revisions": {"v6.2.3": True},
                             "type": "string",
@@ -855,6 +880,7 @@ versioned_schema = {
                                 "id": {
                                     "revisions": {"v6.2.3": True},
                                     "type": "integer",
+                                    "required": True,
                                 },
                                 "key": {
                                     "revisions": {"v6.2.3": True},
@@ -876,23 +902,43 @@ versioned_schema = {
         "gui_global_menu_favorites": {
             "type": "list",
             "elements": "dict",
-            "children": {"id": {"revisions": {"v6.2.3": True}, "type": "string"}},
+            "children": {
+                "id": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "string",
+                    "required": True,
+                }
+            },
             "revisions": {"v6.2.3": True, "v6.2.0": False},
         },
         "gui_vdom_menu_favorites": {
             "type": "list",
             "elements": "dict",
-            "children": {"id": {"revisions": {"v6.2.3": True}, "type": "string"}},
+            "children": {
+                "id": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "string",
+                    "required": True,
+                }
+            },
             "revisions": {"v6.2.3": True, "v6.2.0": False},
         },
         "gui_new_feature_acknowledge": {
             "type": "list",
             "elements": "dict",
-            "children": {"id": {"revisions": {"v6.2.3": True}, "type": "string"}},
+            "children": {
+                "id": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "string",
+                    "required": True,
+                }
+            },
             "revisions": {"v6.2.3": True, "v6.2.0": False},
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

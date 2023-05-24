@@ -110,6 +110,7 @@ options:
                     carrier_endpoint:
                         description:
                             - End point to act on.
+                        required: true
                         type: str
                     log_action:
                         description:
@@ -448,6 +449,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -488,6 +490,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "status": {
                     "revisions": {

@@ -258,6 +258,7 @@ def fortios_nsxt(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.0.8": True,
@@ -274,6 +275,7 @@ versioned_schema = {
     "children": {
         "liveness": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,
@@ -291,6 +293,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.0.8": True,
@@ -307,6 +310,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.0.8": True,
@@ -324,6 +328,7 @@ versioned_schema = {
         },
         "service": {
             "revisions": {
+                "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.0.8": True,

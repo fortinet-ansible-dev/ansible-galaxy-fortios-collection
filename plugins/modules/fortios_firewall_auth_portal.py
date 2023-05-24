@@ -89,6 +89,7 @@ options:
                     name:
                         description:
                             - Group name. Source user.group.name.
+                        required: true
                         type: str
             identity_based_route:
                 description:
@@ -102,6 +103,13 @@ options:
                 description:
                     - IPv6 address (or FQDN) of authentication portal.
                 type: str
+            proxy_auth:
+                description:
+                    - Enable/disable authentication by proxy daemon .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -125,6 +133,7 @@ EXAMPLES = """
         identity_based_route: "<your_own_value> (source firewall.identity-based-route.name)"
         portal_addr: "<your_own_value>"
         portal_addr6: "<your_own_value>"
+        proxy_auth: "enable"
 
 """
 
@@ -209,7 +218,13 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_firewall_auth_portal_data(json):
-    option_list = ["groups", "identity_based_route", "portal_addr", "portal_addr6"]
+    option_list = [
+        "groups",
+        "identity_based_route",
+        "portal_addr",
+        "portal_addr6",
+        "proxy_auth",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -275,6 +290,8 @@ def fortios_firewall(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -306,6 +323,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -330,9 +349,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -359,6 +381,8 @@ versioned_schema = {
         },
         "portal_addr": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -386,6 +410,8 @@ versioned_schema = {
         },
         "portal_addr6": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -413,6 +439,8 @@ versioned_schema = {
         },
         "identity_based_route": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -437,6 +465,39 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+        },
+        "proxy_auth": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+            ],
         },
     },
 }

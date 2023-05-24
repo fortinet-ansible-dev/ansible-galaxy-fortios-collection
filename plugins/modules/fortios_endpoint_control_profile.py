@@ -101,6 +101,7 @@ options:
                     name:
                         description:
                             - Device group object from available options. Source user.device-group.name user.device-category.name.
+                        required: true
                         type: str
             forticlient_android_settings:
                 description:
@@ -148,6 +149,7 @@ options:
                             name:
                                 description:
                                     - VPN name.
+                                required: true
                                 type: str
                             preshared_key:
                                 description:
@@ -214,6 +216,7 @@ options:
                             name:
                                 description:
                                     - VPN name.
+                                required: true
                                 type: str
                             preshared_key:
                                 description:
@@ -342,6 +345,7 @@ options:
                             name:
                                 description:
                                     - FortiClient EMS name. Source endpoint-control.forticlient-ems.name.
+                                required: true
                                 type: str
                     forticlient_linux_ver:
                         description:
@@ -386,6 +390,7 @@ options:
                             id:
                                 description:
                                     - Operating system entry ID.
+                                required: true
                                 type: int
                             os_name:
                                 description:
@@ -431,6 +436,7 @@ options:
                             id:
                                 description:
                                     - File ID.
+                                required: true
                                 type: int
                     forticlient_registration_compliance_action:
                         description:
@@ -448,6 +454,7 @@ options:
                             id:
                                 description:
                                     - Registry entry ID.
+                                required: true
                                 type: int
                             registry_entry:
                                 description:
@@ -489,6 +496,7 @@ options:
                             id:
                                 description:
                                     - Application ID.
+                                required: true
                                 type: int
                             process_name:
                                 description:
@@ -611,10 +619,12 @@ options:
                     name:
                         description:
                             - Address object from available options. Source firewall.address.name firewall.addrgrp.name.
+                        required: true
                         type: str
             profile_name:
                 description:
                     - Profile name.
+                required: true
                 type: str
             replacemsg_override_group:
                 description:
@@ -629,6 +639,7 @@ options:
                     name:
                         description:
                             - Address object from available options. Source firewall.address.name firewall.addrgrp.name.
+                        required: true
                         type: str
             user_groups:
                 description:
@@ -639,6 +650,7 @@ options:
                     name:
                         description:
                             - User group name. Source user.group.name.
+                        required: true
                         type: str
             users:
                 description:
@@ -649,6 +661,7 @@ options:
                     name:
                         description:
                             - User name. Source user.local.name.
+                        required: true
                         type: str
 """
 
@@ -1025,6 +1038,7 @@ versioned_schema = {
         "profile_name": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
+            "required": True,
         },
         "forticlient_winmac_settings": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -1107,6 +1121,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -1410,6 +1425,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "os_type": {
                             "revisions": {
@@ -1619,6 +1635,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "app_name": {
                             "revisions": {
@@ -1732,6 +1749,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "registry_entry": {
                             "revisions": {
@@ -1755,6 +1773,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "file": {
                             "revisions": {
@@ -2052,6 +2071,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "type": {
                             "revisions": {
@@ -2245,6 +2265,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "type": {
                             "revisions": {
@@ -2410,6 +2431,7 @@ versioned_schema = {
                 "name": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -2421,6 +2443,7 @@ versioned_schema = {
                 "name": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -2432,6 +2455,7 @@ versioned_schema = {
                 "name": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -2443,6 +2467,7 @@ versioned_schema = {
                 "name": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -2454,6 +2479,7 @@ versioned_schema = {
                 "name": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

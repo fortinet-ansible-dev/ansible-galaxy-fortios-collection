@@ -100,7 +100,7 @@ options:
                 suboptions:
                     addr_mode:
                         description:
-                            - Address mode (IPv4 or IPv6)
+                            - Address mode (IPv4 or IPv6).
                         type: str
                         choices:
                             - 'ipv4'
@@ -108,6 +108,7 @@ options:
                     id:
                         description:
                             - Entry ID(1-255).
+                        required: true
                         type: int
                     port_range:
                         description:
@@ -122,6 +123,7 @@ options:
                             id:
                                 description:
                                     - Custom entry port range ID.
+                                required: true
                                 type: int
                             start_port:
                                 description:
@@ -406,6 +408,8 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -427,9 +431,12 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -458,6 +465,8 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -479,9 +488,12 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "addr_mode": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": False,
@@ -506,16 +518,28 @@ versioned_schema = {
                     "options": [
                         {
                             "value": "ipv4",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                         {
                             "value": "ipv6",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     ],
                 },
                 "protocol": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -544,6 +568,8 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -565,9 +591,12 @@ versioned_schema = {
                                 "v6.2.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "start_port": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -592,6 +621,8 @@ versioned_schema = {
                         },
                         "end_port": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -616,6 +647,8 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -639,6 +672,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -662,6 +697,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

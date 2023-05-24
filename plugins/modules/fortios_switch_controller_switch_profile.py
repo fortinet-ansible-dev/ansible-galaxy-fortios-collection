@@ -397,6 +397,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -421,9 +423,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "login_passwd_override": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -452,6 +457,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -479,6 +486,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -507,6 +516,8 @@ versioned_schema = {
         },
         "login_passwd": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -534,6 +545,8 @@ versioned_schema = {
         },
         "login": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -561,16 +574,30 @@ versioned_schema = {
             "options": [
                 {
                     "value": "enable",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
                 {
                     "value": "disable",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
             ],
         },
         "revision_backup_on_logout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,
@@ -596,12 +623,30 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "revision_backup_on_upgrade": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,
@@ -627,12 +672,30 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

@@ -82,7 +82,7 @@ options:
         suboptions:
             addr_mode:
                 description:
-                    - Address mode (IPv4 or IPv6)
+                    - Address mode (IPv4 or IPv6).
                 type: str
                 choices:
                     - 'ipv4'
@@ -270,6 +270,8 @@ def fortios_firewall(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -293,6 +295,8 @@ versioned_schema = {
     "children": {
         "addr_mode": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,
@@ -314,13 +318,39 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "ipv4", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "ipv6", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "both", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "ipv4",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "ipv6",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "both",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "match_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -344,6 +374,8 @@ versioned_schema = {
         },
         "append_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,

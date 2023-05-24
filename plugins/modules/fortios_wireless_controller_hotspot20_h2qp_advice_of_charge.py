@@ -105,6 +105,7 @@ options:
                     name:
                         description:
                             - Advice of charge ID.
+                        required: true
                         type: str
                     plan_info:
                         description:
@@ -127,6 +128,7 @@ options:
                             name:
                                 description:
                                     - Plan name.
+                                required: true
                                 type: str
                     type:
                         description:
@@ -354,6 +356,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -366,6 +370,7 @@ versioned_schema = {
                 "v7.0.2": True,
             },
             "type": "string",
+            "required": True,
         },
         "aoc_list": {
             "type": "list",
@@ -373,6 +378,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -385,9 +392,12 @@ versioned_schema = {
                         "v7.0.2": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "type": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -404,6 +414,8 @@ versioned_schema = {
                         {
                             "value": "time-based",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -419,6 +431,8 @@ versioned_schema = {
                         {
                             "value": "volume-based",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -434,6 +448,8 @@ versioned_schema = {
                         {
                             "value": "time-and-volume-based",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -449,6 +465,8 @@ versioned_schema = {
                         {
                             "value": "unlimited",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -465,6 +483,8 @@ versioned_schema = {
                 },
                 "nai_realm_encoding": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -480,6 +500,8 @@ versioned_schema = {
                 },
                 "nai_realm": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -499,6 +521,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -511,9 +535,12 @@ versioned_schema = {
                                 "v7.0.2": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "lang": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -529,6 +556,8 @@ versioned_schema = {
                         },
                         "currency": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -544,6 +573,8 @@ versioned_schema = {
                         },
                         "info_file": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -559,6 +590,8 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -573,6 +606,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -587,6 +622,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

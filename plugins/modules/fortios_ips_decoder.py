@@ -102,6 +102,7 @@ options:
                     name:
                         description:
                             - Parameter name.
+                        required: true
                         type: str
                     value:
                         description:
@@ -375,6 +376,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "parameter": {
             "type": "list",
@@ -401,6 +403,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "value": {
                     "revisions": {

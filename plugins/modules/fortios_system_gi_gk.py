@@ -255,6 +255,7 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,
@@ -277,6 +278,7 @@ versioned_schema = {
     "children": {
         "context": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -299,6 +301,7 @@ versioned_schema = {
         },
         "port": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,

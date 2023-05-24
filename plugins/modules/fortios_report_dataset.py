@@ -101,6 +101,7 @@ options:
                     id:
                         description:
                             - Field ID (1 to number of columns in SQL result).
+                        required: true
                         type: int
                     name:
                         description:
@@ -146,6 +147,7 @@ options:
                     id:
                         description:
                             - Parameter ID (1 to number of columns in SQL result).
+                        required: true
                         type: int
             policy:
                 description:
@@ -428,6 +430,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "policy": {
             "revisions": {
@@ -477,6 +480,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "type": {
                     "revisions": {
@@ -602,6 +606,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "display_name": {
                     "revisions": {

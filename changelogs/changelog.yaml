@@ -197,3 +197,16 @@ releases:
     fragments:
     - 2.2.3_release.yml
     release_date: '2023-03-17'
+  2.3.0:
+    changes:
+      bugfixes:
+      - Fix the error of pure number password.
+      major_changes:
+      - Improve the `no_log` feature in some modules;
+      - Improve the documentation and example for `seq_num` in `fortios_router_static`;
+      - Improve the documentation for `member_path` in all the modules;
+      - Support new FOS versions.
+      release_summary: patch release of 2.3.0
+    fragments:
+    - 2.3.0_release.yml
+    release_date: '2023-05-19'

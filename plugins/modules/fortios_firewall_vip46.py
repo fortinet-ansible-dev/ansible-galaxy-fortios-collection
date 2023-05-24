@@ -143,6 +143,7 @@ options:
                     name:
                         description:
                             - Health monitor name. Source firewall.ldb-monitor.name.
+                        required: true
                         type: str
             name:
                 description:
@@ -188,6 +189,7 @@ options:
                     id:
                         description:
                             - Real server ID.
+                        required: true
                         type: int
                     ip:
                         description:
@@ -206,6 +208,7 @@ options:
                             name:
                                 description:
                                     - Health monitor name. Source firewall.ldb-monitor.name.
+                                required: true
                                 type: str
                     port:
                         description:
@@ -241,6 +244,7 @@ options:
                     range:
                         description:
                             - Src-filter range.
+                        required: true
                         type: str
             srcintf_filter:
                 description:
@@ -251,6 +255,7 @@ options:
                     interface_name:
                         description:
                             - Interface name. Source system.interface.name.
+                        required: true
                         type: str
             type:
                 description:
@@ -580,6 +585,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "id": {
             "revisions": {
@@ -698,6 +704,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1159,6 +1166,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "ip": {
                     "revisions": {
@@ -1391,6 +1399,7 @@ versioned_schema = {
                                 "v6.0.0": False,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -1457,6 +1466,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1480,6 +1490,7 @@ versioned_schema = {
                 "interface_name": {
                     "revisions": {"v6.4.4": True, "v6.2.7": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

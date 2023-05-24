@@ -97,6 +97,7 @@ options:
                     id:
                         description:
                             - Account id.
+                        required: true
                         type: str
                     privatekey:
                         description:
@@ -119,6 +120,7 @@ options:
                     interface_name:
                         description:
                             - Interface name. Source system.interface.name.
+                        required: true
                         type: str
             source_ip:
                 description:
@@ -128,6 +130,13 @@ options:
                 description:
                     - Source IPv6 address used to connect to the ACME server.
                 type: str
+            use_ha_direct:
+                description:
+                    - Enable the use of "ha-mgmt" interface to connect to the ACME server when "ha-direct" is enabled in HA configuration
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -158,6 +167,7 @@ EXAMPLES = """
             interface_name: "<your_own_value> (source system.interface.name)"
         source_ip: "84.230.14.43"
         source_ip6: "<your_own_value>"
+        use_ha_direct: "enable"
 
 """
 
@@ -242,7 +252,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_system_acme_data(json):
-    option_list = ["accounts", "interface", "source_ip", "source_ip6"]
+    option_list = ["accounts", "interface", "source_ip", "source_ip6", "use_ha_direct"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -306,6 +316,8 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -327,6 +339,8 @@ versioned_schema = {
             "children": {
                 "interface_name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -341,9 +355,12 @@ versioned_schema = {
                         "v7.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -358,8 +375,33 @@ versioned_schema = {
                 "v7.0.0": True,
             },
         },
+        "use_ha_direct": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "source_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -377,6 +419,8 @@ versioned_schema = {
         },
         "source_ip6": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -398,6 +442,8 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -412,9 +458,12 @@ versioned_schema = {
                         "v7.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "status": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -432,6 +481,8 @@ versioned_schema = {
                 },
                 "url": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -449,6 +500,8 @@ versioned_schema = {
                 },
                 "ca_url": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -466,6 +519,8 @@ versioned_schema = {
                 },
                 "email": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -483,6 +538,8 @@ versioned_schema = {
                 },
                 "privatekey": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -500,6 +557,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,

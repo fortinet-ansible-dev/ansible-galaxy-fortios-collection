@@ -96,6 +96,24 @@ options:
                     - 'kbps'
                     - 'mbps'
                     - 'gbps'
+            cos:
+                description:
+                    - VLAN CoS mark.
+                type: str
+            cos_marking:
+                description:
+                    - Enable/disable VLAN CoS marking.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            cos_marking_method:
+                description:
+                    - Select VLAN CoS marking method.
+                type: str
+                choices:
+                    - 'multi-stage'
+                    - 'static'
             diffserv:
                 description:
                     - Enable/disable changing the DiffServ setting applied to traffic accepted by this shaper.
@@ -116,12 +134,16 @@ options:
                     - 'static'
             exceed_bandwidth:
                 description:
-                    - Exceed bandwidth used for DSCP multi-stage marking. Units depend on the bandwidth-unit setting.
+                    - Exceed bandwidth used for DSCP/VLAN CoS multi-stage marking. Units depend on the bandwidth-unit setting.
                 type: int
             exceed_class_id:
                 description:
                     - Class ID for traffic in guaranteed-bandwidth and maximum-bandwidth. Source firewall.traffic-class.class-id.
                 type: int
+            exceed_cos:
+                description:
+                    - VLAN CoS mark for traffic in [guaranteed-bandwidth, exceed-bandwidth].
+                type: str
             exceed_dscp:
                 description:
                     - DSCP mark for traffic in guaranteed-bandwidth and exceed-bandwidth.
@@ -134,6 +156,10 @@ options:
                 description:
                     - Upper bandwidth limit enforced by this shaper (0 - 80000000). 0 means no limit. Units depend on the bandwidth-unit setting.
                 type: int
+            maximum_cos:
+                description:
+                    - VLAN CoS mark for traffic in [exceed-bandwidth, maximum-bandwidth].
+                type: str
             maximum_dscp:
                 description:
                     - DSCP mark for traffic in exceed-bandwidth and maximum-bandwidth.
@@ -183,16 +209,21 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       firewall_shaper_traffic_shaper:
         bandwidth_unit: "kbps"
+        cos: "<your_own_value>"
+        cos_marking: "enable"
+        cos_marking_method: "multi-stage"
         diffserv: "enable"
         diffservcode: "<your_own_value>"
         dscp_marking_method: "multi-stage"
         exceed_bandwidth: "0"
         exceed_class_id: "0"
+        exceed_cos: "<your_own_value>"
         exceed_dscp: "<your_own_value>"
         guaranteed_bandwidth: "0"
         maximum_bandwidth: "0"
+        maximum_cos: "<your_own_value>"
         maximum_dscp: "<your_own_value>"
-        name: "default_name_13"
+        name: "default_name_18"
         overhead: "0"
         per_policy: "disable"
         priority: "low"
@@ -288,14 +319,19 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_firewall_shaper_traffic_shaper_data(json):
     option_list = [
         "bandwidth_unit",
+        "cos",
+        "cos_marking",
+        "cos_marking_method",
         "diffserv",
         "diffservcode",
         "dscp_marking_method",
         "exceed_bandwidth",
         "exceed_class_id",
+        "exceed_cos",
         "exceed_dscp",
         "guaranteed_bandwidth",
         "maximum_bandwidth",
+        "maximum_cos",
         "maximum_dscp",
         "name",
         "overhead",
@@ -448,6 +484,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -472,9 +510,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "guaranteed_bandwidth": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -502,6 +543,8 @@ versioned_schema = {
         },
         "maximum_bandwidth": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -529,6 +572,8 @@ versioned_schema = {
         },
         "bandwidth_unit": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -557,6 +602,8 @@ versioned_schema = {
                 {
                     "value": "kbps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -584,6 +631,8 @@ versioned_schema = {
                 {
                     "value": "mbps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -611,6 +660,8 @@ versioned_schema = {
                 {
                     "value": "gbps",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -639,6 +690,8 @@ versioned_schema = {
         },
         "priority": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -667,6 +720,8 @@ versioned_schema = {
                 {
                     "value": "low",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -694,6 +749,8 @@ versioned_schema = {
                 {
                     "value": "medium",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -721,6 +778,8 @@ versioned_schema = {
                 {
                     "value": "high",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -749,6 +808,8 @@ versioned_schema = {
         },
         "per_policy": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -777,6 +838,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -804,6 +867,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -832,6 +897,8 @@ versioned_schema = {
         },
         "diffserv": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -860,6 +927,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -887,6 +956,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -915,6 +986,8 @@ versioned_schema = {
         },
         "diffservcode": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -942,6 +1015,8 @@ versioned_schema = {
         },
         "dscp_marking_method": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -970,6 +1045,8 @@ versioned_schema = {
                 {
                     "value": "multi-stage",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -994,6 +1071,8 @@ versioned_schema = {
                 {
                     "value": "static",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1019,6 +1098,8 @@ versioned_schema = {
         },
         "exceed_bandwidth": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1046,6 +1127,8 @@ versioned_schema = {
         },
         "exceed_dscp": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1073,6 +1156,8 @@ versioned_schema = {
         },
         "maximum_dscp": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1098,8 +1183,163 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "cos_marking": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
+        "cos_marking_method": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "multi-stage", "revisions": {"v7.4.0": True}},
+                {"value": "static", "revisions": {"v7.4.0": True}},
+            ],
+        },
+        "cos": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "exceed_cos": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
+        "maximum_cos": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
         "overhead": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1127,6 +1367,8 @@ versioned_schema = {
         },
         "exceed_class_id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1154,6 +1396,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

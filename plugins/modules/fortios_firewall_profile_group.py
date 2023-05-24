@@ -128,6 +128,10 @@ options:
                 description:
                     - Name of an existing IPS sensor. Source ips.sensor.name.
                 type: str
+            ips_voip_filter:
+                description:
+                    - Name of an existing VoIP (ips) profile. Source voip.profile.name.
+                type: str
             mms_profile:
                 description:
                     - Name of an existing MMS profile. Source firewall.mms-profile.name.
@@ -163,7 +167,7 @@ options:
                 type: str
             voip_profile:
                 description:
-                    - Name of an existing VoIP profile. Source voip.profile.name.
+                    - Name of an existing VoIP (voipd) profile. Source voip.profile.name.
                 type: str
             waf_profile:
                 description:
@@ -202,8 +206,9 @@ EXAMPLES = """
         file_filter_profile: "<your_own_value> (source file-filter.profile.name)"
         icap_profile: "<your_own_value> (source icap.profile.name)"
         ips_sensor: "<your_own_value> (source ips.sensor.name)"
+        ips_voip_filter: "<your_own_value> (source voip.profile.name)"
         mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-        name: "default_name_14"
+        name: "default_name_15"
         profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
         sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
         spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
@@ -314,6 +319,7 @@ def filter_firewall_profile_group_data(json):
         "file_filter_profile",
         "icap_profile",
         "ips_sensor",
+        "ips_voip_filter",
         "mms_profile",
         "name",
         "profile_protocol_options",
@@ -464,6 +470,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -488,9 +496,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "profile_protocol_options": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -518,6 +529,8 @@ versioned_schema = {
         },
         "ssl_ssh_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -545,6 +558,8 @@ versioned_schema = {
         },
         "av_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -572,6 +587,8 @@ versioned_schema = {
         },
         "webfilter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -599,6 +616,8 @@ versioned_schema = {
         },
         "dnsfilter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -626,6 +645,8 @@ versioned_schema = {
         },
         "emailfilter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -653,6 +674,8 @@ versioned_schema = {
         },
         "dlp_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -680,6 +703,8 @@ versioned_schema = {
         },
         "file_filter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -707,6 +732,8 @@ versioned_schema = {
         },
         "ips_sensor": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -734,6 +761,8 @@ versioned_schema = {
         },
         "application_list": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -761,6 +790,8 @@ versioned_schema = {
         },
         "voip_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -786,8 +817,39 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "ips_voip_filter": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+        },
         "sctp_filter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -815,6 +877,8 @@ versioned_schema = {
         },
         "icap_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -842,6 +906,8 @@ versioned_schema = {
         },
         "cifs_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -869,6 +935,8 @@ versioned_schema = {
         },
         "videofilter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -896,6 +964,8 @@ versioned_schema = {
         },
         "waf_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -923,6 +993,8 @@ versioned_schema = {
         },
         "ssh_filter_profile": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -990,6 +1062,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

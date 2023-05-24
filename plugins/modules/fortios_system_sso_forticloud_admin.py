@@ -88,6 +88,10 @@ options:
         default: null
         type: dict
         suboptions:
+            accprofile:
+                description:
+                    - FortiCloud SSO admin user access profile. Source system.accprofile.name.
+                type: str
             name:
                 description:
                     - FortiCloud SSO admin name.
@@ -102,6 +106,7 @@ options:
                     name:
                         description:
                             - Virtual domain name. Source system.vdom.name.
+                        required: true
                         type: str
 """
 
@@ -122,10 +127,11 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_sso_forticloud_admin:
-        name: "default_name_3"
+        accprofile: "<your_own_value> (source system.accprofile.name)"
+        name: "default_name_4"
         vdom:
          -
-            name: "default_name_5 (source system.vdom.name)"
+            name: "default_name_6 (source system.vdom.name)"
 
 """
 
@@ -210,7 +216,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_system_sso_forticloud_admin_data(json):
-    option_list = ["name", "vdom"]
+    option_list = ["accprofile", "name", "vdom"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -293,6 +299,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -307,6 +315,26 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "string",
+            "required": True,
+        },
+        "accprofile": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
         },
         "vdom": {
             "type": "list",
@@ -314,6 +342,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -328,9 +358,12 @@ versioned_schema = {
                         "v7.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -347,6 +380,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

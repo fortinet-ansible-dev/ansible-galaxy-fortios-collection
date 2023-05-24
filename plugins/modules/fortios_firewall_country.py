@@ -106,6 +106,7 @@ options:
                     id:
                         description:
                             - Region ID.
+                        required: true
                         type: int
 """
 
@@ -370,6 +371,7 @@ versioned_schema = {
                 "v6.4.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -404,6 +406,7 @@ versioned_schema = {
                         "v6.4.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {

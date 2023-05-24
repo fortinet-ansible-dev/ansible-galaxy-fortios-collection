@@ -19,6 +19,7 @@ import json
 from ansible_collections.fortinet.fortios.plugins.module_utils.common.type_utils import (
     underscore_to_hyphen,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.secret_field import is_secret_field
 
 try:
     import urllib.parse as urlencoding
@@ -74,12 +75,12 @@ def schema_to_module_spec(schema):
         rdata['type'] = schema['type']
         if schema['type'] == 'list':
             rdata['elements'] = schema.get('elements')
-        rdata['required'] = False
+        rdata['required'] = schema['required'] if 'required' in schema else False
         rdata['options'] = dict()
         for child in schema['children']:
             child_value = schema['children'][child]
             rdata['options'][child] = schema_to_module_spec(child_value)
-            if (child):
+            if is_secret_field(child):
                 rdata['options'][child]['no_log'] = True
     elif schema['type'] in ['integer', 'string'] or (schema['type'] == 'list' and 'children' not in schema):
         if schema['type'] == 'integer':
@@ -91,7 +92,7 @@ def schema_to_module_spec(schema):
             rdata['elements'] = schema.get('elements')
         else:
             raise AssertionError()
-        rdata['required'] = False
+        rdata['required'] = schema['required'] if 'required' in schema else False
         if 'options' in schema:
             # see mantis #0690570, if the semantic meaning changes, remove choices as well
             # also see accept_auth_by_cert of module fortios_system_csf.

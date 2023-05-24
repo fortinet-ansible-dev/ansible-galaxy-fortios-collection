@@ -105,6 +105,7 @@ options:
                     name:
                         description:
                             - VIP64 name. Source firewall.vip64.name.
+                        required: true
                         type: str
             name:
                 description:
@@ -381,6 +382,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "uuid": {
             "revisions": {
@@ -449,6 +451,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

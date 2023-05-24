@@ -105,6 +105,7 @@ options:
                     - FortiExtender Administration (enable or disable).
                 type: str
                 choices:
+                    - 'discovered'
                     - 'disable'
                     - 'enable'
             bandwidth_limit:
@@ -188,7 +189,7 @@ options:
                     - 'disable'
             profile:
                 description:
-                    - FortiExtender profile configuration. Source .
+                    - FortiExtender profile configuration. Source extension-controller.extender-profile.name.
                 type: str
             wan_extension:
                 description:
@@ -197,11 +198,11 @@ options:
                 suboptions:
                     modem1_extension:
                         description:
-                            - FortiExtender interface name. Source .
+                            - FortiExtender interface name. Source system.interface.name.
                         type: str
                     modem2_extension:
                         description:
-                            - FortiExtender interface name. Source .
+                            - FortiExtender interface name. Source system.interface.name.
                         type: str
 """
 
@@ -223,7 +224,7 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       extension_controller_extender:
         allowaccess: "ping"
-        authorized: "disable"
+        authorized: "discovered"
         bandwidth_limit: "1024"
         description: "<your_own_value>"
         device_id: "1024"
@@ -238,10 +239,10 @@ EXAMPLES = """
         override_allowaccess: "enable"
         override_enforce_bandwidth: "enable"
         override_login_password_change: "enable"
-        profile: "<your_own_value> (source )"
+        profile: "<your_own_value> (source extension-controller.extender-profile.name)"
         wan_extension:
-            modem1_extension: "<your_own_value> (source )"
-            modem2_extension: "<your_own_value> (source )"
+            modem1_extension: "<your_own_value> (source system.interface.name)"
+            modem2_extension: "<your_own_value> (source system.interface.name)"
 
 """
 
@@ -460,124 +461,427 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "id": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+            "required": True,
+        },
+        "id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
         "authorized": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "discovered",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
-        "ext_name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "description": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+        "ext_name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
         },
-        "device_id": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "integer"},
+        "description": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
+        "device_id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "integer",
+        },
         "extension_type": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "wan-extension",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
                 {
                     "value": "lan-extension",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
             ],
         },
-        "profile": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
+        "profile": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+        },
         "override_allowaccess": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "allowaccess": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "list",
             "options": [
-                {"value": "ping", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "telnet", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "http", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "https", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "ssh", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "snmp", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "ping",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "telnet",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "http",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "https",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "ssh",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "snmp",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
             "multiple_values": True,
             "elements": "str",
         },
         "override_login_password_change": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "login_password_change": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "yes", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "default", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "no", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "yes",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "default",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "no",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "login_password": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
         },
         "override_enforce_bandwidth": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "enforce_bandwidth": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "bandwidth_limit": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
         "wan_extension": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "dict",
             "children": {
                 "modem1_extension": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "modem2_extension": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
             },
         },
         "firmware_provision_latest": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "once", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "once",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
 }
 
 

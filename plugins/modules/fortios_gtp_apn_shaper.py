@@ -104,6 +104,7 @@ options:
                     name:
                         description:
                             - APN name. Source gtp.apn.name gtp.apngrp.name.
+                        required: true
                         type: str
             back_off_time:
                 description:
@@ -371,6 +372,7 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -390,6 +392,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "apn": {
             "type": "list",
@@ -397,6 +400,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -416,9 +420,11 @@ versioned_schema = {
                         "v6.0.0": False,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -440,6 +446,7 @@ versioned_schema = {
         },
         "rate_limit": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -462,6 +469,7 @@ versioned_schema = {
         },
         "action": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -485,6 +493,7 @@ versioned_schema = {
                 {
                     "value": "drop",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -507,6 +516,7 @@ versioned_schema = {
                 {
                     "value": "reject",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -530,6 +540,7 @@ versioned_schema = {
         },
         "back_off_time": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -552,6 +563,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,

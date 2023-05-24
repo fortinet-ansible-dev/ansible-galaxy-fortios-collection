@@ -80,6 +80,13 @@ options:
         default: null
         type: dict
         suboptions:
+            fabric_sync:
+                description:
+                    - Enable/disable synchronization of automation settings with security fabric.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             max_concurrent_stitches:
                 description:
                     - Maximum number of automation stitches that are allowed to run concurrently.
@@ -101,6 +108,7 @@ EXAMPLES = """
     fortios_automation_setting:
       vdom:  "{{ vdom }}"
       automation_setting:
+        fabric_sync: "enable"
         max_concurrent_stitches: "512"
 
 """
@@ -186,7 +194,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_automation_setting_data(json):
-    option_list = ["max_concurrent_stitches"]
+    option_list = ["fabric_sync", "max_concurrent_stitches"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -251,13 +259,39 @@ def fortios_automation(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+    "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+    },
     "type": "dict",
     "children": {
         "max_concurrent_stitches": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "integer",
-        }
+        },
+        "fabric_sync": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+            ],
+        },
     },
 }
 

@@ -91,6 +91,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            http_connection_mode:
+                description:
+                    - HTTP connection mode .
+                type: str
+                choices:
+                    - 'static'
+                    - 'multiplex'
+                    - 'serverpool'
             http_incoming_port:
                 description:
                     - Accept incoming HTTP requests on one or more ports (0 - 65535).
@@ -187,6 +195,7 @@ options:
                             name:
                                 description:
                                     - Address name. Source firewall.address.name firewall.addrgrp.name.
+                                required: true
                                 type: str
                     pac_file_data:
                         description:
@@ -199,6 +208,7 @@ options:
                     policyid:
                         description:
                             - Policy ID.
+                        required: true
                         type: int
                     srcaddr:
                         description:
@@ -209,6 +219,7 @@ options:
                             name:
                                 description:
                                     - Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name.
+                                required: true
                                 type: str
                     srcaddr6:
                         description:
@@ -219,6 +230,7 @@ options:
                             name:
                                 description:
                                     - Address name. Source firewall.address6.name firewall.addrgrp6.name.
+                                required: true
                                 type: str
                     status:
                         description:
@@ -245,6 +257,25 @@ options:
                 choices:
                     - 'accept'
                     - 'deny'
+            secure_web_proxy:
+                description:
+                    - Enable/disable/require the secure web proxy for HTTP and HTTPS session.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+                    - 'secure'
+            secure_web_proxy_cert:
+                description:
+                    - Name of certificates for secure web proxy.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             socks:
                 description:
                     - Enable/disable the SOCKS proxy.
@@ -264,6 +295,15 @@ options:
                     - 'high'
                     - 'medium'
                     - 'low'
+            ssl_dh_bits:
+                description:
+                    - Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation .
+                type: str
+                choices:
+                    - '768'
+                    - '1024'
+                    - '1536'
+                    - '2048'
             status:
                 description:
                     - Enable/disable the explicit Web proxy for HTTP and HTTPS session.
@@ -312,6 +352,7 @@ EXAMPLES = """
       web_proxy_explicit:
         ftp_incoming_port: "<your_own_value>"
         ftp_over_http: "enable"
+        http_connection_mode: "static"
         http_incoming_port: "<your_own_value>"
         https_incoming_port: "<your_own_value>"
         https_replacement_message: "enable"
@@ -332,23 +373,28 @@ EXAMPLES = """
             comments: "<your_own_value>"
             dstaddr:
              -
-                name: "default_name_23 (source firewall.address.name firewall.addrgrp.name)"
+                name: "default_name_24 (source firewall.address.name firewall.addrgrp.name)"
             pac_file_data: "<your_own_value>"
             pac_file_name: "<your_own_value>"
             policyid: "0"
             srcaddr:
              -
-                name: "default_name_28 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
+                name: "default_name_29 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
             srcaddr6:
              -
-                name: "default_name_30 (source firewall.address6.name firewall.addrgrp6.name)"
+                name: "default_name_31 (source firewall.address6.name firewall.addrgrp6.name)"
             status: "enable"
         pref_dns_result: "ipv4"
         realm: "<your_own_value>"
         sec_default_action: "accept"
+        secure_web_proxy: "disable"
+        secure_web_proxy_cert:
+         -
+            name: "default_name_38 (source vpn.certificate.local.name)"
         socks: "enable"
         socks_incoming_port: "<your_own_value>"
         ssl_algorithm: "high"
+        ssl_dh_bits: "768"
         status: "enable"
         strict_guest: "enable"
         trace_auth_no_rsp: "enable"
@@ -440,6 +486,7 @@ def filter_web_proxy_explicit_data(json):
     option_list = [
         "ftp_incoming_port",
         "ftp_over_http",
+        "http_connection_mode",
         "http_incoming_port",
         "https_incoming_port",
         "https_replacement_message",
@@ -459,9 +506,12 @@ def filter_web_proxy_explicit_data(json):
         "pref_dns_result",
         "realm",
         "sec_default_action",
+        "secure_web_proxy",
+        "secure_web_proxy_cert",
         "socks",
         "socks_incoming_port",
         "ssl_algorithm",
+        "ssl_dh_bits",
         "status",
         "strict_guest",
         "trace_auth_no_rsp",
@@ -563,6 +613,8 @@ def fortios_web_proxy(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -590,6 +642,8 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -618,6 +672,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -645,6 +701,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -671,8 +729,44 @@ versioned_schema = {
                 },
             ],
         },
+        "secure_web_proxy": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "secure", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "ftp_over_http": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -701,6 +795,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -728,6 +824,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -756,6 +854,8 @@ versioned_schema = {
         },
         "socks": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -784,6 +884,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -811,6 +913,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -839,6 +943,8 @@ versioned_schema = {
         },
         "http_incoming_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -863,9 +969,45 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+        },
+        "http_connection_mode": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "static", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "multiplex", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "serverpool", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+            ],
         },
         "https_incoming_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -891,8 +1033,82 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "secure_web_proxy_cert": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v7.4.0": True},
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+        },
+        "ssl_dh_bits": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "768", "revisions": {"v7.4.0": True}},
+                {"value": "1024", "revisions": {"v7.4.0": True}},
+                {"value": "1536", "revisions": {"v7.4.0": True}},
+                {"value": "2048", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "ftp_incoming_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -920,6 +1136,8 @@ versioned_schema = {
         },
         "socks_incoming_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -947,6 +1165,8 @@ versioned_schema = {
         },
         "incoming_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -974,6 +1194,8 @@ versioned_schema = {
         },
         "outgoing_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1003,6 +1225,8 @@ versioned_schema = {
         },
         "ipv6_status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1031,6 +1255,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1058,6 +1284,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1086,6 +1314,8 @@ versioned_schema = {
         },
         "incoming_ip6": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1113,6 +1343,8 @@ versioned_schema = {
         },
         "outgoing_ip6": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1142,6 +1374,8 @@ versioned_schema = {
         },
         "strict_guest": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1170,6 +1404,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1197,6 +1433,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1225,6 +1463,8 @@ versioned_schema = {
         },
         "pref_dns_result": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1253,6 +1493,8 @@ versioned_schema = {
                 {
                     "value": "ipv4",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1280,6 +1522,8 @@ versioned_schema = {
                 {
                     "value": "ipv6",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1308,6 +1552,8 @@ versioned_schema = {
         },
         "unknown_http_version": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1336,6 +1582,8 @@ versioned_schema = {
                 {
                     "value": "reject",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1363,6 +1611,8 @@ versioned_schema = {
                 {
                     "value": "best-effort",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1407,6 +1657,8 @@ versioned_schema = {
         },
         "realm": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1434,6 +1686,8 @@ versioned_schema = {
         },
         "sec_default_action": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1462,6 +1716,8 @@ versioned_schema = {
                 {
                     "value": "accept",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1489,6 +1745,8 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1517,6 +1775,8 @@ versioned_schema = {
         },
         "https_replacement_message": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1545,6 +1805,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1572,6 +1834,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1600,6 +1864,8 @@ versioned_schema = {
         },
         "message_upon_server_error": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1628,6 +1894,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1655,6 +1923,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1683,6 +1953,8 @@ versioned_schema = {
         },
         "pac_file_server_status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1711,6 +1983,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1738,6 +2012,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1766,6 +2042,8 @@ versioned_schema = {
         },
         "pac_file_server_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1793,6 +2071,8 @@ versioned_schema = {
         },
         "pac_file_through_https": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,
@@ -1818,12 +2098,30 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "pac_file_name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1851,6 +2149,8 @@ versioned_schema = {
         },
         "pac_file_data": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1882,6 +2182,8 @@ versioned_schema = {
             "children": {
                 "policyid": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1906,9 +2208,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "status": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1937,6 +2242,8 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1964,6 +2271,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1996,6 +2305,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -2020,9 +2331,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2053,6 +2367,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -2077,9 +2393,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2110,6 +2429,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -2134,9 +2455,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2163,6 +2487,8 @@ versioned_schema = {
                 },
                 "pac_file_name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2190,6 +2516,8 @@ versioned_schema = {
                 },
                 "pac_file_data": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2217,6 +2545,8 @@ versioned_schema = {
                 },
                 "comments": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2244,6 +2574,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2270,6 +2602,8 @@ versioned_schema = {
         },
         "ssl_algorithm": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2298,6 +2632,8 @@ versioned_schema = {
                 {
                     "value": "high",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2325,6 +2661,8 @@ versioned_schema = {
                 {
                     "value": "medium",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2352,6 +2690,8 @@ versioned_schema = {
                 {
                     "value": "low",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2380,6 +2720,8 @@ versioned_schema = {
         },
         "trace_auth_no_rsp": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -2408,6 +2750,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -2435,6 +2779,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,

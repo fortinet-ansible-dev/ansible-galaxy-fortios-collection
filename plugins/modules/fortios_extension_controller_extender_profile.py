@@ -137,7 +137,8 @@ options:
                         suboptions:
                             name:
                                 description:
-                                    - Dataplan name. Source .
+                                    - Dataplan name. Source extension-controller.dataplan.name.
+                                required: true
                                 type: str
                     modem1:
                         description:
@@ -415,6 +416,7 @@ options:
                                     name:
                                         description:
                                             - FortiExtender SMS notification receiver name.
+                                        required: true
                                         type: str
                                     phone_number:
                                         description:
@@ -466,6 +468,7 @@ options:
                             name:
                                 description:
                                     - FortiExtender LAN extension backhaul name.
+                                required: true
                                 type: str
                             port:
                                 description:
@@ -494,7 +497,7 @@ options:
                                 type: int
                     backhaul_interface:
                         description:
-                            - IPsec phase1 interface. Source .
+                            - IPsec phase1 interface. Source system.interface.name.
                         type: str
                     backhaul_ip:
                         description:
@@ -579,7 +582,7 @@ EXAMPLES = """
                 status: "disable"
             dataplan:
              -
-                name: "default_name_11 (source )"
+                name: "default_name_11 (source extension-controller.dataplan.name)"
             modem1:
                 auto_switch:
                     dataplan: "disable"
@@ -644,7 +647,7 @@ EXAMPLES = """
                 port: "wan"
                 role: "primary"
                 weight: "1"
-            backhaul_interface: "<your_own_value> (source )"
+            backhaul_interface: "<your_own_value> (source system.interface.name)"
             backhaul_ip: "<your_own_value>"
             ipsec_tunnel: "<your_own_value>"
             link_loadbalance: "activebackup"
@@ -873,87 +876,386 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "string"},
-        "id": {"revisions": {"v7.2.2": True, "v7.2.1": True}, "type": "integer"},
+        "name": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "string",
+            "required": True,
+        },
+        "id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
+            "type": "integer",
+        },
         "model": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "FX201E", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX211E", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX200F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FXA11F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FXE11F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FXA21F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FXE21F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FXA22F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FXE22F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX212F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX311F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX312F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX511F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FVG21F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FVA21F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FVG22F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FVA22F", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "FX04DA", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "FX201E",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX211E",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX200F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FXA11F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FXE11F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FXA21F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FXE21F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FXA22F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FXE22F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX212F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX311F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX312F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX511F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FVG21F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FVA21F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FVG22F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FVA22F",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "FX04DA",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "extension": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "wan-extension",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
                 {
                     "value": "lan-extension",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
             ],
         },
         "allowaccess": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "list",
             "options": [
-                {"value": "ping", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "telnet", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "http", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "https", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "ssh", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "snmp", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "ping",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "telnet",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "http",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "https",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "ssh",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "snmp",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
             "multiple_values": True,
             "elements": "str",
         },
         "login_password_change": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "yes", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "default", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "no", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "yes",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "default",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "no",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "login_password": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
         },
         "enforce_bandwidth": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
-                {"value": "disable", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         },
         "bandwidth_limit": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "integer",
         },
         "cellular": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "dict",
             "children": {
                 "dataplan": {
@@ -961,88 +1263,189 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
+                            "required": True,
                         }
                     },
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
                 "controller_report": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "dict",
                     "children": {
                         "status": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "interval": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "integer",
                         },
                         "signal_threshold": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "integer",
                         },
                     },
                 },
                 "sms_notification": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "dict",
                     "children": {
                         "status": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "alert": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "dict",
                             "children": {
                                 "system_reboot": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "data_exhausted": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "session_disconnect": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "low_signal_strength": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "os_image_fallback": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "mode_switch": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "fgt_backup_mode_switch": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                             },
@@ -1052,16 +1455,29 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "name": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
+                                    "required": True,
                                 },
                                 "status": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1069,6 +1485,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1076,16 +1494,28 @@ versioned_schema = {
                                     ],
                                 },
                                 "phone_number": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "alert": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "list",
                                     "options": [
                                         {
                                             "value": "system-reboot",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1093,6 +1523,8 @@ versioned_schema = {
                                         {
                                             "value": "data-exhausted",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1100,6 +1532,8 @@ versioned_schema = {
                                         {
                                             "value": "session-disconnect",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1107,6 +1541,8 @@ versioned_schema = {
                                         {
                                             "value": "low-signal-strength",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1114,6 +1550,8 @@ versioned_schema = {
                                         {
                                             "value": "mode-switch",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1121,6 +1559,8 @@ versioned_schema = {
                                         {
                                             "value": "os-image-fallback",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1128,6 +1568,8 @@ versioned_schema = {
                                         {
                                             "value": "fgt-backup-mode-switch",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1137,119 +1579,246 @@ versioned_schema = {
                                     "elements": "str",
                                 },
                             },
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     },
                 },
                 "modem1": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "dict",
                     "children": {
                         "redundant_mode": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "redundant_intf": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "default_sim": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "sim1",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "sim2",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "carrier",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "cost",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "gps": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "sim1_pin": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "sim2_pin": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "sim1_pin_code": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "sim2_pin_code": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "preferred_carrier": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "auto_switch": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "dict",
                             "children": {
                                 "disconnect": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1257,6 +1826,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1264,20 +1835,37 @@ versioned_schema = {
                                     ],
                                 },
                                 "disconnect_threshold": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
                                 },
                                 "disconnect_period": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
                                 },
                                 "signal": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1285,6 +1873,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1292,12 +1882,19 @@ versioned_schema = {
                                     ],
                                 },
                                 "dataplan": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1305,6 +1902,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1312,12 +1911,19 @@ versioned_schema = {
                                     ],
                                 },
                                 "switch_back": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "list",
                                     "options": [
                                         {
                                             "value": "time",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1325,6 +1931,8 @@ versioned_schema = {
                                         {
                                             "value": "timer",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1334,11 +1942,21 @@ versioned_schema = {
                                     "elements": "str",
                                 },
                                 "switch_back_time": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "switch_back_timer": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
                                 },
                             },
@@ -1346,114 +1964,236 @@ versioned_schema = {
                     },
                 },
                 "modem2": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "dict",
                     "children": {
                         "redundant_mode": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "redundant_intf": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "default_sim": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "sim1",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "sim2",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "carrier",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "cost",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "gps": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "sim1_pin": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "sim2_pin": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "disable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "enable",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "sim1_pin_code": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "sim2_pin_code": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "preferred_carrier": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "auto_switch": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "dict",
                             "children": {
                                 "disconnect": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1461,6 +2201,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1468,20 +2210,37 @@ versioned_schema = {
                                     ],
                                 },
                                 "disconnect_threshold": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
                                 },
                                 "disconnect_period": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
                                 },
                                 "signal": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1489,6 +2248,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1496,12 +2257,19 @@ versioned_schema = {
                                     ],
                                 },
                                 "dataplan": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                     "options": [
                                         {
                                             "value": "disable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1509,6 +2277,8 @@ versioned_schema = {
                                         {
                                             "value": "enable",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1516,12 +2286,19 @@ versioned_schema = {
                                     ],
                                 },
                                 "switch_back": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "list",
                                     "options": [
                                         {
                                             "value": "time",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1529,6 +2306,8 @@ versioned_schema = {
                                         {
                                             "value": "timer",
                                             "revisions": {
+                                                "v7.4.0": True,
+                                                "v7.2.4": True,
                                                 "v7.2.2": True,
                                                 "v7.2.1": True,
                                             },
@@ -1538,11 +2317,21 @@ versioned_schema = {
                                     "elements": "str",
                                 },
                                 "switch_back_time": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "switch_back_timer": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
                                 },
                             },
@@ -1552,33 +2341,68 @@ versioned_schema = {
             },
         },
         "lan_extension": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "dict",
             "children": {
                 "link_loadbalance": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "activebackup",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                         {
                             "value": "loadbalance",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     ],
                 },
                 "ipsec_tunnel": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "backhaul_interface": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "backhaul_ip": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "backhaul": {
@@ -1586,76 +2410,157 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
+                            "required": True,
                         },
                         "port": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "wan",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "lte1",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "lte2",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "port1",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "port2",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "port3",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "port4",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "port5",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "sfp",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "role": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                             "options": [
                                 {
                                     "value": "primary",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                                 {
                                     "value": "secondary",
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                 },
                             ],
                         },
                         "weight": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "integer",
                         },
                     },
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
             },
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
 }
 
 

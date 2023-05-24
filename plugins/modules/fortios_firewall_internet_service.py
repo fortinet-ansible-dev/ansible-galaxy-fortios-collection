@@ -112,6 +112,7 @@ options:
                     id:
                         description:
                             - Entry ID.
+                        required: true
                         type: int
                     ip_number:
                         description:
@@ -478,6 +479,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -826,6 +828,7 @@ versioned_schema = {
                 "id": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
+                    "required": True,
                 },
                 "protocol": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

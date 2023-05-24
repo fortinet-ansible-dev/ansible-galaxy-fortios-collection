@@ -108,6 +108,7 @@ options:
                     id:
                         description:
                             - Banned word entry ID.
+                        required: true
                         type: int
                     language:
                         description:
@@ -421,6 +422,7 @@ versioned_schema = {
         "id": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -459,6 +461,7 @@ versioned_schema = {
                 "id": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
+                    "required": True,
                 },
                 "pattern": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

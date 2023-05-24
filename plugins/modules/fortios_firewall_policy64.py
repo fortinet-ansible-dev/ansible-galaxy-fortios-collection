@@ -108,6 +108,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.address.name firewall.addrgrp.name firewall.vip64.name firewall.vipgrp64.name.
+                        required: true
                         type: str
             dstintf:
                 description:
@@ -170,6 +171,7 @@ options:
                     name:
                         description:
                             - IP pool name. Source firewall.ippool.name.
+                        required: true
                         type: str
             schedule:
                 description:
@@ -184,6 +186,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.service.custom.name firewall.service.group.name.
+                        required: true
                         type: str
             srcaddr:
                 description:
@@ -194,6 +197,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name.
+                        required: true
                         type: str
             srcintf:
                 description:
@@ -542,6 +546,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -626,6 +631,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -661,6 +667,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -812,6 +819,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1139,6 +1147,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

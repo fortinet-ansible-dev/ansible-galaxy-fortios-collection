@@ -101,6 +101,7 @@ options:
                     name:
                         description:
                             - Device name. Source user.device.alias user.device-category.name.
+                        required: true
                         type: str
             name:
                 description:
@@ -120,6 +121,7 @@ options:
                     name:
                         description:
                             - Tagging entry name.
+                        required: true
                         type: str
                     tags:
                         description:
@@ -130,6 +132,7 @@ options:
                             name:
                                 description:
                                     - Tag name. Source system.object-tagging.tags.name.
+                                required: true
                                 type: str
 """
 
@@ -395,6 +398,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "member": {
             "type": "list",
@@ -408,6 +412,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -429,6 +434,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "category": {
                     "revisions": {
@@ -451,6 +457,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {

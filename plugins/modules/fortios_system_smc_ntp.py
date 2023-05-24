@@ -93,6 +93,7 @@ options:
                     id:
                         description:
                             - NTP server ID.
+                        required: true
                         type: int
                     server:
                         description:
@@ -299,7 +300,11 @@ versioned_schema = {
             "type": "list",
             "elements": "dict",
             "children": {
-                "id": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                "id": {
+                    "revisions": {"v6.2.3": True},
+                    "type": "integer",
+                    "required": True,
+                },
                 "server": {"revisions": {"v6.2.3": True}, "type": "string"},
             },
             "revisions": {"v6.2.3": True},

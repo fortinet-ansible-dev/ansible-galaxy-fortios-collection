@@ -91,6 +91,7 @@ options:
             class_id:
                 description:
                     - Class ID to be named.
+                required: true
                 type: int
             class_name:
                 description:
@@ -346,6 +347,8 @@ versioned_schema = {
     "children": {
         "class_id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -367,9 +370,12 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "class_name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -394,6 +400,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

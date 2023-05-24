@@ -125,6 +125,7 @@ options:
                     seqno:
                         description:
                             - Sequence number (1 - 64).
+                        required: true
                         type: int
             name:
                 description:
@@ -322,6 +323,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -334,6 +337,7 @@ versioned_schema = {
                 "v7.0.2": True,
             },
             "type": "string",
+            "required": True,
         },
         "mappings": {
             "type": "list",
@@ -341,6 +345,8 @@ versioned_schema = {
             "children": {
                 "seqno": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -353,9 +359,12 @@ versioned_schema = {
                         "v7.0.2": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "base": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -371,6 +380,8 @@ versioned_schema = {
                 },
                 "redundant": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -386,6 +397,8 @@ versioned_schema = {
                 },
                 "packet_loss_threshold": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -401,6 +414,8 @@ versioned_schema = {
                 },
                 "latency_threshold": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -416,6 +431,8 @@ versioned_schema = {
                 },
                 "bandwidth_up_threshold": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -431,6 +448,8 @@ versioned_schema = {
                 },
                 "bandwidth_down_threshold": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -446,6 +465,8 @@ versioned_schema = {
                 },
                 "bandwidth_bi_threshold": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -461,6 +482,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -475,6 +498,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

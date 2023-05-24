@@ -471,7 +471,7 @@ options:
                     - 'enable'
             name:
                 description:
-                    - Device Name.
+                    - Device Name. (Please note that configurations to np6_0 will apply to all NP6s.)
                 required: true
                 type: str
             per_session_accounting:
@@ -821,6 +821,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -840,9 +841,11 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "fastpath": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -866,6 +869,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -888,6 +892,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -911,6 +916,7 @@ versioned_schema = {
         },
         "low_latency_mode": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -934,6 +940,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -956,6 +963,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -979,6 +987,7 @@ versioned_schema = {
         },
         "per_session_accounting": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1002,6 +1011,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1024,6 +1034,7 @@ versioned_schema = {
                 {
                     "value": "traffic-log-only",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1046,6 +1057,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1069,6 +1081,7 @@ versioned_schema = {
         },
         "garbage_session_collector": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1092,6 +1105,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1114,6 +1128,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1137,6 +1152,7 @@ versioned_schema = {
         },
         "session_collector_interval": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1159,6 +1175,7 @@ versioned_schema = {
         },
         "session_timeout_interval": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1181,6 +1198,7 @@ versioned_schema = {
         },
         "session_timeout_random_range": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1203,6 +1221,7 @@ versioned_schema = {
         },
         "session_timeout_fixed": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1226,6 +1245,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1248,6 +1268,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1269,8 +1290,143 @@ versioned_schema = {
                 },
             ],
         },
+        "ipsec_outbound_hash": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "disable",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "enable",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
+        "ipsec_ob_hash_function": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": True,
+                "v7.0.0": True,
+                "v6.4.4": True,
+                "v6.4.1": True,
+                "v6.4.0": False,
+                "v6.2.7": True,
+                "v6.2.5": True,
+                "v6.2.3": True,
+                "v6.2.0": True,
+                "v6.0.5": True,
+                "v6.0.11": True,
+                "v6.0.0": True,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "global-hash",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+                {
+                    "value": "round-robin-global",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                        "v7.0.1": True,
+                        "v7.0.0": True,
+                        "v6.4.4": True,
+                        "v6.4.1": True,
+                        "v6.2.7": True,
+                        "v6.2.5": True,
+                        "v6.2.3": True,
+                        "v6.2.0": True,
+                        "v6.0.5": True,
+                        "v6.0.11": True,
+                        "v6.0.0": True,
+                    },
+                },
+            ],
+        },
         "hpe": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1293,6 +1449,7 @@ versioned_schema = {
             "children": {
                 "tcpsyn_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1315,6 +1472,7 @@ versioned_schema = {
                 },
                 "tcpsyn_ack_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1337,6 +1495,7 @@ versioned_schema = {
                 },
                 "tcpfin_rst_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1359,6 +1518,7 @@ versioned_schema = {
                 },
                 "tcp_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1381,6 +1541,7 @@ versioned_schema = {
                 },
                 "udp_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1403,6 +1564,7 @@ versioned_schema = {
                 },
                 "icmp_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1425,6 +1587,7 @@ versioned_schema = {
                 },
                 "sctp_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1447,6 +1610,7 @@ versioned_schema = {
                 },
                 "esp_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1469,6 +1633,7 @@ versioned_schema = {
                 },
                 "ip_frag_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1491,6 +1656,7 @@ versioned_schema = {
                 },
                 "ip_others_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1513,6 +1679,7 @@ versioned_schema = {
                 },
                 "arp_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1535,6 +1702,7 @@ versioned_schema = {
                 },
                 "l2_others_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1557,6 +1725,7 @@ versioned_schema = {
                 },
                 "pri_type_max": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1579,6 +1748,7 @@ versioned_schema = {
                 },
                 "enable_shaper": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1602,6 +1772,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1624,6 +1795,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1649,6 +1821,7 @@ versioned_schema = {
         },
         "fp_anomaly": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1671,6 +1844,7 @@ versioned_schema = {
             "children": {
                 "tcp_syn_fin": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1694,6 +1868,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1716,6 +1891,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1738,6 +1914,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1761,6 +1938,7 @@ versioned_schema = {
                 },
                 "tcp_fin_noack": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1784,6 +1962,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1806,6 +1985,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1828,6 +2008,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1851,6 +2032,7 @@ versioned_schema = {
                 },
                 "tcp_fin_only": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1874,6 +2056,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1896,6 +2079,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1918,6 +2102,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1941,6 +2126,7 @@ versioned_schema = {
                 },
                 "tcp_no_flag": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1964,6 +2150,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -1986,6 +2173,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2008,6 +2196,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2031,6 +2220,7 @@ versioned_schema = {
                 },
                 "tcp_syn_data": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2054,6 +2244,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2076,6 +2267,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2098,6 +2290,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2121,6 +2314,7 @@ versioned_schema = {
                 },
                 "tcp_winnuke": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2144,6 +2338,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2166,6 +2361,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2188,6 +2384,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2211,6 +2408,7 @@ versioned_schema = {
                 },
                 "tcp_land": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2234,6 +2432,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2256,6 +2455,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2278,6 +2478,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2301,6 +2502,7 @@ versioned_schema = {
                 },
                 "udp_land": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2324,6 +2526,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2346,6 +2549,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2368,6 +2572,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2391,6 +2596,7 @@ versioned_schema = {
                 },
                 "icmp_land": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2414,6 +2620,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2436,6 +2643,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2458,6 +2666,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2481,6 +2690,7 @@ versioned_schema = {
                 },
                 "icmp_frag": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2504,6 +2714,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2526,6 +2737,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2548,6 +2760,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2571,6 +2784,7 @@ versioned_schema = {
                 },
                 "ipv4_land": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2594,6 +2808,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2616,6 +2831,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2638,6 +2854,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2661,6 +2878,7 @@ versioned_schema = {
                 },
                 "ipv4_proto_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2684,6 +2902,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2706,6 +2925,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2728,6 +2948,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2751,6 +2972,7 @@ versioned_schema = {
                 },
                 "ipv4_unknopt": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2774,6 +2996,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2796,6 +3019,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2818,6 +3042,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2841,6 +3066,7 @@ versioned_schema = {
                 },
                 "ipv4_optrr": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2864,6 +3090,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2886,6 +3113,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2908,6 +3136,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2931,6 +3160,7 @@ versioned_schema = {
                 },
                 "ipv4_optssrr": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -2954,6 +3184,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2976,6 +3207,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -2998,6 +3230,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3021,6 +3254,7 @@ versioned_schema = {
                 },
                 "ipv4_optlsrr": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3044,6 +3278,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3066,6 +3301,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3088,6 +3324,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3111,6 +3348,7 @@ versioned_schema = {
                 },
                 "ipv4_optstream": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3134,6 +3372,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3156,6 +3395,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3178,6 +3418,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3201,6 +3442,7 @@ versioned_schema = {
                 },
                 "ipv4_optsecurity": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3224,6 +3466,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3246,6 +3489,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3268,6 +3512,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3291,6 +3536,7 @@ versioned_schema = {
                 },
                 "ipv4_opttimestamp": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3314,6 +3560,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3336,6 +3583,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3358,6 +3606,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3381,6 +3630,7 @@ versioned_schema = {
                 },
                 "ipv4_csum_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3404,6 +3654,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3426,6 +3677,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3449,6 +3701,7 @@ versioned_schema = {
                 },
                 "tcp_csum_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3472,6 +3725,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3494,6 +3748,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3517,6 +3772,7 @@ versioned_schema = {
                 },
                 "udp_csum_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3540,6 +3796,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3562,6 +3819,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3585,6 +3843,7 @@ versioned_schema = {
                 },
                 "icmp_csum_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3608,6 +3867,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3630,6 +3890,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3653,6 +3914,7 @@ versioned_schema = {
                 },
                 "ipv6_land": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3676,6 +3938,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3698,6 +3961,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3720,6 +3984,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3743,6 +4008,7 @@ versioned_schema = {
                 },
                 "ipv6_proto_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3766,6 +4032,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3788,6 +4055,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3810,6 +4078,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3833,6 +4102,7 @@ versioned_schema = {
                 },
                 "ipv6_unknopt": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3856,6 +4126,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3878,6 +4149,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3900,6 +4172,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3923,6 +4196,7 @@ versioned_schema = {
                 },
                 "ipv6_saddr_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -3946,6 +4220,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3968,6 +4243,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -3990,6 +4266,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4013,6 +4290,7 @@ versioned_schema = {
                 },
                 "ipv6_daddr_err": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4036,6 +4314,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4058,6 +4337,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4080,6 +4360,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4103,6 +4384,7 @@ versioned_schema = {
                 },
                 "ipv6_optralert": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4126,6 +4408,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4148,6 +4431,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4170,6 +4454,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4193,6 +4478,7 @@ versioned_schema = {
                 },
                 "ipv6_optjumbo": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4216,6 +4502,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4238,6 +4525,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4260,6 +4548,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4283,6 +4572,7 @@ versioned_schema = {
                 },
                 "ipv6_opttunnel": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4306,6 +4596,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4328,6 +4619,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4350,6 +4642,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4373,6 +4666,7 @@ versioned_schema = {
                 },
                 "ipv6_opthomeaddr": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4396,6 +4690,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4418,6 +4713,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4440,6 +4736,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4463,6 +4760,7 @@ versioned_schema = {
                 },
                 "ipv6_optnsap": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4486,6 +4784,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4508,6 +4807,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4530,6 +4830,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4553,6 +4854,7 @@ versioned_schema = {
                 },
                 "ipv6_optendpid": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4576,6 +4878,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4598,6 +4901,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4620,6 +4924,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4643,6 +4948,7 @@ versioned_schema = {
                 },
                 "ipv6_optinvld": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -4666,6 +4972,7 @@ versioned_schema = {
                         {
                             "value": "allow",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4688,6 +4995,7 @@ versioned_schema = {
                         {
                             "value": "drop",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4710,6 +5018,7 @@ versioned_schema = {
                         {
                             "value": "trap-to-host",
                             "revisions": {
+                                "v7.2.4": True,
                                 "v7.2.0": True,
                                 "v7.0.5": True,
                                 "v7.0.4": True,
@@ -4733,134 +5042,9 @@ versioned_schema = {
                 },
             },
         },
-        "ipsec_outbound_hash": {
-            "revisions": {
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": False,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
-        },
-        "ipsec_ob_hash_function": {
-            "revisions": {
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": False,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-            "options": [
-                {
-                    "value": "global-hash",
-                    "revisions": {
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "round-robin-global",
-                    "revisions": {
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
-        },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,

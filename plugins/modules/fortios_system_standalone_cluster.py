@@ -94,7 +94,8 @@ options:
                         suboptions:
                             name:
                                 description:
-                                    - Interface name. Source .
+                                    - Interface name. Source system.interface.name.
+                                required: true
                                 type: str
                     hb_interval:
                         description:
@@ -118,7 +119,7 @@ options:
                     peervd:
                         description:
                             - VDOM that contains the session synchronization link interface on the peer unit. Usually both peers would have the same peervd.
-                               Source .
+                               Source system.vdom.name.
                         type: str
                     secondary_add_ipsec_routes:
                         description:
@@ -147,6 +148,7 @@ options:
                                     id:
                                         description:
                                             - Custom service ID.
+                                        required: true
                                         type: int
                                     src_port_range:
                                         description:
@@ -162,7 +164,7 @@ options:
                                 type: str
                             dstintf:
                                 description:
-                                    - Only sessions to this interface are synchronized. Source .
+                                    - Only sessions to this interface are synchronized. Source system.interface.name.
                                 type: str
                             srcaddr:
                                 description:
@@ -174,11 +176,12 @@ options:
                                 type: str
                             srcintf:
                                 description:
-                                    - Only sessions from this interface are synchronized. Source .
+                                    - Only sessions from this interface are synchronized. Source system.interface.name.
                                 type: str
                     sync_id:
                         description:
                             - Sync ID.
+                        required: true
                         type: int
                     syncvd:
                         description:
@@ -188,7 +191,8 @@ options:
                         suboptions:
                             name:
                                 description:
-                                    - VDOM name. Source .
+                                    - VDOM name. Source system.vdom.name.
+                                required: true
                                 type: str
             encryption:
                 description:
@@ -242,12 +246,12 @@ EXAMPLES = """
          -
             down_intfs_before_sess_sync:
              -
-                name: "default_name_5 (source )"
+                name: "default_name_5 (source system.interface.name)"
             hb_interval: "2"
             hb_lost_threshold: "10"
             ipsec_tunnel_sync: "enable"
             peerip: "<your_own_value>"
-            peervd: "<your_own_value> (source )"
+            peervd: "<your_own_value> (source system.vdom.name)"
             secondary_add_ipsec_routes: "enable"
             session_sync_filter:
                 custom_service:
@@ -257,14 +261,14 @@ EXAMPLES = """
                     src_port_range: "<your_own_value>"
                 dstaddr: "<your_own_value>"
                 dstaddr6: "<your_own_value>"
-                dstintf: "<your_own_value> (source )"
+                dstintf: "<your_own_value> (source system.interface.name)"
                 srcaddr: "<your_own_value>"
                 srcaddr6: "<your_own_value>"
-                srcintf: "<your_own_value> (source )"
+                srcintf: "<your_own_value> (source system.interface.name)"
             sync_id: "0"
             syncvd:
              -
-                name: "default_name_25 (source )"
+                name: "default_name_25 (source system.vdom.name)"
         encryption: "enable"
         group_member_id: "0"
         layer2_connection: "available"
@@ -463,6 +467,8 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -483,6 +489,8 @@ versioned_schema = {
     "children": {
         "standalone_group_id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -503,6 +511,8 @@ versioned_schema = {
         },
         "group_member_id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -523,6 +533,8 @@ versioned_schema = {
         },
         "layer2_connection": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -544,6 +556,8 @@ versioned_schema = {
                 {
                     "value": "available",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -564,6 +578,8 @@ versioned_schema = {
                 {
                     "value": "unavailable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -585,6 +601,8 @@ versioned_schema = {
         },
         "session_sync_dev": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -607,6 +625,8 @@ versioned_schema = {
         },
         "encryption": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -628,6 +648,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -648,6 +670,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -669,6 +693,8 @@ versioned_schema = {
         },
         "psksecret": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -692,15 +718,31 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "sync_id": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "integer",
+                    "required": True,
                 },
                 "peervd": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "peerip": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                 },
                 "syncvd": {
@@ -708,85 +750,182 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
+                            "required": True,
                         }
                     },
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
                 "down_intfs_before_sess_sync": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
+                            "required": True,
                         }
                     },
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
                 "hb_interval": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "integer",
                 },
                 "hb_lost_threshold": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "integer",
                 },
                 "ipsec_tunnel_sync": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                         {
                             "value": "disable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     ],
                 },
                 "secondary_add_ipsec_routes": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                         {
                             "value": "disable",
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     ],
                 },
                 "session_sync_filter": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                     "type": "dict",
                     "children": {
                         "srcintf": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "dstintf": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "srcaddr": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "dstaddr": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "srcaddr6": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "dstaddr6": {
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                             "type": "string",
                         },
                         "custom_service": {
@@ -794,24 +933,47 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "id": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "integer",
+                                    "required": True,
                                 },
                                 "src_port_range": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                                 "dst_port_range": {
-                                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                                    "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
+                                        "v7.2.2": True,
+                                        "v7.2.1": True,
+                                    },
                                     "type": "string",
                                 },
                             },
-                            "revisions": {"v7.2.2": True, "v7.2.1": True},
+                            "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                                "v7.2.2": True,
+                                "v7.2.1": True,
+                            },
                         },
                     },
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": False,

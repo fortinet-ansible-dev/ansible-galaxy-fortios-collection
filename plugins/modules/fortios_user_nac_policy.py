@@ -96,6 +96,7 @@ options:
                     - 'device'
                     - 'firewall-user'
                     - 'ems-tag'
+                    - 'vulnerability'
             description:
                 description:
                     - Description for the NAC policy matching pattern.
@@ -137,6 +138,17 @@ options:
                 description:
                     - NAC policy matching operating system.
                 type: str
+            severity:
+                description:
+                    - NAC policy matching devices vulnerability severity lists.
+                type: list
+                elements: dict
+                suboptions:
+                    severity_num:
+                        description:
+                            - Enter multiple severity levels, where 0 = Info, 1 = Low, ..., 4 = Critical
+                        required: true
+                        type: int
             src:
                 description:
                     - NAC policy matching source.
@@ -177,6 +189,7 @@ options:
                     name:
                         description:
                             - Managed FortiSwitch group name from available options. Source switch-controller.switch-group.name.
+                        required: true
                         type: str
             switch_mac_policy:
                 description:
@@ -195,6 +208,7 @@ options:
                     switch_id:
                         description:
                             - Managed FortiSwitch name from available options. Source switch-controller.managed-switch.switch-id.
+                        required: true
                         type: str
             type:
                 description:
@@ -238,6 +252,9 @@ EXAMPLES = """
         mac: "<your_own_value>"
         name: "default_name_12"
         os: "<your_own_value>"
+        severity:
+         -
+            severity_num: "0"
         src: "<your_own_value>"
         ssid_policy: "<your_own_value> (source wireless-controller.ssid-policy.name)"
         status: "enable"
@@ -246,7 +263,7 @@ EXAMPLES = """
         switch_fortilink: "<your_own_value> (source system.interface.name)"
         switch_group:
          -
-            name: "default_name_21 (source switch-controller.switch-group.name)"
+            name: "default_name_23 (source switch-controller.switch-group.name)"
         switch_mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
         switch_port_policy: "<your_own_value> (source switch-controller.port-policy.name)"
         switch_scope:
@@ -357,6 +374,7 @@ def filter_user_nac_policy_data(json):
         "mac",
         "name",
         "os",
+        "severity",
         "src",
         "ssid_policy",
         "status",
@@ -507,6 +525,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -524,9 +544,12 @@ versioned_schema = {
                 "v6.4.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "description": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -547,6 +570,8 @@ versioned_schema = {
         },
         "category": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -568,6 +593,8 @@ versioned_schema = {
                 {
                     "value": "device",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -588,6 +615,8 @@ versioned_schema = {
                 {
                     "value": "firewall-user",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -608,6 +637,8 @@ versioned_schema = {
                 {
                     "value": "ems-tag",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -625,10 +656,34 @@ versioned_schema = {
                         "v6.4.0": True,
                     },
                 },
+                {
+                    "value": "vulnerability",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                    },
+                },
             ],
         },
         "status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -650,6 +705,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -670,6 +727,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -691,6 +750,8 @@ versioned_schema = {
         },
         "mac": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -711,6 +772,8 @@ versioned_schema = {
         },
         "hw_vendor": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -731,6 +794,8 @@ versioned_schema = {
         },
         "type": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -751,6 +816,8 @@ versioned_schema = {
         },
         "family": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -771,6 +838,8 @@ versioned_schema = {
         },
         "os": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -791,6 +860,8 @@ versioned_schema = {
         },
         "hw_version": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -811,6 +882,8 @@ versioned_schema = {
         },
         "sw_version": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -831,6 +904,8 @@ versioned_schema = {
         },
         "host": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -851,6 +926,8 @@ versioned_schema = {
         },
         "user": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -871,6 +948,8 @@ versioned_schema = {
         },
         "src": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -891,6 +970,8 @@ versioned_schema = {
         },
         "user_group": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -911,6 +992,8 @@ versioned_schema = {
         },
         "ems_tag": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -929,8 +1012,40 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "severity": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "severity_num": {
+                    "revisions": {"v7.4.0": True},
+                    "type": "integer",
+                    "required": True,
+                }
+            },
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+            },
+        },
         "switch_fortilink": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -955,6 +1070,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -967,9 +1084,12 @@ versioned_schema = {
                         "v7.0.2": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -989,6 +1109,8 @@ versioned_schema = {
         },
         "switch_mac_policy": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1009,6 +1131,8 @@ versioned_schema = {
         },
         "firewall_address": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1029,6 +1153,8 @@ versioned_schema = {
         },
         "ssid_policy": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1060,6 +1186,7 @@ versioned_schema = {
                         "v6.4.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1094,6 +1221,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

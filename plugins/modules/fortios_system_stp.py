@@ -311,6 +311,7 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.2.4": True,
         "v7.0.5": True,
         "v7.0.4": True,
         "v7.0.3": True,
@@ -331,6 +332,7 @@ versioned_schema = {
     "children": {
         "switch_priority": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -352,6 +354,7 @@ versioned_schema = {
                 {
                     "value": "0",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -372,6 +375,7 @@ versioned_schema = {
                 {
                     "value": "4096",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -392,6 +396,7 @@ versioned_schema = {
                 {
                     "value": "8192",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -412,6 +417,7 @@ versioned_schema = {
                 {
                     "value": "12288",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -432,6 +438,7 @@ versioned_schema = {
                 {
                     "value": "16384",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -452,6 +459,7 @@ versioned_schema = {
                 {
                     "value": "20480",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -472,6 +480,7 @@ versioned_schema = {
                 {
                     "value": "24576",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -492,6 +501,7 @@ versioned_schema = {
                 {
                     "value": "28672",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -512,6 +522,7 @@ versioned_schema = {
                 {
                     "value": "32768",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -532,6 +543,7 @@ versioned_schema = {
                 {
                     "value": "36864",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -552,6 +564,7 @@ versioned_schema = {
                 {
                     "value": "40960",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -572,6 +585,7 @@ versioned_schema = {
                 {
                     "value": "45056",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -592,6 +606,7 @@ versioned_schema = {
                 {
                     "value": "49152",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -612,6 +627,7 @@ versioned_schema = {
                 {
                     "value": "53248",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -632,6 +648,7 @@ versioned_schema = {
                 {
                     "value": "57344",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -653,6 +670,7 @@ versioned_schema = {
         },
         "hello_time": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -673,6 +691,7 @@ versioned_schema = {
         },
         "forward_delay": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -693,6 +712,7 @@ versioned_schema = {
         },
         "max_age": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -713,6 +733,7 @@ versioned_schema = {
         },
         "max_hops": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,

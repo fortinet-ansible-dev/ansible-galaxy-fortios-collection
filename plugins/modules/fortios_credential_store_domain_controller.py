@@ -115,6 +115,7 @@ options:
             server_name:
                 description:
                     - Name of the domain controller.
+                required: true
                 type: str
             username:
                 description:
@@ -399,6 +400,7 @@ versioned_schema = {
         "server_name": {
             "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
             "type": "string",
+            "required": True,
         },
         "hostname": {
             "revisions": {"v6.4.4": True, "v6.4.1": False, "v6.4.0": True},

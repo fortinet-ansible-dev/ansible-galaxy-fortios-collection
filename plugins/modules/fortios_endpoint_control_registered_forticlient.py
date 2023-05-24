@@ -388,6 +388,7 @@ versioned_schema = {
         "uid": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
+            "required": True,
         },
         "vdom": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

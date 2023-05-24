@@ -99,6 +99,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            default_action:
+                description:
+                    - Video filter default action.
+                type: str
+                choices:
+                    - 'allow'
+                    - 'monitor'
+                    - 'block'
             fortiguard_category:
                 description:
                     - Configure FortiGuard categories.
@@ -126,6 +134,7 @@ options:
                             id:
                                 description:
                                     - ID.
+                                required: true
                                 type: int
                             log:
                                 description:
@@ -134,6 +143,13 @@ options:
                                 choices:
                                     - 'enable'
                                     - 'disable'
+            log:
+                description:
+                    - Enable/disable logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             name:
                 description:
                     - Name.
@@ -194,14 +210,16 @@ EXAMPLES = """
       videofilter_profile:
         comment: "Comment."
         dailymotion: "enable"
+        default_action: "allow"
         fortiguard_category:
             filters:
              -
                 action: "allow"
                 category_id: "0"
-                id:  "9"
+                id:  "10"
                 log: "enable"
-        name: "default_name_11"
+        log: "enable"
+        name: "default_name_13"
         replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
         vimeo: "enable"
         vimeo_restrict: "<your_own_value>"
@@ -295,7 +313,9 @@ def filter_videofilter_profile_data(json):
     option_list = [
         "comment",
         "dailymotion",
+        "default_action",
         "fortiguard_category",
+        "log",
         "name",
         "replacemsg_group",
         "vimeo",
@@ -384,6 +404,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -398,9 +420,12 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -416,8 +441,57 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "default_action": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.4.0": True}},
+                {"value": "monitor", "revisions": {"v7.4.0": True}},
+                {"value": "block", "revisions": {"v7.4.0": True}},
+            ],
+        },
+        "log": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "youtube_channel_filter": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -435,6 +509,8 @@ versioned_schema = {
         },
         "fortiguard_category": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -456,6 +532,8 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -470,9 +548,12 @@ versioned_schema = {
                                 "v7.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "action": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -491,6 +572,8 @@ versioned_schema = {
                                 {
                                     "value": "allow",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -508,6 +591,8 @@ versioned_schema = {
                                 {
                                     "value": "monitor",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -525,6 +610,8 @@ versioned_schema = {
                                 {
                                     "value": "block",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -544,6 +631,8 @@ versioned_schema = {
                         },
                         "category_id": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -561,6 +650,8 @@ versioned_schema = {
                         },
                         "log": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -579,6 +670,8 @@ versioned_schema = {
                                 {
                                     "value": "enable",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -596,6 +689,8 @@ versioned_schema = {
                                 {
                                     "value": "disable",
                                     "revisions": {
+                                        "v7.4.0": True,
+                                        "v7.2.4": True,
                                         "v7.2.2": True,
                                         "v7.2.1": True,
                                         "v7.2.0": True,
@@ -614,6 +709,8 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -632,6 +729,8 @@ versioned_schema = {
         },
         "youtube": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -650,6 +749,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -667,6 +768,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -685,6 +788,8 @@ versioned_schema = {
         },
         "vimeo": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -703,6 +808,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -720,6 +827,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -738,6 +847,8 @@ versioned_schema = {
         },
         "dailymotion": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -756,6 +867,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -773,6 +886,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -791,6 +906,8 @@ versioned_schema = {
         },
         "replacemsg_group": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -818,6 +935,8 @@ versioned_schema = {
         "vimeo_restrict": {"revisions": {"v7.0.0": True}, "type": "string"},
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

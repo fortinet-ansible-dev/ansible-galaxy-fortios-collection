@@ -107,7 +107,7 @@ options:
                 type: str
             modeswitch_string:
                 description:
-                    - 'USB modeswitch arguments. e.g: "-v 1410 -p 9030 -V 1410 -P 9032 -u 3"'
+                    - 'USB modeswitch arguments. For example: "-v 1410 -p 9030 -V 1410 -P 9032 -u 3".'
                 type: str
             product_id:
                 description:
@@ -386,6 +386,7 @@ versioned_schema = {
     "children": {
         "id": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -405,9 +406,11 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "vendor": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -430,6 +433,7 @@ versioned_schema = {
         },
         "model": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -452,6 +456,7 @@ versioned_schema = {
         },
         "vendor_id": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -474,6 +479,7 @@ versioned_schema = {
         },
         "product_id": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -496,6 +502,7 @@ versioned_schema = {
         },
         "class_id": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -518,6 +525,7 @@ versioned_schema = {
         },
         "init_string": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -540,6 +548,7 @@ versioned_schema = {
         },
         "modeswitch_string": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -562,6 +571,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,

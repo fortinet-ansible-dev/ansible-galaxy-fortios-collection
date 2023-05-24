@@ -328,6 +328,8 @@ def fortios_firewall_ssl(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -355,6 +357,8 @@ versioned_schema = {
     "children": {
         "proxy_connect_timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -382,6 +386,8 @@ versioned_schema = {
         },
         "ssl_dh_bits": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -410,6 +416,8 @@ versioned_schema = {
                 {
                     "value": "768",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -437,6 +445,8 @@ versioned_schema = {
                 {
                     "value": "1024",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -464,6 +474,8 @@ versioned_schema = {
                 {
                     "value": "1536",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -491,6 +503,8 @@ versioned_schema = {
                 {
                     "value": "2048",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -519,6 +533,8 @@ versioned_schema = {
         },
         "ssl_send_empty_frags": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -547,6 +563,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -574,6 +592,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -602,6 +622,8 @@ versioned_schema = {
         },
         "no_matching_cipher_action": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -630,6 +652,8 @@ versioned_schema = {
                 {
                     "value": "bypass",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -657,6 +681,8 @@ versioned_schema = {
                 {
                     "value": "drop",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -685,6 +711,8 @@ versioned_schema = {
         },
         "cert_cache_capacity": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -712,6 +740,8 @@ versioned_schema = {
         },
         "cert_cache_timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -739,6 +769,8 @@ versioned_schema = {
         },
         "session_cache_capacity": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -766,6 +798,8 @@ versioned_schema = {
         },
         "session_cache_timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -793,6 +827,8 @@ versioned_schema = {
         },
         "abbreviate_handshake": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -821,6 +857,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -848,6 +886,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -876,6 +916,9 @@ versioned_schema = {
         },
         "kxp_queue_threshold": {
             "revisions": {
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
                 "v7.2.0": True,
                 "v7.0.8": False,
                 "v7.0.7": False,
@@ -901,6 +944,9 @@ versioned_schema = {
         },
         "ssl_queue_threshold": {
             "revisions": {
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
                 "v7.2.0": True,
                 "v7.0.8": False,
                 "v7.0.7": False,

@@ -120,6 +120,7 @@ options:
                     id:
                         description:
                             - Entry ID.
+                        required: true
                         type: int
                     ip4_subnet:
                         description:
@@ -428,6 +429,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {
@@ -506,6 +508,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "type": {
                     "revisions": {

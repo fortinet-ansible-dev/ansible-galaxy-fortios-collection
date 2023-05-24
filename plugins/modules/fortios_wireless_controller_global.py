@@ -80,6 +80,10 @@ options:
         default: null
         type: dict
         suboptions:
+            acd_process_count:
+                description:
+                    - Configure the number cw_acd daemons for multi-core CPU support .
+                type: int
             ap_log_server:
                 description:
                     - Enable/disable configuring FortiGate to redirect wireless event log messages or FortiAPs to send UTM log messages to a syslog server .
@@ -113,6 +117,13 @@ options:
             data_ethernet_II:
                 description:
                     - Configure the wireless controller to use Ethernet II or 802.3 frames with 802.3 data tunnel mode .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            dfs_lab_test:
+                description:
+                    - Enable/disable DFS certificate lab test mode.
                 type: str
                 choices:
                     - 'enable'
@@ -178,6 +189,10 @@ options:
                 choices:
                     - 'compatible'
                     - 'strict'
+            wpad_process_count:
+                description:
+                    - Wpad daemon process count for multi-core CPU support.
+                type: int
             wtp_share:
                 description:
                     - Enable/disable sharing of WTPs between VDOMs.
@@ -202,11 +217,13 @@ EXAMPLES = """
     fortios_wireless_controller_global:
       vdom:  "{{ vdom }}"
       wireless_controller_global:
+        acd_process_count: "0"
         ap_log_server: "enable"
         ap_log_server_ip: "<your_own_value>"
         ap_log_server_port: "0"
         control_message_offload: "ebp-frame"
         data_ethernet_II: "enable"
+        dfs_lab_test: "enable"
         discovery_mc_addr: "<your_own_value>"
         fiapp_eth_type: "5252"
         image_download: "enable"
@@ -217,9 +234,10 @@ EXAMPLES = """
         max_retransmit: "3"
         mesh_eth_type: "8755"
         nac_interval: "120"
-        name: "default_name_18"
+        name: "default_name_20"
         rogue_scan_mac_adjacency: "7"
         tunnel_mode: "compatible"
+        wpad_process_count: "0"
         wtp_share: "enable"
 
 """
@@ -306,11 +324,13 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_wireless_controller_global_data(json):
     option_list = [
+        "acd_process_count",
         "ap_log_server",
         "ap_log_server_ip",
         "ap_log_server_port",
         "control_message_offload",
         "data_ethernet_II",
+        "dfs_lab_test",
         "discovery_mc_addr",
         "fiapp_eth_type",
         "image_download",
@@ -324,6 +344,7 @@ def filter_wireless_controller_global_data(json):
         "name",
         "rogue_scan_mac_adjacency",
         "tunnel_mode",
+        "wpad_process_count",
         "wtp_share",
     ]
 
@@ -425,6 +446,8 @@ def fortios_wireless_controller(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -452,6 +475,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -479,6 +504,8 @@ versioned_schema = {
         },
         "location": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -504,8 +531,68 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "acd_process_count": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
+        "wpad_process_count": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
         "image_download": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -534,6 +621,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -561,6 +650,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -589,6 +680,8 @@ versioned_schema = {
         },
         "max_retransmit": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -616,6 +709,8 @@ versioned_schema = {
         },
         "control_message_offload": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -644,6 +739,8 @@ versioned_schema = {
                 {
                     "value": "ebp-frame",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -671,6 +768,8 @@ versioned_schema = {
                 {
                     "value": "aeroscout-tag",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -698,6 +797,8 @@ versioned_schema = {
                 {
                     "value": "ap-list",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -725,6 +826,8 @@ versioned_schema = {
                 {
                     "value": "sta-list",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -752,6 +855,8 @@ versioned_schema = {
                 {
                     "value": "sta-cap-list",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -779,6 +884,8 @@ versioned_schema = {
                 {
                     "value": "stats",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -806,6 +913,8 @@ versioned_schema = {
                 {
                     "value": "aeroscout-mu",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -833,6 +942,8 @@ versioned_schema = {
                 {
                     "value": "sta-health",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -860,6 +971,8 @@ versioned_schema = {
                 {
                     "value": "spectral-analysis",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -890,6 +1003,8 @@ versioned_schema = {
         },
         "data_ethernet_II": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -918,6 +1033,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -945,6 +1062,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -973,6 +1092,8 @@ versioned_schema = {
         },
         "link_aggregation": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1001,6 +1122,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1028,6 +1151,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1056,6 +1181,8 @@ versioned_schema = {
         },
         "mesh_eth_type": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1083,6 +1210,8 @@ versioned_schema = {
         },
         "fiapp_eth_type": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1110,6 +1239,8 @@ versioned_schema = {
         },
         "discovery_mc_addr": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1137,6 +1268,8 @@ versioned_schema = {
         },
         "max_clients": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1164,6 +1297,8 @@ versioned_schema = {
         },
         "rogue_scan_mac_adjacency": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1191,6 +1326,8 @@ versioned_schema = {
         },
         "ipsec_base_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1218,6 +1355,8 @@ versioned_schema = {
         },
         "wtp_share": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1246,6 +1385,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1273,6 +1414,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1301,6 +1444,8 @@ versioned_schema = {
         },
         "tunnel_mode": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1329,6 +1474,8 @@ versioned_schema = {
                 {
                     "value": "compatible",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1345,6 +1492,8 @@ versioned_schema = {
                 {
                     "value": "strict",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1362,6 +1511,8 @@ versioned_schema = {
         },
         "nac_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1389,6 +1540,8 @@ versioned_schema = {
         },
         "ap_log_server": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1417,6 +1570,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1444,6 +1599,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1472,6 +1629,8 @@ versioned_schema = {
         },
         "ap_log_server_ip": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1499,6 +1658,8 @@ versioned_schema = {
         },
         "ap_log_server_port": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -1523,6 +1684,39 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "integer",
+        },
+        "dfs_lab_test": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+            ],
         },
     },
 }

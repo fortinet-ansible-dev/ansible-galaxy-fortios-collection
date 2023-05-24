@@ -112,6 +112,7 @@ options:
             msg_type:
                 description:
                     - Message type.
+                required: true
                 type: str
 """
 
@@ -366,6 +367,7 @@ versioned_schema = {
         "msg_type": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
+            "required": True,
         },
         "buffer": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

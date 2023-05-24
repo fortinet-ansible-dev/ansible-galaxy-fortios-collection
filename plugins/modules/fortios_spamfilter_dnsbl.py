@@ -108,6 +108,7 @@ options:
                     id:
                         description:
                             - DNSBL/ORBL entry ID.
+                        required: true
                         type: int
                     server:
                         description:
@@ -385,6 +386,7 @@ versioned_schema = {
         "id": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "integer",
+            "required": True,
         },
         "name": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -423,6 +425,7 @@ versioned_schema = {
                 "id": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
+                    "required": True,
                 },
                 "server": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

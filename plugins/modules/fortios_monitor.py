@@ -269,6 +269,22 @@ options:
          - 'soft-reset-neighbor.router.bgp'
          - 'download-eval.system.vmlicense'
          - 'dynamic.system.external-resource'
+         - 'pse-config.switch-controller.recommendation'
+         - 'update.switch-controller.isl-lockdown'
+         - 'clear-counters.firewall.ztna-firewall-policy'
+         - 'update.forticonverter.eligibility'
+         - 'create.forticonverter.ticket'
+         - 'update.forticonverter.sn-list'
+         - 'upload.forticonverter.config'
+         - 'update.forticonverter.intf-list'
+         - 'forticonverter.set-source-sn'
+         - 'submit.forticonverter.intf-mapping'
+         - 'submit.forticonverter.mgmt-intf'
+         - 'submit.forticonverter.notes'
+         - 'submit.forticonverter.ticket'
+         - 'update.forticonverter.submitted-info'
+         - 'start.forticonverter.download'
+         - 'trial.user.fortitoken-cloud'
 
     params:
         description:
@@ -670,14 +686,14 @@ module_selectors_defs = {
     "push.switch-controller.fsw-firmware": {
         "url": "switch-controller/fsw-firmware/push",
         "params": {
-            "serial": {"type": "string", "required": "True"},
+            "switch_id": {"type": "string", "required": "True"},
             "image_id": {"type": "string", "required": "True"},
         },
     },
     "upload.switch-controller.fsw-firmware": {
         "url": "switch-controller/fsw-firmware/upload",
         "params": {
-            "serials": {"type": "string", "required": "False"},
+            "switch_ids": {"type": "string", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
         },
     },
@@ -747,7 +763,6 @@ module_selectors_defs = {
             "password": {"type": "string", "required": "False"},
             "scope": {"type": "string", "required": "True"},
             "vdom": {"type": "string", "required": "False"},
-            "file_format": {"type": "string", "required": "False"},
             "confirm_password_mask": {"type": "boolean", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
         },
@@ -1080,7 +1095,6 @@ module_selectors_defs = {
     "create.web-ui.custom-language": {
         "url": "web-ui/custom-language/create",
         "params": {
-            "filename": {"type": "string", "required": "True"},
             "lang_name": {"type": "string", "required": "True"},
             "lang_comments": {"type": "string", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
@@ -1091,7 +1105,6 @@ module_selectors_defs = {
         "params": {
             "mkey": {"type": "string", "required": "True"},
             "lang_name": {"type": "string", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
             "lang_comments": {"type": "string", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
         },
@@ -1138,6 +1151,7 @@ module_selectors_defs = {
         "url": "endpoint-control/ems/verify-cert",
         "params": {
             "ems_id": {"type": "int", "required": "True"},
+            "scope": {"type": "string", "required": "False"},
             "fingerprint": {"type": "string", "required": "True"},
         },
     },
@@ -1267,7 +1281,6 @@ module_selectors_defs = {
             "mpsk_profile": {"type": "string", "required": "True"},
             "group": {"type": "string", "required": "True"},
             "prefix": {"type": "string", "required": "True"},
-            "count": {"type": "int", "required": "True"},
             "key_length": {"type": "int", "required": "True"},
         },
     },
@@ -1337,7 +1350,10 @@ module_selectors_defs = {
     "reset.firewall.dnat": {"url": "firewall/dnat/reset", "params": {}},
     "clear-counters.firewall.dnat": {
         "url": "firewall/dnat/clear-counters",
-        "params": {"id": {"type": "int", "required": "False"}},
+        "params": {
+            "id": {"type": "int", "required": "False"},
+            "is_ipv6": {"type": "boolean", "required": "False"},
+        },
     },
     "close-multiple.firewall.session": {
         "url": "firewall/session/close-multiple",
@@ -1526,6 +1542,91 @@ module_selectors_defs = {
         "url": "system/external-resource/dynamic",
         "params": {"commands": {"type": "array", "required": "True"}},
     },
+    "pse-config.switch-controller.recommendation": {
+        "url": "switch-controller/recommendation/pse-config",
+        "params": {"fortilink": {"type": "string", "required": "True"}},
+    },
+    "update.switch-controller.isl-lockdown": {
+        "url": "switch-controller/isl-lockdown/update",
+        "params": {
+            "fortilink": {"type": "string", "required": "True"},
+            "status": {"type": "string", "required": "True"},
+        },
+    },
+    "clear-counters.firewall.ztna-firewall-policy": {
+        "url": "firewall/ztna-firewall-policy/clear-counters",
+        "params": {"policy": {"type": "int", "required": "False"}},
+    },
+    "update.forticonverter.eligibility": {
+        "url": "forticonverter/eligibility/update",
+        "params": {},
+    },
+    "create.forticonverter.ticket": {
+        "url": "forticonverter/ticket/create",
+        "params": {},
+    },
+    "update.forticonverter.sn-list": {
+        "url": "forticonverter/sn-list/update",
+        "params": {},
+    },
+    "upload.forticonverter.config": {
+        "url": "forticonverter/config/upload",
+        "params": {
+            "ticket_id": {"type": "string", "required": "True"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "update.forticonverter.intf-list": {
+        "url": "forticonverter/intf-list/update",
+        "params": {},
+    },
+    "forticonverter.set-source-sn": {
+        "url": "forticonverter/set-source-sn/select",
+        "params": {
+            "source_sn": {"type": "string", "required": "True"},
+            "ticket_id": {"type": "string", "required": "True"},
+        },
+    },
+    "submit.forticonverter.intf-mapping": {
+        "url": "forticonverter/intf-mapping/submit",
+        "params": {
+            "intf_mapping": {"type": "object", "required": "True"},
+            "ticket_id": {"type": "string", "required": "True"},
+        },
+    },
+    "submit.forticonverter.mgmt-intf": {
+        "url": "forticonverter/mgmt-intf/submit",
+        "params": {
+            "intf_details": {"type": "object", "required": "True"},
+            "ticket_id": {"type": "string", "required": "True"},
+        },
+    },
+    "submit.forticonverter.notes": {
+        "url": "forticonverter/notes/submit",
+        "params": {
+            "ticket_id": {"type": "string", "required": "True"},
+            "contact_name": {"type": "string", "required": "True"},
+            "contact_email": {"type": "string", "required": "True"},
+            "contact_phone": {"type": "string", "required": "True"},
+            "notes": {"type": "string", "required": "False"},
+        },
+    },
+    "submit.forticonverter.ticket": {
+        "url": "forticonverter/ticket/submit",
+        "params": {"ticket_id": {"type": "string", "required": "True"}},
+    },
+    "update.forticonverter.submitted-info": {
+        "url": "forticonverter/submitted-info/update",
+        "params": {},
+    },
+    "start.forticonverter.download": {
+        "url": "forticonverter/download/start",
+        "params": {
+            "ticket_id": {"type": "string", "required": "True"},
+            "extension": {"type": "string", "required": "True"},
+        },
+    },
+    "trial.user.fortitoken-cloud": {"url": "user/fortitoken-cloud/trial", "params": {}},
 }
 
 
@@ -1813,6 +1914,22 @@ def main():
                 "soft-reset-neighbor.router.bgp",
                 "download-eval.system.vmlicense",
                 "dynamic.system.external-resource",
+                "pse-config.switch-controller.recommendation",
+                "update.switch-controller.isl-lockdown",
+                "clear-counters.firewall.ztna-firewall-policy",
+                "update.forticonverter.eligibility",
+                "create.forticonverter.ticket",
+                "update.forticonverter.sn-list",
+                "upload.forticonverter.config",
+                "update.forticonverter.intf-list",
+                "forticonverter.set-source-sn",
+                "submit.forticonverter.intf-mapping",
+                "submit.forticonverter.mgmt-intf",
+                "submit.forticonverter.notes",
+                "submit.forticonverter.ticket",
+                "update.forticonverter.submitted-info",
+                "start.forticonverter.download",
+                "trial.user.fortitoken-cloud",
             ],
         },
     }

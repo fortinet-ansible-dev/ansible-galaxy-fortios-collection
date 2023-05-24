@@ -115,6 +115,7 @@ options:
                     id:
                         description:
                             - Entry ID.
+                        required: true
                         type: int
             name:
                 description:
@@ -377,6 +378,7 @@ versioned_schema = {
         "name": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
+            "required": True,
         },
         "default_action": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -399,6 +401,7 @@ versioned_schema = {
                 "id": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "integer",
+                    "required": True,
                 },
                 "device": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

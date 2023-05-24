@@ -97,6 +97,7 @@ options:
                     id:
                         description:
                             - Address ID. Source wireless-controller.address.id.
+                        required: true
                         type: str
             default_policy:
                 description:
@@ -383,6 +384,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "default_policy": {
             "revisions": {
@@ -473,6 +475,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

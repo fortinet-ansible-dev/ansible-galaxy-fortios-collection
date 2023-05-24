@@ -155,6 +155,7 @@ options:
             msg_type:
                 description:
                     - Message type.
+                required: true
                 type: str
             priority:
                 description:
@@ -498,6 +499,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "from_sender": {
             "revisions": {

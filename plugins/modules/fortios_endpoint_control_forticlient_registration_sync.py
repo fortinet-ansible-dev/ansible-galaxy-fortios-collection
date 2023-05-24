@@ -95,6 +95,7 @@ options:
             peer_name:
                 description:
                     - Peer name.
+                required: true
                 type: str
 """
 
@@ -369,6 +370,7 @@ versioned_schema = {
         "peer_name": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
             "type": "string",
+            "required": True,
         },
         "peer_ip": {
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

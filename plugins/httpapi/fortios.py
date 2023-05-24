@@ -36,7 +36,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.2.3'
+        self._ansible_galaxy_version = '2.3.0'
         self._log = None
         self._logged_in = False
         self._session_key = ''
@@ -90,7 +90,7 @@ class HttpApi(HttpApiBase):
         self.log('login with username and password, try API based auth first')
         auth_payload = {
             "username": username,
-            "secretkey": password,
+            "secretkey": str(password),
             "ack_post_disclaimer": True,
             "ack_pre_disclaimer": True,
             "request_key": True

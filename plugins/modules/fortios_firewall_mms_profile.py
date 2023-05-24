@@ -189,6 +189,7 @@ options:
                     protocol:
                         description:
                             - Protocol.
+                        required: true
                         type: str
                     status1:
                         description:
@@ -293,6 +294,7 @@ options:
                     protocol:
                         description:
                             - Protocol.
+                        required: true
                         type: str
                     status1:
                         description:
@@ -585,6 +587,7 @@ options:
                     msisdn:
                         description:
                             - Recipient MSISDN.
+                        required: true
                         type: str
                     threshold:
                         description:
@@ -800,6 +803,7 @@ options:
                     protocol:
                         description:
                             - Protocol.
+                        required: true
                         type: str
                     rate_limit:
                         description:
@@ -1297,6 +1301,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "comment": {
             "revisions": {
@@ -2927,6 +2932,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "msg_protocol": {
                     "revisions": {
@@ -4090,6 +4096,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "threshold": {
                     "revisions": {
@@ -4205,6 +4212,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "status1": {
                     "revisions": {
@@ -4682,6 +4690,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "status1": {
                     "revisions": {

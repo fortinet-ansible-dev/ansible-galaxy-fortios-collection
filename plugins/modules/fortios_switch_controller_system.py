@@ -80,6 +80,14 @@ options:
         default: null
         type: dict
         suboptions:
+            caputp_echo_interval:
+                description:
+                    - Echo interval for the caputp echo requests from swtp.
+                type: int
+            caputp_max_retransmit:
+                description:
+                    - Maximum retransmission count for the caputp tunnel packets.
+                type: int
             data_sync_interval:
                 description:
                     - Time interval between collection of switch data (30 - 1800 sec).
@@ -143,13 +151,15 @@ EXAMPLES = """
     fortios_switch_controller_system:
       vdom:  "{{ vdom }}"
       switch_controller_system:
+        caputp_echo_interval: "30"
+        caputp_max_retransmit: "5"
         data_sync_interval: "60"
-        dynamic_periodic_interval: "15"
+        dynamic_periodic_interval: "60"
         iot_holdoff: "5"
         iot_mac_idle: "1440"
         iot_scan_interval: "60"
         iot_weight_threshold: "1"
-        nac_periodic_interval: "15"
+        nac_periodic_interval: "60"
         parallel_process: "1"
         parallel_process_override: "disable"
         tunnel_mode: "compatible"
@@ -238,6 +248,8 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_switch_controller_system_data(json):
     option_list = [
+        "caputp_echo_interval",
+        "caputp_max_retransmit",
         "data_sync_interval",
         "dynamic_periodic_interval",
         "iot_holdoff",
@@ -316,6 +328,8 @@ def fortios_switch_controller(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -343,6 +357,8 @@ versioned_schema = {
     "children": {
         "parallel_process_override": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -371,6 +387,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -398,6 +416,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -426,6 +446,8 @@ versioned_schema = {
         },
         "parallel_process": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -453,6 +475,8 @@ versioned_schema = {
         },
         "data_sync_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -480,6 +504,8 @@ versioned_schema = {
         },
         "iot_weight_threshold": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -507,6 +533,8 @@ versioned_schema = {
         },
         "iot_scan_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -534,6 +562,8 @@ versioned_schema = {
         },
         "iot_holdoff": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -561,6 +591,8 @@ versioned_schema = {
         },
         "iot_mac_idle": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -588,6 +620,8 @@ versioned_schema = {
         },
         "nac_periodic_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -615,6 +649,8 @@ versioned_schema = {
         },
         "dynamic_periodic_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -642,6 +678,8 @@ versioned_schema = {
         },
         "tunnel_mode": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -670,6 +708,8 @@ versioned_schema = {
                 {
                     "value": "compatible",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -687,6 +727,8 @@ versioned_schema = {
                 {
                     "value": "strict",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -702,6 +744,64 @@ versioned_schema = {
                     },
                 },
             ],
+        },
+        "caputp_echo_interval": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
+        "caputp_max_retransmit": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
         },
     },
 }

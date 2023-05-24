@@ -96,6 +96,24 @@ options:
                 description:
                     - Comment.
                 type: str
+            exclude:
+                description:
+                    - Enable/disable address6 exclusion.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            exclude_member:
+                description:
+                    - Address6 exclusion member.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Address6 name. Source firewall.address6.name firewall.addrgrp6.name.
+                        required: true
+                        type: str
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -112,6 +130,7 @@ options:
                     name:
                         description:
                             - Address6/addrgrp6 name. Source firewall.address6.name firewall.addrgrp6.name.
+                        required: true
                         type: str
             name:
                 description:
@@ -131,6 +150,7 @@ options:
                     name:
                         description:
                             - Tagging entry name.
+                        required: true
                         type: str
                     tags:
                         description:
@@ -141,6 +161,7 @@ options:
                             name:
                                 description:
                                     - Tag name. Source system.object-tagging.tags.name.
+                                required: true
                                 type: str
             uuid:
                 description:
@@ -174,18 +195,22 @@ EXAMPLES = """
       firewall_addrgrp6:
         color: "0"
         comment: "Comment."
+        exclude: "enable"
+        exclude_member:
+         -
+            name: "default_name_7 (source firewall.address6.name firewall.addrgrp6.name)"
         fabric_object: "enable"
         member:
          -
-            name: "default_name_7 (source firewall.address6.name firewall.addrgrp6.name)"
-        name: "default_name_8"
+            name: "default_name_10 (source firewall.address6.name firewall.addrgrp6.name)"
+        name: "default_name_11"
         tagging:
          -
             category: "<your_own_value> (source system.object-tagging.category)"
-            name: "default_name_11"
+            name: "default_name_14"
             tags:
              -
-                name: "default_name_13 (source system.object-tagging.tags.name)"
+                name: "default_name_16 (source system.object-tagging.tags.name)"
         uuid: "<your_own_value>"
         visibility: "enable"
 
@@ -281,6 +306,8 @@ def filter_firewall_addrgrp6_data(json):
     option_list = [
         "color",
         "comment",
+        "exclude",
+        "exclude_member",
         "fabric_object",
         "member",
         "name",
@@ -424,6 +451,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -448,9 +477,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "uuid": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -478,6 +510,8 @@ versioned_schema = {
         },
         "color": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -505,6 +539,8 @@ versioned_schema = {
         },
         "comment": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -536,6 +572,8 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -560,9 +598,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -587,12 +628,84 @@ versioned_schema = {
                 "v6.0.0": True,
             },
         },
+        "exclude": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
+        "exclude_member": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "revisions": {"v7.4.0": True},
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+        },
         "tagging": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -617,9 +730,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "category": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -651,6 +767,8 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -675,9 +793,12 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -704,6 +825,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -730,6 +853,8 @@ versioned_schema = {
         },
         "fabric_object": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -758,6 +883,8 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -776,6 +903,8 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -833,6 +962,8 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,

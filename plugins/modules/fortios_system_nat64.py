@@ -114,6 +114,7 @@ options:
                     name:
                         description:
                             - NAT64 prefix name.
+                        required: true
                         type: str
                     nat64_prefix:
                         description:
@@ -465,6 +466,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "nat64_prefix": {
                     "revisions": {

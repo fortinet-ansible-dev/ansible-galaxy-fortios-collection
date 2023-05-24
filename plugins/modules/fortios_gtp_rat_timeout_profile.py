@@ -340,6 +340,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -348,9 +349,11 @@ versioned_schema = {
                 "v7.0.1": True,
             },
             "type": "string",
+            "required": True,
         },
         "utran_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -362,6 +365,7 @@ versioned_schema = {
         },
         "geran_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -373,6 +377,7 @@ versioned_schema = {
         },
         "wlan_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -384,6 +389,7 @@ versioned_schema = {
         },
         "gan_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -395,6 +401,7 @@ versioned_schema = {
         },
         "hspa_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -406,6 +413,7 @@ versioned_schema = {
         },
         "eutran_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -417,6 +425,7 @@ versioned_schema = {
         },
         "virtual_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -428,6 +437,7 @@ versioned_schema = {
         },
         "nbiot_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -439,6 +449,7 @@ versioned_schema = {
         },
         "ltem_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -450,6 +461,7 @@ versioned_schema = {
         },
         "nr_timeout": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -461,6 +473,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,

@@ -255,19 +255,45 @@ def fortios_firewall(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.2.2": True, "v7.2.1": True},
+    "revisions": {"v7.4.0": True, "v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
     "type": "dict",
     "children": {
         "banned_ip_persistency": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+            },
             "type": "string",
             "options": [
-                {"value": "disabled", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "disabled",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
                 {
                     "value": "permanent-only",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
                 },
-                {"value": "all", "revisions": {"v7.2.2": True, "v7.2.1": True}},
+                {
+                    "value": "all",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                    },
+                },
             ],
         }
     },

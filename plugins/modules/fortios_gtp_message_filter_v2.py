@@ -88,6 +88,13 @@ options:
         default: null
         type: dict
         suboptions:
+            alert_mme_notif_ack:
+                description:
+                    - Alert MME notification/acknowledge (notif 153, ack 154).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
             bearer_resource_cmd_fail:
                 description:
                     - Bearer resource (command 68, failure indication 69).
@@ -98,6 +105,13 @@ options:
             change_notification:
                 description:
                     - Change notification (req 38, resp 39).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            configuration_transfer_tunnel:
+                description:
+                    - Configuration transfer tunnel (141).
                 type: str
                 choices:
                     - 'allow'
@@ -116,9 +130,30 @@ options:
                 choices:
                     - 'allow'
                     - 'deny'
+            create_forwarding_tunnel_req_resp:
+                description:
+                    - Create forwarding tunnel request/response (req 160, resp 161).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            create_indirect_forwarding_tunnel_req_resp:
+                description:
+                    - Create indirect data forwarding tunnel request/response (req 166, resp 167).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
             create_session:
                 description:
                     - Create session (req 32, resp 33).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            cs_paging:
+                description:
+                    - CS paging indication (151)
                 type: str
                 choices:
                     - 'allow'
@@ -137,6 +172,13 @@ options:
                 choices:
                     - 'allow'
                     - 'deny'
+            delete_indirect_forwarding_tunnel_req_resp:
+                description:
+                    - Delete indirect data forwarding tunnel request/response (req 168, resp 169).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
             delete_pdn_connection_set:
                 description:
                     - Delete PDN connection set (req 101, resp 102).
@@ -151,9 +193,37 @@ options:
                 choices:
                     - 'allow'
                     - 'deny'
+            detach_notif_ack:
+                description:
+                    - Detach notification/acknowledge (notif 149, ack 150).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            dlink_data_notif_ack:
+                description:
+                    - Downlink data notification/acknowledge (notif 176, ack 177).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            dlink_notif_failure:
+                description:
+                    - Downlink data notification failure indication (70).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
             echo:
                 description:
                     - Echo (req 1, resp 2).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            forward_access_notif_ack:
+                description:
+                    - Forward access context notification/acknowledge (notif 137, ack 138).
                 type: str
                 choices:
                     - 'allow'
@@ -168,6 +238,48 @@ options:
             forward_relocation_req_res:
                 description:
                     - Forward relocation request/response (req 133, resp 134).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            identification_req_resp:
+                description:
+                    - Identification request/response (req 128, resp 129).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            isr_status:
+                description:
+                    - ISR status indication (157).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            mbms_session_start_req_resp:
+                description:
+                    - MBMS session start request/response (req 231, resp 232).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            mbms_session_stop_req_resp:
+                description:
+                    - MBMS session stop request/response (req 235, resp 236).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            mbms_session_update_req_resp:
+                description:
+                    - MBMS session update request/response (req 233, resp 234).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            modify_access_req_resp:
+                description:
+                    - Modify access bearers request/response (req 211, resp 212).
                 type: str
                 choices:
                     - 'allow'
@@ -191,9 +303,65 @@ options:
                     - Message filter name.
                 required: true
                 type: str
+            pgw_dlink_notif_ack:
+                description:
+                    - PGW downlink triggering notification/acknowledge (notif 103, ack 104).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            pgw_restart_notif_ack:
+                description:
+                    - PGW restart notification/acknowledge (notif 179, ack 180).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            ran_info_relay:
+                description:
+                    - RAN information relay (152).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            release_access_bearer_req_resp:
+                description:
+                    - Release access bearers request/response (req 170, resp 171).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            relocation_cancel_req_resp:
+                description:
+                    - Relocation cancel request/response (req 139, resp 140).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            remote_ue_report_notif_ack:
+                description:
+                    - Remote UE report notification/acknowledge (notif 40, ack 41).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            reserved_for_earlier_version:
+                description:
+                    - Reserved for earlier version of the GTP specification (178).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
             resume:
                 description:
                     - Resume (notify 164 , ack 165).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            stop_paging_indication:
+                description:
+                    - Stop Paging Indication (73).
                 type: str
                 choices:
                     - 'allow'
@@ -208,6 +376,20 @@ options:
             trace_session:
                 description:
                     - Trace session (activation 71, deactivation 72).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            ue_activity_notif_ack:
+                description:
+                    - UE activity notification/acknowledge (notif 155, ack 156).
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
+            ue_registration_query_req_resp:
+                description:
+                    - UE registration query request/response (req 158, resp 159).
                 type: str
                 choices:
                     - 'allow'
@@ -228,6 +410,7 @@ options:
                     id:
                         description:
                             - Message IDs.
+                        required: true
                         type: int
             update_bearer:
                 description:
@@ -269,28 +452,54 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       gtp_message_filter_v2:
+        alert_mme_notif_ack: "allow"
         bearer_resource_cmd_fail: "allow"
         change_notification: "allow"
+        configuration_transfer_tunnel: "allow"
         context_req_res_ack: "allow"
         create_bearer: "allow"
+        create_forwarding_tunnel_req_resp: "allow"
+        create_indirect_forwarding_tunnel_req_resp: "allow"
         create_session: "allow"
+        cs_paging: "allow"
         delete_bearer_cmd_fail: "allow"
         delete_bearer_req_resp: "allow"
+        delete_indirect_forwarding_tunnel_req_resp: "allow"
         delete_pdn_connection_set: "allow"
         delete_session: "allow"
+        detach_notif_ack: "allow"
+        dlink_data_notif_ack: "allow"
+        dlink_notif_failure: "allow"
         echo: "allow"
+        forward_access_notif_ack: "allow"
         forward_relocation_cmp_notif_ack: "allow"
         forward_relocation_req_res: "allow"
+        identification_req_resp: "allow"
+        isr_status: "allow"
+        mbms_session_start_req_resp: "allow"
+        mbms_session_stop_req_resp: "allow"
+        mbms_session_update_req_resp: "allow"
+        modify_access_req_resp: "allow"
         modify_bearer_cmd_fail: "allow"
         modify_bearer_req_resp: "allow"
-        name: "default_name_17"
+        name: "default_name_33"
+        pgw_dlink_notif_ack: "allow"
+        pgw_restart_notif_ack: "allow"
+        ran_info_relay: "allow"
+        release_access_bearer_req_resp: "allow"
+        relocation_cancel_req_resp: "allow"
+        remote_ue_report_notif_ack: "allow"
+        reserved_for_earlier_version: "allow"
         resume: "allow"
+        stop_paging_indication: "allow"
         suspend: "allow"
         trace_session: "allow"
+        ue_activity_notif_ack: "allow"
+        ue_registration_query_req_resp: "allow"
         unknown_message: "allow"
         unknown_message_white_list:
          -
-            id:  "23"
+            id:  "49"
         update_bearer: "allow"
         update_pdn_connection_set: "allow"
         version_not_support: "allow"
@@ -385,24 +594,50 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_gtp_message_filter_v2_data(json):
     option_list = [
+        "alert_mme_notif_ack",
         "bearer_resource_cmd_fail",
         "change_notification",
+        "configuration_transfer_tunnel",
         "context_req_res_ack",
         "create_bearer",
+        "create_forwarding_tunnel_req_resp",
+        "create_indirect_forwarding_tunnel_req_resp",
         "create_session",
+        "cs_paging",
         "delete_bearer_cmd_fail",
         "delete_bearer_req_resp",
+        "delete_indirect_forwarding_tunnel_req_resp",
         "delete_pdn_connection_set",
         "delete_session",
+        "detach_notif_ack",
+        "dlink_data_notif_ack",
+        "dlink_notif_failure",
         "echo",
+        "forward_access_notif_ack",
         "forward_relocation_cmp_notif_ack",
         "forward_relocation_req_res",
+        "identification_req_resp",
+        "isr_status",
+        "mbms_session_start_req_resp",
+        "mbms_session_stop_req_resp",
+        "mbms_session_update_req_resp",
+        "modify_access_req_resp",
         "modify_bearer_cmd_fail",
         "modify_bearer_req_resp",
         "name",
+        "pgw_dlink_notif_ack",
+        "pgw_restart_notif_ack",
+        "ran_info_relay",
+        "release_access_bearer_req_resp",
+        "relocation_cancel_req_resp",
+        "remote_ue_report_notif_ack",
+        "reserved_for_earlier_version",
         "resume",
+        "stop_paging_indication",
         "suspend",
         "trace_session",
+        "ue_activity_notif_ack",
+        "ue_registration_query_req_resp",
         "unknown_message",
         "unknown_message_white_list",
         "update_bearer",
@@ -547,6 +782,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -566,9 +802,11 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "unknown_message": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -592,6 +830,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -614,6 +853,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -641,6 +881,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -660,9 +901,11 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -684,6 +927,7 @@ versioned_schema = {
         },
         "echo": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -707,6 +951,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -729,6 +974,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -752,6 +998,7 @@ versioned_schema = {
         },
         "version_not_support": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -775,6 +1022,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -797,6 +1045,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -820,6 +1069,7 @@ versioned_schema = {
         },
         "create_session": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -843,6 +1093,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -865,6 +1116,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -888,6 +1140,7 @@ versioned_schema = {
         },
         "modify_bearer_req_resp": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -911,6 +1164,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -933,6 +1187,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -956,6 +1211,7 @@ versioned_schema = {
         },
         "delete_session": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -979,6 +1235,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1001,6 +1258,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1024,6 +1282,7 @@ versioned_schema = {
         },
         "change_notification": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1047,6 +1306,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1069,6 +1329,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1090,8 +1351,36 @@ versioned_schema = {
                 },
             ],
         },
+        "remote_ue_report_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
         "modify_bearer_cmd_fail": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1115,6 +1404,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1137,6 +1427,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1160,6 +1451,7 @@ versioned_schema = {
         },
         "delete_bearer_cmd_fail": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1183,6 +1475,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1205,6 +1498,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1228,6 +1522,7 @@ versioned_schema = {
         },
         "bearer_resource_cmd_fail": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1251,6 +1546,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1273,6 +1569,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1292,10 +1589,38 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                 },
+            ],
+        },
+        "dlink_notif_failure": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
             ],
         },
         "trace_session": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1319,6 +1644,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1341,6 +1667,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1362,8 +1689,36 @@ versioned_schema = {
                 },
             ],
         },
+        "stop_paging_indication": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
         "create_bearer": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1387,6 +1742,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1409,6 +1765,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1432,6 +1789,7 @@ versioned_schema = {
         },
         "update_bearer": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1455,6 +1813,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1477,6 +1836,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1500,6 +1860,7 @@ versioned_schema = {
         },
         "delete_bearer_req_resp": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1523,6 +1884,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1545,6 +1907,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1568,6 +1931,7 @@ versioned_schema = {
         },
         "delete_pdn_connection_set": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1591,6 +1955,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1613,6 +1978,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1634,8 +2000,501 @@ versioned_schema = {
                 },
             ],
         },
+        "pgw_dlink_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "identification_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "context_req_res_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
+        },
+        "forward_relocation_req_res": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
+        },
+        "forward_relocation_cmp_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": True,
+                "v7.0.5": True,
+                "v7.0.4": True,
+                "v7.0.3": True,
+                "v7.0.2": True,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {
+                    "value": "allow",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+                {
+                    "value": "deny",
+                    "revisions": {
+                        "v7.2.4": True,
+                        "v7.2.0": True,
+                        "v7.0.5": True,
+                        "v7.0.4": True,
+                        "v7.0.3": True,
+                        "v7.0.2": True,
+                    },
+                },
+            ],
+        },
+        "forward_access_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "relocation_cancel_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "configuration_transfer_tunnel": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "detach_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "cs_paging": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "ran_info_relay": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "alert_mme_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "ue_activity_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "isr_status": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "ue_registration_query_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "create_forwarding_tunnel_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
         "suspend": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1659,6 +2518,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1681,6 +2541,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1704,6 +2565,7 @@ versioned_schema = {
         },
         "resume": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1727,6 +2589,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1749,6 +2612,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1768,10 +2632,173 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                 },
+            ],
+        },
+        "create_indirect_forwarding_tunnel_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "delete_indirect_forwarding_tunnel_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "release_access_bearer_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "dlink_data_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "reserved_for_earlier_version": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "pgw_restart_notif_ack": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
             ],
         },
         "update_pdn_connection_set": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -1795,6 +2822,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1817,6 +2845,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -1838,13 +2867,14 @@ versioned_schema = {
                 },
             ],
         },
-        "context_req_res_ack": {
+        "modify_access_req_resp": {
             "revisions": {
-                "v7.2.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
                 "v7.0.1": False,
                 "v7.0.0": False,
                 "v6.4.4": False,
@@ -1860,35 +2890,18 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.2.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.2.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                    },
-                },
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
             ],
         },
-        "forward_relocation_req_res": {
+        "mbms_session_start_req_resp": {
             "revisions": {
-                "v7.2.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
                 "v7.0.1": False,
                 "v7.0.0": False,
                 "v6.4.4": False,
@@ -1904,35 +2917,18 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.2.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.2.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                    },
-                },
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
             ],
         },
-        "forward_relocation_cmp_notif_ack": {
+        "mbms_session_update_req_resp": {
             "revisions": {
-                "v7.2.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
                 "v7.0.1": False,
                 "v7.0.0": False,
                 "v6.4.4": False,
@@ -1948,30 +2944,40 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {
-                    "value": "allow",
-                    "revisions": {
-                        "v7.2.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                    },
-                },
-                {
-                    "value": "deny",
-                    "revisions": {
-                        "v7.2.0": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                    },
-                },
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
+            ],
+        },
+        "mbms_session_stop_req_resp": {
+            "revisions": {
+                "v7.2.4": True,
+                "v7.2.0": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "allow", "revisions": {"v7.2.4": True}},
+                {"value": "deny", "revisions": {"v7.2.4": True}},
             ],
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,

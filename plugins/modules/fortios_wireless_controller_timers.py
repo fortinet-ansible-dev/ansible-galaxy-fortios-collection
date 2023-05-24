@@ -121,6 +121,7 @@ options:
                     time:
                         description:
                             - Time.
+                        required: true
                         type: str
             discovery_interval:
                 description:
@@ -380,6 +381,8 @@ def fortios_wireless_controller(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -407,6 +410,8 @@ versioned_schema = {
     "children": {
         "echo_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -434,6 +439,8 @@ versioned_schema = {
         },
         "discovery_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -461,6 +468,8 @@ versioned_schema = {
         },
         "client_idle_timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -488,6 +497,8 @@ versioned_schema = {
         },
         "client_idle_rehome_timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -515,6 +526,8 @@ versioned_schema = {
         },
         "auth_timeout": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -542,6 +555,8 @@ versioned_schema = {
         },
         "rogue_ap_log": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -569,6 +584,8 @@ versioned_schema = {
         },
         "fake_ap_log": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -596,6 +613,8 @@ versioned_schema = {
         },
         "rogue_ap_cleanup": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -623,6 +642,8 @@ versioned_schema = {
         },
         "sta_stats_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -650,6 +671,8 @@ versioned_schema = {
         },
         "vap_stats_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -677,6 +700,8 @@ versioned_schema = {
         },
         "radio_stats_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -704,6 +729,8 @@ versioned_schema = {
         },
         "sta_capability_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -731,6 +758,8 @@ versioned_schema = {
         },
         "sta_locate_timer": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -758,6 +787,8 @@ versioned_schema = {
         },
         "ipsec_intf_cleanup": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -785,6 +816,8 @@ versioned_schema = {
         },
         "ble_scan_report_intv": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -812,6 +845,8 @@ versioned_schema = {
         },
         "drma_interval": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -882,6 +917,7 @@ versioned_schema = {
                 "time": {
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

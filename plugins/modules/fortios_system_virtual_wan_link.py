@@ -89,6 +89,7 @@ options:
                     name:
                         description:
                             - Physical interface name. Source system.interface.name.
+                        required: true
                         type: str
             fail_detect:
                 description:
@@ -148,10 +149,12 @@ options:
                             seq_num:
                                 description:
                                     - Member sequence number. Source system.virtual-wan-link.members.seq-num.
+                                required: true
                                 type: int
                     name:
                         description:
                             - Status check or health check name.
+                        required: true
                         type: str
                     packet_size:
                         description:
@@ -211,6 +214,7 @@ options:
                             id:
                                 description:
                                     - SLA ID.
+                                required: true
                                 type: int
                             jitter_threshold:
                                 description:
@@ -328,6 +332,7 @@ options:
                     seq_num:
                         description:
                             - Sequence number(1-255).
+                        required: true
                         type: int
                     source:
                         description:
@@ -370,6 +375,7 @@ options:
                     ip:
                         description:
                             - IP address of neighbor. Source router.bgp.neighbor.ip.
+                        required: true
                         type: str
                     member:
                         description:
@@ -457,6 +463,7 @@ options:
                             name:
                                 description:
                                     - Address or address group name. Source firewall.address.name firewall.addrgrp.name.
+                                required: true
                                 type: str
                     dst_negate:
                         description:
@@ -474,6 +481,7 @@ options:
                             name:
                                 description:
                                     - Address6 or address6 group name. Source firewall.address6.name firewall.addrgrp6.name.
+                                required: true
                                 type: str
                     end_port:
                         description:
@@ -495,6 +503,7 @@ options:
                             name:
                                 description:
                                     - Group name. Source user.group.name.
+                                required: true
                                 type: str
                     health_check:
                         description:
@@ -507,6 +516,7 @@ options:
                     id:
                         description:
                             - Priority rule ID (1 - 4000).
+                        required: true
                         type: int
                     input_device:
                         description:
@@ -517,6 +527,7 @@ options:
                             name:
                                 description:
                                     - Interface name. Source system.interface.name.
+                                required: true
                                 type: str
                     input_device_negate:
                         description:
@@ -541,6 +552,7 @@ options:
                             id:
                                 description:
                                     - Application control based Internet Service ID.
+                                required: true
                                 type: int
                     internet_service_app_ctrl_group:
                         description:
@@ -551,6 +563,7 @@ options:
                             name:
                                 description:
                                     - Application control based Internet Service group name. Source application.group.name.
+                                required: true
                                 type: str
                     internet_service_ctrl:
                         description:
@@ -561,6 +574,7 @@ options:
                             id:
                                 description:
                                     - Control-based Internet Service ID.
+                                required: true
                                 type: int
                     internet_service_ctrl_group:
                         description:
@@ -571,6 +585,7 @@ options:
                             name:
                                 description:
                                     - Control-based Internet Service group name. Source application.group.name.
+                                required: true
                                 type: str
                     internet_service_custom:
                         description:
@@ -581,6 +596,7 @@ options:
                             name:
                                 description:
                                     - Custom Internet service name. Source firewall.internet-service-custom.name.
+                                required: true
                                 type: str
                     internet_service_custom_group:
                         description:
@@ -591,6 +607,7 @@ options:
                             name:
                                 description:
                                     - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                                required: true
                                 type: str
                     internet_service_group:
                         description:
@@ -601,6 +618,7 @@ options:
                             name:
                                 description:
                                     - Internet Service group name. Source firewall.internet-service-group.name.
+                                required: true
                                 type: str
                     internet_service_id:
                         description:
@@ -611,6 +629,7 @@ options:
                             id:
                                 description:
                                     - Internet service ID. Source firewall.internet-service.id.
+                                required: true
                                 type: int
                     jitter_weight:
                         description:
@@ -667,6 +686,7 @@ options:
                             seq_num:
                                 description:
                                     - Member sequence number. Source system.virtual-wan-link.members.seq-num.
+                                required: true
                                 type: int
                     protocol:
                         description:
@@ -697,6 +717,7 @@ options:
                             health_check:
                                 description:
                                     - Virtual WAN Link health-check. Source system.virtual-wan-link.health-check.name.
+                                required: true
                                 type: str
                             id:
                                 description:
@@ -718,6 +739,7 @@ options:
                             name:
                                 description:
                                     - Address or address group name. Source firewall.address.name firewall.addrgrp.name.
+                                required: true
                                 type: str
                     src_negate:
                         description:
@@ -735,6 +757,7 @@ options:
                             name:
                                 description:
                                     - Address6 or address6 group name. Source firewall.address6.name firewall.addrgrp6.name.
+                                required: true
                                 type: str
                     standalone_action:
                         description:
@@ -771,6 +794,7 @@ options:
                             name:
                                 description:
                                     - User name. Source user.local.name.
+                                required: true
                                 type: str
             status:
                 description:
@@ -788,6 +812,7 @@ options:
                     name:
                         description:
                             - Zone name.
+                        required: true
                         type: str
 """
 
@@ -1395,6 +1420,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1414,6 +1440,7 @@ versioned_schema = {
                 "name": {
                     "revisions": {"v6.2.7": True, "v6.2.5": True, "v6.2.0": True},
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1441,6 +1468,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "interface": {
                     "revisions": {
@@ -1650,6 +1678,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "probe_packets": {
                     "revisions": {
@@ -2188,6 +2217,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2215,6 +2245,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "link_cost_factor": {
                             "revisions": {
@@ -2338,6 +2369,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "member": {
                     "revisions": {
@@ -2430,6 +2462,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "name": {
                     "revisions": {
@@ -2496,6 +2529,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2786,6 +2820,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2851,6 +2886,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2878,6 +2914,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2905,6 +2942,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2970,6 +3008,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -2997,6 +3036,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3062,6 +3102,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3089,6 +3130,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3116,6 +3158,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3143,6 +3186,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3167,6 +3211,7 @@ versioned_schema = {
                                 "v6.2.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3191,6 +3236,7 @@ versioned_schema = {
                                 "v6.2.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3500,6 +3546,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         },
                         "id": {
                             "revisions": {
@@ -3539,6 +3586,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         }
                     },
                     "revisions": {
@@ -3718,6 +3766,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         }
                     },
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
@@ -3733,6 +3782,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "string",
+                            "required": True,
                         }
                     },
                     "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},

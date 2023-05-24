@@ -113,6 +113,7 @@ options:
                     name:
                         description:
                             - Physical port name.
+                        required: true
                         type: str
                     speed:
                         description:
@@ -394,6 +395,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -411,9 +413,11 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "age_enable": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -435,6 +439,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -455,6 +460,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -476,6 +482,7 @@ versioned_schema = {
         },
         "age_val": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -506,6 +513,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "speed": {
                     "revisions": {
@@ -666,6 +674,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.0.5": True,
         "v7.0.4": True,
         "v7.0.3": True,

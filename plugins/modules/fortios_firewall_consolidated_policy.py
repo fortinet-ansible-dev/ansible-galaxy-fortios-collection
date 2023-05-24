@@ -173,6 +173,7 @@ options:
                         description:
                             - Address name. Source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
                               .name.
+                        required: true
                         type: str
             dstaddr6:
                 description:
@@ -184,6 +185,7 @@ options:
                         description:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
                               .external-resource.name.
+                        required: true
                         type: str
             dstintf:
                 description:
@@ -194,6 +196,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.interface.name system.zone.name.
+                        required: true
                         type: str
             emailfilter_profile:
                 description:
@@ -215,6 +218,7 @@ options:
                     name:
                         description:
                             - Names of FSSO groups. Source user.adgrp.name.
+                        required: true
                         type: str
             global_label:
                 description:
@@ -229,6 +233,7 @@ options:
                     name:
                         description:
                             - Group name. Source user.group.name.
+                        required: true
                         type: str
             http_policy_redirect:
                 description:
@@ -271,6 +276,7 @@ options:
                     name:
                         description:
                             - Custom Internet Service name. Source firewall.internet-service-custom.name.
+                        required: true
                         type: str
             internet_service_custom_group:
                 description:
@@ -281,6 +287,7 @@ options:
                     name:
                         description:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                        required: true
                         type: str
             internet_service_group:
                 description:
@@ -291,6 +298,7 @@ options:
                     name:
                         description:
                             - Internet Service group name. Source firewall.internet-service-group.name.
+                        required: true
                         type: str
             internet_service_id:
                 description:
@@ -301,6 +309,7 @@ options:
                     id:
                         description:
                             - Internet Service ID. Source firewall.internet-service.id.
+                        required: true
                         type: int
             internet_service_negate:
                 description:
@@ -325,6 +334,7 @@ options:
                     name:
                         description:
                             - Custom Internet Service name. Source firewall.internet-service-custom.name.
+                        required: true
                         type: str
             internet_service_src_custom_group:
                 description:
@@ -335,6 +345,7 @@ options:
                     name:
                         description:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                        required: true
                         type: str
             internet_service_src_group:
                 description:
@@ -345,6 +356,7 @@ options:
                     name:
                         description:
                             - Internet Service group name. Source firewall.internet-service-group.name.
+                        required: true
                         type: str
             internet_service_src_id:
                 description:
@@ -355,6 +367,7 @@ options:
                     id:
                         description:
                             - Internet Service ID. Source firewall.internet-service.id.
+                        required: true
                         type: int
             internet_service_src_negate:
                 description:
@@ -429,6 +442,7 @@ options:
                     name:
                         description:
                             - IPv4 pool name. Source firewall.ippool.name.
+                        required: true
                         type: str
             poolname6:
                 description:
@@ -439,6 +453,7 @@ options:
                     name:
                         description:
                             - IPv6 pool name. Source firewall.ippool6.name.
+                        required: true
                         type: str
             profile_group:
                 description:
@@ -468,6 +483,7 @@ options:
                     name:
                         description:
                             - Service name. Source firewall.service.custom.name firewall.service.group.name.
+                        required: true
                         type: str
             service_negate:
                 description:
@@ -496,6 +512,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+                        required: true
                         type: str
             srcaddr6:
                 description:
@@ -506,6 +523,7 @@ options:
                     name:
                         description:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+                        required: true
                         type: str
             srcintf:
                 description:
@@ -516,6 +534,7 @@ options:
                     name:
                         description:
                             - Interface name. Source system.interface.name system.zone.name.
+                        required: true
                         type: str
             ssh_filter_profile:
                 description:
@@ -564,6 +583,7 @@ options:
                     name:
                         description:
                             - User name. Source user.local.name.
+                        required: true
                         type: str
             utm_status:
                 description:
@@ -1113,6 +1133,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "integer",
+            "required": True,
         },
         "status": {
             "revisions": {
@@ -1173,6 +1194,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1194,6 +1216,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1215,6 +1238,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1236,6 +1260,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1257,6 +1282,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1278,6 +1304,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1415,6 +1442,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1436,6 +1464,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1457,6 +1486,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1478,6 +1508,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1528,6 +1559,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1549,6 +1581,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1570,6 +1603,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1591,6 +1625,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -1717,6 +1752,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2132,6 +2168,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2153,6 +2190,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2572,6 +2610,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2593,6 +2632,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
@@ -2728,6 +2768,7 @@ versioned_schema = {
                         "v6.2.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

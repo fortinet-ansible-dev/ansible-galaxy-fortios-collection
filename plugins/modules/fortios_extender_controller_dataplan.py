@@ -510,6 +510,7 @@ versioned_schema = {
                 "v6.4.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "modem_id": {
             "revisions": {

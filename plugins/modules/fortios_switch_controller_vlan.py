@@ -154,6 +154,7 @@ options:
                     name:
                         description:
                             - User group name. Source user.group.name.
+                        required: true
                         type: str
             usergroup:
                 description:
@@ -452,6 +453,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "vdom": {
             "revisions": {
@@ -642,6 +644,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {

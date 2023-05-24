@@ -158,6 +158,13 @@ options:
                 description:
                     - Period of time between FortiClient portal warnings (0 - 24 hours).
                 type: int
+            override:
+                description:
+                    - Override global EMS table for this VDOM.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -190,6 +197,7 @@ EXAMPLES = """
         forticlient_sys_update_interval: "720"
         forticlient_user_avatar: "enable"
         forticlient_warning_interval: "12"
+        override: "enable"
 
 """
 
@@ -290,6 +298,7 @@ def filter_endpoint_control_settings_data(json):
         "forticlient_sys_update_interval",
         "forticlient_user_avatar",
         "forticlient_warning_interval",
+        "override",
     ]
 
     json = remove_invalid_fields(json)
@@ -358,6 +367,7 @@ def fortios_endpoint_control(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
         "v6.2.7": True,
         "v6.2.5": True,
         "v6.2.3": True,
@@ -368,6 +378,23 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
+        "override": {
+            "revisions": {
+                "v7.4.0": True,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "forticlient_keepalive_interval": {
             "revisions": {
                 "v6.2.7": True,

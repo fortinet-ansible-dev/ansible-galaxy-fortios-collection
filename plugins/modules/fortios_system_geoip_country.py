@@ -362,6 +362,7 @@ versioned_schema = {
                 "v6.2.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "name": {
             "revisions": {

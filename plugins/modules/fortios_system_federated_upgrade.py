@@ -102,6 +102,12 @@ options:
                     - 'node-not-ready'
                     - 'no-final-confirmation'
                     - 'no-confirmation-query'
+                    - 'config-error-log-nonempty'
+                    - 'node-failed'
+            ha_reboot_controller:
+                description:
+                    - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
+                type: str
             next_path_index:
                 description:
                     - The index of the next image to upgrade to.
@@ -118,35 +124,40 @@ options:
                         type: str
                     device_type:
                         description:
-                            - What type of device this node represents.
+                            - Fortinet device type.
                         type: str
                         choices:
                             - 'fortigate'
                             - 'fortiswitch'
                             - 'fortiap'
                             - 'fortiextender'
+                    maximum_minutes:
+                        description:
+                            - Maximum number of minutes to allow for immediate upgrade preparation.
+                        type: int
                     serial:
                         description:
                             - Serial number of the node to include.
+                        required: true
                         type: str
                     setup_time:
                         description:
-                            - 'When the upgrade was configured. Format hh:mm yyyy/mm/dd UTC.'
+                            - 'Upgrade preparation start time in UTC (hh:mm yyyy/mm/dd UTC).'
                         type: str
                     time:
                         description:
-                            - 'Scheduled time for the upgrade. Format hh:mm yyyy/mm/dd UTC.'
+                            - 'Scheduled upgrade execution time in UTC (hh:mm yyyy/mm/dd UTC).'
                         type: str
                     timing:
                         description:
-                            - Whether the upgrade should be run immediately, or at a scheduled time.
+                            - Run immediately or at a scheduled time.
                         type: str
                         choices:
                             - 'immediate'
                             - 'scheduled'
                     upgrade_path:
                         description:
-                            - Image IDs to upgrade through.
+                            - Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.
                         type: str
             status:
                 description:
@@ -158,6 +169,7 @@ options:
                     - 'downloading'
                     - 'device-disconnected'
                     - 'ready'
+                    - 'coordinating'
                     - 'staging'
                     - 'final-check'
                     - 'upgrade-devices'
@@ -189,11 +201,13 @@ EXAMPLES = """
       system_federated_upgrade:
         failure_device: "<your_own_value>"
         failure_reason: "none"
+        ha_reboot_controller: "<your_own_value>"
         next_path_index: "0"
         node_list:
          -
             coordinating_fortigate: "<your_own_value>"
             device_type: "fortigate"
+            maximum_minutes: "15"
             serial: "<your_own_value>"
             setup_time: "<your_own_value>"
             time: "<your_own_value>"
@@ -288,6 +302,7 @@ def filter_system_federated_upgrade_data(json):
     option_list = [
         "failure_device",
         "failure_reason",
+        "ha_reboot_controller",
         "next_path_index",
         "node_list",
         "status",
@@ -360,6 +375,8 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
@@ -377,6 +394,8 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -395,6 +414,8 @@ versioned_schema = {
                 {
                     "value": "disabled",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -412,6 +433,8 @@ versioned_schema = {
                 {
                     "value": "initialized",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -429,6 +452,8 @@ versioned_schema = {
                 {
                     "value": "downloading",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -446,6 +471,8 @@ versioned_schema = {
                 {
                     "value": "device-disconnected",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -463,6 +490,8 @@ versioned_schema = {
                 {
                     "value": "ready",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -478,8 +507,29 @@ versioned_schema = {
                     },
                 },
                 {
+                    "value": "coordinating",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                    },
+                },
+                {
                     "value": "staging",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -497,6 +547,8 @@ versioned_schema = {
                 {
                     "value": "final-check",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -514,6 +566,8 @@ versioned_schema = {
                 {
                     "value": "upgrade-devices",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -531,6 +585,8 @@ versioned_schema = {
                 {
                     "value": "cancelled",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -548,6 +604,8 @@ versioned_schema = {
                 {
                     "value": "confirmed",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -565,6 +623,8 @@ versioned_schema = {
                 {
                     "value": "done",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -582,6 +642,8 @@ versioned_schema = {
                 {
                     "value": "failed",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -604,6 +666,8 @@ versioned_schema = {
         },
         "failure_reason": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -622,6 +686,8 @@ versioned_schema = {
                 {
                     "value": "none",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -637,6 +703,8 @@ versioned_schema = {
                 {
                     "value": "internal",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -652,6 +720,8 @@ versioned_schema = {
                 {
                     "value": "timeout",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -667,6 +737,8 @@ versioned_schema = {
                 {
                     "value": "device-type-unsupported",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -682,6 +754,8 @@ versioned_schema = {
                 {
                     "value": "download-failed",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -697,6 +771,8 @@ versioned_schema = {
                 {
                     "value": "device-missing",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -712,6 +788,8 @@ versioned_schema = {
                 {
                     "value": "version-unavailable",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -727,6 +805,8 @@ versioned_schema = {
                 {
                     "value": "staging-failed",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -742,6 +822,8 @@ versioned_schema = {
                 {
                     "value": "reboot-failed",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -757,6 +839,8 @@ versioned_schema = {
                 {
                     "value": "device-not-reconnected",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -772,6 +856,8 @@ versioned_schema = {
                 {
                     "value": "node-not-ready",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -787,6 +873,8 @@ versioned_schema = {
                 {
                     "value": "no-final-confirmation",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -802,6 +890,8 @@ versioned_schema = {
                 {
                     "value": "no-confirmation-query",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -814,10 +904,46 @@ versioned_schema = {
                         "v7.0.2": True,
                     },
                 },
+                {
+                    "value": "config-error-log-nonempty",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                    },
+                },
+                {
+                    "value": "node-failed",
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                    },
+                },
             ],
         },
         "failure_device": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -835,6 +961,8 @@ versioned_schema = {
         },
         "upgrade_id": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -852,6 +980,8 @@ versioned_schema = {
         },
         "next_path_index": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -867,12 +997,33 @@ versioned_schema = {
             },
             "type": "integer",
         },
+        "ha_reboot_controller": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+        },
         "node_list": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "serial": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -887,9 +1038,12 @@ versioned_schema = {
                         "v7.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 },
                 "timing": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -908,6 +1062,8 @@ versioned_schema = {
                         {
                             "value": "immediate",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -925,6 +1081,8 @@ versioned_schema = {
                         {
                             "value": "scheduled",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -941,8 +1099,29 @@ versioned_schema = {
                         },
                     ],
                 },
+                "maximum_minutes": {
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": False,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                    },
+                    "type": "integer",
+                },
                 "time": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -960,6 +1139,8 @@ versioned_schema = {
                 },
                 "setup_time": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -977,6 +1158,8 @@ versioned_schema = {
                 },
                 "upgrade_path": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -994,6 +1177,8 @@ versioned_schema = {
                 },
                 "device_type": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1012,6 +1197,8 @@ versioned_schema = {
                         {
                             "value": "fortigate",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1029,6 +1216,8 @@ versioned_schema = {
                         {
                             "value": "fortiswitch",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1046,6 +1235,8 @@ versioned_schema = {
                         {
                             "value": "fortiap",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -1063,6 +1254,8 @@ versioned_schema = {
                         {
                             "value": "fortiextender",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": False,
@@ -1081,6 +1274,8 @@ versioned_schema = {
                 },
                 "coordinating_fortigate": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -1098,6 +1293,8 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,

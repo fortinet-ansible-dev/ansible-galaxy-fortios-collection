@@ -101,6 +101,7 @@ options:
                     id:
                         description:
                             - Entry ID.
+                        required: true
                         type: int
                     ie:
                         description:
@@ -323,6 +324,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -332,6 +334,7 @@ versioned_schema = {
                 "v7.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "entries": {
             "type": "list",
@@ -339,6 +342,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -348,9 +352,11 @@ versioned_schema = {
                         "v7.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "ie": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -363,6 +369,7 @@ versioned_schema = {
                 },
                 "fos_message": {
                     "revisions": {
+                        "v7.2.4": True,
                         "v7.2.0": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
@@ -375,6 +382,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.2.4": True,
                 "v7.2.0": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
@@ -386,6 +394,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.2.4": True,
         "v7.2.0": True,
         "v7.0.5": True,
         "v7.0.4": True,

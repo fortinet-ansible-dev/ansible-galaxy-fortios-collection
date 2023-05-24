@@ -8,7 +8,7 @@ secret_fields = [
     "aaa_shared_secret", "ha_shared_secret", "login_password", "modem_passwd", "ppp_password",
     "ssh_host_key", "mmsc_password", "firewall_ssh_host_key", "firewall_ssh_local_key",
     "hostkey_dsa1024", "hostkey_ecdsa256", "hostkey_ecdsa384", "hostkey_ecdsa521", "hostkey_ed25519",
-    "hostkey_rsa2048", "uploadpass", "server_key", "auth_keychain_l1", "auth_keychain_l2",
+    "hostkey_rsa2048", "uploadpass", "server_key", "auth_keychain", "auth_keychain_l1", "auth_keychain_l2",
     "auth_password_l1", "auth_password_l2", "authentication_key", "key_string", "keychain", "md5_key",
     "md5_keychain", "md5_keys", "auth_key", "enc_key", "ipsec_keys", "key_rollover_interval", "privatekey",
     "alicloud_access_key_secret", "access_token", "fixed_key", "group_password", "ddns_key", "ddns_password",
@@ -21,12 +21,14 @@ secret_fields = [
     "passwd_value", "keyword_match", "sso_password", "logon_password", "keylifeseconds", "keylifekbs",
     "psksecret", "keylife", "ppk_secret", "psksecret_remote", "authpasswd", "group_authentication_secret",
     "vpn_ipsec_manualkey_interface", "authkey", "vpn_ipsec_manualkey", "scep_password", "videofilter_youtube_key",
+    "parent_key", "switch_dhcp_opt43_key", "fortitoken", "password_expire", "aws_api_key", "azure_api_key",
+    "ddns_keyname", "eap_password", "n_mhae_key", "passwd1", "passwd2", "passwd3", "http_password", "password_attr",
+    "passwd_policy", "passwd_time", "rsso_secret", "secondary_secret", "secret", "sso_attribute_key", "secondary_key",
+    "tertiary_key", "sae_private_key", "tertiary_secret"
 ]
 
 
 def is_secret_field(key_name):
-    # for patch in secret_fields:
-    #     if patch in key_name:
     if key_name in secret_fields:
         return True
     return False

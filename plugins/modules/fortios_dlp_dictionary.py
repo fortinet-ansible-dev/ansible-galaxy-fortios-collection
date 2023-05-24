@@ -105,6 +105,7 @@ options:
                     id:
                         description:
                             - ID.
+                        required: true
                         type: int
                     ignore_case:
                         description:
@@ -135,6 +136,13 @@ options:
                         description:
                             - Pattern type to match. Source dlp.data-type.name.
                         type: str
+            match_around:
+                description:
+                    - Enable/disable match-around support.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             match_type:
                 description:
                     - Logical relation between entries .
@@ -180,8 +188,9 @@ EXAMPLES = """
             repeat: "enable"
             status: "enable"
             type: "<your_own_value> (source dlp.data-type.name)"
+        match_around: "enable"
         match_type: "match-all"
-        name: "default_name_13"
+        name: "default_name_14"
         uuid: "<your_own_value>"
 
 """
@@ -267,7 +276,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_dlp_dictionary_data(json):
-    option_list = ["comment", "entries", "match_type", "name", "uuid"]
+    option_list = ["comment", "entries", "match_around", "match_type", "name", "uuid"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -345,29 +354,80 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "uuid": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
         },
         "name": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
+            "required": True,
         },
         "match_type": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "match-all",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
                 {
                     "value": "match-any",
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                 },
             ],
         },
+        "match_around": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
         "comment": {
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
             "type": "string",
         },
         "entries": {
@@ -375,24 +435,51 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "integer",
+                    "required": True,
                 },
                 "type": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "string",
                 },
                 "pattern": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "string",
                 },
                 "ignore_case": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -401,6 +488,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -409,12 +498,20 @@ versioned_schema = {
                     ],
                 },
                 "repeat": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -423,6 +520,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -431,12 +530,20 @@ versioned_schema = {
                     ],
                 },
                 "status": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "string",
                     "options": [
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -445,6 +552,8 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.0": True,
+                                "v7.2.4": True,
                                 "v7.2.2": True,
                                 "v7.2.1": True,
                                 "v7.2.0": True,
@@ -453,14 +562,32 @@ versioned_schema = {
                     ],
                 },
                 "comment": {
-                    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+                    "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
+                        "v7.2.0": True,
+                    },
                     "type": "string",
                 },
             },
-            "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
+                "v7.2.0": True,
+            },
         },
     },
-    "revisions": {"v7.2.2": True, "v7.2.1": True, "v7.2.0": True},
+    "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
+        "v7.2.0": True,
+    },
 }
 
 

@@ -153,6 +153,7 @@ options:
                     id:
                         description:
                             - ID.
+                        required: true
                         type: int
                     mapping:
                         description:
@@ -167,6 +168,7 @@ options:
                             id:
                                 description:
                                     - id
+                                required: true
                                 type: int
                             op:
                                 description:
@@ -223,6 +225,7 @@ options:
                     id:
                         description:
                             - Drill down chart ID.
+                        required: true
                         type: int
                     status:
                         description:
@@ -782,6 +785,7 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "policy": {
             "revisions": {
@@ -910,6 +914,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "chart_name": {
                     "revisions": {
@@ -2374,6 +2379,7 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "integer",
+                    "required": True,
                 },
                 "header_value": {
                     "revisions": {
@@ -2468,6 +2474,7 @@ versioned_schema = {
                                 "v6.0.0": True,
                             },
                             "type": "integer",
+                            "required": True,
                         },
                         "op": {
                             "revisions": {

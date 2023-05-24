@@ -92,6 +92,10 @@ options:
                 description:
                     - VXLAN destination port (1 - 65535).
                 type: int
+            evpn_id:
+                description:
+                    - EVPN instance. Source system.evpn.id.
+                type: int
             interface:
                 description:
                     - Outgoing interface for VXLAN encapsulated traffic. Source system.interface.name.
@@ -105,6 +109,13 @@ options:
                     - 'ipv6-unicast'
                     - 'ipv4-multicast'
                     - 'ipv6-multicast'
+            learn_from_traffic:
+                description:
+                    - Enable/disable VXLAN MAC learning from traffic.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             multicast_ttl:
                 description:
                     - VXLAN multicast TTL (1-255).
@@ -123,6 +134,7 @@ options:
                     ip:
                         description:
                             - IPv4 address.
+                        required: true
                         type: str
             remote_ip6:
                 description:
@@ -133,6 +145,7 @@ options:
                     ip6:
                         description:
                             - IPv6 address.
+                        required: true
                         type: str
             vni:
                 description:
@@ -158,10 +171,12 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       system_vxlan:
         dstport: "4789"
+        evpn_id: "0"
         interface: "<your_own_value> (source system.interface.name)"
         ip_version: "ipv4-unicast"
+        learn_from_traffic: "enable"
         multicast_ttl: "0"
-        name: "default_name_7"
+        name: "default_name_9"
         remote_ip:
          -
             ip: "<your_own_value>"
@@ -261,8 +276,10 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_system_vxlan_data(json):
     option_list = [
         "dstport",
+        "evpn_id",
         "interface",
         "ip_version",
+        "learn_from_traffic",
         "multicast_ttl",
         "name",
         "remote_ip",
@@ -403,6 +420,8 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -427,9 +446,12 @@ versioned_schema = {
                 "v6.0.0": True,
             },
             "type": "string",
+            "required": True,
         },
         "interface": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -457,6 +479,8 @@ versioned_schema = {
         },
         "vni": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -484,6 +508,8 @@ versioned_schema = {
         },
         "ip_version": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -512,6 +538,8 @@ versioned_schema = {
                 {
                     "value": "ipv4-unicast",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -539,6 +567,8 @@ versioned_schema = {
                 {
                     "value": "ipv6-unicast",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -566,6 +596,8 @@ versioned_schema = {
                 {
                     "value": "ipv4-multicast",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -593,6 +625,8 @@ versioned_schema = {
                 {
                     "value": "ipv6-multicast",
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -625,6 +659,8 @@ versioned_schema = {
             "children": {
                 "ip": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -649,9 +685,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -682,6 +721,8 @@ versioned_schema = {
             "children": {
                 "ip6": {
                     "revisions": {
+                        "v7.4.0": True,
+                        "v7.2.4": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
                         "v7.2.0": True,
@@ -706,9 +747,12 @@ versioned_schema = {
                         "v6.0.0": True,
                     },
                     "type": "string",
+                    "required": True,
                 }
             },
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -735,6 +779,8 @@ versioned_schema = {
         },
         "dstport": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -762,6 +808,8 @@ versioned_schema = {
         },
         "multicast_ttl": {
             "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
                 "v7.2.0": True,
@@ -787,8 +835,72 @@ versioned_schema = {
             },
             "type": "integer",
         },
+        "evpn_id": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
+        "learn_from_traffic": {
+            "revisions": {
+                "v7.4.0": True,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True}},
+            ],
+        },
     },
     "revisions": {
+        "v7.4.0": True,
+        "v7.2.4": True,
         "v7.2.2": True,
         "v7.2.1": True,
         "v7.2.0": True,
