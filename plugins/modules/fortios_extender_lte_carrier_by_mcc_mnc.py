@@ -260,7 +260,6 @@ def is_successful_status(resp):
 
 
 def fortios_extender(data, fos):
-
     fos.do_member_operation("extender", "lte-carrier-by-mcc-mnc")
     if data["extender_lte_carrier_by_mcc_mnc"]:
         resp = extender_lte_carrier_by_mcc_mnc(data, fos)
@@ -341,6 +340,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

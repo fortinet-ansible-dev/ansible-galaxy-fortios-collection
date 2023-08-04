@@ -631,19 +631,22 @@ options:
                  - 'automation_setting'
                  - 'dpdk_global'
                  - 'dpdk_cpus'
+                 - 'system_isf-queue-profile'
                  - 'system_npu'
                  - 'system_np6'
+                 - 'system_modem'
+                 - 'system.3g-modem_custom'
                  - 'system_lte-modem'
+                 - 'firewall_acl'
+                 - 'firewall_acl6'
+                 - 'monitoring_np6-ipsec-engine'
+                 - 'monitoring_npu-hpe'
                  - 'system_physical-switch'
                  - 'system_virtual-switch'
                  - 'system_stp'
                  - 'system_gi-gk'
-                 - 'system_modem'
-                 - 'system.3g-modem_custom'
                  - 'firewall_gtp'
                  - 'firewall_pfcp'
-                 - 'firewall_acl'
-                 - 'firewall_acl6'
                  - 'vpn_ocvpn'
                  - 'gtp_apn'
                  - 'gtp_apngrp'
@@ -654,9 +657,6 @@ options:
                  - 'gtp_tunnel-limit'
                  - 'gtp_apn-shaper'
                  - 'pfcp_message-filter'
-                 - 'monitoring_np6-ipsec-engine'
-                 - 'monitoring_npu-hpe'
-                 - 'system_isf-queue-profile'
                  - 'system.replacemsg_mail'
                  - 'system.replacemsg_http'
                  - 'system.replacemsg_webproxy'
@@ -1354,19 +1354,22 @@ options:
          - 'automation_setting'
          - 'dpdk_global'
          - 'dpdk_cpus'
+         - 'system_isf-queue-profile'
          - 'system_npu'
          - 'system_np6'
+         - 'system_modem'
+         - 'system.3g-modem_custom'
          - 'system_lte-modem'
+         - 'firewall_acl'
+         - 'firewall_acl6'
+         - 'monitoring_np6-ipsec-engine'
+         - 'monitoring_npu-hpe'
          - 'system_physical-switch'
          - 'system_virtual-switch'
          - 'system_stp'
          - 'system_gi-gk'
-         - 'system_modem'
-         - 'system.3g-modem_custom'
          - 'firewall_gtp'
          - 'firewall_pfcp'
-         - 'firewall_acl'
-         - 'firewall_acl6'
          - 'vpn_ocvpn'
          - 'gtp_apn'
          - 'gtp_apngrp'
@@ -1377,9 +1380,6 @@ options:
          - 'gtp_tunnel-limit'
          - 'gtp_apn-shaper'
          - 'pfcp_message-filter'
-         - 'monitoring_np6-ipsec-engine'
-         - 'monitoring_npu-hpe'
-         - 'system_isf-queue-profile'
          - 'system.replacemsg_mail'
          - 'system.replacemsg_http'
          - 'system.replacemsg_webproxy'
@@ -3714,6 +3714,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "system_isf-queue-profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "system_npu": {
         "mkey": "None",
         "mkey_type": None,
@@ -3722,7 +3726,31 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_modem": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system.3g-modem_custom": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
     "system_lte-modem": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "firewall_acl": {
+        "mkey": "policyid",
+        "mkey_type": int,
+    },
+    "firewall_acl6": {
+        "mkey": "policyid",
+        "mkey_type": int,
+    },
+    "monitoring_np6-ipsec-engine": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "monitoring_npu-hpe": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -3742,14 +3770,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "system_modem": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system.3g-modem_custom": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
     "firewall_gtp": {
         "mkey": "name",
         "mkey_type": str,
@@ -3757,14 +3777,6 @@ MODULE_MKEY_DEFINITONS = {
     "firewall_pfcp": {
         "mkey": "name",
         "mkey_type": str,
-    },
-    "firewall_acl": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
-    "firewall_acl6": {
-        "mkey": "policyid",
-        "mkey_type": int,
     },
     "vpn_ocvpn": {
         "mkey": "None",
@@ -3803,18 +3815,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": int,
     },
     "pfcp_message-filter": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "monitoring_np6-ipsec-engine": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "monitoring_npu-hpe": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system_isf-queue-profile": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -5171,19 +5171,22 @@ def main():
                 "automation_setting",
                 "dpdk_global",
                 "dpdk_cpus",
+                "system_isf-queue-profile",
                 "system_npu",
                 "system_np6",
+                "system_modem",
+                "system.3g-modem_custom",
                 "system_lte-modem",
+                "firewall_acl",
+                "firewall_acl6",
+                "monitoring_np6-ipsec-engine",
+                "monitoring_npu-hpe",
                 "system_physical-switch",
                 "system_virtual-switch",
                 "system_stp",
                 "system_gi-gk",
-                "system_modem",
-                "system.3g-modem_custom",
                 "firewall_gtp",
                 "firewall_pfcp",
-                "firewall_acl",
-                "firewall_acl6",
                 "vpn_ocvpn",
                 "gtp_apn",
                 "gtp_apngrp",
@@ -5194,9 +5197,6 @@ def main():
                 "gtp_tunnel-limit",
                 "gtp_apn-shaper",
                 "pfcp_message-filter",
-                "monitoring_np6-ipsec-engine",
-                "monitoring_npu-hpe",
-                "system_isf-queue-profile",
                 "system.replacemsg_mail",
                 "system.replacemsg_http",
                 "system.replacemsg_webproxy",
@@ -5902,19 +5902,22 @@ def main():
                         "automation_setting",
                         "dpdk_global",
                         "dpdk_cpus",
+                        "system_isf-queue-profile",
                         "system_npu",
                         "system_np6",
+                        "system_modem",
+                        "system.3g-modem_custom",
                         "system_lte-modem",
+                        "firewall_acl",
+                        "firewall_acl6",
+                        "monitoring_np6-ipsec-engine",
+                        "monitoring_npu-hpe",
                         "system_physical-switch",
                         "system_virtual-switch",
                         "system_stp",
                         "system_gi-gk",
-                        "system_modem",
-                        "system.3g-modem_custom",
                         "firewall_gtp",
                         "firewall_pfcp",
-                        "firewall_acl",
-                        "firewall_acl6",
                         "vpn_ocvpn",
                         "gtp_apn",
                         "gtp_apngrp",
@@ -5925,9 +5928,6 @@ def main():
                         "gtp_tunnel-limit",
                         "gtp_apn-shaper",
                         "pfcp_message-filter",
-                        "monitoring_np6-ipsec-engine",
-                        "monitoring_npu-hpe",
-                        "system_isf-queue-profile",
                         "system.replacemsg_mail",
                         "system.replacemsg_http",
                         "system.replacemsg_webproxy",

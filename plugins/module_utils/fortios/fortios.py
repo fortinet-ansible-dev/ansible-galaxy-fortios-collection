@@ -568,14 +568,17 @@ class FortiOSHandler(object):
             mkey = self.get_mkey(path, name, data, vdom=vdom)
         url = self.cmdb_url(path, name, vdom, mkey)
 
-        http_status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='PUT')
+        if mkey:
+            http_status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='PUT')
+            if parameters and 'action' in parameters and parameters['action'] == 'move':
+                return self.formatresponse(result_data, http_status, vdom=vdom)
 
-        if parameters and 'action' in parameters and parameters['action'] == 'move':
-            return self.formatresponse(result_data, http_status, vdom=vdom)
-
-        if http_status == 404 or http_status == 405 or http_status == 500:
-            return self.post(path, name, data, vdom, mkey)
+            if http_status == 404 or http_status == 405 or http_status == 500:
+                return self.post(path, name, data, vdom, mkey)
+            else:
+                return self.formatresponse(result_data, http_status, vdom=vdom)
         else:
+            http_status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='PUT')
             return self.formatresponse(result_data, http_status, vdom=vdom)
 
     def post(self, path, name, data, vdom=None,

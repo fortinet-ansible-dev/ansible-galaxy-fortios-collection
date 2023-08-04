@@ -394,7 +394,6 @@ def is_successful_status(resp):
 
 
 def fortios_extension_controller(data, fos):
-
     fos.do_member_operation("extension-controller", "dataplan")
     if data["extension_controller_dataplan"]:
         resp = extension_controller_dataplan(data, fos)
@@ -810,6 +809,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

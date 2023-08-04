@@ -90,6 +90,27 @@ def is_same_comparison(reorder_current, reorder_filtered):
     return True
 
 
+def find_current_values(reorder_current, reorder_filtered):
+    '''Find keyvalues in current according to keys from filtered'''
+    result = {}
+    for key, value in reorder_filtered.items():
+
+        if type(value) == dict:
+            result[key] = find_current_values(reorder_current[key], value)
+
+        elif type(value) == list:
+            result[key] = []
+            for i in range(len(value)):
+                if type(value[i]) == dict:
+                    result[key].append(find_current_values(reorder_current[key][i], value[i]))
+                else:
+                    result[key].append(reorder_current[key])
+        elif type(value) == str:
+            result[key] = reorder_current[key]
+
+    return result
+
+
 def serialize(data):
     if type(data) == str and ' ' in data:
         return serialize(data.split(' '))

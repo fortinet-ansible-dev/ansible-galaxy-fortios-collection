@@ -502,6 +502,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    find_current_values,
+)
 
 
 def filter_gtp_message_filter_v0v1_data(json):
@@ -570,7 +573,6 @@ def underscore_to_hyphen(data):
 
 
 def gtp_message_filter_v0v1(data, fos, check_mode=False):
-
     vdom = data["vdom"]
 
     state = data["state"]
@@ -606,11 +608,16 @@ def gtp_message_filter_v0v1(data, fos, check_mode=False):
                 is_same = is_same_comparison(
                     serialize(current_data["results"][0]), serialize(filtered_data)
                 )
+
+                current_values = find_current_values(
+                    current_data["results"][0], filtered_data
+                )
+
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_data["results"][0], "after": filtered_data},
+                    {"before": current_values, "after": filtered_data},
                 )
 
             # record does not exist
@@ -660,7 +667,6 @@ def is_successful_status(resp):
 
 
 def fortios_gtp(data, fos, check_mode):
-
     fos.do_member_operation("gtp", "message-filter-v0v1")
     if data["gtp_message_filter_v0v1"]:
         resp = gtp_message_filter_v0v1(data, fos, check_mode)
@@ -684,7 +690,12 @@ versioned_schema = {
         "name": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -708,7 +719,12 @@ versioned_schema = {
         "unknown_message": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -732,7 +748,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -755,7 +776,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -783,7 +809,12 @@ versioned_schema = {
                 "id": {
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -807,7 +838,12 @@ versioned_schema = {
             },
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -829,7 +865,12 @@ versioned_schema = {
         "echo": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -853,7 +894,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -876,7 +922,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -900,7 +951,12 @@ versioned_schema = {
         "version_not_support": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -924,7 +980,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -947,7 +1008,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -971,7 +1037,12 @@ versioned_schema = {
         "node_alive": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -995,7 +1066,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1018,7 +1094,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1042,7 +1123,12 @@ versioned_schema = {
         "redirection": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1066,7 +1152,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1089,7 +1180,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1113,7 +1209,12 @@ versioned_schema = {
         "create_pdp": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1137,7 +1238,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1160,7 +1266,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1184,7 +1295,12 @@ versioned_schema = {
         "update_pdp": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1208,7 +1324,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1231,7 +1352,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1255,7 +1381,12 @@ versioned_schema = {
         "delete_pdp": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1279,7 +1410,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1302,7 +1438,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1326,7 +1467,12 @@ versioned_schema = {
         "v0_create_aa_pdp__v1_init_pdp_ctx": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1350,7 +1496,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1373,7 +1524,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1397,7 +1553,12 @@ versioned_schema = {
         "delete_aa_pdp": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1421,7 +1582,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1444,7 +1610,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1468,7 +1639,12 @@ versioned_schema = {
         "error_indication": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1492,7 +1668,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1515,7 +1696,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1539,7 +1725,12 @@ versioned_schema = {
         "pdu_notification": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1563,7 +1754,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1586,7 +1782,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1610,7 +1811,12 @@ versioned_schema = {
         "support_extension": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1634,7 +1840,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1657,7 +1868,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1681,7 +1897,12 @@ versioned_schema = {
         "send_route": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1705,7 +1926,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1728,7 +1954,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1752,7 +1983,12 @@ versioned_schema = {
         "failure_report": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1776,7 +2012,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1799,7 +2040,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1823,7 +2069,12 @@ versioned_schema = {
         "note_ms_present": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1847,7 +2098,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1870,7 +2126,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1894,7 +2155,12 @@ versioned_schema = {
         "identification": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1918,7 +2184,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1941,7 +2212,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -1965,7 +2241,12 @@ versioned_schema = {
         "sgsn_context": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -1989,7 +2270,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2012,7 +2298,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2036,7 +2327,12 @@ versioned_schema = {
         "fwd_relocation": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2060,7 +2356,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2083,7 +2384,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2107,7 +2413,12 @@ versioned_schema = {
         "relocation_cancel": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2131,7 +2442,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2154,7 +2470,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2178,7 +2499,12 @@ versioned_schema = {
         "fwd_srns_context": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2202,7 +2528,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2225,7 +2556,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2249,7 +2585,12 @@ versioned_schema = {
         "ue_registration_query": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
                 "v7.0.5": False,
                 "v7.0.4": False,
                 "v7.0.3": False,
@@ -2269,14 +2610,25 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "allow", "revisions": {"v7.2.4": True}},
-                {"value": "deny", "revisions": {"v7.2.4": True}},
+                {
+                    "value": "allow",
+                    "revisions": {"v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
+                },
+                {
+                    "value": "deny",
+                    "revisions": {"v7.2.4": True, "v7.2.2": True, "v7.2.1": True},
+                },
             ],
         },
         "ran_info": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2300,7 +2652,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2323,7 +2680,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2347,7 +2709,12 @@ versioned_schema = {
         "mbms_notification": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2371,7 +2738,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2394,7 +2766,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2418,7 +2795,12 @@ versioned_schema = {
         "create_mbms": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2442,7 +2824,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2465,7 +2852,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2489,7 +2881,12 @@ versioned_schema = {
         "update_mbms": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2513,7 +2910,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2536,7 +2938,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2560,7 +2967,12 @@ versioned_schema = {
         "delete_mbms": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2584,7 +2996,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2607,7 +3024,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2631,7 +3053,12 @@ versioned_schema = {
         "mbms_registration": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2655,7 +3082,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2678,7 +3110,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2702,7 +3139,12 @@ versioned_schema = {
         "mbms_de_registration": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2726,7 +3168,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2749,7 +3196,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2773,7 +3225,12 @@ versioned_schema = {
         "mbms_session_start": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2797,7 +3254,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2820,7 +3282,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2844,7 +3311,12 @@ versioned_schema = {
         "mbms_session_stop": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2868,7 +3340,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2891,7 +3368,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2915,7 +3397,12 @@ versioned_schema = {
         "mbms_session_update": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -2939,7 +3426,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2962,7 +3454,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -2986,7 +3483,12 @@ versioned_schema = {
         "ms_info_change_notif": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -3010,7 +3512,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3033,7 +3540,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3057,7 +3569,12 @@ versioned_schema = {
         "data_record": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -3081,7 +3598,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3104,7 +3626,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3128,7 +3655,12 @@ versioned_schema = {
         "end_marker": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -3152,7 +3684,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3175,7 +3712,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3199,7 +3741,12 @@ versioned_schema = {
         "gtp_pdu": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -3223,7 +3770,12 @@ versioned_schema = {
                     "value": "allow",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3246,7 +3798,12 @@ versioned_schema = {
                     "value": "deny",
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -3270,7 +3827,12 @@ versioned_schema = {
     },
     "revisions": {
         "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
         "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
         "v7.0.5": True,
         "v7.0.4": True,
         "v7.0.3": True,
@@ -3323,6 +3885,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

@@ -5,6 +5,29 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.1
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.1
+
+Major Changes
+-------------
+
+- Add readthedocs.yaml file.
+- Update Q&A regarding setting up FortiToken multi-factor authentication;
+
+Bugfixes
+--------
+
+- Fix the issue while comparing the changes in before and after data in check_mode;
+- Fix the issues that some parameters are not in a specific fos vm versions.
+- Fix the request error when updating global object;
+- Fix the sanity test error;
+- Fix the wrong credential error when using username/password in fos verion 6;
+
 v2.3.0
 ======
 

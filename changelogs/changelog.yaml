@@ -210,3 +210,19 @@ releases:
     fragments:
     - 2.3.0_release.yml
     release_date: '2023-05-19'
+  2.3.1:
+    changes:
+      bugfixes:
+      - Fix the issue while comparing the changes in before and after data in check_mode;
+      - Fix the issues that some parameters are not in a specific fos vm versions.
+      - Fix the request error when updating global object;
+      - Fix the sanity test error;
+      - Fix the wrong credential error when using username/password in fos verion
+        6;
+      major_changes:
+      - Add readthedocs.yaml file.
+      - Update Q&A regarding setting up FortiToken multi-factor authentication;
+      release_summary: patch release of 2.3.1
+    fragments:
+    - 2.3.1_release.yml
+    release_date: '2023-08-04'

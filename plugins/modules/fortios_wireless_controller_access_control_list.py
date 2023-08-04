@@ -309,6 +309,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    find_current_values,
+)
 
 
 def filter_wireless_controller_access_control_list_data(json):
@@ -338,7 +341,6 @@ def underscore_to_hyphen(data):
 
 
 def wireless_controller_access_control_list(data, fos, check_mode=False):
-
     vdom = data["vdom"]
 
     state = data["state"]
@@ -382,11 +384,16 @@ def wireless_controller_access_control_list(data, fos, check_mode=False):
                 is_same = is_same_comparison(
                     serialize(current_data["results"][0]), serialize(filtered_data)
                 )
+
+                current_values = find_current_values(
+                    current_data["results"][0], filtered_data
+                )
+
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_data["results"][0], "after": filtered_data},
+                    {"before": current_values, "after": filtered_data},
                 )
 
             # record does not exist
@@ -441,7 +448,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
-
     fos.do_member_operation("wireless-controller", "access-control-list")
     if data["wireless_controller_access_control_list"]:
         resp = wireless_controller_access_control_list(data, fos, check_mode)
@@ -478,6 +484,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -501,6 +508,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -527,6 +535,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -550,6 +559,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -572,6 +582,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -594,6 +605,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -616,6 +628,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -638,6 +651,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -660,6 +674,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -682,6 +697,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -705,6 +721,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
                                 "v6.4.4": True,
@@ -727,6 +744,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
                                 "v6.4.4": True,
@@ -750,6 +768,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -775,6 +794,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -798,6 +818,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -820,6 +841,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -842,6 +864,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -864,6 +887,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -886,6 +910,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -908,6 +933,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -930,6 +956,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -953,6 +980,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
                                 "v6.4.4": True,
@@ -975,6 +1003,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                                 "v7.0.1": True,
                                 "v7.0.0": True,
                                 "v6.4.4": True,
@@ -998,6 +1027,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -1019,6 +1049,7 @@ versioned_schema = {
         "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
+        "v7.0.12": True,
         "v7.0.1": True,
         "v7.0.0": True,
         "v6.4.4": True,
@@ -1060,6 +1091,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

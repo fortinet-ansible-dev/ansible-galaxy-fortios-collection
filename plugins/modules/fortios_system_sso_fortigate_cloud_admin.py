@@ -279,7 +279,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-
     fos.do_member_operation("system", "sso-fortigate-cloud-admin")
     if data["system_sso_fortigate_cloud_admin"]:
         resp = system_sso_fortigate_cloud_admin(data, fos)
@@ -356,6 +355,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

@@ -6,6 +6,7 @@ plugins:
   callback: {}
   cliconf: {}
   connection: {}
+  filter: {}
   httpapi:
     fortios:
       description: HttpApi Plugin for Fortinet FortiOS Appliance or VM
@@ -22,5 +23,6 @@ plugins:
   netconf: {}
   shell: {}
   strategy: {}
+  test: {}
   vars: {}
-version: 2.3.0
+version: 2.3.1

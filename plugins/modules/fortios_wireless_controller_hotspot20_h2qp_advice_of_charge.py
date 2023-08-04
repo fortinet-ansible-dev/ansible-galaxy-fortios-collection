@@ -331,7 +331,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller_hotspot20(data, fos):
-
     fos.do_member_operation("wireless-controller.hotspot20", "h2qp-advice-of-charge")
     if data["wireless_controller_hotspot20_h2qp_advice_of_charge"]:
         resp = wireless_controller_hotspot20_h2qp_advice_of_charge(data, fos)
@@ -368,6 +367,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
             },
             "type": "string",
             "required": True,
@@ -390,6 +390,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                     },
                     "type": "string",
                     "required": True,
@@ -408,6 +409,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                     },
                     "type": "string",
                     "options": [
@@ -426,6 +428,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                         },
                         {
@@ -443,6 +446,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                         },
                         {
@@ -460,6 +464,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                         },
                         {
@@ -477,6 +482,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                         },
                     ],
@@ -495,6 +501,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                     },
                     "type": "string",
                 },
@@ -512,6 +519,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                     },
                     "type": "string",
                 },
@@ -533,6 +541,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                             "type": "string",
                             "required": True,
@@ -551,6 +560,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                             "type": "string",
                         },
@@ -568,6 +578,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                             "type": "string",
                         },
@@ -585,6 +596,7 @@ versioned_schema = {
                                 "v7.0.4": True,
                                 "v7.0.3": True,
                                 "v7.0.2": True,
+                                "v7.0.12": True,
                             },
                             "type": "string",
                         },
@@ -602,6 +614,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                     },
                 },
             },
@@ -618,6 +631,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
             },
         },
     },
@@ -634,6 +648,7 @@ versioned_schema = {
         "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
+        "v7.0.12": True,
     },
 }
 
@@ -670,6 +685,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

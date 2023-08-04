@@ -302,7 +302,6 @@ def is_successful_status(resp):
 
 
 def fortios_gtp(data, fos):
-
     fos.do_member_operation("gtp", "ie-allow-list")
     if data["gtp_ie_allow_list"]:
         resp = gtp_ie_allow_list(data, fos)
@@ -325,7 +324,12 @@ versioned_schema = {
         "name": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -343,7 +347,12 @@ versioned_schema = {
                 "id": {
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -357,7 +366,12 @@ versioned_schema = {
                 "ie": {
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -370,7 +384,12 @@ versioned_schema = {
                 "fos_message": {
                     "revisions": {
                         "v7.2.4": True,
+                        "v7.2.2": True,
+                        "v7.2.1": True,
                         "v7.2.0": True,
+                        "v7.0.8": True,
+                        "v7.0.7": True,
+                        "v7.0.6": True,
                         "v7.0.5": True,
                         "v7.0.4": True,
                         "v7.0.3": True,
@@ -383,7 +402,12 @@ versioned_schema = {
             },
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -395,7 +419,12 @@ versioned_schema = {
     },
     "revisions": {
         "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
         "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
         "v7.0.5": True,
         "v7.0.4": True,
         "v7.0.3": True,
@@ -436,6 +465,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

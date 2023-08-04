@@ -362,6 +362,10 @@ def main():
                            supports_check_mode=False)
     check_legacy_fortiosapi(module)
 
+    is_error = False
+    has_changed = False
+    result = None
+
     if module._socket_path:
         connection = Connection(module._socket_path)
         if 'access_token' in module.params:

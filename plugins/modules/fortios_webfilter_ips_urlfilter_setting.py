@@ -251,7 +251,6 @@ def is_successful_status(resp):
 
 
 def fortios_webfilter(data, fos):
-
     fos.do_member_operation("webfilter", "ips-urlfilter-setting")
     if data["webfilter_ips_urlfilter_setting"]:
         resp = webfilter_ips_urlfilter_setting(data, fos)
@@ -283,6 +282,7 @@ versioned_schema = {
         "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
+        "v7.0.12": True,
         "v7.0.1": True,
         "v7.0.0": True,
         "v6.4.4": True,
@@ -312,6 +312,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -341,6 +342,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -370,6 +372,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -399,6 +402,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -449,6 +453,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

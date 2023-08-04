@@ -270,7 +270,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-
     fos.do_member_operation("switch-controller", "802-1X-settings")
     if data["switch_controller_802_1x_settings"]:
         resp = switch_controller_802_1x_settings(data, fos)
@@ -302,6 +301,7 @@ versioned_schema = {
         "v7.0.4": True,
         "v7.0.3": True,
         "v7.0.2": True,
+        "v7.0.12": True,
         "v7.0.1": True,
         "v7.0.0": True,
         "v6.4.4": True,
@@ -331,6 +331,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -361,6 +362,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -390,6 +392,7 @@ versioned_schema = {
                         "v7.0.4": True,
                         "v7.0.3": True,
                         "v7.0.2": True,
+                        "v7.0.12": True,
                         "v7.0.1": True,
                         "v7.0.0": True,
                         "v6.4.4": True,
@@ -420,6 +423,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -449,6 +453,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -478,6 +483,7 @@ versioned_schema = {
                 "v7.0.4": True,
                 "v7.0.3": True,
                 "v7.0.2": True,
+                "v7.0.12": True,
                 "v7.0.1": True,
                 "v7.0.0": True,
                 "v6.4.4": True,
@@ -507,6 +513,7 @@ versioned_schema = {
                 "v7.0.4": False,
                 "v7.0.3": False,
                 "v7.0.2": False,
+                "v7.0.12": False,
                 "v7.0.1": False,
                 "v7.0.0": False,
                 "v6.4.4": False,
@@ -579,6 +586,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

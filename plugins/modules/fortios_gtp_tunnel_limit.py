@@ -205,6 +205,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    find_current_values,
+)
 
 
 def filter_gtp_tunnel_limit_data(json):
@@ -234,7 +237,6 @@ def underscore_to_hyphen(data):
 
 
 def gtp_tunnel_limit(data, fos, check_mode=False):
-
     vdom = data["vdom"]
 
     state = data["state"]
@@ -270,11 +272,16 @@ def gtp_tunnel_limit(data, fos, check_mode=False):
                 is_same = is_same_comparison(
                     serialize(current_data["results"][0]), serialize(filtered_data)
                 )
+
+                current_values = find_current_values(
+                    current_data["results"][0], filtered_data
+                )
+
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_data["results"][0], "after": filtered_data},
+                    {"before": current_values, "after": filtered_data},
                 )
 
             # record does not exist
@@ -322,7 +329,6 @@ def is_successful_status(resp):
 
 
 def fortios_gtp(data, fos, check_mode):
-
     fos.do_member_operation("gtp", "tunnel-limit")
     if data["gtp_tunnel_limit"]:
         resp = gtp_tunnel_limit(data, fos, check_mode)
@@ -346,7 +352,12 @@ versioned_schema = {
         "name": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -370,7 +381,12 @@ versioned_schema = {
         "tunnel_limit": {
             "revisions": {
                 "v7.2.4": True,
+                "v7.2.2": True,
+                "v7.2.1": True,
                 "v7.2.0": True,
+                "v7.0.8": True,
+                "v7.0.7": True,
+                "v7.0.6": True,
                 "v7.0.5": True,
                 "v7.0.4": True,
                 "v7.0.3": True,
@@ -393,7 +409,12 @@ versioned_schema = {
     },
     "revisions": {
         "v7.2.4": True,
+        "v7.2.2": True,
+        "v7.2.1": True,
         "v7.2.0": True,
+        "v7.0.8": True,
+        "v7.0.7": True,
+        "v7.0.6": True,
         "v7.0.5": True,
         "v7.0.4": True,
         "v7.0.3": True,
@@ -444,6 +465,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

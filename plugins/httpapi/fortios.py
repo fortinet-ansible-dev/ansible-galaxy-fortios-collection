@@ -36,7 +36,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.0'
+        self._ansible_galaxy_version = '2.3.1'
         self._log = None
         self._logged_in = False
         self._session_key = ''
@@ -46,7 +46,7 @@ class HttpApi(HttpApiBase):
         if not log_enabled:
             return
         if not self._log:
-            self._log = open("/tmp/fortios.ansible.log", "a")
+            self._log = open("/tmp/fortios.ansible.log", "w")
         log_message = str(datetime.now())
         log_message += ": " + str(msg) + '\n'
         self._log.write(log_message)
@@ -72,6 +72,11 @@ class HttpApi(HttpApiBase):
     def login(self, username, password):
         """Call a defined login endpoint to receive an authentication token.
         try API based authentication first and fall back to web based auth."""
+
+        if self._logged_in:
+            self.log("Already logged in, skipping")
+            return
+
         if (username is None or password is None) and self.get_access_token() is None:
             raise Exception('Please provide access token or username/password to login')
 
@@ -101,17 +106,18 @@ class HttpApi(HttpApiBase):
             data=json.dumps(auth_payload),
             method='POST',
         )
-        if status_code == 401:
+        if status_code in [401, 404]:
             self.log('API based auth login attempt failed, fall back to /logincheck')
             data = "username=" + urllib.parse.quote(username) + "&secretkey=" + urllib.parse.quote(password) + "&ajax=1"
             dummy, result_data = self.send_request(url='/logincheck', should_pre_login=False, data=data, method='POST')
             self.log('/logincheck with user: %s %s' % (username, 'succeeds' if result_data[0] == '1' else 'fails'))
             if result_data[0] != '1':
                 raise Exception('Wrong credentials. Please check')
+            self._logged_in = True
         else:
             self.log('API based auth with user: %s %s' % (username, 'succeeds' if "LOGIN_SUCCESS" in result_data else 'fails'))
             if "LOGIN_SUCCESS" not in result_data:
-                raise Exception('Wrong credentials. Please check')
+                raise Exception('API based auth failed: wrong credentials. Please check')
             self._logged_in = True
             try:
                 json_result_data = json.loads(result_data)

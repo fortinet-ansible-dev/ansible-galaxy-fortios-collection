@@ -200,6 +200,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    find_current_values,
+)
 
 
 def filter_ips_rule_settings_data(json):
@@ -229,7 +232,6 @@ def underscore_to_hyphen(data):
 
 
 def ips_rule_settings(data, fos, check_mode=False):
-
     vdom = data["vdom"]
 
     state = data["state"]
@@ -265,11 +267,16 @@ def ips_rule_settings(data, fos, check_mode=False):
                 is_same = is_same_comparison(
                     serialize(current_data["results"][0]), serialize(filtered_data)
                 )
+
+                current_values = find_current_values(
+                    current_data["results"][0], filtered_data
+                )
+
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_data["results"][0], "after": filtered_data},
+                    {"before": current_values, "after": filtered_data},
                 )
 
             # record does not exist
@@ -317,7 +324,6 @@ def is_successful_status(resp):
 
 
 def fortios_ips(data, fos, check_mode):
-
     fos.do_member_operation("ips", "rule-settings")
     if data["ips_rule_settings"]:
         resp = ips_rule_settings(data, fos, check_mode)
@@ -414,6 +420,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

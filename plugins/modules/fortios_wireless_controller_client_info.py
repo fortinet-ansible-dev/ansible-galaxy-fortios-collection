@@ -235,7 +235,6 @@ def valid_attr_to_invalid_attrs(data):
 
 
 def wireless_controller_client_info(data, fos, check_mode=False):
-
     vdom = data["vdom"]
     wireless_controller_client_info_data = data["wireless_controller_client_info"]
     filtered_data = underscore_to_hyphen(
@@ -261,7 +260,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
-
     fos.do_member_operation("wireless-controller", "client-info")
     if data["wireless_controller_client_info"]:
         resp = wireless_controller_client_info(data, fos, check_mode)
@@ -351,6 +349,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

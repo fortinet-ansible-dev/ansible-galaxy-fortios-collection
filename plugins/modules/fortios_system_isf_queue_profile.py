@@ -254,6 +254,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     serialize,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    find_current_values,
+)
 
 
 def filter_system_isf_queue_profile_data(json):
@@ -291,7 +294,6 @@ def underscore_to_hyphen(data):
 
 
 def system_isf_queue_profile(data, fos, check_mode=False):
-
     vdom = data["vdom"]
 
     state = data["state"]
@@ -327,11 +329,16 @@ def system_isf_queue_profile(data, fos, check_mode=False):
                 is_same = is_same_comparison(
                     serialize(current_data["results"][0]), serialize(filtered_data)
                 )
+
+                current_values = find_current_values(
+                    current_data["results"][0], filtered_data
+                )
+
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_data["results"][0], "after": filtered_data},
+                    {"before": current_values, "after": filtered_data},
                 )
 
             # record does not exist
@@ -381,7 +388,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos, check_mode):
-
     fos.do_member_operation("system", "isf-queue-profile")
     if data["system_isf_queue_profile"]:
         resp = system_isf_queue_profile(data, fos, check_mode)
@@ -405,52 +411,58 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
             "type": "string",
             "required": True,
         },
         "guaranteed_bandwidth": {
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
             "type": "integer",
         },
         "maximum_bandwidth": {
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
             "type": "integer",
         },
         "bandwidth_unit": {
-            "revisions": {"v7.2.0": True, "v6.4.0": True},
+            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
             "type": "string",
             "options": [
-                {"value": "kbps", "revisions": {"v7.2.0": True, "v6.4.0": True}},
-                {"value": "pps", "revisions": {"v7.2.0": True, "v6.4.0": True}},
+                {
+                    "value": "kbps",
+                    "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+                },
+                {
+                    "value": "pps",
+                    "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+                },
             ],
         },
         "burst_bps_granularity": {
-            "revisions": {"v7.2.0": True, "v6.4.0": False},
+            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": False},
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.0": True}},
-                {"value": "512-bytes", "revisions": {"v7.2.0": True}},
-                {"value": "1k-bytes", "revisions": {"v7.2.0": True}},
-                {"value": "2k-bytes", "revisions": {"v7.2.0": True}},
-                {"value": "4k-bytes", "revisions": {"v7.2.0": True}},
-                {"value": "8k-bytes", "revisions": {"v7.2.0": True}},
-                {"value": "16k-bytes", "revisions": {"v7.2.0": True}},
-                {"value": "32k-bytes", "revisions": {"v7.2.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "512-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "1k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "2k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "4k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "8k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "16k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "32k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
             ],
         },
         "burst_pps_granularity": {
-            "revisions": {"v7.2.0": True, "v6.4.0": False},
+            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": False},
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.2.0": True}},
-                {"value": "half-packet", "revisions": {"v7.2.0": True}},
-                {"value": "1-packet", "revisions": {"v7.2.0": True}},
-                {"value": "2-packets", "revisions": {"v7.2.0": True}},
-                {"value": "4-packets", "revisions": {"v7.2.0": True}},
-                {"value": "16-packets", "revisions": {"v7.2.0": True}},
-                {"value": "65-packets", "revisions": {"v7.2.0": True}},
-                {"value": "262-packets", "revisions": {"v7.2.0": True}},
+                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "half-packet", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "1-packet", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "2-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "4-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "16-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "65-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {"value": "262-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
             ],
         },
         "burst_control": {
@@ -462,7 +474,7 @@ versioned_schema = {
             ],
         },
     },
-    "revisions": {"v7.2.0": True, "v6.4.0": True},
+    "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
 }
 
 
@@ -498,6 +510,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:

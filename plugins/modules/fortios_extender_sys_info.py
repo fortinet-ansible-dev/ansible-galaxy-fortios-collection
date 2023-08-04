@@ -235,7 +235,6 @@ def valid_attr_to_invalid_attrs(data):
 
 
 def extender_sys_info(data, fos, check_mode=False):
-
     vdom = data["vdom"]
     extender_sys_info_data = data["extender_sys_info"]
     filtered_data = underscore_to_hyphen(
@@ -259,7 +258,6 @@ def is_successful_status(resp):
 
 
 def fortios_extender(data, fos, check_mode):
-
     fos.do_member_operation("extender", "sys-info")
     if data["extender_sys_info"]:
         resp = extender_sys_info(data, fos, check_mode)
@@ -345,6 +343,11 @@ def main():
 
     module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
     check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
 
     versions_check_result = None
     if module._socket_path:
