@@ -136,7 +136,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - Report item ID.
+                            - Report item ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     img_src:
@@ -155,7 +155,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - List entry ID.
+                                    - List entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     list_component:
@@ -182,7 +182,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - ID.
+                                    - ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             name:
@@ -343,7 +343,7 @@ options:
                                         type: str
                                     id:
                                         description:
-                                            - Report item ID.
+                                            - Report item ID. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     img_src:
@@ -386,7 +386,7 @@ options:
                                         type: str
                                     id:
                                         description:
-                                            - Report item ID.
+                                            - Report item ID. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     img_src:

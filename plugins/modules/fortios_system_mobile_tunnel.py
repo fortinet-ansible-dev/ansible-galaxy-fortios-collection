@@ -135,7 +135,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Network entry ID.
+                            - Network entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     interface:

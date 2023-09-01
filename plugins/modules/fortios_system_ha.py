@@ -164,7 +164,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Table ID.
+                            - Table ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     interface:
@@ -546,7 +546,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Table ID.
+                            - Table ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     peer_ip:
@@ -623,7 +623,7 @@ options:
                         type: int
                     vcluster_id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     vdom:
@@ -785,7 +785,7 @@ EXAMPLES = """
             pingserver_secondary_force_reset: "enable"
             pingserver_slave_force_reset: "enable"
             priority: "128"
-            vcluster_id: "1"
+            vcluster_id: "<you_own_value>"
             vdom:
              -
                 name: "default_name_107 (source system.vdom.name)"

@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the seq_num instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -173,7 +175,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Destination Internet Service ID. Source firewall.internet-service.id.
+                            - Destination Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             output_device:
@@ -186,7 +188,7 @@ options:
                 type: int
             seq_num:
                 description:
-                    - Sequence number(1-65535).
+                    - Sequence number(1-65535). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             src:
@@ -279,7 +281,7 @@ EXAMPLES = """
             id:  "18 (source firewall.internet-service.id)"
         output_device: "<your_own_value> (source system.interface.name system.interface.name)"
         protocol: "0"
-        seq_num: "0"
+        seq_num: "<you_own_value>"
         src:
          -
             addr6: "<your_own_value>"

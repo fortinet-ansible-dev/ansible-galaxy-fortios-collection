@@ -147,7 +147,7 @@ options:
                                         type: str
                                     id:
                                         description:
-                                            - Custom service ID.
+                                            - Custom service ID. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     src_port_range:
@@ -180,7 +180,7 @@ options:
                                 type: str
                     sync_id:
                         description:
-                            - Sync ID.
+                            - Sync ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     syncvd:
@@ -265,7 +265,7 @@ EXAMPLES = """
                 srcaddr: "<your_own_value>"
                 srcaddr6: "<your_own_value>"
                 srcintf: "<your_own_value> (source system.interface.name)"
-            sync_id: "0"
+            sync_id: "<you_own_value>"
             syncvd:
              -
                 name: "default_name_25 (source system.vdom.name)"

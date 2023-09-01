@@ -121,7 +121,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Entry ID.
+                            - Entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     port:
@@ -182,7 +182,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Application IDs.
+                                    - Application IDs. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     behavior:
@@ -198,7 +198,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Application category ID.
+                                    - Application category ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     exclusion:
@@ -209,12 +209,12 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Excluded application IDs.
+                                    - Excluded application IDs. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     id:
                         description:
-                            - Entry ID.
+                            - Entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     log:
@@ -239,7 +239,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Parameter tuple ID.
+                                    - Parameter tuple ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             members:
@@ -250,7 +250,7 @@ options:
                                 suboptions:
                                     id:
                                         description:
-                                            - Parameter.
+                                            - Parameter. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     name:
@@ -337,6 +337,7 @@ options:
                             level:
                                 description:
                                     - Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High, and Critical).
+                                       see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     session_ttl:
@@ -359,7 +360,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Application sub-category ID.
+                                    - Application sub-category ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     technology:
@@ -519,7 +520,7 @@ EXAMPLES = """
             rate_track: "none"
             risk:
              -
-                level: "0"
+                level: "<you_own_value>"
             session_ttl: "0"
             shaper: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
             shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"

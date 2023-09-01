@@ -668,7 +668,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - ACL ID.
+                                    - ACL ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     igmp_snooping:
@@ -1230,7 +1230,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Host entry ID.
+                                    - Host entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             ip:
@@ -1239,7 +1239,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - SNMP community ID.
+                            - SNMP community ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:
@@ -1428,7 +1428,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     interface:

@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the ddnsid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -178,7 +180,7 @@ options:
                 type: str
             ddnsid:
                 description:
-                    - DDNS ID.
+                    - DDNS ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             monitor_interface:
@@ -250,7 +252,7 @@ EXAMPLES = """
         ddns_ttl: "300"
         ddns_username: "<your_own_value>"
         ddns_zone: "<your_own_value>"
-        ddnsid: "0"
+        ddnsid: "<you_own_value>"
         monitor_interface:
          -
             interface_name: "<your_own_value> (source system.interface.name)"

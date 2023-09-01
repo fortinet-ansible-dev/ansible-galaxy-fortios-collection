@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the id instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
     - Adjust object order by moving self after(before) another.
     - Only one of [after, before] must be specified when action is moving an object.
@@ -116,7 +118,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Category IDs.
+                            - Category IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             app_group:
@@ -138,7 +140,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Application IDs.
+                            - Application IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             class_id:
@@ -225,7 +227,7 @@ options:
                         type: str
             id:
                 description:
-                    - Shaping policy ID (0 - 4294967295).
+                    - Shaping policy ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             internet_service:
@@ -276,7 +278,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_name:
@@ -338,7 +340,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_src_name:
@@ -461,7 +463,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - URL category ID.
+                            - URL category ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             users:

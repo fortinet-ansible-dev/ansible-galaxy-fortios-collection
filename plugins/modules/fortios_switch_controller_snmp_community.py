@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the id instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -107,7 +109,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Host entry ID.
+                            - Host entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -116,7 +118,7 @@ options:
                         type: str
             id:
                 description:
-                    - SNMP community ID.
+                    - SNMP community ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             name:

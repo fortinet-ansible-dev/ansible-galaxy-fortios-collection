@@ -152,7 +152,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     mapping:
@@ -167,7 +167,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - id
+                                    - id see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             op:
@@ -224,7 +224,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Drill down chart ID.
+                            - Drill down chart ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     status:

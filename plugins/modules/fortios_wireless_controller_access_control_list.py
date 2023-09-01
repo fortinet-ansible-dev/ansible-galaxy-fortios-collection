@@ -123,7 +123,7 @@ options:
                         type: int
                     rule_id:
                         description:
-                            - Rule ID (1 - 65535).
+                            - Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     srcaddr:
@@ -165,7 +165,7 @@ options:
                         type: int
                     rule_id:
                         description:
-                            - Rule ID (1 - 65535).
+                            - Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     srcaddr:
@@ -208,7 +208,7 @@ EXAMPLES = """
             dstaddr: "<your_own_value>"
             dstport: "0"
             protocol: "255"
-            rule_id: "0"
+            rule_id: "<you_own_value>"
             srcaddr: "<your_own_value>"
             srcport: "0"
         layer3_ipv6_rules:
@@ -218,7 +218,7 @@ EXAMPLES = """
             dstaddr: "<your_own_value>"
             dstport: "0"
             protocol: "255"
-            rule_id: "0"
+            rule_id: "<you_own_value>"
             srcaddr: "<your_own_value>"
             srcport: "0"
         name: "default_name_22"

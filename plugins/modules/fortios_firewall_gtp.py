@@ -118,7 +118,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     selection_mode:
@@ -286,7 +286,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     remove_ies:
@@ -487,7 +487,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     mcc_mnc:
@@ -563,7 +563,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     srcaddr:
@@ -940,7 +940,7 @@ options:
                         type: int
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     start:
@@ -980,7 +980,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     rate_limit:
@@ -1026,7 +1026,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     imei:
@@ -1134,7 +1134,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     imsi_prefix:

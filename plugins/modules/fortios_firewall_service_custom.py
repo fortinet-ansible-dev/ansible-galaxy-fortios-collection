@@ -96,7 +96,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Application category id.
+                            - Application category id. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             app_service_type:
@@ -115,7 +115,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Application id.
+                            - Application id. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             category:

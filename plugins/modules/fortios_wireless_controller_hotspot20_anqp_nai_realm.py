@@ -117,7 +117,7 @@ options:
                                             - 'tunneled-credential'
                                     index:
                                         description:
-                                            - Param index.
+                                            - Param index. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     val:
@@ -157,7 +157,7 @@ options:
                                             - 'tun-cred-vendor-specific'
                             index:
                                 description:
-                                    - EAP method index.
+                                    - EAP method index. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             method:
@@ -220,9 +220,9 @@ EXAMPLES = """
                 auth_param:
                  -
                     id:  "6"
-                    index: "0"
+                    index: "<you_own_value>"
                     val: "eap-identity"
-                index: "0"
+                index: "<you_own_value>"
                 method: "eap-identity"
             encoding: "disable"
             nai_realm: "<your_own_value>"

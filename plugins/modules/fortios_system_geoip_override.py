@@ -108,7 +108,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID of individual entry in the IP range table.
+                            - ID of individual entry in the IP range table. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     start_ip:
@@ -127,7 +127,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID of individual entry in the IPv6 range table.
+                            - ID of individual entry in the IPv6 range table. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     start_ip:

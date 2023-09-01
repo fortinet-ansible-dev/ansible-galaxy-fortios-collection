@@ -228,7 +228,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Server ID.
+                            - Server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     port:

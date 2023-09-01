@@ -188,7 +188,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Real server ID.
+                            - Real server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:

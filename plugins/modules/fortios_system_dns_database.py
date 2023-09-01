@@ -121,7 +121,7 @@ options:
                         type: str
                     id:
                         description:
-                            - DNS entry ID.
+                            - DNS entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:

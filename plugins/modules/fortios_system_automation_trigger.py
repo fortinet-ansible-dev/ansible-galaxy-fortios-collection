@@ -145,7 +145,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Entry ID.
+                            - Entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:
@@ -184,7 +184,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Log ID.
+                            - Log ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             name:

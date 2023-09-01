@@ -107,7 +107,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Distance ID.
+                            - Distance ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix:
@@ -129,7 +129,7 @@ options:
                             - 'out'
                     id:
                         description:
-                            - Distribute list ID.
+                            - Distribute list ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     interface:
@@ -231,7 +231,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Neighbor entry ID.
+                            - Neighbor entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -246,7 +246,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Network entry ID.
+                            - Network entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix:
@@ -272,7 +272,7 @@ options:
                             - 'out'
                     id:
                         description:
-                            - Offset-list ID.
+                            - Offset-list ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     interface:

@@ -148,7 +148,7 @@ options:
                                 type: str
                             spi:
                                 description:
-                                    - Security Parameters Index.
+                                    - Security Parameters Index. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     key_rollover_interval:
@@ -203,7 +203,7 @@ options:
                                     - 'enable'
                             id:
                                 description:
-                                    - Range entry ID.
+                                    - Range entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             prefix6:
@@ -285,7 +285,7 @@ options:
                                         type: str
                                     spi:
                                         description:
-                                            - Security Parameters Index.
+                                            - Security Parameters Index. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                             key_rollover_interval:
@@ -434,7 +434,7 @@ options:
                                 type: str
                             spi:
                                 description:
-                                    - Security Parameters Index.
+                                    - Security Parameters Index. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     key_rollover_interval:
@@ -594,7 +594,7 @@ options:
                             - 'enable'
                     id:
                         description:
-                            - Summary address entry ID.
+                            - Summary address entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix6:
@@ -634,7 +634,7 @@ EXAMPLES = """
              -
                 auth_key: "<your_own_value>"
                 enc_key: "<your_own_value>"
-                spi: "0"
+                spi: "<you_own_value>"
             key_rollover_interval: "300"
             nssa_default_information_originate: "enable"
             nssa_default_information_originate_metric: "10"
@@ -659,7 +659,7 @@ EXAMPLES = """
                  -
                     auth_key: "<your_own_value>"
                     enc_key: "<your_own_value>"
-                    spi: "0"
+                    spi: "<you_own_value>"
                 key_rollover_interval: "300"
                 name: "default_name_37"
                 peer: "<your_own_value>"
@@ -688,7 +688,7 @@ EXAMPLES = """
              -
                 auth_key: "<your_own_value>"
                 enc_key: "<your_own_value>"
-                spi: "0"
+                spi: "<you_own_value>"
             key_rollover_interval: "300"
             mtu: "0"
             mtu_ignore: "enable"

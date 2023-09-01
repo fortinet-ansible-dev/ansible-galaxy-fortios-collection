@@ -146,7 +146,7 @@ options:
                 suboptions:
                     severity_num:
                         description:
-                            - Enter multiple severity levels, where 0 = Info, 1 = Low, ..., 4 = Critical
+                            - Enter multiple severity levels, where 0 = Info, 1 = Low, ..., 4 = Critical see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             src:
@@ -254,7 +254,7 @@ EXAMPLES = """
         os: "<your_own_value>"
         severity:
          -
-            severity_num: "0"
+            severity_num: "<you_own_value>"
         src: "<your_own_value>"
         ssid_policy: "<your_own_value> (source wireless-controller.ssid-policy.name)"
         status: "enable"

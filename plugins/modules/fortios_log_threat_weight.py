@@ -92,7 +92,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Entry ID.
+                            - Entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     level:
@@ -147,7 +147,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Entry ID.
+                            - Entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     level:
@@ -480,7 +480,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Entry ID.
+                            - Entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     level:

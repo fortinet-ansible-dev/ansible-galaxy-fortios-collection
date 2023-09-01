@@ -325,7 +325,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Message IDs.
+                            - Message IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             update_mbms:

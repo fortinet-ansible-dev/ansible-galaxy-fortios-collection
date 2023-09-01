@@ -104,7 +104,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Dashboard ID.
+                            - Dashboard ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     layout_type:
@@ -159,7 +159,7 @@ options:
                                 suboptions:
                                     id:
                                         description:
-                                            - FortiView Filter ID.
+                                            - FortiView Filter ID. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     key:
@@ -192,7 +192,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - Widget ID.
+                                    - Widget ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             industry:

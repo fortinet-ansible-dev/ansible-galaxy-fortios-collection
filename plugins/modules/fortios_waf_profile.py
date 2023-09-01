@@ -217,7 +217,7 @@ options:
                                     - 'disable'
                             id:
                                 description:
-                                    - Exception ID.
+                                    - Exception ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             line_length:
@@ -809,7 +809,7 @@ options:
                                     - 'others'
                             id:
                                 description:
-                                    - HTTP method policy ID.
+                                    - HTTP method policy ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             pattern:
@@ -938,7 +938,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Signature ID. Source waf.signature.id.
+                                    - Signature ID. see <a href='#notes'>Notes</a>. Source waf.signature.id.
                                 required: true
                                 type: int
                     disabled_sub_class:
@@ -949,7 +949,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Signature subclass ID. Source waf.sub-class.id.
+                                    - Signature subclass ID. see <a href='#notes'>Notes</a>. Source waf.sub-class.id.
                                 required: true
                                 type: int
                     main_class:
@@ -968,7 +968,7 @@ options:
                                     - 'erase'
                             id:
                                 description:
-                                    - Main signature class ID. Source waf.main-class.id.
+                                    - Main signature class ID. see <a href='#notes'>Notes</a>. Source waf.main-class.id.
                                 required: true
                                 type: int
                             log:
@@ -1007,7 +1007,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - URL access pattern ID.
+                                    - URL access pattern ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             negate:
@@ -1046,7 +1046,7 @@ options:
                         type: str
                     id:
                         description:
-                            - URL access ID.
+                            - URL access ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     log:

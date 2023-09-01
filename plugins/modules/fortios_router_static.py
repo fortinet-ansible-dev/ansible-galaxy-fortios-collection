@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the seq_num instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -176,7 +178,7 @@ options:
                         type: str
             seq_num:
                 description:
-                    - Sequence number. Starting from 1
+                    - Sequence number. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             src:
@@ -246,7 +248,7 @@ EXAMPLES = """
         sdwan_zone:
          -
             name: "default_name_19 (source system.sdwan.zone.name)"
-        seq_num: "0"
+        seq_num: "<you_own_value>"
         src: "<your_own_value>"
         status: "enable"
         tag: "0"

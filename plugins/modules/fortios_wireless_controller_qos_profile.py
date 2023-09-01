@@ -137,7 +137,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - DSCP WMM mapping numbers (0 - 63).
+                            - DSCP WMM mapping numbers (0 - 63). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             dscp_wmm_bk:
@@ -148,7 +148,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - DSCP WMM mapping numbers (0 - 63).
+                            - DSCP WMM mapping numbers (0 - 63). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             dscp_wmm_mapping:
@@ -166,7 +166,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - DSCP WMM mapping numbers (0 - 63).
+                            - DSCP WMM mapping numbers (0 - 63). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             dscp_wmm_vo:
@@ -177,7 +177,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - DSCP WMM mapping numbers (0 - 63).
+                            - DSCP WMM mapping numbers (0 - 63). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             name:

@@ -123,7 +123,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Rule ID.
+                            - Rule ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix6:

@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the policyid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -308,7 +310,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_negate:
@@ -366,7 +368,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_src_negate:
@@ -430,7 +432,7 @@ options:
                 type: str
             policyid:
                 description:
-                    - Policy ID (0 - 4294967294).
+                    - Policy ID (0 - 4294967294). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             poolname4:
@@ -758,7 +760,7 @@ EXAMPLES = """
         nat: "enable"
         outbound: "enable"
         per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
-        policyid: "2147483647"
+        policyid: "<you_own_value>"
         poolname4:
          -
             name: "default_name_65 (source firewall.ippool.name)"

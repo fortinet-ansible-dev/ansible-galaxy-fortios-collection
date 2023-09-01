@@ -232,7 +232,7 @@ options:
                         type: int
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -826,7 +826,7 @@ options:
                         suboptions:
                             iaid:
                                 description:
-                                    - Identity association identifier.
+                                    - Identity association identifier. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             prefix_hint:
@@ -956,7 +956,7 @@ options:
                                     - 'disable'
                             prefix_id:
                                 description:
-                                    - Prefix ID.
+                                    - Prefix ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             rdnss:
@@ -1218,7 +1218,7 @@ options:
                                 type: int
                             vrid:
                                 description:
-                                    - Virtual router identifier (1 - 255).
+                                    - Virtual router identifier (1 - 255). see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             vrip6:
@@ -1616,7 +1616,7 @@ options:
                         type: int
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -2078,7 +2078,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - ID.
+                                    - ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             ip:
@@ -2118,7 +2118,7 @@ options:
                         type: int
                     vrid:
                         description:
-                            - Virtual router identifier (1 - 255).
+                            - Virtual router identifier (1 - 255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     vrip:
@@ -2294,7 +2294,7 @@ EXAMPLES = """
             dhcp6_client_options: "rapid"
             dhcp6_iapd_list:
              -
-                iaid: "0"
+                iaid: "<you_own_value>"
                 prefix_hint: "<your_own_value>"
                 prefix_hint_plt: "604800"
                 prefix_hint_vlt: "2592000"
@@ -2318,7 +2318,7 @@ EXAMPLES = """
                 autonomous_flag: "enable"
                 delegated_prefix_iaid: "0"
                 onlink_flag: "enable"
-                prefix_id: "0"
+                prefix_id: "<you_own_value>"
                 rdnss: "<your_own_value>"
                 rdnss_service: "delegated"
                 subnet: "<your_own_value>"
@@ -2371,7 +2371,7 @@ EXAMPLES = """
                 status: "enable"
                 vrdst6: "<your_own_value>"
                 vrgrp: "0"
-                vrid: "0"
+                vrid: "<you_own_value>"
                 vrip6: "<your_own_value>"
         l2forward: "enable"
         lacp_ha_secondary: "enable"
@@ -2530,7 +2530,7 @@ EXAMPLES = """
             vrdst: "<your_own_value>"
             vrdst_priority: "0"
             vrgrp: "0"
-            vrid: "0"
+            vrid: "<you_own_value>"
             vrip: "<your_own_value>"
         vrrp_virtual_mac: "enable"
         wccp: "enable"

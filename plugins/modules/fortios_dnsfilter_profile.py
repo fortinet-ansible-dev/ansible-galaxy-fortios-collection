@@ -132,7 +132,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     netmask:
@@ -204,7 +204,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - ID number.
+                                    - ID number. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             log:

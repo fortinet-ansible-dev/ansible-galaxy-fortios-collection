@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the seq_num instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -102,7 +104,7 @@ options:
                 type: str
             seq_num:
                 description:
-                    - Entry number.
+                    - Entry number. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             status:
@@ -134,7 +136,7 @@ EXAMPLES = """
         ip: "<your_own_value>"
         mac: "<your_own_value>"
         name: "default_name_5"
-        seq_num: "0"
+        seq_num: "<you_own_value>"
         status: "enable"
 
 """

@@ -1,6 +1,6 @@
 namespace: "fortinet"
 name: "fortios"
-version: "2.3.1"
+version: "2.3.2"
 description: "A collection of Ansible Modules for FortiOS v6"
 readme: "README.md"
 authors:

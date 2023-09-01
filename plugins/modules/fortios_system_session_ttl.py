@@ -96,7 +96,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Table entry ID.
+                            - Table entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     protocol:

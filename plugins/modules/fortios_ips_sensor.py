@@ -158,7 +158,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - Exempt IP ID.
+                                    - Exempt IP ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             src_ip:
@@ -167,7 +167,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - Rule ID in IPS database (0 - 4294967295).
+                            - Rule ID in IPS database (0 - 4294967295). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     last_modified:
@@ -262,7 +262,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Rule IPS.
+                                    - Rule IPS. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     severity:
@@ -286,7 +286,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Vulnerability type ID.
+                                    - Vulnerability type ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
             extended_log:
@@ -407,7 +407,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - Exempt IP ID.
+                                    - Exempt IP ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             src_ip:
@@ -448,7 +448,7 @@ options:
                             - 'enable'
                     rule_id:
                         description:
-                            - Override rule ID.
+                            - Override rule ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     status:
@@ -558,7 +558,7 @@ EXAMPLES = """
             quarantine: "none"
             quarantine_expiry: "1073741823"
             quarantine_log: "disable"
-            rule_id: "2147483647"
+            rule_id: "<you_own_value>"
             status: "disable"
         replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
         scan_botnet_connections: "disable"

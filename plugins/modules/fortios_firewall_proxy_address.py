@@ -114,7 +114,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - FortiGuard category ID.
+                            - FortiGuard category ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             color:
@@ -152,7 +152,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             header_name:

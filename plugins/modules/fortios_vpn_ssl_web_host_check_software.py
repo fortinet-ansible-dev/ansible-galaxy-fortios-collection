@@ -103,7 +103,7 @@ options:
                             - 'deny'
                     id:
                         description:
-                            - ID (0 - 4294967295).
+                            - ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     md5s:

@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the id instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -107,7 +109,7 @@ options:
                             - 'ipv6'
                     id:
                         description:
-                            - Entry ID(1-255).
+                            - Entry ID(1-255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     port_range:
@@ -122,7 +124,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - Custom entry port range ID.
+                                    - Custom entry port range ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             start_port:
@@ -135,7 +137,7 @@ options:
                         type: int
             id:
                 description:
-                    - Internet Service ID in the Internet Service database. Source firewall.internet-service.id.
+                    - Internet Service ID in the Internet Service database. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                 required: true
                 type: int
 """

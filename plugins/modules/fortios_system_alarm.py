@@ -133,7 +133,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - Firewall policy violations ID.
+                                    - Firewall policy violations ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             src_ip:
@@ -150,7 +150,7 @@ options:
                                 type: int
                     id:
                         description:
-                            - Group ID.
+                            - Group ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     log_full_warning_threshold:

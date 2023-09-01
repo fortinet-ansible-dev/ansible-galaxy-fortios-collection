@@ -117,7 +117,7 @@ options:
                             - 'P2P'
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     server_interface_name:

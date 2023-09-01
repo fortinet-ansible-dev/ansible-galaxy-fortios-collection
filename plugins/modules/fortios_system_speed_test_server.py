@@ -100,7 +100,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Server host ID.
+                            - Server host ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:

@@ -185,7 +185,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Message IDs (range from 1 to 255).
+                            - Message IDs (range from 1 to 255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             version_not_support:

@@ -142,7 +142,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Server ID.
+                            - Server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip_address:

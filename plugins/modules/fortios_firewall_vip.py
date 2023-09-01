@@ -375,7 +375,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Real server ID.
+                            - Real server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -580,7 +580,7 @@ options:
                             - 'TLS-RSA-WITH-DES-CBC-SHA'
                     priority:
                         description:
-                            - SSL/TLS cipher suites priority.
+                            - SSL/TLS cipher suites priority. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     versions:
@@ -842,7 +842,7 @@ options:
                             - 'TLS-RSA-WITH-DES-CBC-SHA'
                     priority:
                         description:
-                            - SSL/TLS cipher suites priority.
+                            - SSL/TLS cipher suites priority. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     versions:
@@ -1039,7 +1039,7 @@ EXAMPLES = """
         ssl_cipher_suites:
          -
             cipher: "TLS-AES-128-GCM-SHA256"
-            priority: "0"
+            priority: "<you_own_value>"
             versions: "ssl-3.0"
         ssl_client_fallback: "disable"
         ssl_client_rekey_count: "0"
@@ -1068,7 +1068,7 @@ EXAMPLES = """
         ssl_server_cipher_suites:
          -
             cipher: "TLS-AES-128-GCM-SHA256"
-            priority: "0"
+            priority: "<you_own_value>"
             versions: "ssl-3.0"
         ssl_server_max_version: "ssl-3.0"
         ssl_server_min_version: "ssl-3.0"

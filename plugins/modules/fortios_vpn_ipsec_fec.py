@@ -124,7 +124,7 @@ options:
                         type: int
                     seqno:
                         description:
-                            - Sequence number (1 - 64).
+                            - Sequence number (1 - 64). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             name:
@@ -160,7 +160,7 @@ EXAMPLES = """
             latency_threshold: "0"
             packet_loss_threshold: "0"
             redundant: "0"
-            seqno: "0"
+            seqno: "<you_own_value>"
         name: "default_name_12"
 
 """

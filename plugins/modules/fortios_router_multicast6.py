@@ -130,7 +130,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - ID of the entry.
+                                    - ID of the entry. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             ip6_address:

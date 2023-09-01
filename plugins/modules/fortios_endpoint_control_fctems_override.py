@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the ems_id instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -123,7 +125,7 @@ options:
                     - 'mismatched-ems-sn'
             ems_id:
                 description:
-                    - EMS ID in order (1 - 7).
+                    - EMS ID in order (1 - 7). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             fortinetone_cloud_authentication:
@@ -259,7 +261,7 @@ EXAMPLES = """
         capabilities: "fabric-auth"
         cloud_server_type: "production"
         dirty_reason: "none"
-        ems_id: "0"
+        ems_id: "<you_own_value>"
         fortinetone_cloud_authentication: "enable"
         https_port: "443"
         interface: "<your_own_value> (source system.interface.name)"

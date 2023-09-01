@@ -125,7 +125,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - Duplication rule ID (1 - 255).
+                            - Duplication rule ID (1 - 255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     packet_de_duplication:
@@ -162,7 +162,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - SD-WAN service rule ID. Source system.sdwan.service.id.
+                                    - SD-WAN service rule ID. see <a href='#notes'>Notes</a>. Source system.sdwan.service.id.
                                 required: true
                                 type: int
                     sla_match_service:
@@ -317,7 +317,7 @@ options:
                         suboptions:
                             seq_num:
                                 description:
-                                    - Member sequence number. Source system.sdwan.members.seq-num.
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
                                 required: true
                                 type: int
                     mos_codec:
@@ -405,7 +405,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - SLA ID.
+                                    - SLA ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             jitter_threshold:
@@ -571,7 +571,7 @@ options:
                         type: int
                     seq_num:
                         description:
-                            - Sequence number(1-512).
+                            - Sequence number(1-512). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     source:
@@ -629,7 +629,7 @@ options:
                         suboptions:
                             seq_num:
                                 description:
-                                    - Member sequence number. Source system.sdwan.members.seq-num.
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
                                 required: true
                                 type: int
                     minimum_sla_meet_members:
@@ -802,7 +802,7 @@ options:
                         type: int
                     id:
                         description:
-                            - SD-WAN rule ID (1 - 4000).
+                            - SD-WAN rule ID (1 - 4000). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     input_device:
@@ -849,7 +849,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Application control based Internet Service ID.
+                                    - Application control based Internet Service ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     internet_service_app_ctrl_category:
@@ -860,7 +860,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Application control category ID.
+                                    - Application control category ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     internet_service_app_ctrl_group:
@@ -979,7 +979,7 @@ options:
                         suboptions:
                             seq_num:
                                 description:
-                                    - Member sequence number. Source system.sdwan.members.seq-num.
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
                                 required: true
                                 type: int
                     priority_zone:
@@ -1236,7 +1236,7 @@ EXAMPLES = """
             interval: "500"
             members:
              -
-                seq_num: "0"
+                seq_num: "<you_own_value>"
             mos_codec: "g711"
             name: "default_name_48"
             packet_size: "124"
@@ -1288,7 +1288,7 @@ EXAMPLES = """
             preferred_source: "<your_own_value>"
             priority: "1"
             priority6: "1024"
-            seq_num: "0"
+            seq_num: "<you_own_value>"
             source: "<your_own_value>"
             source6: "<your_own_value>"
             spillover_threshold: "0"
@@ -1302,7 +1302,7 @@ EXAMPLES = """
             ip: "<your_own_value> (source router.bgp.neighbor.ip)"
             member:
              -
-                seq_num: "0"
+                seq_num: "<you_own_value>"
             minimum_sla_meet_members: "1"
             mode: "sla"
             role: "standalone"
@@ -1378,7 +1378,7 @@ EXAMPLES = """
             passive_measurement: "enable"
             priority_members:
              -
-                seq_num: "0"
+                seq_num: "<you_own_value>"
             priority_zone:
              -
                 name: "default_name_171 (source system.sdwan.zone.name)"

@@ -162,7 +162,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Guest ID.
+                            - Guest ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     mobile_phone:
@@ -205,7 +205,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     server_name:

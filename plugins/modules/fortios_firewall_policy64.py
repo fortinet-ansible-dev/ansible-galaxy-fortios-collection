@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the policyid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -159,7 +161,7 @@ options:
                     - 'disable'
             policyid:
                 description:
-                    - Policy ID (0 - 4294967294).
+                    - Policy ID (0 - 4294967294). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             poolname:
@@ -262,7 +264,7 @@ EXAMPLES = """
         name: "default_name_12"
         per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
         permit_any_host: "enable"
-        policyid: "0"
+        policyid: "<you_own_value>"
         poolname:
          -
             name: "default_name_17 (source firewall.ippool.name)"

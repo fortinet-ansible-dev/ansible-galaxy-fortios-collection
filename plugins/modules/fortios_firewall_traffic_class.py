@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the class_id instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -90,7 +92,7 @@ options:
         suboptions:
             class_id:
                 description:
-                    - Class ID to be named.
+                    - Class ID to be named. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             class_name:
@@ -116,7 +118,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       firewall_traffic_class:
-        class_id: "0"
+        class_id: "<you_own_value>"
         class_name: "<your_own_value>"
 
 """

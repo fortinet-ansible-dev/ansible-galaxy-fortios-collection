@@ -100,7 +100,7 @@ options:
                         type: str
                     index:
                         description:
-                            - OSU provider friendly name index.
+                            - OSU provider friendly name index. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     lang:
@@ -149,7 +149,7 @@ options:
                         type: str
                     service_id:
                         description:
-                            - OSU service ID.
+                            - OSU service ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
 """
@@ -174,7 +174,7 @@ EXAMPLES = """
         friendly_name:
          -
             friendly_name: "<your_own_value>"
-            index: "0"
+            index: "<you_own_value>"
             lang: "<your_own_value>"
         icon: "<your_own_value> (source wireless-controller.hotspot20.icon.name)"
         name: "default_name_8"
@@ -185,7 +185,7 @@ EXAMPLES = """
          -
             lang: "<your_own_value>"
             service_description: "<your_own_value>"
-            service_id: "0"
+            service_id: "<you_own_value>"
 
 """
 

@@ -1211,7 +1211,7 @@ options:
                         type: int
                     id:
                         description:
-                            - ID number.
+                            - ID number. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     regex:
@@ -1307,7 +1307,7 @@ options:
                             - 'block'
                     id:
                         description:
-                            - SSL server ID.
+                            - SSL server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     imaps_client_cert_request:

@@ -212,7 +212,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - HTTP forwarded header id.
+                            - HTTP forwarded header id. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:

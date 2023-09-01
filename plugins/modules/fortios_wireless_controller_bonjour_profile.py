@@ -115,7 +115,7 @@ options:
                         type: str
                     policy_id:
                         description:
-                            - Policy ID.
+                            - Policy ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     services:
@@ -167,7 +167,7 @@ EXAMPLES = """
          -
             description: "<your_own_value>"
             from_vlan: "<your_own_value>"
-            policy_id: "0"
+            policy_id: "<you_own_value>"
             services: "all"
             to_vlan: "<your_own_value>"
 

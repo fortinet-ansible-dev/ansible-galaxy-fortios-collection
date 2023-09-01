@@ -96,7 +96,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Application IDs.
+                            - Application IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             behavior:
@@ -112,7 +112,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Category IDs.
+                            - Category IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             comment:
@@ -148,7 +148,8 @@ options:
                 suboptions:
                     level:
                         description:
-                            - Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High, and Critical).
+                            - Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High, and Critical). see <a
+                               href='#notes'>Notes</a>.
                         required: true
                         type: int
             technology:
@@ -201,7 +202,7 @@ EXAMPLES = """
         protocols: "<your_own_value>"
         risk:
          -
-            level: "0"
+            level: "<you_own_value>"
         technology: "<your_own_value>"
         type: "application"
         vendor: "<your_own_value>"

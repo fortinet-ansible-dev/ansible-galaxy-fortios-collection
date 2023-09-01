@@ -128,7 +128,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - NTP server ID.
+                            - NTP server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     interface:

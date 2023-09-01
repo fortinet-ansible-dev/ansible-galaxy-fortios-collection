@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the transid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -102,7 +104,7 @@ options:
                 type: str
             transid:
                 description:
-                    - IP translation ID.
+                    - IP translation ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             type:
@@ -133,7 +135,7 @@ EXAMPLES = """
         endip: "<your_own_value>"
         map_startip: "<your_own_value>"
         startip: "<your_own_value>"
-        transid: "0"
+        transid: "<you_own_value>"
         type: "SCTP"
 
 """

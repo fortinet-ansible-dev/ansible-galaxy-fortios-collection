@@ -125,7 +125,7 @@ options:
                         type: int
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     neighbour_prefix:
@@ -151,7 +151,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix:
@@ -180,7 +180,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix6:
@@ -1952,7 +1952,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Neighbor range ID.
+                            - Neighbor range ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     max_neighbor_num:
@@ -1975,7 +1975,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - IPv6 neighbor range ID.
+                            - IPv6 neighbor range ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     max_neighbor_num:
@@ -2005,7 +2005,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     network_import_check:
@@ -2046,7 +2046,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     network_import_check:

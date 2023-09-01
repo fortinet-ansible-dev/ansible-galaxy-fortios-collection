@@ -152,7 +152,7 @@ options:
                             - 'enable'
                     id:
                         description:
-                            - API Gateway ID.
+                            - API Gateway ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ldb_method:
@@ -232,7 +232,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - Real server ID.
+                                    - Real server ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             ip:
@@ -419,7 +419,7 @@ options:
                                     - 'TLS-RSA-WITH-DES-CBC-SHA'
                             priority:
                                 description:
-                                    - SSL/TLS cipher suites priority.
+                                    - SSL/TLS cipher suites priority. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             versions:
@@ -545,7 +545,7 @@ options:
                             - 'enable'
                     id:
                         description:
-                            - API Gateway ID.
+                            - API Gateway ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ldb_method:
@@ -623,7 +623,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - Real server ID.
+                                    - Real server ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             ip:
@@ -809,7 +809,7 @@ options:
                                     - 'TLS-RSA-WITH-DES-CBC-SHA'
                             priority:
                                 description:
-                                    - SSL/TLS cipher suites priority.
+                                    - SSL/TLS cipher suites priority. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             versions:
@@ -946,7 +946,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Real server ID.
+                            - Real server ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -1149,7 +1149,7 @@ EXAMPLES = """
             ssl_cipher_suites:
              -
                 cipher: "TLS-AES-128-GCM-SHA256"
-                priority: "0"
+                priority: "<you_own_value>"
                 versions: "tls-1.0"
             ssl_dh_bits: "768"
             ssl_max_version: "tls-1.0"
@@ -1205,7 +1205,7 @@ EXAMPLES = """
             ssl_cipher_suites:
              -
                 cipher: "TLS-AES-128-GCM-SHA256"
-                priority: "0"
+                priority: "<you_own_value>"
                 versions: "tls-1.0"
             ssl_dh_bits: "768"
             ssl_max_version: "tls-1.0"

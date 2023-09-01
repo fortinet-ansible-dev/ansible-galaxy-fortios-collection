@@ -105,7 +105,7 @@ options:
                         type: str
                     index:
                         description:
-                            - OI index.
+                            - OI index. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     oi:
@@ -135,7 +135,7 @@ EXAMPLES = """
         oi_list:
          -
             comment: "Comment."
-            index: "0"
+            index: "<you_own_value>"
             oi: "<your_own_value>"
 
 """

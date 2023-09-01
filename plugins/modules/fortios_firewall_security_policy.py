@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the policyid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -103,7 +105,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Category IDs.
+                            - Category IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             app_group:
@@ -125,7 +127,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Application IDs.
+                            - Application IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             application_list:
@@ -310,7 +312,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_name:
@@ -379,7 +381,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_src_name:
@@ -571,7 +573,7 @@ options:
                     - 'disable'
             policyid:
                 description:
-                    - Policy ID.
+                    - Policy ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             profile_group:
@@ -871,7 +873,7 @@ EXAMPLES = """
         name: "default_name_86"
         nat46: "enable"
         nat64: "enable"
-        policyid: "0"
+        policyid: "<you_own_value>"
         profile_group: "<your_own_value> (source firewall.profile-group.name)"
         profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
         profile_type: "single"

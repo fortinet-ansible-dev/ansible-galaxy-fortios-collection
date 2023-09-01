@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the id instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -114,7 +116,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - Custom entry port range ID.
+                                    - Custom entry port range ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             start_port:
@@ -127,12 +129,12 @@ options:
                         type: int
                     seq_num:
                         description:
-                            - Entry sequence number.
+                            - Entry sequence number. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             id:
                 description:
-                    - Internet Service application list ID.
+                    - Internet Service application list ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
 """
@@ -164,7 +166,7 @@ EXAMPLES = """
                 id:  "8"
                 start_port: "1"
             protocol: "0"
-            seq_num: "6"
+            seq_num: "<you_own_value>"
         id:  "12"
 
 """

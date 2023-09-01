@@ -88,7 +88,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Aggregate id.
+                            - Aggregate id. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:

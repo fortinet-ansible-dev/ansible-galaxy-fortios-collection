@@ -100,7 +100,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Field ID (1 to number of columns in SQL result).
+                            - Field ID (1 to number of columns in SQL result). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:
@@ -146,7 +146,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Parameter ID (1 to number of columns in SQL result).
+                            - Parameter ID (1 to number of columns in SQL result). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             policy:

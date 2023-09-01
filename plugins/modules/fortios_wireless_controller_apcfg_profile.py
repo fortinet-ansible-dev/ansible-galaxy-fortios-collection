@@ -124,7 +124,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Command ID.
+                            - Command ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:

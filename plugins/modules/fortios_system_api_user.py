@@ -132,7 +132,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ipv4_trusthost:

@@ -100,7 +100,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Disable entry ID.
+                            - Disable entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip_range:
@@ -115,7 +115,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - Disable entry range ID.
+                                    - Disable entry range ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             start_ip:
@@ -169,7 +169,7 @@ options:
                                 type: str
                     id:
                         description:
-                            - Entry ID(1-255).
+                            - Entry ID(1-255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     port_range:
@@ -184,7 +184,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - Custom entry port range ID.
+                                    - Custom entry port range ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             start_port:

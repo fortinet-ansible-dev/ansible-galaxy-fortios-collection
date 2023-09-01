@@ -127,7 +127,7 @@ options:
                                     - 'out'
                             id:
                                 description:
-                                    - Filter list entry ID.
+                                    - Filter list entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             list:
@@ -188,7 +188,7 @@ options:
                                     - 'enable'
                             id:
                                 description:
-                                    - Range entry ID.
+                                    - Range entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             prefix:
@@ -276,7 +276,7 @@ options:
                                 suboptions:
                                     id:
                                         description:
-                                            - Key ID (1 - 255).
+                                            - Key ID (1 - 255). see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     key_string:
@@ -381,7 +381,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Distribute list entry ID.
+                            - Distribute list entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     protocol:
@@ -419,7 +419,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Neighbor entry ID.
+                            - Neighbor entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     ip:
@@ -450,7 +450,7 @@ options:
                         type: str
                     id:
                         description:
-                            - Network entry ID.
+                            - Network entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix:
@@ -539,7 +539,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Key ID (1 - 255).
+                                    - Key ID (1 - 255). see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             key_string:
@@ -696,7 +696,7 @@ options:
                             - 'enable'
                     id:
                         description:
-                            - Summary address entry ID.
+                            - Summary address entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     prefix:

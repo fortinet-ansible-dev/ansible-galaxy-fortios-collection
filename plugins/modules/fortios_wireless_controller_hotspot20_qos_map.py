@@ -100,7 +100,7 @@ options:
                         type: int
                     index:
                         description:
-                            - DSCP exception index.
+                            - DSCP exception index. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     up:
@@ -119,7 +119,7 @@ options:
                         type: int
                     index:
                         description:
-                            - DSCP range index.
+                            - DSCP range index. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     low:
@@ -157,12 +157,12 @@ EXAMPLES = """
         dscp_except:
          -
             dscp: "0"
-            index: "0"
+            index: "<you_own_value>"
             up: "0"
         dscp_range:
          -
             high: "255"
-            index: "0"
+            index: "<you_own_value>"
             low: "255"
             up: "0"
         name: "default_name_12"

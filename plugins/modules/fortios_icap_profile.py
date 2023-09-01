@@ -166,7 +166,7 @@ options:
                         type: str
                     id:
                         description:
-                            - HTTP forwarded header ID.
+                            - HTTP forwarded header ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:
@@ -273,7 +273,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - ID.
+                                    - ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     host:
@@ -288,7 +288,7 @@ options:
                         suboptions:
                             code:
                                 description:
-                                    - HTTP response status code.
+                                    - HTTP response status code. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     name:
@@ -397,7 +397,7 @@ EXAMPLES = """
             host: "myhostname (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name)"
             http_resp_status_code:
              -
-                code: "0"
+                code: "<you_own_value>"
             name: "default_name_38"
         response: "disable"
         response_failure: "error"

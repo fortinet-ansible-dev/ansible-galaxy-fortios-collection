@@ -207,7 +207,7 @@ options:
                         type: str
                     policyid:
                         description:
-                            - Policy ID.
+                            - Policy ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     srcaddr:
@@ -376,7 +376,7 @@ EXAMPLES = """
                 name: "default_name_24 (source firewall.address.name firewall.addrgrp.name)"
             pac_file_data: "<your_own_value>"
             pac_file_name: "<your_own_value>"
-            policyid: "0"
+            policyid: "<you_own_value>"
             srcaddr:
              -
                 name: "default_name_29 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"

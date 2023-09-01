@@ -101,7 +101,7 @@ options:
                 suboptions:
                     index:
                         description:
-                            - URL index.
+                            - URL index. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     number:
@@ -134,7 +134,7 @@ EXAMPLES = """
         name: "default_name_3"
         value_list:
          -
-            index: "0"
+            index: "<you_own_value>"
             number: "0"
             value: "<your_own_value>"
 

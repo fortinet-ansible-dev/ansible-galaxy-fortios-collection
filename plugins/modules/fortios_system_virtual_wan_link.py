@@ -148,7 +148,7 @@ options:
                         suboptions:
                             seq_num:
                                 description:
-                                    - Member sequence number. Source system.virtual-wan-link.members.seq-num.
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.virtual-wan-link.members.seq-num.
                                 required: true
                                 type: int
                     name:
@@ -213,7 +213,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - SLA ID.
+                                    - SLA ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             jitter_threshold:
@@ -331,7 +331,7 @@ options:
                         type: int
                     seq_num:
                         description:
-                            - Sequence number(1-255).
+                            - Sequence number(1-255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     source:
@@ -515,7 +515,7 @@ options:
                         type: int
                     id:
                         description:
-                            - Priority rule ID (1 - 4000).
+                            - Priority rule ID (1 - 4000). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     input_device:
@@ -551,7 +551,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Application control based Internet Service ID.
+                                    - Application control based Internet Service ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     internet_service_app_ctrl_group:
@@ -573,7 +573,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Control-based Internet Service ID.
+                                    - Control-based Internet Service ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     internet_service_ctrl_group:
@@ -628,7 +628,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Internet service ID. Source firewall.internet-service.id.
+                                    - Internet service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                                 required: true
                                 type: int
                     jitter_weight:
@@ -685,7 +685,7 @@ options:
                         suboptions:
                             seq_num:
                                 description:
-                                    - Member sequence number. Source system.virtual-wan-link.members.seq-num.
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.virtual-wan-link.members.seq-num.
                                 required: true
                                 type: int
                     protocol:
@@ -847,7 +847,7 @@ EXAMPLES = """
             interval: "1800000"
             members:
              -
-                seq_num: "2147483647"
+                seq_num: "<you_own_value>"
             name: "default_name_17"
             packet_size: "512"
             password: "<your_own_value>"
@@ -885,7 +885,7 @@ EXAMPLES = """
             ingress_spillover_threshold: "8388000"
             interface: "<your_own_value> (source system.interface.name)"
             priority: "2147483647"
-            seq_num: "127"
+            seq_num: "<you_own_value>"
             source: "<your_own_value>"
             source6: "<your_own_value>"
             spillover_threshold: "8388000"
@@ -965,7 +965,7 @@ EXAMPLES = """
             packet_loss_weight: "5000000"
             priority_members:
              -
-                seq_num: "2147483647"
+                seq_num: "<you_own_value>"
             protocol: "127"
             quality_link: "127"
             role: "standalone"

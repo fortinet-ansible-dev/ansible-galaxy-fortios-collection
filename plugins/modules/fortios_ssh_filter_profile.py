@@ -231,7 +231,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - Id.
+                            - Id. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     log:

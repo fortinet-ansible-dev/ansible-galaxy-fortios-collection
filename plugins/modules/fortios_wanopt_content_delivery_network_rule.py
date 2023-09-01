@@ -204,7 +204,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Rule ID.
+                                    - Rule ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             pattern:
@@ -249,7 +249,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Rule ID.
+                                    - Rule ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             pattern:

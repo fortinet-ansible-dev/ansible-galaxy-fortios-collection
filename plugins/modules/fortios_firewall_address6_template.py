@@ -123,7 +123,7 @@ options:
                             - 'disable'
                     id:
                         description:
-                            - Subnet segment ID.
+                            - Subnet segment ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     name:

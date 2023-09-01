@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the policyid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
@@ -201,7 +203,7 @@ options:
                     - 'disable'
             policyid:
                 description:
-                    - Policy ID (0 - 4294967295).
+                    - Policy ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             scan_botnet_connections:
@@ -303,7 +305,7 @@ EXAMPLES = """
         ips_sensor_status: "enable"
         label: "<your_own_value>"
         logtraffic: "all"
-        policyid: "0"
+        policyid: "<you_own_value>"
         scan_botnet_connections: "disable"
         service6:
          -

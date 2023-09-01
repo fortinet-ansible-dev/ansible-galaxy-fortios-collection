@@ -340,7 +340,7 @@ options:
                                 type: int
                             id:
                                 description:
-                                    - ID number.
+                                    - ID number. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             log:
@@ -408,7 +408,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - ID number.
+                                    - ID number. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             override_replacemsg:
@@ -908,7 +908,7 @@ options:
                         type: str
                     id:
                         description:
-                            - ID.
+                            - ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             youtube_channel_status:

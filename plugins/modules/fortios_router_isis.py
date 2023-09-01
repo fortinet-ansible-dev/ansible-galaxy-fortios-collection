@@ -355,7 +355,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - ISIS network ID.
+                            - ISIS network ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     net:
@@ -557,7 +557,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Summary address entry ID.
+                            - Summary address entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     level:
@@ -580,7 +580,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Prefix entry ID.
+                            - Prefix entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
                     level:

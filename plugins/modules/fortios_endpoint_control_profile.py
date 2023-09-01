@@ -389,7 +389,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Operating system entry ID.
+                                    - Operating system entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             os_name:
@@ -435,7 +435,7 @@ options:
                                 type: str
                             id:
                                 description:
-                                    - File ID.
+                                    - File ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                     forticlient_registration_compliance_action:
@@ -453,7 +453,7 @@ options:
                         suboptions:
                             id:
                                 description:
-                                    - Registry entry ID.
+                                    - Registry entry ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             registry_entry:
@@ -495,7 +495,7 @@ options:
                                     - 'absent'
                             id:
                                 description:
-                                    - Application ID.
+                                    - Application ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
                             process_name:

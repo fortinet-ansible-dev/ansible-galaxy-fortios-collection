@@ -35,6 +35,8 @@ author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
 notes:
+    - We highly recommend using your own value as the policyid instead of 0, while '0' is a special placeholder that allows the backend to assign the latest
+       available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
     - Adjust object order by moving self after(before) another.
     - Only one of [after, before] must be specified when action is moving an object.
@@ -131,7 +133,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Category IDs.
+                            - Category IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             app_group:
@@ -153,7 +155,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Application IDs.
+                            - Application IDs. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             application_list:
@@ -545,7 +547,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_name:
@@ -614,7 +616,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Internet Service ID. Source firewall.internet-service.id.
+                            - Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
                         required: true
                         type: int
             internet_service_src_name:
@@ -985,7 +987,7 @@ options:
                 type: str
             policyid:
                 description:
-                    - Policy ID (0 - 4294967294).
+                    - Policy ID (0 - 4294967294). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
             poolname:
@@ -1147,7 +1149,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Security group tag (1 - 65535).
+                            - Security group tag (1 - 65535). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             sgt_check:
@@ -1169,7 +1171,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - Vendor MAC ID. Source firewall.vendor-mac.id.
+                            - Vendor MAC ID. see <a href='#notes'>Notes</a>. Source firewall.vendor-mac.id.
                         required: true
                         type: int
             srcaddr:
@@ -1313,7 +1315,7 @@ options:
                 suboptions:
                     id:
                         description:
-                            - URL category ID.
+                            - URL category ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
             users:
@@ -1701,7 +1703,7 @@ EXAMPLES = """
         policy_expiry: "enable"
         policy_expiry_date: "<your_own_value>"
         policy_expiry_date_utc: "<your_own_value>"
-        policyid: "0"
+        policyid: "<you_own_value>"
         poolname:
          -
             name: "default_name_156 (source firewall.ippool.name)"

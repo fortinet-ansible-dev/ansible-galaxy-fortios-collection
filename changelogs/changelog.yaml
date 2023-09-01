@@ -226,3 +226,14 @@ releases:
     fragments:
     - 2.3.1_release.yml
     release_date: '2023-08-04'
+  2.3.2:
+    changes:
+      bugfixes:
+      - Fix the hyperlink issue for the supported FOS versions in USER's GUIDE.
+      major_changes:
+      - Improve the document for adding notes and examples in Q&A for modules using
+        Integer number as the mkey.
+      release_summary: patch release of 2.3.2
+    fragments:
+    - 2.3.2_release.yml
+    release_date: '2023-08-30'
