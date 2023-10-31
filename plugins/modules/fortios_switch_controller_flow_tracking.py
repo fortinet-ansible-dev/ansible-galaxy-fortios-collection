@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -420,6 +420,7 @@ def fortios_switch_controller(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,
@@ -447,6 +448,7 @@ versioned_schema = {
     "children": {
         "sample_mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -475,6 +477,7 @@ versioned_schema = {
                 {
                     "value": "local",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -502,6 +505,7 @@ versioned_schema = {
                 {
                     "value": "perimeter",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -529,6 +533,7 @@ versioned_schema = {
                 {
                     "value": "device-ingress",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -557,6 +562,7 @@ versioned_schema = {
         },
         "sample_rate": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -584,6 +590,7 @@ versioned_schema = {
         },
         "format": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -612,6 +619,7 @@ versioned_schema = {
                 {
                     "value": "netflow1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -639,6 +647,7 @@ versioned_schema = {
                 {
                     "value": "netflow5",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -666,6 +675,7 @@ versioned_schema = {
                 {
                     "value": "netflow9",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -693,6 +703,7 @@ versioned_schema = {
                 {
                     "value": "ipfix",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -725,6 +736,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -736,6 +748,7 @@ versioned_schema = {
                 },
                 "ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -746,6 +759,7 @@ versioned_schema = {
                 },
                 "port": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -756,6 +770,7 @@ versioned_schema = {
                 },
                 "transport": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -767,6 +782,7 @@ versioned_schema = {
                         {
                             "value": "udp",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -777,6 +793,7 @@ versioned_schema = {
                         {
                             "value": "tcp",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -787,6 +804,7 @@ versioned_schema = {
                         {
                             "value": "sctp",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -798,6 +816,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -824,6 +843,7 @@ versioned_schema = {
         },
         "level": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -852,6 +872,7 @@ versioned_schema = {
                 {
                     "value": "vlan",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -879,6 +900,7 @@ versioned_schema = {
                 {
                     "value": "ip",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -906,6 +928,7 @@ versioned_schema = {
                 {
                     "value": "port",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -933,6 +956,7 @@ versioned_schema = {
                 {
                     "value": "proto",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -960,6 +984,7 @@ versioned_schema = {
                 {
                     "value": "mac",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -988,6 +1013,7 @@ versioned_schema = {
         },
         "max_export_pkt_size": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1015,6 +1041,7 @@ versioned_schema = {
         },
         "template_export_period": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1042,6 +1069,7 @@ versioned_schema = {
         },
         "timeout_general": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1069,6 +1097,7 @@ versioned_schema = {
         },
         "timeout_icmp": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1096,6 +1125,7 @@ versioned_schema = {
         },
         "timeout_max": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1123,6 +1153,7 @@ versioned_schema = {
         },
         "timeout_tcp": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1150,6 +1181,7 @@ versioned_schema = {
         },
         "timeout_tcp_fin": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1177,6 +1209,7 @@ versioned_schema = {
         },
         "timeout_tcp_rst": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1204,6 +1237,7 @@ versioned_schema = {
         },
         "timeout_udp": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1235,6 +1269,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1263,6 +1298,7 @@ versioned_schema = {
                 },
                 "ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1290,6 +1326,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,

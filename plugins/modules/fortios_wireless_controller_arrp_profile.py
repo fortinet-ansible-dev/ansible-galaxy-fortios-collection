@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -509,6 +509,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -532,6 +533,7 @@ versioned_schema = {
         },
         "comment": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -554,6 +556,7 @@ versioned_schema = {
         },
         "selection_period": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -576,6 +579,7 @@ versioned_schema = {
         },
         "monitor_period": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -598,6 +602,7 @@ versioned_schema = {
         },
         "weight_managed_ap": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -620,6 +625,7 @@ versioned_schema = {
         },
         "weight_rogue_ap": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -642,6 +648,7 @@ versioned_schema = {
         },
         "weight_noise_floor": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -664,6 +671,7 @@ versioned_schema = {
         },
         "weight_channel_load": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -686,6 +694,7 @@ versioned_schema = {
         },
         "weight_spectral_rssi": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -708,6 +717,7 @@ versioned_schema = {
         },
         "weight_weather_channel": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -730,6 +740,7 @@ versioned_schema = {
         },
         "weight_dfs_channel": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -752,6 +763,7 @@ versioned_schema = {
         },
         "threshold_ap": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -774,6 +786,7 @@ versioned_schema = {
         },
         "threshold_noise_floor": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -796,6 +809,7 @@ versioned_schema = {
         },
         "threshold_channel_load": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -818,6 +832,7 @@ versioned_schema = {
         },
         "threshold_spectral_rssi": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -840,6 +855,7 @@ versioned_schema = {
         },
         "threshold_tx_retries": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -862,6 +878,7 @@ versioned_schema = {
         },
         "threshold_rx_errors": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -884,6 +901,7 @@ versioned_schema = {
         },
         "include_weather_channel": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -907,6 +925,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -929,6 +948,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -954,6 +974,7 @@ versioned_schema = {
         },
         "include_dfs_channel": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -977,6 +998,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -999,6 +1021,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1024,6 +1047,7 @@ versioned_schema = {
         },
         "override_darrp_optimize": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1047,6 +1071,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1063,6 +1088,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1080,6 +1106,7 @@ versioned_schema = {
         },
         "darrp_optimize": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1106,6 +1133,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1123,6 +1151,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1144,6 +1173,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

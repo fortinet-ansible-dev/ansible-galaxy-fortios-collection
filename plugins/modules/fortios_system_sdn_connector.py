@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -947,6 +947,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -978,6 +979,7 @@ versioned_schema = {
         },
         "status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1009,6 +1011,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1039,6 +1042,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1070,6 +1074,7 @@ versioned_schema = {
         },
         "type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1101,6 +1106,7 @@ versioned_schema = {
                 {
                     "value": "aci",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1131,6 +1137,7 @@ versioned_schema = {
                 {
                     "value": "alicloud",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1161,6 +1168,7 @@ versioned_schema = {
                 {
                     "value": "aws",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1191,6 +1199,7 @@ versioned_schema = {
                 {
                     "value": "azure",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1221,6 +1230,7 @@ versioned_schema = {
                 {
                     "value": "gcp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1251,6 +1261,7 @@ versioned_schema = {
                 {
                     "value": "nsx",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1281,6 +1292,7 @@ versioned_schema = {
                 {
                     "value": "nuage",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1311,6 +1323,7 @@ versioned_schema = {
                 {
                     "value": "oci",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1341,6 +1354,7 @@ versioned_schema = {
                 {
                     "value": "openstack",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1371,6 +1385,7 @@ versioned_schema = {
                 {
                     "value": "kubernetes",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1401,6 +1416,7 @@ versioned_schema = {
                 {
                     "value": "vmware",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1431,6 +1447,7 @@ versioned_schema = {
                 {
                     "value": "sepm",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1461,6 +1478,7 @@ versioned_schema = {
                 {
                     "value": "aci-direct",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1491,6 +1509,7 @@ versioned_schema = {
                 {
                     "value": "ibm",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1521,6 +1540,7 @@ versioned_schema = {
                 {
                     "value": "nutanix",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1551,6 +1571,7 @@ versioned_schema = {
                 {
                     "value": "sap",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1582,6 +1603,7 @@ versioned_schema = {
         },
         "proxy": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1612,6 +1634,7 @@ versioned_schema = {
         },
         "use_metadata_iam": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1643,6 +1666,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1673,6 +1697,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1704,6 +1729,7 @@ versioned_schema = {
         },
         "ha_status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1735,6 +1761,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1762,6 +1789,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1790,6 +1818,7 @@ versioned_schema = {
         },
         "verify_certificate": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1821,6 +1850,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1840,6 +1870,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1860,6 +1891,7 @@ versioned_schema = {
         },
         "server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1894,6 +1926,7 @@ versioned_schema = {
             "children": {
                 "ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1916,6 +1949,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1945,6 +1979,7 @@ versioned_schema = {
         },
         "server_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1975,6 +2010,7 @@ versioned_schema = {
         },
         "username": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2005,6 +2041,7 @@ versioned_schema = {
         },
         "password": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2035,6 +2072,7 @@ versioned_schema = {
         },
         "vcenter_server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2065,6 +2103,7 @@ versioned_schema = {
         },
         "vcenter_username": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2095,6 +2134,7 @@ versioned_schema = {
         },
         "vcenter_password": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2125,6 +2165,7 @@ versioned_schema = {
         },
         "access_key": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2155,6 +2196,7 @@ versioned_schema = {
         },
         "secret_key": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2185,6 +2227,7 @@ versioned_schema = {
         },
         "region": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2215,6 +2258,7 @@ versioned_schema = {
         },
         "vpc_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2245,6 +2289,7 @@ versioned_schema = {
         },
         "alt_resource_ip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -2273,8 +2318,14 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "enable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "external_account_list": {
@@ -2283,6 +2334,7 @@ versioned_schema = {
             "children": {
                 "role_arn": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2300,6 +2352,7 @@ versioned_schema = {
                 },
                 "external_id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2320,6 +2373,7 @@ versioned_schema = {
                     "children": {
                         "region": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2337,6 +2391,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2352,6 +2407,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2381,6 +2437,7 @@ versioned_schema = {
         },
         "tenant_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2411,6 +2468,7 @@ versioned_schema = {
         },
         "client_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2441,6 +2499,7 @@ versioned_schema = {
         },
         "client_secret": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2471,6 +2530,7 @@ versioned_schema = {
         },
         "subscription_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2501,6 +2561,7 @@ versioned_schema = {
         },
         "resource_group": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2531,6 +2592,7 @@ versioned_schema = {
         },
         "login_endpoint": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2561,6 +2623,7 @@ versioned_schema = {
         },
         "resource_url": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2591,6 +2654,7 @@ versioned_schema = {
         },
         "azure_region": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2622,6 +2686,7 @@ versioned_schema = {
                 {
                     "value": "global",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2652,6 +2717,7 @@ versioned_schema = {
                 {
                     "value": "china",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2682,6 +2748,7 @@ versioned_schema = {
                 {
                     "value": "germany",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2712,6 +2779,7 @@ versioned_schema = {
                 {
                     "value": "usgov",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2742,6 +2810,7 @@ versioned_schema = {
                 {
                     "value": "local",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2777,6 +2846,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2812,6 +2882,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2843,6 +2914,7 @@ versioned_schema = {
                         },
                         "public_ip": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2873,6 +2945,7 @@ versioned_schema = {
                         },
                         "resource_group": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2903,6 +2976,7 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2932,6 +3006,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2965,6 +3040,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2996,6 +3072,7 @@ versioned_schema = {
                 },
                 "subscription_id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3026,6 +3103,7 @@ versioned_schema = {
                 },
                 "resource_group": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3060,6 +3138,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3091,6 +3170,7 @@ versioned_schema = {
                         },
                         "next_hop": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3121,6 +3201,7 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3150,6 +3231,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3179,6 +3261,7 @@ versioned_schema = {
         },
         "user_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3212,12 +3295,13 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "compartment_id": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "required": True,
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3250,12 +3334,13 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "region": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "required": True,
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3285,6 +3370,7 @@ versioned_schema = {
         },
         "oci_region_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3316,6 +3402,7 @@ versioned_schema = {
                 {
                     "value": "commercial",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3343,6 +3430,7 @@ versioned_schema = {
                 {
                     "value": "government",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3371,6 +3459,7 @@ versioned_schema = {
         },
         "oci_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3405,6 +3494,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3436,6 +3526,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3469,6 +3560,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3500,6 +3592,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3533,6 +3626,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3554,6 +3648,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3571,6 +3666,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3586,6 +3682,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3619,6 +3716,7 @@ versioned_schema = {
             "children": {
                 "rule_name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3638,6 +3736,7 @@ versioned_schema = {
                 },
                 "target": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3656,6 +3755,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3685,6 +3785,7 @@ versioned_schema = {
         },
         "service_account": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3715,6 +3816,7 @@ versioned_schema = {
         },
         "private_key": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3745,6 +3847,7 @@ versioned_schema = {
         },
         "secret_token": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3775,6 +3878,7 @@ versioned_schema = {
         },
         "domain": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3805,6 +3909,7 @@ versioned_schema = {
         },
         "group_name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3835,6 +3940,7 @@ versioned_schema = {
         },
         "server_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -3865,6 +3971,7 @@ versioned_schema = {
         },
         "server_ca_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -3895,6 +4002,7 @@ versioned_schema = {
         },
         "api_key": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3925,6 +4033,7 @@ versioned_schema = {
         },
         "compute_generation": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3955,6 +4064,7 @@ versioned_schema = {
         },
         "ibm_region": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3986,6 +4096,7 @@ versioned_schema = {
                 {
                     "value": "dallas",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4008,6 +4119,7 @@ versioned_schema = {
                 {
                     "value": "washington-dc",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4030,6 +4142,7 @@ versioned_schema = {
                 {
                     "value": "london",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4052,6 +4165,7 @@ versioned_schema = {
                 {
                     "value": "frankfurt",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4074,6 +4188,7 @@ versioned_schema = {
                 {
                     "value": "sydney",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4096,6 +4211,7 @@ versioned_schema = {
                 {
                     "value": "tokyo",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4118,6 +4234,7 @@ versioned_schema = {
                 {
                     "value": "osaka",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4140,6 +4257,7 @@ versioned_schema = {
                 {
                     "value": "toronto",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4162,6 +4280,7 @@ versioned_schema = {
                 {
                     "value": "sao-paulo",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4257,6 +4376,7 @@ versioned_schema = {
         },
         "update_interval": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4456,6 +4576,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

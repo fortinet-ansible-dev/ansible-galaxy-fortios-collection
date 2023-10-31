@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -485,6 +485,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -516,6 +517,7 @@ versioned_schema = {
         },
         "icmp_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -547,6 +549,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -577,6 +580,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -607,6 +611,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -638,6 +643,7 @@ versioned_schema = {
         },
         "ftp_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -669,6 +675,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -699,6 +706,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -729,6 +737,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -760,6 +769,7 @@ versioned_schema = {
         },
         "ssh_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -791,6 +801,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -821,6 +832,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -851,6 +863,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -882,6 +895,7 @@ versioned_schema = {
         },
         "http_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -913,6 +927,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -943,6 +958,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -973,6 +989,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1004,6 +1021,7 @@ versioned_schema = {
         },
         "tls_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1035,6 +1053,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1065,6 +1084,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1095,6 +1115,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1126,6 +1147,7 @@ versioned_schema = {
         },
         "pptp_vpn_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1157,6 +1179,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1187,6 +1210,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1217,6 +1241,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1248,6 +1273,7 @@ versioned_schema = {
         },
         "voip_tcp_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1279,6 +1305,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1309,6 +1336,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1339,6 +1367,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1370,6 +1399,7 @@ versioned_schema = {
         },
         "voip_udp_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1401,6 +1431,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1431,6 +1462,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1461,6 +1493,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1492,6 +1525,7 @@ versioned_schema = {
         },
         "ikev2_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1523,6 +1557,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1553,6 +1588,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1583,6 +1619,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1614,6 +1651,7 @@ versioned_schema = {
         },
         "ikev2_xx_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1645,6 +1683,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1675,6 +1714,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1705,6 +1745,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1736,6 +1777,7 @@ versioned_schema = {
         },
         "esp_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1767,6 +1809,7 @@ versioned_schema = {
                 {
                     "value": "closed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1797,6 +1840,7 @@ versioned_schema = {
                 {
                     "value": "open",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1827,6 +1871,7 @@ versioned_schema = {
                 {
                     "value": "unknown",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1858,6 +1903,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

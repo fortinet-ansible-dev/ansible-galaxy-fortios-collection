@@ -36,7 +36,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.2'
+        self._ansible_galaxy_version = '2.3.3'
         self._log = None
         self._logged_in = False
         self._session_key = ''
@@ -215,10 +215,8 @@ class HttpApi(HttpApiBase):
         """
         if not self._logged_in and message_kwargs.get('should_pre_login', True):
             self.log('perform pre request login')
-            self.login(
-                self.connection.get_option("remote_user"),
-                self.connection.get_option("password"),
-            )
+            # trigger automated login call by httpapi
+            self.connection.send("/logincheck", {})
 
         url = message_kwargs.get('url', '/')
         if self.get_access_token() is not None:

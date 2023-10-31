@@ -285,6 +285,12 @@ options:
          - 'update.forticonverter.submitted-info'
          - 'start.forticonverter.download'
          - 'trial.user.fortitoken-cloud'
+         - 'unverify-cert.endpoint-control.ems'
+         - 'update-global-label.firewall.policy'
+         - 'update-global-label.firewall.security-policy'
+         - 'set-tier-plus.switch-controller.mclag-icl'
+         - 'user.password-policy-conform'
+         - 'change-password.user.local'
 
     params:
         description:
@@ -479,6 +485,7 @@ module_selectors_defs = {
         "params": {
             "db_name": {"type": "string", "required": "True"},
             "confirm_not_signed": {"type": "boolean", "required": "False"},
+            "confirm_not_ga_certified": {"type": "boolean", "required": "False"},
             "file_id": {"type": "string", "required": "False"},
             "file_content": {"type": "string", "required": "False"},
         },
@@ -1627,6 +1634,54 @@ module_selectors_defs = {
         },
     },
     "trial.user.fortitoken-cloud": {"url": "user/fortitoken-cloud/trial", "params": {}},
+    "unverify-cert.endpoint-control.ems": {
+        "url": "endpoint-control/ems/unverify-cert",
+        "params": {
+            "ems_id": {"type": "int", "required": "True"},
+            "scope": {"type": "string", "required": "False"},
+        },
+    },
+    "update-global-label.firewall.policy": {
+        "url": "firewall/policy/update-global-label",
+        "params": {
+            "policyid": {"type": "int", "required": "True"},
+            "current-label": {"type": "string", "required": "False"},
+            "new-label": {"type": "string", "required": "False"},
+        },
+    },
+    "update-global-label.firewall.security-policy": {
+        "url": "firewall/security-policy/update-global-label",
+        "params": {
+            "policyid": {"type": "int", "required": "True"},
+            "current-label": {"type": "string", "required": "False"},
+            "new-label": {"type": "string", "required": "False"},
+        },
+    },
+    "set-tier-plus.switch-controller.mclag-icl": {
+        "url": "switch-controller/mclag-icl/set-tier-plus",
+        "params": {
+            "fortilink": {"type": "string", "required": "True"},
+            "parent_peer1": {"type": "string", "required": "True"},
+            "parent_peer2": {"type": "string", "required": "True"},
+            "peer1": {"type": "string", "required": "True"},
+            "peer2": {"type": "string", "required": "True"},
+            "isl_port_group": {"type": "string", "required": "True"},
+        },
+    },
+    "user.password-policy-conform": {
+        "url": "user/password-policy-conform/select",
+        "params": {
+            "username": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "True"},
+        },
+    },
+    "change-password.user.local": {
+        "url": "user/local/change-password",
+        "params": {
+            "username": {"type": "string", "required": "True"},
+            "new_password": {"type": "string", "required": "True"},
+        },
+    },
 }
 
 
@@ -1930,6 +1985,12 @@ def main():
                 "update.forticonverter.submitted-info",
                 "start.forticonverter.download",
                 "trial.user.fortitoken-cloud",
+                "unverify-cert.endpoint-control.ems",
+                "update-global-label.firewall.policy",
+                "update-global-label.firewall.security-policy",
+                "set-tier-plus.switch-controller.mclag-icl",
+                "user.password-policy-conform",
+                "change-password.user.local",
             ],
         },
     }

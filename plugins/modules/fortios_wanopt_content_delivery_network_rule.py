@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -623,6 +623,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -654,6 +655,7 @@ versioned_schema = {
         },
         "comment": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -684,6 +686,7 @@ versioned_schema = {
         },
         "status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -715,6 +718,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -745,6 +749,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -780,6 +785,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -811,6 +817,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -840,6 +847,7 @@ versioned_schema = {
         },
         "category": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -871,6 +879,7 @@ versioned_schema = {
                 {
                     "value": "vcache",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -901,6 +910,7 @@ versioned_schema = {
                 {
                     "value": "youtube",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -932,6 +942,7 @@ versioned_schema = {
         },
         "request_cache_control": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -963,6 +974,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -993,6 +1005,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1024,6 +1037,7 @@ versioned_schema = {
         },
         "response_cache_control": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1055,6 +1069,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1085,6 +1100,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1116,6 +1132,7 @@ versioned_schema = {
         },
         "response_expires": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1147,6 +1164,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1177,6 +1195,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1208,6 +1227,7 @@ versioned_schema = {
         },
         "updateserver": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1239,6 +1259,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1269,6 +1290,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1304,6 +1326,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1335,6 +1358,7 @@ versioned_schema = {
                 },
                 "match_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1366,6 +1390,7 @@ versioned_schema = {
                         {
                             "value": "all",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1396,6 +1421,7 @@ versioned_schema = {
                         {
                             "value": "any",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1427,6 +1453,7 @@ versioned_schema = {
                 },
                 "skip_rule_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1458,6 +1485,7 @@ versioned_schema = {
                         {
                             "value": "all",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1488,6 +1516,7 @@ versioned_schema = {
                         {
                             "value": "any",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1523,6 +1552,7 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1554,6 +1584,7 @@ versioned_schema = {
                         },
                         "target": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1585,6 +1616,7 @@ versioned_schema = {
                                 {
                                     "value": "path",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1615,6 +1647,7 @@ versioned_schema = {
                                 {
                                     "value": "parameter",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1645,6 +1678,7 @@ versioned_schema = {
                                 {
                                     "value": "referrer",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1675,6 +1709,7 @@ versioned_schema = {
                                 {
                                     "value": "youtube-map",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1705,6 +1740,7 @@ versioned_schema = {
                                 {
                                     "value": "youtube-id",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1735,6 +1771,7 @@ versioned_schema = {
                                 {
                                     "value": "youku-id",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1770,6 +1807,7 @@ versioned_schema = {
                             "children": {
                                 "string": {
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1801,6 +1839,7 @@ versioned_schema = {
                                 }
                             },
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1830,6 +1869,7 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1863,6 +1903,7 @@ versioned_schema = {
                     "children": {
                         "id": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1894,6 +1935,7 @@ versioned_schema = {
                         },
                         "target": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -1925,6 +1967,7 @@ versioned_schema = {
                                 {
                                     "value": "path",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1955,6 +1998,7 @@ versioned_schema = {
                                 {
                                     "value": "parameter",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -1985,6 +2029,7 @@ versioned_schema = {
                                 {
                                     "value": "referrer",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2015,6 +2060,7 @@ versioned_schema = {
                                 {
                                     "value": "youtube-map",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2045,6 +2091,7 @@ versioned_schema = {
                                 {
                                     "value": "youtube-id",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2075,6 +2122,7 @@ versioned_schema = {
                                 {
                                     "value": "youku-id",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2110,6 +2158,7 @@ versioned_schema = {
                             "children": {
                                 "string": {
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2141,6 +2190,7 @@ versioned_schema = {
                                 }
                             },
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2170,6 +2220,7 @@ versioned_schema = {
                         },
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2199,6 +2250,7 @@ versioned_schema = {
                 },
                 "content_id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2229,6 +2281,7 @@ versioned_schema = {
                     "children": {
                         "target": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2260,6 +2313,7 @@ versioned_schema = {
                                 {
                                     "value": "path",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2290,6 +2344,7 @@ versioned_schema = {
                                 {
                                     "value": "parameter",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2320,6 +2375,7 @@ versioned_schema = {
                                 {
                                     "value": "referrer",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2350,6 +2406,7 @@ versioned_schema = {
                                 {
                                     "value": "youtube-map",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2380,6 +2437,7 @@ versioned_schema = {
                                 {
                                     "value": "youtube-id",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2410,6 +2468,7 @@ versioned_schema = {
                                 {
                                     "value": "youku-id",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2440,6 +2499,7 @@ versioned_schema = {
                                 {
                                     "value": "hls-manifest",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2470,6 +2530,7 @@ versioned_schema = {
                                 {
                                     "value": "dash-manifest",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2500,6 +2561,7 @@ versioned_schema = {
                                 {
                                     "value": "hls-fragment",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2530,6 +2592,7 @@ versioned_schema = {
                                 {
                                     "value": "dash-fragment",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2561,6 +2624,7 @@ versioned_schema = {
                         },
                         "start_str": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2591,6 +2655,7 @@ versioned_schema = {
                         },
                         "start_skip": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2621,6 +2686,7 @@ versioned_schema = {
                         },
                         "start_direction": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2652,6 +2718,7 @@ versioned_schema = {
                                 {
                                     "value": "forward",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2682,6 +2749,7 @@ versioned_schema = {
                                 {
                                     "value": "backward",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2713,6 +2781,7 @@ versioned_schema = {
                         },
                         "end_str": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2743,6 +2812,7 @@ versioned_schema = {
                         },
                         "end_skip": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2773,6 +2843,7 @@ versioned_schema = {
                         },
                         "end_direction": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2804,6 +2875,7 @@ versioned_schema = {
                                 {
                                     "value": "forward",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2834,6 +2906,7 @@ versioned_schema = {
                                 {
                                     "value": "backward",
                                     "revisions": {
+                                        "v7.4.1": True,
                                         "v7.4.0": True,
                                         "v7.2.4": True,
                                         "v7.2.2": True,
@@ -2865,6 +2938,7 @@ versioned_schema = {
                         },
                         "range_str": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -2897,6 +2971,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2956,6 +3031,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

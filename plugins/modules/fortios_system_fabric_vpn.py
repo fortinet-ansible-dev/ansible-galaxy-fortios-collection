@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -477,47 +477,71 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.4.0": True, "v7.2.4": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "enable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "sync_mode": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "enable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "branch_name": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
         },
         "policy_rule": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
                 {
                     "value": "health-check",
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                 },
-                {"value": "manual", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "auto", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "manual",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "auto",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "vpn_role": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
-                {"value": "hub", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "spoke", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "hub",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "spoke",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "overlays": {
@@ -525,118 +549,135 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                     "required": True,
                 },
                 "overlay_tunnel_block": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "remote_gw": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "interface": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "bgp_neighbor": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "overlay_policy": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                 },
                 "bgp_network": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                 },
                 "route_policy": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                 },
                 "bgp_neighbor_group": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "bgp_neighbor_range": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                 },
                 "ipsec_phase1": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "sdwan_member": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                 },
             },
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
         },
         "advertised_subnets": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                     "required": True,
                 },
                 "prefix": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "access": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "inbound",
-                            "revisions": {"v7.4.0": True, "v7.2.4": True},
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
                         },
                         {
                             "value": "bidirectional",
-                            "revisions": {"v7.4.0": True, "v7.2.4": True},
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
                         },
                     ],
                 },
                 "bgp_network": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                 },
                 "firewall_address": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "policies": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "list",
                     "multiple_values": True,
                     "elements": "int",
                 },
             },
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
         },
         "loopback_address_block": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
         },
         "loopback_interface": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
         },
         "loopback_advertised_subnet": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "integer",
         },
-        "psksecret": {"revisions": {"v7.4.0": True, "v7.2.4": True}, "type": "string"},
-        "bgp_as": {"revisions": {"v7.4.0": True, "v7.2.4": True}, "type": "integer"},
-        "sdwan_zone": {"revisions": {"v7.4.0": True, "v7.2.4": True}, "type": "string"},
+        "psksecret": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "type": "string",
+        },
+        "bgp_as": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "type": "integer",
+        },
+        "sdwan_zone": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "type": "string",
+        },
         "health_checks": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "list",
             "multiple_values": True,
             "elements": "str",

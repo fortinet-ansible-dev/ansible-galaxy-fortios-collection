@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -103,6 +103,14 @@ options:
                         description:
                             - Protocol (0 - 255).
                         type: int
+                    refresh_direction:
+                        description:
+                            - 'Refresh direction: Both, outgoing, incoming'
+                        type: str
+                        choices:
+                            - 'both'
+                            - 'outgoing'
+                            - 'incoming'
                     start_port:
                         description:
                             - Start port number.
@@ -134,6 +142,7 @@ EXAMPLES = """
             end_port: "0"
             id:  "6"
             protocol: "0"
+            refresh_direction: "both"
             start_port: "0"
             timeout: "<your_own_value>"
 
@@ -285,6 +294,7 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,
@@ -315,6 +325,7 @@ versioned_schema = {
     "children": {
         "default": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -349,6 +360,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -380,6 +392,7 @@ versioned_schema = {
                 },
                 "protocol": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -410,6 +423,7 @@ versioned_schema = {
                 },
                 "start_port": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -440,6 +454,7 @@ versioned_schema = {
                 },
                 "end_port": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -470,6 +485,7 @@ versioned_schema = {
                 },
                 "timeout": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -498,8 +514,45 @@ versioned_schema = {
                     },
                     "type": "string",
                 },
+                "refresh_direction": {
+                    "revisions": {
+                        "v7.4.1": True,
+                        "v7.4.0": False,
+                        "v7.2.4": False,
+                        "v7.2.2": False,
+                        "v7.2.1": False,
+                        "v7.2.0": False,
+                        "v7.0.8": False,
+                        "v7.0.7": False,
+                        "v7.0.6": False,
+                        "v7.0.5": False,
+                        "v7.0.4": False,
+                        "v7.0.3": False,
+                        "v7.0.2": False,
+                        "v7.0.12": False,
+                        "v7.0.1": False,
+                        "v7.0.0": False,
+                        "v6.4.4": False,
+                        "v6.4.1": False,
+                        "v6.4.0": False,
+                        "v6.2.7": False,
+                        "v6.2.5": False,
+                        "v6.2.3": False,
+                        "v6.2.0": False,
+                        "v6.0.5": False,
+                        "v6.0.11": False,
+                        "v6.0.0": False,
+                    },
+                    "type": "string",
+                    "options": [
+                        {"value": "both", "revisions": {"v7.4.1": True}},
+                        {"value": "outgoing", "revisions": {"v7.4.1": True}},
+                        {"value": "incoming", "revisions": {"v7.4.1": True}},
+                    ],
+                },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,

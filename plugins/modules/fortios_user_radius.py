@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -88,6 +88,21 @@ options:
         default: null
         type: dict
         suboptions:
+            account_key_cert_field:
+                description:
+                    - Define subject identity field in certificate for user access right checking.
+                type: str
+                choices:
+                    - 'othername'
+                    - 'rfc822name'
+                    - 'dnsname'
+            account_key_processing:
+                description:
+                    - Account key processing operation. The FortiGate will keep either the whole domain or strip the domain from the subject identity.
+                type: str
+                choices:
+                    - 'same'
+                    - 'strip'
             accounting_server:
                 description:
                     - Additional accounting servers.
@@ -166,6 +181,14 @@ options:
                 description:
                     - CA of server to trust under TLS. Source vpn.certificate.ca.name.
                 type: str
+            call_station_id_type:
+                description:
+                    - Calling & Called station identifier type configuration , this option is not available for 802.1x authentication.
+                type: str
+                choices:
+                    - 'legacy'
+                    - 'IP'
+                    - 'MAC'
             class:
                 description:
                     - Class attribute name(s).
@@ -517,6 +540,7 @@ options:
                     - 'TLSv1'
                     - 'TLSv1-1'
                     - 'TLSv1-2'
+                    - 'TLSv1-3'
             transport_protocol:
                 description:
                     - Transport protocol to be used .
@@ -558,9 +582,11 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       user_radius:
+        account_key_cert_field: "othername"
+        account_key_processing: "same"
         accounting_server:
          -
-            id:  "4"
+            id:  "6"
             interface: "<your_own_value> (source system.interface.name)"
             interface_select_method: "auto"
             port: "0"
@@ -573,9 +599,10 @@ EXAMPLES = """
         all_usergroup: "disable"
         auth_type: "auto"
         ca_cert: "<your_own_value> (source vpn.certificate.ca.name)"
+        call_station_id_type: "legacy"
         class:
          -
-            name: "default_name_18"
+            name: "default_name_21"
         client_cert: "<your_own_value> (source vpn.certificate.local.name)"
         delimiter: "plus"
         group_override_attr_type: "filter-Id"
@@ -585,7 +612,7 @@ EXAMPLES = """
         mac_case: "uppercase"
         mac_password_delimiter: "hyphen"
         mac_username_delimiter: "hyphen"
-        name: "default_name_28"
+        name: "default_name_31"
         nas_id: "<your_own_value>"
         nas_id_type: "legacy"
         nas_ip: "<your_own_value>"
@@ -718,12 +745,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_user_radius_data(json):
     option_list = [
+        "account_key_cert_field",
+        "account_key_processing",
         "accounting_server",
         "acct_all_servers",
         "acct_interim_interval",
         "all_usergroup",
         "auth_type",
         "ca_cert",
+        "call_station_id_type",
         "class",
         "client_cert",
         "delimiter",
@@ -942,6 +972,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -973,6 +1004,7 @@ versioned_schema = {
         },
         "server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1003,6 +1035,7 @@ versioned_schema = {
         },
         "secret": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1033,6 +1066,7 @@ versioned_schema = {
         },
         "secondary_server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1063,6 +1097,7 @@ versioned_schema = {
         },
         "secondary_secret": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1093,6 +1128,7 @@ versioned_schema = {
         },
         "tertiary_server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1123,6 +1159,7 @@ versioned_schema = {
         },
         "tertiary_secret": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1153,6 +1190,7 @@ versioned_schema = {
         },
         "timeout": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1183,6 +1221,7 @@ versioned_schema = {
         },
         "status_ttl": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1213,6 +1252,7 @@ versioned_schema = {
         },
         "all_usergroup": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1244,6 +1284,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1274,6 +1315,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1305,6 +1347,7 @@ versioned_schema = {
         },
         "use_management_vdom": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1336,6 +1379,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1366,6 +1410,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1397,6 +1442,7 @@ versioned_schema = {
         },
         "nas_ip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1427,6 +1473,7 @@ versioned_schema = {
         },
         "nas_id_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -1455,13 +1502,59 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "legacy", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "custom", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "hostname", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "legacy",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "custom",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "hostname",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+            ],
+        },
+        "call_station_id_type": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "legacy", "revisions": {"v7.4.1": True}},
+                {"value": "IP", "revisions": {"v7.4.1": True}},
+                {"value": "MAC", "revisions": {"v7.4.1": True}},
             ],
         },
         "nas_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -1492,6 +1585,7 @@ versioned_schema = {
         },
         "acct_interim_interval": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1522,6 +1616,7 @@ versioned_schema = {
         },
         "radius_coa": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1553,6 +1648,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1583,6 +1679,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1614,6 +1711,7 @@ versioned_schema = {
         },
         "radius_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1644,6 +1742,7 @@ versioned_schema = {
         },
         "h3c_compatibility": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1675,6 +1774,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1705,6 +1805,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1736,6 +1837,7 @@ versioned_schema = {
         },
         "auth_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1767,6 +1869,7 @@ versioned_schema = {
                 {
                     "value": "auto",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1797,6 +1900,7 @@ versioned_schema = {
                 {
                     "value": "ms_chap_v2",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1827,6 +1931,7 @@ versioned_schema = {
                 {
                     "value": "ms_chap",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1857,6 +1962,7 @@ versioned_schema = {
                 {
                     "value": "chap",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1887,6 +1993,7 @@ versioned_schema = {
                 {
                     "value": "pap",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1918,6 +2025,7 @@ versioned_schema = {
         },
         "source_ip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1948,6 +2056,7 @@ versioned_schema = {
         },
         "username_case_sensitive": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1979,6 +2088,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2009,6 +2119,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2040,6 +2151,7 @@ versioned_schema = {
         },
         "group_override_attr_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2071,6 +2183,7 @@ versioned_schema = {
                 {
                     "value": "filter-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2094,6 +2207,7 @@ versioned_schema = {
                 {
                     "value": "class",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2122,6 +2236,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2153,6 +2268,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2182,6 +2298,7 @@ versioned_schema = {
         },
         "password_renewal": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2213,6 +2330,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2243,6 +2361,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2274,6 +2393,7 @@ versioned_schema = {
         },
         "password_encoding": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2305,6 +2425,7 @@ versioned_schema = {
                 {
                     "value": "auto",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2335,6 +2456,7 @@ versioned_schema = {
                 {
                     "value": "ISO-8859-1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2366,6 +2488,7 @@ versioned_schema = {
         },
         "mac_username_delimiter": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2397,6 +2520,7 @@ versioned_schema = {
                 {
                     "value": "hyphen",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2406,6 +2530,7 @@ versioned_schema = {
                 {
                     "value": "single-hyphen",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2415,6 +2540,7 @@ versioned_schema = {
                 {
                     "value": "colon",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2424,6 +2550,7 @@ versioned_schema = {
                 {
                     "value": "none",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2434,6 +2561,7 @@ versioned_schema = {
         },
         "mac_password_delimiter": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2465,6 +2593,7 @@ versioned_schema = {
                 {
                     "value": "hyphen",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2474,6 +2603,7 @@ versioned_schema = {
                 {
                     "value": "single-hyphen",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2483,6 +2613,7 @@ versioned_schema = {
                 {
                     "value": "colon",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2492,6 +2623,7 @@ versioned_schema = {
                 {
                     "value": "none",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2502,6 +2634,7 @@ versioned_schema = {
         },
         "mac_case": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2533,6 +2666,7 @@ versioned_schema = {
                 {
                     "value": "uppercase",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2542,6 +2676,7 @@ versioned_schema = {
                 {
                     "value": "lowercase",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2552,6 +2687,7 @@ versioned_schema = {
         },
         "acct_all_servers": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2583,6 +2719,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2613,6 +2750,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2644,6 +2782,7 @@ versioned_schema = {
         },
         "switch_controller_acct_fast_framedip_detect": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2674,6 +2813,7 @@ versioned_schema = {
         },
         "interface_select_method": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2705,6 +2845,7 @@ versioned_schema = {
                 {
                     "value": "auto",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2731,6 +2872,7 @@ versioned_schema = {
                 {
                     "value": "sdwan",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2757,6 +2899,7 @@ versioned_schema = {
                 {
                     "value": "specify",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2784,6 +2927,7 @@ versioned_schema = {
         },
         "interface": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2814,6 +2958,7 @@ versioned_schema = {
         },
         "switch_controller_service_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2845,6 +2990,7 @@ versioned_schema = {
                 {
                     "value": "login",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2867,6 +3013,7 @@ versioned_schema = {
                 {
                     "value": "framed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2889,6 +3036,7 @@ versioned_schema = {
                 {
                     "value": "callback-login",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2911,6 +3059,7 @@ versioned_schema = {
                 {
                     "value": "callback-framed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2933,6 +3082,7 @@ versioned_schema = {
                 {
                     "value": "outbound",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2955,6 +3105,7 @@ versioned_schema = {
                 {
                     "value": "administrative",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2977,6 +3128,7 @@ versioned_schema = {
                 {
                     "value": "nas-prompt",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2999,6 +3151,7 @@ versioned_schema = {
                 {
                     "value": "authenticate-only",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3021,6 +3174,7 @@ versioned_schema = {
                 {
                     "value": "callback-nas-prompt",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3043,6 +3197,7 @@ versioned_schema = {
                 {
                     "value": "call-check",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3065,6 +3220,7 @@ versioned_schema = {
                 {
                     "value": "callback-administrative",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3090,6 +3246,7 @@ versioned_schema = {
         },
         "transport_protocol": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3118,13 +3275,14 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "udp", "revisions": {"v7.4.0": True}},
-                {"value": "tcp", "revisions": {"v7.4.0": True}},
-                {"value": "tls", "revisions": {"v7.4.0": True}},
+                {"value": "udp", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "tcp", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "tls", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
         "tls_min_proto_version": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3153,15 +3311,17 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "default", "revisions": {"v7.4.0": True}},
-                {"value": "SSLv3", "revisions": {"v7.4.0": True}},
-                {"value": "TLSv1", "revisions": {"v7.4.0": True}},
-                {"value": "TLSv1-1", "revisions": {"v7.4.0": True}},
-                {"value": "TLSv1-2", "revisions": {"v7.4.0": True}},
+                {"value": "default", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "SSLv3", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1-1", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1-2", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1-3", "revisions": {"v7.4.1": True, "v7.4.0": False}},
             ],
         },
         "ca_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3192,6 +3352,7 @@ versioned_schema = {
         },
         "client_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3222,6 +3383,7 @@ versioned_schema = {
         },
         "server_identity_check": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -3250,12 +3412,84 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+            ],
+        },
+        "account_key_processing": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "same", "revisions": {"v7.4.1": True}},
+                {"value": "strip", "revisions": {"v7.4.1": True}},
+            ],
+        },
+        "account_key_cert_field": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "othername", "revisions": {"v7.4.1": True}},
+                {"value": "rfc822name", "revisions": {"v7.4.1": True}},
+                {"value": "dnsname", "revisions": {"v7.4.1": True}},
             ],
         },
         "rsso": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3287,6 +3521,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3317,6 +3552,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3348,6 +3584,7 @@ versioned_schema = {
         },
         "rsso_radius_server_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3378,6 +3615,7 @@ versioned_schema = {
         },
         "rsso_radius_response": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3409,6 +3647,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3439,6 +3678,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3470,6 +3710,7 @@ versioned_schema = {
         },
         "rsso_validate_request_secret": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3501,6 +3742,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3531,6 +3773,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3562,6 +3805,7 @@ versioned_schema = {
         },
         "rsso_secret": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3592,6 +3836,7 @@ versioned_schema = {
         },
         "rsso_endpoint_attribute": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3623,6 +3868,7 @@ versioned_schema = {
                 {
                     "value": "User-Name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3653,6 +3899,7 @@ versioned_schema = {
                 {
                     "value": "NAS-IP-Address",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3683,6 +3930,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IP-Address",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3713,6 +3961,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IP-Netmask",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3743,6 +3992,7 @@ versioned_schema = {
                 {
                     "value": "Filter-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3773,6 +4023,7 @@ versioned_schema = {
                 {
                     "value": "Login-IP-Host",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3803,6 +4054,7 @@ versioned_schema = {
                 {
                     "value": "Reply-Message",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3833,6 +4085,7 @@ versioned_schema = {
                 {
                     "value": "Callback-Number",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3863,6 +4116,7 @@ versioned_schema = {
                 {
                     "value": "Callback-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3893,6 +4147,7 @@ versioned_schema = {
                 {
                     "value": "Framed-Route",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3923,6 +4178,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IPX-Network",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3953,6 +4209,7 @@ versioned_schema = {
                 {
                     "value": "Class",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3983,6 +4240,7 @@ versioned_schema = {
                 {
                     "value": "Called-Station-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4013,6 +4271,7 @@ versioned_schema = {
                 {
                     "value": "Calling-Station-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4043,6 +4302,7 @@ versioned_schema = {
                 {
                     "value": "NAS-Identifier",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4073,6 +4333,7 @@ versioned_schema = {
                 {
                     "value": "Proxy-State",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4103,6 +4364,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Service",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4133,6 +4395,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Node",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4163,6 +4426,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Group",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4193,6 +4457,7 @@ versioned_schema = {
                 {
                     "value": "Framed-AppleTalk-Zone",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4223,6 +4488,7 @@ versioned_schema = {
                 {
                     "value": "Acct-Session-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4253,6 +4519,7 @@ versioned_schema = {
                 {
                     "value": "Acct-Multi-Session-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4284,6 +4551,7 @@ versioned_schema = {
         },
         "rsso_endpoint_block_attribute": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4315,6 +4583,7 @@ versioned_schema = {
                 {
                     "value": "User-Name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4345,6 +4614,7 @@ versioned_schema = {
                 {
                     "value": "NAS-IP-Address",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4375,6 +4645,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IP-Address",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4405,6 +4676,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IP-Netmask",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4435,6 +4707,7 @@ versioned_schema = {
                 {
                     "value": "Filter-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4465,6 +4738,7 @@ versioned_schema = {
                 {
                     "value": "Login-IP-Host",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4495,6 +4769,7 @@ versioned_schema = {
                 {
                     "value": "Reply-Message",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4525,6 +4800,7 @@ versioned_schema = {
                 {
                     "value": "Callback-Number",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4555,6 +4831,7 @@ versioned_schema = {
                 {
                     "value": "Callback-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4585,6 +4862,7 @@ versioned_schema = {
                 {
                     "value": "Framed-Route",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4615,6 +4893,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IPX-Network",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4645,6 +4924,7 @@ versioned_schema = {
                 {
                     "value": "Class",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4675,6 +4955,7 @@ versioned_schema = {
                 {
                     "value": "Called-Station-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4705,6 +4986,7 @@ versioned_schema = {
                 {
                     "value": "Calling-Station-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4735,6 +5017,7 @@ versioned_schema = {
                 {
                     "value": "NAS-Identifier",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4765,6 +5048,7 @@ versioned_schema = {
                 {
                     "value": "Proxy-State",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4795,6 +5079,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Service",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4825,6 +5110,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Node",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4855,6 +5141,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Group",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4885,6 +5172,7 @@ versioned_schema = {
                 {
                     "value": "Framed-AppleTalk-Zone",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4915,6 +5203,7 @@ versioned_schema = {
                 {
                     "value": "Acct-Session-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4945,6 +5234,7 @@ versioned_schema = {
                 {
                     "value": "Acct-Multi-Session-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4976,6 +5266,7 @@ versioned_schema = {
         },
         "sso_attribute": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5007,6 +5298,7 @@ versioned_schema = {
                 {
                     "value": "User-Name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5037,6 +5329,7 @@ versioned_schema = {
                 {
                     "value": "NAS-IP-Address",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5067,6 +5360,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IP-Address",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5097,6 +5391,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IP-Netmask",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5127,6 +5422,7 @@ versioned_schema = {
                 {
                     "value": "Filter-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5157,6 +5453,7 @@ versioned_schema = {
                 {
                     "value": "Login-IP-Host",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5187,6 +5484,7 @@ versioned_schema = {
                 {
                     "value": "Reply-Message",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5217,6 +5515,7 @@ versioned_schema = {
                 {
                     "value": "Callback-Number",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5247,6 +5546,7 @@ versioned_schema = {
                 {
                     "value": "Callback-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5277,6 +5577,7 @@ versioned_schema = {
                 {
                     "value": "Framed-Route",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5307,6 +5608,7 @@ versioned_schema = {
                 {
                     "value": "Framed-IPX-Network",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5337,6 +5639,7 @@ versioned_schema = {
                 {
                     "value": "Class",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5367,6 +5670,7 @@ versioned_schema = {
                 {
                     "value": "Called-Station-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5397,6 +5701,7 @@ versioned_schema = {
                 {
                     "value": "Calling-Station-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5427,6 +5732,7 @@ versioned_schema = {
                 {
                     "value": "NAS-Identifier",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5457,6 +5763,7 @@ versioned_schema = {
                 {
                     "value": "Proxy-State",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5487,6 +5794,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Service",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5517,6 +5825,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Node",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5547,6 +5856,7 @@ versioned_schema = {
                 {
                     "value": "Login-LAT-Group",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5577,6 +5887,7 @@ versioned_schema = {
                 {
                     "value": "Framed-AppleTalk-Zone",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5607,6 +5918,7 @@ versioned_schema = {
                 {
                     "value": "Acct-Session-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5637,6 +5949,7 @@ versioned_schema = {
                 {
                     "value": "Acct-Multi-Session-Id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5668,6 +5981,7 @@ versioned_schema = {
         },
         "sso_attribute_key": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5698,6 +6012,7 @@ versioned_schema = {
         },
         "sso_attribute_value_override": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5729,6 +6044,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5759,6 +6075,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5790,6 +6107,7 @@ versioned_schema = {
         },
         "rsso_context_timeout": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5820,6 +6138,7 @@ versioned_schema = {
         },
         "rsso_log_period": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5850,6 +6169,7 @@ versioned_schema = {
         },
         "rsso_log_flags": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5881,6 +6201,7 @@ versioned_schema = {
                 {
                     "value": "protocol-error",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5911,6 +6232,7 @@ versioned_schema = {
                 {
                     "value": "profile-missing",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5941,6 +6263,7 @@ versioned_schema = {
                 {
                     "value": "accounting-stop-missed",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5971,6 +6294,7 @@ versioned_schema = {
                 {
                     "value": "accounting-event",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6001,6 +6325,7 @@ versioned_schema = {
                 {
                     "value": "endpoint-block",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6031,6 +6356,7 @@ versioned_schema = {
                 {
                     "value": "radiusd-other",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6061,6 +6387,7 @@ versioned_schema = {
                 {
                     "value": "none",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6094,6 +6421,7 @@ versioned_schema = {
         },
         "rsso_flush_ip_session": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -6125,6 +6453,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6155,6 +6484,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6186,6 +6516,7 @@ versioned_schema = {
         },
         "rsso_ep_one_ip_only": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -6217,6 +6548,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6247,6 +6579,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6278,6 +6611,7 @@ versioned_schema = {
         },
         "delimiter": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -6309,6 +6643,7 @@ versioned_schema = {
                 {
                     "value": "plus",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6319,6 +6654,7 @@ versioned_schema = {
                 {
                     "value": "comma",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6334,6 +6670,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6365,6 +6702,7 @@ versioned_schema = {
                 },
                 "status": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6396,6 +6734,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6426,6 +6765,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6457,6 +6797,7 @@ versioned_schema = {
                 },
                 "server": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6487,6 +6828,7 @@ versioned_schema = {
                 },
                 "secret": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6517,6 +6859,7 @@ versioned_schema = {
                 },
                 "port": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6547,6 +6890,7 @@ versioned_schema = {
                 },
                 "source_ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6577,6 +6921,7 @@ versioned_schema = {
                 },
                 "interface_select_method": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6608,6 +6953,7 @@ versioned_schema = {
                         {
                             "value": "auto",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6634,6 +6980,7 @@ versioned_schema = {
                         {
                             "value": "sdwan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6660,6 +7007,7 @@ versioned_schema = {
                         {
                             "value": "specify",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6687,6 +7035,7 @@ versioned_schema = {
                 },
                 "interface": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6717,6 +7066,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -6746,6 +7096,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

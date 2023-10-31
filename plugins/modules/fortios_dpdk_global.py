@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -327,6 +327,7 @@ def fortios_dpdk(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.2": True,
         "v7.2.1": True,
@@ -345,6 +346,7 @@ versioned_schema = {
     "children": {
         "status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -364,6 +366,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -382,6 +385,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -405,6 +409,7 @@ versioned_schema = {
             "children": {
                 "interface_name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -424,6 +429,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -441,6 +447,7 @@ versioned_schema = {
         },
         "multiqueue": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -460,6 +467,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -478,6 +486,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -497,6 +506,7 @@ versioned_schema = {
         },
         "sleep_on_idle": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -516,6 +526,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -534,6 +545,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -553,6 +565,7 @@ versioned_schema = {
         },
         "elasticbuffer": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -572,6 +585,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -590,6 +604,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -609,6 +624,7 @@ versioned_schema = {
         },
         "per_session_accounting": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -628,6 +644,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -646,6 +663,7 @@ versioned_schema = {
                 {
                     "value": "traffic-log-only",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -664,6 +682,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -683,6 +702,7 @@ versioned_schema = {
         },
         "ipsec_offload": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -702,6 +722,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -714,6 +735,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.2": True,
                         "v7.2.1": True,
@@ -727,6 +749,7 @@ versioned_schema = {
         },
         "hugepage_percentage": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,
@@ -745,6 +768,7 @@ versioned_schema = {
         },
         "mbufpool_percentage": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.2": True,
                 "v7.2.1": True,

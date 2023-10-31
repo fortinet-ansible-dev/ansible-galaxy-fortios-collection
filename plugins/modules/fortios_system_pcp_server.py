@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -428,15 +428,15 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.4.0": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True},
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
         "pools": {
@@ -444,62 +444,101 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "required": True,
                 },
-                "description": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "id": {"revisions": {"v7.4.0": True}, "type": "integer"},
+                "description": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "id": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "integer",
+                },
                 "client_subnet": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "subnet": {
-                            "revisions": {"v7.4.0": True},
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                 },
-                "ext_intf": {"revisions": {"v7.4.0": True}, "type": "string"},
+                "ext_intf": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
                 "arp_reply": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "disable", "revisions": {"v7.4.0": True}},
-                        {"value": "enable", "revisions": {"v7.4.0": True}},
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                 },
-                "extip": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "extport": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "minimal_lifetime": {"revisions": {"v7.4.0": True}, "type": "integer"},
-                "maximal_lifetime": {"revisions": {"v7.4.0": True}, "type": "integer"},
+                "extip": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "extport": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "minimal_lifetime": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "integer",
+                },
+                "maximal_lifetime": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "integer",
+                },
                 "client_mapping_limit": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "integer",
                 },
                 "mapping_filter_limit": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "integer",
                 },
                 "allow_opcode": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "list",
                     "options": [
-                        {"value": "map", "revisions": {"v7.4.0": True}},
-                        {"value": "peer", "revisions": {"v7.4.0": True}},
-                        {"value": "announce", "revisions": {"v7.4.0": True}},
+                        {"value": "map", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                        {
+                            "value": "peer",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "announce",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                     "multiple_values": True,
                     "elements": "str",
                 },
                 "third_party": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "allow", "revisions": {"v7.4.0": True}},
-                        {"value": "disallow", "revisions": {"v7.4.0": True}},
+                        {
+                            "value": "allow",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "disallow",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                 },
                 "third_party_subnet": {
@@ -507,23 +546,29 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "subnet": {
-                            "revisions": {"v7.4.0": True},
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                 },
                 "multicast_announcement": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "enable", "revisions": {"v7.4.0": True}},
-                        {"value": "disable", "revisions": {"v7.4.0": True}},
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                 },
                 "announcement_count": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "integer",
                 },
                 "intl_intf": {
@@ -531,16 +576,19 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "interface_name": {
-                            "revisions": {"v7.4.0": True},
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                 },
-                "recycle_delay": {"revisions": {"v7.4.0": True}, "type": "integer"},
+                "recycle_delay": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "integer",
+                },
             },
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
         },
     },
 }

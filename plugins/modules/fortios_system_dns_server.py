@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -94,7 +94,21 @@ options:
                 type: str
             doh:
                 description:
-                    - DNS over HTTPS/443.
+                    - Enable/disable DNS over HTTPS/443 .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            doh3:
+                description:
+                    - Enable/disable DNS over QUIC/HTTP3/443 .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            doq:
+                description:
+                    - Enable/disable DNS over QUIC/853 .
                 type: str
                 choices:
                     - 'enable'
@@ -133,8 +147,10 @@ EXAMPLES = """
       system_dns_server:
         dnsfilter_profile: "<your_own_value> (source dnsfilter.profile.name)"
         doh: "enable"
+        doh3: "enable"
+        doq: "enable"
         mode: "recursive"
-        name: "default_name_6 (source system.interface.name)"
+        name: "default_name_8 (source system.interface.name)"
 
 """
 
@@ -228,7 +244,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_system_dns_server_data(json):
-    option_list = ["dnsfilter_profile", "doh", "mode", "name"]
+    option_list = ["dnsfilter_profile", "doh", "doh3", "doq", "mode", "name"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -368,6 +384,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -399,6 +416,7 @@ versioned_schema = {
         },
         "mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -430,6 +448,7 @@ versioned_schema = {
                 {
                     "value": "recursive",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -460,6 +479,7 @@ versioned_schema = {
                 {
                     "value": "non-recursive",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -490,6 +510,7 @@ versioned_schema = {
                 {
                     "value": "forward-only",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -521,6 +542,7 @@ versioned_schema = {
         },
         "dnsfilter_profile": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -551,6 +573,7 @@ versioned_schema = {
         },
         "doh": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -582,6 +605,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -602,6 +626,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -621,8 +646,79 @@ versioned_schema = {
                 },
             ],
         },
+        "doh3": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.1": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True}},
+            ],
+        },
+        "doq": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.1": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True}},
+            ],
+        },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

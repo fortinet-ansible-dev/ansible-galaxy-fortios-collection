@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -80,6 +80,13 @@ options:
         default: null
         type: dict
         suboptions:
+            proxy:
+                description:
+                    - Enable/disable communication to the proxy server in FortiGuard configuration.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             server:
                 description:
                     - IPv4 address or domain name of FortiToken Mobile push services server.
@@ -120,6 +127,7 @@ EXAMPLES = """
     fortios_system_ftm_push:
       vdom:  "{{ vdom }}"
       system_ftm_push:
+        proxy: "enable"
         server: "192.168.100.40"
         server_cert: "<your_own_value> (source certificate.local.name)"
         server_ip: "<your_own_value>"
@@ -209,7 +217,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_system_ftm_push_data(json):
-    option_list = ["server", "server_cert", "server_ip", "server_port", "status"]
+    option_list = [
+        "proxy",
+        "server",
+        "server_cert",
+        "server_ip",
+        "server_port",
+        "status",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -274,6 +289,7 @@ def fortios_system(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,
@@ -302,8 +318,44 @@ versioned_schema = {
     },
     "type": "dict",
     "children": {
+        "proxy": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.1": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True}},
+            ],
+        },
         "server_port": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -334,6 +386,7 @@ versioned_schema = {
         },
         "server_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -364,6 +417,7 @@ versioned_schema = {
         },
         "server_ip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -394,6 +448,7 @@ versioned_schema = {
         },
         "server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -424,6 +479,7 @@ versioned_schema = {
         },
         "status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -455,6 +511,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -485,6 +542,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,

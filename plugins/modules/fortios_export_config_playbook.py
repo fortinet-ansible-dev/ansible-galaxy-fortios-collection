@@ -205,6 +205,7 @@ options:
                  - 'system.lldp_network-policy'
                  - 'system_pcp-server'
                  - 'system_speed-test-schedule'
+                 - 'system_speed-test-setting'
                  - 'system_standalone-cluster'
                  - 'system_fortiguard'
                  - 'system_ips'
@@ -311,8 +312,8 @@ options:
                  - 'switch-controller_switch-profile'
                  - 'switch-controller_custom-command'
                  - 'switch-controller_virtual-port-pool'
-                 - 'switch-controller.ptp_settings'
-                 - 'switch-controller.ptp_policy'
+                 - 'switch-controller.ptp_profile'
+                 - 'switch-controller.ptp_interface-policy'
                  - 'switch-controller_vlan-policy'
                  - 'switch-controller.acl_ingress'
                  - 'switch-controller.acl_group'
@@ -386,8 +387,8 @@ options:
                  - 'firewall.ipmacbinding_table'
                  - 'firewall_profile-protocol-options'
                  - 'firewall_ssl-ssh-profile'
-                 - 'firewall_profile-group'
                  - 'firewall_ssl-server'
+                 - 'firewall_profile-group'
                  - 'firewall_identity-based-route'
                  - 'firewall_auth-portal'
                  - 'firewall_security-policy'
@@ -464,6 +465,7 @@ options:
                  - 'web-proxy_forward-server-group'
                  - 'web-proxy_debug-url'
                  - 'web-proxy_wisp'
+                 - 'web-proxy_fast-fallback'
                  - 'web-proxy_url-match'
                  - 'wanopt_webcache'
                  - 'wanopt_settings'
@@ -588,12 +590,16 @@ options:
                  - 'antivirus_profile'
                  - 'ssh-filter_profile'
                  - 'file-filter_profile'
+                 - 'virtual-patch_profile'
                  - 'report_layout'
                  - 'report_setting'
                  - 'waf_main-class'
                  - 'waf_sub-class'
                  - 'waf_signature'
                  - 'waf_profile'
+                 - 'casb_saas-application'
+                 - 'casb_user-activity'
+                 - 'casb_profile'
                  - 'authentication_scheme'
                  - 'authentication_rule'
                  - 'authentication_setting'
@@ -645,6 +651,8 @@ options:
                  - 'firewall_acl6'
                  - 'monitoring_np6-ipsec-engine'
                  - 'monitoring_npu-hpe'
+                 - 'switch-controller.ptp_settings'
+                 - 'switch-controller.ptp_policy'
                  - 'system_physical-switch'
                  - 'system_virtual-switch'
                  - 'system_stp'
@@ -928,6 +936,7 @@ options:
          - 'system.lldp_network-policy'
          - 'system_pcp-server'
          - 'system_speed-test-schedule'
+         - 'system_speed-test-setting'
          - 'system_standalone-cluster'
          - 'system_fortiguard'
          - 'system_ips'
@@ -1034,8 +1043,8 @@ options:
          - 'switch-controller_switch-profile'
          - 'switch-controller_custom-command'
          - 'switch-controller_virtual-port-pool'
-         - 'switch-controller.ptp_settings'
-         - 'switch-controller.ptp_policy'
+         - 'switch-controller.ptp_profile'
+         - 'switch-controller.ptp_interface-policy'
          - 'switch-controller_vlan-policy'
          - 'switch-controller.acl_ingress'
          - 'switch-controller.acl_group'
@@ -1109,8 +1118,8 @@ options:
          - 'firewall.ipmacbinding_table'
          - 'firewall_profile-protocol-options'
          - 'firewall_ssl-ssh-profile'
-         - 'firewall_profile-group'
          - 'firewall_ssl-server'
+         - 'firewall_profile-group'
          - 'firewall_identity-based-route'
          - 'firewall_auth-portal'
          - 'firewall_security-policy'
@@ -1187,6 +1196,7 @@ options:
          - 'web-proxy_forward-server-group'
          - 'web-proxy_debug-url'
          - 'web-proxy_wisp'
+         - 'web-proxy_fast-fallback'
          - 'web-proxy_url-match'
          - 'wanopt_webcache'
          - 'wanopt_settings'
@@ -1311,12 +1321,16 @@ options:
          - 'antivirus_profile'
          - 'ssh-filter_profile'
          - 'file-filter_profile'
+         - 'virtual-patch_profile'
          - 'report_layout'
          - 'report_setting'
          - 'waf_main-class'
          - 'waf_sub-class'
          - 'waf_signature'
          - 'waf_profile'
+         - 'casb_saas-application'
+         - 'casb_user-activity'
+         - 'casb_profile'
          - 'authentication_scheme'
          - 'authentication_rule'
          - 'authentication_setting'
@@ -1368,6 +1382,8 @@ options:
          - 'firewall_acl6'
          - 'monitoring_np6-ipsec-engine'
          - 'monitoring_npu-hpe'
+         - 'switch-controller.ptp_settings'
+         - 'switch-controller.ptp_policy'
          - 'system_physical-switch'
          - 'system_virtual-switch'
          - 'system_stp'
@@ -1959,6 +1975,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "interface",
         "mkey_type": str,
     },
+    "system_speed-test-setting": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
     "system_standalone-cluster": {
         "mkey": "None",
         "mkey_type": None,
@@ -2383,11 +2403,11 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "switch-controller.ptp_settings": {
-        "mkey": "None",
-        "mkey_type": None,
+    "switch-controller.ptp_profile": {
+        "mkey": "name",
+        "mkey_type": str,
     },
-    "switch-controller.ptp_policy": {
+    "switch-controller.ptp_interface-policy": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -2683,11 +2703,11 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "firewall_profile-group": {
+    "firewall_ssl-server": {
         "mkey": "name",
         "mkey_type": str,
     },
-    "firewall_ssl-server": {
+    "firewall_profile-group": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -2992,6 +3012,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "web-proxy_wisp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "web-proxy_fast-fallback": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3491,6 +3515,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "virtual-patch_profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "report_layout": {
         "mkey": "name",
         "mkey_type": str,
@@ -3512,6 +3540,18 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": int,
     },
     "waf_profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "casb_saas-application": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "casb_user-activity": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "casb_profile": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3718,6 +3758,14 @@ MODULE_MKEY_DEFINITONS = {
     "monitoring_npu-hpe": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "switch-controller.ptp_settings": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "switch-controller.ptp_policy": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "system_physical-switch": {
         "mkey": "name",
@@ -4634,6 +4682,7 @@ SPECIAL_ATTRIBUTE_TABLE = {
         ["local_standalone_dns_ip"],
         ["broadcast_suppression"],
         ["ipv6_rules"],
+        ["vlan_name", "vlan_id"],
         ["rates_11a"],
         ["rates_11bg"],
         ["rates_11n_ss12"],
@@ -4803,10 +4852,10 @@ SPECIAL_ATTRIBUTE_TABLE = {
     "antivirus_quarantine": [
         ["drop_infected"],
         ["store_infected"],
-        ["drop_blocked"],
-        ["store_blocked"],
         ["drop_machine_learning"],
         ["store_machine_learning"],
+        ["drop_blocked"],
+        ["store_blocked"],
         ["drop_heuristic"],
         ["store_heuristic"],
         ["drop_intercepted"],
@@ -4843,6 +4892,7 @@ SPECIAL_ATTRIBUTE_TABLE = {
     ],
     "ssh_filter_profile": [["block"], ["log"], ["file_filter", "entries", "protocol"]],
     "file_filter_profile": [["rules", "protocol"]],
+    "virtual_patch_profile": [["severity"]],
     "report_layout": [
         ["options"],
         ["format"],
@@ -4857,6 +4907,7 @@ SPECIAL_ATTRIBUTE_TABLE = {
         ["method", "default_allowed_methods"],
         ["method", "method_policy", "allowed_methods"],
     ],
+    "casb_profile": [["saas_application", "access_rule", "bypass"]],
     "authentication_scheme": [["method"]],
     "extension_controller_extender_profile": [
         ["allowaccess"],
@@ -5213,6 +5264,7 @@ def main():
                 "system.lldp_network-policy",
                 "system_pcp-server",
                 "system_speed-test-schedule",
+                "system_speed-test-setting",
                 "system_standalone-cluster",
                 "system_fortiguard",
                 "system_ips",
@@ -5319,8 +5371,8 @@ def main():
                 "switch-controller_switch-profile",
                 "switch-controller_custom-command",
                 "switch-controller_virtual-port-pool",
-                "switch-controller.ptp_settings",
-                "switch-controller.ptp_policy",
+                "switch-controller.ptp_profile",
+                "switch-controller.ptp_interface-policy",
                 "switch-controller_vlan-policy",
                 "switch-controller.acl_ingress",
                 "switch-controller.acl_group",
@@ -5394,8 +5446,8 @@ def main():
                 "firewall.ipmacbinding_table",
                 "firewall_profile-protocol-options",
                 "firewall_ssl-ssh-profile",
-                "firewall_profile-group",
                 "firewall_ssl-server",
+                "firewall_profile-group",
                 "firewall_identity-based-route",
                 "firewall_auth-portal",
                 "firewall_security-policy",
@@ -5472,6 +5524,7 @@ def main():
                 "web-proxy_forward-server-group",
                 "web-proxy_debug-url",
                 "web-proxy_wisp",
+                "web-proxy_fast-fallback",
                 "web-proxy_url-match",
                 "wanopt_webcache",
                 "wanopt_settings",
@@ -5596,12 +5649,16 @@ def main():
                 "antivirus_profile",
                 "ssh-filter_profile",
                 "file-filter_profile",
+                "virtual-patch_profile",
                 "report_layout",
                 "report_setting",
                 "waf_main-class",
                 "waf_sub-class",
                 "waf_signature",
                 "waf_profile",
+                "casb_saas-application",
+                "casb_user-activity",
+                "casb_profile",
                 "authentication_scheme",
                 "authentication_rule",
                 "authentication_setting",
@@ -5653,6 +5710,8 @@ def main():
                 "firewall_acl6",
                 "monitoring_np6-ipsec-engine",
                 "monitoring_npu-hpe",
+                "switch-controller.ptp_settings",
+                "switch-controller.ptp_policy",
                 "system_physical-switch",
                 "system_virtual-switch",
                 "system_stp",
@@ -5944,6 +6003,7 @@ def main():
                         "system.lldp_network-policy",
                         "system_pcp-server",
                         "system_speed-test-schedule",
+                        "system_speed-test-setting",
                         "system_standalone-cluster",
                         "system_fortiguard",
                         "system_ips",
@@ -6050,8 +6110,8 @@ def main():
                         "switch-controller_switch-profile",
                         "switch-controller_custom-command",
                         "switch-controller_virtual-port-pool",
-                        "switch-controller.ptp_settings",
-                        "switch-controller.ptp_policy",
+                        "switch-controller.ptp_profile",
+                        "switch-controller.ptp_interface-policy",
                         "switch-controller_vlan-policy",
                         "switch-controller.acl_ingress",
                         "switch-controller.acl_group",
@@ -6125,8 +6185,8 @@ def main():
                         "firewall.ipmacbinding_table",
                         "firewall_profile-protocol-options",
                         "firewall_ssl-ssh-profile",
-                        "firewall_profile-group",
                         "firewall_ssl-server",
+                        "firewall_profile-group",
                         "firewall_identity-based-route",
                         "firewall_auth-portal",
                         "firewall_security-policy",
@@ -6203,6 +6263,7 @@ def main():
                         "web-proxy_forward-server-group",
                         "web-proxy_debug-url",
                         "web-proxy_wisp",
+                        "web-proxy_fast-fallback",
                         "web-proxy_url-match",
                         "wanopt_webcache",
                         "wanopt_settings",
@@ -6327,12 +6388,16 @@ def main():
                         "antivirus_profile",
                         "ssh-filter_profile",
                         "file-filter_profile",
+                        "virtual-patch_profile",
                         "report_layout",
                         "report_setting",
                         "waf_main-class",
                         "waf_sub-class",
                         "waf_signature",
                         "waf_profile",
+                        "casb_saas-application",
+                        "casb_user-activity",
+                        "casb_profile",
                         "authentication_scheme",
                         "authentication_rule",
                         "authentication_setting",
@@ -6384,6 +6449,8 @@ def main():
                         "firewall_acl6",
                         "monitoring_np6-ipsec-engine",
                         "monitoring_npu-hpe",
+                        "switch-controller.ptp_settings",
+                        "switch-controller.ptp_policy",
                         "system_physical-switch",
                         "system_virtual-switch",
                         "system_stp",

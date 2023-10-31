@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -411,58 +411,146 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": True,
+                "v7.2.0": True,
+                "v6.4.0": True,
+            },
             "type": "string",
             "required": True,
         },
         "guaranteed_bandwidth": {
-            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": True,
+                "v7.2.0": True,
+                "v6.4.0": True,
+            },
             "type": "integer",
         },
         "maximum_bandwidth": {
-            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": True,
+                "v7.2.0": True,
+                "v6.4.0": True,
+            },
             "type": "integer",
         },
         "bandwidth_unit": {
-            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": True,
+                "v7.2.0": True,
+                "v6.4.0": True,
+            },
             "type": "string",
             "options": [
                 {
                     "value": "kbps",
-                    "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+                    "revisions": {
+                        "v7.4.1": True,
+                        "v7.4.0": True,
+                        "v7.2.0": True,
+                        "v6.4.0": True,
+                    },
                 },
                 {
                     "value": "pps",
-                    "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+                    "revisions": {
+                        "v7.4.1": True,
+                        "v7.4.0": True,
+                        "v7.2.0": True,
+                        "v6.4.0": True,
+                    },
                 },
             ],
         },
         "burst_bps_granularity": {
-            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": False},
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": True,
+                "v7.2.0": True,
+                "v6.4.0": False,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "512-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "1k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "2k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "4k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "8k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "16k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "32k-bytes", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "512-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "1k-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "2k-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "4k-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "8k-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "16k-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "32k-bytes",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
             ],
         },
         "burst_pps_granularity": {
-            "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": False},
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": True,
+                "v7.2.0": True,
+                "v6.4.0": False,
+            },
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "half-packet", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "1-packet", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "2-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "4-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "16-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "65-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
-                {"value": "262-packets", "revisions": {"v7.4.0": True, "v7.2.0": True}},
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "half-packet",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "1-packet",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "2-packets",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "4-packets",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "16-packets",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "65-packets",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
+                {
+                    "value": "262-packets",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
+                },
             ],
         },
         "burst_control": {
@@ -474,7 +562,7 @@ versioned_schema = {
             ],
         },
     },
-    "revisions": {"v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
 }
 
 

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -111,6 +111,14 @@ options:
                 description:
                     - AP local configuration profile name. Source wireless-controller.apcfg-profile.name.
                 type: str
+            ble_major_id:
+                description:
+                    - Override BLE Major ID.
+                type: int
+            ble_minor_id:
+                description:
+                    - Override BLE Minor ID.
+                type: int
             bonjour_profile:
                 description:
                     - Bonjour profile name. Source wireless-controller.bonjour-profile.name.
@@ -1116,6 +1124,8 @@ EXAMPLES = """
         admin: "discovered"
         allowaccess: "https"
         apcfg_profile: "<your_own_value> (source wireless-controller.apcfg-profile.name)"
+        ble_major_id: "0"
+        ble_minor_id: "0"
         bonjour_profile: "<your_own_value> (source wireless-controller.bonjour-profile.name)"
         coordinate_enable: "enable"
         coordinate_latitude: "<your_own_value>"
@@ -1153,7 +1163,7 @@ EXAMPLES = """
         login_passwd: "<your_own_value>"
         login_passwd_change: "yes"
         mesh_bridge_enable: "default"
-        name: "default_name_43"
+        name: "default_name_45"
         override_allowaccess: "enable"
         override_ip_fragment: "enable"
         override_lan: "enable"
@@ -1184,7 +1194,7 @@ EXAMPLES = """
             vap_all: "tunnel"
             vaps:
              -
-                name: "default_name_72 (source wireless-controller.vap-group.name system.interface.name)"
+                name: "default_name_74 (source wireless-controller.vap-group.name system.interface.name)"
         radio_2:
             auto_power_high: "17"
             auto_power_level: "enable"
@@ -1208,7 +1218,7 @@ EXAMPLES = """
             vap_all: "tunnel"
             vaps:
              -
-                name: "default_name_94 (source wireless-controller.vap-group.name system.interface.name)"
+                name: "default_name_96 (source wireless-controller.vap-group.name system.interface.name)"
         radio_3:
             auto_power_high: "17"
             auto_power_level: "enable"
@@ -1232,7 +1242,7 @@ EXAMPLES = """
             vap_all: "tunnel"
             vaps:
              -
-                name: "default_name_116 (source wireless-controller.vap-group.name system.interface.name)"
+                name: "default_name_118 (source wireless-controller.vap-group.name system.interface.name)"
         radio_4:
             auto_power_high: "17"
             auto_power_level: "enable"
@@ -1255,14 +1265,14 @@ EXAMPLES = """
             vap_all: "tunnel"
             vaps:
              -
-                name: "default_name_137 (source wireless-controller.vap-group.name system.interface.name)"
+                name: "default_name_139 (source wireless-controller.vap-group.name system.interface.name)"
         region: "<your_own_value> (source wireless-controller.region.name)"
         region_x: "<your_own_value>"
         region_y: "<your_own_value>"
         split_tunneling_acl:
          -
             dest_ip: "<your_own_value>"
-            id:  "143"
+            id:  "145"
         split_tunneling_acl_local_ap_subnet: "enable"
         split_tunneling_acl_path: "tunnel"
         tun_mtu_downlink: "0"
@@ -1369,6 +1379,8 @@ def filter_wireless_controller_wtp_data(json):
         "admin",
         "allowaccess",
         "apcfg_profile",
+        "ble_major_id",
+        "ble_minor_id",
         "bonjour_profile",
         "coordinate_enable",
         "coordinate_latitude",
@@ -1586,6 +1598,7 @@ versioned_schema = {
     "children": {
         "wtp_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1617,6 +1630,7 @@ versioned_schema = {
         },
         "uuid": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1647,6 +1661,7 @@ versioned_schema = {
         },
         "admin": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1678,6 +1693,7 @@ versioned_schema = {
                 {
                     "value": "discovered",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1708,6 +1724,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1738,6 +1755,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1769,6 +1787,7 @@ versioned_schema = {
         },
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1799,6 +1818,7 @@ versioned_schema = {
         },
         "location": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1829,6 +1849,7 @@ versioned_schema = {
         },
         "region": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1859,6 +1880,7 @@ versioned_schema = {
         },
         "region_x": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1889,6 +1911,7 @@ versioned_schema = {
         },
         "region_y": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1919,6 +1942,7 @@ versioned_schema = {
         },
         "firmware_provision": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1949,6 +1973,7 @@ versioned_schema = {
         },
         "firmware_provision_latest": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1980,6 +2005,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1998,6 +2024,7 @@ versioned_schema = {
                 {
                     "value": "once",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2017,6 +2044,7 @@ versioned_schema = {
         },
         "wtp_profile": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2047,6 +2075,7 @@ versioned_schema = {
         },
         "apcfg_profile": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2077,6 +2106,7 @@ versioned_schema = {
         },
         "bonjour_profile": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2105,8 +2135,71 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "ble_major_id": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
+        "ble_minor_id": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
         "override_led_state": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2138,6 +2231,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2168,6 +2262,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2199,6 +2294,7 @@ versioned_schema = {
         },
         "led_state": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2230,6 +2326,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2260,6 +2357,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2291,6 +2389,7 @@ versioned_schema = {
         },
         "override_wan_port_mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2322,6 +2421,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2352,6 +2452,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2383,6 +2484,7 @@ versioned_schema = {
         },
         "wan_port_mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2414,6 +2516,7 @@ versioned_schema = {
                 {
                     "value": "wan-lan",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2444,6 +2547,7 @@ versioned_schema = {
                 {
                     "value": "wan-only",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2475,6 +2579,7 @@ versioned_schema = {
         },
         "override_ip_fragment": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2506,6 +2611,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2536,6 +2642,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2567,6 +2674,7 @@ versioned_schema = {
         },
         "ip_fragment_preventing": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2598,6 +2706,7 @@ versioned_schema = {
                 {
                     "value": "tcp-mss-adjust",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2628,6 +2737,7 @@ versioned_schema = {
                 {
                     "value": "icmp-unreachable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2661,6 +2771,7 @@ versioned_schema = {
         },
         "tun_mtu_uplink": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2691,6 +2802,7 @@ versioned_schema = {
         },
         "tun_mtu_downlink": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2721,6 +2833,7 @@ versioned_schema = {
         },
         "override_split_tunnel": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2752,6 +2865,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2782,6 +2896,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2813,6 +2928,7 @@ versioned_schema = {
         },
         "split_tunneling_acl_path": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2844,6 +2960,7 @@ versioned_schema = {
                 {
                     "value": "tunnel",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2874,6 +2991,7 @@ versioned_schema = {
                 {
                     "value": "local",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2905,6 +3023,7 @@ versioned_schema = {
         },
         "split_tunneling_acl_local_ap_subnet": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2936,6 +3055,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2966,6 +3086,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3001,6 +3122,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3032,6 +3154,7 @@ versioned_schema = {
                 },
                 "dest_ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3062,6 +3185,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3091,6 +3215,7 @@ versioned_schema = {
         },
         "override_lan": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3122,6 +3247,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3152,6 +3278,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3183,6 +3310,7 @@ versioned_schema = {
         },
         "lan": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3213,6 +3341,7 @@ versioned_schema = {
             "children": {
                 "port_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3244,6 +3373,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3274,6 +3404,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3304,6 +3435,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3334,6 +3466,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3365,6 +3498,7 @@ versioned_schema = {
                 },
                 "port_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3395,6 +3529,7 @@ versioned_schema = {
                 },
                 "port1_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3426,6 +3561,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3456,6 +3592,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3486,6 +3623,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3516,6 +3654,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3547,6 +3686,7 @@ versioned_schema = {
                 },
                 "port1_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3577,6 +3717,7 @@ versioned_schema = {
                 },
                 "port2_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3608,6 +3749,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3638,6 +3780,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3668,6 +3811,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3698,6 +3842,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3729,6 +3874,7 @@ versioned_schema = {
                 },
                 "port2_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3759,6 +3905,7 @@ versioned_schema = {
                 },
                 "port3_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3790,6 +3937,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3820,6 +3968,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3850,6 +3999,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3880,6 +4030,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3911,6 +4062,7 @@ versioned_schema = {
                 },
                 "port3_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3941,6 +4093,7 @@ versioned_schema = {
                 },
                 "port4_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3972,6 +4125,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4002,6 +4156,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4032,6 +4187,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4062,6 +4218,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4093,6 +4250,7 @@ versioned_schema = {
                 },
                 "port4_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4123,6 +4281,7 @@ versioned_schema = {
                 },
                 "port5_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4154,6 +4313,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4184,6 +4344,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4214,6 +4375,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4244,6 +4406,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4275,6 +4438,7 @@ versioned_schema = {
                 },
                 "port5_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4305,6 +4469,7 @@ versioned_schema = {
                 },
                 "port6_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4336,6 +4501,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4366,6 +4532,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4396,6 +4563,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4426,6 +4594,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4457,6 +4626,7 @@ versioned_schema = {
                 },
                 "port6_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4487,6 +4657,7 @@ versioned_schema = {
                 },
                 "port7_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4518,6 +4689,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4548,6 +4720,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4578,6 +4751,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4608,6 +4782,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4639,6 +4814,7 @@ versioned_schema = {
                 },
                 "port7_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4669,6 +4845,7 @@ versioned_schema = {
                 },
                 "port8_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4700,6 +4877,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4730,6 +4908,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4760,6 +4939,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4790,6 +4970,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4821,6 +5002,7 @@ versioned_schema = {
                 },
                 "port8_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4851,6 +5033,7 @@ versioned_schema = {
                 },
                 "port_esl_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4882,6 +5065,7 @@ versioned_schema = {
                         {
                             "value": "offline",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4904,6 +5088,7 @@ versioned_schema = {
                         {
                             "value": "nat-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4926,6 +5111,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-wan",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4948,6 +5134,7 @@ versioned_schema = {
                         {
                             "value": "bridge-to-ssid",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -4971,6 +5158,7 @@ versioned_schema = {
                 },
                 "port_esl_ssid": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5003,6 +5191,7 @@ versioned_schema = {
         },
         "override_allowaccess": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5034,6 +5223,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5064,6 +5254,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5095,6 +5286,7 @@ versioned_schema = {
         },
         "allowaccess": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5126,6 +5318,7 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5156,6 +5349,7 @@ versioned_schema = {
                 {
                     "value": "ssh",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5186,6 +5380,7 @@ versioned_schema = {
                 {
                     "value": "snmp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5227,6 +5422,7 @@ versioned_schema = {
         },
         "override_login_passwd_change": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5258,6 +5454,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5288,6 +5485,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5319,6 +5517,7 @@ versioned_schema = {
         },
         "login_passwd_change": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5350,6 +5549,7 @@ versioned_schema = {
                 {
                     "value": "yes",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5380,6 +5580,7 @@ versioned_schema = {
                 {
                     "value": "default",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5410,6 +5611,7 @@ versioned_schema = {
                 {
                     "value": "no",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5441,6 +5643,7 @@ versioned_schema = {
         },
         "login_passwd": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5471,6 +5674,7 @@ versioned_schema = {
         },
         "radio_1": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -5501,6 +5705,7 @@ versioned_schema = {
             "children": {
                 "override_band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5532,6 +5737,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5562,6 +5768,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5593,6 +5800,7 @@ versioned_schema = {
                 },
                 "band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5624,6 +5832,7 @@ versioned_schema = {
                         {
                             "value": "802.11a",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5654,6 +5863,7 @@ versioned_schema = {
                         {
                             "value": "802.11b",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5684,6 +5894,7 @@ versioned_schema = {
                         {
                             "value": "802.11g",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5714,6 +5925,7 @@ versioned_schema = {
                         {
                             "value": "802.11n",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5744,6 +5956,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5774,6 +5987,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5804,6 +6018,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5834,6 +6049,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5864,6 +6080,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-2G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5894,6 +6111,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-6G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5924,6 +6142,7 @@ versioned_schema = {
                         {
                             "value": "802.11n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5954,6 +6173,7 @@ versioned_schema = {
                         {
                             "value": "802.11g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5984,6 +6204,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6014,6 +6235,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6044,6 +6266,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6074,6 +6297,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6104,6 +6328,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6134,6 +6359,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6164,6 +6390,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6194,6 +6421,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6224,6 +6452,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6254,6 +6483,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6285,6 +6515,7 @@ versioned_schema = {
                 },
                 "override_txpower": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6316,6 +6547,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6346,6 +6578,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6377,6 +6610,7 @@ versioned_schema = {
                 },
                 "auto_power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6408,6 +6642,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6438,6 +6673,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6469,6 +6705,7 @@ versioned_schema = {
                 },
                 "auto_power_high": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6499,6 +6736,7 @@ versioned_schema = {
                 },
                 "auto_power_low": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6529,6 +6767,7 @@ versioned_schema = {
                 },
                 "auto_power_target": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6559,6 +6798,7 @@ versioned_schema = {
                 },
                 "power_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6590,6 +6830,7 @@ versioned_schema = {
                         {
                             "value": "dBm",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6610,6 +6851,7 @@ versioned_schema = {
                         {
                             "value": "percentage",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6631,6 +6873,7 @@ versioned_schema = {
                 },
                 "power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6661,6 +6904,7 @@ versioned_schema = {
                 },
                 "power_value": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6691,6 +6935,7 @@ versioned_schema = {
                 },
                 "override_vaps": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6722,6 +6967,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6752,6 +6998,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6783,6 +7030,7 @@ versioned_schema = {
                 },
                 "vap_all": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6814,6 +7062,7 @@ versioned_schema = {
                         {
                             "value": "tunnel",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6844,6 +7093,7 @@ versioned_schema = {
                         {
                             "value": "bridge",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6874,6 +7124,7 @@ versioned_schema = {
                         {
                             "value": "manual",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6933,6 +7184,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6964,6 +7216,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -6993,6 +7246,7 @@ versioned_schema = {
                 },
                 "override_channel": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7024,6 +7278,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7054,6 +7309,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7089,6 +7345,7 @@ versioned_schema = {
                     "children": {
                         "chan": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7120,6 +7377,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7149,6 +7407,7 @@ versioned_schema = {
                 },
                 "drma_manual_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7180,6 +7439,7 @@ versioned_schema = {
                         {
                             "value": "ap",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7201,6 +7461,7 @@ versioned_schema = {
                         {
                             "value": "monitor",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7222,6 +7483,7 @@ versioned_schema = {
                         {
                             "value": "ncf",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7243,6 +7505,7 @@ versioned_schema = {
                         {
                             "value": "ncf-peek",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7374,6 +7637,7 @@ versioned_schema = {
         },
         "radio_2": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -7404,6 +7668,7 @@ versioned_schema = {
             "children": {
                 "override_band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7435,6 +7700,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7465,6 +7731,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7496,6 +7763,7 @@ versioned_schema = {
                 },
                 "band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7527,6 +7795,7 @@ versioned_schema = {
                         {
                             "value": "802.11a",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7557,6 +7826,7 @@ versioned_schema = {
                         {
                             "value": "802.11b",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7587,6 +7857,7 @@ versioned_schema = {
                         {
                             "value": "802.11g",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7617,6 +7888,7 @@ versioned_schema = {
                         {
                             "value": "802.11n",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7647,6 +7919,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7677,6 +7950,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7707,6 +7981,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7737,6 +8012,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7767,6 +8043,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-2G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7797,6 +8074,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-6G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7827,6 +8105,7 @@ versioned_schema = {
                         {
                             "value": "802.11n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7857,6 +8136,7 @@ versioned_schema = {
                         {
                             "value": "802.11g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7887,6 +8167,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7917,6 +8198,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7947,6 +8229,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7977,6 +8260,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8007,6 +8291,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8037,6 +8322,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8067,6 +8353,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8097,6 +8384,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8127,6 +8415,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8157,6 +8446,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8188,6 +8478,7 @@ versioned_schema = {
                 },
                 "override_txpower": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8219,6 +8510,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8249,6 +8541,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8280,6 +8573,7 @@ versioned_schema = {
                 },
                 "auto_power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8311,6 +8605,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8341,6 +8636,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8372,6 +8668,7 @@ versioned_schema = {
                 },
                 "auto_power_high": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8402,6 +8699,7 @@ versioned_schema = {
                 },
                 "auto_power_low": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8432,6 +8730,7 @@ versioned_schema = {
                 },
                 "auto_power_target": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8462,6 +8761,7 @@ versioned_schema = {
                 },
                 "power_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8493,6 +8793,7 @@ versioned_schema = {
                         {
                             "value": "dBm",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8513,6 +8814,7 @@ versioned_schema = {
                         {
                             "value": "percentage",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8534,6 +8836,7 @@ versioned_schema = {
                 },
                 "power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8564,6 +8867,7 @@ versioned_schema = {
                 },
                 "power_value": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8594,6 +8898,7 @@ versioned_schema = {
                 },
                 "override_vaps": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8625,6 +8930,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8655,6 +8961,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8686,6 +8993,7 @@ versioned_schema = {
                 },
                 "vap_all": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8717,6 +9025,7 @@ versioned_schema = {
                         {
                             "value": "tunnel",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8747,6 +9056,7 @@ versioned_schema = {
                         {
                             "value": "bridge",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8777,6 +9087,7 @@ versioned_schema = {
                         {
                             "value": "manual",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8836,6 +9147,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8867,6 +9179,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8896,6 +9209,7 @@ versioned_schema = {
                 },
                 "override_channel": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -8927,6 +9241,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8957,6 +9272,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8992,6 +9308,7 @@ versioned_schema = {
                     "children": {
                         "chan": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9023,6 +9340,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -9052,6 +9370,7 @@ versioned_schema = {
                 },
                 "drma_manual_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -9083,6 +9402,7 @@ versioned_schema = {
                         {
                             "value": "ap",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9104,6 +9424,7 @@ versioned_schema = {
                         {
                             "value": "monitor",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9125,6 +9446,7 @@ versioned_schema = {
                         {
                             "value": "ncf",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9146,6 +9468,7 @@ versioned_schema = {
                         {
                             "value": "ncf-peek",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9277,6 +9600,7 @@ versioned_schema = {
         },
         "radio_3": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -9307,6 +9631,7 @@ versioned_schema = {
             "children": {
                 "override_band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -9335,6 +9660,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9362,6 +9688,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9390,6 +9717,7 @@ versioned_schema = {
                 },
                 "band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -9418,6 +9746,7 @@ versioned_schema = {
                         {
                             "value": "802.11a",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9445,6 +9774,7 @@ versioned_schema = {
                         {
                             "value": "802.11b",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9472,6 +9802,7 @@ versioned_schema = {
                         {
                             "value": "802.11g",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9499,6 +9830,7 @@ versioned_schema = {
                         {
                             "value": "802.11n",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9526,6 +9858,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9553,6 +9886,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9580,6 +9914,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9607,6 +9942,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9634,6 +9970,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-2G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9661,6 +9998,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-6G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9688,6 +10026,7 @@ versioned_schema = {
                         {
                             "value": "802.11n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9715,6 +10054,7 @@ versioned_schema = {
                         {
                             "value": "802.11g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9742,6 +10082,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9769,6 +10110,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9796,6 +10138,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9823,6 +10166,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9850,6 +10194,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9877,6 +10222,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9904,6 +10250,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9931,6 +10278,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9958,6 +10306,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9985,6 +10334,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10013,6 +10363,7 @@ versioned_schema = {
                 },
                 "override_txpower": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10041,6 +10392,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10068,6 +10420,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10096,6 +10449,7 @@ versioned_schema = {
                 },
                 "auto_power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10124,6 +10478,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10151,6 +10506,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10179,6 +10535,7 @@ versioned_schema = {
                 },
                 "auto_power_high": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10206,6 +10563,7 @@ versioned_schema = {
                 },
                 "auto_power_low": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10233,6 +10591,7 @@ versioned_schema = {
                 },
                 "auto_power_target": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10260,6 +10619,7 @@ versioned_schema = {
                 },
                 "power_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10288,6 +10648,7 @@ versioned_schema = {
                         {
                             "value": "dBm",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10308,6 +10669,7 @@ versioned_schema = {
                         {
                             "value": "percentage",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10329,6 +10691,7 @@ versioned_schema = {
                 },
                 "power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10356,6 +10719,7 @@ versioned_schema = {
                 },
                 "power_value": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10383,6 +10747,7 @@ versioned_schema = {
                 },
                 "override_vaps": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10411,6 +10776,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10438,6 +10804,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10466,6 +10833,7 @@ versioned_schema = {
                 },
                 "vap_all": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10494,6 +10862,7 @@ versioned_schema = {
                         {
                             "value": "tunnel",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10521,6 +10890,7 @@ versioned_schema = {
                         {
                             "value": "bridge",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10548,6 +10918,7 @@ versioned_schema = {
                         {
                             "value": "manual",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10598,6 +10969,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10626,6 +10998,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10652,6 +11025,7 @@ versioned_schema = {
                 },
                 "override_channel": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10680,6 +11054,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10707,6 +11082,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10739,6 +11115,7 @@ versioned_schema = {
                     "children": {
                         "chan": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10767,6 +11144,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10793,6 +11171,7 @@ versioned_schema = {
                 },
                 "drma_manual_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10821,6 +11200,7 @@ versioned_schema = {
                         {
                             "value": "ap",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10842,6 +11222,7 @@ versioned_schema = {
                         {
                             "value": "monitor",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10863,6 +11244,7 @@ versioned_schema = {
                         {
                             "value": "ncf",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10884,6 +11266,7 @@ versioned_schema = {
                         {
                             "value": "ncf-peek",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10988,6 +11371,7 @@ versioned_schema = {
         },
         "radio_4": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11018,6 +11402,7 @@ versioned_schema = {
             "children": {
                 "override_band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11045,6 +11430,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11071,6 +11457,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11098,6 +11485,7 @@ versioned_schema = {
                 },
                 "band": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11125,6 +11513,7 @@ versioned_schema = {
                         {
                             "value": "802.11a",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11151,6 +11540,7 @@ versioned_schema = {
                         {
                             "value": "802.11b",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11177,6 +11567,7 @@ versioned_schema = {
                         {
                             "value": "802.11g",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11203,6 +11594,7 @@ versioned_schema = {
                         {
                             "value": "802.11n",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11229,6 +11621,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11255,6 +11648,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11281,6 +11675,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11307,6 +11702,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11333,6 +11729,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-2G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11359,6 +11756,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-6G",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11385,6 +11783,7 @@ versioned_schema = {
                         {
                             "value": "802.11n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11411,6 +11810,7 @@ versioned_schema = {
                         {
                             "value": "802.11g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11437,6 +11837,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11463,6 +11864,7 @@ versioned_schema = {
                         {
                             "value": "802.11n-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11489,6 +11891,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11515,6 +11918,7 @@ versioned_schema = {
                         {
                             "value": "802.11ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11541,6 +11945,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11567,6 +11972,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,ac,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11593,6 +11999,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-5G-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11619,6 +12026,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11645,6 +12053,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax,n,g-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11671,6 +12080,7 @@ versioned_schema = {
                         {
                             "value": "802.11ax-only",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11698,6 +12108,7 @@ versioned_schema = {
                 },
                 "override_txpower": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11725,6 +12136,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11751,6 +12163,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11778,6 +12191,7 @@ versioned_schema = {
                 },
                 "auto_power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11805,6 +12219,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11831,6 +12246,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11858,6 +12274,7 @@ versioned_schema = {
                 },
                 "auto_power_high": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11884,6 +12301,7 @@ versioned_schema = {
                 },
                 "auto_power_low": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11910,6 +12328,7 @@ versioned_schema = {
                 },
                 "auto_power_target": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11936,6 +12355,7 @@ versioned_schema = {
                 },
                 "power_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11963,6 +12383,7 @@ versioned_schema = {
                         {
                             "value": "dBm",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -11983,6 +12404,7 @@ versioned_schema = {
                         {
                             "value": "percentage",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12004,6 +12426,7 @@ versioned_schema = {
                 },
                 "power_level": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12030,6 +12453,7 @@ versioned_schema = {
                 },
                 "power_value": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12056,6 +12480,7 @@ versioned_schema = {
                 },
                 "override_vaps": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12083,6 +12508,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12109,6 +12535,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12136,6 +12563,7 @@ versioned_schema = {
                 },
                 "vap_all": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12163,6 +12591,7 @@ versioned_schema = {
                         {
                             "value": "tunnel",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12189,6 +12618,7 @@ versioned_schema = {
                         {
                             "value": "bridge",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12215,6 +12645,7 @@ versioned_schema = {
                         {
                             "value": "manual",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12262,6 +12693,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12289,6 +12721,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12314,6 +12747,7 @@ versioned_schema = {
                 },
                 "override_channel": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12341,6 +12775,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12367,6 +12802,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12398,6 +12834,7 @@ versioned_schema = {
                     "children": {
                         "chan": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12425,6 +12862,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12450,6 +12888,7 @@ versioned_schema = {
                 },
                 "drma_manual_mode": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12477,6 +12916,7 @@ versioned_schema = {
                         {
                             "value": "ap",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12498,6 +12938,7 @@ versioned_schema = {
                         {
                             "value": "monitor",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12519,6 +12960,7 @@ versioned_schema = {
                         {
                             "value": "ncf",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12540,6 +12982,7 @@ versioned_schema = {
                         {
                             "value": "ncf-peek",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -12633,6 +13076,7 @@ versioned_schema = {
         },
         "image_download": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12664,6 +13108,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12694,6 +13139,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12725,6 +13171,7 @@ versioned_schema = {
         },
         "mesh_bridge_enable": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12756,6 +13203,7 @@ versioned_schema = {
                 {
                     "value": "default",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12786,6 +13234,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12816,6 +13265,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12847,6 +13297,7 @@ versioned_schema = {
         },
         "coordinate_latitude": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12877,6 +13328,7 @@ versioned_schema = {
         },
         "coordinate_longitude": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12989,6 +13441,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

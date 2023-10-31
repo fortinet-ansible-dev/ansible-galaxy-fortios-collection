@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -339,43 +339,77 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {"revisions": {"v7.4.0": True}, "type": "integer", "required": True},
-        "description": {"revisions": {"v7.4.0": True}, "type": "string"},
+        "id": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "type": "integer",
+            "required": True,
+        },
+        "description": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "type": "string",
+        },
         "action": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "dict",
             "children": {
                 "drop": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "enable", "revisions": {"v7.4.0": True}},
-                        {"value": "disable", "revisions": {"v7.4.0": True}},
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                 },
                 "count": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "enable", "revisions": {"v7.4.0": True}},
-                        {"value": "disable", "revisions": {"v7.4.0": True}},
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                 },
             },
         },
         "classifier": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "dict",
             "children": {
-                "dst_ip_prefix": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "dst_mac": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "src_ip_prefix": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "src_mac": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "vlan": {"revisions": {"v7.4.0": True}, "type": "integer"},
+                "dst_ip_prefix": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "dst_mac": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "src_ip_prefix": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "src_mac": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "vlan": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "integer",
+                },
             },
         },
     },
-    "revisions": {"v7.4.0": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True},
 }
 
 

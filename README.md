@@ -9,7 +9,7 @@ The collection is the FortiOS Ansible Automation project. It includes the module
 This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/), the installation steps are as follows:
 
 1. Install or upgrade to Ansible 2.9+
-2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.2`
+2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.3`
 
 ## Requirements
 * Ansible 2.9+ is required to support the newer Ansible Collections format
@@ -17,7 +17,7 @@ This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/)
 ## Supported FortiOS Versions
 From `v2.0.0` on, FortiOS galaxy collections are unified, and cover FortiOS 6.0, 6.2, 6.4, 7.0, 7.2 versions. There is only one sequential collection at any moment. users who install these collections are expected to find the version compatibility information for each module and its parameters.
 
-The latest version is 2.3.2, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.2`
+The latest version is 2.3.3, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.3`
 
 Prior to FortiOS collection `v2.0.0`, FortiOS Galaxy collections were built over three FOS major versions, i.e. `v6.0`, `v6.2` and `v6.4`, thus, users are expected to install the collection according to the following table to avoid potential compatibility issues.
 
@@ -61,6 +61,9 @@ The collection provides the following modules:
 * `fortios_authentication_scheme` Configure Authentication Schemes in Fortinet's FortiOS and FortiGate.
 * `fortios_authentication_setting` Configure authentication setting in Fortinet's FortiOS and FortiGate.
 * `fortios_automation_setting` Automation setting configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_casb_profile` Configure CASB profile in Fortinet's FortiOS and FortiGate.
+* `fortios_casb_saas_application` Configure CASB SaaS application in Fortinet's FortiOS and FortiGate.
+* `fortios_casb_user_activity` Configure CASB user activity in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_ca` CA certificate in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_crl` Certificate Revocation List as a PEM file in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_local` Local keys and certificates in Fortinet's FortiOS and FortiGate.
@@ -372,7 +375,9 @@ The collection provides the following modules:
 * `fortios_switch_controller_network_monitor_settings` Configure network monitor settings in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_poe` List PoE end-points status in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_port_policy` Configure port policy to be applied on the managed FortiSwitch ports through NAC device in Fortinet's FortiOS and FortiGate.
+* `fortios_switch_controller_ptp_interface_policy` PTP interface-policy configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_ptp_policy` PTP policy configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_switch_controller_ptp_profile` Global PTP profile in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_ptp_settings` Global PTP settings in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_qos_dot1p_map` Configure FortiSwitch QoS 802.1p in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_qos_ip_dscp_map` Configure FortiSwitch QoS IP precedence/DSCP in Fortinet's FortiOS and FortiGate.
@@ -537,6 +542,7 @@ The collection provides the following modules:
 * `fortios_system_snmp_user` SNMP user configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_system_speed_test_schedule` Speed test schedule for each interface in Fortinet's FortiOS and FortiGate.
 * `fortios_system_speed_test_server` Configure speed test server list in Fortinet's FortiOS and FortiGate.
+* `fortios_system_speed_test_setting` Configure speed test setting in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sso_admin` Configure SSO admin users in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sso_forticloud_admin` Configure FortiCloud SSO admin users in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sso_fortigate_cloud_admin` Configure FortiCloud SSO admin users in Fortinet's FortiOS and FortiGate.
@@ -589,6 +595,7 @@ The collection provides the following modules:
 * `fortios_videofilter_profile` Configure VideoFilter profile in Fortinet's FortiOS and FortiGate.
 * `fortios_videofilter_youtube_channel_filter` Configure YouTube channel filter in Fortinet's FortiOS and FortiGate.
 * `fortios_videofilter_youtube_key` Configure YouTube API keys in Fortinet's FortiOS and FortiGate.
+* `fortios_virtual_patch_profile` Configure virtual-patch profile in Fortinet's FortiOS and FortiGate.
 * `fortios_voip_profile` Configure VoIP profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_ca` CA certificate in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_crl` Certificate Revocation List as a PEM file in Fortinet's FortiOS and FortiGate.
@@ -631,6 +638,7 @@ The collection provides the following modules:
 * `fortios_wanopt_webcache` Configure global Web cache settings in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_debug_url` Configure debug URL addresses in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_explicit` Configure explicit Web proxy settings in Fortinet's FortiOS and FortiGate.
+* `fortios_web_proxy_fast_fallback` Proxy destination connection fast-fallback in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_forward_server_group` Configure a forward server group consisting or multiple forward servers. Supports failover and load balancing in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_forward_server` Configure forward-server addresses in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_global` Configure Web proxy global settings in Fortinet's FortiOS and FortiGate.

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -116,7 +116,7 @@ EXAMPLES = """
         full_final_warning_threshold: "95"
         full_first_warning_threshold: "75"
         full_second_warning_threshold: "90"
-        max_size: "20912414"
+        max_size: "20921835"
 
 """
 
@@ -273,6 +273,7 @@ def fortios_log_memory(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,
@@ -303,6 +304,7 @@ versioned_schema = {
     "children": {
         "max_size": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -333,6 +335,7 @@ versioned_schema = {
         },
         "full_first_warning_threshold": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -363,6 +366,7 @@ versioned_schema = {
         },
         "full_second_warning_threshold": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -393,6 +397,7 @@ versioned_schema = {
         },
         "full_final_warning_threshold": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,

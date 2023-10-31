@@ -645,7 +645,12 @@ class FortiOSHandler(object):
             else:
                 url += "?"
             url += specific_params
-        http_status, result_data = self._conn.send_request(url=url, method=method, data=json.dumps(data), params=parameters)
+
+        if method == 'GET':
+            http_status, result_data = self._conn.send_request(url=url, method='GET', params=parameters)
+        else:
+            http_status, result_data = self._conn.send_request(url=url, method=method, data=json.dumps(data), params=parameters)
+
         return self.formatresponse(result_data, http_status, vdom=vdom)
 
 # BEGIN DEPRECATED

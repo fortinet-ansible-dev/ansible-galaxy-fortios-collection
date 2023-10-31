@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -105,7 +105,7 @@ options:
                 suboptions:
                     route_target:
                         description:
-                            - 'Route target: AA|AA:NN.'
+                            - 'Route target: AA:NN|A.B.C.D:NN.'
                         required: true
                         type: str
             id:
@@ -121,7 +121,7 @@ options:
                 suboptions:
                     route_target:
                         description:
-                            - 'Route target: AA|AA:NN.'
+                            - 'Route target: AA:NN|A.B.C.D:NN.'
                         required: true
                         type: str
             ip_local_learning:
@@ -133,7 +133,7 @@ options:
                     - 'disable'
             rd:
                 description:
-                    - 'Route Distinguisher: AA|AA:NN|A.B.C.D:NN.'
+                    - 'Route Distinguisher: AA:NN|A.B.C.D:NN.'
                 type: str
 """
 
@@ -329,50 +329,54 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {"revisions": {"v7.4.0": True}, "type": "integer", "required": True},
-        "rd": {"revisions": {"v7.4.0": True}, "type": "string"},
+        "id": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "type": "integer",
+            "required": True,
+        },
+        "rd": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
         "import_rt": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "route_target": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
         },
         "export_rt": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "route_target": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
         },
         "ip_local_learning": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
         "arp_suppression": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
     },
-    "revisions": {"v7.4.0": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True},
 }
 
 

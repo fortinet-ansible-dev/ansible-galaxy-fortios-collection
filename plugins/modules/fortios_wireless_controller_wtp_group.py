@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -88,6 +88,10 @@ options:
         default: null
         type: dict
         suboptions:
+            ble_major_id:
+                description:
+                    - Override BLE Major ID.
+                type: int
             name:
                 description:
                     - WTP group name.
@@ -205,7 +209,8 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       wireless_controller_wtp_group:
-        name: "default_name_3"
+        ble_major_id: "0"
+        name: "default_name_4"
         platform_type: "AP-11N"
         wtps:
          -
@@ -303,7 +308,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_wireless_controller_wtp_group_data(json):
-    option_list = ["name", "platform_type", "wtps"]
+    option_list = ["ble_major_id", "name", "platform_type", "wtps"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -451,6 +456,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -482,6 +488,7 @@ versioned_schema = {
         },
         "platform_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -513,6 +520,7 @@ versioned_schema = {
                 {
                     "value": "AP-11N",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -543,6 +551,7 @@ versioned_schema = {
                 {
                     "value": "C24JE",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -573,6 +582,7 @@ versioned_schema = {
                 {
                     "value": "421E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -603,6 +613,7 @@ versioned_schema = {
                 {
                     "value": "423E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -633,6 +644,7 @@ versioned_schema = {
                 {
                     "value": "221E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -663,6 +675,7 @@ versioned_schema = {
                 {
                     "value": "222E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -693,6 +706,7 @@ versioned_schema = {
                 {
                     "value": "223E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -723,6 +737,7 @@ versioned_schema = {
                 {
                     "value": "224E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -753,6 +768,7 @@ versioned_schema = {
                 {
                     "value": "231E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -783,6 +799,7 @@ versioned_schema = {
                 {
                     "value": "321E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -813,6 +830,7 @@ versioned_schema = {
                 {
                     "value": "431F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -843,6 +861,7 @@ versioned_schema = {
                 {
                     "value": "431FL",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -873,6 +892,7 @@ versioned_schema = {
                 {
                     "value": "432F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -903,6 +923,7 @@ versioned_schema = {
                 {
                     "value": "432FR",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -933,6 +954,7 @@ versioned_schema = {
                 {
                     "value": "433F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -963,6 +985,7 @@ versioned_schema = {
                 {
                     "value": "433FL",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -993,6 +1016,7 @@ versioned_schema = {
                 {
                     "value": "231F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1023,6 +1047,7 @@ versioned_schema = {
                 {
                     "value": "231FL",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1053,6 +1078,7 @@ versioned_schema = {
                 {
                     "value": "234F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1083,6 +1109,7 @@ versioned_schema = {
                 {
                     "value": "23JF",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1113,6 +1140,7 @@ versioned_schema = {
                 {
                     "value": "831F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1143,6 +1171,7 @@ versioned_schema = {
                 {
                     "value": "231G",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1173,6 +1202,7 @@ versioned_schema = {
                 {
                     "value": "233G",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1203,6 +1233,7 @@ versioned_schema = {
                 {
                     "value": "234G",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": False,
                         "v7.2.2": False,
@@ -1233,6 +1264,7 @@ versioned_schema = {
                 {
                     "value": "431G",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1263,6 +1295,7 @@ versioned_schema = {
                 {
                     "value": "433G",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1293,6 +1326,7 @@ versioned_schema = {
                 {
                     "value": "U421E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1323,6 +1357,7 @@ versioned_schema = {
                 {
                     "value": "U422EV",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1353,6 +1388,7 @@ versioned_schema = {
                 {
                     "value": "U423E",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1383,6 +1419,7 @@ versioned_schema = {
                 {
                     "value": "U221EV",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1413,6 +1450,7 @@ versioned_schema = {
                 {
                     "value": "U223EV",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1443,6 +1481,7 @@ versioned_schema = {
                 {
                     "value": "U24JEV",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1473,6 +1512,7 @@ versioned_schema = {
                 {
                     "value": "U321EV",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1503,6 +1543,7 @@ versioned_schema = {
                 {
                     "value": "U323EV",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1533,6 +1574,7 @@ versioned_schema = {
                 {
                     "value": "U431F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1563,6 +1605,7 @@ versioned_schema = {
                 {
                     "value": "U433F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1593,6 +1636,7 @@ versioned_schema = {
                 {
                     "value": "U231F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1623,6 +1667,7 @@ versioned_schema = {
                 {
                     "value": "U234F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1653,6 +1698,7 @@ versioned_schema = {
                 {
                     "value": "U432F",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1683,6 +1729,7 @@ versioned_schema = {
                 {
                     "value": "U231G",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": False,
@@ -2785,12 +2832,44 @@ versioned_schema = {
                 },
             ],
         },
+        "ble_major_id": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "integer",
+        },
         "wtps": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "wtp_id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2822,6 +2901,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2851,6 +2931,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

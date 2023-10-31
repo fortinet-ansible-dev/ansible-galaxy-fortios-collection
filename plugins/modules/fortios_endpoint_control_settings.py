@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -366,6 +366,7 @@ def fortios_endpoint_control(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v6.2.7": True,
         "v6.2.5": True,
@@ -379,6 +380,7 @@ versioned_schema = {
     "children": {
         "override": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v6.2.7": False,
                 "v6.2.5": False,
@@ -390,8 +392,8 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
         "forticlient_keepalive_interval": {

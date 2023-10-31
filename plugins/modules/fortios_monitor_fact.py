@@ -439,6 +439,12 @@ options:
                  - 'system_available-interfaces_meta'
                  - 'system_central-management_status'
                  - 'user_device_stats'
+                 - 'casb_saas-application_details'
+                 - 'switch-controller_mclag-icl_tier-plus-candidates'
+                 - 'extension-controller_fortigate'
+                 - 'extension-controller_lan-extension-vdom-status'
+                 - 'user_proxy'
+                 - 'user_proxy_count'
 
     selector:
         description:
@@ -758,6 +764,12 @@ options:
          - 'system_available-interfaces_meta'
          - 'system_central-management_status'
          - 'user_device_stats'
+         - 'casb_saas-application_details'
+         - 'switch-controller_mclag-icl_tier-plus-candidates'
+         - 'extension-controller_fortigate'
+         - 'extension-controller_lan-extension-vdom-status'
+         - 'user_proxy'
+         - 'user_proxy_count'
 
     params:
         description:
@@ -944,12 +956,16 @@ module_selectors_defs = {
             "ipv6": {"type": "boolean", "required": "False"},
             "srcintf": {"type": "string", "required": "True"},
             "sourceport": {"type": "int", "required": "False"},
-            "sourceip": {"type": "string", "required": "False"},
+            "sourceip": {"type": "string", "required": "True"},
             "protocol": {"type": "string", "required": "True"},
             "dest": {"type": "string", "required": "True"},
             "destport": {"type": "int", "required": "False"},
             "icmptype": {"type": "int", "required": "False"},
             "icmpcode": {"type": "int", "required": "False"},
+            "policy_type": {"type": "string", "required": "False"},
+            "auth_type": {"type": "string", "required": "False"},
+            "user_group": {"type": "array", "required": "False"},
+            "server_name": {"type": "string", "required": "False"},
         },
     },
     "firewall_session": {
@@ -989,7 +1005,10 @@ module_selectors_defs = {
         "url": "firewall/shaper",
         "params": {"shaper_name": {"type": "string", "required": "False"}},
     },
-    "firewall_per-ip-shaper": {"url": "firewall/per-ip-shaper", "params": {}},
+    "firewall_per-ip-shaper": {
+        "url": "firewall/per-ip-shaper",
+        "params": {"shaper_name": {"type": "string", "required": "False"}},
+    },
     "firewall_load-balance": {"url": "firewall/load-balance", "params": {}},
     "firewall_address-fqdns": {
         "url": "firewall/address-fqdns",
@@ -1413,6 +1432,8 @@ module_selectors_defs = {
             "mkey": {"type": "string", "required": "True"},
             "status_only": {"type": "boolean", "required": "False"},
             "include_notes": {"type": "boolean", "required": "False"},
+            "counts_only": {"type": "boolean", "required": "False"},
+            "entry": {"type": "object", "required": "False"},
         },
     },
     "extender-controller_extender": {
@@ -1434,7 +1455,6 @@ module_selectors_defs = {
         "params": {
             "ipv4": {"type": "boolean", "required": "False"},
             "ipv6": {"type": "boolean", "required": "False"},
-            "include_wad": {"type": "boolean", "required": "False"},
             "include_fsso": {"type": "boolean", "required": "False"},
         },
     },
@@ -1527,6 +1547,7 @@ module_selectors_defs = {
         "params": {
             "type": {"type": "string", "required": "False"},
             "with_triangulation": {"type": "boolean", "required": "False"},
+            "with_stats": {"type": "boolean", "required": "False"},
         },
     },
     "wifi_managed_ap": {
@@ -1624,6 +1645,7 @@ module_selectors_defs = {
             "destination": {"type": "string", "required": "True"},
             "source": {"type": "string", "required": "False"},
             "destination_port": {"type": "int", "required": "False"},
+            "source_port": {"type": "int", "required": "False"},
             "interface_name": {"type": "string", "required": "False"},
             "protocol_number": {"type": "int", "required": "False"},
         },
@@ -2050,7 +2072,6 @@ module_selectors_defs = {
         "params": {
             "ipv4": {"type": "boolean", "required": "False"},
             "ipv6": {"type": "boolean", "required": "False"},
-            "include_wad": {"type": "boolean", "required": "False"},
             "include_fsso": {"type": "boolean", "required": "False"},
         },
     },
@@ -2286,6 +2307,29 @@ module_selectors_defs = {
             "filter_logic": {"type": "string", "required": "False"},
         },
     },
+    "casb_saas-application_details": {
+        "url": "casb/saas-application/details",
+        "params": {"mkey": {"type": "string", "required": "False"}},
+    },
+    "switch-controller_mclag-icl_tier-plus-candidates": {
+        "url": "switch-controller/mclag-icl/tier-plus-candidates",
+        "params": {
+            "fortilink": {"type": "string", "required": "True"},
+            "parent_peer1": {"type": "string", "required": "True"},
+            "parent_peer2": {"type": "string", "required": "True"},
+            "is_tier2": {"type": "boolean", "required": "True"},
+        },
+    },
+    "extension-controller_fortigate": {
+        "url": "extension-controller/fortigate",
+        "params": {},
+    },
+    "extension-controller_lan-extension-vdom-status": {
+        "url": "extension-controller/lan-extension-vdom-status",
+        "params": {},
+    },
+    "user_proxy": {"url": "user/proxy", "params": {}},
+    "user_proxy_count": {"url": "user/proxy/count", "params": {}},
 }
 
 
@@ -2711,6 +2755,12 @@ def main():
                 "system_available-interfaces_meta",
                 "system_central-management_status",
                 "user_device_stats",
+                "casb_saas-application_details",
+                "switch-controller_mclag-icl_tier-plus-candidates",
+                "extension-controller_fortigate",
+                "extension-controller_lan-extension-vdom-status",
+                "user_proxy",
+                "user_proxy_count",
             ],
         },
         "selectors": {
@@ -3038,6 +3088,12 @@ def main():
                         "system_available-interfaces_meta",
                         "system_central-management_status",
                         "user_device_stats",
+                        "casb_saas-application_details",
+                        "switch-controller_mclag-icl_tier-plus-candidates",
+                        "extension-controller_fortigate",
+                        "extension-controller_lan-extension-vdom-status",
+                        "user_proxy",
+                        "user_proxy_count",
                     ],
                 },
             },

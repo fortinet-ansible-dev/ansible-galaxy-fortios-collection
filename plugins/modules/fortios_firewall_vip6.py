@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -1313,6 +1313,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1344,6 +1345,7 @@ versioned_schema = {
         },
         "id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1374,6 +1376,7 @@ versioned_schema = {
         },
         "uuid": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1404,6 +1407,7 @@ versioned_schema = {
         },
         "comment": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1434,6 +1438,7 @@ versioned_schema = {
         },
         "type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1465,6 +1470,7 @@ versioned_schema = {
                 {
                     "value": "static-nat",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1495,6 +1501,7 @@ versioned_schema = {
                 {
                     "value": "server-load-balance",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1525,6 +1532,7 @@ versioned_schema = {
                 {
                     "value": "access-proxy",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1560,6 +1568,7 @@ versioned_schema = {
             "children": {
                 "range": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1591,6 +1600,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1620,6 +1630,7 @@ versioned_schema = {
         },
         "extip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1650,6 +1661,7 @@ versioned_schema = {
         },
         "mappedip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1680,6 +1692,7 @@ versioned_schema = {
         },
         "nat_source_vip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1711,6 +1724,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1734,6 +1748,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1758,6 +1773,7 @@ versioned_schema = {
         },
         "ndp_reply": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -1789,6 +1805,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.0.8": True,
@@ -1798,6 +1815,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.0.8": True,
@@ -1808,6 +1826,7 @@ versioned_schema = {
         },
         "portforward": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1839,6 +1858,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1869,6 +1889,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1900,6 +1921,7 @@ versioned_schema = {
         },
         "protocol": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1931,6 +1953,7 @@ versioned_schema = {
                 {
                     "value": "tcp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1961,6 +1984,7 @@ versioned_schema = {
                 {
                     "value": "udp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1991,6 +2015,7 @@ versioned_schema = {
                 {
                     "value": "sctp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2022,6 +2047,7 @@ versioned_schema = {
         },
         "extport": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2052,6 +2078,7 @@ versioned_schema = {
         },
         "mappedport": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2082,6 +2109,7 @@ versioned_schema = {
         },
         "color": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2112,6 +2140,7 @@ versioned_schema = {
         },
         "ldb_method": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2143,6 +2172,7 @@ versioned_schema = {
                 {
                     "value": "static",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2173,6 +2203,7 @@ versioned_schema = {
                 {
                     "value": "round-robin",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2203,6 +2234,7 @@ versioned_schema = {
                 {
                     "value": "weighted",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2233,6 +2265,7 @@ versioned_schema = {
                 {
                     "value": "least-session",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2263,6 +2296,7 @@ versioned_schema = {
                 {
                     "value": "least-rtt",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2293,6 +2327,7 @@ versioned_schema = {
                 {
                     "value": "first-alive",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2323,6 +2358,7 @@ versioned_schema = {
                 {
                     "value": "http-host",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2354,6 +2390,7 @@ versioned_schema = {
         },
         "server_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2385,6 +2422,7 @@ versioned_schema = {
                 {
                     "value": "http",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2415,6 +2453,7 @@ versioned_schema = {
                 {
                     "value": "https",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2445,6 +2484,7 @@ versioned_schema = {
                 {
                     "value": "imaps",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2475,6 +2515,7 @@ versioned_schema = {
                 {
                     "value": "pop3s",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2505,6 +2546,7 @@ versioned_schema = {
                 {
                     "value": "smtps",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2535,6 +2577,7 @@ versioned_schema = {
                 {
                     "value": "ssl",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2565,6 +2608,7 @@ versioned_schema = {
                 {
                     "value": "tcp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2595,6 +2639,7 @@ versioned_schema = {
                 {
                     "value": "udp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2625,6 +2670,7 @@ versioned_schema = {
                 {
                     "value": "ip",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2656,6 +2702,7 @@ versioned_schema = {
         },
         "http_redirect": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2687,6 +2734,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2714,6 +2762,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2742,6 +2791,7 @@ versioned_schema = {
         },
         "persistence": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2773,6 +2823,7 @@ versioned_schema = {
                 {
                     "value": "none",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2803,6 +2854,7 @@ versioned_schema = {
                 {
                     "value": "http-cookie",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2833,6 +2885,7 @@ versioned_schema = {
                 {
                     "value": "ssl-session-id",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2864,6 +2917,7 @@ versioned_schema = {
         },
         "nat66": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2895,6 +2949,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2914,6 +2969,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2934,6 +2990,7 @@ versioned_schema = {
         },
         "nat64": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2965,6 +3022,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2984,6 +3042,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3004,6 +3063,7 @@ versioned_schema = {
         },
         "add_nat64_route": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3035,6 +3095,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3054,6 +3115,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3078,6 +3140,7 @@ versioned_schema = {
             "children": {
                 "id": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3109,6 +3172,7 @@ versioned_schema = {
                 },
                 "ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3139,6 +3203,7 @@ versioned_schema = {
                 },
                 "port": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3169,6 +3234,7 @@ versioned_schema = {
                 },
                 "status": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3200,6 +3266,7 @@ versioned_schema = {
                         {
                             "value": "active",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3230,6 +3297,7 @@ versioned_schema = {
                         {
                             "value": "standby",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3260,6 +3328,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3291,6 +3360,7 @@ versioned_schema = {
                 },
                 "weight": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3321,6 +3391,7 @@ versioned_schema = {
                 },
                 "holddown_interval": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3351,6 +3422,7 @@ versioned_schema = {
                 },
                 "healthcheck": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3382,6 +3454,7 @@ versioned_schema = {
                         {
                             "value": "disable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3412,6 +3485,7 @@ versioned_schema = {
                         {
                             "value": "enable",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3442,6 +3516,7 @@ versioned_schema = {
                         {
                             "value": "vip",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3473,6 +3548,7 @@ versioned_schema = {
                 },
                 "http_host": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3503,6 +3579,7 @@ versioned_schema = {
                 },
                 "translate_host": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": False,
@@ -3533,16 +3610,25 @@ versioned_schema = {
                     "options": [
                         {
                             "value": "enable",
-                            "revisions": {"v7.4.0": True, "v7.2.4": True},
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
                         },
                         {
                             "value": "disable",
-                            "revisions": {"v7.4.0": True, "v7.2.4": True},
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
                         },
                     ],
                 },
                 "max_connections": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3577,6 +3663,7 @@ versioned_schema = {
                     "children": {
                         "name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -3608,6 +3695,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3637,6 +3725,7 @@ versioned_schema = {
                 },
                 "client_ip": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3667,6 +3756,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3696,6 +3786,7 @@ versioned_schema = {
         },
         "http_cookie_domain_from_host": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3727,6 +3818,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3757,6 +3849,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3788,6 +3881,7 @@ versioned_schema = {
         },
         "http_cookie_domain": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3818,6 +3912,7 @@ versioned_schema = {
         },
         "http_cookie_path": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3848,6 +3943,7 @@ versioned_schema = {
         },
         "http_cookie_generation": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3878,6 +3974,7 @@ versioned_schema = {
         },
         "http_cookie_age": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3908,6 +4005,7 @@ versioned_schema = {
         },
         "http_cookie_share": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -3939,6 +4037,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -3969,6 +4068,7 @@ versioned_schema = {
                 {
                     "value": "same-ip",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4000,6 +4100,7 @@ versioned_schema = {
         },
         "https_cookie_secure": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4031,6 +4132,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4061,6 +4163,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4092,6 +4195,7 @@ versioned_schema = {
         },
         "http_multiplex": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4123,6 +4227,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4153,6 +4258,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4184,6 +4290,7 @@ versioned_schema = {
         },
         "http_ip_header": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4215,6 +4322,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4245,6 +4353,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4276,6 +4385,7 @@ versioned_schema = {
         },
         "http_ip_header_name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4306,6 +4416,7 @@ versioned_schema = {
         },
         "outlook_web_access": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4337,6 +4448,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4367,6 +4479,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4398,6 +4511,7 @@ versioned_schema = {
         },
         "weblogic_server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4429,6 +4543,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4459,6 +4574,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4490,6 +4606,7 @@ versioned_schema = {
         },
         "websphere_server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4521,6 +4638,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4551,6 +4669,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4582,6 +4701,7 @@ versioned_schema = {
         },
         "ssl_mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4613,6 +4733,7 @@ versioned_schema = {
                 {
                     "value": "half",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4643,6 +4764,7 @@ versioned_schema = {
                 {
                     "value": "full",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4674,6 +4796,7 @@ versioned_schema = {
         },
         "ssl_certificate": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4704,6 +4827,7 @@ versioned_schema = {
         },
         "ssl_dh_bits": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4735,6 +4859,7 @@ versioned_schema = {
                 {
                     "value": "768",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4765,6 +4890,7 @@ versioned_schema = {
                 {
                     "value": "1024",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4795,6 +4921,7 @@ versioned_schema = {
                 {
                     "value": "1536",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4825,6 +4952,7 @@ versioned_schema = {
                 {
                     "value": "2048",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4855,6 +4983,7 @@ versioned_schema = {
                 {
                     "value": "3072",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4885,6 +5014,7 @@ versioned_schema = {
                 {
                     "value": "4096",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4916,6 +5046,7 @@ versioned_schema = {
         },
         "ssl_algorithm": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -4947,6 +5078,7 @@ versioned_schema = {
                 {
                     "value": "high",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -4977,6 +5109,7 @@ versioned_schema = {
                 {
                     "value": "medium",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5007,6 +5140,7 @@ versioned_schema = {
                 {
                     "value": "low",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5037,6 +5171,7 @@ versioned_schema = {
                 {
                     "value": "custom",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5072,6 +5207,7 @@ versioned_schema = {
             "children": {
                 "priority": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5103,6 +5239,7 @@ versioned_schema = {
                 },
                 "cipher": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -5134,6 +5271,7 @@ versioned_schema = {
                         {
                             "value": "TLS-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5164,6 +5302,7 @@ versioned_schema = {
                         {
                             "value": "TLS-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5194,6 +5333,7 @@ versioned_schema = {
                         {
                             "value": "TLS-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5224,6 +5364,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5254,6 +5395,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5284,6 +5426,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5314,6 +5457,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5344,6 +5488,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5374,6 +5519,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5404,6 +5550,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5434,6 +5581,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5464,6 +5612,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5494,6 +5643,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5524,6 +5674,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5554,6 +5705,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5584,6 +5736,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5614,6 +5767,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5644,6 +5798,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5674,6 +5829,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5704,6 +5860,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5734,6 +5891,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5764,6 +5922,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5794,6 +5953,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5824,6 +5984,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5854,6 +6015,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5884,6 +6046,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5914,6 +6077,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5944,6 +6108,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -5974,6 +6139,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6004,6 +6170,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6034,6 +6201,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6064,6 +6232,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6094,6 +6263,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6124,6 +6294,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6154,6 +6325,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6184,6 +6356,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6214,6 +6387,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6244,6 +6418,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6274,6 +6449,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6304,6 +6480,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6334,6 +6511,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6364,6 +6542,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6394,6 +6573,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6424,6 +6604,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6454,6 +6635,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6484,6 +6666,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6514,6 +6697,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6544,6 +6728,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6574,6 +6759,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6604,6 +6790,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-SEED-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6634,6 +6821,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-SEED-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6664,6 +6852,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6694,6 +6883,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6724,6 +6914,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6754,6 +6945,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6784,6 +6976,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-SEED-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6814,6 +7007,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6844,6 +7038,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6874,6 +7069,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6904,6 +7100,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6934,6 +7131,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6964,6 +7162,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -6994,6 +7193,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-RC4-128-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7024,6 +7224,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7054,6 +7255,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7084,6 +7286,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7114,6 +7317,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-RC4-128-MD5",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7144,6 +7348,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-RC4-128-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7174,6 +7379,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-DES-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7204,6 +7410,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-DES-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7234,6 +7441,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-DES-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7265,6 +7473,7 @@ versioned_schema = {
                 },
                 "versions": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7296,6 +7505,7 @@ versioned_schema = {
                         {
                             "value": "ssl-3.0",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7326,6 +7536,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.0",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7356,6 +7567,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.1",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7386,6 +7598,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.2",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7416,6 +7629,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.3",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7449,6 +7663,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -7478,6 +7693,7 @@ versioned_schema = {
         },
         "ssl_server_renegotiation": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": False,
@@ -7506,12 +7722,19 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "enable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "ssl_server_algorithm": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -7543,6 +7766,7 @@ versioned_schema = {
                 {
                     "value": "high",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7573,6 +7797,7 @@ versioned_schema = {
                 {
                     "value": "medium",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7603,6 +7828,7 @@ versioned_schema = {
                 {
                     "value": "low",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7633,6 +7859,7 @@ versioned_schema = {
                 {
                     "value": "custom",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7663,6 +7890,7 @@ versioned_schema = {
                 {
                     "value": "client",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7698,6 +7926,7 @@ versioned_schema = {
             "children": {
                 "priority": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7729,6 +7958,7 @@ versioned_schema = {
                 },
                 "cipher": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -7760,6 +7990,7 @@ versioned_schema = {
                         {
                             "value": "TLS-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7790,6 +8021,7 @@ versioned_schema = {
                         {
                             "value": "TLS-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7820,6 +8052,7 @@ versioned_schema = {
                         {
                             "value": "TLS-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7850,6 +8083,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7880,6 +8114,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7910,6 +8145,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7940,6 +8176,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -7970,6 +8207,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8000,6 +8238,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8030,6 +8269,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8060,6 +8300,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8090,6 +8331,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8120,6 +8362,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8150,6 +8393,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8180,6 +8424,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8210,6 +8455,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8240,6 +8486,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8270,6 +8517,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8300,6 +8548,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8330,6 +8579,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8360,6 +8610,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8390,6 +8641,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8420,6 +8672,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8450,6 +8703,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8480,6 +8734,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8510,6 +8765,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8540,6 +8796,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8570,6 +8827,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8600,6 +8858,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8630,6 +8889,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8660,6 +8920,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8690,6 +8951,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8720,6 +8982,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8750,6 +9013,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-128-GCM-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8780,6 +9044,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8810,6 +9075,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-AES-256-GCM-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8840,6 +9106,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8870,6 +9137,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8900,6 +9168,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8930,6 +9199,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-CAMELLIA-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8960,6 +9230,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -8990,6 +9261,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9020,6 +9292,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9050,6 +9323,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9080,6 +9354,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9110,6 +9385,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9140,6 +9416,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9170,6 +9447,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9200,6 +9478,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9230,6 +9509,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-SEED-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9260,6 +9540,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-SEED-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9290,6 +9571,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9320,6 +9602,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9350,6 +9633,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9380,6 +9664,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9410,6 +9695,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-SEED-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9440,6 +9726,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9470,6 +9757,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9500,6 +9788,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9530,6 +9819,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9560,6 +9850,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-ARIA-128-CBC-SHA256",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9590,6 +9881,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-ECDSA-WITH-ARIA-256-CBC-SHA384",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9620,6 +9912,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-RC4-128-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9650,6 +9943,7 @@ versioned_schema = {
                         {
                             "value": "TLS-ECDHE-RSA-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9680,6 +9974,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9710,6 +10005,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-3DES-EDE-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9740,6 +10036,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-RC4-128-MD5",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9770,6 +10067,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-RC4-128-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9800,6 +10098,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-RSA-WITH-DES-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9830,6 +10129,7 @@ versioned_schema = {
                         {
                             "value": "TLS-DHE-DSS-WITH-DES-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9860,6 +10160,7 @@ versioned_schema = {
                         {
                             "value": "TLS-RSA-WITH-DES-CBC-SHA",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9891,6 +10192,7 @@ versioned_schema = {
                 },
                 "versions": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -9922,6 +10224,7 @@ versioned_schema = {
                         {
                             "value": "ssl-3.0",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9952,6 +10255,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.0",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -9982,6 +10286,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.1",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10012,6 +10317,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.2",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10042,6 +10348,7 @@ versioned_schema = {
                         {
                             "value": "tls-1.3",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -10075,6 +10382,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -10104,6 +10412,7 @@ versioned_schema = {
         },
         "ssl_pfs": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -10135,6 +10444,7 @@ versioned_schema = {
                 {
                     "value": "require",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10165,6 +10475,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10195,6 +10506,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10226,6 +10538,7 @@ versioned_schema = {
         },
         "ssl_min_version": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -10257,6 +10570,7 @@ versioned_schema = {
                 {
                     "value": "ssl-3.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10287,6 +10601,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10317,6 +10632,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10347,6 +10663,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.2",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10377,6 +10694,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.3",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10408,6 +10726,7 @@ versioned_schema = {
         },
         "ssl_max_version": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -10439,6 +10758,7 @@ versioned_schema = {
                 {
                     "value": "ssl-3.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10469,6 +10789,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10499,6 +10820,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10529,6 +10851,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.2",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10559,6 +10882,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.3",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10590,6 +10914,7 @@ versioned_schema = {
         },
         "ssl_server_min_version": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -10621,6 +10946,7 @@ versioned_schema = {
                 {
                     "value": "ssl-3.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10651,6 +10977,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10681,6 +11008,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10711,6 +11039,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.2",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10741,6 +11070,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.3",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10771,6 +11101,7 @@ versioned_schema = {
                 {
                     "value": "client",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10802,6 +11133,7 @@ versioned_schema = {
         },
         "ssl_server_max_version": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -10833,6 +11165,7 @@ versioned_schema = {
                 {
                     "value": "ssl-3.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10863,6 +11196,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.0",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10893,6 +11227,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10923,6 +11258,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.2",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10953,6 +11289,7 @@ versioned_schema = {
                 {
                     "value": "tls-1.3",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -10983,6 +11320,7 @@ versioned_schema = {
                 {
                     "value": "client",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11014,6 +11352,7 @@ versioned_schema = {
         },
         "ssl_accept_ffdhe_groups": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11045,6 +11384,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11061,6 +11401,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11078,6 +11419,7 @@ versioned_schema = {
         },
         "ssl_send_empty_frags": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11109,6 +11451,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11139,6 +11482,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11170,6 +11514,7 @@ versioned_schema = {
         },
         "ssl_client_fallback": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11201,6 +11546,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11231,6 +11577,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11262,6 +11609,7 @@ versioned_schema = {
         },
         "ssl_client_renegotiation": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11293,6 +11641,7 @@ versioned_schema = {
                 {
                     "value": "allow",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11323,6 +11672,7 @@ versioned_schema = {
                 {
                     "value": "deny",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11353,6 +11703,7 @@ versioned_schema = {
                 {
                     "value": "secure",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11384,6 +11735,7 @@ versioned_schema = {
         },
         "ssl_client_session_state_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11415,6 +11767,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11445,6 +11798,7 @@ versioned_schema = {
                 {
                     "value": "time",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11475,6 +11829,7 @@ versioned_schema = {
                 {
                     "value": "count",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11505,6 +11860,7 @@ versioned_schema = {
                 {
                     "value": "both",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11536,6 +11892,7 @@ versioned_schema = {
         },
         "ssl_client_session_state_timeout": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11566,6 +11923,7 @@ versioned_schema = {
         },
         "ssl_client_session_state_max": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11596,6 +11954,7 @@ versioned_schema = {
         },
         "ssl_client_rekey_count": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11626,6 +11985,7 @@ versioned_schema = {
         },
         "ssl_server_session_state_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11657,6 +12017,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11687,6 +12048,7 @@ versioned_schema = {
                 {
                     "value": "time",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11717,6 +12079,7 @@ versioned_schema = {
                 {
                     "value": "count",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11747,6 +12110,7 @@ versioned_schema = {
                 {
                     "value": "both",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11778,6 +12142,7 @@ versioned_schema = {
         },
         "ssl_server_session_state_timeout": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11808,6 +12173,7 @@ versioned_schema = {
         },
         "ssl_server_session_state_max": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11838,6 +12204,7 @@ versioned_schema = {
         },
         "ssl_http_location_conversion": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11869,6 +12236,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11899,6 +12267,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11930,6 +12299,7 @@ versioned_schema = {
         },
         "ssl_http_match_host": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -11961,6 +12331,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -11991,6 +12362,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12022,6 +12394,7 @@ versioned_schema = {
         },
         "ssl_hpkp": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12053,6 +12426,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12083,6 +12457,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12113,6 +12488,7 @@ versioned_schema = {
                 {
                     "value": "report-only",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12144,6 +12520,7 @@ versioned_schema = {
         },
         "ssl_hpkp_primary": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12174,6 +12551,7 @@ versioned_schema = {
         },
         "ssl_hpkp_backup": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12204,6 +12582,7 @@ versioned_schema = {
         },
         "ssl_hpkp_age": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12234,6 +12613,7 @@ versioned_schema = {
         },
         "ssl_hpkp_report_uri": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12264,6 +12644,7 @@ versioned_schema = {
         },
         "ssl_hpkp_include_subdomains": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12295,6 +12676,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12325,6 +12707,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12356,6 +12739,7 @@ versioned_schema = {
         },
         "ssl_hsts": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12387,6 +12771,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12417,6 +12802,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12448,6 +12834,7 @@ versioned_schema = {
         },
         "ssl_hsts_age": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12478,6 +12865,7 @@ versioned_schema = {
         },
         "ssl_hsts_include_subdomains": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12509,6 +12897,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12539,6 +12928,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12574,6 +12964,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12605,6 +12996,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12634,6 +13026,7 @@ versioned_schema = {
         },
         "max_embryonic_connections": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12664,6 +13057,7 @@ versioned_schema = {
         },
         "embedded_ipv4_address": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12695,6 +13089,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12714,6 +13109,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -12734,6 +13130,7 @@ versioned_schema = {
         },
         "ipv4_mappedip": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12764,6 +13161,7 @@ versioned_schema = {
         },
         "ipv4_mappedport": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -12876,6 +13274,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

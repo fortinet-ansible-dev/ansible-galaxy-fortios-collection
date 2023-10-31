@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -326,16 +326,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "required": True,
         },
         "type": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
-                {"value": "standard", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "expanded", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "standard",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "expanded",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
         "rule": {
@@ -343,45 +349,67 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "integer",
                     "required": True,
                 },
                 "action": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                     "options": [
                         {
                             "value": "deny",
-                            "revisions": {"v7.4.0": True, "v7.2.4": True},
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
                         },
                         {
                             "value": "permit",
-                            "revisions": {"v7.4.0": True, "v7.2.4": True},
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
                         },
                     ],
                 },
                 "regexp": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
                 "type": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                     "options": [
-                        {"value": "rt", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                        {"value": "soo", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                        {
+                            "value": "rt",
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
+                        },
+                        {
+                            "value": "soo",
+                            "revisions": {
+                                "v7.4.1": True,
+                                "v7.4.0": True,
+                                "v7.2.4": True,
+                            },
+                        },
                     ],
                 },
                 "match": {
-                    "revisions": {"v7.4.0": True, "v7.2.4": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
                     "type": "string",
                 },
             },
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
         },
     },
-    "revisions": {"v7.4.0": True, "v7.2.4": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
 }
 
 

@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -105,6 +105,13 @@ options:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name.
                         required: true
                         type: str
+            fragment:
+                description:
+                    - Pass/drop fragments that match L3 information.
+                type: str
+                choices:
+                    - 'pass'
+                    - 'drop'
             interface:
                 description:
                     - Interface name. Source system.zone.name system.interface.name.
@@ -170,15 +177,16 @@ EXAMPLES = """
         dstaddr:
          -
             name: "default_name_5 (source firewall.address6.name firewall.addrgrp6.name)"
+        fragment: "pass"
         interface: "<your_own_value> (source system.zone.name system.interface.name)"
-        name: "default_name_7"
+        name: "default_name_8"
         policyid: "<you_own_value>"
         service:
          -
-            name: "default_name_10 (source firewall.service.custom.name firewall.service.group.name)"
+            name: "default_name_11 (source firewall.service.custom.name firewall.service.group.name)"
         srcaddr:
          -
-            name: "default_name_12 (source firewall.address6.name firewall.addrgrp6.name)"
+            name: "default_name_13 (source firewall.address6.name firewall.addrgrp6.name)"
         status: "enable"
 
 """
@@ -276,6 +284,7 @@ def filter_firewall_acl6_data(json):
     option_list = [
         "comments",
         "dstaddr",
+        "fragment",
         "interface",
         "name",
         "policyid",
@@ -420,6 +429,7 @@ versioned_schema = {
     "children": {
         "policyid": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -451,6 +461,7 @@ versioned_schema = {
         },
         "status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -482,6 +493,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -512,6 +524,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -543,6 +556,7 @@ versioned_schema = {
         },
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -573,6 +587,7 @@ versioned_schema = {
         },
         "comments": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -603,6 +618,7 @@ versioned_schema = {
         },
         "interface": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -637,6 +653,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -668,6 +685,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -701,6 +719,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -732,6 +751,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -765,6 +785,7 @@ versioned_schema = {
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -796,6 +817,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -823,8 +845,44 @@ versioned_schema = {
                 "v6.0.0": True,
             },
         },
+        "fragment": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "pass", "revisions": {"v7.4.1": True}},
+                {"value": "drop", "revisions": {"v7.4.1": True}},
+            ],
+        },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

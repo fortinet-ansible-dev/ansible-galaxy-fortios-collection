@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -175,6 +175,13 @@ options:
                     - SAML server entry name.
                 required: true
                 type: str
+            reauth:
+                description:
+                    - Enable/disable signalling of IDP to force user re-authentication .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             single_logout_url:
                 description:
                     - SP single logout URL.
@@ -245,6 +252,7 @@ EXAMPLES = """
         idp_single_sign_on_url: "<your_own_value>"
         limit_relaystate: "enable"
         name: "default_name_16"
+        reauth: "enable"
         single_logout_url: "<your_own_value>"
         single_sign_on_url: "<your_own_value>"
         user_claim_type: "email"
@@ -357,6 +365,7 @@ def filter_user_saml_data(json):
         "idp_single_sign_on_url",
         "limit_relaystate",
         "name",
+        "reauth",
         "single_logout_url",
         "single_sign_on_url",
         "user_claim_type",
@@ -499,6 +508,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -527,6 +537,7 @@ versioned_schema = {
         },
         "cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -554,6 +565,7 @@ versioned_schema = {
         },
         "entity_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -581,6 +593,7 @@ versioned_schema = {
         },
         "single_sign_on_url": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -608,6 +621,7 @@ versioned_schema = {
         },
         "single_logout_url": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -635,6 +649,7 @@ versioned_schema = {
         },
         "idp_entity_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -662,6 +677,7 @@ versioned_schema = {
         },
         "idp_single_sign_on_url": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -689,6 +705,7 @@ versioned_schema = {
         },
         "idp_single_logout_url": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -716,6 +733,7 @@ versioned_schema = {
         },
         "idp_cert": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -743,6 +761,7 @@ versioned_schema = {
         },
         "user_name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -770,6 +789,7 @@ versioned_schema = {
         },
         "group_name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -797,6 +817,7 @@ versioned_schema = {
         },
         "digest_method": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -825,6 +846,7 @@ versioned_schema = {
                 {
                     "value": "sha1",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -845,6 +867,7 @@ versioned_schema = {
                 {
                     "value": "sha256",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -866,6 +889,7 @@ versioned_schema = {
         },
         "limit_relaystate": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -894,6 +918,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -914,6 +939,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -935,6 +961,7 @@ versioned_schema = {
         },
         "clock_tolerance": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -962,6 +989,7 @@ versioned_schema = {
         },
         "auth_url": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -989,6 +1017,7 @@ versioned_schema = {
         },
         "adfs_claim": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1017,6 +1046,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1037,6 +1067,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1058,6 +1089,7 @@ versioned_schema = {
         },
         "user_claim_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1086,6 +1118,7 @@ versioned_schema = {
                 {
                     "value": "email",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1106,6 +1139,7 @@ versioned_schema = {
                 {
                     "value": "given-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1126,6 +1160,7 @@ versioned_schema = {
                 {
                     "value": "name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1146,6 +1181,7 @@ versioned_schema = {
                 {
                     "value": "upn",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1166,6 +1202,7 @@ versioned_schema = {
                 {
                     "value": "common-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1186,6 +1223,7 @@ versioned_schema = {
                 {
                     "value": "email-adfs-1x",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1206,6 +1244,7 @@ versioned_schema = {
                 {
                     "value": "group",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1226,6 +1265,7 @@ versioned_schema = {
                 {
                     "value": "upn-adfs-1x",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1246,6 +1286,7 @@ versioned_schema = {
                 {
                     "value": "role",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1266,6 +1307,7 @@ versioned_schema = {
                 {
                     "value": "sur-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1286,6 +1328,7 @@ versioned_schema = {
                 {
                     "value": "ppid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1306,6 +1349,7 @@ versioned_schema = {
                 {
                     "value": "name-identifier",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1326,6 +1370,7 @@ versioned_schema = {
                 {
                     "value": "authentication-method",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1346,6 +1391,7 @@ versioned_schema = {
                 {
                     "value": "deny-only-group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1366,6 +1412,7 @@ versioned_schema = {
                 {
                     "value": "deny-only-primary-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1386,6 +1433,7 @@ versioned_schema = {
                 {
                     "value": "deny-only-primary-group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1406,6 +1454,7 @@ versioned_schema = {
                 {
                     "value": "group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1426,6 +1475,7 @@ versioned_schema = {
                 {
                     "value": "primary-group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1446,6 +1496,7 @@ versioned_schema = {
                 {
                     "value": "primary-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1466,6 +1517,7 @@ versioned_schema = {
                 {
                     "value": "windows-account-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1487,6 +1539,7 @@ versioned_schema = {
         },
         "group_claim_type": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1515,6 +1568,7 @@ versioned_schema = {
                 {
                     "value": "email",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1535,6 +1589,7 @@ versioned_schema = {
                 {
                     "value": "given-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1555,6 +1610,7 @@ versioned_schema = {
                 {
                     "value": "name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1575,6 +1631,7 @@ versioned_schema = {
                 {
                     "value": "upn",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1595,6 +1652,7 @@ versioned_schema = {
                 {
                     "value": "common-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1615,6 +1673,7 @@ versioned_schema = {
                 {
                     "value": "email-adfs-1x",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1635,6 +1694,7 @@ versioned_schema = {
                 {
                     "value": "group",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1655,6 +1715,7 @@ versioned_schema = {
                 {
                     "value": "upn-adfs-1x",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1675,6 +1736,7 @@ versioned_schema = {
                 {
                     "value": "role",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1695,6 +1757,7 @@ versioned_schema = {
                 {
                     "value": "sur-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1715,6 +1778,7 @@ versioned_schema = {
                 {
                     "value": "ppid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1735,6 +1799,7 @@ versioned_schema = {
                 {
                     "value": "name-identifier",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1755,6 +1820,7 @@ versioned_schema = {
                 {
                     "value": "authentication-method",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1775,6 +1841,7 @@ versioned_schema = {
                 {
                     "value": "deny-only-group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1795,6 +1862,7 @@ versioned_schema = {
                 {
                     "value": "deny-only-primary-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1815,6 +1883,7 @@ versioned_schema = {
                 {
                     "value": "deny-only-primary-group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1835,6 +1904,7 @@ versioned_schema = {
                 {
                     "value": "group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1855,6 +1925,7 @@ versioned_schema = {
                 {
                     "value": "primary-group-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1875,6 +1946,7 @@ versioned_schema = {
                 {
                     "value": "primary-sid",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1895,6 +1967,7 @@ versioned_schema = {
                 {
                     "value": "windows-account-name",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1914,8 +1987,41 @@ versioned_schema = {
                 },
             ],
         },
+        "reauth": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "enable", "revisions": {"v7.4.1": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True}},
+            ],
+        },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

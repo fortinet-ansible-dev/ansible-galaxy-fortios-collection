@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -160,6 +160,7 @@ options:
                     - 'TLSv1'
                     - 'TLSv1-1'
                     - 'TLSv1-2'
+                    - 'TLSv1-3'
             username:
                 description:
                     - User name to use for connectivity to the KMIP server.
@@ -368,64 +369,84 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.0": True}, "type": "string", "required": True},
+        "name": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "type": "string",
+            "required": True,
+        },
         "server_list": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "integer",
                     "required": True,
                 },
                 "status": {
-                    "revisions": {"v7.4.0": True},
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
                     "type": "string",
                     "options": [
-                        {"value": "enable", "revisions": {"v7.4.0": True}},
-                        {"value": "disable", "revisions": {"v7.4.0": True}},
+                        {
+                            "value": "enable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
+                        {
+                            "value": "disable",
+                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                        },
                     ],
                 },
-                "server": {"revisions": {"v7.4.0": True}, "type": "string"},
-                "port": {"revisions": {"v7.4.0": True}, "type": "integer"},
-                "cert": {"revisions": {"v7.4.0": True}, "type": "string"},
+                "server": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
+                "port": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "integer",
+                },
+                "cert": {
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "type": "string",
+                },
             },
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
         },
-        "username": {"revisions": {"v7.4.0": True}, "type": "string"},
-        "password": {"revisions": {"v7.4.0": True}, "type": "string"},
+        "username": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "password": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
         "ssl_min_proto_version": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "string",
             "options": [
-                {"value": "default", "revisions": {"v7.4.0": True}},
-                {"value": "SSLv3", "revisions": {"v7.4.0": True}},
-                {"value": "TLSv1", "revisions": {"v7.4.0": True}},
-                {"value": "TLSv1-1", "revisions": {"v7.4.0": True}},
-                {"value": "TLSv1-2", "revisions": {"v7.4.0": True}},
+                {"value": "default", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "SSLv3", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1-1", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1-2", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "TLSv1-3", "revisions": {"v7.4.1": True, "v7.4.0": False}},
             ],
         },
         "server_identity_check": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "string",
             "options": [
-                {"value": "enable", "revisions": {"v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.0": True}},
+                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
         "interface_select_method": {
-            "revisions": {"v7.4.0": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True},
             "type": "string",
             "options": [
-                {"value": "auto", "revisions": {"v7.4.0": True}},
-                {"value": "sdwan", "revisions": {"v7.4.0": True}},
-                {"value": "specify", "revisions": {"v7.4.0": True}},
+                {"value": "auto", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "sdwan", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "specify", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
-        "interface": {"revisions": {"v7.4.0": True}, "type": "string"},
-        "source_ip": {"revisions": {"v7.4.0": True}, "type": "string"},
+        "interface": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "source_ip": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
     },
-    "revisions": {"v7.4.0": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True},
 }
 
 

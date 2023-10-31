@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -303,31 +303,52 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "required": True,
         },
-        "comment": {"revisions": {"v7.4.0": True, "v7.2.4": True}, "type": "string"},
+        "comment": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "type": "string",
+        },
         "hash_type": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
-                {"value": "md5", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "sha1", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "sha256", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "md5",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "sha1",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "sha256",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
-        "hash": {"revisions": {"v7.4.0": True, "v7.2.4": True}, "type": "string"},
+        "hash": {
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "type": "string",
+        },
         "status": {
-            "revisions": {"v7.4.0": True, "v7.2.4": True},
+            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
             "type": "string",
             "options": [
-                {"value": "disable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
-                {"value": "enable", "revisions": {"v7.4.0": True, "v7.2.4": True}},
+                {
+                    "value": "disable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
+                {
+                    "value": "enable",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                },
             ],
         },
     },
-    "revisions": {"v7.4.0": True, "v7.2.4": True},
+    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
 }
 
 

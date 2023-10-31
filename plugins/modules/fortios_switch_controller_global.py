@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -253,6 +253,13 @@ options:
                 choices:
                     - 'all'
                     - 'defined'
+            vlan_identity:
+                description:
+                    - Identity of the VLAN. Commonly used for RADIUS Tunnel-Private-Group-Id.
+                type: str
+                choices:
+                    - 'description'
+                    - 'name'
             vlan_optimization:
                 description:
                     - FortiLink VLAN optimization.
@@ -306,6 +313,7 @@ EXAMPLES = """
         sn_dns_resolution: "enable"
         update_user_device: "mac-cache"
         vlan_all_mode: "all"
+        vlan_identity: "description"
         vlan_optimization: "enable"
 
 """
@@ -416,6 +424,7 @@ def filter_switch_controller_global_data(json):
         "sn_dns_resolution",
         "update_user_device",
         "vlan_all_mode",
+        "vlan_identity",
         "vlan_optimization",
     ]
 
@@ -518,6 +527,7 @@ def fortios_switch_controller(data, fos):
 
 versioned_schema = {
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,
@@ -548,6 +558,7 @@ versioned_schema = {
     "children": {
         "mac_aging_interval": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -578,6 +589,7 @@ versioned_schema = {
         },
         "https_image_push": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -609,6 +621,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -639,6 +652,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -670,6 +684,7 @@ versioned_schema = {
         },
         "vlan_all_mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -701,6 +716,7 @@ versioned_schema = {
                 {
                     "value": "all",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -728,6 +744,7 @@ versioned_schema = {
                 {
                     "value": "defined",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -756,6 +773,7 @@ versioned_schema = {
         },
         "vlan_optimization": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -787,6 +805,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -814,6 +833,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -840,12 +860,48 @@ versioned_schema = {
                 },
             ],
         },
+        "vlan_identity": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+                "v6.4.4": False,
+                "v6.4.1": False,
+                "v6.4.0": False,
+                "v6.2.7": False,
+                "v6.2.5": False,
+                "v6.2.3": False,
+                "v6.2.0": False,
+                "v6.0.5": False,
+                "v6.0.11": False,
+                "v6.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "description", "revisions": {"v7.4.1": True}},
+                {"value": "name", "revisions": {"v7.4.1": True}},
+            ],
+        },
         "disable_discovery": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -877,6 +933,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -906,6 +963,7 @@ versioned_schema = {
         },
         "mac_retention_period": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -936,6 +994,7 @@ versioned_schema = {
         },
         "default_virtual_switch_vlan": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -966,6 +1025,7 @@ versioned_schema = {
         },
         "dhcp_server_access_list": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -997,6 +1057,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1016,6 +1077,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1036,6 +1098,7 @@ versioned_schema = {
         },
         "dhcp_option82_format": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1064,12 +1127,13 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "ascii", "revisions": {"v7.4.0": True}},
-                {"value": "legacy", "revisions": {"v7.4.0": True}},
+                {"value": "ascii", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "legacy", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
         },
         "dhcp_option82_circuit_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1098,17 +1162,18 @@ versioned_schema = {
             },
             "type": "list",
             "options": [
-                {"value": "intfname", "revisions": {"v7.4.0": True}},
-                {"value": "vlan", "revisions": {"v7.4.0": True}},
-                {"value": "hostname", "revisions": {"v7.4.0": True}},
-                {"value": "mode", "revisions": {"v7.4.0": True}},
-                {"value": "description", "revisions": {"v7.4.0": True}},
+                {"value": "intfname", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "vlan", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "hostname", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "mode", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "description", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
             "multiple_values": True,
             "elements": "str",
         },
         "dhcp_option82_remote_id": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1137,15 +1202,16 @@ versioned_schema = {
             },
             "type": "list",
             "options": [
-                {"value": "mac", "revisions": {"v7.4.0": True}},
-                {"value": "hostname", "revisions": {"v7.4.0": True}},
-                {"value": "ip", "revisions": {"v7.4.0": True}},
+                {"value": "mac", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "hostname", "revisions": {"v7.4.1": True, "v7.4.0": True}},
+                {"value": "ip", "revisions": {"v7.4.1": True, "v7.4.0": True}},
             ],
             "multiple_values": True,
             "elements": "str",
         },
         "dhcp_snoop_client_req": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1174,12 +1240,19 @@ versioned_schema = {
             },
             "type": "string",
             "options": [
-                {"value": "drop-untrusted", "revisions": {"v7.4.0": True}},
-                {"value": "forward-untrusted", "revisions": {"v7.4.0": True}},
+                {
+                    "value": "drop-untrusted",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                },
+                {
+                    "value": "forward-untrusted",
+                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                },
             ],
         },
         "dhcp_snoop_client_db_exp": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1210,6 +1283,7 @@ versioned_schema = {
         },
         "dhcp_snoop_db_per_port_learn_limit": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": False,
                 "v7.2.2": False,
@@ -1240,6 +1314,7 @@ versioned_schema = {
         },
         "log_mac_limit_violations": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1271,6 +1346,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1301,6 +1377,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1332,6 +1409,7 @@ versioned_schema = {
         },
         "mac_violation_timer": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1362,6 +1440,7 @@ versioned_schema = {
         },
         "sn_dns_resolution": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1393,6 +1472,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1420,6 +1500,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1448,6 +1529,7 @@ versioned_schema = {
         },
         "mac_event_logging": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1479,6 +1561,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1506,6 +1589,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1534,6 +1618,7 @@ versioned_schema = {
         },
         "bounce_quarantined_link": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1565,6 +1650,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1592,6 +1678,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1620,6 +1707,7 @@ versioned_schema = {
         },
         "quarantine_mode": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1651,6 +1739,7 @@ versioned_schema = {
                 {
                     "value": "by-vlan",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1674,6 +1763,7 @@ versioned_schema = {
                 {
                     "value": "by-redirect",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1698,6 +1788,7 @@ versioned_schema = {
         },
         "update_user_device": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1729,6 +1820,7 @@ versioned_schema = {
                 {
                     "value": "mac-cache",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1751,6 +1843,7 @@ versioned_schema = {
                 {
                     "value": "lldp",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1773,6 +1866,7 @@ versioned_schema = {
                 {
                     "value": "dhcp-snooping",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1795,6 +1889,7 @@ versioned_schema = {
                 {
                     "value": "l2-db",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1817,6 +1912,7 @@ versioned_schema = {
                 {
                     "value": "l3-db",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1846,6 +1942,7 @@ versioned_schema = {
             "children": {
                 "command_entry": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1874,6 +1971,7 @@ versioned_schema = {
                 },
                 "command_name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1901,6 +1999,7 @@ versioned_schema = {
                 },
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1930,6 +2029,7 @@ versioned_schema = {
         },
         "fips_enforce": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -1961,6 +2061,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -1981,6 +2082,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2002,6 +2104,7 @@ versioned_schema = {
         },
         "firmware_provision_on_authorization": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -2033,6 +2136,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -2049,6 +2153,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,

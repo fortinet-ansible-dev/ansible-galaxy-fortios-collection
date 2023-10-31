@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -88,6 +88,14 @@ options:
         default: null
         type: dict
         suboptions:
+            access_vlan_mode:
+                description:
+                    - Intra VLAN traffic behavior with loss of connection to the FortiGate.
+                type: str
+                choices:
+                    - 'legacy'
+                    - 'fail-open'
+                    - 'fail-close'
             fortilink:
                 description:
                     - FortiLink interface to which this fortilink-setting belongs. Source system.interface.name.
@@ -174,6 +182,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_fortilink_settings:
+        access_vlan_mode: "legacy"
         fortilink: "<your_own_value> (source system.interface.name)"
         inactive_timer: "15"
         link_down_flush: "disable"
@@ -187,7 +196,7 @@ EXAMPLES = """
                 vlan_name: "<your_own_value> (source system.interface.name)"
             onboarding_vlan: "<your_own_value> (source system.interface.name)"
             parent_key: "<your_own_value>"
-        name: "default_name_15"
+        name: "default_name_16"
 
 """
 
@@ -273,6 +282,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_switch_controller_fortilink_settings_data(json):
     option_list = [
+        "access_vlan_mode",
         "fortilink",
         "inactive_timer",
         "link_down_flush",
@@ -369,6 +379,7 @@ versioned_schema = {
     "children": {
         "name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -390,6 +401,7 @@ versioned_schema = {
         },
         "fortilink": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -410,6 +422,7 @@ versioned_schema = {
         },
         "inactive_timer": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -430,6 +443,7 @@ versioned_schema = {
         },
         "link_down_flush": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -451,6 +465,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -471,6 +486,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -490,8 +506,35 @@ versioned_schema = {
                 },
             ],
         },
+        "access_vlan_mode": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "legacy", "revisions": {"v7.4.1": True}},
+                {"value": "fail-open", "revisions": {"v7.4.1": True}},
+                {"value": "fail-close", "revisions": {"v7.4.1": True}},
+            ],
+        },
         "nac_ports": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -512,6 +555,7 @@ versioned_schema = {
             "children": {
                 "onboarding_vlan": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -532,6 +576,7 @@ versioned_schema = {
                 },
                 "lan_segment": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -553,6 +598,7 @@ versioned_schema = {
                         {
                             "value": "enabled",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -572,6 +618,7 @@ versioned_schema = {
                         {
                             "value": "disabled",
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -592,6 +639,7 @@ versioned_schema = {
                 },
                 "nac_lan_interface": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -616,6 +664,7 @@ versioned_schema = {
                     "children": {
                         "vlan_name": {
                             "revisions": {
+                                "v7.4.1": True,
                                 "v7.4.0": True,
                                 "v7.2.4": True,
                                 "v7.2.2": True,
@@ -636,6 +685,7 @@ versioned_schema = {
                         }
                     },
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -711,6 +761,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,

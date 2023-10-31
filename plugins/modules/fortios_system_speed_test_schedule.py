@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.9
+    - ansible>=2.14
 options:
     access_token:
         description:
@@ -104,6 +104,14 @@ options:
                     - Interface name. Source system.interface.name.
                 required: true
                 type: str
+            mode:
+                description:
+                    - Protocol Auto(default), TCP or UDP used for speed test.
+                type: str
+                choices:
+                    - 'UDP'
+                    - 'TCP'
+                    - 'Auto'
             schedules:
                 description:
                     - Schedules for the interface.
@@ -178,9 +186,10 @@ EXAMPLES = """
         diffserv: "<your_own_value>"
         dynamic_server: "disable"
         interface: "<your_own_value> (source system.interface.name)"
+        mode: "UDP"
         schedules:
          -
-            name: "default_name_7 (source firewall.schedule.recurring.name)"
+            name: "default_name_8 (source firewall.schedule.recurring.name)"
         server_name: "<your_own_value>"
         status: "disable"
         update_inbandwidth: "disable"
@@ -277,6 +286,7 @@ def filter_system_speed_test_schedule_data(json):
         "diffserv",
         "dynamic_server",
         "interface",
+        "mode",
         "schedules",
         "server_name",
         "status",
@@ -368,6 +378,7 @@ versioned_schema = {
     "children": {
         "interface": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -389,6 +400,7 @@ versioned_schema = {
         },
         "status": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -410,6 +422,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -430,6 +443,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -451,6 +465,7 @@ versioned_schema = {
         },
         "diffserv": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -471,6 +486,7 @@ versioned_schema = {
         },
         "server_name": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -489,12 +505,39 @@ versioned_schema = {
             },
             "type": "string",
         },
+        "mode": {
+            "revisions": {
+                "v7.4.1": True,
+                "v7.4.0": False,
+                "v7.2.4": False,
+                "v7.2.2": False,
+                "v7.2.1": False,
+                "v7.2.0": False,
+                "v7.0.8": False,
+                "v7.0.7": False,
+                "v7.0.6": False,
+                "v7.0.5": False,
+                "v7.0.4": False,
+                "v7.0.3": False,
+                "v7.0.2": False,
+                "v7.0.12": False,
+                "v7.0.1": False,
+                "v7.0.0": False,
+            },
+            "type": "string",
+            "options": [
+                {"value": "UDP", "revisions": {"v7.4.1": True}},
+                {"value": "TCP", "revisions": {"v7.4.1": True}},
+                {"value": "Auto", "revisions": {"v7.4.1": True}},
+            ],
+        },
         "schedules": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -516,6 +559,7 @@ versioned_schema = {
                 }
             },
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -535,6 +579,7 @@ versioned_schema = {
         },
         "dynamic_server": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -556,6 +601,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -575,6 +621,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -595,6 +642,7 @@ versioned_schema = {
         },
         "update_inbandwidth": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -616,6 +664,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -636,6 +685,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -657,6 +707,7 @@ versioned_schema = {
         },
         "update_outbandwidth": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -678,6 +729,7 @@ versioned_schema = {
                 {
                     "value": "disable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -698,6 +750,7 @@ versioned_schema = {
                 {
                     "value": "enable",
                     "revisions": {
+                        "v7.4.1": True,
                         "v7.4.0": True,
                         "v7.2.4": True,
                         "v7.2.2": True,
@@ -719,6 +772,7 @@ versioned_schema = {
         },
         "update_inbandwidth_maximum": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -739,6 +793,7 @@ versioned_schema = {
         },
         "update_inbandwidth_minimum": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -759,6 +814,7 @@ versioned_schema = {
         },
         "update_outbandwidth_maximum": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -779,6 +835,7 @@ versioned_schema = {
         },
         "update_outbandwidth_minimum": {
             "revisions": {
+                "v7.4.1": True,
                 "v7.4.0": True,
                 "v7.2.4": True,
                 "v7.2.2": True,
@@ -799,6 +856,7 @@ versioned_schema = {
         },
     },
     "revisions": {
+        "v7.4.1": True,
         "v7.4.0": True,
         "v7.2.4": True,
         "v7.2.2": True,
