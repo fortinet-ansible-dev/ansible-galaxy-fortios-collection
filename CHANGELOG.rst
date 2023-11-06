@@ -5,6 +5,20 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.4
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.4
+
+Major Changes
+-------------
+
+- Format the contents in the changelog.yml file.
+- update the required Ansible version to 2.14.0 in the runtime.yml file.
+
 v2.3.3
 ======
 
