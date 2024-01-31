@@ -120,29 +120,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure an ICAP server group consisting of multiple forward servers. Supports failover and load balancing.
-    fortios_icap_server_group:
-      vdom:  "{{ vdom }}"
+- name: Configure an ICAP server group consisting of multiple forward servers. Supports failover and load balancing.
+  fortinet.fortios.fortios_icap_server_group:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       icap_server_group:
-        ldb_method: "weighted"
-        name: "default_name_4"
-        server_list:
-         -
-            name: "default_name_6 (source icap.server.name)"
-            weight: "10"
-
+          ldb_method: "weighted"
+          name: "default_name_4"
+          server_list:
+              -
+                  name: "default_name_6 (source icap.server.name)"
+                  weight: "10"
 """
 
 RETURN = """
@@ -201,7 +190,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -302,62 +290,14 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v7.2.0", ""]], "type": "string", "required": True},
         "ldb_method": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
+            "v_range": [["v7.2.0", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "weighted",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "least-session",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "active-passive",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
-                },
+                {"value": "weighted"},
+                {"value": "least-session"},
+                {"value": "active-passive"},
             ],
         },
         "server_list": {
@@ -365,47 +305,16 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
+                    "v_range": [["v7.2.0", ""]],
                     "type": "string",
                     "required": True,
                 },
-                "weight": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
-                    "type": "integer",
-                },
+                "weight": {"v_range": [["v7.2.0", ""]], "type": "integer"},
             },
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
+            "v_range": [["v7.2.0", ""]],
         },
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-    },
+    "v_range": [["v7.2.0", ""]],
 }
 
 

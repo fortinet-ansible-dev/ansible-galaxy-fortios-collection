@@ -104,26 +104,15 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure CPUs enabled to run engines in each DPDK stage.
-    fortios_dpdk_cpus:
-      vdom:  "{{ vdom }}"
+- name: Configure CPUs enabled to run engines in each DPDK stage.
+  fortinet.fortios.fortios_dpdk_cpus:
+      vdom: "{{ vdom }}"
       dpdk_cpus:
-        ips_cpus: "<your_own_value>"
-        isolated_cpus: "<your_own_value>"
-        rx_cpus: "<your_own_value>"
-        tx_cpus: "<your_own_value>"
-        vnp_cpus: "<your_own_value>"
-
+          ips_cpus: "<your_own_value>"
+          isolated_cpus: "<your_own_value>"
+          rx_cpus: "<your_own_value>"
+          tx_cpus: "<your_own_value>"
+          vnp_cpus: "<your_own_value>"
 """
 
 RETURN = """
@@ -182,7 +171,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -269,117 +257,27 @@ def fortios_dpdk(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-    },
+    "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
     "type": "dict",
     "children": {
         "rx_cpus": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",
         },
         "vnp_cpus": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",
         },
         "ips_cpus": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",
         },
         "tx_cpus": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",
         },
         "isolated_cpus": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": False,
-                "v7.0.0": False,
-            },
+            "v_range": [["v7.0.2", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",
         },
     },

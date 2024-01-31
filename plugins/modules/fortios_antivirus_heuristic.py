@@ -91,22 +91,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure global heuristic options.
-    fortios_antivirus_heuristic:
-      vdom:  "{{ vdom }}"
+- name: Configure global heuristic options.
+  fortinet.fortios.fortios_antivirus_heuristic:
+      vdom: "{{ vdom }}"
       antivirus_heuristic:
-        mode: "pass"
-
+          mode: "pass"
 """
 
 RETURN = """
@@ -165,7 +154,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -254,81 +242,13 @@ def fortios_antivirus(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", "v6.4.4"]],
     "type": "dict",
     "children": {
         "mode": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "pass",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "block",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "pass"}, {"value": "block"}, {"value": "disable"}],
         }
     },
 }

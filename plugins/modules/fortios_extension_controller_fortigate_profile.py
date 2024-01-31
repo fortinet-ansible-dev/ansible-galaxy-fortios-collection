@@ -117,29 +117,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: FortiGate connector profile configuration.
-    fortios_extension_controller_fortigate_profile:
-      vdom:  "{{ vdom }}"
+- name: FortiGate connector profile configuration.
+  fortinet.fortios.fortios_extension_controller_fortigate_profile:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       extension_controller_fortigate_profile:
-        id:  "3"
-        lan_extension:
-            backhaul_interface: "<your_own_value> (source system.interface.name)"
-            backhaul_ip: "<your_own_value>"
-            ipsec_tunnel: "<your_own_value>"
-        name: "default_name_8"
-
+          id: "3"
+          lan_extension:
+              backhaul_interface: "<your_own_value> (source system.interface.name)"
+              backhaul_ip: "<your_own_value>"
+              ipsec_tunnel: "<your_own_value>"
+          name: "default_name_8"
 """
 
 RETURN = """
@@ -198,7 +187,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -312,77 +300,19 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "id": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "integer",
-        },
+        "name": {"v_range": [["v7.2.1", ""]], "type": "string", "required": True},
+        "id": {"v_range": [["v7.2.1", ""]], "type": "integer"},
         "lan_extension": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
+            "v_range": [["v7.2.1", ""]],
             "type": "dict",
             "children": {
-                "ipsec_tunnel": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                    "type": "string",
-                },
-                "backhaul_interface": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                    "type": "string",
-                },
-                "backhaul_ip": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                    "type": "string",
-                },
+                "ipsec_tunnel": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "backhaul_interface": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "backhaul_ip": {"v_range": [["v7.2.1", ""]], "type": "string"},
             },
         },
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-    },
+    "v_range": [["v7.2.1", ""]],
 }
 
 

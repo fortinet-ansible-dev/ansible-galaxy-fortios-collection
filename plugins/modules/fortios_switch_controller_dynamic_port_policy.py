@@ -189,45 +189,34 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure Dynamic port policy to be applied on the managed FortiSwitch ports through DPP device.
-    fortios_switch_controller_dynamic_port_policy:
-      vdom:  "{{ vdom }}"
+- name: Configure Dynamic port policy to be applied on the managed FortiSwitch ports through DPP device.
+  fortinet.fortios.fortios_switch_controller_dynamic_port_policy:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_dynamic_port_policy:
-        description: "<your_own_value>"
-        fortilink: "<your_own_value> (source system.interface.name)"
-        name: "default_name_5"
-        policy:
-         -
-            set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
-            bounce_port_link: "disable"
-            category: "device"
-            description: "<your_own_value>"
-            family: "<your_own_value>"
-            host: "myhostname"
-            hw_vendor: "<your_own_value>"
-            interface_tags:
-             -
-                tag_name: "<your_own_value> (source switch-controller.switch-interface-tag.name)"
-            lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
-            mac: "<your_own_value>"
-            name: "default_name_18"
-            qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
-            status: "enable"
-            type: "<your_own_value>"
-            vlan_policy: "<your_own_value> (source switch-controller.vlan-policy.name)"
-
+          description: "<your_own_value>"
+          fortilink: "<your_own_value> (source system.interface.name)"
+          name: "default_name_5"
+          policy:
+              -
+                  set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
+                  bounce_port_link: "disable"
+                  category: "device"
+                  description: "<your_own_value>"
+                  family: "<your_own_value>"
+                  host: "myhostname"
+                  hw_vendor: "<your_own_value>"
+                  interface_tags:
+                      -
+                          tag_name: "<your_own_value> (source switch-controller.switch-interface-tag.name)"
+                  lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
+                  mac: "<your_own_value>"
+                  name: "default_name_18"
+                  qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
+                  status: "enable"
+                  type: "<your_own_value>"
+                  vlan_policy: "<your_own_value> (source switch-controller.vlan-policy.name)"
 """
 
 RETURN = """
@@ -286,7 +275,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -424,586 +412,60 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "description": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
-            "type": "string",
-        },
-        "fortilink": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
-            "type": "string",
-        },
+        "name": {"v_range": [["v7.0.0", ""]], "type": "string", "required": True},
+        "description": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "fortilink": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "policy": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", ""]],
                     "type": "string",
                     "required": True,
                 },
-                "description": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "description": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "status": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "category": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "device",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "interface-tag",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "device"}, {"value": "interface-tag"}],
                 },
                 "interface_tags": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "tag_name": {
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
+                            "v_range": [["v7.0.0", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", ""]],
                 },
-                "mac": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "hw_vendor": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": False,
-                        "v7.0.2": False,
-                        "v7.0.12": True,
-                        "v7.0.1": False,
-                        "v7.0.0": False,
-                    },
-                    "type": "string",
-                },
-                "type": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "family": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "host": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "lldp_profile": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "qos_policy": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "vlan_policy": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "mac": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "hw_vendor": {"v_range": [["v7.0.4", ""]], "type": "string"},
+                "type": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "family": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "host": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "lldp_profile": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "qos_policy": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "vlan_policy": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "bounce_port_link": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                                "v7.2.0": True,
-                                "v7.0.8": True,
-                                "v7.0.7": True,
-                                "v7.0.6": True,
-                                "v7.0.5": True,
-                                "v7.0.4": True,
-                                "v7.0.3": True,
-                                "v7.0.2": True,
-                                "v7.0.12": True,
-                                "v7.0.1": True,
-                                "v7.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "set_802_1x": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "set_802_1x": {"v_range": [["v7.0.0", ""]], "type": "string"},
             },
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", ""]],
         },
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-    },
+    "v_range": [["v7.0.0", ""]],
 }
 
 

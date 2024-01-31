@@ -91,22 +91,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Global firewall settings.
-    fortios_firewall_global:
-      vdom:  "{{ vdom }}"
+- name: Global firewall settings.
+  fortinet.fortios.fortios_firewall_global:
+      vdom: "{{ vdom }}"
       firewall_global:
-        banned_ip_persistency: "disabled"
-
+          banned_ip_persistency: "disabled"
 """
 
 RETURN = """
@@ -165,7 +154,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -254,55 +242,16 @@ def fortios_firewall(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-    },
+    "v_range": [["v7.2.1", ""]],
     "type": "dict",
     "children": {
         "banned_ip_persistency": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
+            "v_range": [["v7.2.1", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "disabled",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                },
-                {
-                    "value": "permanent-only",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                },
-                {
-                    "value": "all",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                },
+                {"value": "disabled"},
+                {"value": "permanent-only"},
+                {"value": "all"},
             ],
         }
     },

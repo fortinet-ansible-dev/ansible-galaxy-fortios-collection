@@ -213,48 +213,37 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure IP address management services.
-    fortios_system_ipam:
-      vdom:  "{{ vdom }}"
+- name: Configure IP address management services.
+  fortinet.fortios.fortios_system_ipam:
+      vdom: "{{ vdom }}"
       system_ipam:
-        automatic_conflict_resolution: "disable"
-        manage_lan_addresses: "disable"
-        manage_lan_extension_addresses: "disable"
-        manage_ssid_addresses: "disable"
-        pool_subnet: "<your_own_value>"
-        pools:
-         -
-            description: "<your_own_value>"
-            name: "default_name_10"
-            subnet: "<your_own_value>"
-        rules:
-         -
-            description: "<your_own_value>"
-            device:
-             -
-                name: "default_name_15"
-            dhcp: "enable"
-            interface:
-             -
-                name: "default_name_18"
-            name: "default_name_19"
-            pool:
-             -
-                name: "default_name_21 (source system.ipam.pools.name)"
-            role: "any"
-        server_type: "fabric-root"
-        status: "enable"
-
+          automatic_conflict_resolution: "disable"
+          manage_lan_addresses: "disable"
+          manage_lan_extension_addresses: "disable"
+          manage_ssid_addresses: "disable"
+          pool_subnet: "<your_own_value>"
+          pools:
+              -
+                  description: "<your_own_value>"
+                  name: "default_name_10"
+                  subnet: "<your_own_value>"
+          rules:
+              -
+                  description: "<your_own_value>"
+                  device:
+                      -
+                          name: "default_name_15"
+                  dhcp: "enable"
+                  interface:
+                      -
+                          name: "default_name_18"
+                  name: "default_name_19"
+                  pool:
+                      -
+                          name: "default_name_21 (source system.ipam.pools.name)"
+                  role: "any"
+          server_type: "fabric-root"
+          status: "enable"
 """
 
 RETURN = """
@@ -313,7 +302,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -410,418 +398,99 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-    },
+    "v_range": [["v7.0.2", ""]],
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-            },
+            "v_range": [["v7.0.2", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                    },
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "server_type": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-            },
+            "v_range": [["v7.0.2", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "fabric-root",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                    },
-                },
-                {
-                    "value": "cloud",
-                    "revisions": {
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                    },
-                },
+                {"value": "fabric-root"},
+                {"value": "cloud", "v_range": [["v7.0.2", "v7.2.4"]]},
             ],
         },
         "automatic_conflict_resolution": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": False,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "manage_lan_addresses": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": False,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "manage_lan_extension_addresses": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": False,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "manage_ssid_addresses": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": False,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "pools": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                     "type": "string",
                     "required": True,
                 },
-                "description": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                    "type": "string",
-                },
-                "subnet": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                    "type": "string",
-                },
+                "description": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "subnet": {"v_range": [["v7.2.1", ""]], "type": "string"},
             },
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.2.1", ""]],
         },
         "rules": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                     "type": "string",
                     "required": True,
                 },
-                "description": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                    "type": "string",
-                },
+                "description": {"v_range": [["v7.2.1", ""]], "type": "string"},
                 "device": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
+                            "v_range": [["v7.2.1", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                 },
                 "interface": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
+                            "v_range": [["v7.2.1", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                 },
                 "role": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "any",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
-                        {
-                            "value": "lan",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
-                        {
-                            "value": "wan",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
-                        {
-                            "value": "dmz",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
-                        {
-                            "value": "undefined",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
+                        {"value": "any"},
+                        {"value": "lan"},
+                        {"value": "wan"},
+                        {"value": "dmz"},
+                        {"value": "undefined"},
                     ],
                 },
                 "pool": {
@@ -829,89 +498,22 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
+                            "v_range": [["v7.2.1", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                 },
                 "dhcp": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
+                    "v_range": [["v7.2.1", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                                "v7.2.2": True,
-                                "v7.2.1": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
             },
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.2.1", ""]],
         },
-        "pool_subnet": {
-            "revisions": {
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-            },
-            "type": "string",
-        },
+        "pool_subnet": {"v_range": [["v7.0.2", "v7.2.0"]], "type": "string"},
     },
 }
 

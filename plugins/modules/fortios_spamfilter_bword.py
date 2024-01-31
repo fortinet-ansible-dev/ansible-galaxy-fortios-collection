@@ -167,36 +167,25 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure AntiSpam banned word list.
-    fortios_spamfilter_bword:
-      vdom:  "{{ vdom }}"
+- name: Configure AntiSpam banned word list.
+  fortinet.fortios.fortios_spamfilter_bword:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       spamfilter_bword:
-        comment: "Optional comments."
-        entries:
-         -
-            action: "spam"
-            id:  "6"
-            language: "western"
-            pattern: "<your_own_value>"
-            pattern_type: "wildcard"
-            score: "49999"
-            status: "enable"
-            where: "subject"
-        id:  "13"
-        name: "default_name_14"
-
+          comment: "Optional comments."
+          entries:
+              -
+                  action: "spam"
+                  id: "6"
+                  language: "western"
+                  pattern: "<your_own_value>"
+                  pattern_type: "wildcard"
+                  score: "49999"
+                  status: "enable"
+                  where: "subject"
+          id: "13"
+          name: "default_name_14"
 """
 
 RETURN = """
@@ -255,7 +244,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -412,7 +400,7 @@ def fortios_spamfilter(data, fos, check_mode):
         resp = spamfilter_bword(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("spamfilter_bword"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -427,207 +415,63 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "comment": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "id": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer", "required": True},
+        "name": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "comment": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "entries": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "status": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "id": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "integer",
                     "required": True,
                 },
-                "pattern": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
+                "pattern": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
                 "pattern_type": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "wildcard",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "regexp",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "wildcard"}, {"value": "regexp"}],
                 },
                 "action": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "spam",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "clear",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "spam"}, {"value": "clear"}],
                 },
                 "where": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "subject",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "body",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "all",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "subject"},
+                        {"value": "body"},
+                        {"value": "all"},
                     ],
                 },
                 "language": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "western",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "simch",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "trach",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "japanese",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "korean",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "french",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "thai",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "spanish",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "western"},
+                        {"value": "simch"},
+                        {"value": "trach"},
+                        {"value": "japanese"},
+                        {"value": "korean"},
+                        {"value": "french"},
+                        {"value": "thai"},
+                        {"value": "spanish"},
                     ],
                 },
-                "score": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "integer",
-                },
+                "score": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
             },
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
         },
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

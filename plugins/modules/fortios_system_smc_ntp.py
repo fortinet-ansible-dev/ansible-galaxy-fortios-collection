@@ -113,28 +113,17 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure SMC NTP information.
-    fortios_system_smc_ntp:
-      vdom:  "{{ vdom }}"
+- name: Configure SMC NTP information.
+  fortinet.fortios.fortios_system_smc_ntp:
+      vdom: "{{ vdom }}"
       system_smc_ntp:
-        channel: "32767"
-        ntpserver:
-         -
-            id:  "5"
-            server: "192.168.100.40"
-        ntpsync: "enable"
-        syncinterval: "32767"
-
+          channel: "32767"
+          ntpserver:
+              -
+                  id: "5"
+                  server: "192.168.100.40"
+          ntpsync: "enable"
+          syncinterval: "32767"
 """
 
 RETURN = """
@@ -193,7 +182,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -282,31 +270,28 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v6.2.3": True},
+    "v_range": [["v6.2.3", "v6.2.3"]],
     "type": "dict",
     "children": {
         "ntpsync": {
-            "revisions": {"v6.2.3": True},
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v6.2.3": True}},
-                {"value": "disable", "revisions": {"v6.2.3": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "syncinterval": {"revisions": {"v6.2.3": True}, "type": "integer"},
-        "channel": {"revisions": {"v6.2.3": True}, "type": "integer"},
+        "syncinterval": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
+        "channel": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
         "ntpserver": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "integer",
                     "required": True,
                 },
-                "server": {"revisions": {"v6.2.3": True}, "type": "string"},
+                "server": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
             },
-            "revisions": {"v6.2.3": True},
+            "v_range": [["v6.2.3", "v6.2.3"]],
         },
     },
 }

@@ -24,7 +24,7 @@ def is_same_ip_address(current_ip, applied_ip):
     2 same as above and
     "10.10.10.0/24"
     '''
-    if type(current_ip) is list:
+    if isinstance(current_ip, list):
         current_ip = ' '.join(current_ip)
     if len(current_ip) == 0 and len(applied_ip) == 0:
         return True
@@ -42,7 +42,6 @@ def is_same_ip_address(current_ip, applied_ip):
         splitted_current_ip = current_ip.split(' ')
     elif '/' in current_ip:
         splitted_current_ip = current_ip.split('/')
-
     if ' ' in applied_ip:
         splitted_applied_ip = applied_ip.split(' ')
     elif '/' in applied_ip:
@@ -55,7 +54,6 @@ def is_same_ip_address(current_ip, applied_ip):
             total_bits_current_ip = sum([bits(int(s)) for s in splitted_current_ip[1].split('.')])
         else:
             total_bits_current_ip = int(splitted_current_ip[1])
-
         if '.' in splitted_applied_ip[1]:
             total_bits_applied_ip = sum([bits(int(s)) for s in splitted_applied_ip[1].split('.')])
         else:
@@ -68,22 +66,20 @@ def is_same_comparison(reorder_current, reorder_filtered):
     for key, value in reorder_filtered.items():
         if key not in reorder_current:
             return False
-
-        if type(value) == dict:
+        if isinstance(value, dict):
             if not is_same_comparison(reorder_current[key], value):
                 return False
-        elif type(value) == list:
+        elif isinstance(value, list):
             if len(value) != len(reorder_current[key]):
                 return False
-            if len(value) and type(value[0]) == dict:
+            if len(value) and isinstance(value[0], dict):
                 for current_dict in reorder_current[key]:
                     if not is_same_comparison(current_dict, value[0]):
                         return False
             elif reorder_current[key] != value:
                 return False
-        elif type(value) == str and IP_PREFIX.match(value):
+        elif isinstance(value, str) and IP_PREFIX.match(value):
             return is_same_ip_address(reorder_current[key], value)
-
         elif reorder_current[key] != value:
             return False
 
@@ -94,28 +90,26 @@ def find_current_values(reorder_current, reorder_filtered):
     '''Find keyvalues in current according to keys from filtered'''
     result = {}
     for key, value in reorder_filtered.items():
-
-        if type(value) == dict:
+        if isinstance(value, dict):
             result[key] = find_current_values(reorder_current[key], value)
-
-        elif type(value) == list:
+        elif isinstance(value, list):
             result[key] = []
             for i in range(len(value)):
-                if type(value[i]) == dict:
+                if isinstance(value[i], dict):
                     result[key].append(find_current_values(reorder_current[key][i], value[i]))
                 else:
                     result[key].append(reorder_current[key])
-        elif type(value) == str:
+        elif isinstance(value, str):
             result[key] = reorder_current[key]
 
     return result
 
 
 def serialize(data):
-    if type(data) == str and ' ' in data:
+    if isinstance(data, str) and ' ' in data:
         return serialize(data.split(' '))
-    if type(data) == list and len(data) > 0:
-        if type(data[0]) == dict:
+    if isinstance(data, list) and len(data) > 0:
+        if isinstance(data[0], dict):
             list_to_order = []
             for dt in data:
                 ret = {}
@@ -127,7 +121,7 @@ def serialize(data):
         else:
             return sorted(data)
 
-    if type(data) == dict:
+    if isinstance(data[0], dict):
         result = {}
         for key, value in data.items():
             result[key] = serialize(value)
@@ -140,17 +134,3 @@ def serialize(data):
 def validate_result(result, desc):
     if not result:
         raise AssertionError("failed on test " + desc)
-
-
-if __name__ == '__main__':
-    validate_result(is_same_ip_address("10.29.0.0", "10.29.0.0"), "ip only")
-    validate_result(is_same_ip_address("10.29.0.0/24", "10.29.0.0/24"), 'slash and slash')
-    validate_result(is_same_ip_address("11.11.10.0 255.255.254.0", "11.11.10.0/23"), 'slash and space')
-    validate_result(is_same_ip_address("10.29.0.0/24", "10.29.0.0 255.255.255.0"), 'slash and space')
-    validate_result(is_same_ip_address("10.29.0.0/24", "10.29.0.0 255.255.255.0"), 'slash and space')
-    validate_result(is_same_ip_address("10.29.0.0", "10.29.0.0"), 'ip only')
-    validate_result(is_same_ip_address("10.29.0.0 255.255.255.0", "10.29.0.0 255.255.255.0"), 'space and space')
-    validate_result(is_same_ip_address("10.29.0.0 255.255.255.0", "10.29.0.0 255.255.255.0"), 'space and space')
-    validate_result(is_same_ip_address("10.29.0.0 255.255.255.0", "10.29.0.0 255.255.255.0"), 'space and space')
-    validate_result(is_same_ip_address(["10.29.0.0", "255.255.255.0"], "10.29.0.0 255.255.255.0"), 'space and space')
-    validate_result(is_same_ip_address(["10.29.0.0", "255.255.255.0"], "10.29.0.0/24"), 'space and space')

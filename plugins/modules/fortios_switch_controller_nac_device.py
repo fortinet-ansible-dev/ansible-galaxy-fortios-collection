@@ -137,33 +137,22 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure/list NAC devices learned on the managed FortiSwitch ports which matches NAC policy.
-    fortios_switch_controller_nac_device:
-      vdom:  "{{ vdom }}"
+- name: Configure/list NAC devices learned on the managed FortiSwitch ports which matches NAC policy.
+  fortinet.fortios.fortios_switch_controller_nac_device:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_nac_device:
-        description: "<your_own_value>"
-        id:  "4"
-        last_known_port: "<your_own_value>"
-        last_known_switch: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
-        last_seen: "2147483647"
-        mac: "<your_own_value>"
-        mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
-        matched_nac_policy: "<your_own_value> (source user.nac-policy.name)"
-        port_policy: "<your_own_value> (source switch-controller.port-policy.name)"
-        status: "enable"
-
+          description: "<your_own_value>"
+          id: "4"
+          last_known_port: "<your_own_value>"
+          last_known_switch: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
+          last_seen: "2147483647"
+          mac: "<your_own_value>"
+          mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
+          matched_nac_policy: "<your_own_value> (source user.nac-policy.name)"
+          port_policy: "<your_own_value> (source switch-controller.port-policy.name)"
+          status: "enable"
 """
 
 RETURN = """
@@ -222,7 +211,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -338,59 +326,22 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "description": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
+        "id": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "integer", "required": True},
+        "description": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
         "status": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "mac": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "last_known_switch": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "last_known_port": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "matched_nac_policy": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "port_policy": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "mac_policy": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "last_seen": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "integer",
-        },
+        "mac": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "last_known_switch": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "last_known_port": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "matched_nac_policy": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "port_policy": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "mac_policy": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "last_seen": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "integer"},
     },
-    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+    "v_range": [["v6.4.0", "v6.4.4"]],
 }
 
 

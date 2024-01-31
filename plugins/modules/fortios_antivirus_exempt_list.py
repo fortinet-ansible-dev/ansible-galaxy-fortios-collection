@@ -119,28 +119,17 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure a list of hashes to be exempt from AV scanning.
-    fortios_antivirus_exempt_list:
-      vdom:  "{{ vdom }}"
+- name: Configure a list of hashes to be exempt from AV scanning.
+  fortinet.fortios.fortios_antivirus_exempt_list:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       antivirus_exempt_list:
-        comment: "Comment."
-        hash: "<your_own_value>"
-        hash_type: "md5"
-        name: "default_name_6"
-        status: "disable"
-
+          comment: "Comment."
+          hash: "<your_own_value>"
+          hash_type: "md5"
+          name: "default_name_6"
+          status: "disable"
 """
 
 RETURN = """
@@ -199,7 +188,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -302,53 +290,21 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-            "required": True,
-        },
-        "comment": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
+        "name": {"v_range": [["v7.2.4", ""]], "type": "string", "required": True},
+        "comment": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "hash_type": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "md5",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "sha1",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "sha256",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "md5"}, {"value": "sha1"}, {"value": "sha256"}],
         },
-        "hash": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
+        "hash": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "status": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+    "v_range": [["v7.2.4", ""]],
 }
 
 

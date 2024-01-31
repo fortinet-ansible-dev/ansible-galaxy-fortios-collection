@@ -106,25 +106,14 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure FortiNDR.
-    fortios_system_fortindr:
-      vdom:  "{{ vdom }}"
+- name: Configure FortiNDR.
+  fortinet.fortios.fortios_system_fortindr:
+      vdom: "{{ vdom }}"
       system_fortindr:
-        interface: "<your_own_value> (source system.interface.name)"
-        interface_select_method: "auto"
-        source_ip: "84.230.14.43"
-        status: "disable"
-
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "auto"
+          source_ip: "84.230.14.43"
+          status: "disable"
 """
 
 RETURN = """
@@ -183,7 +172,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -272,139 +260,21 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.12": True,
-    },
+    "v_range": [["v7.0.8", ""]],
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.12": True,
-            },
+            "v_range": [["v7.0.8", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.12": True,
-                    },
-                },
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.12": True,
-                    },
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "source_ip": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.12": True,
-            },
-            "type": "string",
-        },
+        "source_ip": {"v_range": [["v7.0.8", ""]], "type": "string"},
         "interface_select_method": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.12": True,
-            },
+            "v_range": [["v7.0.8", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "auto",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.12": True,
-                    },
-                },
-                {
-                    "value": "sdwan",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.12": True,
-                    },
-                },
-                {
-                    "value": "specify",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.12": True,
-                    },
-                },
-            ],
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
-        "interface": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.12": True,
-            },
-            "type": "string",
-        },
+        "interface": {"v_range": [["v7.0.8", ""]], "type": "string"},
     },
 }
 

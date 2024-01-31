@@ -132,32 +132,21 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure predefined data type used by DLP blocking.
-    fortios_dlp_data_type:
-      vdom:  "{{ vdom }}"
+- name: Configure predefined data type used by DLP blocking.
+  fortinet.fortios.fortios_dlp_data_type:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       dlp_data_type:
-        comment: "Optional comments."
-        look_ahead: "1"
-        look_back: "1"
-        match_around: "<your_own_value> (source dlp.dictionary.name)"
-        name: "default_name_7"
-        pattern: "<your_own_value>"
-        transform: "<your_own_value>"
-        verify: "<your_own_value>"
-        verify_transformed_pattern: "enable"
-
+          comment: "Optional comments."
+          look_ahead: "1"
+          look_back: "1"
+          match_around: "<your_own_value> (source dlp.dictionary.name)"
+          name: "default_name_7"
+          pattern: "<your_own_value>"
+          transform: "<your_own_value>"
+          verify: "<your_own_value>"
+          verify_transformed_pattern: "enable"
 """
 
 RETURN = """
@@ -216,7 +205,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -325,139 +313,21 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "pattern": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-        },
-        "verify": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-        },
-        "match_around": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": False,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-            },
-            "type": "string",
-        },
-        "look_back": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "integer",
-        },
-        "look_ahead": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "integer",
-        },
-        "transform": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-        },
+        "name": {"v_range": [["v7.2.0", ""]], "type": "string", "required": True},
+        "pattern": {"v_range": [["v7.2.0", ""]], "type": "string"},
+        "verify": {"v_range": [["v7.2.0", ""]], "type": "string"},
+        "match_around": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "look_back": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+        "look_ahead": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+        "transform": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "verify_transformed_pattern": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
+            "v_range": [["v7.2.0", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "comment": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-        },
+        "comment": {"v_range": [["v7.2.0", ""]], "type": "string"},
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-    },
+    "v_range": [["v7.2.0", ""]],
 }
 
 

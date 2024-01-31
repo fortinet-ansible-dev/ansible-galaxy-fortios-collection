@@ -194,44 +194,33 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure CIFS profile.
-    fortios_cifs_profile:
-      vdom:  "{{ vdom }}"
+- name: Configure CIFS profile.
+  fortinet.fortios.fortios_cifs_profile:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       cifs_profile:
-        domain_controller: "<your_own_value> (source credential-store.domain-controller.server-name)"
-        file_filter:
-            entries:
-             -
-                action: "log"
-                comment: "Comment."
-                direction: "incoming"
-                file_type:
-                 -
-                    name: "default_name_10 (source antivirus.filetype.name)"
-                filter: "<your_own_value>"
-                protocol: "cifs"
-            log: "enable"
-            status: "enable"
-        name: "default_name_15"
-        server_credential_type: "none"
-        server_keytab:
-         -
-            keytab: "<your_own_value>"
-            password: "<your_own_value>"
-            principal: "<your_own_value>"
-
+          domain_controller: "<your_own_value> (source credential-store.domain-controller.server-name)"
+          file_filter:
+              entries:
+                  -
+                      action: "log"
+                      comment: "Comment."
+                      direction: "incoming"
+                      file_type:
+                          -
+                              name: "default_name_10 (source antivirus.filetype.name)"
+                      filter: "<your_own_value>"
+                      protocol: "cifs"
+              log: "enable"
+              status: "enable"
+          name: "default_name_15"
+          server_credential_type: "none"
+          server_keytab:
+              -
+                  keytab: "<your_own_value>"
+                  password: "<your_own_value>"
+                  principal: "<your_own_value>"
 """
 
 RETURN = """
@@ -290,7 +279,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -481,7 +469,7 @@ def fortios_cifs(data, fos, check_mode):
         resp = cifs_profile(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("cifs_profile"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -497,66 +485,21 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v6.4.1": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
+            "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
             "type": "string",
             "required": True,
         },
         "server_credential_type": {
-            "revisions": {
-                "v6.4.1": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
+            "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
             "type": "string",
             "options": [
-                {
-                    "value": "none",
-                    "revisions": {
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
-                },
-                {
-                    "value": "credential-replication",
-                    "revisions": {
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
-                },
-                {
-                    "value": "credential-keytab",
-                    "revisions": {
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
-                },
+                {"value": "none"},
+                {"value": "credential-replication"},
+                {"value": "credential-keytab"},
             ],
         },
         "domain_controller": {
-            "revisions": {
-                "v6.4.1": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
+            "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
             "type": "string",
         },
         "server_keytab": {
@@ -564,194 +507,57 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "principal": {
-                    "revisions": {
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
+                    "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
                     "type": "string",
                     "required": True,
                 },
                 "keytab": {
-                    "revisions": {
-                        "v6.4.1": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
+                    "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
                     "type": "string",
                 },
-                "password": {
-                    "revisions": {"v6.2.3": True, "v6.2.0": False},
-                    "type": "string",
-                },
+                "password": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
             },
-            "revisions": {
-                "v6.4.1": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
+            "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
         },
         "file_filter": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
+            "v_range": [["v6.2.0", "v6.2.7"]],
             "type": "dict",
             "children": {
                 "status": {
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
+                    "v_range": [["v6.2.0", "v6.2.7"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "log": {
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
+                    "v_range": [["v6.2.0", "v6.2.7"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "entries": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "filter": {
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
+                            "v_range": [["v6.2.0", "v6.2.7"]],
                             "type": "string",
                             "required": True,
                         },
                         "comment": {
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
+                            "v_range": [["v6.2.0", "v6.2.7"]],
                             "type": "string",
                         },
                         "action": {
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
+                            "v_range": [["v6.2.0", "v6.2.7"]],
                             "type": "string",
-                            "options": [
-                                {
-                                    "value": "log",
-                                    "revisions": {
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "block",
-                                    "revisions": {
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                    },
-                                },
-                            ],
+                            "options": [{"value": "log"}, {"value": "block"}],
                         },
                         "direction": {
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
+                            "v_range": [["v6.2.0", "v6.2.7"]],
                             "type": "string",
                             "options": [
-                                {
-                                    "value": "incoming",
-                                    "revisions": {
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "outgoing",
-                                    "revisions": {
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "any",
-                                    "revisions": {
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                    },
-                                },
+                                {"value": "incoming"},
+                                {"value": "outgoing"},
+                                {"value": "any"},
                             ],
                         },
                         "file_type": {
@@ -759,50 +565,27 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "name": {
-                                    "revisions": {
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                    },
+                                    "v_range": [["v6.2.0", "v6.2.7"]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "revisions": {
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                            },
+                            "v_range": [["v6.2.0", "v6.2.7"]],
                         },
                         "protocol": {
-                            "revisions": {"v6.2.3": True, "v6.2.0": False},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "list",
-                            "options": [
-                                {"value": "cifs", "revisions": {"v6.2.3": True}}
-                            ],
+                            "options": [{"value": "cifs"}],
                             "multiple_values": True,
                             "elements": "str",
                         },
                     },
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
+                    "v_range": [["v6.2.0", "v6.2.7"]],
                 },
             },
         },
     },
-    "revisions": {
-        "v6.4.1": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-    },
+    "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
 }
 
 

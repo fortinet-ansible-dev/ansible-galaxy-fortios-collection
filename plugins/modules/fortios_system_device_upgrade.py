@@ -166,32 +166,21 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Independent upgrades for managed devices.
-    fortios_system_device_upgrade:
-      vdom:  "{{ vdom }}"
+- name: Independent upgrades for managed devices.
+  fortinet.fortios.fortios_system_device_upgrade:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       system_device_upgrade:
-        device_type: "fortiswitch"
-        failure_reason: "none"
-        maximum_minutes: "15"
-        serial: "<your_own_value>"
-        setup_time: "<your_own_value>"
-        status: "disabled"
-        time: "<your_own_value>"
-        timing: "immediate"
-        upgrade_path: "<your_own_value>"
-
+          device_type: "fortiswitch"
+          failure_reason: "none"
+          maximum_minutes: "15"
+          serial: "<your_own_value>"
+          setup_time: "<your_own_value>"
+          status: "disabled"
+          time: "<your_own_value>"
+          timing: "immediate"
+          upgrade_path: "<your_own_value>"
 """
 
 RETURN = """
@@ -250,7 +239,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -363,189 +351,68 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "serial": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-            "required": True,
-        },
+        "serial": {"v_range": [["v7.2.4", ""]], "type": "string", "required": True},
         "timing": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "immediate",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "scheduled",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "immediate"}, {"value": "scheduled"}],
         },
-        "maximum_minutes": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": False},
-            "type": "integer",
-        },
-        "time": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
-        "setup_time": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
-        "upgrade_path": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
+        "maximum_minutes": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "time": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "setup_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "upgrade_path": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "device_type": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "fortiswitch",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "fortiap",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "fortiextender",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
+                {"value": "fortiswitch"},
+                {"value": "fortiap"},
+                {"value": "fortiextender"},
             ],
         },
         "status": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "disabled",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "initialized",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "downloading",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "device-disconnected",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "ready",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "coordinating",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "staging",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "final-check",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "upgrade-devices",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "cancelled",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "confirmed",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "done",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "failed",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
+                {"value": "disabled"},
+                {"value": "initialized"},
+                {"value": "downloading"},
+                {"value": "device-disconnected"},
+                {"value": "ready"},
+                {"value": "coordinating"},
+                {"value": "staging"},
+                {"value": "final-check"},
+                {"value": "upgrade-devices"},
+                {"value": "cancelled"},
+                {"value": "confirmed"},
+                {"value": "done"},
+                {"value": "failed"},
             ],
         },
         "failure_reason": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "none",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "internal",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "timeout",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "device-type-unsupported",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "download-failed",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "device-missing",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "version-unavailable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "staging-failed",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "reboot-failed",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "device-not-reconnected",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "node-not-ready",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "no-final-confirmation",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "no-confirmation-query",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "config-error-log-nonempty",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "csf-tree-not-supported",
-                    "revisions": {"v7.4.1": True, "v7.4.0": False, "v7.2.4": False},
-                },
-                {
-                    "value": "node-failed",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
+                {"value": "none"},
+                {"value": "internal"},
+                {"value": "timeout"},
+                {"value": "device-type-unsupported"},
+                {"value": "download-failed"},
+                {"value": "device-missing"},
+                {"value": "version-unavailable"},
+                {"value": "staging-failed"},
+                {"value": "reboot-failed"},
+                {"value": "device-not-reconnected"},
+                {"value": "node-not-ready"},
+                {"value": "no-final-confirmation"},
+                {"value": "no-confirmation-query"},
+                {"value": "config-error-log-nonempty"},
+                {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
+                {"value": "node-failed"},
             ],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+    "v_range": [["v7.2.4", ""]],
 }
 
 

@@ -119,29 +119,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure SDN proxy.
-    fortios_system_sdn_proxy:
-      vdom:  "{{ vdom }}"
+- name: Configure SDN proxy.
+  fortinet.fortios.fortios_system_sdn_proxy:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       system_sdn_proxy:
-        name: "default_name_3"
-        password: "<your_own_value>"
-        server: "192.168.100.40"
-        server_port: "0"
-        type: "general"
-        username: "<your_own_value>"
-
+          name: "default_name_3"
+          password: "<your_own_value>"
+          server: "192.168.100.40"
+          server_port: "0"
+          type: "general"
+          username: "<your_own_value>"
 """
 
 RETURN = """
@@ -200,7 +189,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -301,31 +289,18 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v7.4.0", ""]], "type": "string", "required": True},
         "type": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "general", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {
-                    "value": "fortimanager",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
-            ],
+            "options": [{"value": "general"}, {"value": "fortimanager"}],
         },
-        "server": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
-        "server_port": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-        },
-        "username": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
-        "password": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "server": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "server_port": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "username": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "password": {"v_range": [["v7.4.0", ""]], "type": "string"},
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
 }
 
 

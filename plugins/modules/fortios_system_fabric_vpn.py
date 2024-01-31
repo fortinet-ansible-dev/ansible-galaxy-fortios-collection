@@ -235,55 +235,44 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Setup for self orchestrated fabric auto discovery VPN.
-    fortios_system_fabric_vpn:
-      vdom:  "{{ vdom }}"
+- name: Setup for self orchestrated fabric auto discovery VPN.
+  fortinet.fortios.fortios_system_fabric_vpn:
+      vdom: "{{ vdom }}"
       system_fabric_vpn:
-        advertised_subnets:
-         -
-            access: "inbound"
-            bgp_network: "0"
-            firewall_address: "<your_own_value> (source firewall.address.name)"
-            id:  "7"
-            policies: "<your_own_value> (source firewall.policy.policyid)"
-            prefix: "<your_own_value>"
-        bgp_as: "0"
-        branch_name: "<your_own_value>"
-        health_checks: "<your_own_value> (source system.sdwan.health-check.name)"
-        loopback_address_block: "<your_own_value>"
-        loopback_advertised_subnet: "0"
-        loopback_interface: "<your_own_value> (source system.interface.name)"
-        overlays:
-         -
-            bgp_neighbor: "<your_own_value> (source router.bgp.neighbor.ip)"
-            bgp_neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
-            bgp_neighbor_range: "0"
-            bgp_network: "0"
-            interface: "<your_own_value> (source system.interface.name)"
-            ipsec_phase1: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
-            name: "default_name_23"
-            overlay_policy: "0"
-            overlay_tunnel_block: "<your_own_value>"
-            remote_gw: "<your_own_value>"
-            route_policy: "0"
-            sdwan_member: "0"
-        policy_rule: "health-check"
-        psksecret: "<your_own_value>"
-        sdwan_zone: "<your_own_value> (source system.sdwan.zone.name)"
-        status: "enable"
-        sync_mode: "enable"
-        vpn_role: "hub"
-
+          advertised_subnets:
+              -
+                  access: "inbound"
+                  bgp_network: "0"
+                  firewall_address: "<your_own_value> (source firewall.address.name)"
+                  id: "7"
+                  policies: "<your_own_value> (source firewall.policy.policyid)"
+                  prefix: "<your_own_value>"
+          bgp_as: "0"
+          branch_name: "<your_own_value>"
+          health_checks: "<your_own_value> (source system.sdwan.health-check.name)"
+          loopback_address_block: "<your_own_value>"
+          loopback_advertised_subnet: "0"
+          loopback_interface: "<your_own_value> (source system.interface.name)"
+          overlays:
+              -
+                  bgp_neighbor: "<your_own_value> (source router.bgp.neighbor.ip)"
+                  bgp_neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
+                  bgp_neighbor_range: "0"
+                  bgp_network: "0"
+                  interface: "<your_own_value> (source system.interface.name)"
+                  ipsec_phase1: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
+                  name: "default_name_23"
+                  overlay_policy: "0"
+                  overlay_tunnel_block: "<your_own_value>"
+                  remote_gw: "<your_own_value>"
+                  route_policy: "0"
+                  sdwan_member: "0"
+          policy_rule: "health-check"
+          psksecret: "<your_own_value>"
+          sdwan_zone: "<your_own_value> (source system.sdwan.zone.name)"
+          status: "enable"
+          sync_mode: "enable"
+          vpn_role: "hub"
 """
 
 RETURN = """
@@ -342,7 +331,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -477,207 +465,91 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+    "v_range": [["v7.2.4", ""]],
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "sync_mode": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "branch_name": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
+        "branch_name": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "policy_rule": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "health-check",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "manual",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "auto",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
+                {"value": "health-check"},
+                {"value": "manual"},
+                {"value": "auto"},
             ],
         },
         "vpn_role": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "hub",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "spoke",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "hub"}, {"value": "spoke"}],
         },
         "overlays": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "string",
                     "required": True,
                 },
-                "overlay_tunnel_block": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
-                "remote_gw": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
-                "interface": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
-                "bgp_neighbor": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
-                "overlay_policy": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "integer",
-                },
-                "bgp_network": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "integer",
-                },
-                "route_policy": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "integer",
-                },
-                "bgp_neighbor_group": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
-                "bgp_neighbor_range": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "integer",
-                },
-                "ipsec_phase1": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
-                "sdwan_member": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "integer",
-                },
+                "overlay_tunnel_block": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "remote_gw": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "interface": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "bgp_neighbor": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "overlay_policy": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "bgp_network": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "route_policy": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "bgp_neighbor_group": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "bgp_neighbor_range": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "ipsec_phase1": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "sdwan_member": {"v_range": [["v7.2.4", ""]], "type": "integer"},
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
         },
         "advertised_subnets": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "integer",
                     "required": True,
                 },
-                "prefix": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
+                "prefix": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "access": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "inbound",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                            },
-                        },
-                        {
-                            "value": "bidirectional",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "inbound"}, {"value": "bidirectional"}],
                 },
-                "bgp_network": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "integer",
-                },
-                "firewall_address": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
+                "bgp_network": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "firewall_address": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "policies": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "list",
                     "multiple_values": True,
                     "elements": "int",
                 },
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
         },
-        "loopback_address_block": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
-        "loopback_interface": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
-        "loopback_advertised_subnet": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "integer",
-        },
-        "psksecret": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
-        "bgp_as": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "integer",
-        },
-        "sdwan_zone": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-        },
+        "loopback_address_block": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "loopback_interface": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "loopback_advertised_subnet": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+        "psksecret": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "bgp_as": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+        "sdwan_zone": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "health_checks": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",

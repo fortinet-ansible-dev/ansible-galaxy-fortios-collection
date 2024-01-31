@@ -95,24 +95,13 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Policies which are applied automatically to all ISL/ICL/FortiLink interfaces.
-    fortios_switch_controller_auto_config_default:
-      vdom:  "{{ vdom }}"
+- name: Policies which are applied automatically to all ISL/ICL/FortiLink interfaces.
+  fortinet.fortios.fortios_switch_controller_auto_config_default:
+      vdom: "{{ vdom }}"
       switch_controller_auto_config_default:
-        fgt_policy: "<your_own_value> (source switch-controller.auto-config.policy.name)"
-        icl_policy: "<your_own_value> (source switch-controller.auto-config.policy.name)"
-        isl_policy: "<your_own_value> (source switch-controller.auto-config.policy.name)"
-
+          fgt_policy: "<your_own_value> (source switch-controller.auto-config.policy.name)"
+          icl_policy: "<your_own_value> (source switch-controller.auto-config.policy.name)"
+          isl_policy: "<your_own_value> (source switch-controller.auto-config.policy.name)"
 """
 
 RETURN = """
@@ -171,7 +160,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -268,117 +256,12 @@ def fortios_switch_controller_auto_config(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-    },
+    "v_range": [["v6.2.0", ""]],
     "type": "dict",
     "children": {
-        "fgt_policy": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
-            "type": "string",
-        },
-        "isl_policy": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
-            "type": "string",
-        },
-        "icl_policy": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
-            "type": "string",
-        },
+        "fgt_policy": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "isl_policy": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "icl_policy": {"v_range": [["v6.2.0", ""]], "type": "string"},
     },
 }
 

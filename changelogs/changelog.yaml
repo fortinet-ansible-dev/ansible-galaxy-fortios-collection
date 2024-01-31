@@ -262,3 +262,20 @@ releases:
     fragments:
       - 2.3.4_release.yml
     release_date: "2023-11-02"
+  2.3.5:
+    changes:
+      bugfixes:
+        - Github issue
+        - Github issue
+        - Github issue
+      major_changes:
+        - Update all the boolean values to true/false in the documents and examples.
+        - Update the document of log_fact.
+        - Update the mismatched version message with version ranges.
+        - Update the required ansible version to 2.14.
+        - Update the supported version ranges instead of concrete version numbers to
+          reduce the collection size.
+      release_summary: patch release of 2.3.5
+    fragments:
+      - 2.3.5_release.yml
+    release_date: "2024-02-06"

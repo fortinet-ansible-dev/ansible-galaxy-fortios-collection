@@ -5,6 +5,30 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.5
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.5
+
+Major Changes
+-------------
+
+- Update all the boolean values to true/false in the documents and examples.
+- Update the document of log_fact.
+- Update the mismatched version message with version ranges.
+- Update the required ansible version to 2.14.
+- Update the supported version ranges instead of concrete version numbers to reduce the collection size.
+
+Bugfixes
+--------
+
+- Github issue
+- Github issue
+- Github issue
+
 v2.3.4
 ======
 

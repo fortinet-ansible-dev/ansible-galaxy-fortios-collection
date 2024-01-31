@@ -98,24 +98,13 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure application rule settings.
-    fortios_application_rule_settings:
-      vdom:  "{{ vdom }}"
+- name: Configure application rule settings.
+  fortinet.fortios.fortios_application_rule_settings:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       application_rule_settings:
-        id:  "3"
-
+          id: "3"
 """
 
 RETURN = """
@@ -174,7 +163,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -335,7 +323,7 @@ def fortios_application(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("application_rule_settings")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -351,48 +339,12 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "id": {
-            "revisions": {
-                "v7.2.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
             "type": "integer",
             "required": True,
         }
     },
-    "revisions": {
-        "v7.2.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
 }
 
 

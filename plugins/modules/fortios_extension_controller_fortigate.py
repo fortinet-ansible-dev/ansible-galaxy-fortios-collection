@@ -124,30 +124,19 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: FortiGate controller configuration.
-    fortios_extension_controller_fortigate:
-      vdom:  "{{ vdom }}"
+- name: FortiGate controller configuration.
+  fortinet.fortios.fortios_extension_controller_fortigate:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       extension_controller_fortigate:
-        authorized: "discovered"
-        description: "<your_own_value>"
-        device_id: "128"
-        hostname: "myhostname"
-        id:  "7"
-        name: "default_name_8"
-        profile: "<your_own_value> (source extension-controller.fortigate-profile.name)"
-
+          authorized: "discovered"
+          description: "<your_own_value>"
+          device_id: "128"
+          hostname: "myhostname"
+          id: "7"
+          name: "default_name_8"
+          profile: "<your_own_value> (source extension-controller.fortigate-profile.name)"
 """
 
 RETURN = """
@@ -206,7 +195,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -321,117 +309,23 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "id": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
+        "name": {"v_range": [["v7.2.1", ""]], "type": "string", "required": True},
+        "id": {"v_range": [["v7.2.1", ""]], "type": "string"},
         "authorized": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
+            "v_range": [["v7.2.1", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "discovered",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": False,
-                        "v7.2.1": False,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                },
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                    },
-                },
+                {"value": "discovered", "v_range": [["v7.2.4", ""]]},
+                {"value": "disable"},
+                {"value": "enable"},
             ],
         },
-        "hostname": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
-        "description": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
-        "device_id": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "integer",
-        },
-        "profile": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
+        "hostname": {"v_range": [["v7.2.1", ""]], "type": "string"},
+        "description": {"v_range": [["v7.2.1", ""]], "type": "string"},
+        "device_id": {"v_range": [["v7.2.1", ""]], "type": "integer"},
+        "profile": {"v_range": [["v7.2.1", ""]], "type": "string"},
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-    },
+    "v_range": [["v7.2.1", ""]],
 }
 
 

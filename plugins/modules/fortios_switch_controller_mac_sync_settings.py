@@ -87,22 +87,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure global MAC synchronization settings.
-    fortios_switch_controller_mac_sync_settings:
-      vdom:  "{{ vdom }}"
+- name: Configure global MAC synchronization settings.
+  fortinet.fortios.fortios_switch_controller_mac_sync_settings:
+      vdom: "{{ vdom }}"
       switch_controller_mac_sync_settings:
-        mac_sync_interval: "900"
-
+          mac_sync_interval: "900"
 """
 
 RETURN = """
@@ -161,7 +150,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -258,13 +246,10 @@ def fortios_switch_controller(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
     "type": "dict",
     "children": {
-        "mac_sync_interval": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        }
+        "mac_sync_interval": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"}
     },
 }
 

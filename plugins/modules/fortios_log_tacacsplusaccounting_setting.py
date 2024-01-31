@@ -114,27 +114,16 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Settings for TACACS+ accounting.
-    fortios_log_tacacsplusaccounting_setting:
-      vdom:  "{{ vdom }}"
+- name: Settings for TACACS+ accounting.
+  fortinet.fortios.fortios_log_tacacsplusaccounting_setting:
+      vdom: "{{ vdom }}"
       log_tacacsplusaccounting_setting:
-        interface: "<your_own_value> (source system.interface.name)"
-        interface_select_method: "auto"
-        server: "192.168.100.40"
-        server_key: "<your_own_value>"
-        source_ip: "84.230.14.43"
-        status: "enable"
-
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "auto"
+          server: "192.168.100.40"
+          server_key: "<your_own_value>"
+          source_ip: "84.230.14.43"
+          status: "enable"
 """
 
 RETURN = """
@@ -193,7 +182,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -293,192 +281,23 @@ def fortios_log_tacacsplusaccounting(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-    },
+    "v_range": [["v7.0.2", ""]],
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-            },
+            "v_range": [["v7.0.2", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                    },
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "server": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-            },
-            "type": "string",
-        },
-        "server_key": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-            },
-            "type": "string",
-        },
-        "source_ip": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
-            "type": "string",
-        },
+        "server": {"v_range": [["v7.0.2", ""]], "type": "string"},
+        "server_key": {"v_range": [["v7.0.2", ""]], "type": "string"},
+        "source_ip": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "interface_select_method": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "auto",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "sdwan",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "specify",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
-        "interface": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-                "v7.0.8": False,
-                "v7.0.7": False,
-                "v7.0.6": False,
-                "v7.0.5": False,
-                "v7.0.4": False,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.12": False,
-            },
-            "type": "string",
-        },
+        "interface": {"v_range": [["v7.2.4", ""]], "type": "string"},
     },
 }
 

@@ -441,90 +441,79 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Report chart widget configuration.
-    fortios_report_chart:
-      vdom:  "{{ vdom }}"
+- name: Report chart widget configuration.
+  fortinet.fortios.fortios_report_chart:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       report_chart:
-        background: "<your_own_value>"
-        category: "misc"
-        category_series:
-            databind: "<your_own_value>"
-            font_size: "10"
-        color_palette: "<your_own_value>"
-        column:
-         -
-            detail_unit: "<your_own_value>"
-            detail_value: "<your_own_value>"
-            footer_unit: "<your_own_value>"
-            footer_value: "<your_own_value>"
-            header_value: "<your_own_value>"
-            id:  "15"
-            mapping:
-             -
-                displayname: "<your_own_value>"
-                id:  "18"
-                op: "none"
-                value_type: "integer"
-                value1: "<your_own_value>"
-                value2: "<your_own_value>"
-        comments: "<your_own_value>"
-        dataset: "<your_own_value>"
-        dimension: "2D"
-        drill_down_charts:
-         -
-            chart_name: "<your_own_value>"
-            id:  "28"
-            status: "enable"
-        favorite: "no"
-        graph_type: "none"
-        legend: "enable"
-        legend_font_size: "2147483647"
-        name: "default_name_34"
-        period: "last24h"
-        policy: "2147483647"
-        style: "auto"
-        title: "<your_own_value>"
-        title_font_size: "2147483647"
-        type: "graph"
-        value_series:
-            databind: "<your_own_value>"
-        x_series:
-            caption: "<your_own_value>"
-            caption_font_size: "10"
-            databind: "<your_own_value>"
-            font_size: "10"
-            is_category: "yes"
-            label_angle: "45-degree"
-            scale_direction: "decrease"
-            scale_format: "YYYY-MM-DD-HH-MM"
-            scale_step: "32767"
-            scale_unit: "minute"
-            unit: "<your_own_value>"
-        y_series:
-            caption: "<your_own_value>"
-            caption_font_size: "10"
-            databind: "<your_own_value>"
-            extra_databind: "<your_own_value>"
-            extra_y: "enable"
-            extra_y_legend: "<your_own_value>"
-            font_size: "10"
-            group: "<your_own_value>"
-            label_angle: "45-degree"
-            unit: "<your_own_value>"
-            y_legend: "<your_own_value>"
-
+          background: "<your_own_value>"
+          category: "misc"
+          category_series:
+              databind: "<your_own_value>"
+              font_size: "10"
+          color_palette: "<your_own_value>"
+          column:
+              -
+                  detail_unit: "<your_own_value>"
+                  detail_value: "<your_own_value>"
+                  footer_unit: "<your_own_value>"
+                  footer_value: "<your_own_value>"
+                  header_value: "<your_own_value>"
+                  id: "15"
+                  mapping:
+                      -
+                          displayname: "<your_own_value>"
+                          id: "18"
+                          op: "none"
+                          value_type: "integer"
+                          value1: "<your_own_value>"
+                          value2: "<your_own_value>"
+          comments: "<your_own_value>"
+          dataset: "<your_own_value>"
+          dimension: "2D"
+          drill_down_charts:
+              -
+                  chart_name: "<your_own_value>"
+                  id: "28"
+                  status: "enable"
+          favorite: "no"
+          graph_type: "none"
+          legend: "enable"
+          legend_font_size: "2147483647"
+          name: "default_name_34"
+          period: "last24h"
+          policy: "2147483647"
+          style: "auto"
+          title: "<your_own_value>"
+          title_font_size: "2147483647"
+          type: "graph"
+          value_series:
+              databind: "<your_own_value>"
+          x_series:
+              caption: "<your_own_value>"
+              caption_font_size: "10"
+              databind: "<your_own_value>"
+              font_size: "10"
+              is_category: "yes"
+              label_angle: "45-degree"
+              scale_direction: "decrease"
+              scale_format: "YYYY-MM-DD-HH-MM"
+              scale_step: "32767"
+              scale_unit: "minute"
+              unit: "<your_own_value>"
+          y_series:
+              caption: "<your_own_value>"
+              caption_font_size: "10"
+              databind: "<your_own_value>"
+              extra_databind: "<your_own_value>"
+              extra_y: "enable"
+              extra_y_legend: "<your_own_value>"
+              font_size: "10"
+              group: "<your_own_value>"
+              label_angle: "45-degree"
+              unit: "<your_own_value>"
+              y_legend: "<your_own_value>"
 """
 
 RETURN = """
@@ -583,7 +572,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -762,7 +750,7 @@ def fortios_report(data, fos, check_mode):
         resp = report_chart(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("report_chart"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -777,1966 +765,250 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "policy": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "integer",
-        },
+        "name": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string", "required": True},
+        "policy": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
         "type": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "graph",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "table",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "graph"}, {"value": "table"}],
         },
         "period": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "last24h",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "last7d",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "last24h"}, {"value": "last7d"}],
         },
         "drill_down_charts": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "integer",
                     "required": True,
                 },
-                "chart_name": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "chart_name": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
                 "status": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
             },
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
         },
-        "comments": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
-        "dataset": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
+        "comments": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+        "dataset": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
         "category": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
             "options": [
-                {
-                    "value": "misc",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "traffic",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "event",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "virus",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "webfilter",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "attack",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "spam",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "dlp",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "app-ctrl",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "vulnerability",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
+                {"value": "misc"},
+                {"value": "traffic"},
+                {"value": "event"},
+                {"value": "virus"},
+                {"value": "webfilter"},
+                {"value": "attack"},
+                {"value": "spam"},
+                {"value": "dlp"},
+                {"value": "app-ctrl"},
+                {"value": "vulnerability"},
             ],
         },
         "favorite": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "no",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "yes",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "no"}, {"value": "yes"}],
         },
         "graph_type": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
             "options": [
-                {
-                    "value": "none",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "bar",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "pie",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "line",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "flow",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
+                {"value": "none"},
+                {"value": "bar"},
+                {"value": "pie"},
+                {"value": "line"},
+                {"value": "flow"},
             ],
         },
         "style": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "auto",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "manual",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "auto"}, {"value": "manual"}],
         },
         "dimension": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "2D",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "3D",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "2D"}, {"value": "3D"}],
         },
         "x_series": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "dict",
             "children": {
-                "databind": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "caption": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "databind": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "caption": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
                 "caption_font_size": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "integer",
                 },
-                "font_size": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "integer",
-                },
+                "font_size": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
                 "label_angle": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "45-degree",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "vertical",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "horizontal",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "45-degree"},
+                        {"value": "vertical"},
+                        {"value": "horizontal"},
                     ],
                 },
                 "is_category": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "yes",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "no",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "yes"}, {"value": "no"}],
                 },
                 "scale_unit": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "minute",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "hour",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "day",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "month",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "year",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "minute"},
+                        {"value": "hour"},
+                        {"value": "day"},
+                        {"value": "month"},
+                        {"value": "year"},
                     ],
                 },
-                "scale_step": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "integer",
-                },
+                "scale_step": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
                 "scale_direction": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "decrease",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "increase",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "decrease"}, {"value": "increase"}],
                 },
                 "scale_format": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "YYYY-MM-DD-HH-MM",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "YYYY-MM-DD HH",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "YYYY-MM-DD",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "YYYY-MM",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "YYYY",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "HH-MM",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "MM-DD",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "YYYY-MM-DD-HH-MM"},
+                        {"value": "YYYY-MM-DD HH"},
+                        {"value": "YYYY-MM-DD"},
+                        {"value": "YYYY-MM"},
+                        {"value": "YYYY"},
+                        {"value": "HH-MM"},
+                        {"value": "MM-DD"},
                     ],
                 },
-                "unit": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "unit": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
             },
         },
         "y_series": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "dict",
             "children": {
-                "databind": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "caption": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "databind": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "caption": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
                 "caption_font_size": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "integer",
                 },
-                "font_size": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "integer",
-                },
+                "font_size": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
                 "label_angle": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "45-degree",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "vertical",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "horizontal",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "45-degree"},
+                        {"value": "vertical"},
+                        {"value": "horizontal"},
                     ],
                 },
-                "group": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "unit": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "group": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "unit": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
                 "extra_y": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "extra_databind": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "y_legend": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "extra_y_legend": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "extra_databind": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "y_legend": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "extra_y_legend": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
             },
         },
         "category_series": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "dict",
             "children": {
-                "databind": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "font_size": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "integer",
-                },
+                "databind": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "font_size": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
             },
         },
         "value_series": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "dict",
             "children": {
-                "databind": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                }
+                "databind": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"}
             },
         },
-        "title": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
-        "title_font_size": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "integer",
-        },
-        "background": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
-        "color_palette": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
+        "title": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+        "title_font_size": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
+        "background": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+        "color_palette": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
         "legend": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "legend_font_size": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "integer",
-        },
+        "legend_font_size": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
         "column": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "integer",
                     "required": True,
                 },
-                "header_value": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "detail_value": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "footer_value": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "detail_unit": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
-                "footer_unit": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "string",
-                },
+                "header_value": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "detail_value": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "footer_value": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "detail_unit": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                "footer_unit": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
                 "mapping": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
+                            "v_range": [["v6.0.0", "v6.4.4"]],
                             "type": "integer",
                             "required": True,
                         },
                         "op": {
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
+                            "v_range": [["v6.0.0", "v6.4.4"]],
                             "type": "string",
                             "options": [
-                                {
-                                    "value": "none",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "greater",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "greater-equal",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "less",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "less-equal",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "equal",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "between",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
+                                {"value": "none"},
+                                {"value": "greater"},
+                                {"value": "greater-equal"},
+                                {"value": "less"},
+                                {"value": "less-equal"},
+                                {"value": "equal"},
+                                {"value": "between"},
                             ],
                         },
                         "value_type": {
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
+                            "v_range": [["v6.0.0", "v6.4.4"]],
                             "type": "string",
-                            "options": [
-                                {
-                                    "value": "integer",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                                {
-                                    "value": "string",
-                                    "revisions": {
-                                        "v6.4.4": True,
-                                        "v6.4.1": True,
-                                        "v6.4.0": True,
-                                        "v6.2.7": True,
-                                        "v6.2.5": True,
-                                        "v6.2.3": True,
-                                        "v6.2.0": True,
-                                        "v6.0.5": True,
-                                        "v6.0.11": True,
-                                        "v6.0.0": True,
-                                    },
-                                },
-                            ],
+                            "options": [{"value": "integer"}, {"value": "string"}],
                         },
-                        "value1": {
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                            "type": "string",
-                        },
-                        "value2": {
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                            "type": "string",
-                        },
+                        "value1": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
+                        "value2": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
                         "displayname": {
-                            "revisions": {
-                                "v6.4.4": True,
-                                "v6.4.1": True,
-                                "v6.4.0": True,
-                                "v6.2.7": True,
-                                "v6.2.5": True,
-                                "v6.2.3": True,
-                                "v6.2.0": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
+                            "v_range": [["v6.0.0", "v6.4.4"]],
                             "type": "string",
                         },
                     },
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                 },
             },
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
         },
     },
-    "revisions": {
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", "v6.4.4"]],
 }
 
 

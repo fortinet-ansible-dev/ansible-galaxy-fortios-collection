@@ -88,136 +88,70 @@ options:
 '''
 
 EXAMPLES = '''
----
-# host
-# [fortigates]
-# fortigate01 ansible_host=192.168.52.177 ansible_user="admin" ansible_password="admin"
-
-# [fortigates:vars]
-# ansible_network_os=fortinet.fortios.fortios
-
-# sample1.yml
-- hosts: fortigates
-  collections:
-  - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-
-  tasks:
-  - name: test add with string
-    fortios_json_generic:
-      vdom:  "{{ vdom }}"
+- name: add firewall address
+  fortinet.fortios.fortios_json_generic:
+      vdom: "root"
       json_generic:
-        method: "POST"
-        path: "/api/v2/cmdb/firewall/address"
-        jsonbody: |
-          {
-          "name": "111",
-          "type": "geography",
-          "fqdn": "",
-          "country": "AL",
-          "comment": "ccc",
-          "visibility": "enable",
-          "associated-interface": "port1",
-          "allow-routing": "disable"
-          }
-    register: info
+          method: "POST"
+          path: "/api/v2/cmdb/firewall/address"
+          jsonbody: |
+              {
+                  "name": "111",
+                  "type": "geography",
+                  "fqdn": "",
+                  "country": "AL",
+                  "comment": "ccc",
+                  "visibility": "enable",
+                  "associated-interface": "port1",
+                  "allow-routing": "disable"
+              }
+  register: info
 
-  - name: display vars
-    debug: msg="{{info}}"
+- name: display vars
+  debug: msg="{{info}}"
 
-# sample2.yml
-- hosts: fortigates
-  collections:
-  - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-
-  tasks:
-  - name: test delete
-    fortios_json_generic:
-      vdom:  "{{ vdom }}"
+- name: delete firewall address
+  fortinet.fortios.fortios_json_generic:
+      vdom: "root"
       json_generic:
-        method: "DELETE"
-        path: "/api/v2/cmdb/firewall/address/111"
-    register: info
+          method: "DELETE"
+          path: "/api/v2/cmdb/firewall/address/111"
+  register: info
 
-  - name: display vars
-    debug: msg="{{info}}"
+- name: display vars
+  debug: msg="{{info}}"
 
-  - name: test add with dict
-    fortios_json_generic:
-      vdom:  "{{ vdom }}"
+- name: test add with dict
+  fortinet.fortios.fortios_json_generic:
+      vdom: "root"
       json_generic:
-        method: "POST"
-        path: "/api/v2/cmdb/firewall/address"
-        dictbody:
-          name: "111"
-          type: "geography"
-          fqdn: ""
-          country: "AL"
-          comment: "ccc"
-          visibility: "enable"
-          associated-interface: "port1"
-          allow-routing: "disable"
-    register: info
+          method: "POST"
+          path: "/api/v2/cmdb/firewall/address"
+          dictbody:
+              name: "111"
+              type: "geography"
+              fqdn: ""
+              country: "AL"
+              comment: "it's a test"
+              visibility: "enable"
+              associated-interface: "port1"
+              allow-routing: "disable"
+  register: info
 
-  - name: display vars
-    debug: msg="{{info}}"
+- name: display vars
+  debug: msg="{{info}}"
 
-  - name: test delete
-    fortios_json_generic:
-      vdom:  "{{ vdom }}"
+- name: test speical params
+  fortinet.fortios.fortios_json_generic:
+      vdom: "root"
       json_generic:
-        method: "DELETE"
-        path: "/api/v2/cmdb/firewall/address/111"
-    register: info
+          method: "PUT"
+          path: "/api/v2/cmdb/firewall/policy/1"
+          specialparams: "action=move&after=2"
+  register: info
 
-  - name: display vars
-    debug: msg="{{info}}"
-
-  - name: test add with string
-    fortios_json_generic:
-      vdom:  "{{ vdom }}"
-      json_generic:
-        method: "POST"
-        path: "/api/v2/cmdb/firewall/address"
-        jsonbody: |
-          {
-          "name": "111",
-          "type": "geography",
-          "fqdn": "",
-          "country": "AL",
-          "comment": "ccc",
-          "visibility": "enable",
-          "associated-interface": "port1",
-          "allow-routing": "disable"
-          }
-    register: info
-
-  - name: display vars
-    debug: msg="{{info}}"
-
-  - name: test speical params
-    fortios_json_generic:
-      vdom:  "{{ vdom }}"
-      json_generic:
-        method: "PUT"
-        path: "/api/v2/cmdb/firewall/policy/1"
-        specialparams: "action=move&after=2"
-    register: info
-
-  - name: display vars
-    debug: msg="{{info}}"
-
+- name: display vars
+  debug: msg="{{info}}"
 '''
 
 RETURN = '''

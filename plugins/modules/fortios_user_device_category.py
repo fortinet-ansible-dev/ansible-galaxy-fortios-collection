@@ -104,26 +104,15 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure device categories.
-    fortios_user_device_category:
-      vdom:  "{{ vdom }}"
+- name: Configure device categories.
+  fortinet.fortios.fortios_user_device_category:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       user_device_category:
-        comment: "Comment."
-        desc: "<your_own_value>"
-        name: "default_name_5"
-
+          comment: "Comment."
+          desc: "<your_own_value>"
+          name: "default_name_5"
 """
 
 RETURN = """
@@ -182,7 +171,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -341,7 +329,7 @@ def fortios_user(data, fos, check_mode):
         resp = user_device_category(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("user_device_category"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -357,20 +345,14 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
             "required": True,
         },
-        "desc": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "comment": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "desc": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "comment": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

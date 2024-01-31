@@ -138,33 +138,22 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure EVPN instance.
-    fortios_system_evpn:
-      vdom:  "{{ vdom }}"
+- name: Configure EVPN instance.
+  fortinet.fortios.fortios_system_evpn:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       system_evpn:
-        arp_suppression: "enable"
-        export_rt:
-         -
-            route_target: "<your_own_value>"
-        id:  "6"
-        import_rt:
-         -
-            route_target: "<your_own_value>"
-        ip_local_learning: "enable"
-        rd: "<your_own_value>"
-
+          arp_suppression: "enable"
+          export_rt:
+              -
+                  route_target: "<your_own_value>"
+          id: "6"
+          import_rt:
+              -
+                  route_target: "<your_own_value>"
+          ip_local_learning: "enable"
+          rd: "<your_own_value>"
 """
 
 RETURN = """
@@ -223,7 +212,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -329,54 +317,44 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "rd": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "id": {"v_range": [["v7.4.0", ""]], "type": "integer", "required": True},
+        "rd": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "import_rt": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "route_target": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
         },
         "export_rt": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "route_target": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
         },
         "ip_local_learning": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "arp_suppression": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
 }
 
 

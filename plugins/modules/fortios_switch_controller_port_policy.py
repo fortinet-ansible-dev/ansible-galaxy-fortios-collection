@@ -129,31 +129,20 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure port policy to be applied on the managed FortiSwitch ports through NAC device.
-    fortios_switch_controller_port_policy:
-      vdom:  "{{ vdom }}"
+- name: Configure port policy to be applied on the managed FortiSwitch ports through NAC device.
+  fortinet.fortios.fortios_switch_controller_port_policy:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_port_policy:
-        set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
-        bounce_port_link: "disable"
-        description: "<your_own_value>"
-        fortilink: "<your_own_value> (source system.interface.name)"
-        lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
-        name: "default_name_8"
-        qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
-        vlan_policy: "<your_own_value> (source switch-controller.vlan-policy.name)"
-
+          set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
+          bounce_port_link: "disable"
+          description: "<your_own_value>"
+          fortilink: "<your_own_value> (source system.interface.name)"
+          lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
+          name: "default_name_8"
+          qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
+          vlan_policy: "<your_own_value> (source switch-controller.vlan-policy.name)"
 """
 
 RETURN = """
@@ -212,7 +201,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -410,7 +398,7 @@ def fortios_switch_controller(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("switch_controller_port_policy")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -425,51 +413,20 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-            "required": True,
-        },
-        "description": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "fortilink": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "lldp_profile": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "qos_policy": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "vlan_policy": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
+        "name": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string", "required": True},
+        "description": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "fortilink": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "lldp_profile": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "qos_policy": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "vlan_policy": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
         "bounce_port_link": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "set_802_1x": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
+        "set_802_1x": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
     },
-    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+    "v_range": [["v6.4.0", "v6.4.4"]],
 }
 
 

@@ -187,47 +187,36 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure router settings.
-    fortios_router_setting:
-      vdom:  "{{ vdom }}"
+- name: Configure router settings.
+  fortinet.fortios.fortios_router_setting:
+      vdom: "{{ vdom }}"
       router_setting:
-        bgp_debug_flags: "<your_own_value>"
-        hostname: "myhostname"
-        igmp_debug_flags: "<your_own_value>"
-        imi_debug_flags: "<your_own_value>"
-        isis_debug_flags: "<your_own_value>"
-        ospf_debug_events_flags: "<your_own_value>"
-        ospf_debug_ifsm_flags: "<your_own_value>"
-        ospf_debug_lsa_flags: "<your_own_value>"
-        ospf_debug_nfsm_flags: "<your_own_value>"
-        ospf_debug_nsm_flags: "<your_own_value>"
-        ospf_debug_packet_flags: "<your_own_value>"
-        ospf_debug_route_flags: "<your_own_value>"
-        ospf6_debug_events_flags: "<your_own_value>"
-        ospf6_debug_ifsm_flags: "<your_own_value>"
-        ospf6_debug_lsa_flags: "<your_own_value>"
-        ospf6_debug_nfsm_flags: "<your_own_value>"
-        ospf6_debug_nsm_flags: "<your_own_value>"
-        ospf6_debug_packet_flags: "<your_own_value>"
-        ospf6_debug_route_flags: "<your_own_value>"
-        pimdm_debug_flags: "<your_own_value>"
-        pimsm_debug_joinprune_flags: "<your_own_value>"
-        pimsm_debug_simple_flags: "<your_own_value>"
-        pimsm_debug_timer_flags: "<your_own_value>"
-        rip_debug_flags: "<your_own_value>"
-        ripng_debug_flags: "<your_own_value>"
-        show_filter: "<your_own_value> (source router.prefix-list.name)"
-
+          bgp_debug_flags: "<your_own_value>"
+          hostname: "myhostname"
+          igmp_debug_flags: "<your_own_value>"
+          imi_debug_flags: "<your_own_value>"
+          isis_debug_flags: "<your_own_value>"
+          ospf_debug_events_flags: "<your_own_value>"
+          ospf_debug_ifsm_flags: "<your_own_value>"
+          ospf_debug_lsa_flags: "<your_own_value>"
+          ospf_debug_nfsm_flags: "<your_own_value>"
+          ospf_debug_nsm_flags: "<your_own_value>"
+          ospf_debug_packet_flags: "<your_own_value>"
+          ospf_debug_route_flags: "<your_own_value>"
+          ospf6_debug_events_flags: "<your_own_value>"
+          ospf6_debug_ifsm_flags: "<your_own_value>"
+          ospf6_debug_lsa_flags: "<your_own_value>"
+          ospf6_debug_nfsm_flags: "<your_own_value>"
+          ospf6_debug_nsm_flags: "<your_own_value>"
+          ospf6_debug_packet_flags: "<your_own_value>"
+          ospf6_debug_route_flags: "<your_own_value>"
+          pimdm_debug_flags: "<your_own_value>"
+          pimsm_debug_joinprune_flags: "<your_own_value>"
+          pimsm_debug_simple_flags: "<your_own_value>"
+          pimsm_debug_timer_flags: "<your_own_value>"
+          rip_debug_flags: "<your_own_value>"
+          ripng_debug_flags: "<your_own_value>"
+          show_filter: "<your_own_value> (source router.prefix-list.name)"
 """
 
 RETURN = """
@@ -286,7 +275,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -402,338 +390,59 @@ def fortios_router(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", ""]],
     "type": "dict",
     "children": {
-        "show_filter": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
-        "hostname": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-        },
-        "ospf_debug_lsa_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ospf_debug_nfsm_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
+        "show_filter": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "hostname": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "ospf_debug_lsa_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ospf_debug_nfsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
         "ospf_debug_packet_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "ospf_debug_events_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
-        "ospf_debug_route_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ospf_debug_ifsm_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ospf_debug_nsm_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "rip_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "bgp_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "igmp_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "pimdm_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
+        "ospf_debug_route_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ospf_debug_ifsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ospf_debug_nsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "rip_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "bgp_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "igmp_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "pimdm_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
         "pimsm_debug_simple_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "pimsm_debug_timer_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "pimsm_debug_joinprune_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
-        "imi_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "isis_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ospf6_debug_lsa_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ospf6_debug_nfsm_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
+        "imi_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "isis_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ospf6_debug_lsa_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ospf6_debug_nfsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
         "ospf6_debug_packet_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "ospf6_debug_events_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "ospf6_debug_route_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
-        "ospf6_debug_ifsm_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ospf6_debug_nsm_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
-        "ripng_debug_flags": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
-            "type": "string",
-        },
+        "ospf6_debug_ifsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ospf6_debug_nsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+        "ripng_debug_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
     },
 }
 

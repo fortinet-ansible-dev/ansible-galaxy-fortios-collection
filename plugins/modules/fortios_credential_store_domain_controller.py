@@ -124,31 +124,20 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Define known domain controller servers.
-    fortios_credential_store_domain_controller:
-      vdom:  "{{ vdom }}"
+- name: Define known domain controller servers.
+  fortinet.fortios.fortios_credential_store_domain_controller:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       credential_store_domain_controller:
-        domain_name: "<your_own_value>"
-        hostname: "myhostname"
-        ip: "<your_own_value>"
-        ip6: "<your_own_value>"
-        password: "<your_own_value>"
-        port: "32767"
-        server_name: "<your_own_value>"
-        username: "<your_own_value>"
-
+          domain_name: "<your_own_value>"
+          hostname: "myhostname"
+          ip: "<your_own_value>"
+          ip6: "<your_own_value>"
+          password: "<your_own_value>"
+          port: "32767"
+          server_name: "<your_own_value>"
+          username: "<your_own_value>"
 """
 
 RETURN = """
@@ -207,7 +196,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -388,7 +376,7 @@ def fortios_credential_store(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("credential_store_domain_controller")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -404,40 +392,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "server_name": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
             "required": True,
         },
         "hostname": {
-            "revisions": {"v6.4.4": True, "v6.4.1": False, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v6.4.4"]],
             "type": "string",
         },
-        "domain_name": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "username": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "password": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "port": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "integer",
-        },
-        "ip": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
-        "ip6": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
+        "domain_name": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "username": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "password": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "port": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "integer"},
+        "ip": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
+        "ip6": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
     },
-    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+    "v_range": [["v6.4.0", "v6.4.4"]],
 }
 
 

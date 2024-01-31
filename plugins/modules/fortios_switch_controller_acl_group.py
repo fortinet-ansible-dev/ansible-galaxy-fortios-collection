@@ -107,27 +107,16 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure ACL groups to be applied on managed FortiSwitch ports.
-    fortios_switch_controller_acl_group:
-      vdom:  "{{ vdom }}"
+- name: Configure ACL groups to be applied on managed FortiSwitch ports.
+  fortinet.fortios.fortios_switch_controller_acl_group:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_acl_group:
-        ingress:
-         -
-            id:  "4 (source switch-controller.acl.ingress.id)"
-        name: "default_name_5"
-
+          ingress:
+              -
+                  id: "4 (source switch-controller.acl.ingress.id)"
+          name: "default_name_5"
 """
 
 RETURN = """
@@ -186,7 +175,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -291,25 +279,17 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v7.4.0", ""]], "type": "string", "required": True},
         "ingress": {
             "type": "list",
             "elements": "dict",
             "children": {
-                "id": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                    "required": True,
-                }
+                "id": {"v_range": [["v7.4.0", ""]], "type": "integer", "required": True}
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
 }
 
 

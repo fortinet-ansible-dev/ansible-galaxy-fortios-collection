@@ -315,67 +315,56 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure CASB user activity.
-    fortios_casb_user_activity:
-      vdom:  "{{ vdom }}"
+- name: Configure CASB user activity.
+  fortinet.fortios.fortios_casb_user_activity:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       casb_user_activity:
-        application: "<your_own_value> (source casb.saas-application.name)"
-        casb_name: "<your_own_value>"
-        category: "activity-control"
-        control_options:
-         -
-            name: "default_name_7"
-            operations:
-             -
-                action: "append"
-                case_sensitive: "enable"
-                direction: "request"
-                header_name: "<your_own_value>"
-                name: "default_name_13"
-                search_key: "<your_own_value>"
-                search_pattern: "simple"
-                target: "header"
-                value_from_input: "enable"
-                values:
-                 -
-                    value: "<your_own_value>"
-        description: "<your_own_value>"
-        match:
-         -
-            id:  "22"
-            rules:
-             -
-                case_sensitive: "enable"
-                domains:
-                 -
-                    domain: "<your_own_value>"
-                header_name: "<your_own_value>"
-                id:  "28"
-                match_pattern: "simple"
-                match_value: "<your_own_value>"
-                methods:
-                 -
-                    method: "<your_own_value>"
-                negate: "enable"
-                type: "domains"
-            strategy: "and"
-        match_strategy: "and"
-        name: "default_name_37"
-        type: "built-in"
-        uuid: "<your_own_value>"
-
+          application: "<your_own_value> (source casb.saas-application.name)"
+          casb_name: "<your_own_value>"
+          category: "activity-control"
+          control_options:
+              -
+                  name: "default_name_7"
+                  operations:
+                      -
+                          action: "append"
+                          case_sensitive: "enable"
+                          direction: "request"
+                          header_name: "<your_own_value>"
+                          name: "default_name_13"
+                          search_key: "<your_own_value>"
+                          search_pattern: "simple"
+                          target: "header"
+                          value_from_input: "enable"
+                          values:
+                              -
+                                  value: "<your_own_value>"
+          description: "<your_own_value>"
+          match:
+              -
+                  id: "22"
+                  rules:
+                      -
+                          case_sensitive: "enable"
+                          domains:
+                              -
+                                  domain: "<your_own_value>"
+                          header_name: "<your_own_value>"
+                          id: "28"
+                          match_pattern: "simple"
+                          match_value: "<your_own_value>"
+                          methods:
+                              -
+                                  method: "<your_own_value>"
+                          negate: "enable"
+                          type: "domains"
+                  strategy: "and"
+          match_strategy: "and"
+          name: "default_name_37"
+          type: "built-in"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -434,7 +423,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -548,77 +536,65 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.1": True}, "type": "string", "required": True},
-        "uuid": {"revisions": {"v7.4.1": True}, "type": "string"},
-        "description": {"revisions": {"v7.4.1": True}, "type": "string"},
+        "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "description": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "type": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "built-in", "revisions": {"v7.4.1": True}},
-                {"value": "customized", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "built-in"}, {"value": "customized"}],
         },
-        "casb_name": {"revisions": {"v7.4.1": True}, "type": "string"},
-        "application": {"revisions": {"v7.4.1": True}, "type": "string"},
+        "casb_name": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "application": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "category": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
             "options": [
-                {"value": "activity-control", "revisions": {"v7.4.1": True}},
-                {"value": "tenant-control", "revisions": {"v7.4.1": True}},
-                {"value": "domain-control", "revisions": {"v7.4.1": True}},
-                {"value": "safe-search-control", "revisions": {"v7.4.1": True}},
-                {"value": "other", "revisions": {"v7.4.1": True}},
+                {"value": "activity-control"},
+                {"value": "tenant-control"},
+                {"value": "domain-control"},
+                {"value": "safe-search-control"},
+                {"value": "other"},
             ],
         },
         "match_strategy": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "and", "revisions": {"v7.4.1": True}},
-                {"value": "or", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "and"}, {"value": "or"}],
         },
         "match": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                     "type": "integer",
                     "required": True,
                 },
                 "strategy": {
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                     "type": "string",
-                    "options": [
-                        {"value": "and", "revisions": {"v7.4.1": True}},
-                        {"value": "or", "revisions": {"v7.4.1": True}},
-                    ],
+                    "options": [{"value": "and"}, {"value": "or"}],
                 },
                 "rules": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "integer",
                             "required": True,
                         },
                         "type": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "options": [
-                                {"value": "domains", "revisions": {"v7.4.1": True}},
-                                {"value": "host", "revisions": {"v7.4.1": True}},
-                                {"value": "path", "revisions": {"v7.4.1": True}},
-                                {"value": "header", "revisions": {"v7.4.1": True}},
-                                {
-                                    "value": "header-value",
-                                    "revisions": {"v7.4.1": True},
-                                },
-                                {"value": "method", "revisions": {"v7.4.1": True}},
+                                {"value": "domains"},
+                                {"value": "host"},
+                                {"value": "path"},
+                                {"value": "header"},
+                                {"value": "header-value"},
+                                {"value": "method"},
                             ],
                         },
                         "domains": {
@@ -626,70 +602,58 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "domain": {
-                                    "revisions": {"v7.4.1": True},
+                                    "v_range": [["v7.4.1", ""]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                         },
                         "methods": {
                             "type": "list",
                             "elements": "dict",
                             "children": {
                                 "method": {
-                                    "revisions": {"v7.4.1": True},
+                                    "v_range": [["v7.4.1", ""]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                         },
                         "match_pattern": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "options": [
-                                {"value": "simple", "revisions": {"v7.4.1": True}},
-                                {"value": "substr", "revisions": {"v7.4.1": True}},
-                                {"value": "regexp", "revisions": {"v7.4.1": True}},
+                                {"value": "simple"},
+                                {"value": "substr"},
+                                {"value": "regexp"},
                             ],
                         },
-                        "match_value": {
-                            "revisions": {"v7.4.1": True},
-                            "type": "string",
-                        },
-                        "header_name": {
-                            "revisions": {"v7.4.1": True},
-                            "type": "string",
-                        },
+                        "match_value": {"v_range": [["v7.4.1", ""]], "type": "string"},
+                        "header_name": {"v_range": [["v7.4.1", ""]], "type": "string"},
                         "case_sensitive": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [
-                                {"value": "enable", "revisions": {"v7.4.1": True}},
-                                {"value": "disable", "revisions": {"v7.4.1": True}},
-                            ],
+                            "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "negate": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [
-                                {"value": "enable", "revisions": {"v7.4.1": True}},
-                                {"value": "disable", "revisions": {"v7.4.1": True}},
-                            ],
+                            "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                     },
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                 },
             },
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
         },
         "control_options": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                     "type": "string",
                     "required": True,
                 },
@@ -698,90 +662,73 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "required": True,
                         },
                         "target": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [
-                                {"value": "header", "revisions": {"v7.4.1": True}},
-                                {"value": "path", "revisions": {"v7.4.1": True}},
-                            ],
+                            "options": [{"value": "header"}, {"value": "path"}],
                         },
                         "action": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "options": [
-                                {"value": "append", "revisions": {"v7.4.1": True}},
-                                {"value": "prepend", "revisions": {"v7.4.1": True}},
-                                {"value": "replace", "revisions": {"v7.4.1": True}},
-                                {"value": "new", "revisions": {"v7.4.1": True}},
-                                {
-                                    "value": "new-on-not-found",
-                                    "revisions": {"v7.4.1": True},
-                                },
-                                {"value": "delete", "revisions": {"v7.4.1": True}},
+                                {"value": "append"},
+                                {"value": "prepend"},
+                                {"value": "replace"},
+                                {"value": "new"},
+                                {"value": "new-on-not-found"},
+                                {"value": "delete"},
                             ],
                         },
                         "direction": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [
-                                {"value": "request", "revisions": {"v7.4.1": True}}
-                            ],
+                            "options": [{"value": "request"}],
                         },
-                        "header_name": {
-                            "revisions": {"v7.4.1": True},
-                            "type": "string",
-                        },
+                        "header_name": {"v_range": [["v7.4.1", ""]], "type": "string"},
                         "search_pattern": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "options": [
-                                {"value": "simple", "revisions": {"v7.4.1": True}},
-                                {"value": "substr", "revisions": {"v7.4.1": True}},
-                                {"value": "regexp", "revisions": {"v7.4.1": True}},
+                                {"value": "simple"},
+                                {"value": "substr"},
+                                {"value": "regexp"},
                             ],
                         },
-                        "search_key": {"revisions": {"v7.4.1": True}, "type": "string"},
+                        "search_key": {"v_range": [["v7.4.1", ""]], "type": "string"},
                         "case_sensitive": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [
-                                {"value": "enable", "revisions": {"v7.4.1": True}},
-                                {"value": "disable", "revisions": {"v7.4.1": True}},
-                            ],
+                            "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "value_from_input": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [
-                                {"value": "enable", "revisions": {"v7.4.1": True}},
-                                {"value": "disable", "revisions": {"v7.4.1": True}},
-                            ],
+                            "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "values": {
                             "type": "list",
                             "elements": "dict",
                             "children": {
                                 "value": {
-                                    "revisions": {"v7.4.1": True},
+                                    "v_range": [["v7.4.1", ""]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                         },
                     },
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                 },
             },
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
         },
     },
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
 }
 
 

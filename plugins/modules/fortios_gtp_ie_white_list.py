@@ -115,29 +115,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: IE white list.
-    fortios_gtp_ie_white_list:
-      vdom:  "{{ vdom }}"
+- name: IE white list.
+  fortinet.fortios.fortios_gtp_ie_white_list:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       gtp_ie_white_list:
-        entries:
-         -
-            fos_message: "127"
-            id:  "5"
-            ie: "127"
-        name: "default_name_7"
-
+          entries:
+              -
+                  fos_message: "127"
+                  id: "5"
+                  ie: "127"
+          name: "default_name_7"
 """
 
 RETURN = """
@@ -196,7 +185,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -377,7 +365,7 @@ def fortios_gtp(data, fos, check_mode):
         resp = gtp_ie_white_list(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("gtp_ie_white_list"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -392,99 +380,23 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string", "required": True},
         "entries": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.4.4"]],
                     "type": "integer",
                     "required": True,
                 },
-                "ie": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "integer",
-                },
-                "fos_message": {
-                    "revisions": {
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                    "type": "integer",
-                },
+                "ie": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
+                "fos_message": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "integer"},
             },
-            "revisions": {
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.4.4"]],
         },
     },
-    "revisions": {
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", "v6.4.4"]],
 }
 
 

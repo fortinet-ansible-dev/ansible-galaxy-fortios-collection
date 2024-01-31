@@ -87,22 +87,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure AntiSpam options.
-    fortios_spamfilter_options:
-      vdom:  "{{ vdom }}"
+- name: Configure AntiSpam options.
+  fortinet.fortios.fortios_spamfilter_options:
+      vdom: "{{ vdom }}"
       spamfilter_options:
-        dns_timeout: "15"
-
+          dns_timeout: "15"
 """
 
 RETURN = """
@@ -161,7 +150,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -250,13 +238,10 @@ def fortios_spamfilter(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
     "type": "dict",
     "children": {
-        "dns_timeout": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        }
+        "dns_timeout": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"}
     },
 }
 

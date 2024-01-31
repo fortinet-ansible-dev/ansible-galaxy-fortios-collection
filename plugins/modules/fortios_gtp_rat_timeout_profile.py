@@ -136,34 +136,23 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: RAT timeout profile
-    fortios_gtp_rat_timeout_profile:
-      vdom:  "{{ vdom }}"
+- name: RAT timeout profile
+  fortinet.fortios.fortios_gtp_rat_timeout_profile:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       gtp_rat_timeout_profile:
-        eutran_timeout: "0"
-        gan_timeout: "0"
-        geran_timeout: "0"
-        hspa_timeout: "0"
-        ltem_timeout: "0"
-        name: "default_name_8"
-        nbiot_timeout: "0"
-        nr_timeout: "0"
-        utran_timeout: "0"
-        virtual_timeout: "0"
-        wlan_timeout: "0"
-
+          eutran_timeout: "0"
+          gan_timeout: "0"
+          geran_timeout: "0"
+          hspa_timeout: "0"
+          ltem_timeout: "0"
+          name: "default_name_8"
+          nbiot_timeout: "0"
+          nr_timeout: "0"
+          utran_timeout: "0"
+          virtual_timeout: "0"
+          wlan_timeout: "0"
 """
 
 RETURN = """
@@ -222,7 +211,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -338,208 +326,52 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "string",
             "required": True,
         },
         "utran_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "geran_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "wlan_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "gan_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "hspa_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "eutran_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "virtual_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "nbiot_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "ltem_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
         "nr_timeout": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "integer",
         },
     },
-    "revisions": {
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-    },
+    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
 }
 
 

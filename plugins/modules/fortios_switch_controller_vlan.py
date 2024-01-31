@@ -171,41 +171,30 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure VLANs for switch controller.
-    fortios_switch_controller_vlan:
-      vdom:  "{{ vdom }}"
+- name: Configure VLANs for switch controller.
+  fortinet.fortios.fortios_switch_controller_vlan:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_vlan:
-        auth: "radius"
-        color: "16"
-        comments: "<your_own_value>"
-        name: "default_name_6"
-        portal_message_override_group: "<your_own_value>"
-        portal_message_overrides:
-            auth_disclaimer_page: "<your_own_value>"
-            auth_login_failed_page: "<your_own_value>"
-            auth_login_page: "<your_own_value>"
-            auth_reject_page: "<your_own_value>"
-        radius_server: "<your_own_value> (source user.radius.name)"
-        security: "open"
-        selected_usergroups:
-         -
-            name: "default_name_16 (source user.group.name)"
-        usergroup: "<your_own_value> (source user.group.name)"
-        vdom: "<your_own_value>"
-        vlanid: "2047"
-
+          auth: "radius"
+          color: "16"
+          comments: "<your_own_value>"
+          name: "default_name_6"
+          portal_message_override_group: "<your_own_value>"
+          portal_message_overrides:
+              auth_disclaimer_page: "<your_own_value>"
+              auth_login_failed_page: "<your_own_value>"
+              auth_login_page: "<your_own_value>"
+              auth_reject_page: "<your_own_value>"
+          radius_server: "<your_own_value> (source user.radius.name)"
+          security: "open"
+          selected_usergroups:
+              -
+                  name: "default_name_16 (source user.group.name)"
+          usergroup: "<your_own_value> (source user.group.name)"
+          vdom: "<your_own_value>"
+          vlanid: "2047"
 """
 
 RETURN = """
@@ -264,7 +253,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -436,7 +424,7 @@ def fortios_switch_controller(data, fos, check_mode):
         resp = switch_controller_vlan(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("switch_controller_vlan"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -452,188 +440,70 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "required": True,
         },
         "vdom": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "vlanid": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "integer",
         },
         "comments": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "color": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "integer",
         },
         "security": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "options": [
-                {
-                    "value": "open",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "captive-portal",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "8021x",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
+                {"value": "open"},
+                {"value": "captive-portal"},
+                {"value": "8021x"},
             ],
         },
         "auth": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "radius",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "usergroup",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "radius"}, {"value": "usergroup"}],
         },
         "radius_server": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "usergroup": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "portal_message_override_group": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "portal_message_overrides": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "dict",
             "children": {
                 "auth_disclaimer_page": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                 },
                 "auth_reject_page": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                 },
                 "auth_login_page": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                 },
                 "auth_login_failed_page": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                 },
             },
@@ -643,25 +513,15 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
         },
     },
-    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
 }
 
 

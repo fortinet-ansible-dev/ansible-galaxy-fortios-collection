@@ -106,25 +106,14 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure FortiAI.
-    fortios_system_fortiai:
-      vdom:  "{{ vdom }}"
+- name: Configure FortiAI.
+  fortinet.fortios.fortios_system_fortiai:
+      vdom: "{{ vdom }}"
       system_fortiai:
-        interface: "<your_own_value> (source system.interface.name)"
-        interface_select_method: "auto"
-        source_ip: "84.230.14.43"
-        status: "disable"
-
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "auto"
+          source_ip: "84.230.14.43"
+          status: "disable"
 """
 
 RETURN = """
@@ -183,7 +172,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -272,120 +260,21 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-    },
+    "v_range": [["v7.0.1", "v7.0.7"]],
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-            },
+            "v_range": [["v7.0.1", "v7.0.7"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                    },
-                },
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                    },
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "source_ip": {
-            "revisions": {
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.1": False,
-            },
-            "type": "string",
-        },
+        "source_ip": {"v_range": [["v7.0.4", "v7.0.7"]], "type": "string"},
         "interface_select_method": {
-            "revisions": {
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.1": False,
-            },
+            "v_range": [["v7.0.4", "v7.0.7"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "auto",
-                    "revisions": {
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "sdwan",
-                    "revisions": {
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-                {
-                    "value": "specify",
-                    "revisions": {
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                    },
-                },
-            ],
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
-        "interface": {
-            "revisions": {
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": False,
-                "v7.0.2": False,
-                "v7.0.1": False,
-            },
-            "type": "string",
-        },
+        "interface": {"v_range": [["v7.0.4", "v7.0.7"]], "type": "string"},
     },
 }
 

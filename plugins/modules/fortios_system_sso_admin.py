@@ -312,71 +312,60 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure SSO admin users.
-    fortios_system_sso_admin:
-      vdom:  "{{ vdom }}"
+- name: Configure SSO admin users.
+  fortinet.fortios.fortios_system_sso_admin:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       system_sso_admin:
-        accprofile: "<your_own_value> (source system.accprofile.name)"
-        gui_dashboard:
-         -
-            columns: "10"
-            id:  "6"
-            layout_type: "responsive"
-            name: "default_name_8"
-            permanent: "disable"
-            vdom: "<your_own_value> (source system.vdom.name)"
-            widget:
-             -
-                fabric_device: "<your_own_value>"
-                fabric_device_widget_name: "<your_own_value>"
-                fabric_device_widget_visualization_type: "<your_own_value>"
-                fortiview_device: "<your_own_value>"
-                fortiview_filters:
-                 -
-                    id:  "17"
-                    key: "<your_own_value>"
-                    value: "<your_own_value>"
-                fortiview_sort_by: "<your_own_value>"
-                fortiview_timeframe: "<your_own_value>"
-                fortiview_type: "<your_own_value>"
-                fortiview_visualization: "<your_own_value>"
-                height: "25"
-                id:  "25"
-                industry: "default"
-                interface: "<your_own_value> (source system.interface.name)"
-                region: "default"
-                title: "<your_own_value>"
-                type: "sysinfo"
-                width: "25"
-                x_pos: "500"
-                y_pos: "500"
-        gui_global_menu_favorites:
-         -
-            id:  "35"
-        gui_ignore_release_overview_version: "<your_own_value>"
-        gui_new_feature_acknowledge:
-         -
-            id:  "38"
-        gui_vdom_menu_favorites:
-         -
-            id:  "40"
-        name: "default_name_41"
-        vdom:
-         -
-            name: "default_name_43 (source system.vdom.name)"
-
+          accprofile: "<your_own_value> (source system.accprofile.name)"
+          gui_dashboard:
+              -
+                  columns: "10"
+                  id: "6"
+                  layout_type: "responsive"
+                  name: "default_name_8"
+                  permanent: "disable"
+                  vdom: "<your_own_value> (source system.vdom.name)"
+                  widget:
+                      -
+                          fabric_device: "<your_own_value>"
+                          fabric_device_widget_name: "<your_own_value>"
+                          fabric_device_widget_visualization_type: "<your_own_value>"
+                          fortiview_device: "<your_own_value>"
+                          fortiview_filters:
+                              -
+                                  id: "17"
+                                  key: "<your_own_value>"
+                                  value: "<your_own_value>"
+                          fortiview_sort_by: "<your_own_value>"
+                          fortiview_timeframe: "<your_own_value>"
+                          fortiview_type: "<your_own_value>"
+                          fortiview_visualization: "<your_own_value>"
+                          height: "25"
+                          id: "25"
+                          industry: "default"
+                          interface: "<your_own_value> (source system.interface.name)"
+                          region: "default"
+                          title: "<your_own_value>"
+                          type: "sysinfo"
+                          width: "25"
+                          x_pos: "500"
+                          y_pos: "500"
+          gui_global_menu_favorites:
+              -
+                  id: "35"
+          gui_ignore_release_overview_version: "<your_own_value>"
+          gui_new_feature_acknowledge:
+              -
+                  id: "38"
+          gui_vdom_menu_favorites:
+              -
+                  id: "40"
+          name: "default_name_41"
+          vdom:
+              -
+                  name: "default_name_43 (source system.vdom.name)"
 """
 
 RETURN = """
@@ -435,7 +424,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -601,7 +589,7 @@ def fortios_system(data, fos, check_mode):
         resp = system_sso_admin(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("system_sso_admin"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -616,132 +604,22 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "accprofile": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
-            "type": "string",
-        },
+        "name": {"v_range": [["v6.2.0", ""]], "type": "string", "required": True},
+        "accprofile": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "vdom": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.12": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                        "v6.4.4": True,
-                        "v6.4.1": True,
-                        "v6.4.0": True,
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
+                    "v_range": [["v6.2.0", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-            },
+            "v_range": [["v6.2.0", ""]],
         },
         "gui_ignore_release_overview_version": {
-            "revisions": {
-                "v6.4.1": True,
-                "v6.4.0": False,
-                "v6.2.7": False,
-                "v6.2.5": False,
-                "v6.2.3": False,
-                "v6.2.0": False,
-            },
+            "v_range": [["v6.4.1", "v6.4.1"]],
             "type": "string",
         },
         "gui_dashboard": {
@@ -749,142 +627,112 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "integer",
                     "required": True,
                 },
-                "name": {"revisions": {"v6.2.3": True}, "type": "string"},
-                "vdom": {"revisions": {"v6.2.3": True}, "type": "string"},
+                "name": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+                "vdom": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
                 "layout_type": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "string",
-                    "options": [
-                        {"value": "responsive", "revisions": {"v6.2.3": True}},
-                        {"value": "fixed", "revisions": {"v6.2.3": True}},
-                    ],
+                    "options": [{"value": "responsive"}, {"value": "fixed"}],
                 },
                 "permanent": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "string",
-                    "options": [
-                        {"value": "disable", "revisions": {"v6.2.3": True}},
-                        {"value": "enable", "revisions": {"v6.2.3": True}},
-                    ],
+                    "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "columns": {"revisions": {"v6.2.3": True}, "type": "integer"},
+                "columns": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
                 "widget": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "integer",
                             "required": True,
                         },
                         "type": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                             "options": [
-                                {"value": "sysinfo", "revisions": {"v6.2.3": True}},
-                                {"value": "licinfo", "revisions": {"v6.2.3": True}},
-                                {"value": "forticloud", "revisions": {"v6.2.3": True}},
-                                {"value": "cpu-usage", "revisions": {"v6.2.3": True}},
-                                {
-                                    "value": "memory-usage",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {"value": "disk-usage", "revisions": {"v6.2.3": True}},
-                                {"value": "log-rate", "revisions": {"v6.2.3": True}},
-                                {"value": "sessions", "revisions": {"v6.2.3": True}},
-                                {
-                                    "value": "session-rate",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {"value": "tr-history", "revisions": {"v6.2.3": True}},
-                                {"value": "analytics", "revisions": {"v6.2.3": True}},
-                                {"value": "usb-modem", "revisions": {"v6.2.3": True}},
-                                {"value": "admins", "revisions": {"v6.2.3": True}},
-                                {
-                                    "value": "security-fabric",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {
-                                    "value": "security-fabric-ranking",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {"value": "sensor-info", "revisions": {"v6.2.3": True}},
-                                {"value": "ha-status", "revisions": {"v6.2.3": True}},
-                                {
-                                    "value": "vulnerability-summary",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {
-                                    "value": "host-scan-summary",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {"value": "fortiview", "revisions": {"v6.2.3": True}},
-                                {
-                                    "value": "botnet-activity",
-                                    "revisions": {"v6.2.3": True},
-                                },
-                                {
-                                    "value": "fabric-device",
-                                    "revisions": {"v6.2.3": True},
-                                },
+                                {"value": "sysinfo"},
+                                {"value": "licinfo"},
+                                {"value": "forticloud"},
+                                {"value": "cpu-usage"},
+                                {"value": "memory-usage"},
+                                {"value": "disk-usage"},
+                                {"value": "log-rate"},
+                                {"value": "sessions"},
+                                {"value": "session-rate"},
+                                {"value": "tr-history"},
+                                {"value": "analytics"},
+                                {"value": "usb-modem"},
+                                {"value": "admins"},
+                                {"value": "security-fabric"},
+                                {"value": "security-fabric-ranking"},
+                                {"value": "sensor-info"},
+                                {"value": "ha-status"},
+                                {"value": "vulnerability-summary"},
+                                {"value": "host-scan-summary"},
+                                {"value": "fortiview"},
+                                {"value": "botnet-activity"},
+                                {"value": "fabric-device"},
                             ],
                         },
-                        "x_pos": {"revisions": {"v6.2.3": True}, "type": "integer"},
-                        "y_pos": {"revisions": {"v6.2.3": True}, "type": "integer"},
-                        "width": {"revisions": {"v6.2.3": True}, "type": "integer"},
-                        "height": {"revisions": {"v6.2.3": True}, "type": "integer"},
-                        "interface": {"revisions": {"v6.2.3": True}, "type": "string"},
-                        "region": {
-                            "revisions": {"v6.2.3": True},
+                        "x_pos": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
+                        "y_pos": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
+                        "width": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
+                        "height": {
+                            "v_range": [["v6.2.3", "v6.2.3"]],
+                            "type": "integer",
+                        },
+                        "interface": {
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
-                            "options": [
-                                {"value": "default", "revisions": {"v6.2.3": True}},
-                                {"value": "custom", "revisions": {"v6.2.3": True}},
-                            ],
+                        },
+                        "region": {
+                            "v_range": [["v6.2.3", "v6.2.3"]],
+                            "type": "string",
+                            "options": [{"value": "default"}, {"value": "custom"}],
                         },
                         "industry": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
-                            "options": [
-                                {"value": "default", "revisions": {"v6.2.3": True}},
-                                {"value": "custom", "revisions": {"v6.2.3": True}},
-                            ],
+                            "options": [{"value": "default"}, {"value": "custom"}],
                         },
                         "fabric_device": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fabric_device_widget_name": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fabric_device_widget_visualization_type": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
-                        "title": {"revisions": {"v6.2.3": True}, "type": "string"},
+                        "title": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
                         "fortiview_type": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fortiview_sort_by": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fortiview_timeframe": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fortiview_visualization": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fortiview_device": {
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                             "type": "string",
                         },
                         "fortiview_filters": {
@@ -892,89 +740,65 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "id": {
-                                    "revisions": {"v6.2.3": True},
+                                    "v_range": [["v6.2.3", "v6.2.3"]],
                                     "type": "integer",
                                     "required": True,
                                 },
                                 "key": {
-                                    "revisions": {"v6.2.3": True},
+                                    "v_range": [["v6.2.3", "v6.2.3"]],
                                     "type": "string",
                                 },
                                 "value": {
-                                    "revisions": {"v6.2.3": True},
+                                    "v_range": [["v6.2.3", "v6.2.3"]],
                                     "type": "string",
                                 },
                             },
-                            "revisions": {"v6.2.3": True},
+                            "v_range": [["v6.2.3", "v6.2.3"]],
                         },
                     },
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                 },
             },
-            "revisions": {"v6.2.3": True, "v6.2.0": False},
+            "v_range": [["v6.2.3", "v6.2.3"]],
         },
         "gui_global_menu_favorites": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v6.2.3": True, "v6.2.0": False},
+            "v_range": [["v6.2.3", "v6.2.3"]],
         },
         "gui_vdom_menu_favorites": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v6.2.3": True, "v6.2.0": False},
+            "v_range": [["v6.2.3", "v6.2.3"]],
         },
         "gui_new_feature_acknowledge": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v6.2.3": True},
+                    "v_range": [["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v6.2.3": True, "v6.2.0": False},
+            "v_range": [["v6.2.3", "v6.2.3"]],
         },
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-    },
+    "v_range": [["v6.2.0", ""]],
 }
 
 

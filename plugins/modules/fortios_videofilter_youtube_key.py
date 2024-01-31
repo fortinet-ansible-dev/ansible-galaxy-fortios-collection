@@ -109,26 +109,15 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure YouTube API keys.
-    fortios_videofilter_youtube_key:
-      vdom:  "{{ vdom }}"
+- name: Configure YouTube API keys.
+  fortinet.fortios.fortios_videofilter_youtube_key:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       videofilter_youtube_key:
-        id:  "3"
-        key: "<your_own_value>"
-        status: "enable"
-
+          id: "3"
+          key: "<your_own_value>"
+          status: "enable"
 """
 
 RETURN = """
@@ -187,7 +176,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -290,76 +278,15 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
-            "type": "integer",
-            "required": True,
-        },
-        "key": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.12": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
-            "type": "string",
-        },
+        "id": {"v_range": [["v7.0.0", ""]], "type": "integer", "required": True},
+        "key": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "status": {
-            "revisions": {"v7.0.0": True},
+            "v_range": [["v7.0.0", "v7.0.0"]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.0.0": True}},
-                {"value": "disable", "revisions": {"v7.0.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.12": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-    },
+    "v_range": [["v7.0.0", ""]],
 }
 
 

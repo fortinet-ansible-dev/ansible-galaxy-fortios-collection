@@ -139,33 +139,22 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure AntiSpam IP trust.
-    fortios_spamfilter_iptrust:
-      vdom:  "{{ vdom }}"
+- name: Configure AntiSpam IP trust.
+  fortinet.fortios.fortios_spamfilter_iptrust:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       spamfilter_iptrust:
-        comment: "Optional comments."
-        entries:
-         -
-            addr_type: "ipv4"
-            id:  "6"
-            ip4_subnet: "<your_own_value>"
-            ip6_subnet: "<your_own_value>"
-            status: "enable"
-        id:  "10"
-        name: "default_name_11"
-
+          comment: "Optional comments."
+          entries:
+              -
+                  addr_type: "ipv4"
+                  id: "6"
+                  ip4_subnet: "<your_own_value>"
+                  ip6_subnet: "<your_own_value>"
+                  status: "enable"
+          id: "10"
+          name: "default_name_11"
 """
 
 RETURN = """
@@ -224,7 +213,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -381,7 +369,7 @@ def fortios_spamfilter(data, fos, check_mode):
         resp = spamfilter_iptrust(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("spamfilter_iptrust"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -396,85 +384,35 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "comment": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "id": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer", "required": True},
+        "name": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "comment": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "entries": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "status": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "id": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "integer",
                     "required": True,
                 },
                 "addr_type": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "ipv4",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "ipv6",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "ipv4"}, {"value": "ipv6"}],
                 },
-                "ip4_subnet": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
-                "ip6_subnet": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
+                "ip4_subnet": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+                "ip6_subnet": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
             },
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
         },
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

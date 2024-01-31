@@ -87,22 +87,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure memory manager.
-    fortios_system_mem_mgr:
-      vdom:  "{{ vdom }}"
+- name: Configure memory manager.
+  fortinet.fortios.fortios_system_mem_mgr:
+      vdom: "{{ vdom }}"
       system_mem_mgr:
-        mass_mmsd: "30"
-
+          mass_mmsd: "30"
 """
 
 RETURN = """
@@ -161,7 +150,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -250,30 +238,9 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", "v6.2.7"]],
     "type": "dict",
-    "children": {
-        "mass_mmsd": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
-            "type": "integer",
-        }
-    },
+    "children": {"mass_mmsd": {"v_range": [["v6.0.0", "v6.2.7"]], "type": "integer"}},
 }
 
 

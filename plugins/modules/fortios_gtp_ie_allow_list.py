@@ -115,29 +115,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: IE allow list.
-    fortios_gtp_ie_allow_list:
-      vdom:  "{{ vdom }}"
+- name: IE allow list.
+  fortinet.fortios.fortios_gtp_ie_allow_list:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       gtp_ie_allow_list:
-        entries:
-         -
-            fos_message: "0"
-            id:  "5"
-            ie: "0"
-        name: "default_name_7"
-
+          entries:
+              -
+                  fos_message: "0"
+                  id: "5"
+                  ie: "0"
+          name: "default_name_7"
 """
 
 RETURN = """
@@ -196,7 +185,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -322,21 +310,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "string",
             "required": True,
         },
@@ -345,93 +319,23 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
                     "type": "integer",
                     "required": True,
                 },
                 "ie": {
-                    "revisions": {
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
                     "type": "integer",
                 },
                 "fos_message": {
-                    "revisions": {
-                        "v7.2.4": True,
-                        "v7.2.2": True,
-                        "v7.2.1": True,
-                        "v7.2.0": True,
-                        "v7.0.8": True,
-                        "v7.0.7": True,
-                        "v7.0.6": True,
-                        "v7.0.5": True,
-                        "v7.0.4": True,
-                        "v7.0.3": True,
-                        "v7.0.2": True,
-                        "v7.0.1": True,
-                        "v7.0.0": True,
-                    },
+                    "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
                     "type": "integer",
                 },
             },
-            "revisions": {
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-                "v7.0.8": True,
-                "v7.0.7": True,
-                "v7.0.6": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-            },
+            "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
         },
     },
-    "revisions": {
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-        "v7.0.8": True,
-        "v7.0.7": True,
-        "v7.0.6": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-    },
+    "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
 }
 
 

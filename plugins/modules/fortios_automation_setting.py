@@ -94,23 +94,12 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Automation setting configuration.
-    fortios_automation_setting:
-      vdom:  "{{ vdom }}"
+- name: Automation setting configuration.
+  fortinet.fortios.fortios_automation_setting:
+      vdom: "{{ vdom }}"
       automation_setting:
-        fabric_sync: "enable"
-        max_concurrent_stitches: "512"
-
+          fabric_sync: "enable"
+          max_concurrent_stitches: "512"
 """
 
 RETURN = """
@@ -169,7 +158,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -258,47 +246,14 @@ def fortios_automation(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-    },
+    "v_range": [["v7.2.0", ""]],
     "type": "dict",
     "children": {
-        "max_concurrent_stitches": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "integer",
-        },
+        "max_concurrent_stitches": {"v_range": [["v7.2.0", ""]], "type": "integer"},
         "fabric_sync": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": False,
-                "v7.2.1": False,
-                "v7.2.0": False,
-            },
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
 }

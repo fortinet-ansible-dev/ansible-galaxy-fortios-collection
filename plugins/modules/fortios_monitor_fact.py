@@ -779,40 +779,30 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigate03
-  connection: httpapi
-  collections:
-  - fortinet.fortios
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-
-  - name: Get license shizzle
-    fortios_monitor_fact:
-      vdom: ""
+- name: Get license status
+  fortinet.fortios.fortios_monitor_fact:
+      vdom: root
       selectors:
-        - selector: license_status
-        - selector: system_status
-        - selector: firewall_security-policy
-          params:
-            policyid: '1'
+          - selector: license_status
+          - selector: system_status
+          - selector: firewall_security-policy
+            params:
+                policyid: '1'
 
-  - fortios_monitor_fact:
-       vdom: ""
-       formatters:
-            - model_name
-       filters:
-            - model_name==FortiGat
-       selector: 'system_status'
+- name: Get system status
+  fortinet.fortios.fortios_monitor_fact:
+      vdom: root
+      formatters:
+          - model_name
+      filters:
+          - model_name==FortiGat
+      selector: 'system_status'
 
-  - name: fact gathering
-    fortios_monitor_fact:
-       vdom: ""
-       access_token: ""
-       selector: 'firewall_acl'
+- name: Get firewall acl info
+  fortinet.fortios.fortios_monitor_fact:
+      vdom: root
+      access_token: "you_own_value"
+      selector: 'firewall_acl'
 """
 
 RETURN = """

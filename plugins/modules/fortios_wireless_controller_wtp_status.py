@@ -87,22 +87,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Wireless controller WTP-status.
-    fortios_wireless_controller_wtp_status:
-      vdom:  "{{ vdom }}"
+- name: Wireless controller WTP-status.
+  fortinet.fortios.fortios_wireless_controller_wtp_status:
+      vdom: "{{ vdom }}"
       wireless_controller_wtp_status:
-        wtp_id: "<your_own_value>"
-
+          wtp_id: "<your_own_value>"
 """
 
 RETURN = """
@@ -161,7 +150,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -276,39 +264,15 @@ def fortios_wireless_controller(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.2.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.0": True,
-    },
+    "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
     "type": "dict",
     "children": {
         "wtp_id": {
-            "revisions": {
-                "v7.2.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.0": True,
-            },
+            "v_range": [
+                ["v6.2.0", "v6.2.0"],
+                ["v6.2.5", "v7.0.5"],
+                ["v7.2.0", "v7.2.0"],
+            ],
             "type": "string",
         }
     },

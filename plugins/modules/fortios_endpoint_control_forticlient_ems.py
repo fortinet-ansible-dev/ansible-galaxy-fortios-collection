@@ -138,33 +138,22 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure FortiClient Enterprise Management Server (EMS) entries.
-    fortios_endpoint_control_forticlient_ems:
-      vdom:  "{{ vdom }}"
+- name: Configure FortiClient Enterprise Management Server (EMS) entries.
+  fortinet.fortios.fortios_endpoint_control_forticlient_ems:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       endpoint_control_forticlient_ems:
-        address: "<your_own_value> (source firewall.address.name)"
-        admin_password: "<your_own_value>"
-        admin_type: "Windows"
-        admin_username: "<your_own_value>"
-        https_port: "32767"
-        listen_port: "32767"
-        name: "default_name_9"
-        rest_api_auth: "disable"
-        serial_number: "<your_own_value>"
-        upload_port: "32767"
-
+          address: "<your_own_value> (source firewall.address.name)"
+          admin_password: "<your_own_value>"
+          admin_type: "Windows"
+          admin_username: "<your_own_value>"
+          https_port: "32767"
+          listen_port: "32767"
+          name: "default_name_9"
+          rest_api_auth: "disable"
+          serial_number: "<your_own_value>"
+          upload_port: "32767"
 """
 
 RETURN = """
@@ -223,7 +212,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -403,7 +391,7 @@ def fortios_endpoint_control(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("endpoint_control_forticlient_ems")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -419,68 +407,29 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
             "required": True,
         },
-        "address": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "serial_number": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "listen_port": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        },
-        "upload_port": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        },
+        "address": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "serial_number": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "listen_port": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
+        "upload_port": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
         "rest_api_auth": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "userpass",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "userpass"}],
         },
-        "https_port": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        },
-        "admin_username": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "admin_password": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "https_port": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
+        "admin_username": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "admin_password": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "admin_type": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "Windows",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "LDAP",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "Windows"}, {"value": "LDAP"}],
         },
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

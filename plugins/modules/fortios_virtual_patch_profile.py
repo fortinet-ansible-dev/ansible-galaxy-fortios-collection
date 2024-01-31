@@ -164,38 +164,27 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure virtual-patch profile.
-    fortios_virtual_patch_profile:
-      vdom:  "{{ vdom }}"
+- name: Configure virtual-patch profile.
+  fortinet.fortios.fortios_virtual_patch_profile:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       virtual_patch_profile:
-        action: "pass"
-        comment: "Comment."
-        exemption:
-         -
-            device:
-             -
-                mac: "<your_own_value>"
-            id:  "8"
-            rule:
-             -
-                id:  "10"
-            status: "enable"
-        log: "enable"
-        name: "default_name_13"
-        severity: "low"
-
+          action: "pass"
+          comment: "Comment."
+          exemption:
+              -
+                  device:
+                      -
+                          mac: "<your_own_value>"
+                  id: "8"
+                  rule:
+                      -
+                          id: "10"
+                  status: "enable"
+          log: "enable"
+          name: "default_name_13"
+          severity: "low"
 """
 
 RETURN = """
@@ -254,7 +243,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -389,82 +377,73 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.1": True}, "type": "string", "required": True},
-        "comment": {"revisions": {"v7.4.1": True}, "type": "string"},
+        "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "comment": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "severity": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "list",
             "options": [
-                {"value": "low", "revisions": {"v7.4.1": True}},
-                {"value": "medium", "revisions": {"v7.4.1": True}},
-                {"value": "high", "revisions": {"v7.4.1": True}},
-                {"value": "critical", "revisions": {"v7.4.1": True}},
+                {"value": "low"},
+                {"value": "medium"},
+                {"value": "high"},
+                {"value": "critical"},
             ],
             "multiple_values": True,
             "elements": "str",
         },
         "action": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "pass", "revisions": {"v7.4.1": True}},
-                {"value": "block", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "pass"}, {"value": "block"}],
         },
         "log": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "exemption": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                     "type": "integer",
                     "required": True,
                 },
                 "status": {
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                     "type": "string",
-                    "options": [
-                        {"value": "enable", "revisions": {"v7.4.1": True}},
-                        {"value": "disable", "revisions": {"v7.4.1": True}},
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "rule": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "integer",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                 },
                 "device": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "mac": {
-                            "revisions": {"v7.4.1": True},
+                            "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                 },
             },
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
         },
     },
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
 }
 
 

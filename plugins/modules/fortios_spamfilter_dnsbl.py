@@ -135,32 +135,21 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure AntiSpam DNSBL/ORBL.
-    fortios_spamfilter_dnsbl:
-      vdom:  "{{ vdom }}"
+- name: Configure AntiSpam DNSBL/ORBL.
+  fortinet.fortios.fortios_spamfilter_dnsbl:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       spamfilter_dnsbl:
-        comment: "Optional comments."
-        entries:
-         -
-            action: "reject"
-            id:  "6"
-            server: "192.168.100.40"
-            status: "enable"
-        id:  "9"
-        name: "default_name_10"
-
+          comment: "Optional comments."
+          entries:
+              -
+                  action: "reject"
+                  id: "6"
+                  server: "192.168.100.40"
+                  status: "enable"
+          id: "9"
+          name: "default_name_10"
 """
 
 RETURN = """
@@ -219,7 +208,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -376,7 +364,7 @@ def fortios_spamfilter(data, fos, check_mode):
         resp = spamfilter_dnsbl(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("spamfilter_dnsbl"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -391,81 +379,34 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "comment": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "id": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer", "required": True},
+        "name": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "comment": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "entries": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "status": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "id": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "integer",
                     "required": True,
                 },
-                "server": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
+                "server": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
                 "action": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "reject",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "spam",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "reject"}, {"value": "spam"}],
                 },
             },
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
         },
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

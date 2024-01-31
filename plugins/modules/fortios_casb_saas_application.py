@@ -126,31 +126,20 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure CASB SaaS application.
-    fortios_casb_saas_application:
-      vdom:  "{{ vdom }}"
+- name: Configure CASB SaaS application.
+  fortinet.fortios.fortios_casb_saas_application:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       casb_saas_application:
-        casb_name: "<your_own_value>"
-        description: "<your_own_value>"
-        domains:
-         -
-            domain: "<your_own_value>"
-        name: "default_name_7"
-        type: "built-in"
-        uuid: "<your_own_value>"
-
+          casb_name: "<your_own_value>"
+          description: "<your_own_value>"
+          domains:
+              -
+                  domain: "<your_own_value>"
+          name: "default_name_7"
+          type: "built-in"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -209,7 +198,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -312,32 +300,29 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.1": True}, "type": "string", "required": True},
-        "uuid": {"revisions": {"v7.4.1": True}, "type": "string"},
+        "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "type": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "built-in", "revisions": {"v7.4.1": True}},
-                {"value": "customized", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "built-in"}, {"value": "customized"}],
         },
-        "casb_name": {"revisions": {"v7.4.1": True}, "type": "string"},
-        "description": {"revisions": {"v7.4.1": True}, "type": "string"},
+        "casb_name": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "description": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "domains": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "domain": {
-                    "revisions": {"v7.4.1": True},
+                    "v_range": [["v7.4.1", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
         },
     },
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
 }
 
 

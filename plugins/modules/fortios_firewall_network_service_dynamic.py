@@ -108,27 +108,16 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure Dynamic Network Services.
-    fortios_firewall_network_service_dynamic:
-      vdom:  "{{ vdom }}"
+- name: Configure Dynamic Network Services.
+  fortinet.fortios.fortios_firewall_network_service_dynamic:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       firewall_network_service_dynamic:
-        comment: "Comment."
-        filter: "<your_own_value>"
-        name: "default_name_5"
-        sdn: "<your_own_value> (source system.sdn-connector.name)"
-
+          comment: "Comment."
+          filter: "<your_own_value>"
+          name: "default_name_5"
+          sdn: "<your_own_value> (source system.sdn-connector.name)"
 """
 
 RETURN = """
@@ -187,7 +176,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -296,55 +284,12 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-            "required": True,
-        },
-        "sdn": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
-        "comment": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
-        "filter": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-            },
-            "type": "string",
-        },
+        "name": {"v_range": [["v7.2.1", ""]], "type": "string", "required": True},
+        "sdn": {"v_range": [["v7.2.1", ""]], "type": "string"},
+        "comment": {"v_range": [["v7.2.1", ""]], "type": "string"},
+        "filter": {"v_range": [["v7.2.1", ""]], "type": "string"},
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-    },
+    "v_range": [["v7.2.1", ""]],
 }
 
 

@@ -165,37 +165,26 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure anti-spam black/white list.
-    fortios_spamfilter_bwl:
-      vdom:  "{{ vdom }}"
+- name: Configure anti-spam black/white list.
+  fortinet.fortios.fortios_spamfilter_bwl:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       spamfilter_bwl:
-        comment: "Optional comments."
-        entries:
-         -
-            action: "reject"
-            addr_type: "ipv4"
-            email_pattern: "<your_own_value>"
-            id:  "8"
-            ip4_subnet: "<your_own_value>"
-            ip6_subnet: "<your_own_value>"
-            pattern_type: "wildcard"
-            status: "enable"
-            type: "ip"
-        id:  "14"
-        name: "default_name_15"
-
+          comment: "Optional comments."
+          entries:
+              -
+                  action: "reject"
+                  addr_type: "ipv4"
+                  email_pattern: "<your_own_value>"
+                  id: "8"
+                  ip4_subnet: "<your_own_value>"
+                  ip6_subnet: "<your_own_value>"
+                  pattern_type: "wildcard"
+                  status: "enable"
+                  type: "ip"
+          id: "14"
+          name: "default_name_15"
 """
 
 RETURN = """
@@ -254,7 +243,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -411,7 +399,7 @@ def fortios_spamfilter(data, fos, check_mode):
         resp = spamfilter_bwl(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("spamfilter_bwl"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -426,163 +414,55 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "comment": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "id": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer", "required": True},
+        "name": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "comment": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "entries": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "status": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "id": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "integer",
                     "required": True,
                 },
                 "type": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "ip",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "email",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "ip"}, {"value": "email"}],
                 },
                 "action": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
                     "options": [
-                        {
-                            "value": "reject",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "spam",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "clear",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
+                        {"value": "reject"},
+                        {"value": "spam"},
+                        {"value": "clear"},
                     ],
                 },
                 "addr_type": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "ipv4",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "ipv6",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "ipv4"}, {"value": "ipv6"}],
                 },
-                "ip4_subnet": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
-                "ip6_subnet": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
+                "ip4_subnet": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+                "ip6_subnet": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
                 "pattern_type": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "wildcard",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "regexp",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "wildcard"}, {"value": "regexp"}],
                 },
-                "email_pattern": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
+                "email_pattern": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
             },
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
         },
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

@@ -180,38 +180,27 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure devices.
-    fortios_user_device:
-      vdom:  "{{ vdom }}"
+- name: Configure devices.
+  fortinet.fortios.fortios_user_device:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       user_device:
-        alias: "<your_own_value>"
-        avatar: "<your_own_value>"
-        category: "none"
-        comment: "Comment."
-        mac: "<your_own_value>"
-        master_device: "<your_own_value> (source user.device.alias)"
-        tagging:
-         -
-            category: "<your_own_value> (source system.object-tagging.category)"
-            name: "default_name_11"
-            tags:
-             -
-                name: "default_name_13 (source system.object-tagging.tags.name)"
-        type: "unknown"
-        user: "<your_own_value>"
-
+          alias: "<your_own_value>"
+          avatar: "<your_own_value>"
+          category: "none"
+          comment: "Comment."
+          mac: "<your_own_value>"
+          master_device: "<your_own_value> (source user.device.alias)"
+          tagging:
+              -
+                  category: "<your_own_value> (source system.object-tagging.category)"
+                  name: "default_name_11"
+                  tags:
+                      -
+                          name: "default_name_13 (source system.object-tagging.tags.name)"
+          type: "unknown"
+          user: "<your_own_value>"
 """
 
 RETURN = """
@@ -270,7 +259,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -435,7 +423,7 @@ def fortios_user(data, fos, check_mode):
         resp = user_device(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("user_device"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -451,58 +439,28 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "alias": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "required": True,
         },
         "mac": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "user": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "master_device": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "comment": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "avatar": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "tagging": {
@@ -510,22 +468,12 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 },
                 "category": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                 },
                 "tags": {
@@ -533,167 +481,58 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {
-                                "v6.2.3": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
+                            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                 },
             },
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
         },
         "type": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "options": [
-                {
-                    "value": "unknown",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "android-phone",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "android-tablet",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "blackberry-phone",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "blackberry-playbook",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "forticam",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "fortifone",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "fortinet-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "gaming-console",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "ip-phone",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "ipad",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "iphone",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "linux-pc",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "mac",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "media-streaming",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "printer",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "router-nat-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "windows-pc",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "windows-phone",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "windows-tablet",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "other-network-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
+                {"value": "unknown", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "android-phone", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "android-tablet", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "blackberry-phone", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "blackberry-playbook", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "forticam", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "fortifone", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "fortinet-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "gaming-console", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "ip-phone", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "ipad", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "iphone", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "linux-pc", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "mac", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "media-streaming", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "printer", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "router-nat-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "windows-pc", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "windows-phone", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "windows-tablet", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "other-network-device", "v_range": [["v6.0.0", "v6.0.11"]]},
             ],
         },
         "category": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "options": [
-                {
-                    "value": "none",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "amazon-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "android-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "blackberry-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "fortinet-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "ios-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "windows-device",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
+                {"value": "none", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "amazon-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "android-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "blackberry-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "fortinet-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "ios-device", "v_range": [["v6.0.0", "v6.0.11"]]},
+                {"value": "windows-device", "v_range": [["v6.0.0", "v6.0.11"]]},
             ],
         },
     },
-    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
 }
 
 

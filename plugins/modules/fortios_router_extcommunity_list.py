@@ -136,32 +136,21 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure extended community lists.
-    fortios_router_extcommunity_list:
-      vdom:  "{{ vdom }}"
+- name: Configure extended community lists.
+  fortinet.fortios.fortios_router_extcommunity_list:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       router_extcommunity_list:
-        name: "default_name_3"
-        rule:
-         -
-            action: "deny"
-            id:  "6"
-            match: "<your_own_value>"
-            regexp: "<your_own_value>"
-            type: "rt"
-        type: "standard"
-
+          name: "default_name_3"
+          rule:
+              -
+                  action: "deny"
+                  id: "6"
+                  match: "<your_own_value>"
+                  regexp: "<your_own_value>"
+                  type: "rt"
+          type: "standard"
 """
 
 RETURN = """
@@ -220,7 +209,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -325,91 +313,38 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v7.2.4", ""]], "type": "string", "required": True},
         "type": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "standard",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-                {
-                    "value": "expanded",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                },
-            ],
+            "options": [{"value": "standard"}, {"value": "expanded"}],
         },
         "rule": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "integer",
                     "required": True,
                 },
                 "action": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "deny",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                            },
-                        },
-                        {
-                            "value": "permit",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "deny"}, {"value": "permit"}],
                 },
-                "regexp": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
+                "regexp": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "type": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+                    "v_range": [["v7.2.4", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "rt",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                            },
-                        },
-                        {
-                            "value": "soo",
-                            "revisions": {
-                                "v7.4.1": True,
-                                "v7.4.0": True,
-                                "v7.2.4": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "rt"}, {"value": "soo"}],
                 },
-                "match": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
-                    "type": "string",
-                },
+                "match": {"v_range": [["v7.2.4", ""]], "type": "string"},
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+            "v_range": [["v7.2.4", ""]],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.4": True},
+    "v_range": [["v7.2.4", ""]],
 }
 
 

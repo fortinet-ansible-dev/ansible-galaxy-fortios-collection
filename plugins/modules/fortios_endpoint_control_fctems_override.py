@@ -242,47 +242,36 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure FortiClient Enterprise Management Server (EMS) entries.
-    fortios_endpoint_control_fctems_override:
-      vdom:  "{{ vdom }}"
+- name: Configure FortiClient Enterprise Management Server (EMS) entries.
+  fortinet.fortios.fortios_endpoint_control_fctems_override:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       endpoint_control_fctems_override:
-        call_timeout: "30"
-        capabilities: "fabric-auth"
-        cloud_server_type: "production"
-        dirty_reason: "none"
-        ems_id: "<you_own_value>"
-        fortinetone_cloud_authentication: "enable"
-        https_port: "443"
-        interface: "<your_own_value> (source system.interface.name)"
-        interface_select_method: "auto"
-        name: "default_name_12"
-        out_of_sync_threshold: "180"
-        preserve_ssl_session: "enable"
-        pull_avatars: "enable"
-        pull_malware_hash: "enable"
-        pull_sysinfo: "enable"
-        pull_tags: "enable"
-        pull_vulnerabilities: "enable"
-        serial_number: "<your_own_value>"
-        server: "192.168.100.40"
-        source_ip: "84.230.14.43"
-        status: "enable"
-        tenant_id: "<your_own_value>"
-        trust_ca_cn: "enable"
-        websocket_override: "disable"
-
+          call_timeout: "30"
+          capabilities: "fabric-auth"
+          cloud_server_type: "production"
+          dirty_reason: "none"
+          ems_id: "<you_own_value>"
+          fortinetone_cloud_authentication: "enable"
+          https_port: "443"
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "auto"
+          name: "default_name_12"
+          out_of_sync_threshold: "180"
+          preserve_ssl_session: "enable"
+          pull_avatars: "enable"
+          pull_malware_hash: "enable"
+          pull_sysinfo: "enable"
+          pull_tags: "enable"
+          pull_vulnerabilities: "enable"
+          serial_number: "<your_own_value>"
+          server: "192.168.100.40"
+          source_ip: "84.230.14.43"
+          status: "enable"
+          tenant_id: "<your_own_value>"
+          trust_ca_cn: "enable"
+          websocket_override: "disable"
 """
 
 RETURN = """
@@ -341,7 +330,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -510,178 +498,100 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "ems_id": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-            "required": True,
-        },
+        "ems_id": {"v_range": [["v7.4.0", ""]], "type": "integer", "required": True},
         "status": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "name": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "name": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "dirty_reason": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "none", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {
-                    "value": "mismatched-ems-sn",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
-            ],
+            "options": [{"value": "none"}, {"value": "mismatched-ems-sn"}],
         },
         "fortinetone_cloud_authentication": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "server": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
-        "https_port": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-        },
-        "serial_number": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "string",
-        },
-        "tenant_id": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
-        "source_ip": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "server": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "https_port": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "serial_number": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "tenant_id": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "source_ip": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "pull_sysinfo": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "pull_vulnerabilities": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "pull_avatars": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "pull_tags": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "pull_malware_hash": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "capabilities": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "list",
             "options": [
-                {"value": "fabric-auth", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {
-                    "value": "silent-approval",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
-                {"value": "websocket", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {
-                    "value": "websocket-malware",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
-                {
-                    "value": "push-ca-certs",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
-                {
-                    "value": "common-tags-api",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
-                {"value": "tenant-id", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {
-                    "value": "client-avatars",
-                    "revisions": {"v7.4.1": True, "v7.4.0": False},
-                },
-                {
-                    "value": "single-vdom-connector",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                },
+                {"value": "fabric-auth"},
+                {"value": "silent-approval"},
+                {"value": "websocket"},
+                {"value": "websocket-malware"},
+                {"value": "push-ca-certs"},
+                {"value": "common-tags-api"},
+                {"value": "tenant-id"},
+                {"value": "client-avatars", "v_range": [["v7.4.1", ""]]},
+                {"value": "single-vdom-connector"},
             ],
             "multiple_values": True,
             "elements": "str",
         },
-        "call_timeout": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-        },
-        "out_of_sync_threshold": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-        },
+        "call_timeout": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "out_of_sync_threshold": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "websocket_override": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "preserve_ssl_session": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "interface_select_method": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "auto", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "sdwan", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "specify", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
-        "interface": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "interface": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "trust_ca_cn": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "cloud_server_type": {
-            "revisions": {"v7.4.0": True},
+            "v_range": [["v7.4.0", "v7.4.0"]],
             "type": "string",
-            "options": [
-                {"value": "production", "revisions": {"v7.4.0": True}},
-                {"value": "alpha", "revisions": {"v7.4.0": True}},
-                {"value": "beta", "revisions": {"v7.4.0": True}},
-            ],
+            "options": [{"value": "production"}, {"value": "alpha"}, {"value": "beta"}],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
 }
 
 

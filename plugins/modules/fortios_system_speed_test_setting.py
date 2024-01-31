@@ -92,23 +92,12 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure speed test setting.
-    fortios_system_speed_test_setting:
-      vdom:  "{{ vdom }}"
+- name: Configure speed test setting.
+  fortinet.fortios.fortios_system_speed_test_setting:
+      vdom: "{{ vdom }}"
       system_speed_test_setting:
-        latency_threshold: "60"
-        multiple_tcp_stream: "4"
-
+          latency_threshold: "60"
+          multiple_tcp_stream: "4"
 """
 
 RETURN = """
@@ -167,7 +156,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -258,11 +246,11 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
     "type": "dict",
     "children": {
-        "latency_threshold": {"revisions": {"v7.4.1": True}, "type": "integer"},
-        "multiple_tcp_stream": {"revisions": {"v7.4.1": True}, "type": "integer"},
+        "latency_threshold": {"v_range": [["v7.4.1", ""]], "type": "integer"},
+        "multiple_tcp_stream": {"v_range": [["v7.4.1", ""]], "type": "integer"},
     },
 }
 

@@ -120,30 +120,19 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Registered FortiClient list.
-    fortios_endpoint_control_registered_forticlient:
-      vdom:  "{{ vdom }}"
+- name: Registered FortiClient list.
+  fortinet.fortios.fortios_endpoint_control_registered_forticlient:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       endpoint_control_registered_forticlient:
-        flag: "32767"
-        ip: "<your_own_value>"
-        mac: "<your_own_value>"
-        reg_fortigate: "<your_own_value>"
-        status: "32767"
-        uid: "<your_own_value>"
-        vdom: "<your_own_value>"
-
+          flag: "32767"
+          ip: "<your_own_value>"
+          mac: "<your_own_value>"
+          reg_fortigate: "<your_own_value>"
+          status: "32767"
+          uid: "<your_own_value>"
+          vdom: "<your_own_value>"
 """
 
 RETURN = """
@@ -202,7 +191,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -376,7 +364,7 @@ def fortios_endpoint_control(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("endpoint_control_registered_forticlient")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -391,37 +379,15 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "uid": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-            "required": True,
-        },
-        "vdom": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "ip": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "mac": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
-        "status": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        },
-        "flag": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "integer",
-        },
-        "reg_fortigate": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "uid": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string", "required": True},
+        "vdom": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "ip": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "mac": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "status": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
+        "flag": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
+        "reg_fortigate": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

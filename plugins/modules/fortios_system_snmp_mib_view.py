@@ -106,26 +106,15 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: SNMP Access Control MIB View configuration.
-    fortios_system_snmp_mib_view:
-      vdom:  "{{ vdom }}"
+- name: SNMP Access Control MIB View configuration.
+  fortinet.fortios.fortios_system_snmp_mib_view:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       system_snmp_mib_view:
-        exclude: "<your_own_value>"
-        include: "<your_own_value>"
-        name: "default_name_5"
-
+          exclude: "<your_own_value>"
+          include: "<your_own_value>"
+          name: "default_name_5"
 """
 
 RETURN = """
@@ -184,7 +173,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -318,53 +306,21 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v7.2.0", ""]], "type": "string", "required": True},
         "include": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
+            "v_range": [["v7.2.0", ""]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",
         },
         "exclude": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.4": True,
-                "v7.2.2": True,
-                "v7.2.1": True,
-                "v7.2.0": True,
-            },
+            "v_range": [["v7.2.0", ""]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",
         },
     },
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v7.2.4": True,
-        "v7.2.2": True,
-        "v7.2.1": True,
-        "v7.2.0": True,
-    },
+    "v_range": [["v7.2.0", ""]],
 }
 
 

@@ -106,26 +106,15 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Names of VLANs that use captive portal authentication.
-    fortios_switch_controller_security_policy_captive_portal:
-      vdom:  "{{ vdom }}"
+- name: Names of VLANs that use captive portal authentication.
+  fortinet.fortios.fortios_switch_controller_security_policy_captive_portal:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_security_policy_captive_portal:
-        name: "default_name_3"
-        policy_type: "captive-portal"
-        vlan: "<your_own_value> (source system.interface.name)"
-
+          name: "default_name_3"
+          policy_type: "captive-portal"
+          vlan: "<your_own_value> (source system.interface.name)"
 """
 
 RETURN = """
@@ -184,7 +173,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -365,7 +353,7 @@ def fortios_switch_controller_security_policy(data, fos, check_mode):
             msg="missing task body: %s"
             % ("switch_controller_security_policy_captive_portal")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -381,46 +369,21 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "required": True,
         },
         "vlan": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "policy_type": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "captive-portal",
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                }
-            ],
+            "options": [{"value": "captive-portal"}],
         },
     },
-    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
 }
 
 

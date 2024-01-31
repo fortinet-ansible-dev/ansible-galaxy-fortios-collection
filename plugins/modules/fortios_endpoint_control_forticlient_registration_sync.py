@@ -100,25 +100,14 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure FortiClient registration synchronization settings.
-    fortios_endpoint_control_forticlient_registration_sync:
-      vdom:  "{{ vdom }}"
+- name: Configure FortiClient registration synchronization settings.
+  fortinet.fortios.fortios_endpoint_control_forticlient_registration_sync:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       endpoint_control_forticlient_registration_sync:
-        peer_ip: "<your_own_value>"
-        peer_name: "<your_own_value>"
-
+          peer_ip: "<your_own_value>"
+          peer_name: "<your_own_value>"
 """
 
 RETURN = """
@@ -177,7 +166,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -358,7 +346,7 @@ def fortios_endpoint_control(data, fos, check_mode):
             msg="missing task body: %s"
             % ("endpoint_control_forticlient_registration_sync")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -374,16 +362,13 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "peer_name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
             "required": True,
         },
-        "peer_ip": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "peer_ip": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

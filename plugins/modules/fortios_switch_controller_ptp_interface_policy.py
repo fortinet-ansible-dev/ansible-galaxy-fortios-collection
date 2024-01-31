@@ -108,27 +108,16 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: PTP interface-policy configuration.
-    fortios_switch_controller_ptp_interface_policy:
-      vdom:  "{{ vdom }}"
+- name: PTP interface-policy configuration.
+  fortinet.fortios.fortios_switch_controller_ptp_interface_policy:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_ptp_interface_policy:
-        description: "<your_own_value>"
-        name: "default_name_4"
-        vlan: "<your_own_value> (source system.interface.name)"
-        vlan_pri: "4"
-
+          description: "<your_own_value>"
+          name: "default_name_4"
+          vlan: "<your_own_value> (source system.interface.name)"
+          vlan_pri: "4"
 """
 
 RETURN = """
@@ -187,7 +176,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -301,12 +289,12 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.1": True}, "type": "string", "required": True},
-        "description": {"revisions": {"v7.4.1": True}, "type": "string"},
-        "vlan": {"revisions": {"v7.4.1": True}, "type": "string"},
-        "vlan_pri": {"revisions": {"v7.4.1": True}, "type": "integer"},
+        "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "description": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "vlan": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "vlan_pri": {"v_range": [["v7.4.1", ""]], "type": "integer"},
     },
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
 }
 
 

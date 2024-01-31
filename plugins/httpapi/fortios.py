@@ -36,7 +36,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.4'
+        self._ansible_galaxy_version = '2.3.5'
         self._log = None
         self._logged_in = False
         self._session_key = ''
@@ -150,6 +150,7 @@ class HttpApi(HttpApiBase):
         access_token = self.get_access_token()
         if access_token is not None:
             self.log('using access token - no auth update needed: %s' % access_token)
+            headers["Authorization"] = "Bearer " + access_token
             return headers
 
         cookie_dict = {}
@@ -221,6 +222,7 @@ class HttpApi(HttpApiBase):
         url = message_kwargs.get('url', '/')
         if self.get_access_token() is not None:
             url = self._concat_token(message_kwargs.get('url', '/'))
+
         data = message_kwargs.get('data', '')
         method = message_kwargs.get('method', 'GET')
         params = message_kwargs.get('params', {})

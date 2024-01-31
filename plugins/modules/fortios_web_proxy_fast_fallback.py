@@ -123,28 +123,17 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Proxy destination connection fast-fallback.
-    fortios_web_proxy_fast_fallback:
-      vdom:  "{{ vdom }}"
+- name: Proxy destination connection fast-fallback.
+  fortinet.fortios.fortios_web_proxy_fast_fallback:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       web_proxy_fast_fallback:
-        connection_mode: "sequentially"
-        connection_timeout: "200"
-        name: "default_name_5"
-        protocol: "IPv4-first"
-        status: "enable"
-
+          connection_mode: "sequentially"
+          connection_timeout: "200"
+          name: "default_name_5"
+          protocol: "IPv4-first"
+          status: "enable"
 """
 
 RETURN = """
@@ -203,7 +192,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -312,36 +300,30 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.1": True}, "type": "string", "required": True},
+        "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
         "status": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "connection_mode": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "sequentially", "revisions": {"v7.4.1": True}},
-                {"value": "simultaneously", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "sequentially"}, {"value": "simultaneously"}],
         },
         "protocol": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
             "options": [
-                {"value": "IPv4-first", "revisions": {"v7.4.1": True}},
-                {"value": "IPv6-first", "revisions": {"v7.4.1": True}},
-                {"value": "IPv4-only", "revisions": {"v7.4.1": True}},
-                {"value": "IPv6-only", "revisions": {"v7.4.1": True}},
+                {"value": "IPv4-first"},
+                {"value": "IPv6-first"},
+                {"value": "IPv4-only"},
+                {"value": "IPv6-only"},
             ],
         },
-        "connection_timeout": {"revisions": {"v7.4.1": True}, "type": "integer"},
+        "connection_timeout": {"v_range": [["v7.4.1", ""]], "type": "integer"},
     },
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
 }
 
 

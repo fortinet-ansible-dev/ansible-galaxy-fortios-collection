@@ -118,29 +118,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure endpoint control client lists.
-    fortios_endpoint_control_client:
-      vdom:  "{{ vdom }}"
+- name: Configure endpoint control client lists.
+  fortinet.fortios.fortios_endpoint_control_client:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       endpoint_control_client:
-        ad_groups: "<your_own_value>"
-        ftcl_uid: "<your_own_value>"
-        id:  "5"
-        info: "<your_own_value>"
-        src_ip: "<your_own_value>"
-        src_mac: "<your_own_value>"
-
+          ad_groups: "<your_own_value>"
+          ftcl_uid: "<your_own_value>"
+          id: "5"
+          info: "<your_own_value>"
+          src_ip: "<your_own_value>"
+          src_mac: "<your_own_value>"
 """
 
 RETURN = """
@@ -199,7 +188,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -358,7 +346,7 @@ def fortios_endpoint_control(data, fos, check_mode):
         resp = endpoint_control_client(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("endpoint_control_client"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -374,62 +362,32 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "id": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "integer",
             "required": True,
         },
         "ftcl_uid": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "src_ip": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "src_mac": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "info": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
         "ad_groups": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
     },
-    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
 }
 
 

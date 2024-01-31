@@ -125,30 +125,19 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure device access control lists.
-    fortios_user_device_access_list:
-      vdom:  "{{ vdom }}"
+- name: Configure device access control lists.
+  fortinet.fortios.fortios_user_device_access_list:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       user_device_access_list:
-        default_action: "accept"
-        device_list:
-         -
-            action: "accept"
-            device: "<your_own_value> (source user.device.alias user.device-group.name user.device-category.name)"
-            id:  "7"
-        name: "default_name_8"
-
+          default_action: "accept"
+          device_list:
+              -
+                  action: "accept"
+                  device: "<your_own_value> (source user.device.alias user.device-group.name user.device-category.name)"
+                  id: "7"
+          name: "default_name_8"
 """
 
 RETURN = """
@@ -207,7 +196,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -366,7 +354,7 @@ def fortios_user(data, fos, check_mode):
         resp = user_device_access_list(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("user_device_access_list"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -382,64 +370,35 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
             "required": True,
         },
         "default_action": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "accept",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "deny",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "accept"}, {"value": "deny"}],
         },
         "device_list": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "integer",
                     "required": True,
                 },
-                "device": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                    "type": "string",
-                },
+                "device": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
                 "action": {
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+                    "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "accept",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                        {
-                            "value": "deny",
-                            "revisions": {
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
-                        },
-                    ],
+                    "options": [{"value": "accept"}, {"value": "deny"}],
                 },
             },
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
         },
     },
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
 }
 
 

@@ -134,30 +134,19 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Global PTP profile.
-    fortios_switch_controller_ptp_profile:
-      vdom:  "{{ vdom }}"
+- name: Global PTP profile.
+  fortinet.fortios.fortios_switch_controller_ptp_profile:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_ptp_profile:
-        description: "<your_own_value>"
-        domain: "254"
-        mode: "transparent-e2e"
-        name: "default_name_6"
-        pdelay_req_interval: "1sec"
-        ptp_profile: "C37.238-2017"
-        transport: "l2-mcast"
-
+          description: "<your_own_value>"
+          domain: "254"
+          mode: "transparent-e2e"
+          name: "default_name_6"
+          pdelay_req_interval: "1sec"
+          ptp_profile: "C37.238-2017"
+          transport: "l2-mcast"
 """
 
 RETURN = """
@@ -216,7 +205,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -331,41 +319,38 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"revisions": {"v7.4.1": True}, "type": "string", "required": True},
-        "description": {"revisions": {"v7.4.1": True}, "type": "string"},
+        "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "description": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "mode": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [
-                {"value": "transparent-e2e", "revisions": {"v7.4.1": True}},
-                {"value": "transparent-p2p", "revisions": {"v7.4.1": True}},
-            ],
+            "options": [{"value": "transparent-e2e"}, {"value": "transparent-p2p"}],
         },
         "ptp_profile": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [{"value": "C37.238-2017", "revisions": {"v7.4.1": True}}],
+            "options": [{"value": "C37.238-2017"}],
         },
         "transport": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
-            "options": [{"value": "l2-mcast", "revisions": {"v7.4.1": True}}],
+            "options": [{"value": "l2-mcast"}],
         },
-        "domain": {"revisions": {"v7.4.1": True}, "type": "integer"},
+        "domain": {"v_range": [["v7.4.1", ""]], "type": "integer"},
         "pdelay_req_interval": {
-            "revisions": {"v7.4.1": True},
+            "v_range": [["v7.4.1", ""]],
             "type": "string",
             "options": [
-                {"value": "1sec", "revisions": {"v7.4.1": True}},
-                {"value": "2sec", "revisions": {"v7.4.1": True}},
-                {"value": "4sec", "revisions": {"v7.4.1": True}},
-                {"value": "8sec", "revisions": {"v7.4.1": True}},
-                {"value": "16sec", "revisions": {"v7.4.1": True}},
-                {"value": "32sec", "revisions": {"v7.4.1": True}},
+                {"value": "1sec"},
+                {"value": "2sec"},
+                {"value": "4sec"},
+                {"value": "8sec"},
+                {"value": "16sec"},
+                {"value": "32sec"},
             ],
         },
     },
-    "revisions": {"v7.4.1": True},
+    "v_range": [["v7.4.1", ""]],
 }
 
 

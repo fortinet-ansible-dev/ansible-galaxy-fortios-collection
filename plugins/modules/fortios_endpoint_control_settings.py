@@ -168,37 +168,26 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure endpoint control settings.
-    fortios_endpoint_control_settings:
-      vdom:  "{{ vdom }}"
+- name: Configure endpoint control settings.
+  fortinet.fortios.fortios_endpoint_control_settings:
+      vdom: "{{ vdom }}"
       endpoint_control_settings:
-        download_custom_link: "<your_own_value>"
-        download_location: "fortiguard"
-        forticlient_avdb_update_interval: "12"
-        forticlient_dereg_unsupported_client: "enable"
-        forticlient_disconnect_unsupported_client: "enable"
-        forticlient_ems_rest_api_call_timeout: "15000"
-        forticlient_keepalive_interval: "150"
-        forticlient_offline_grace: "enable"
-        forticlient_offline_grace_interval: "300"
-        forticlient_reg_key: "<your_own_value>"
-        forticlient_reg_key_enforce: "enable"
-        forticlient_reg_timeout: "90"
-        forticlient_sys_update_interval: "720"
-        forticlient_user_avatar: "enable"
-        forticlient_warning_interval: "12"
-        override: "enable"
-
+          download_custom_link: "<your_own_value>"
+          download_location: "fortiguard"
+          forticlient_avdb_update_interval: "12"
+          forticlient_dereg_unsupported_client: "enable"
+          forticlient_disconnect_unsupported_client: "enable"
+          forticlient_ems_rest_api_call_timeout: "15000"
+          forticlient_keepalive_interval: "150"
+          forticlient_offline_grace: "enable"
+          forticlient_offline_grace_interval: "300"
+          forticlient_reg_key: "<your_own_value>"
+          forticlient_reg_key_enforce: "enable"
+          forticlient_reg_timeout: "90"
+          forticlient_sys_update_interval: "720"
+          forticlient_user_avatar: "enable"
+          forticlient_warning_interval: "12"
+          override: "enable"
 """
 
 RETURN = """
@@ -257,7 +246,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -365,213 +353,72 @@ def fortios_endpoint_control(data, fos):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.4.1": True,
-        "v7.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.3": True,
-        "v6.2.0": True,
-        "v6.0.5": True,
-        "v6.0.11": True,
-        "v6.0.0": True,
-    },
+    "v_range": [["v6.0.0", "v6.2.7"], ["v7.4.0", ""]],
     "type": "dict",
     "children": {
         "override": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v6.2.7": False,
-                "v6.2.5": False,
-                "v6.2.3": False,
-                "v6.2.0": False,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "forticlient_keepalive_interval": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.2.7"]],
             "type": "integer",
         },
         "forticlient_sys_update_interval": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.2.7"]],
             "type": "integer",
         },
         "forticlient_user_avatar": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.2.7"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "forticlient_disconnect_unsupported_client": {
-            "revisions": {
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.3": True,
-                "v6.2.0": True,
-                "v6.0.5": False,
-                "v6.0.11": False,
-                "v6.0.0": False,
-            },
+            "v_range": [["v6.2.0", "v6.2.7"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
-                },
-                {
-                    "value": "disable",
-                    "revisions": {
-                        "v6.2.7": True,
-                        "v6.2.5": True,
-                        "v6.2.3": True,
-                        "v6.2.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "forticlient_reg_key_enforce": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "forticlient_reg_key": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "forticlient_reg_key": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "forticlient_reg_timeout": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "integer",
         },
-        "download_custom_link": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "download_custom_link": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "download_location": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "fortiguard",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "custom",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "fortiguard"}, {"value": "custom"}],
         },
         "forticlient_offline_grace": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "forticlient_offline_grace_interval": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "integer",
         },
         "forticlient_avdb_update_interval": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "integer",
         },
         "forticlient_warning_interval": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "integer",
         },
         "forticlient_dereg_unsupported_client": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "forticlient_ems_rest_api_call_timeout": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "integer",
         },
     },

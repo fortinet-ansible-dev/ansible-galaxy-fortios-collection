@@ -87,22 +87,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: List PoE end-points status.
-    fortios_switch_controller_poe:
-      vdom:  "{{ vdom }}"
+- name: List PoE end-points status.
+  fortinet.fortios.fortios_switch_controller_poe:
+      vdom: "{{ vdom }}"
       switch_controller_poe:
-        fortiswitch_id: "<your_own_value>"
-
+          fortiswitch_id: "<your_own_value>"
 """
 
 RETURN = """
@@ -161,7 +150,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -274,16 +262,15 @@ def fortios_switch_controller(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v6.4.1": True, "v6.2.7": True, "v6.2.5": True, "v6.2.0": True},
+    "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v6.2.7"], ["v6.4.1", "v6.4.1"]],
     "type": "dict",
     "children": {
         "fortiswitch_id": {
-            "revisions": {
-                "v6.4.1": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.0": True,
-            },
+            "v_range": [
+                ["v6.2.0", "v6.2.0"],
+                ["v6.2.5", "v6.2.7"],
+                ["v6.4.1", "v6.4.1"],
+            ],
             "type": "string",
         }
     },

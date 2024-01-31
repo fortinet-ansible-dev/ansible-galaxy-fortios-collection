@@ -146,34 +146,23 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure ingress ACL policies to be applied on managed FortiSwitch ports.
-    fortios_switch_controller_acl_ingress:
-      vdom:  "{{ vdom }}"
+- name: Configure ingress ACL policies to be applied on managed FortiSwitch ports.
+  fortinet.fortios.fortios_switch_controller_acl_ingress:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_acl_ingress:
-        action:
-            count: "enable"
-            drop: "enable"
-        classifier:
-            dst_ip_prefix: "<your_own_value>"
-            dst_mac: "<your_own_value>"
-            src_ip_prefix: "<your_own_value>"
-            src_mac: "<your_own_value>"
-            vlan: "0"
-        description: "<your_own_value>"
-        id:  "13"
-
+          action:
+              count: "enable"
+              drop: "enable"
+          classifier:
+              dst_ip_prefix: "<your_own_value>"
+              dst_mac: "<your_own_value>"
+              src_ip_prefix: "<your_own_value>"
+              src_mac: "<your_own_value>"
+              vlan: "0"
+          description: "<your_own_value>"
+          id: "13"
 """
 
 RETURN = """
@@ -232,7 +221,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -339,77 +327,37 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "integer",
-            "required": True,
-        },
-        "description": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "string",
-        },
+        "id": {"v_range": [["v7.4.0", ""]], "type": "integer", "required": True},
+        "description": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "action": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "dict",
             "children": {
                 "drop": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "count": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
             },
         },
         "classifier": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "dict",
             "children": {
-                "dst_ip_prefix": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "dst_mac": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "src_ip_prefix": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "src_mac": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "vlan": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
+                "dst_ip_prefix": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "dst_mac": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "src_ip_prefix": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "src_mac": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "vlan": {"v_range": [["v7.4.0", ""]], "type": "integer"},
             },
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
 }
 
 

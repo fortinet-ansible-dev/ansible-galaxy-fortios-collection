@@ -137,35 +137,24 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure device groups.
-    fortios_user_device_group:
-      vdom:  "{{ vdom }}"
+- name: Configure device groups.
+  fortinet.fortios.fortios_user_device_group:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       user_device_group:
-        comment: "Comment."
-        member:
-         -
-            name: "default_name_5 (source user.device.alias user.device-category.name)"
-        name: "default_name_6"
-        tagging:
-         -
-            category: "<your_own_value> (source system.object-tagging.category)"
-            name: "default_name_9"
-            tags:
-             -
-                name: "default_name_11 (source system.object-tagging.tags.name)"
-
+          comment: "Comment."
+          member:
+              -
+                  name: "default_name_5 (source user.device.alias user.device-category.name)"
+          name: "default_name_6"
+          tagging:
+              -
+                  category: "<your_own_value> (source system.object-tagging.category)"
+                  name: "default_name_9"
+                  tags:
+                      -
+                          name: "default_name_11 (source system.object-tagging.tags.name)"
 """
 
 RETURN = """
@@ -224,7 +213,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -381,7 +369,7 @@ def fortios_user(data, fos, check_mode):
         resp = user_device_group(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("user_device_group"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -397,12 +385,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
             "required": True,
         },
@@ -411,44 +394,24 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
         },
         "tagging": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                     "required": True,
                 },
                 "category": {
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                     "type": "string",
                 },
                 "tags": {
@@ -456,42 +419,22 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "revisions": {
-                                "v6.2.3": True,
-                                "v6.0.5": True,
-                                "v6.0.11": True,
-                                "v6.0.0": True,
-                            },
+                            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {
-                        "v6.2.3": True,
-                        "v6.0.5": True,
-                        "v6.0.11": True,
-                        "v6.0.0": True,
-                    },
+                    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                 },
             },
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
         },
         "comment": {
-            "revisions": {
-                "v6.2.3": True,
-                "v6.0.5": True,
-                "v6.0.11": True,
-                "v6.0.0": True,
-            },
+            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "string",
         },
     },
-    "revisions": {"v6.2.3": True, "v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
 }
 
 

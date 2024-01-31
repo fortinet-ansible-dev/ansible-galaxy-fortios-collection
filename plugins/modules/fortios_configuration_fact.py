@@ -1592,66 +1592,56 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigateslab
-  connection: httpapi
-  collections:
-    - fortinet.fortios
-  vars:
-    ansible_httpapi_use_ssl: yes
-    ansible_httpapi_validate_certs: no
-    ansible_httpapi_port: 443
-    vdom: "root"
-  tasks:
-  - name: Get multiple selectors info concurrently
-    fortios_configuration_fact:
+- name: Get multiple selectors info concurrently
+  fortinet.fortios.fortios_configuration_fact:
       selectors:
-        - selector: firewall_address
-          params:
-            name: "gmail.com"
-        - selector: system_interface
-        - selector: log_eventfilter
-          params: {}
+          - selector: firewall_address
+            params:
+                name: "gmail.com"
+          - selector: system_interface
+          - selector: log_eventfilter
+            params: {}
 
-  - name: fact gathering
-    fortios_configuration_fact:
-        vdom: ""
-        filters:
-            - name==port1
-            - vlanid==0
-        sorters:
-            - name,vlanid
-            - management-ip
-        formatters:
-         - name
-         - management-ip
-         - vlanid
-        selector: 'system_interface'
+- name: fact gathering
+  fortinet.fortios.fortios_configuration_fact:
+      vdom: root
+      filters:
+          - name==port1
+          - vlanid==0
+      sorters:
+          - name,vlanid
+          - management-ip
+      formatters:
+          - name
+          - management-ip
+          - vlanid
+      selector: 'system_interface'
 
-  - name: get all
-    fortios_configuration_fact:
-      vdom: ""
+- name: get all
+  fortinet.fortios.fortios_configuration_fact:
+      vdom: root
       access_token: ""
       selector: log_custom-field
 
-  - name: get single
-    fortios_configuration_fact:
-      vdom: ""
+- name: get single
+  fortinet.fortios.fortios_configuration_fact:
+      vdom: root
       access_token: ""
       selector: log_custom-field
-      #optionally list or single get
       params:
-        id: "3"
+          id: "3"
 
-  - name: fetch one firewall address
-    fortios_configuration_fact:
+- name: fetch one firewall address
+  fortinet.fortios.fortios_configuration_fact:
       selector: firewall_address
       params:
-        name: "login.microsoft.com"
+          name: "login.microsoft.com"
 
-  - name: fetch all firewall addresses
-    fortios_configuration_fact:
+- name: fetch all firewall addresses
+  fortinet.fortios.fortios_configuration_fact:
       selector: firewall_address
 """
+
 RETURN = """
 build:
   description: Build number of the fortigate image
@@ -1704,6 +1694,7 @@ ansible_facts:
   type: dict
 
 """
+
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios import (

@@ -134,30 +134,19 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure integrated NAC settings for FortiSwitch.
-    fortios_switch_controller_nac_settings:
-      vdom:  "{{ vdom }}"
+- name: Configure integrated NAC settings for FortiSwitch.
+  fortinet.fortios.fortios_switch_controller_nac_settings:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_nac_settings:
-        auto_auth: "disable"
-        bounce_nac_port: "disable"
-        inactive_timer: "720"
-        link_down_flush: "disable"
-        mode: "local"
-        name: "default_name_8"
-        onboarding_vlan: "<your_own_value> (source system.interface.name)"
-
+          auto_auth: "disable"
+          bounce_nac_port: "disable"
+          inactive_timer: "720"
+          link_down_flush: "disable"
+          mode: "local"
+          name: "default_name_8"
+          onboarding_vlan: "<your_own_value> (source system.interface.name)"
 """
 
 RETURN = """
@@ -216,7 +205,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -391,7 +379,7 @@ def fortios_switch_controller(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("switch_controller_nac_settings")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -406,77 +394,31 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string", "required": True},
         "mode": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "local",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-                {
-                    "value": "global",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-            ],
+            "options": [{"value": "local"}, {"value": "global"}],
         },
-        "inactive_timer": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "integer",
-        },
-        "onboarding_vlan": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-            "type": "string",
-        },
+        "inactive_timer": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "integer"},
+        "onboarding_vlan": {"v_range": [["v6.4.0", "v6.4.4"]], "type": "string"},
         "auto_auth": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "bounce_nac_port": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "link_down_flush": {
-            "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.4"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-                {
-                    "value": "enable",
-                    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
-                },
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
     },
-    "revisions": {"v6.4.4": True, "v6.4.1": True, "v6.4.0": True},
+    "v_range": [["v6.4.0", "v6.4.4"]],
 }
 
 

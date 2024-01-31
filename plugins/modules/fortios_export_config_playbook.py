@@ -1596,27 +1596,18 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigateslab
-  connection: httpapi
-  collections:
-    - fortinet.fortios
-  vars:
-    ansible_httpapi_use_ssl: yes
-    ansible_httpapi_validate_certs: no
-    ansible_httpapi_port: 443
-    vdom: "root"
-  tasks:
-  - name: Will generate the playbooks for each selector/module.
-    fortios_export_config_playbook:
+- name: Will generate the playbooks for each selector/module.
+  fortinet.fortios.fortios_export_config_playbook:
       selectors:
-      - selector: firewall_address
-        params:
-          name: "gmail.com"
-      - selector: system.snmp_user
-        params:
-          name: "snmp_user_test"
+          - selector: firewall_address
+            params:
+                name: "gmail.com"
+          - selector: system.snmp_user
+            params:
+                name: "snmp_user_test"
       output_path: "./"
 """
+
 RETURN = """
 build:
   description: Build number of the fortigate image

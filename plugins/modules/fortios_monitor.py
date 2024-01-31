@@ -300,32 +300,21 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigate03
-  connection: httpapi
-  collections:
-  - fortinet.fortios
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
+- name: Activate FortiToken
+  fortinet.fortios.fortios_monitor:
+      vdom: "root"
+      access_token: "your_own_value"
+      selector: 'activate.user.fortitoken'
+      params:
+          tokens: '<token string>'
 
-  - name: Activate FortiToken
-    fortios_monitor:
-       vdom: "root"
-       access_token: "<fortios_access_token>"
-       selector: 'activate.user.fortitoken'
-       params:
-           tokens: '<token string>'
-
-  - name: Reboot This Device
-    fortios_monitor:
-       vdom: "root"
-       access_token: "<fortios_access_token>"
-       selector: 'reboot.system.os'
-       params:
-           event_log_message: 'Reboot Request From Ansible'
+- name: Reboot This Device
+  fortinet.fortios.fortios_monitor:
+      vdom: "root"
+      access_token: "you_own_value"
+      selector: 'reboot.system.os'
+      params:
+          event_log_message: 'Reboot Request From Ansible'
 """
 
 RETURN = """

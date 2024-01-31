@@ -445,37 +445,14 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigate03
-  connection: httpapi
-  collections:
-  - fortinet.fortios
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: get disk event user and memory event user at once.
-    fortios_log_fact:
-       enable_log: True
-       access_token: ""
-       selectors:
-         - selector: disk_event_user
-           filters:
-             - log_id==41000
-         - selector: memory_event_user
-
-  - name: Get system event log with logid==0100032038
-    fortios_log_fact:
-       filters:
-         - logid==0100032038
-       selector: "disk_event_system"
-       params:
-         rows: 100
-
-  - name: Get a description of the quarantined virus file
-    fortios_log_fact:
-       selector: "forticloud_virus_archive"
+- name: get disk event user and memory event user at once.
+  fortinet.fortios.fortios_log_fact:
+      access_token: "you_own_value"
+      selectors:
+          - selector: disk_event_user
+            filters:
+                - log_id==41000
+          - selector: memory_event_user
 """
 
 RETURN = """

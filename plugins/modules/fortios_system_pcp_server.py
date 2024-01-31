@@ -208,49 +208,38 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure PCP server information.
-    fortios_system_pcp_server:
-      vdom:  "{{ vdom }}"
+- name: Configure PCP server information.
+  fortinet.fortios.fortios_system_pcp_server:
+      vdom: "{{ vdom }}"
       system_pcp_server:
-        pools:
-         -
-            allow_opcode: "map"
-            announcement_count: "3"
-            arp_reply: "disable"
-            client_mapping_limit: "0"
-            client_subnet:
-             -
-                subnet: "<your_own_value>"
-            description: "<your_own_value>"
-            ext_intf: "<your_own_value> (source system.interface.name)"
-            extip: "<your_own_value>"
-            extport: "<your_own_value>"
-            id:  "14"
-            intl_intf:
-             -
-                interface_name: "<your_own_value> (source system.interface.name)"
-            mapping_filter_limit: "1"
-            maximal_lifetime: "86400"
-            minimal_lifetime: "120"
-            multicast_announcement: "enable"
-            name: "default_name_21"
-            recycle_delay: "0"
-            third_party: "allow"
-            third_party_subnet:
-             -
-                subnet: "<your_own_value>"
-        status: "enable"
-
+          pools:
+              -
+                  allow_opcode: "map"
+                  announcement_count: "3"
+                  arp_reply: "disable"
+                  client_mapping_limit: "0"
+                  client_subnet:
+                      -
+                          subnet: "<your_own_value>"
+                  description: "<your_own_value>"
+                  ext_intf: "<your_own_value> (source system.interface.name)"
+                  extip: "<your_own_value>"
+                  extport: "<your_own_value>"
+                  id: "14"
+                  intl_intf:
+                      -
+                          interface_name: "<your_own_value> (source system.interface.name)"
+                  mapping_filter_limit: "1"
+                  maximal_lifetime: "86400"
+                  minimal_lifetime: "120"
+                  multicast_announcement: "enable"
+                  name: "default_name_21"
+                  recycle_delay: "0"
+                  third_party: "allow"
+                  third_party_subnet:
+                      -
+                          subnet: "<your_own_value>"
+          status: "enable"
 """
 
 RETURN = """
@@ -309,7 +298,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -428,167 +416,104 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
     "type": "dict",
     "children": {
         "status": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "pools": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
                     "required": True,
                 },
-                "description": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "id": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
+                "description": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "id": {"v_range": [["v7.4.0", ""]], "type": "integer"},
                 "client_subnet": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "subnet": {
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                            "v_range": [["v7.4.0", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                 },
-                "ext_intf": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
+                "ext_intf": {"v_range": [["v7.4.0", ""]], "type": "string"},
                 "arp_reply": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                    ],
+                    "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "extip": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "extport": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "minimal_lifetime": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
-                "maximal_lifetime": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
+                "extip": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "extport": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "minimal_lifetime": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+                "maximal_lifetime": {"v_range": [["v7.4.0", ""]], "type": "integer"},
                 "client_mapping_limit": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "integer",
                 },
                 "mapping_filter_limit": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "integer",
                 },
                 "allow_opcode": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "list",
                     "options": [
-                        {"value": "map", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                        {
-                            "value": "peer",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "announce",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
+                        {"value": "map"},
+                        {"value": "peer"},
+                        {"value": "announce"},
                     ],
                     "multiple_values": True,
                     "elements": "str",
                 },
                 "third_party": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "allow",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "disallow",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                    ],
+                    "options": [{"value": "allow"}, {"value": "disallow"}],
                 },
                 "third_party_subnet": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "subnet": {
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                            "v_range": [["v7.4.0", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                 },
                 "multicast_announcement": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "announcement_count": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
+                "announcement_count": {"v_range": [["v7.4.0", ""]], "type": "integer"},
                 "intl_intf": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "interface_name": {
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
+                            "v_range": [["v7.4.0", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                 },
-                "recycle_delay": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
+                "recycle_delay": {"v_range": [["v7.4.0", ""]], "type": "integer"},
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
         },
     },
 }

@@ -168,38 +168,27 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: KMIP server entry configuration.
-    fortios_vpn_kmip_server:
-      vdom:  "{{ vdom }}"
+- name: KMIP server entry configuration.
+  fortinet.fortios.fortios_vpn_kmip_server:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       vpn_kmip_server:
-        interface: "<your_own_value> (source system.interface.name)"
-        interface_select_method: "auto"
-        name: "default_name_5"
-        password: "<your_own_value>"
-        server_identity_check: "enable"
-        server_list:
-         -
-            cert: "<your_own_value> (source vpn.certificate.local.name)"
-            id:  "10"
-            port: "5696"
-            server: "192.168.100.40"
-            status: "enable"
-        source_ip: "84.230.14.43"
-        ssl_min_proto_version: "default"
-        username: "<your_own_value>"
-
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "auto"
+          name: "default_name_5"
+          password: "<your_own_value>"
+          server_identity_check: "enable"
+          server_list:
+              -
+                  cert: "<your_own_value> (source vpn.certificate.local.name)"
+                  id: "10"
+                  port: "5696"
+                  server: "192.168.100.40"
+                  status: "enable"
+          source_ip: "84.230.14.43"
+          ssl_min_proto_version: "default"
+          username: "<your_own_value>"
 """
 
 RETURN = """
@@ -258,7 +247,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -369,84 +357,55 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
-            "type": "string",
-            "required": True,
-        },
+        "name": {"v_range": [["v7.4.0", ""]], "type": "string", "required": True},
         "server_list": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "integer",
                     "required": True,
                 },
                 "status": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
+                    "v_range": [["v7.4.0", ""]],
                     "type": "string",
-                    "options": [
-                        {
-                            "value": "enable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                        {
-                            "value": "disable",
-                            "revisions": {"v7.4.1": True, "v7.4.0": True},
-                        },
-                    ],
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "server": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
-                "port": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "integer",
-                },
-                "cert": {
-                    "revisions": {"v7.4.1": True, "v7.4.0": True},
-                    "type": "string",
-                },
+                "server": {"v_range": [["v7.4.0", ""]], "type": "string"},
+                "port": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+                "cert": {"v_range": [["v7.4.0", ""]], "type": "string"},
             },
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
         },
-        "username": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
-        "password": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "username": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "password": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "ssl_min_proto_version": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
             "options": [
-                {"value": "default", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "SSLv3", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "TLSv1", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "TLSv1-1", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "TLSv1-2", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "TLSv1-3", "revisions": {"v7.4.1": True, "v7.4.0": False}},
+                {"value": "default"},
+                {"value": "SSLv3"},
+                {"value": "TLSv1"},
+                {"value": "TLSv1-1"},
+                {"value": "TLSv1-2"},
+                {"value": "TLSv1-3", "v_range": [["v7.4.1", ""]]},
             ],
         },
         "server_identity_check": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "disable", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "interface_select_method": {
-            "revisions": {"v7.4.1": True, "v7.4.0": True},
+            "v_range": [["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "auto", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "sdwan", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-                {"value": "specify", "revisions": {"v7.4.1": True, "v7.4.0": True}},
-            ],
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
-        "interface": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
-        "source_ip": {"revisions": {"v7.4.1": True, "v7.4.0": True}, "type": "string"},
+        "interface": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "source_ip": {"v_range": [["v7.4.0", ""]], "type": "string"},
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True},
+    "v_range": [["v7.4.0", ""]],
 }
 
 

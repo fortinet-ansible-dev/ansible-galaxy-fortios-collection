@@ -101,24 +101,13 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure FortiGuard - AntiSpam.
-    fortios_spamfilter_fortishield:
-      vdom:  "{{ vdom }}"
+- name: Configure FortiGuard - AntiSpam.
+  fortinet.fortios.fortios_spamfilter_fortishield:
+      vdom: "{{ vdom }}"
       spamfilter_fortishield:
-        spam_submit_force: "enable"
-        spam_submit_srv: "<your_own_value>"
-        spam_submit_txt2htm: "enable"
-
+          spam_submit_force: "enable"
+          spam_submit_srv: "<your_own_value>"
+          spam_submit_txt2htm: "enable"
 """
 
 RETURN = """
@@ -177,7 +166,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -266,40 +254,19 @@ def fortios_spamfilter(data, fos):
 
 
 versioned_schema = {
-    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+    "v_range": [["v6.0.0", "v6.0.11"]],
     "type": "dict",
     "children": {
-        "spam_submit_srv": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-            "type": "string",
-        },
+        "spam_submit_srv": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
         "spam_submit_force": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "spam_submit_txt2htm": {
-            "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
+            "v_range": [["v6.0.0", "v6.0.11"]],
             "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-                {
-                    "value": "disable",
-                    "revisions": {"v6.0.5": True, "v6.0.11": True, "v6.0.0": True},
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
 }

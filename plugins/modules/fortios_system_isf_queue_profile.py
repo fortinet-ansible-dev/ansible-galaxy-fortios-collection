@@ -144,30 +144,19 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Create a queue profile of switch.
-    fortios_system_isf_queue_profile:
-      vdom:  "{{ vdom }}"
+- name: Create a queue profile of switch.
+  fortinet.fortios.fortios_system_isf_queue_profile:
+      vdom: "{{ vdom }}"
       state: "present"
       access_token: "<your_own_value>"
       system_isf_queue_profile:
-        bandwidth_unit: "kbps"
-        burst_bps_granularity: "disable"
-        burst_control: "disable"
-        burst_pps_granularity: "disable"
-        guaranteed_bandwidth: "0"
-        maximum_bandwidth: "0"
-        name: "default_name_9"
-
+          bandwidth_unit: "kbps"
+          burst_bps_granularity: "disable"
+          burst_control: "disable"
+          burst_pps_granularity: "disable"
+          guaranteed_bandwidth: "0"
+          maximum_bandwidth: "0"
+          name: "default_name_9"
 """
 
 RETURN = """
@@ -226,7 +215,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -395,7 +383,7 @@ def fortios_system(data, fos, check_mode):
         fos._module.fail_json(
             msg="missing task body: %s" % ("system_isf_queue_profile")
         )
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -411,158 +399,58 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.0": True,
-                "v6.4.0": True,
-            },
+            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
             "type": "string",
             "required": True,
         },
         "guaranteed_bandwidth": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.0": True,
-                "v6.4.0": True,
-            },
+            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
             "type": "integer",
         },
         "maximum_bandwidth": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.0": True,
-                "v6.4.0": True,
-            },
+            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
             "type": "integer",
         },
         "bandwidth_unit": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.0": True,
-                "v6.4.0": True,
-            },
+            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
             "type": "string",
-            "options": [
-                {
-                    "value": "kbps",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.0": True,
-                        "v6.4.0": True,
-                    },
-                },
-                {
-                    "value": "pps",
-                    "revisions": {
-                        "v7.4.1": True,
-                        "v7.4.0": True,
-                        "v7.2.0": True,
-                        "v6.4.0": True,
-                    },
-                },
-            ],
+            "options": [{"value": "kbps"}, {"value": "pps"}],
         },
         "burst_bps_granularity": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.0": True,
-                "v6.4.0": False,
-            },
+            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "512-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "1k-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "2k-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "4k-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "8k-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "16k-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "32k-bytes",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
+                {"value": "disable"},
+                {"value": "512-bytes"},
+                {"value": "1k-bytes"},
+                {"value": "2k-bytes"},
+                {"value": "4k-bytes"},
+                {"value": "8k-bytes"},
+                {"value": "16k-bytes"},
+                {"value": "32k-bytes"},
             ],
         },
         "burst_pps_granularity": {
-            "revisions": {
-                "v7.4.1": True,
-                "v7.4.0": True,
-                "v7.2.0": True,
-                "v6.4.0": False,
-            },
+            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
             "type": "string",
             "options": [
-                {
-                    "value": "disable",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "half-packet",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "1-packet",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "2-packets",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "4-packets",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "16-packets",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "65-packets",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
-                {
-                    "value": "262-packets",
-                    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True},
-                },
+                {"value": "disable"},
+                {"value": "half-packet"},
+                {"value": "1-packet"},
+                {"value": "2-packets"},
+                {"value": "4-packets"},
+                {"value": "16-packets"},
+                {"value": "65-packets"},
+                {"value": "262-packets"},
             ],
         },
         "burst_control": {
-            "revisions": {"v6.4.0": True},
+            "v_range": [["v6.4.0", "v6.4.0"]],
             "type": "string",
-            "options": [
-                {"value": "disable", "revisions": {"v6.4.0": True}},
-                {"value": "enable", "revisions": {"v6.4.0": True}},
-            ],
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
     },
-    "revisions": {"v7.4.1": True, "v7.4.0": True, "v7.2.0": True, "v6.4.0": True},
+    "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
 }
 
 

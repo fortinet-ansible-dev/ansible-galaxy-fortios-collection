@@ -87,22 +87,11 @@ options:
 """
 
 EXAMPLES = """
-- hosts: fortigates
-  collections:
-    - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Display detailed FortiExtender system information.
-    fortios_extender_sys_info:
-      vdom:  "{{ vdom }}"
+- name: Display detailed FortiExtender system information.
+  fortinet.fortios.fortios_extender_sys_info:
+      vdom: "{{ vdom }}"
       extender_sys_info:
-        sn: "<your_own_value> (source extender-controller.extender.id)"
-
+          sn: "<your_own_value> (source extender-controller.extender.id)"
 """
 
 RETURN = """
@@ -161,7 +150,6 @@ version:
   returned: always
   type: str
   sample: "v5.6.3"
-
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
@@ -263,7 +251,7 @@ def fortios_extender(data, fos, check_mode):
         resp = extender_sys_info(data, fos, check_mode)
     else:
         fos._module.fail_json(msg="missing task body: %s" % ("extender_sys_info"))
-    if check_mode:
+    if isinstance(resp, tuple) and len(resp) == 4:
         return resp
     return (
         not is_successful_status(resp),
@@ -275,39 +263,15 @@ def fortios_extender(data, fos, check_mode):
 
 
 versioned_schema = {
-    "revisions": {
-        "v7.2.0": True,
-        "v7.0.5": True,
-        "v7.0.4": True,
-        "v7.0.3": True,
-        "v7.0.2": True,
-        "v7.0.1": True,
-        "v7.0.0": True,
-        "v6.4.4": True,
-        "v6.4.1": True,
-        "v6.4.0": True,
-        "v6.2.7": True,
-        "v6.2.5": True,
-        "v6.2.0": True,
-    },
+    "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
     "type": "dict",
     "children": {
         "sn": {
-            "revisions": {
-                "v7.2.0": True,
-                "v7.0.5": True,
-                "v7.0.4": True,
-                "v7.0.3": True,
-                "v7.0.2": True,
-                "v7.0.1": True,
-                "v7.0.0": True,
-                "v6.4.4": True,
-                "v6.4.1": True,
-                "v6.4.0": True,
-                "v6.2.7": True,
-                "v6.2.5": True,
-                "v6.2.0": True,
-            },
+            "v_range": [
+                ["v6.2.0", "v6.2.0"],
+                ["v6.2.5", "v7.0.5"],
+                ["v7.2.0", "v7.2.0"],
+            ],
             "type": "string",
         }
     },
