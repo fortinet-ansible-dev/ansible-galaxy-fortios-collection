@@ -121,7 +121,7 @@ def serialize(data):
         else:
             return sorted(data)
 
-    if isinstance(data[0], dict):
+    if isinstance(data, dict):
         result = {}
         for key, value in data.items():
             result[key] = serialize(value)
