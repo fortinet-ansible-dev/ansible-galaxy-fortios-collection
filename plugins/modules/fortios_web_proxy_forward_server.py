@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -120,6 +120,13 @@ options:
                 description:
                     - Forward proxy server IPv6 address.
                 type: str
+            masquerade:
+                description:
+                    - Enable/disable use of the of the IP address of the outgoing interface as the client IP address
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             monitor:
                 description:
                     - 'URL for forward server health check monitoring .'
@@ -164,8 +171,9 @@ EXAMPLES = """
           healthcheck: "disable"
           ip: "<your_own_value>"
           ipv6: "<your_own_value>"
+          masquerade: "enable"
           monitor: "<your_own_value>"
-          name: "default_name_10"
+          name: "default_name_11"
           password: "<your_own_value>"
           port: "3128"
           server_down_option: "block"
@@ -268,6 +276,7 @@ def filter_web_proxy_forward_server_data(json):
         "healthcheck",
         "ip",
         "ipv6",
+        "masquerade",
         "monitor",
         "name",
         "password",
@@ -305,9 +314,8 @@ def web_proxy_forward_server(data, fos, check_mode=False):
     state = data["state"]
 
     web_proxy_forward_server_data = data["web_proxy_forward_server"]
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_forward_server_data(web_proxy_forward_server_data)
-    )
+    filtered_data = filter_web_proxy_forward_server_data(web_proxy_forward_server_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -371,7 +379,7 @@ def web_proxy_forward_server(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("web-proxy", "forward-server", data=filtered_data, vdom=vdom)
+        return fos.set("web-proxy", "forward-server", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -444,6 +452,11 @@ versioned_schema = {
         "username": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "password": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "masquerade": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }

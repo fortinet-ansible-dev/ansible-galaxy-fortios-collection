@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -487,11 +487,10 @@ def wanopt_content_delivery_network_rule(data, fos, check_mode=False):
     wanopt_content_delivery_network_rule_data = data[
         "wanopt_content_delivery_network_rule"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_wanopt_content_delivery_network_rule_data(
-            wanopt_content_delivery_network_rule_data
-        )
+    filtered_data = filter_wanopt_content_delivery_network_rule_data(
+        wanopt_content_delivery_network_rule_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -560,7 +559,7 @@ def wanopt_content_delivery_network_rule(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "wanopt", "content-delivery-network-rule", data=filtered_data, vdom=vdom
+            "wanopt", "content-delivery-network-rule", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

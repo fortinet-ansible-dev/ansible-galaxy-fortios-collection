@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -124,6 +124,18 @@ options:
                 description:
                     - Name of certificate for SSL connections to this server . Source vpn.certificate.local.name.
                 type: str
+            ssl_cert_dict:
+                description:
+                    - List of certificate names to use for SSL connections to this server. . Use the parameter ssl_cert if the fortiOS firmware version <= 7.4
+                      .1
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_client_renegotiation:
                 description:
                     - Allow or block client renegotiation by server.
@@ -196,6 +208,9 @@ EXAMPLES = """
           port: "443"
           ssl_algorithm: "high"
           ssl_cert: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_cert_dict:
+              -
+                  name: "default_name_11 (source vpn.certificate.local.name)"
           ssl_client_renegotiation: "allow"
           ssl_dh_bits: "768"
           ssl_max_version: "tls-1.0"
@@ -302,6 +317,7 @@ def filter_firewall_ssl_server_data(json):
         "port",
         "ssl_algorithm",
         "ssl_cert",
+        "ssl_cert_dict",
         "ssl_client_renegotiation",
         "ssl_dh_bits",
         "ssl_max_version",
@@ -334,15 +350,39 @@ def underscore_to_hyphen(data):
     return data
 
 
+def remap_attribute_name(data):
+    speciallist = {"ssl-cert-dict": "ssl-cert"}
+
+    if data in speciallist:
+        return speciallist[data]
+    return data
+
+
+def remap_attribute_names(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = remap_attribute_names(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[remap_attribute_name(k)] = remap_attribute_names(v)
+        data = new_data
+
+    return data
+
+
 def firewall_ssl_server(data, fos, check_mode=False):
     vdom = data["vdom"]
 
     state = data["state"]
 
     firewall_ssl_server_data = data["firewall_ssl_server"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_ssl_server_data(firewall_ssl_server_data)
-    )
+    filtered_data = filter_firewall_ssl_server_data(firewall_ssl_server_data)
+    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = remap_attribute_names(converted_data)
 
     # check_mode starts from here
     if check_mode:
@@ -406,7 +446,7 @@ def firewall_ssl_server(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "ssl-server", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "ssl-server", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -463,7 +503,18 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "mapped_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "ssl_cert": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "ssl_cert_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -514,6 +565,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "ssl_cert": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

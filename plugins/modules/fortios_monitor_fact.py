@@ -445,6 +445,13 @@ options:
                  - 'extension-controller_lan-extension-vdom-status'
                  - 'user_proxy'
                  - 'user_proxy_count'
+                 - 'firewall_check-addrgrp-exclude-mac-member'
+                 - 'firewall_saas-application'
+                 - 'router_sdwan_routes'
+                 - 'router_sdwan_routes6'
+                 - 'router_sdwan_routes-statistics'
+                 - 'extender-controller_extender_modem-firmware'
+                 - 'user_radius_get-test-connect'
 
     selector:
         description:
@@ -770,6 +777,13 @@ options:
          - 'extension-controller_lan-extension-vdom-status'
          - 'user_proxy'
          - 'user_proxy_count'
+         - 'firewall_check-addrgrp-exclude-mac-member'
+         - 'firewall_saas-application'
+         - 'router_sdwan_routes'
+         - 'router_sdwan_routes6'
+         - 'router_sdwan_routes-statistics'
+         - 'extender-controller_extender_modem-firmware'
+         - 'user_radius_get-test-connect'
 
     params:
         description:
@@ -1830,6 +1844,7 @@ module_selectors_defs = {
             "timestamp_to": {"type": "int", "required": "False"},
             "filters": {"type": "array", "required": "False"},
             "query_type": {"type": "string", "required": "False"},
+            "view_type": {"type": "string", "required": "False"},
             "query_id": {"type": "int", "required": "False"},
             "cache_query": {"type": "boolean", "required": "False"},
             "key_only": {"type": "boolean", "required": "False"},
@@ -1926,6 +1941,7 @@ module_selectors_defs = {
             "scope": {"type": "string", "required": "False"},
             "search_tables": {"type": "array", "required": "False"},
             "skip_tables": {"type": "array", "required": "False"},
+            "exact": {"type": "boolean", "required": "False"},
         },
     },
     "switch-controller_managed-switch_status": {
@@ -2320,6 +2336,36 @@ module_selectors_defs = {
     },
     "user_proxy": {"url": "user/proxy", "params": {}},
     "user_proxy_count": {"url": "user/proxy/count", "params": {}},
+    "firewall_check-addrgrp-exclude-mac-member": {
+        "url": "firewall/check-addrgrp-exclude-mac-member",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "ip_version": {"type": "string", "required": "False"},
+        },
+    },
+    "firewall_saas-application": {"url": "firewall/saas-application", "params": {}},
+    "router_sdwan_routes": {"url": "router/sdwan/routes", "params": {}},
+    "router_sdwan_routes6": {"url": "router/sdwan/routes6", "params": {}},
+    "router_sdwan_routes-statistics": {
+        "url": "router/sdwan/routes-statistics",
+        "params": {"ip_version": {"type": "string", "required": "False"}},
+    },
+    "extender-controller_extender_modem-firmware": {
+        "url": "extender-controller/extender/modem-firmware",
+        "params": {"serial": {"type": "string", "required": "True"}},
+    },
+    "user_radius_get-test-connect": {
+        "url": "user/radius/get-test-connect",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "ordinal": {"type": "string", "required": "False"},
+            "server": {"type": "string", "required": "False"},
+            "secret": {"type": "string", "required": "False"},
+            "auth_type": {"type": "string", "required": "False"},
+            "user": {"type": "string", "required": "False"},
+            "password": {"type": "string", "required": "False"},
+        },
+    },
 }
 
 
@@ -2751,6 +2797,13 @@ def main():
                 "extension-controller_lan-extension-vdom-status",
                 "user_proxy",
                 "user_proxy_count",
+                "firewall_check-addrgrp-exclude-mac-member",
+                "firewall_saas-application",
+                "router_sdwan_routes",
+                "router_sdwan_routes6",
+                "router_sdwan_routes-statistics",
+                "extender-controller_extender_modem-firmware",
+                "user_radius_get-test-connect",
             ],
         },
         "selectors": {
@@ -3084,6 +3137,13 @@ def main():
                         "extension-controller_lan-extension-vdom-status",
                         "user_proxy",
                         "user_proxy_count",
+                        "firewall_check-addrgrp-exclude-mac-member",
+                        "firewall_saas-application",
+                        "router_sdwan_routes",
+                        "router_sdwan_routes6",
+                        "router_sdwan_routes-statistics",
+                        "extender-controller_extender_modem-firmware",
+                        "user_radius_get-test-connect",
                     ],
                 },
             },

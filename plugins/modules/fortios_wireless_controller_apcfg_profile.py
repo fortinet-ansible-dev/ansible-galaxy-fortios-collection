@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -165,7 +165,7 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       wireless_controller_apcfg_profile:
           ac_ip: "<your_own_value>"
-          ac_port: "0"
+          ac_port: "5246"
           ac_timer: "10"
           ac_type: "default"
           ap_family: "fap"
@@ -309,11 +309,10 @@ def wireless_controller_apcfg_profile(data, fos, check_mode=False):
     state = data["state"]
 
     wireless_controller_apcfg_profile_data = data["wireless_controller_apcfg_profile"]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_apcfg_profile_data(
-            wireless_controller_apcfg_profile_data
-        )
+    filtered_data = filter_wireless_controller_apcfg_profile_data(
+        wireless_controller_apcfg_profile_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -382,7 +381,7 @@ def wireless_controller_apcfg_profile(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "wireless-controller", "apcfg-profile", data=filtered_data, vdom=vdom
+            "wireless-controller", "apcfg-profile", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

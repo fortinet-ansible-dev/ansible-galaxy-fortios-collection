@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -246,11 +246,10 @@ def underscore_to_hyphen(data):
 def system_dedicated_mgmt(data, fos):
     vdom = data["vdom"]
     system_dedicated_mgmt_data = data["system_dedicated_mgmt"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_dedicated_mgmt_data(system_dedicated_mgmt_data)
-    )
+    filtered_data = filter_system_dedicated_mgmt_data(system_dedicated_mgmt_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "dedicated-mgmt", data=filtered_data, vdom=vdom)
+    return fos.set("system", "dedicated-mgmt", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

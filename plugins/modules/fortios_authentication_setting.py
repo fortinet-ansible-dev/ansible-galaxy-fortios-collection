@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -190,7 +190,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - CA certificate list. Source vpn.certificate.ca.name.
+                            - CA certificate list. Source vpn.certificate.ca.name vpn.certificate.local.name.
                         required: true
                         type: str
 """
@@ -224,7 +224,7 @@ EXAMPLES = """
           update_time: "<your_own_value>"
           user_cert_ca:
               -
-                  name: "default_name_25 (source vpn.certificate.ca.name)"
+                  name: "default_name_25 (source vpn.certificate.ca.name vpn.certificate.local.name)"
 """
 
 RETURN = """
@@ -357,11 +357,10 @@ def underscore_to_hyphen(data):
 def authentication_setting(data, fos):
     vdom = data["vdom"]
     authentication_setting_data = data["authentication_setting"]
-    filtered_data = underscore_to_hyphen(
-        filter_authentication_setting_data(authentication_setting_data)
-    )
+    filtered_data = filter_authentication_setting_data(authentication_setting_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("authentication", "setting", data=filtered_data, vdom=vdom)
+    return fos.set("authentication", "setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

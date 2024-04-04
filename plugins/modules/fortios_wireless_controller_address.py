@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -238,9 +238,10 @@ def wireless_controller_address(data, fos, check_mode=False):
     state = data["state"]
 
     wireless_controller_address_data = data["wireless_controller_address"]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_address_data(wireless_controller_address_data)
+    filtered_data = filter_wireless_controller_address_data(
+        wireless_controller_address_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -304,7 +305,7 @@ def wireless_controller_address(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("wireless-controller", "address", data=filtered_data, vdom=vdom)
+        return fos.set("wireless-controller", "address", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

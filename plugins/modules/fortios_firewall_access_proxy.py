@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -1550,12 +1550,11 @@ def firewall_access_proxy(data, fos):
     firewall_access_proxy_data = flatten_multilists_attributes(
         firewall_access_proxy_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_access_proxy_data(firewall_access_proxy_data)
-    )
+    filtered_data = filter_firewall_access_proxy_data(firewall_access_proxy_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("firewall", "access-proxy", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "access-proxy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

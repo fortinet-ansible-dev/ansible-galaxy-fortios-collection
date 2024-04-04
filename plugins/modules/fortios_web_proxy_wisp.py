@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -263,9 +263,8 @@ def web_proxy_wisp(data, fos, check_mode=False):
     state = data["state"]
 
     web_proxy_wisp_data = data["web_proxy_wisp"]
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_wisp_data(web_proxy_wisp_data)
-    )
+    filtered_data = filter_web_proxy_wisp_data(web_proxy_wisp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -329,7 +328,7 @@ def web_proxy_wisp(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("web-proxy", "wisp", data=filtered_data, vdom=vdom)
+        return fos.set("web-proxy", "wisp", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("web-proxy", "wisp", mkey=filtered_data["name"], vdom=vdom)

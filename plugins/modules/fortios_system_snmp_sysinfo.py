@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -111,6 +111,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            trap_free_memory_threshold:
+                description:
+                    - Free memory usage when trap is sent.
+                type: int
+            trap_freeable_memory_threshold:
+                description:
+                    - Freeable memory usage when trap is sent.
+                type: int
             trap_high_cpu_threshold:
                 description:
                     - CPU usage when trap is sent.
@@ -136,6 +144,8 @@ EXAMPLES = """
           engine_id_type: "text"
           location: "<your_own_value>"
           status: "enable"
+          trap_free_memory_threshold: "5"
+          trap_freeable_memory_threshold: "60"
           trap_high_cpu_threshold: "80"
           trap_log_full_threshold: "90"
           trap_low_memory_threshold: "80"
@@ -228,6 +238,8 @@ def filter_system_snmp_sysinfo_data(json):
         "engine_id_type",
         "location",
         "status",
+        "trap_free_memory_threshold",
+        "trap_freeable_memory_threshold",
         "trap_high_cpu_threshold",
         "trap_log_full_threshold",
         "trap_low_memory_threshold",
@@ -259,11 +271,10 @@ def underscore_to_hyphen(data):
 def system_snmp_sysinfo(data, fos):
     vdom = data["vdom"]
     system_snmp_sysinfo_data = data["system_snmp_sysinfo"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_snmp_sysinfo_data(system_snmp_sysinfo_data)
-    )
+    filtered_data = filter_system_snmp_sysinfo_data(system_snmp_sysinfo_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system.snmp", "sysinfo", data=filtered_data, vdom=vdom)
+    return fos.set("system.snmp", "sysinfo", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -315,6 +326,11 @@ versioned_schema = {
         "trap_high_cpu_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "trap_low_memory_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "trap_log_full_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "trap_free_memory_threshold": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "trap_freeable_memory_threshold": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "integer",
+        },
     },
 }
 

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -211,6 +211,10 @@ options:
                 description:
                     - The remote FortiAnalyzer.
                 type: str
+            server_cert_ca:
+                description:
+                    - Mandatory CA on FortiGate in certificate chain of server. Source certificate.ca.name vpn.certificate.ca.name.
+                type: str
             source_ip:
                 description:
                     - Source IPv4 or IPv6 address used to communicate with FortiAnalyzer.
@@ -297,6 +301,7 @@ EXAMPLES = """
               -
                   name: "default_name_25"
           server: "192.168.100.40"
+          server_cert_ca: "<your_own_value> (source certificate.ca.name vpn.certificate.ca.name)"
           source_ip: "84.230.14.43"
           ssl_min_proto_version: "default"
           status: "enable"
@@ -411,6 +416,7 @@ def filter_log_fortianalyzer_override_setting_data(json):
         "reliable",
         "serial",
         "server",
+        "server_cert_ca",
         "source_ip",
         "ssl_min_proto_version",
         "status",
@@ -447,14 +453,13 @@ def underscore_to_hyphen(data):
 def log_fortianalyzer_override_setting(data, fos):
     vdom = data["vdom"]
     log_fortianalyzer_override_setting_data = data["log_fortianalyzer_override_setting"]
-    filtered_data = underscore_to_hyphen(
-        filter_log_fortianalyzer_override_setting_data(
-            log_fortianalyzer_override_setting_data
-        )
+    filtered_data = filter_log_fortianalyzer_override_setting_data(
+        log_fortianalyzer_override_setting_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "log.fortianalyzer", "override-setting", data=filtered_data, vdom=vdom
+        "log.fortianalyzer", "override-setting", data=converted_data, vdom=vdom
     )
 
 
@@ -531,6 +536,7 @@ versioned_schema = {
             },
             "v_range": [["v6.2.0", ""]],
         },
+        "server_cert_ca": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "preshared_key": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "access_config": {
             "v_range": [["v6.2.0", ""]],

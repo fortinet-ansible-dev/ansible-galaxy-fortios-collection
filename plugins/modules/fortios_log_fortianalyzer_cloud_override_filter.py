@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -112,6 +112,13 @@ options:
                 choices:
                     - 'include'
                     - 'exclude'
+            forti_switch:
+                description:
+                    - Enable/disable Forti-Switch logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             forward_traffic:
                 description:
                     - Enable/disable forward traffic logging.
@@ -247,13 +254,14 @@ EXAMPLES = """
           dns: "enable"
           filter: "<your_own_value>"
           filter_type: "include"
+          forti_switch: "enable"
           forward_traffic: "enable"
           free_style:
               -
                   category: "traffic"
                   filter: "<your_own_value>"
                   filter_type: "include"
-                  id: "13"
+                  id: "14"
           gtp: "enable"
           local_traffic: "enable"
           multicast_traffic: "enable"
@@ -352,6 +360,7 @@ def filter_log_fortianalyzer_cloud_override_filter_data(json):
         "dns",
         "filter",
         "filter_type",
+        "forti_switch",
         "forward_traffic",
         "free_style",
         "gtp",
@@ -394,14 +403,13 @@ def log_fortianalyzer_cloud_override_filter(data, fos):
     log_fortianalyzer_cloud_override_filter_data = data[
         "log_fortianalyzer_cloud_override_filter"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_log_fortianalyzer_cloud_override_filter_data(
-            log_fortianalyzer_cloud_override_filter_data
-        )
+    filtered_data = filter_log_fortianalyzer_cloud_override_filter_data(
+        log_fortianalyzer_cloud_override_filter_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "log.fortianalyzer-cloud", "override-filter", data=filtered_data, vdom=vdom
+        "log.fortianalyzer-cloud", "override-filter", data=converted_data, vdom=vdom
     )
 
 
@@ -495,6 +503,11 @@ versioned_schema = {
         },
         "gtp": {
             "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "forti_switch": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

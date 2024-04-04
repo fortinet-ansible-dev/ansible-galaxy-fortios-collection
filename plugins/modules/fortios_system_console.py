@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -240,11 +240,10 @@ def underscore_to_hyphen(data):
 def system_console(data, fos):
     vdom = data["vdom"]
     system_console_data = data["system_console"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_console_data(system_console_data)
-    )
+    filtered_data = filter_system_console_data(system_console_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "console", data=filtered_data, vdom=vdom)
+    return fos.set("system", "console", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -279,17 +278,6 @@ versioned_schema = {
     "v_range": [["v6.0.0", ""]],
     "type": "dict",
     "children": {
-        "baudrate": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "9600"},
-                {"value": "19200"},
-                {"value": "38400"},
-                {"value": "57600"},
-                {"value": "115200"},
-            ],
-        },
         "output": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -304,6 +292,17 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "baudrate": {
+            "v_range": [["v6.0.0", "v7.4.1"]],
+            "type": "string",
+            "options": [
+                {"value": "9600"},
+                {"value": "19200"},
+                {"value": "38400"},
+                {"value": "57600"},
+                {"value": "115200"},
+            ],
         },
         "mode": {
             "v_range": [["v6.0.0", "v7.4.0"]],

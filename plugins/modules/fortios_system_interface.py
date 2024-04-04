@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -690,6 +690,16 @@ options:
                 description:
                     - Transparent mode forward domain.
                 type: int
+            forward_error_correction:
+                description:
+                    - Configure forward error correction (FEC).
+                type: str
+                choices:
+                    - 'none'
+                    - 'disable'
+                    - 'cl91-rs-fec'
+                    - 'cl74-fc-fec'
+                    - 'auto'
             gi_gk:
                 description:
                     - Enable/disable Gi Gatekeeper.
@@ -763,6 +773,14 @@ options:
                 description:
                     - Ingress Spillover threshold (0 - 16776000 kbps), 0 means unlimited.
                 type: int
+            interconnect_profile:
+                description:
+                    - Set interconnect profile.
+                type: str
+                choices:
+                    - 'default'
+                    - 'profile1'
+                    - 'profile2'
             interface:
                 description:
                     - Interface name. Source system.interface.name.
@@ -1201,6 +1219,13 @@ options:
                                 description:
                                     - Advertisement interval (1 - 255 seconds).
                                 type: int
+                            ignore_default_route:
+                                description:
+                                    - Enable/disable ignoring of default route when checking destination.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
                             preempt:
                                 description:
                                     - Enable/disable preempt mode.
@@ -1358,6 +1383,21 @@ options:
                     - Select SFP media interface type
                 type: str
                 choices:
+                    - 'none'
+                    - 'gmii'
+                    - 'sgmii'
+                    - 'sr'
+                    - 'lr'
+                    - 'cr'
+                    - 'sr2'
+                    - 'lr2'
+                    - 'cr2'
+                    - 'sr4'
+                    - 'lr4'
+                    - 'cr4'
+                    - 'sr8'
+                    - 'lr8'
+                    - 'cr8'
                     - 'cfp2-sr10'
                     - 'cfp2-lr4'
             member:
@@ -1382,6 +1422,43 @@ options:
                 choices:
                     - 'operational'
                     - 'administrative'
+            mirroring_direction:
+                description:
+                    - Port mirroring direction.
+                type: str
+                choices:
+                    - 'rx'
+                    - 'tx'
+                    - 'both'
+            mirroring_filter:
+                description:
+                    - Mirroring filter.
+                type: dict
+                suboptions:
+                    filter_dport:
+                        description:
+                            - Destinatin port of mirroring filter.
+                        type: int
+                    filter_dstip:
+                        description:
+                            - Destinatin IP and mask of mirroring filter.
+                        type: str
+                    filter_protocol:
+                        description:
+                            - Protocol of mirroring filter.
+                        type: int
+                    filter_sport:
+                        description:
+                            - Source port of mirroring filter.
+                        type: int
+                    filter_srcip:
+                        description:
+                            - Source IP and mask of mirroring filter.
+                        type: str
+            mirroring_port:
+                description:
+                    - Mirroring port. Source system.interface.name.
+                type: str
             mode:
                 description:
                     - Addressing mode (static, DHCP, PPPoE).
@@ -1436,6 +1513,10 @@ options:
                     - 'tx'
                     - 'rx'
                     - 'both'
+            np_qos_profile:
+                description:
+                    - NP QoS profile ID.
+                type: int
             outbandwidth:
                 description:
                     - Bandwidth limit for outgoing traffic (0 - 80000000 kbps).
@@ -1456,6 +1537,13 @@ options:
                 description:
                     - sFlow polling interval in seconds (1 - 255).
                 type: int
+            port_mirroring:
+                description:
+                    - Enable/disable NP port mirroring.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             pppoe_unnumbered_negotiate:
                 description:
                     - Enable/disable PPPoE unnumbered negotiation.
@@ -1648,6 +1736,30 @@ options:
                             - DHCP relay IP address.
                         type: list
                         elements: str
+            security_8021x_dynamic_vlan_id:
+                description:
+                    - VLAN ID for virtual switch.
+                type: int
+            security_8021x_master:
+                description:
+                    - 802.1X master virtual-switch.
+                type: str
+            security_8021x_member_mode:
+                description:
+                    - 802.1X member mode.
+                type: str
+                choices:
+                    - 'switch'
+                    - 'disable'
+            security_8021x_mode:
+                description:
+                    - 802.1X mode.
+                type: str
+                choices:
+                    - 'default'
+                    - 'dynamic-vlan'
+                    - 'fallback'
+                    - 'slave'
             security_exempt_list:
                 description:
                     - Name of security-exempt-list.
@@ -1722,7 +1834,19 @@ options:
                     - '10000auto'
                     - '40000full'
                     - '40000auto'
+                    - '100auto'
+                    - '2500auto'
+                    - '5000auto'
+                    - '25000full'
+                    - '25000auto'
+                    - '50000full'
+                    - '50000auto'
                     - '100Gfull'
+                    - '100Gauto'
+                    - '200Gfull'
+                    - '200Gauto'
+                    - '400Gfull'
+                    - '400Gauto'
                     - '1000half'
             spillover_threshold:
                 description:
@@ -1745,6 +1869,13 @@ options:
             stp:
                 description:
                     - Enable/disable STP.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            stp_edge:
+                description:
+                    - Enable/disable as STP edge port.
                 type: str
                 choices:
                     - 'disable'
@@ -1987,6 +2118,13 @@ options:
                 description:
                     - TCP maximum segment size. 0 means do not change segment size.
                 type: int
+            trunk:
+                description:
+                    - Enable/disable VLAN trunk.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             trust_ip_1:
                 description:
                     - Trusted host for dedicated management traffic (0.0.0.0/24 for all hosts).
@@ -2295,6 +2433,7 @@ EXAMPLES = """
           fortilink_split_interface: "enable"
           fortilink_stacking: "enable"
           forward_domain: "0"
+          forward_error_correction: "none"
           gi_gk: "enable"
           gwdetect: "enable"
           ha_priority: "1"
@@ -2307,6 +2446,7 @@ EXAMPLES = """
           ingress_cos: "disable"
           ingress_shaping_profile: "<your_own_value> (source firewall.shaping-profile.profile-name)"
           ingress_spillover_threshold: "0"
+          interconnect_profile: "default"
           interface: "<your_own_value> (source system.interface.name)"
           internal: "0"
           ip: "<your_own_value>"
@@ -2336,7 +2476,7 @@ EXAMPLES = """
               dhcp6_relay_source_ip: "<your_own_value>"
               dhcp6_relay_type: "regular"
               icmp6_send_redirect: "enable"
-              interface_identifier: "myId_145"
+              interface_identifier: "myId_147"
               ip6_address: "<your_own_value>"
               ip6_allowaccess: "ping"
               ip6_default_life: "1800"
@@ -2393,6 +2533,7 @@ EXAMPLES = """
                   -
                       accept_mode: "enable"
                       adv_interval: "1"
+                      ignore_default_route: "enable"
                       preempt: "enable"
                       priority: "100"
                       start_time: "3"
@@ -2415,30 +2556,40 @@ EXAMPLES = """
           macaddr: "<your_own_value>"
           managed_device:
               -
-                  name: "default_name_218"
+                  name: "default_name_221"
           managed_subnetwork_size: "32"
           management_ip: "<your_own_value>"
           measured_downstream_bandwidth: "0"
           measured_upstream_bandwidth: "0"
-          mediatype: "cfp2-sr10"
+          mediatype: "none"
           member:
               -
                   interface_name: "<your_own_value> (source system.interface.name)"
           min_links: "1"
           min_links_down: "operational"
+          mirroring_direction: "rx"
+          mirroring_filter:
+              filter_dport: "0"
+              filter_dstip: "<your_own_value>"
+              filter_protocol: "0"
+              filter_sport: "0"
+              filter_srcip: "<your_own_value>"
+          mirroring_port: "<your_own_value> (source system.interface.name)"
           mode: "static"
           monitor_bandwidth: "enable"
           mtu: "1500"
           mtu_override: "enable"
-          name: "default_name_232"
+          name: "default_name_243"
           ndiscforward: "enable"
           netbios_forward: "disable"
           netflow_sampler: "disable"
+          np_qos_profile: "0"
           outbandwidth: "0"
           padt_retry_timeout: "1"
           password: "<your_own_value>"
           ping_serv_status: "0"
           polling_interval: "20"
+          port_mirroring: "disable"
           pppoe_unnumbered_negotiate: "enable"
           pptp_auth_type: "auto"
           pptp_client: "enable"
@@ -2468,16 +2619,20 @@ EXAMPLES = """
                   detectserver: "<your_own_value>"
                   gwdetect: "enable"
                   ha_priority: "1"
-                  id: "269"
+                  id: "282"
                   ip: "<your_own_value>"
                   ping_serv_status: "0"
                   secip_relay_ip: "<your_own_value>"
+          security_8021x_dynamic_vlan_id: "0"
+          security_8021x_master: "<your_own_value>"
+          security_8021x_member_mode: "switch"
+          security_8021x_mode: "default"
           security_exempt_list: "<your_own_value>"
           security_external_logout: "<your_own_value>"
           security_external_web: "<your_own_value>"
           security_groups:
               -
-                  name: "default_name_277 (source user.group.name)"
+                  name: "default_name_294 (source user.group.name)"
           security_mac_auth_bypass: "mac-auth-only"
           security_mode: "none"
           security_redirect_url: "<your_own_value>"
@@ -2489,6 +2644,7 @@ EXAMPLES = """
           src_check: "enable"
           status: "up"
           stp: "disable"
+          stp_edge: "disable"
           stp_ha_secondary: "disable"
           stp_ha_slave: "disable"
           stpforward: "enable"
@@ -2525,11 +2681,12 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_324"
+                  name: "default_name_342"
                   tags:
                       -
-                          name: "default_name_326 (source system.object-tagging.tags.name)"
+                          name: "default_name_344 (source system.object-tagging.tags.name)"
           tcp_mss: "0"
+          trunk: "enable"
           trust_ip_1: "<your_own_value>"
           trust_ip_2: "<your_own_value>"
           trust_ip_3: "<your_own_value>"
@@ -2553,7 +2710,7 @@ EXAMPLES = """
                   priority: "100"
                   proxy_arp:
                       -
-                          id: "349"
+                          id: "368"
                           ip: "<your_own_value>"
                   start_time: "3"
                   status: "enable"
@@ -2745,6 +2902,7 @@ def filter_system_interface_data(json):
         "fortilink_split_interface",
         "fortilink_stacking",
         "forward_domain",
+        "forward_error_correction",
         "gi_gk",
         "gwdetect",
         "ha_priority",
@@ -2757,6 +2915,7 @@ def filter_system_interface_data(json):
         "ingress_cos",
         "ingress_shaping_profile",
         "ingress_spillover_threshold",
+        "interconnect_profile",
         "interface",
         "internal",
         "ip",
@@ -2786,6 +2945,9 @@ def filter_system_interface_data(json):
         "member",
         "min_links",
         "min_links_down",
+        "mirroring_direction",
+        "mirroring_filter",
+        "mirroring_port",
         "mode",
         "monitor_bandwidth",
         "mtu",
@@ -2794,11 +2956,13 @@ def filter_system_interface_data(json):
         "ndiscforward",
         "netbios_forward",
         "netflow_sampler",
+        "np_qos_profile",
         "outbandwidth",
         "padt_retry_timeout",
         "password",
         "ping_serv_status",
         "polling_interval",
+        "port_mirroring",
         "pppoe_unnumbered_negotiate",
         "pptp_auth_type",
         "pptp_client",
@@ -2822,6 +2986,10 @@ def filter_system_interface_data(json):
         "scan_botnet_connections",
         "secondary_IP",
         "secondaryip",
+        "security_8021x_dynamic_vlan_id",
+        "security_8021x_master",
+        "security_8021x_member_mode",
+        "security_8021x_mode",
         "security_exempt_list",
         "security_external_logout",
         "security_external_web",
@@ -2837,6 +3005,7 @@ def filter_system_interface_data(json):
         "src_check",
         "status",
         "stp",
+        "stp_edge",
         "stp_ha_secondary",
         "stp_ha_slave",
         "stpforward",
@@ -2872,6 +3041,7 @@ def filter_system_interface_data(json):
         "system_id_type",
         "tagging",
         "tcp_mss",
+        "trunk",
         "trust_ip_1",
         "trust_ip_2",
         "trust_ip_3",
@@ -2967,9 +3137,8 @@ def system_interface(data, fos, check_mode=False):
 
     system_interface_data = data["system_interface"]
     system_interface_data = flatten_multilists_attributes(system_interface_data)
-    filtered_data = underscore_to_hyphen(
-        filter_system_interface_data(system_interface_data)
-    )
+    filtered_data = filter_system_interface_data(system_interface_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -3033,7 +3202,7 @@ def system_interface(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "interface", data=filtered_data, vdom=vdom)
+        return fos.set("system", "interface", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "interface", mkey=filtered_data["name"], vdom=vdom)
@@ -3416,14 +3585,27 @@ versioned_schema = {
                 {"value": "10000auto"},
                 {"value": "40000full"},
                 {"value": "40000auto", "v_range": [["v7.4.0", ""]]},
+                {"value": "100auto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "2500auto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "5000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "25000full", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "25000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "50000full", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "50000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
                 {
                     "value": "100Gfull",
                     "v_range": [
                         ["v6.0.0", "v6.2.7"],
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
+                        ["v7.4.2", "v7.4.2"],
                     ],
                 },
+                {"value": "100Gauto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "200Gfull", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "200Gauto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "400Gfull", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "400Gauto", "v_range": [["v7.4.2", "v7.4.2"]]},
                 {"value": "1000half", "v_range": [["v6.0.0", "v7.0.3"]]},
             ],
         },
@@ -3466,6 +3648,7 @@ versioned_schema = {
                         ["v6.0.0", "v6.2.7"],
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
+                        ["v7.4.2", "v7.4.2"],
                     ],
                 },
             ],
@@ -4375,6 +4558,11 @@ versioned_schema = {
                             "multiple_values": True,
                             "elements": "str",
                         },
+                        "ignore_default_route": {
+                            "v_range": [["v7.4.2", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
                         "status": {
                             "v_range": [["v6.0.0", ""]],
                             "type": "string",
@@ -4412,20 +4600,31 @@ versioned_schema = {
                 },
             },
         },
+        "gi_gk": {
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "sw_algorithm": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "l2"}, {"value": "l3"}, {"value": "eh"}],
         },
         "egress_queues": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "dict",
             "children": {
                 "cos0": {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4433,7 +4632,8 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4441,7 +4641,8 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4449,7 +4650,8 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4457,7 +4659,8 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4465,7 +4668,8 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4473,7 +4677,8 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
@@ -4481,14 +4686,20 @@ versioned_schema = {
                     "v_range": [
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", ""],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
                     ],
                     "type": "string",
                 },
             },
         },
         "ingress_cos": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -4503,7 +4714,12 @@ versioned_schema = {
             ],
         },
         "egress_cos": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -4517,32 +4733,89 @@ versioned_schema = {
                 {"value": "cos7"},
             ],
         },
-        "disconnect_threshold": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "integer"},
         "mediatype": {
             "v_range": [
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
-            "options": [{"value": "cfp2-sr10"}, {"value": "cfp2-lr4"}],
+            "options": [
+                {"value": "none", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "gmii", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "sgmii", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "sr", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "lr", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "cr", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "sr2", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "lr2", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "cr2", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "sr4", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "lr4", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "cr4", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "sr8", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "lr8", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "cr8", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {
+                    "value": "cfp2-sr10",
+                    "v_range": [
+                        ["v6.0.0", "v6.2.7"],
+                        ["v6.4.1", "v7.0.12"],
+                        ["v7.2.1", "v7.2.4"],
+                    ],
+                },
+                {
+                    "value": "cfp2-lr4",
+                    "v_range": [
+                        ["v6.0.0", "v6.2.7"],
+                        ["v6.4.1", "v7.0.12"],
+                        ["v7.2.1", "v7.2.4"],
+                    ],
+                },
+            ],
         },
-        "gi_gk": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+        "trunk": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "security_8021x_mode": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [
+                {"value": "default"},
+                {"value": "dynamic-vlan"},
+                {"value": "fallback"},
+                {"value": "slave"},
+            ],
+        },
+        "security_8021x_master": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
+        "security_8021x_dynamic_vlan_id": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "integer",
+        },
+        "security_8021x_member_mode": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "switch"}, {"value": "disable"}],
         },
         "stp": {
             "v_range": [
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "stp_ha_secondary": {
-            "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.4"]],
+            "v_range": [
+                ["v7.0.0", "v7.0.12"],
+                ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
+            ],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -4550,6 +4823,58 @@ versioned_schema = {
                 {"value": "priority-adjust"},
             ],
         },
+        "stp_edge": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "forward_error_correction": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [
+                {"value": "none"},
+                {"value": "disable"},
+                {"value": "cl91-rs-fec"},
+                {"value": "cl74-fc-fec"},
+                {"value": "auto"},
+            ],
+        },
+        "interconnect_profile": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [
+                {"value": "default"},
+                {"value": "profile1"},
+                {"value": "profile2"},
+            ],
+        },
+        "np_qos_profile": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
+        "port_mirroring": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "mirroring_direction": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "rx"}, {"value": "tx"}, {"value": "both"}],
+        },
+        "mirroring_port": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
+        "mirroring_filter": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "dict",
+            "children": {
+                "filter_srcip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
+                "filter_dstip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
+                "filter_sport": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
+                "filter_dport": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
+                "filter_protocol": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "integer",
+                },
+            },
+        },
+        "disconnect_threshold": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "integer"},
         "cli_conn_status": {
             "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
             "type": "integer",

@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -265,6 +265,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             webfilter_profile:
                 description:
                     - Web filter profile. Source webfilter.profile.name.
@@ -319,6 +323,7 @@ EXAMPLES = """
               -
                   name: "default_name_32 (source firewall.address.name firewall.addrgrp.name)"
           status: "enable"
+          uuid: "<your_own_value>"
           webfilter_profile: "<your_own_value> (source webfilter.profile.name)"
           webfilter_profile_status: "enable"
 """
@@ -441,6 +446,7 @@ def filter_firewall_interface_policy_data(json):
         "spamfilter_profile_status",
         "srcaddr",
         "status",
+        "uuid",
         "webfilter_profile",
         "webfilter_profile_status",
     ]
@@ -474,9 +480,10 @@ def firewall_interface_policy(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_interface_policy_data = data["firewall_interface_policy"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_interface_policy_data(firewall_interface_policy_data)
+    filtered_data = filter_firewall_interface_policy_data(
+        firewall_interface_policy_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -540,7 +547,7 @@ def firewall_interface_policy(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "interface-policy", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "interface-policy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -586,6 +593,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "policyid": {"v_range": [["v6.0.0", ""]], "type": "integer", "required": True},
+        "uuid": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

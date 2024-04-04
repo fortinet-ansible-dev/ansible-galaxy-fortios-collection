@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -317,12 +317,11 @@ def vpn_ssl_client(data, fos):
     state = data["state"]
 
     vpn_ssl_client_data = data["vpn_ssl_client"]
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_ssl_client_data(vpn_ssl_client_data)
-    )
+    filtered_data = filter_vpn_ssl_client_data(vpn_ssl_client_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("vpn.ssl", "client", data=filtered_data, vdom=vdom)
+        return fos.set("vpn.ssl", "client", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("vpn.ssl", "client", mkey=filtered_data["name"], vdom=vdom)

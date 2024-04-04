@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -141,6 +141,92 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+                    synproxy_tcp_mss:
+                        description:
+                            - Determine TCP maximum segment size (MSS) value for packets replied by syn proxy module.
+                        type: str
+                        choices:
+                            - '0'
+                            - '256'
+                            - '512'
+                            - '1024'
+                            - '1300'
+                            - '1360'
+                            - '1460'
+                            - '1500'
+                    synproxy_tcp_sack:
+                        description:
+                            - enable/disable TCP selective acknowledage (SACK) for packets replied by syn proxy module.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    synproxy_tcp_timestamp:
+                        description:
+                            - enable/disable TCP timestamp option for packets replied by syn proxy module.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    synproxy_tcp_window:
+                        description:
+                            - Determine TCP Window size for packets replied by syn proxy module.
+                        type: str
+                        choices:
+                            - '4096'
+                            - '8192'
+                            - '16384'
+                            - '32768'
+                    synproxy_tcp_windowscale:
+                        description:
+                            - Determine TCP window scale option value for packets replied by syn proxy module.
+                        type: str
+                        choices:
+                            - '0'
+                            - '1'
+                            - '2'
+                            - '3'
+                            - '4'
+                            - '5'
+                            - '6'
+                            - '7'
+                            - '8'
+                            - '9'
+                            - '10'
+                            - '11'
+                            - '12'
+                            - '13'
+                            - '14'
+                    synproxy_tos:
+                        description:
+                            - Determine TCP differentiated services code point value (type of service).
+                        type: str
+                        choices:
+                            - '0'
+                            - '10'
+                            - '12'
+                            - '14'
+                            - '18'
+                            - '20'
+                            - '22'
+                            - '26'
+                            - '28'
+                            - '30'
+                            - '34'
+                            - '36'
+                            - '38'
+                            - '40'
+                            - '46'
+                            - '255'
+                    synproxy_ttl:
+                        description:
+                            - Determine Time to live (TTL) value for packets replied by syn proxy module.
+                        type: str
+                        choices:
+                            - '32'
+                            - '64'
+                            - '128'
+                            - '255'
                     threshold:
                         description:
                             - Anomaly threshold. Number of detected instances (packets per second or concurrent session number) that triggers the anomaly
@@ -344,6 +430,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vlan:
                 description:
                     - List of VLANs to sniff.
@@ -377,6 +467,13 @@ EXAMPLES = """
                   quarantine_expiry: "<your_own_value>"
                   quarantine_log: "disable"
                   status: "disable"
+                  synproxy_tcp_mss: "0"
+                  synproxy_tcp_sack: "enable"
+                  synproxy_tcp_timestamp: "enable"
+                  synproxy_tcp_window: "4096"
+                  synproxy_tcp_windowscale: "0"
+                  synproxy_tos: "0"
+                  synproxy_ttl: "32"
                   threshold: "0"
                   threshold_default: "0"
           application_list: "<your_own_value> (source application.list.name)"
@@ -395,11 +492,11 @@ EXAMPLES = """
           file_filter_profile: "<your_own_value> (source file-filter.profile.name)"
           file_filter_profile_status: "enable"
           host: "myhostname"
-          id: "29"
+          id: "36"
           interface: "<your_own_value> (source system.interface.name)"
           ip_threatfeed:
               -
-                  name: "default_name_32 (source system.external-resource.name)"
+                  name: "default_name_39 (source system.external-resource.name)"
           ip_threatfeed_status: "enable"
           ips_dos_status: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
@@ -414,6 +511,7 @@ EXAMPLES = """
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           spamfilter_profile_status: "enable"
           status: "enable"
+          uuid: "<your_own_value>"
           vlan: "<your_own_value>"
           webfilter_profile: "<your_own_value> (source webfilter.profile.name)"
           webfilter_profile_status: "enable"
@@ -543,6 +641,7 @@ def filter_firewall_sniffer_data(json):
         "spamfilter_profile",
         "spamfilter_profile_status",
         "status",
+        "uuid",
         "vlan",
         "webfilter_profile",
         "webfilter_profile_status",
@@ -572,9 +671,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"threshold(default)": "threshold_default"}
+    speciallist = {"threshold(default)": "threshold_default"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -583,8 +682,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -600,10 +702,8 @@ def firewall_sniffer(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_sniffer_data = data["firewall_sniffer"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_sniffer_data(firewall_sniffer_data)
-    )
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    filtered_data = filter_firewall_sniffer_data(firewall_sniffer_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:
@@ -709,6 +809,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "id": {"v_range": [["v6.0.0", ""]], "type": "integer", "required": True},
+        "uuid": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -760,12 +861,6 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "av_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "casb_profile_status": {
-            "v_range": [["v7.4.1", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "webfilter_profile_status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -852,6 +947,93 @@ versioned_schema = {
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
                 "threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "synproxy_ttl": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [
+                        {"value": "32"},
+                        {"value": "64"},
+                        {"value": "128"},
+                        {"value": "255"},
+                    ],
+                },
+                "synproxy_tos": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [
+                        {"value": "0"},
+                        {"value": "10"},
+                        {"value": "12"},
+                        {"value": "14"},
+                        {"value": "18"},
+                        {"value": "20"},
+                        {"value": "22"},
+                        {"value": "26"},
+                        {"value": "28"},
+                        {"value": "30"},
+                        {"value": "34"},
+                        {"value": "36"},
+                        {"value": "38"},
+                        {"value": "40"},
+                        {"value": "46"},
+                        {"value": "255"},
+                    ],
+                },
+                "synproxy_tcp_mss": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [
+                        {"value": "0"},
+                        {"value": "256"},
+                        {"value": "512"},
+                        {"value": "1024"},
+                        {"value": "1300"},
+                        {"value": "1360"},
+                        {"value": "1460"},
+                        {"value": "1500"},
+                    ],
+                },
+                "synproxy_tcp_sack": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "synproxy_tcp_timestamp": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "synproxy_tcp_window": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [
+                        {"value": "4096"},
+                        {"value": "8192"},
+                        {"value": "16384"},
+                        {"value": "32768"},
+                    ],
+                },
+                "synproxy_tcp_windowscale": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [
+                        {"value": "0"},
+                        {"value": "1"},
+                        {"value": "2"},
+                        {"value": "3"},
+                        {"value": "4"},
+                        {"value": "5"},
+                        {"value": "6"},
+                        {"value": "7"},
+                        {"value": "8"},
+                        {"value": "9"},
+                        {"value": "10"},
+                        {"value": "11"},
+                        {"value": "12"},
+                        {"value": "13"},
+                        {"value": "14"},
+                    ],
+                },
                 "threshold_default": {
                     "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
                     "type": "integer",
@@ -859,6 +1041,12 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "casb_profile_status": {
+            "v_range": [["v7.4.1", "v7.4.1"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "casb_profile": {"v_range": [["v7.4.1", "v7.4.1"]], "type": "string"},
         "dlp_sensor_status": {
             "v_range": [["v6.0.0", "v7.0.12"]],
             "type": "string",

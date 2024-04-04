@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -261,11 +261,10 @@ def underscore_to_hyphen(data):
 def antivirus_settings(data, fos):
     vdom = data["vdom"]
     antivirus_settings_data = data["antivirus_settings"]
-    filtered_data = underscore_to_hyphen(
-        filter_antivirus_settings_data(antivirus_settings_data)
-    )
+    filtered_data = filter_antivirus_settings_data(antivirus_settings_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("antivirus", "settings", data=filtered_data, vdom=vdom)
+    return fos.set("antivirus", "settings", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

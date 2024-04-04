@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -210,9 +210,10 @@ def underscore_to_hyphen(data):
 def nsxt_setting(data, fos):
     vdom = data["vdom"]
     nsxt_setting_data = data["nsxt_setting"]
-    filtered_data = underscore_to_hyphen(filter_nsxt_setting_data(nsxt_setting_data))
+    filtered_data = filter_nsxt_setting_data(nsxt_setting_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("nsxt", "setting", data=filtered_data, vdom=vdom)
+    return fos.set("nsxt", "setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

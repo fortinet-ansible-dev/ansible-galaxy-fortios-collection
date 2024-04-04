@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -193,6 +193,13 @@ options:
                                             - Operation value.
                                         required: true
                                         type: str
+                    status:
+                        description:
+                            - CASB control option status.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
             description:
                 description:
                     - CASB user activity description.
@@ -301,6 +308,13 @@ options:
                     - CASB user activity name.
                 required: true
                 type: str
+            status:
+                description:
+                    - CASB user activity status.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             type:
                 description:
                     - CASB user activity type.
@@ -341,10 +355,11 @@ EXAMPLES = """
                           values:
                               -
                                   value: "<your_own_value>"
+                  status: "enable"
           description: "<your_own_value>"
           match:
               -
-                  id: "22"
+                  id: "23"
                   rules:
                       -
                           case_sensitive: "enable"
@@ -352,7 +367,7 @@ EXAMPLES = """
                               -
                                   domain: "<your_own_value>"
                           header_name: "<your_own_value>"
-                          id: "28"
+                          id: "29"
                           match_pattern: "simple"
                           match_value: "<your_own_value>"
                           methods:
@@ -362,7 +377,8 @@ EXAMPLES = """
                           type: "domains"
                   strategy: "and"
           match_strategy: "and"
-          name: "default_name_37"
+          name: "default_name_38"
+          status: "enable"
           type: "built-in"
           uuid: "<your_own_value>"
 """
@@ -456,6 +472,7 @@ def filter_casb_user_activity_data(json):
         "match",
         "match_strategy",
         "name",
+        "status",
         "type",
         "uuid",
     ]
@@ -489,12 +506,11 @@ def casb_user_activity(data, fos):
     state = data["state"]
 
     casb_user_activity_data = data["casb_user_activity"]
-    filtered_data = underscore_to_hyphen(
-        filter_casb_user_activity_data(casb_user_activity_data)
-    )
+    filtered_data = filter_casb_user_activity_data(casb_user_activity_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("casb", "user-activity", data=filtered_data, vdom=vdom)
+        return fos.set("casb", "user-activity", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -538,6 +554,11 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "status": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "description": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "type": {
             "v_range": [["v7.4.1", ""]],
@@ -656,6 +677,11 @@ versioned_schema = {
                     "v_range": [["v7.4.1", ""]],
                     "type": "string",
                     "required": True,
+                },
+                "status": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "operations": {
                     "type": "list",

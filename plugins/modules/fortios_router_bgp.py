@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -95,6 +95,10 @@ options:
                 description:
                     - Number of additional paths to be selected for each VPNv4 NLRI.
                 type: int
+            additional_path_select_vpnv6:
+                description:
+                    - Number of additional paths to be selected for each VPNv6 NLRI.
+                type: int
             additional_path_select6:
                 description:
                     - Number of additional paths to be selected for each IPv6 NLRI.
@@ -102,6 +106,13 @@ options:
             additional_path_vpnv4:
                 description:
                     - Enable/disable selection of BGP VPNv4 additional paths.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            additional_path_vpnv6:
+                description:
+                    - Enable/disable selection of BGP VPNv6 additional paths.
                 type: str
                 choices:
                     - 'enable'
@@ -437,6 +448,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    activate_vpnv6:
+                        description:
+                            - Enable/disable address family VPNv6 for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     activate6:
                         description:
                             - Enable/disable address family IPv6 for this neighbor.
@@ -462,6 +480,15 @@ options:
                             - 'receive'
                             - 'both'
                             - 'disable'
+                    additional_path_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 additional-path capability.
+                        type: str
+                        choices:
+                            - 'send'
+                            - 'receive'
+                            - 'both'
+                            - 'disable'
                     additional_path6:
                         description:
                             - Enable/disable IPv6 additional-path capability.
@@ -478,6 +505,10 @@ options:
                     adv_additional_path_vpnv4:
                         description:
                             - Number of VPNv4 additional paths that can be advertised to this neighbor.
+                        type: int
+                    adv_additional_path_vpnv6:
+                        description:
+                            - Number of VPNv6 additional paths that can be advertised to this neighbor.
                         type: int
                     adv_additional_path6:
                         description:
@@ -512,6 +543,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    allowas_in_enable_vpnv6:
+                        description:
+                            - Enable/disable use of my AS in AS path for VPNv6 route.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     allowas_in_enable6:
                         description:
                             - Enable/disable IPv6 Enable to allow my AS in AS path.
@@ -526,6 +564,10 @@ options:
                     allowas_in_vpnv4:
                         description:
                             - The maximum number of occurrence of my AS number allowed for VPNv4 route.
+                        type: int
+                    allowas_in_vpnv6:
+                        description:
+                            - The maximum number of occurrence of my AS number allowed for VPNv6 route.
                         type: int
                     allowas_in6:
                         description:
@@ -563,6 +605,15 @@ options:
                             - 'as-path'
                             - 'med'
                             - 'next-hop'
+                    attribute_unchanged_vpnv6:
+                        description:
+                            - List of attributes that should not be changed for VPNv6 route.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'as-path'
+                            - 'med'
+                            - 'next-hop'
                     attribute_unchanged6:
                         description:
                             - IPv6 List of attributes that should be unchanged.
@@ -572,6 +623,10 @@ options:
                             - 'as-path'
                             - 'med'
                             - 'next-hop'
+                    auth_options:
+                        description:
+                            - Key-chain name for TCP authentication options. Source router.key-chain.name.
+                        type: str
                     bfd:
                         description:
                             - Enable/disable BFD for this neighbor.
@@ -617,6 +672,13 @@ options:
                     capability_graceful_restart_vpnv4:
                         description:
                             - Enable/disable advertise VPNv4 graceful restart capability to this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    capability_graceful_restart_vpnv6:
+                        description:
+                            - Enable/disable advertisement of VPNv6 graceful restart capability to this neighbor.
                         type: str
                         choices:
                             - 'enable'
@@ -735,6 +797,10 @@ options:
                         description:
                             - Filter for VPNv4 updates from this neighbor. Source router.access-list.name.
                         type: str
+                    distribute_list_in_vpnv6:
+                        description:
+                            - Filter for VPNv6 updates from this neighbor. Source router.access-list6.name.
+                        type: str
                     distribute_list_in6:
                         description:
                             - Filter for IPv6 updates from this neighbor. Source router.access-list6.name.
@@ -746,6 +812,10 @@ options:
                     distribute_list_out_vpnv4:
                         description:
                             - Filter for VPNv4 updates to this neighbor. Source router.access-list.name.
+                        type: str
+                    distribute_list_out_vpnv6:
+                        description:
+                            - Filter for VPNv6 updates to this neighbor. Source router.access-list6.name.
                         type: str
                     distribute_list_out6:
                         description:
@@ -777,6 +847,10 @@ options:
                         description:
                             - BGP filter for VPNv4 inbound routes. Source router.aspath-list.name.
                         type: str
+                    filter_list_in_vpnv6:
+                        description:
+                            - BGP filter for VPNv6 inbound routes. Source router.aspath-list.name.
+                        type: str
                     filter_list_in6:
                         description:
                             - BGP filter for IPv6 inbound routes. Source router.aspath-list.name.
@@ -788,6 +862,10 @@ options:
                     filter_list_out_vpnv4:
                         description:
                             - BGP filter for VPNv4 outbound routes. Source router.aspath-list.name.
+                        type: str
+                    filter_list_out_vpnv6:
+                        description:
+                            - BGP filter for VPNv6 outbound routes. Source router.aspath-list.name.
                         type: str
                     filter_list_out6:
                         description:
@@ -856,6 +934,10 @@ options:
                         description:
                             - Maximum VPNv4 prefix threshold value (1 - 100 percent).
                         type: int
+                    maximum_prefix_threshold_vpnv6:
+                        description:
+                            - Maximum VPNv6 prefix threshold value (1 - 100 percent).
+                        type: int
                     maximum_prefix_threshold6:
                         description:
                             - Maximum IPv6 prefix threshold value (1 - 100 percent).
@@ -863,6 +945,10 @@ options:
                     maximum_prefix_vpnv4:
                         description:
                             - Maximum number of VPNv4 prefixes to accept from this peer.
+                        type: int
+                    maximum_prefix_vpnv6:
+                        description:
+                            - Maximum number of VPNv6 prefixes to accept from this peer.
                         type: int
                     maximum_prefix_warning_only:
                         description:
@@ -881,6 +967,13 @@ options:
                     maximum_prefix_warning_only_vpnv4:
                         description:
                             - Enable/disable only giving warning message when limit is exceeded for VPNv4 routes.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    maximum_prefix_warning_only_vpnv6:
+                        description:
+                            - Enable/disable warning message when limit is exceeded for VPNv6 routes.
                         type: str
                         choices:
                             - 'enable'
@@ -924,6 +1017,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    next_hop_self_vpnv6:
+                        description:
+                            - Enable/disable use of outgoing interface"s IP address as VPNv6 next-hop for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     next_hop_self6:
                         description:
                             - Enable/disable IPv6 next-hop calculation for this neighbor.
@@ -957,6 +1057,10 @@ options:
                         description:
                             - Inbound filter for VPNv4 updates from this neighbor. Source router.prefix-list.name.
                         type: str
+                    prefix_list_in_vpnv6:
+                        description:
+                            - Inbound filter for VPNv6 updates from this neighbor. Source router.prefix-list6.name.
+                        type: str
                     prefix_list_in6:
                         description:
                             - IPv6 Inbound filter for updates from this neighbor. Source router.prefix-list6.name.
@@ -968,6 +1072,10 @@ options:
                     prefix_list_out_vpnv4:
                         description:
                             - Outbound filter for VPNv4 updates to this neighbor. Source router.prefix-list.name.
+                        type: str
+                    prefix_list_out_vpnv6:
+                        description:
+                            - Outbound filter for VPNv6 updates to this neighbor. Source router.prefix-list6.name.
                         type: str
                     prefix_list_out6:
                         description:
@@ -994,6 +1102,13 @@ options:
                     remove_private_as_vpnv4:
                         description:
                             - Enable/disable remove private AS number from VPNv4 outbound updates.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    remove_private_as_vpnv6:
+                        description:
+                            - Enable/disable to remove private AS number from VPNv6 outbound updates.
                         type: str
                         choices:
                             - 'enable'
@@ -1025,6 +1140,10 @@ options:
                         description:
                             - VPNv4 inbound route map filter. Source router.route-map.name.
                         type: str
+                    route_map_in_vpnv6:
+                        description:
+                            - VPNv6 inbound route map filter. Source router.route-map.name.
+                        type: str
                     route_map_in6:
                         description:
                             - IPv6 Inbound route map filter. Source router.route-map.name.
@@ -1048,6 +1167,14 @@ options:
                     route_map_out_vpnv4_preferable:
                         description:
                             - VPNv4 outbound route map filter if the peer is preferred. Source router.route-map.name.
+                        type: str
+                    route_map_out_vpnv6:
+                        description:
+                            - VPNv6 outbound route map filter. Source router.route-map.name.
+                        type: str
+                    route_map_out_vpnv6_preferable:
+                        description:
+                            - VPNv6 outbound route map filter if this neighbor is preferred. Source router.route-map.name.
                         type: str
                     route_map_out6:
                         description:
@@ -1074,6 +1201,13 @@ options:
                     route_reflector_client_vpnv4:
                         description:
                             - Enable/disable VPNv4 AS route reflector client for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    route_reflector_client_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 AS route reflector client for this neighbor.
                         type: str
                         choices:
                             - 'enable'
@@ -1106,6 +1240,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    route_server_client_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 AS route server client for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     route_server_client6:
                         description:
                             - Enable/disable IPv6 AS route server client.
@@ -1134,6 +1275,15 @@ options:
                     send_community_vpnv4:
                         description:
                             - Send community attribute to neighbor for VPNv4 address family.
+                        type: str
+                        choices:
+                            - 'standard'
+                            - 'extended'
+                            - 'both'
+                            - 'disable'
+                    send_community_vpnv6:
+                        description:
+                            - Enable/disable sending community attribute to this neighbor for VPNv6 address family.
                         type: str
                         choices:
                             - 'standard'
@@ -1173,6 +1323,13 @@ options:
                     soft_reconfiguration_vpnv4:
                         description:
                             - Enable/disable allow VPNv4 inbound soft reconfiguration.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    soft_reconfiguration_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 inbound soft reconfiguration.
                         type: str
                         choices:
                             - 'enable'
@@ -1241,6 +1398,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    activate_vpnv6:
+                        description:
+                            - Enable/disable address family VPNv6 for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     activate6:
                         description:
                             - Enable/disable address family IPv6 for this neighbor.
@@ -1266,6 +1430,15 @@ options:
                             - 'receive'
                             - 'both'
                             - 'disable'
+                    additional_path_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 additional-path capability.
+                        type: str
+                        choices:
+                            - 'send'
+                            - 'receive'
+                            - 'both'
+                            - 'disable'
                     additional_path6:
                         description:
                             - Enable/disable IPv6 additional-path capability.
@@ -1282,6 +1455,10 @@ options:
                     adv_additional_path_vpnv4:
                         description:
                             - Number of VPNv4 additional paths that can be advertised to this neighbor.
+                        type: int
+                    adv_additional_path_vpnv6:
+                        description:
+                            - Number of VPNv6 additional paths that can be advertised to this neighbor.
                         type: int
                     adv_additional_path6:
                         description:
@@ -1316,6 +1493,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    allowas_in_enable_vpnv6:
+                        description:
+                            - Enable/disable use of my AS in AS path for VPNv6 route.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     allowas_in_enable6:
                         description:
                             - Enable/disable IPv6 Enable to allow my AS in AS path.
@@ -1330,6 +1514,10 @@ options:
                     allowas_in_vpnv4:
                         description:
                             - The maximum number of occurrence of my AS number allowed for VPNv4 route.
+                        type: int
+                    allowas_in_vpnv6:
+                        description:
+                            - The maximum number of occurrence of my AS number allowed for VPNv6 route.
                         type: int
                     allowas_in6:
                         description:
@@ -1367,6 +1555,15 @@ options:
                             - 'as-path'
                             - 'med'
                             - 'next-hop'
+                    attribute_unchanged_vpnv6:
+                        description:
+                            - List of attributes that should not be changed for VPNv6 route.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'as-path'
+                            - 'med'
+                            - 'next-hop'
                     attribute_unchanged6:
                         description:
                             - IPv6 List of attributes that should be unchanged.
@@ -1376,6 +1573,10 @@ options:
                             - 'as-path'
                             - 'med'
                             - 'next-hop'
+                    auth_options:
+                        description:
+                            - Key-chain name for TCP authentication options. Source router.key-chain.name.
+                        type: str
                     bfd:
                         description:
                             - Enable/disable BFD for this neighbor.
@@ -1421,6 +1622,13 @@ options:
                     capability_graceful_restart_vpnv4:
                         description:
                             - Enable/disable advertise VPNv4 graceful restart capability to this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    capability_graceful_restart_vpnv6:
+                        description:
+                            - Enable/disable advertisement of VPNv6 graceful restart capability to this neighbor.
                         type: str
                         choices:
                             - 'enable'
@@ -1481,6 +1689,10 @@ options:
                         description:
                             - Filter for VPNv4 updates from this neighbor. Source router.access-list.name.
                         type: str
+                    distribute_list_in_vpnv6:
+                        description:
+                            - Filter for VPNv6 updates from this neighbor. Source router.access-list6.name.
+                        type: str
                     distribute_list_in6:
                         description:
                             - Filter for IPv6 updates from this neighbor. Source router.access-list6.name.
@@ -1492,6 +1704,10 @@ options:
                     distribute_list_out_vpnv4:
                         description:
                             - Filter for VPNv4 updates to this neighbor. Source router.access-list.name.
+                        type: str
+                    distribute_list_out_vpnv6:
+                        description:
+                            - Filter for VPNv6 updates to this neighbor. Source router.access-list6.name.
                         type: str
                     distribute_list_out6:
                         description:
@@ -1523,6 +1739,10 @@ options:
                         description:
                             - BGP filter for VPNv4 inbound routes. Source router.aspath-list.name.
                         type: str
+                    filter_list_in_vpnv6:
+                        description:
+                            - BGP filter for VPNv6 inbound routes. Source router.aspath-list.name.
+                        type: str
                     filter_list_in6:
                         description:
                             - BGP filter for IPv6 inbound routes. Source router.aspath-list.name.
@@ -1534,6 +1754,10 @@ options:
                     filter_list_out_vpnv4:
                         description:
                             - BGP filter for VPNv4 outbound routes. Source router.aspath-list.name.
+                        type: str
+                    filter_list_out_vpnv6:
+                        description:
+                            - BGP filter for VPNv6 outbound routes. Source router.aspath-list.name.
                         type: str
                     filter_list_out6:
                         description:
@@ -1597,6 +1821,10 @@ options:
                         description:
                             - Maximum VPNv4 prefix threshold value (1 - 100 percent).
                         type: int
+                    maximum_prefix_threshold_vpnv6:
+                        description:
+                            - Maximum VPNv6 prefix threshold value (1 - 100 percent).
+                        type: int
                     maximum_prefix_threshold6:
                         description:
                             - Maximum IPv6 prefix threshold value (1 - 100 percent).
@@ -1604,6 +1832,10 @@ options:
                     maximum_prefix_vpnv4:
                         description:
                             - Maximum number of VPNv4 prefixes to accept from this peer.
+                        type: int
+                    maximum_prefix_vpnv6:
+                        description:
+                            - Maximum number of VPNv6 prefixes to accept from this peer.
                         type: int
                     maximum_prefix_warning_only:
                         description:
@@ -1622,6 +1854,13 @@ options:
                     maximum_prefix_warning_only_vpnv4:
                         description:
                             - Enable/disable only giving warning message when limit is exceeded for VPNv4 routes.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    maximum_prefix_warning_only_vpnv6:
+                        description:
+                            - Enable/disable warning message when limit is exceeded for VPNv6 routes.
                         type: str
                         choices:
                             - 'enable'
@@ -1670,6 +1909,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    next_hop_self_vpnv6:
+                        description:
+                            - Enable/disable use of outgoing interface"s IP address as VPNv6 next-hop for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     next_hop_self6:
                         description:
                             - Enable/disable IPv6 next-hop calculation for this neighbor.
@@ -1703,6 +1949,10 @@ options:
                         description:
                             - Inbound filter for VPNv4 updates from this neighbor. Source router.prefix-list.name.
                         type: str
+                    prefix_list_in_vpnv6:
+                        description:
+                            - Inbound filter for VPNv6 updates from this neighbor. Source router.prefix-list6.name.
+                        type: str
                     prefix_list_in6:
                         description:
                             - IPv6 Inbound filter for updates from this neighbor. Source router.prefix-list6.name.
@@ -1714,6 +1964,10 @@ options:
                     prefix_list_out_vpnv4:
                         description:
                             - Outbound filter for VPNv4 updates to this neighbor. Source router.prefix-list.name.
+                        type: str
+                    prefix_list_out_vpnv6:
+                        description:
+                            - Outbound filter for VPNv6 updates to this neighbor. Source router.prefix-list6.name.
                         type: str
                     prefix_list_out6:
                         description:
@@ -1740,6 +1994,13 @@ options:
                     remove_private_as_vpnv4:
                         description:
                             - Enable/disable remove private AS number from VPNv4 outbound updates.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    remove_private_as_vpnv6:
+                        description:
+                            - Enable/disable to remove private AS number from VPNv6 outbound updates.
                         type: str
                         choices:
                             - 'enable'
@@ -1771,6 +2032,10 @@ options:
                         description:
                             - VPNv4 inbound route map filter. Source router.route-map.name.
                         type: str
+                    route_map_in_vpnv6:
+                        description:
+                            - VPNv6 inbound route map filter. Source router.route-map.name.
+                        type: str
                     route_map_in6:
                         description:
                             - IPv6 Inbound route map filter. Source router.route-map.name.
@@ -1794,6 +2059,14 @@ options:
                     route_map_out_vpnv4_preferable:
                         description:
                             - VPNv4 outbound route map filter if the peer is preferred. Source router.route-map.name.
+                        type: str
+                    route_map_out_vpnv6:
+                        description:
+                            - VPNv6 outbound route map filter. Source router.route-map.name.
+                        type: str
+                    route_map_out_vpnv6_preferable:
+                        description:
+                            - VPNv6 outbound route map filter if this neighbor is preferred. Source router.route-map.name.
                         type: str
                     route_map_out6:
                         description:
@@ -1820,6 +2093,13 @@ options:
                     route_reflector_client_vpnv4:
                         description:
                             - Enable/disable VPNv4 AS route reflector client for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    route_reflector_client_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 AS route reflector client for this neighbor.
                         type: str
                         choices:
                             - 'enable'
@@ -1852,6 +2132,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    route_server_client_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 AS route server client for this neighbor.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     route_server_client6:
                         description:
                             - Enable/disable IPv6 AS route server client.
@@ -1880,6 +2167,15 @@ options:
                     send_community_vpnv4:
                         description:
                             - Send community attribute to neighbor for VPNv4 address family.
+                        type: str
+                        choices:
+                            - 'standard'
+                            - 'extended'
+                            - 'both'
+                            - 'disable'
+                    send_community_vpnv6:
+                        description:
+                            - Enable/disable sending community attribute to this neighbor for VPNv6 address family.
                         type: str
                         choices:
                             - 'standard'
@@ -1919,6 +2215,13 @@ options:
                     soft_reconfiguration_vpnv4:
                         description:
                             - Enable/disable allow VPNv4 inbound soft reconfiguration.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    soft_reconfiguration_vpnv6:
+                        description:
+                            - Enable/disable VPNv6 inbound soft reconfiguration.
                         type: str
                         choices:
                             - 'enable'
@@ -2296,6 +2599,32 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    export_rt:
+                        description:
+                            - List of export route target.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            route_target:
+                                description:
+                                    - 'Attribute: AA:NN|A.B.C.D:NN.'
+                                required: true
+                                type: str
+                    import_route_map:
+                        description:
+                            - Import route map. Source router.route-map.name.
+                        type: str
+                    import_rt:
+                        description:
+                            - List of import route target.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            route_target:
+                                description:
+                                    - 'Attribute: AA:NN|A.B.C.D:NN'
+                                required: true
+                                type: str
                     leak_target:
                         description:
                             - Target VRF table.
@@ -2315,6 +2644,18 @@ options:
                                     - Target VRF ID (0 - 251).
                                 required: true
                                 type: str
+                    rd:
+                        description:
+                            - 'Route Distinguisher: AA:NN|A.B.C.D:NN.'
+                        type: str
+                    role:
+                        description:
+                            - VRF role.
+                        type: str
+                        choices:
+                            - 'standalone'
+                            - 'ce'
+                            - 'pe'
                     vrf:
                         description:
                             - Origin VRF ID (0 - 251).
@@ -2330,25 +2671,27 @@ EXAMPLES = """
           additional_path: "enable"
           additional_path_select: "2"
           additional_path_select_vpnv4: "2"
+          additional_path_select_vpnv6: "2"
           additional_path_select6: "2"
           additional_path_vpnv4: "enable"
+          additional_path_vpnv6: "enable"
           additional_path6: "enable"
           admin_distance:
               -
                   distance: "0"
-                  id: "11"
+                  id: "13"
                   neighbour_prefix: "<your_own_value>"
                   route_list: "<your_own_value> (source router.access-list.name)"
           aggregate_address:
               -
                   as_set: "enable"
-                  id: "16"
+                  id: "18"
                   prefix: "<your_own_value>"
                   summary_only: "enable"
           aggregate_address6:
               -
                   as_set: "enable"
-                  id: "21"
+                  id: "23"
                   prefix6: "<your_own_value>"
                   summary_only: "enable"
           always_compare_med: "enable"
@@ -2396,27 +2739,34 @@ EXAMPLES = """
                   activate: "enable"
                   activate_evpn: "enable"
                   activate_vpnv4: "enable"
+                  activate_vpnv6: "enable"
                   activate6: "enable"
                   additional_path: "send"
                   additional_path_vpnv4: "send"
+                  additional_path_vpnv6: "send"
                   additional_path6: "send"
                   adv_additional_path: "2"
                   adv_additional_path_vpnv4: "2"
+                  adv_additional_path_vpnv6: "2"
                   adv_additional_path6: "2"
                   advertisement_interval: "30"
                   allowas_in: "3"
                   allowas_in_enable: "enable"
                   allowas_in_enable_evpn: "enable"
                   allowas_in_enable_vpnv4: "enable"
+                  allowas_in_enable_vpnv6: "enable"
                   allowas_in_enable6: "enable"
                   allowas_in_evpn: "3"
                   allowas_in_vpnv4: "3"
+                  allowas_in_vpnv6: "3"
                   allowas_in6: "3"
                   as_override: "enable"
                   as_override6: "enable"
                   attribute_unchanged: "as-path"
                   attribute_unchanged_vpnv4: "as-path"
+                  attribute_unchanged_vpnv6: "as-path"
                   attribute_unchanged6: "as-path"
+                  auth_options: "<your_own_value> (source router.key-chain.name)"
                   bfd: "enable"
                   capability_default_originate: "enable"
                   capability_default_originate6: "enable"
@@ -2424,6 +2774,7 @@ EXAMPLES = """
                   capability_graceful_restart: "enable"
                   capability_graceful_restart_evpn: "enable"
                   capability_graceful_restart_vpnv4: "enable"
+                  capability_graceful_restart_vpnv6: "enable"
                   capability_graceful_restart6: "enable"
                   capability_orf: "none"
                   capability_orf6: "none"
@@ -2433,14 +2784,14 @@ EXAMPLES = """
                           advertise_routemap: "<your_own_value> (source router.route-map.name)"
                           condition_routemap:
                               -
-                                  name: "default_name_102 (source router.route-map.name)"
+                                  name: "default_name_112 (source router.route-map.name)"
                           condition_type: "exist"
                   conditional_advertise6:
                       -
                           advertise_routemap: "<your_own_value> (source router.route-map.name)"
                           condition_routemap:
                               -
-                                  name: "default_name_107 (source router.route-map.name)"
+                                  name: "default_name_117 (source router.route-map.name)"
                           condition_type: "exist"
                   connect_timer: "4294967295"
                   default_originate_routemap: "<your_own_value> (source router.route-map.name)"
@@ -2448,18 +2799,22 @@ EXAMPLES = """
                   description: "<your_own_value>"
                   distribute_list_in: "<your_own_value> (source router.access-list.name)"
                   distribute_list_in_vpnv4: "<your_own_value> (source router.access-list.name)"
+                  distribute_list_in_vpnv6: "<your_own_value> (source router.access-list6.name)"
                   distribute_list_in6: "<your_own_value> (source router.access-list6.name)"
                   distribute_list_out: "<your_own_value> (source router.access-list.name)"
                   distribute_list_out_vpnv4: "<your_own_value> (source router.access-list.name)"
+                  distribute_list_out_vpnv6: "<your_own_value> (source router.access-list6.name)"
                   distribute_list_out6: "<your_own_value> (source router.access-list6.name)"
                   dont_capability_negotiate: "enable"
                   ebgp_enforce_multihop: "enable"
                   ebgp_multihop_ttl: "255"
                   filter_list_in: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_in_vpnv4: "<your_own_value> (source router.aspath-list.name)"
+                  filter_list_in_vpnv6: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_in6: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_out: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_out_vpnv4: "<your_own_value> (source router.aspath-list.name)"
+                  filter_list_out_vpnv6: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_out6: "<your_own_value> (source router.aspath-list.name)"
                   holdtime_timer: "4294967295"
                   interface: "<your_own_value> (source system.interface.name)"
@@ -2474,61 +2829,75 @@ EXAMPLES = """
                   maximum_prefix_threshold: "75"
                   maximum_prefix_threshold_evpn: "75"
                   maximum_prefix_threshold_vpnv4: "75"
+                  maximum_prefix_threshold_vpnv6: "75"
                   maximum_prefix_threshold6: "75"
                   maximum_prefix_vpnv4: "0"
+                  maximum_prefix_vpnv6: "0"
                   maximum_prefix_warning_only: "enable"
                   maximum_prefix_warning_only_evpn: "enable"
                   maximum_prefix_warning_only_vpnv4: "enable"
+                  maximum_prefix_warning_only_vpnv6: "enable"
                   maximum_prefix_warning_only6: "enable"
                   maximum_prefix6: "0"
                   next_hop_self: "enable"
                   next_hop_self_rr: "enable"
                   next_hop_self_rr6: "enable"
                   next_hop_self_vpnv4: "enable"
+                  next_hop_self_vpnv6: "enable"
                   next_hop_self6: "enable"
                   override_capability: "enable"
                   passive: "enable"
                   password: "<your_own_value>"
                   prefix_list_in: "<your_own_value> (source router.prefix-list.name)"
                   prefix_list_in_vpnv4: "<your_own_value> (source router.prefix-list.name)"
+                  prefix_list_in_vpnv6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_in6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_out: "<your_own_value> (source router.prefix-list.name)"
                   prefix_list_out_vpnv4: "<your_own_value> (source router.prefix-list.name)"
+                  prefix_list_out_vpnv6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_out6: "<your_own_value> (source router.prefix-list6.name)"
                   remote_as: "<your_own_value>"
                   remove_private_as: "enable"
                   remove_private_as_evpn: "enable"
                   remove_private_as_vpnv4: "enable"
+                  remove_private_as_vpnv6: "enable"
                   remove_private_as6: "enable"
                   restart_time: "0"
                   retain_stale_time: "0"
                   route_map_in: "<your_own_value> (source router.route-map.name)"
                   route_map_in_evpn: "<your_own_value> (source router.route-map.name)"
                   route_map_in_vpnv4: "<your_own_value> (source router.route-map.name)"
+                  route_map_in_vpnv6: "<your_own_value> (source router.route-map.name)"
                   route_map_in6: "<your_own_value> (source router.route-map.name)"
                   route_map_out: "<your_own_value> (source router.route-map.name)"
                   route_map_out_evpn: "<your_own_value> (source router.route-map.name)"
                   route_map_out_preferable: "<your_own_value> (source router.route-map.name)"
                   route_map_out_vpnv4: "<your_own_value> (source router.route-map.name)"
                   route_map_out_vpnv4_preferable: "<your_own_value> (source router.route-map.name)"
+                  route_map_out_vpnv6: "<your_own_value> (source router.route-map.name)"
+                  route_map_out_vpnv6_preferable: "<your_own_value> (source router.route-map.name)"
                   route_map_out6: "<your_own_value> (source router.route-map.name)"
                   route_map_out6_preferable: "<your_own_value> (source router.route-map.name)"
                   route_reflector_client: "enable"
                   route_reflector_client_evpn: "enable"
                   route_reflector_client_vpnv4: "enable"
+                  route_reflector_client_vpnv6: "enable"
                   route_reflector_client6: "enable"
                   route_server_client: "enable"
                   route_server_client_evpn: "enable"
                   route_server_client_vpnv4: "enable"
+                  route_server_client_vpnv6: "enable"
                   route_server_client6: "enable"
                   send_community: "standard"
                   send_community_evpn: "standard"
                   send_community_vpnv4: "standard"
+                  send_community_vpnv6: "standard"
                   send_community6: "standard"
                   shutdown: "enable"
                   soft_reconfiguration: "enable"
                   soft_reconfiguration_evpn: "enable"
                   soft_reconfiguration_vpnv4: "enable"
+                  soft_reconfiguration_vpnv6: "enable"
                   soft_reconfiguration6: "enable"
                   stale_route: "enable"
                   strict_capability_match: "enable"
@@ -2541,27 +2910,34 @@ EXAMPLES = """
                   activate: "enable"
                   activate_evpn: "enable"
                   activate_vpnv4: "enable"
+                  activate_vpnv6: "enable"
                   activate6: "enable"
                   additional_path: "send"
                   additional_path_vpnv4: "send"
+                  additional_path_vpnv6: "send"
                   additional_path6: "send"
                   adv_additional_path: "2"
                   adv_additional_path_vpnv4: "2"
+                  adv_additional_path_vpnv6: "2"
                   adv_additional_path6: "2"
                   advertisement_interval: "30"
                   allowas_in: "3"
                   allowas_in_enable: "enable"
                   allowas_in_enable_evpn: "enable"
                   allowas_in_enable_vpnv4: "enable"
+                  allowas_in_enable_vpnv6: "enable"
                   allowas_in_enable6: "enable"
                   allowas_in_evpn: "3"
                   allowas_in_vpnv4: "3"
+                  allowas_in_vpnv6: "3"
                   allowas_in6: "3"
                   as_override: "enable"
                   as_override6: "enable"
                   attribute_unchanged: "as-path"
                   attribute_unchanged_vpnv4: "as-path"
+                  attribute_unchanged_vpnv6: "as-path"
                   attribute_unchanged6: "as-path"
+                  auth_options: "<your_own_value> (source router.key-chain.name)"
                   bfd: "enable"
                   capability_default_originate: "enable"
                   capability_default_originate6: "enable"
@@ -2569,6 +2945,7 @@ EXAMPLES = """
                   capability_graceful_restart: "enable"
                   capability_graceful_restart_evpn: "enable"
                   capability_graceful_restart_vpnv4: "enable"
+                  capability_graceful_restart_vpnv6: "enable"
                   capability_graceful_restart6: "enable"
                   capability_orf: "none"
                   capability_orf6: "none"
@@ -2579,18 +2956,22 @@ EXAMPLES = """
                   description: "<your_own_value>"
                   distribute_list_in: "<your_own_value> (source router.access-list.name)"
                   distribute_list_in_vpnv4: "<your_own_value> (source router.access-list.name)"
+                  distribute_list_in_vpnv6: "<your_own_value> (source router.access-list6.name)"
                   distribute_list_in6: "<your_own_value> (source router.access-list6.name)"
                   distribute_list_out: "<your_own_value> (source router.access-list.name)"
                   distribute_list_out_vpnv4: "<your_own_value> (source router.access-list.name)"
+                  distribute_list_out_vpnv6: "<your_own_value> (source router.access-list6.name)"
                   distribute_list_out6: "<your_own_value> (source router.access-list6.name)"
                   dont_capability_negotiate: "enable"
                   ebgp_enforce_multihop: "enable"
                   ebgp_multihop_ttl: "255"
                   filter_list_in: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_in_vpnv4: "<your_own_value> (source router.aspath-list.name)"
+                  filter_list_in_vpnv6: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_in6: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_out: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_out_vpnv4: "<your_own_value> (source router.aspath-list.name)"
+                  filter_list_out_vpnv6: "<your_own_value> (source router.aspath-list.name)"
                   filter_list_out6: "<your_own_value> (source router.aspath-list.name)"
                   holdtime_timer: "4294967295"
                   interface: "<your_own_value> (source system.interface.name)"
@@ -2604,62 +2985,76 @@ EXAMPLES = """
                   maximum_prefix_threshold: "75"
                   maximum_prefix_threshold_evpn: "75"
                   maximum_prefix_threshold_vpnv4: "75"
+                  maximum_prefix_threshold_vpnv6: "75"
                   maximum_prefix_threshold6: "75"
                   maximum_prefix_vpnv4: "0"
+                  maximum_prefix_vpnv6: "0"
                   maximum_prefix_warning_only: "enable"
                   maximum_prefix_warning_only_evpn: "enable"
                   maximum_prefix_warning_only_vpnv4: "enable"
+                  maximum_prefix_warning_only_vpnv6: "enable"
                   maximum_prefix_warning_only6: "enable"
                   maximum_prefix6: "0"
-                  name: "default_name_277"
+                  name: "default_name_320"
                   next_hop_self: "enable"
                   next_hop_self_rr: "enable"
                   next_hop_self_rr6: "enable"
                   next_hop_self_vpnv4: "enable"
+                  next_hop_self_vpnv6: "enable"
                   next_hop_self6: "enable"
                   override_capability: "enable"
                   passive: "enable"
                   password: "<your_own_value>"
                   prefix_list_in: "<your_own_value> (source router.prefix-list.name)"
                   prefix_list_in_vpnv4: "<your_own_value> (source router.prefix-list.name)"
+                  prefix_list_in_vpnv6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_in6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_out: "<your_own_value> (source router.prefix-list.name)"
                   prefix_list_out_vpnv4: "<your_own_value> (source router.prefix-list.name)"
+                  prefix_list_out_vpnv6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_out6: "<your_own_value> (source router.prefix-list6.name)"
                   remote_as: "<your_own_value>"
                   remove_private_as: "enable"
                   remove_private_as_evpn: "enable"
                   remove_private_as_vpnv4: "enable"
+                  remove_private_as_vpnv6: "enable"
                   remove_private_as6: "enable"
                   restart_time: "0"
                   retain_stale_time: "0"
                   route_map_in: "<your_own_value> (source router.route-map.name)"
                   route_map_in_evpn: "<your_own_value> (source router.route-map.name)"
                   route_map_in_vpnv4: "<your_own_value> (source router.route-map.name)"
+                  route_map_in_vpnv6: "<your_own_value> (source router.route-map.name)"
                   route_map_in6: "<your_own_value> (source router.route-map.name)"
                   route_map_out: "<your_own_value> (source router.route-map.name)"
                   route_map_out_evpn: "<your_own_value> (source router.route-map.name)"
                   route_map_out_preferable: "<your_own_value> (source router.route-map.name)"
                   route_map_out_vpnv4: "<your_own_value> (source router.route-map.name)"
                   route_map_out_vpnv4_preferable: "<your_own_value> (source router.route-map.name)"
+                  route_map_out_vpnv6: "<your_own_value> (source router.route-map.name)"
+                  route_map_out_vpnv6_preferable: "<your_own_value> (source router.route-map.name)"
                   route_map_out6: "<your_own_value> (source router.route-map.name)"
                   route_map_out6_preferable: "<your_own_value> (source router.route-map.name)"
                   route_reflector_client: "enable"
                   route_reflector_client_evpn: "enable"
                   route_reflector_client_vpnv4: "enable"
+                  route_reflector_client_vpnv6: "enable"
                   route_reflector_client6: "enable"
                   route_server_client: "enable"
                   route_server_client_evpn: "enable"
                   route_server_client_vpnv4: "enable"
+                  route_server_client_vpnv6: "enable"
                   route_server_client6: "enable"
                   send_community: "standard"
                   send_community_evpn: "standard"
                   send_community_vpnv4: "standard"
+                  send_community_vpnv6: "standard"
                   send_community6: "standard"
                   shutdown: "enable"
                   soft_reconfiguration: "enable"
                   soft_reconfiguration_evpn: "enable"
                   soft_reconfiguration_vpnv4: "enable"
+                  soft_reconfiguration_vpnv6: "enable"
                   soft_reconfiguration6: "enable"
                   stale_route: "enable"
                   strict_capability_match: "enable"
@@ -2669,20 +3064,20 @@ EXAMPLES = """
                   weight: "4294967295"
           neighbor_range:
               -
-                  id: "334"
+                  id: "388"
                   max_neighbor_num: "0"
                   neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
                   prefix: "<your_own_value>"
           neighbor_range6:
               -
-                  id: "339"
+                  id: "393"
                   max_neighbor_num: "0"
                   neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
                   prefix6: "<your_own_value>"
           network:
               -
                   backdoor: "enable"
-                  id: "345"
+                  id: "399"
                   network_import_check: "global"
                   prefix: "<your_own_value>"
                   route_map: "<your_own_value> (source router.route-map.name)"
@@ -2690,7 +3085,7 @@ EXAMPLES = """
           network6:
               -
                   backdoor: "enable"
-                  id: "352"
+                  id: "406"
                   network_import_check: "global"
                   prefix6: "<your_own_value>"
                   route_map: "<your_own_value> (source router.route-map.name)"
@@ -2698,12 +3093,12 @@ EXAMPLES = """
           recursive_next_hop: "enable"
           redistribute:
               -
-                  name: "default_name_359"
+                  name: "default_name_413"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           redistribute6:
               -
-                  name: "default_name_363"
+                  name: "default_name_417"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           router_id: "<your_own_value>"
@@ -2745,11 +3140,20 @@ EXAMPLES = """
                   vrf: "<your_own_value>"
           vrf6:
               -
+                  export_rt:
+                      -
+                          route_target: "<your_own_value>"
+                  import_route_map: "<your_own_value> (source router.route-map.name)"
+                  import_rt:
+                      -
+                          route_target: "<your_own_value>"
                   leak_target:
                       -
                           interface: "<your_own_value> (source system.interface.name)"
                           route_map: "<your_own_value> (source router.route-map.name)"
                           vrf: "<your_own_value>"
+                  rd: "<your_own_value>"
+                  role: "standalone"
                   vrf: "<your_own_value>"
 """
 
@@ -2837,8 +3241,10 @@ def filter_router_bgp_data(json):
         "additional_path",
         "additional_path_select",
         "additional_path_select_vpnv4",
+        "additional_path_select_vpnv6",
         "additional_path_select6",
         "additional_path_vpnv4",
+        "additional_path_vpnv6",
         "additional_path6",
         "admin_distance",
         "aggregate_address",
@@ -2935,9 +3341,11 @@ def flatten_multilists_attributes(data):
         ["neighbor", "attribute_unchanged"],
         ["neighbor", "attribute_unchanged6"],
         ["neighbor", "attribute_unchanged_vpnv4"],
+        ["neighbor", "attribute_unchanged_vpnv6"],
         ["neighbor_group", "attribute_unchanged"],
         ["neighbor_group", "attribute_unchanged6"],
         ["neighbor_group", "attribute_unchanged_vpnv4"],
+        ["neighbor_group", "attribute_unchanged_vpnv6"],
     ]
 
     for attr in multilist_attrs:
@@ -2963,9 +3371,10 @@ def router_bgp(data, fos):
     vdom = data["vdom"]
     router_bgp_data = data["router_bgp"]
     router_bgp_data = flatten_multilists_attributes(router_bgp_data)
-    filtered_data = underscore_to_hyphen(filter_router_bgp_data(router_bgp_data))
+    filtered_data = filter_router_bgp_data(router_bgp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("router", "bgp", data=filtered_data, vdom=vdom)
+    return fos.set("router", "bgp", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -3099,6 +3508,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "additional_path_vpnv6": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "multipath_recursive_distance": {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
             "type": "string",
@@ -3178,6 +3592,10 @@ versioned_schema = {
             "v_range": [["v7.2.0", ""]],
             "type": "integer",
         },
+        "additional_path_select_vpnv6": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "integer",
+        },
         "cross_family_conditional_adv": {
             "v_range": [["v7.4.0", ""]],
             "type": "string",
@@ -3253,6 +3671,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "allowas_in_enable_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "allowas_in_enable_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -3261,6 +3684,7 @@ versioned_schema = {
                 "allowas_in": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "allowas_in6": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "allowas_in_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+                "allowas_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "integer"},
                 "allowas_in_evpn": {"v_range": [["v7.4.0", ""]], "type": "integer"},
                 "attribute_unchanged": {
                     "v_range": [["v6.0.0", ""]],
@@ -3295,6 +3719,17 @@ versioned_schema = {
                     "multiple_values": True,
                     "elements": "str",
                 },
+                "attribute_unchanged_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "as-path"},
+                        {"value": "med"},
+                        {"value": "next-hop"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
                 "activate": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -3307,6 +3742,11 @@ versioned_schema = {
                 },
                 "activate_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "activate_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -3357,6 +3797,11 @@ versioned_schema = {
                 },
                 "capability_graceful_restart_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "capability_graceful_restart_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -3425,6 +3870,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "next_hop_self_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "override_capability": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -3450,6 +3900,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "remove_private_as_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "remove_private_as_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -3470,6 +3925,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "route_reflector_client_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "route_reflector_client_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -3487,6 +3947,11 @@ versioned_schema = {
                 },
                 "route_server_client_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "route_server_client_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -3512,6 +3977,11 @@ versioned_schema = {
                 },
                 "soft_reconfiguration_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "soft_reconfiguration_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -3550,20 +4020,33 @@ versioned_schema = {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
                 },
+                "distribute_list_in_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
                 "distribute_list_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "distribute_list_out6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "distribute_list_out_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
                 },
+                "distribute_list_out_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
                 "ebgp_multihop_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "filter_list_in": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_in6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_in_vpnv4": {"v_range": [["v7.4.1", ""]], "type": "string"},
+                "filter_list_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "filter_list_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_out6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_out_vpnv4": {
                     "v_range": [["v7.4.1", ""]],
+                    "type": "string",
+                },
+                "filter_list_out_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -3571,6 +4054,10 @@ versioned_schema = {
                 "maximum_prefix6": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "maximum_prefix_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "integer",
+                },
+                "maximum_prefix_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "integer",
                 },
                 "maximum_prefix_evpn": {"v_range": [["v7.4.0", ""]], "type": "integer"},
@@ -3584,6 +4071,10 @@ versioned_schema = {
                 },
                 "maximum_prefix_threshold_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "integer",
+                },
+                "maximum_prefix_threshold_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "integer",
                 },
                 "maximum_prefix_threshold_evpn": {
@@ -3605,6 +4096,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "maximum_prefix_warning_only_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "maximum_prefix_warning_only_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -3613,10 +4109,15 @@ versioned_schema = {
                 "prefix_list_in": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_in6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_in_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "string"},
+                "prefix_list_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "prefix_list_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_out6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_out_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                },
+                "prefix_list_out_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "remote_as": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -3635,6 +4136,7 @@ versioned_schema = {
                 "route_map_in": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "route_map_in6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "route_map_in_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "string"},
+                "route_map_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "route_map_in_evpn": {"v_range": [["v7.4.0", ""]], "type": "string"},
                 "route_map_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "route_map_out_preferable": {
@@ -3647,8 +4149,13 @@ versioned_schema = {
                     "type": "string",
                 },
                 "route_map_out_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "string"},
+                "route_map_out_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "route_map_out_vpnv4_preferable": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                },
+                "route_map_out_vpnv6_preferable": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "route_map_out_evpn": {"v_range": [["v7.4.0", ""]], "type": "string"},
@@ -3674,6 +4181,16 @@ versioned_schema = {
                 },
                 "send_community_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "standard"},
+                        {"value": "extended"},
+                        {"value": "both"},
+                        {"value": "disable"},
+                    ],
+                },
+                "send_community_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [
                         {"value": "standard"},
@@ -3730,6 +4247,16 @@ versioned_schema = {
                         {"value": "disable"},
                     ],
                 },
+                "additional_path_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "send"},
+                        {"value": "receive"},
+                        {"value": "both"},
+                        {"value": "disable"},
+                    ],
+                },
                 "adv_additional_path": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "adv_additional_path6": {
                     "v_range": [["v6.2.0", ""]],
@@ -3739,7 +4266,12 @@ versioned_schema = {
                     "v_range": [["v7.2.0", ""]],
                     "type": "integer",
                 },
+                "adv_additional_path_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                },
                 "password": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "auth_options": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "conditional_advertise": {
                     "type": "list",
                     "elements": "dict",
@@ -3829,6 +4361,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "allowas_in_enable_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "allowas_in_enable_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -3837,6 +4374,7 @@ versioned_schema = {
                 "allowas_in": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "allowas_in6": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "allowas_in_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+                "allowas_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "integer"},
                 "allowas_in_evpn": {"v_range": [["v7.4.0", ""]], "type": "integer"},
                 "attribute_unchanged": {
                     "v_range": [["v6.0.0", ""]],
@@ -3871,6 +4409,17 @@ versioned_schema = {
                     "multiple_values": True,
                     "elements": "str",
                 },
+                "attribute_unchanged_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "as-path"},
+                        {"value": "med"},
+                        {"value": "next-hop"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
                 "activate": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -3883,6 +4432,11 @@ versioned_schema = {
                 },
                 "activate_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "activate_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -3933,6 +4487,11 @@ versioned_schema = {
                 },
                 "capability_graceful_restart_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "capability_graceful_restart_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -4001,6 +4560,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "next_hop_self_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "override_capability": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -4026,6 +4590,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "remove_private_as_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "remove_private_as_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -4046,6 +4615,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "route_reflector_client_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "route_reflector_client_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -4063,6 +4637,11 @@ versioned_schema = {
                 },
                 "route_server_client_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "route_server_client_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -4088,6 +4667,11 @@ versioned_schema = {
                 },
                 "soft_reconfiguration_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "soft_reconfiguration_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -4126,20 +4710,33 @@ versioned_schema = {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
                 },
+                "distribute_list_in_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
                 "distribute_list_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "distribute_list_out6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "distribute_list_out_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
                 },
+                "distribute_list_out_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
                 "ebgp_multihop_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "filter_list_in": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_in6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_in_vpnv4": {"v_range": [["v7.4.1", ""]], "type": "string"},
+                "filter_list_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "filter_list_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_out6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "filter_list_out_vpnv4": {
                     "v_range": [["v7.4.1", ""]],
+                    "type": "string",
+                },
+                "filter_list_out_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -4147,6 +4744,10 @@ versioned_schema = {
                 "maximum_prefix6": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "maximum_prefix_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "integer",
+                },
+                "maximum_prefix_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "integer",
                 },
                 "maximum_prefix_evpn": {"v_range": [["v7.4.0", ""]], "type": "integer"},
@@ -4160,6 +4761,10 @@ versioned_schema = {
                 },
                 "maximum_prefix_threshold_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "integer",
+                },
+                "maximum_prefix_threshold_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "integer",
                 },
                 "maximum_prefix_threshold_evpn": {
@@ -4181,6 +4786,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "maximum_prefix_warning_only_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "maximum_prefix_warning_only_evpn": {
                     "v_range": [["v7.4.0", ""]],
                     "type": "string",
@@ -4189,10 +4799,15 @@ versioned_schema = {
                 "prefix_list_in": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_in6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_in_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "string"},
+                "prefix_list_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "prefix_list_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_out6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "prefix_list_out_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                },
+                "prefix_list_out_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "remote_as": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -4211,6 +4826,7 @@ versioned_schema = {
                 "route_map_in": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "route_map_in6": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "route_map_in_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "string"},
+                "route_map_in_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "route_map_in_evpn": {"v_range": [["v7.4.0", ""]], "type": "string"},
                 "route_map_out": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "route_map_out_preferable": {
@@ -4223,8 +4839,13 @@ versioned_schema = {
                     "type": "string",
                 },
                 "route_map_out_vpnv4": {"v_range": [["v7.2.0", ""]], "type": "string"},
+                "route_map_out_vpnv6": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "route_map_out_vpnv4_preferable": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                },
+                "route_map_out_vpnv6_preferable": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "route_map_out_evpn": {"v_range": [["v7.4.0", ""]], "type": "string"},
@@ -4250,6 +4871,16 @@ versioned_schema = {
                 },
                 "send_community_vpnv4": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "standard"},
+                        {"value": "extended"},
+                        {"value": "both"},
+                        {"value": "disable"},
+                    ],
+                },
+                "send_community_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [
                         {"value": "standard"},
@@ -4306,6 +4937,16 @@ versioned_schema = {
                         {"value": "disable"},
                     ],
                 },
+                "additional_path_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "send"},
+                        {"value": "receive"},
+                        {"value": "both"},
+                        {"value": "disable"},
+                    ],
+                },
                 "adv_additional_path": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "adv_additional_path6": {
                     "v_range": [["v6.2.0", ""]],
@@ -4315,7 +4956,12 @@ versioned_schema = {
                     "v_range": [["v7.2.0", ""]],
                     "type": "integer",
                 },
+                "adv_additional_path_vpnv6": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                },
                 "password": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "auth_options": {"v_range": [["v7.4.2", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -4490,6 +5136,41 @@ versioned_schema = {
                     "type": "string",
                     "required": True,
                 },
+                "role": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "standalone"},
+                        {"value": "ce"},
+                        {"value": "pe"},
+                    ],
+                },
+                "rd": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "export_rt": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "route_target": {
+                            "v_range": [["v7.4.2", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.4.2", ""]],
+                },
+                "import_rt": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "route_target": {
+                            "v_range": [["v7.4.2", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.4.2", ""]],
+                },
+                "import_route_map": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "leak_target": {
                     "type": "list",
                     "elements": "dict",

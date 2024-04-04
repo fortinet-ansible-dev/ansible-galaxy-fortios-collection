@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -114,6 +114,49 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+                    mac_called_station_delimiter:
+                        description:
+                            - MAC called station delimiter .
+                        type: str
+                        choices:
+                            - 'colon'
+                            - 'hyphen'
+                            - 'none'
+                            - 'single-hyphen'
+                    mac_calling_station_delimiter:
+                        description:
+                            - MAC calling station delimiter .
+                        type: str
+                        choices:
+                            - 'colon'
+                            - 'hyphen'
+                            - 'none'
+                            - 'single-hyphen'
+                    mac_case:
+                        description:
+                            - MAC case .
+                        type: str
+                        choices:
+                            - 'lowercase'
+                            - 'uppercase'
+                    mac_password_delimiter:
+                        description:
+                            - MAC authentication password delimiter .
+                        type: str
+                        choices:
+                            - 'colon'
+                            - 'hyphen'
+                            - 'none'
+                            - 'single-hyphen'
+                    mac_username_delimiter:
+                        description:
+                            - MAC authentication username delimiter .
+                        type: str
+                        choices:
+                            - 'colon'
+                            - 'hyphen'
+                            - 'none'
+                            - 'single-hyphen'
                     max_reauth_attempt:
                         description:
                             - Maximum number of authentication attempts (0 - 15).
@@ -355,6 +398,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            mgmt_mode:
+                description:
+                    - FortiLink management mode.
+                type: int
             mirror:
                 description:
                     - Configuration method to edit FortiSwitch packet mirror.
@@ -612,6 +659,7 @@ options:
                             - 'disabled'
                             - 'cl74'
                             - 'cl91'
+                            - 'detect-by-module'
                     fgt_peer_device_name:
                         description:
                             - FGT peer device name.
@@ -1133,6 +1181,20 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            purdue_level:
+                description:
+                    - Purdue Level of this FortiSwitch.
+                type: str
+                choices:
+                    - '1'
+                    - '1.5'
+                    - '2'
+                    - '2.5'
+                    - '3'
+                    - '3.5'
+                    - '4'
+                    - '5'
+                    - '5.5'
             qos_drop_policy:
                 description:
                     - Set QoS drop-policy.
@@ -1144,6 +1206,17 @@ options:
                 description:
                     - Set QoS RED/WRED drop probability.
                 type: int
+            radius_nas_ip:
+                description:
+                    - NAS-IP address.
+                type: str
+            radius_nas_ip_override:
+                description:
+                    - Use locally defined NAS-IP.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             remote_log:
                 description:
                     - Configure logging by FortiSwitch device to a remote syslog server.
@@ -1689,6 +1762,21 @@ options:
                 description:
                     - FortiSwitch version.
                 type: int
+            vlan:
+                description:
+                    - Configure VLAN assignment priority.
+                type: list
+                elements: dict
+                suboptions:
+                    assignment_priority:
+                        description:
+                            - 802.1x Radius (Tunnel-Private-Group-Id) VLANID assign-by-name priority. A smaller value has a higher priority.
+                        type: int
+                    vlan_name:
+                        description:
+                            - VLAN name. Source system.interface.name.
+                        required: true
+                        type: str
 """
 
 EXAMPLES = """
@@ -1702,6 +1790,11 @@ EXAMPLES = """
               link_down_auth: "set-unauth"
               local_override: "enable"
               mab_reauth: "disable"
+              mac_called_station_delimiter: "colon"
+              mac_calling_station_delimiter: "colon"
+              mac_case: "lowercase"
+              mac_password_delimiter: "colon"
+              mac_username_delimiter: "colon"
               max_reauth_attempt: "3"
               reauth_period: "60"
               tx_period: "30"
@@ -1717,7 +1810,7 @@ EXAMPLES = """
               -
                   ip: "<your_own_value>"
                   mac: "<your_own_value>"
-                  name: "default_name_20"
+                  name: "default_name_25"
                   port: "<your_own_value>"
                   vlan: "<your_own_value> (source system.interface.name)"
           directly_connected: "0"
@@ -1754,19 +1847,20 @@ EXAMPLES = """
           l3_discovered: "0"
           max_allowed_trunk_members: "0"
           mclag_igmp_snooping_aware: "enable"
+          mgmt_mode: "0"
           mirror:
               -
                   dst: "<your_own_value>"
-                  name: "default_name_56"
+                  name: "default_name_62"
                   src_egress:
                       -
-                          name: "default_name_58"
+                          name: "default_name_64"
                   src_ingress:
                       -
-                          name: "default_name_60"
+                          name: "default_name_66"
                   status: "active"
                   switching_packet: "enable"
-          name: "default_name_63"
+          name: "default_name_69"
           override_snmp_community: "enable"
           override_snmp_sysinfo: "disable"
           override_snmp_trap_threshold: "enable"
@@ -1780,7 +1874,7 @@ EXAMPLES = """
                   access_mode: "dynamic"
                   acl_group:
                       -
-                          name: "default_name_75 (source switch-controller.acl.group.name)"
+                          name: "default_name_81 (source switch-controller.acl.group.name)"
                   aggregator_mode: "bandwidth"
                   allowed_vlans:
                       -
@@ -1818,7 +1912,7 @@ EXAMPLES = """
                   fortilink_port: "0"
                   fortiswitch_acls:
                       -
-                          id: "109"
+                          id: "115"
                   igmp_snooping: "enable"
                   igmp_snooping_flood_reports: "enable"
                   igmps_flood_reports: "enable"
@@ -1899,13 +1993,16 @@ EXAMPLES = """
           pre_provisioned: "0"
           ptp_profile: "<your_own_value> (source switch-controller.ptp.profile.name)"
           ptp_status: "disable"
+          purdue_level: "1"
           qos_drop_policy: "taildrop"
           qos_red_probability: "12"
+          radius_nas_ip: "<your_own_value>"
+          radius_nas_ip_override: "disable"
           remote_log:
               -
                   csv: "enable"
                   facility: "kernel"
-                  name: "default_name_192"
+                  name: "default_name_201"
                   port: "514"
                   server: "192.168.100.40"
                   severity: "emergency"
@@ -1922,10 +2019,10 @@ EXAMPLES = """
                   events: "cpu-high"
                   hosts:
                       -
-                          id: "206"
+                          id: "215"
                           ip: "<your_own_value>"
-                  id: "208"
-                  name: "default_name_209"
+                  id: "217"
+                  name: "default_name_218"
                   query_v1_port: "161"
                   query_v1_status: "disable"
                   query_v2c_port: "161"
@@ -1951,7 +2048,7 @@ EXAMPLES = """
               -
                   auth_proto: "md5"
                   auth_pwd: "<your_own_value>"
-                  name: "default_name_234"
+                  name: "default_name_243"
                   priv_proto: "aes128"
                   priv_pwd: "<your_own_value>"
                   queries: "disable"
@@ -1961,7 +2058,7 @@ EXAMPLES = """
           static_mac:
               -
                   description: "<your_own_value>"
-                  id: "243"
+                  id: "252"
                   interface: "<your_own_value>"
                   mac: "<your_own_value>"
                   type: "static"
@@ -1974,7 +2071,7 @@ EXAMPLES = """
               unknown_unicast: "enable"
           stp_instance:
               -
-                  id: "255"
+                  id: "264"
                   priority: "0"
           stp_settings:
               forward_time: "15"
@@ -1982,7 +2079,7 @@ EXAMPLES = """
               local_override: "enable"
               max_age: "20"
               max_hops: "20"
-              name: "default_name_263"
+              name: "default_name_272"
               pending_timer: "4"
               revision: "0"
               status: "enable"
@@ -1999,6 +2096,10 @@ EXAMPLES = """
           tdr_supported: "<your_own_value>"
           type: "virtual"
           version: "0"
+          vlan:
+              -
+                  assignment_priority: "128"
+                  vlan_name: "<your_own_value> (source system.interface.name)"
 """
 
 RETURN = """
@@ -2114,6 +2215,7 @@ def filter_switch_controller_managed_switch_data(json):
         "l3_discovered",
         "max_allowed_trunk_members",
         "mclag_igmp_snooping_aware",
+        "mgmt_mode",
         "mirror",
         "name",
         "override_snmp_community",
@@ -2128,8 +2230,11 @@ def filter_switch_controller_managed_switch_data(json):
         "pre_provisioned",
         "ptp_profile",
         "ptp_status",
+        "purdue_level",
         "qos_drop_policy",
         "qos_red_probability",
+        "radius_nas_ip",
+        "radius_nas_ip_override",
         "remote_log",
         "route_offload",
         "route_offload_mclag",
@@ -2153,6 +2258,7 @@ def filter_switch_controller_managed_switch_data(json):
         "tdr_supported",
         "type",
         "version",
+        "vlan",
     ]
 
     json = remove_invalid_fields(json)
@@ -2208,9 +2314,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"802_1X_settings": "settings_802_1X"}
+    speciallist = {"802_1X_settings": "settings_802_1X"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -2219,8 +2325,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -2239,12 +2348,10 @@ def switch_controller_managed_switch(data, fos, check_mode=False):
     switch_controller_managed_switch_data = flatten_multilists_attributes(
         switch_controller_managed_switch_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_managed_switch_data(
-            switch_controller_managed_switch_data
-        )
+    filtered_data = filter_switch_controller_managed_switch_data(
+        switch_controller_managed_switch_data
     )
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:
@@ -2367,6 +2474,21 @@ versioned_schema = {
         "description": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "switch_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "access_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "purdue_level": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "1"},
+                {"value": "1.5"},
+                {"value": "2"},
+                {"value": "2.5"},
+                {"value": "3"},
+                {"value": "3.5"},
+                {"value": "4"},
+                {"value": "5"},
+                {"value": "5.5"},
+            ],
+        },
         "fsw_wan1_peer": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "fsw_wan1_admin": {
             "v_range": [["v6.0.0", ""]],
@@ -2399,6 +2521,7 @@ versioned_schema = {
             "type": "integer",
         },
         "pre_provisioned": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "mgmt_mode": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "dynamic_capability": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "switch_device_tag": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "switch_dhcp_opt43_key": {"v_range": [["v6.4.0", ""]], "type": "string"},
@@ -2413,6 +2536,12 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "ptp_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "radius_nas_ip_override": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "radius_nas_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "route_offload": {
             "v_range": [["v7.4.1", ""]],
             "type": "string",
@@ -2435,6 +2564,19 @@ versioned_schema = {
                 "router_ip": {"v_range": [["v7.4.1", ""]], "type": "string"},
             },
             "v_range": [["v7.4.1", ""]],
+        },
+        "vlan": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "vlan_name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "assignment_priority": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+            },
+            "v_range": [["v7.4.2", ""]],
         },
         "type": {
             "v_range": [["v6.0.0", ""]],
@@ -2831,6 +2973,7 @@ versioned_schema = {
                         {"value": "disabled"},
                         {"value": "cl74"},
                         {"value": "cl91"},
+                        {"value": "detect-by-module", "v_range": [["v7.4.2", ""]]},
                     ],
                 },
                 "flow_control": {
@@ -3664,6 +3807,51 @@ versioned_schema = {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "mac_username_delimiter": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "colon"},
+                        {"value": "hyphen"},
+                        {"value": "none"},
+                        {"value": "single-hyphen"},
+                    ],
+                },
+                "mac_password_delimiter": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "colon"},
+                        {"value": "hyphen"},
+                        {"value": "none"},
+                        {"value": "single-hyphen"},
+                    ],
+                },
+                "mac_calling_station_delimiter": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "colon"},
+                        {"value": "hyphen"},
+                        {"value": "none"},
+                        {"value": "single-hyphen"},
+                    ],
+                },
+                "mac_called_station_delimiter": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "colon"},
+                        {"value": "hyphen"},
+                        {"value": "none"},
+                        {"value": "single-hyphen"},
+                    ],
+                },
+                "mac_case": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "lowercase"}, {"value": "uppercase"}],
                 },
             },
         },

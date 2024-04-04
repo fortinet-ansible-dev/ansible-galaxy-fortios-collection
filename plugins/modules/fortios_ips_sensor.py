@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -718,7 +718,8 @@ def ips_sensor(data, fos, check_mode=False):
 
     ips_sensor_data = data["ips_sensor"]
     ips_sensor_data = flatten_multilists_attributes(ips_sensor_data)
-    filtered_data = underscore_to_hyphen(filter_ips_sensor_data(ips_sensor_data))
+    filtered_data = filter_ips_sensor_data(ips_sensor_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -782,7 +783,7 @@ def ips_sensor(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("ips", "sensor", data=filtered_data, vdom=vdom)
+        return fos.set("ips", "sensor", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("ips", "sensor", mkey=filtered_data["name"], vdom=vdom)

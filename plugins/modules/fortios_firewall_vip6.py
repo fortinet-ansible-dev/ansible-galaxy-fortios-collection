@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -125,6 +125,20 @@ options:
                 description:
                     - Incoming port number range that you want to map to a port number range on the destination network.
                 type: str
+            h2_support:
+                description:
+                    - Enable/disable HTTP2 support .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            h3_support:
+                description:
+                    - Enable/disable HTTP3/QUIC support .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             http_cookie_age:
                 description:
                     - Time in minutes that client web browsers should keep a cookie. Default is 60 minutes. 0 = no time limit.
@@ -299,6 +313,49 @@ options:
                     - 'tcp'
                     - 'udp'
                     - 'sctp'
+            quic:
+                description:
+                    - QUIC setting.
+                type: dict
+                suboptions:
+                    ack_delay_exponent:
+                        description:
+                            - ACK delay exponent (1 - 20).
+                        type: int
+                    active_connection_id_limit:
+                        description:
+                            - Active connection ID limit (1 - 8).
+                        type: int
+                    active_migration:
+                        description:
+                            - Enable/disable active migration .
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    grease_quic_bit:
+                        description:
+                            - Enable/disable grease QUIC bit .
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    max_ack_delay:
+                        description:
+                            - Maximum ACK delay in milliseconds (1 - 16383).
+                        type: int
+                    max_datagram_frame_size:
+                        description:
+                            - Maximum datagram frame size in bytes (1 - 1500).
+                        type: int
+                    max_idle_timeout:
+                        description:
+                            - Maximum idle timeout milliseconds (1 - 60000).
+                        type: int
+                    max_udp_payload_size:
+                        description:
+                            - Maximum UDP payload size in bytes (1200 - 1500).
+                        type: int
             realservers:
                 description:
                     - Select the real servers that this server load balancing VIP will distribute traffic to.
@@ -418,6 +475,17 @@ options:
                 description:
                     - The name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
                 type: str
+            ssl_certificate_dict:
+                description:
+                    - Name of the certificate to use for SSL handshake. Use the parameter ssl-certificate instead if the fortiOS firmwear <= 7.4.1
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_cipher_suites:
                 description:
                     - SSL/TLS cipher suites acceptable from a client, ordered by priority.
@@ -866,6 +934,8 @@ EXAMPLES = """
           embedded_ipv4_address: "disable"
           extip: "<your_own_value>"
           extport: "<your_own_value>"
+          h2_support: "enable"
+          h3_support: "enable"
           http_cookie_age: "60"
           http_cookie_domain: "<your_own_value>"
           http_cookie_domain_from_host: "disable"
@@ -877,7 +947,7 @@ EXAMPLES = """
           http_multiplex: "enable"
           http_redirect: "enable"
           https_cookie_secure: "disable"
-          id: "21"
+          id: "23"
           ipv4_mappedip: "<your_own_value>"
           ipv4_mappedport: "<your_own_value>"
           ldb_method: "static"
@@ -886,8 +956,8 @@ EXAMPLES = """
           max_embryonic_connections: "1000"
           monitor:
               -
-                  name: "default_name_29 (source firewall.ldb-monitor.name)"
-          name: "default_name_30"
+                  name: "default_name_31 (source firewall.ldb-monitor.name)"
+          name: "default_name_32"
           nat_source_vip: "disable"
           nat64: "disable"
           nat66: "disable"
@@ -896,18 +966,27 @@ EXAMPLES = """
           persistence: "none"
           portforward: "disable"
           protocol: "tcp"
+          quic:
+              ack_delay_exponent: "3"
+              active_connection_id_limit: "2"
+              active_migration: "enable"
+              grease_quic_bit: "enable"
+              max_ack_delay: "25"
+              max_datagram_frame_size: "1500"
+              max_idle_timeout: "30000"
+              max_udp_payload_size: "1500"
           realservers:
               -
                   client_ip: "<your_own_value>"
                   healthcheck: "disable"
                   holddown_interval: "300"
                   http_host: "myhostname"
-                  id: "44"
+                  id: "55"
                   ip: "<your_own_value>"
                   max_connections: "0"
                   monitor:
                       -
-                          name: "default_name_48 (source firewall.ldb-monitor.name)"
+                          name: "default_name_59 (source firewall.ldb-monitor.name)"
                   port: "0"
                   status: "active"
                   translate_host: "enable"
@@ -919,6 +998,9 @@ EXAMPLES = """
           ssl_accept_ffdhe_groups: "enable"
           ssl_algorithm: "high"
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_certificate_dict:
+              -
+                  name: "default_name_71 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1062,6 +1144,8 @@ def filter_firewall_vip6_data(json):
         "embedded_ipv4_address",
         "extip",
         "extport",
+        "h2_support",
+        "h3_support",
         "http_cookie_age",
         "http_cookie_domain",
         "http_cookie_domain_from_host",
@@ -1090,12 +1174,14 @@ def filter_firewall_vip6_data(json):
         "persistence",
         "portforward",
         "protocol",
+        "quic",
         "realservers",
         "server_type",
         "src_filter",
         "ssl_accept_ffdhe_groups",
         "ssl_algorithm",
         "ssl_certificate",
+        "ssl_certificate_dict",
         "ssl_cipher_suites",
         "ssl_client_fallback",
         "ssl_client_rekey_count",
@@ -1187,6 +1273,30 @@ def underscore_to_hyphen(data):
     return data
 
 
+def remap_attribute_name(data):
+    speciallist = {"ssl-certificate-dict": "ssl-certificate"}
+
+    if data in speciallist:
+        return speciallist[data]
+    return data
+
+
+def remap_attribute_names(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = remap_attribute_names(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[remap_attribute_name(k)] = remap_attribute_names(v)
+        data = new_data
+
+    return data
+
+
 def firewall_vip6(data, fos, check_mode=False):
     vdom = data["vdom"]
 
@@ -1194,7 +1304,9 @@ def firewall_vip6(data, fos, check_mode=False):
 
     firewall_vip6_data = data["firewall_vip6"]
     firewall_vip6_data = flatten_multilists_attributes(firewall_vip6_data)
-    filtered_data = underscore_to_hyphen(filter_firewall_vip6_data(firewall_vip6_data))
+    filtered_data = filter_firewall_vip6_data(firewall_vip6_data)
+    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = remap_attribute_names(converted_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1258,7 +1370,7 @@ def firewall_vip6(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "vip6", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "vip6", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("firewall", "vip6", mkey=filtered_data["name"], vdom=vdom)
@@ -1391,6 +1503,47 @@ versioned_schema = {
                 {"value": "ssl-session-id"},
             ],
         },
+        "h2_support": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "h3_support": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "quic": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "dict",
+            "children": {
+                "max_idle_timeout": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+                "max_udp_payload_size": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                },
+                "active_connection_id_limit": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                },
+                "ack_delay_exponent": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+                "max_ack_delay": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+                "max_datagram_frame_size": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                },
+                "active_migration": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "grease_quic_bit": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+        },
         "nat66": {
             "v_range": [["v7.0.1", ""]],
             "type": "string",
@@ -1510,7 +1663,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "half"}, {"value": "full"}],
         },
-        "ssl_certificate": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "ssl_certificate_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1944,6 +2108,7 @@ versioned_schema = {
         },
         "ipv4_mappedip": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "ipv4_mappedport": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "ssl_certificate": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
         "arp_reply": {
             "v_range": [["v6.0.0", "v7.0.7"], ["v7.2.0", "v7.2.2"]],
             "type": "string",

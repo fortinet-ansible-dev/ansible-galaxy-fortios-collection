@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -563,11 +563,10 @@ def web_proxy_explicit(data, fos):
     vdom = data["vdom"]
     web_proxy_explicit_data = data["web_proxy_explicit"]
     web_proxy_explicit_data = flatten_multilists_attributes(web_proxy_explicit_data)
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_explicit_data(web_proxy_explicit_data)
-    )
+    filtered_data = filter_web_proxy_explicit_data(web_proxy_explicit_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("web-proxy", "explicit", data=filtered_data, vdom=vdom)
+    return fos.set("web-proxy", "explicit", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

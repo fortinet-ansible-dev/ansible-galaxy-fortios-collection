@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -109,6 +109,17 @@ options:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
                 type: str
+            known_ha_members:
+                description:
+                    - Known members of the HA cluster. If a member is missing at upgrade time, the upgrade will be cancelled.
+                type: list
+                elements: dict
+                suboptions:
+                    serial:
+                        description:
+                            - Serial number of HA member
+                        required: true
+                        type: str
             next_path_index:
                 description:
                     - The index of the next image to upgrade to.
@@ -193,6 +204,9 @@ EXAMPLES = """
           failure_device: "<your_own_value>"
           failure_reason: "none"
           ha_reboot_controller: "<your_own_value>"
+          known_ha_members:
+              -
+                  serial: "<your_own_value>"
           next_path_index: "0"
           node_list:
               -
@@ -292,6 +306,7 @@ def filter_system_federated_upgrade_data(json):
         "failure_device",
         "failure_reason",
         "ha_reboot_controller",
+        "known_ha_members",
         "next_path_index",
         "node_list",
         "status",
@@ -324,11 +339,10 @@ def underscore_to_hyphen(data):
 def system_federated_upgrade(data, fos):
     vdom = data["vdom"]
     system_federated_upgrade_data = data["system_federated_upgrade"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_federated_upgrade_data(system_federated_upgrade_data)
-    )
+    filtered_data = filter_system_federated_upgrade_data(system_federated_upgrade_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "federated-upgrade", data=filtered_data, vdom=vdom)
+    return fos.set("system", "federated-upgrade", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -411,6 +425,18 @@ versioned_schema = {
         "upgrade_id": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "next_path_index": {"v_range": [["v7.0.4", ""]], "type": "integer"},
         "ha_reboot_controller": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "known_ha_members": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "serial": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "node_list": {
             "type": "list",
             "elements": "dict",

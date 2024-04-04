@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -283,11 +283,10 @@ def firewall_internet_service_addition(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_internet_service_addition_data = data["firewall_internet_service_addition"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_internet_service_addition_data(
-            firewall_internet_service_addition_data
-        )
+    filtered_data = filter_firewall_internet_service_addition_data(
+        firewall_internet_service_addition_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -356,7 +355,7 @@ def firewall_internet_service_addition(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "internet-service-addition", data=filtered_data, vdom=vdom
+            "firewall", "internet-service-addition", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

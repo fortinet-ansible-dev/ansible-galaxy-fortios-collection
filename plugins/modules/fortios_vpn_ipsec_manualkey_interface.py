@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -338,9 +338,10 @@ def vpn_ipsec_manualkey_interface(data, fos, check_mode=False):
     state = data["state"]
 
     vpn_ipsec_manualkey_interface_data = data["vpn_ipsec_manualkey_interface"]
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_ipsec_manualkey_interface_data(vpn_ipsec_manualkey_interface_data)
+    filtered_data = filter_vpn_ipsec_manualkey_interface_data(
+        vpn_ipsec_manualkey_interface_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -407,7 +408,7 @@ def vpn_ipsec_manualkey_interface(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "vpn.ipsec", "manualkey-interface", data=filtered_data, vdom=vdom
+            "vpn.ipsec", "manualkey-interface", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

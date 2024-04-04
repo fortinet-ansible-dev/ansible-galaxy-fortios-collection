@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -287,9 +287,8 @@ def system_isf_queue_profile(data, fos, check_mode=False):
     state = data["state"]
 
     system_isf_queue_profile_data = data["system_isf_queue_profile"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_isf_queue_profile_data(system_isf_queue_profile_data)
-    )
+    filtered_data = filter_system_isf_queue_profile_data(system_isf_queue_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -353,7 +352,7 @@ def system_isf_queue_profile(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "isf-queue-profile", data=filtered_data, vdom=vdom)
+        return fos.set("system", "isf-queue-profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -399,25 +398,45 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "string",
             "required": True,
         },
         "guaranteed_bandwidth": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "integer",
         },
         "maximum_bandwidth": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "integer",
         },
         "bandwidth_unit": {
-            "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
             "type": "string",
             "options": [{"value": "kbps"}, {"value": "pps"}],
         },
         "burst_bps_granularity": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -431,7 +450,7 @@ versioned_schema = {
             ],
         },
         "burst_pps_granularity": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -450,7 +469,12 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
     },
-    "v_range": [["v6.4.0", "v6.4.0"], ["v7.2.0", "v7.2.0"], ["v7.4.0", ""]],
+    "v_range": [
+        ["v6.4.0", "v6.4.0"],
+        ["v7.2.0", "v7.2.0"],
+        ["v7.4.0", "v7.4.1"],
+        ["v7.4.3", ""],
+    ],
 }
 
 

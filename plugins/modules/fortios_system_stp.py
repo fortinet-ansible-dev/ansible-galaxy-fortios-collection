@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -263,9 +263,10 @@ def underscore_to_hyphen(data):
 def system_stp(data, fos):
     vdom = data["vdom"]
     system_stp_data = data["system_stp"]
-    filtered_data = underscore_to_hyphen(filter_system_stp_data(system_stp_data))
+    filtered_data = filter_system_stp_data(system_stp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "stp", data=filtered_data, vdom=vdom)
+    return fos.set("system", "stp", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -297,7 +298,12 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", "v6.2.7"], ["v6.4.1", "v7.0.12"], ["v7.2.1", "v7.2.4"]],
+    "v_range": [
+        ["v6.0.0", "v6.2.7"],
+        ["v6.4.1", "v7.0.12"],
+        ["v7.2.1", "v7.2.4"],
+        ["v7.4.2", "v7.4.2"],
+    ],
     "type": "dict",
     "children": {
         "switch_priority": {
@@ -305,6 +311,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
             "options": [
@@ -330,6 +337,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "integer",
         },
@@ -338,6 +346,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "integer",
         },
@@ -346,6 +355,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "integer",
         },
@@ -354,6 +364,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "integer",
         },

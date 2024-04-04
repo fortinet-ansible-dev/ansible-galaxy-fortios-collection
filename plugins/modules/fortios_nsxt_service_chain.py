@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -252,12 +252,11 @@ def nsxt_service_chain(data, fos):
     state = data["state"]
 
     nsxt_service_chain_data = data["nsxt_service_chain"]
-    filtered_data = underscore_to_hyphen(
-        filter_nsxt_service_chain_data(nsxt_service_chain_data)
-    )
+    filtered_data = filter_nsxt_service_chain_data(nsxt_service_chain_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("nsxt", "service-chain", data=filtered_data, vdom=vdom)
+        return fos.set("nsxt", "service-chain", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("nsxt", "service-chain", mkey=filtered_data["id"], vdom=vdom)

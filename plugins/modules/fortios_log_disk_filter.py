@@ -39,7 +39,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -148,6 +148,13 @@ options:
                 choices:
                     - 'include'
                     - 'exclude'
+            forti_switch:
+                description:
+                    - Enable/disable Forti-Switch logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             forward_traffic:
                 description:
                     - Enable/disable forward traffic logging.
@@ -386,13 +393,14 @@ EXAMPLES = """
           event: "enable"
           filter: "<your_own_value>"
           filter_type: "include"
+          forti_switch: "enable"
           forward_traffic: "enable"
           free_style:
               -
                   category: "traffic"
                   filter: "<your_own_value>"
                   filter_type: "include"
-                  id: "18"
+                  id: "19"
           gtp: "enable"
           ha: "enable"
           ipsec: "enable"
@@ -510,6 +518,7 @@ def filter_log_disk_filter_data(json):
         "event",
         "filter",
         "filter_type",
+        "forti_switch",
         "forward_traffic",
         "free_style",
         "gtp",
@@ -564,11 +573,10 @@ def underscore_to_hyphen(data):
 def log_disk_filter(data, fos):
     vdom = data["vdom"]
     log_disk_filter_data = data["log_disk_filter"]
-    filtered_data = underscore_to_hyphen(
-        filter_log_disk_filter_data(log_disk_filter_data)
-    )
+    filtered_data = filter_log_disk_filter_data(log_disk_filter_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("log.disk", "filter", data=filtered_data, vdom=vdom)
+    return fos.set("log.disk", "filter", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -653,12 +661,20 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "dlp_archive": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [
+                {"value": "enable", "v_range": [["v6.0.0", ""]]},
+                {"value": "disable", "v_range": [["v6.0.0", ""]]},
+            ],
+        },
+        "gtp": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "gtp": {
-            "v_range": [["v6.0.0", ""]],
+        "forti_switch": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

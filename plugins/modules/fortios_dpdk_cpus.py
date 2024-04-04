@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -101,6 +101,10 @@ options:
                 description:
                     - CPUs enabled to run DPDK VNP engines.
                 type: str
+            vnpsp_cpus:
+                description:
+                    - CPUs enabled to run DPDK VNP slow path.
+                type: str
 """
 
 EXAMPLES = """
@@ -113,6 +117,7 @@ EXAMPLES = """
           rx_cpus: "<your_own_value>"
           tx_cpus: "<your_own_value>"
           vnp_cpus: "<your_own_value>"
+          vnpsp_cpus: "<your_own_value>"
 """
 
 RETURN = """
@@ -195,7 +200,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_dpdk_cpus_data(json):
-    option_list = ["ips_cpus", "isolated_cpus", "rx_cpus", "tx_cpus", "vnp_cpus"]
+    option_list = [
+        "ips_cpus",
+        "isolated_cpus",
+        "rx_cpus",
+        "tx_cpus",
+        "vnp_cpus",
+        "vnpsp_cpus",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -223,9 +235,10 @@ def underscore_to_hyphen(data):
 def dpdk_cpus(data, fos):
     vdom = data["vdom"]
     dpdk_cpus_data = data["dpdk_cpus"]
-    filtered_data = underscore_to_hyphen(filter_dpdk_cpus_data(dpdk_cpus_data))
+    filtered_data = filter_dpdk_cpus_data(dpdk_cpus_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("dpdk", "cpus", data=filtered_data, vdom=vdom)
+    return fos.set("dpdk", "cpus", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -268,6 +281,7 @@ versioned_schema = {
             "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",
         },
+        "vnpsp_cpus": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "ips_cpus": {
             "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",

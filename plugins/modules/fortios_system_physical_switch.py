@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -278,9 +278,8 @@ def system_physical_switch(data, fos, check_mode=False):
     state = data["state"]
 
     system_physical_switch_data = data["system_physical_switch"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_physical_switch_data(system_physical_switch_data)
-    )
+    filtered_data = filter_system_physical_switch_data(system_physical_switch_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -344,7 +343,7 @@ def system_physical_switch(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "physical-switch", data=filtered_data, vdom=vdom)
+        return fos.set("system", "physical-switch", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -392,6 +391,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
             "required": True,
@@ -401,6 +401,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
@@ -410,6 +411,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "integer",
         },
@@ -449,7 +451,12 @@ versioned_schema = {
             "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
         },
     },
-    "v_range": [["v6.0.0", "v6.2.7"], ["v6.4.1", "v7.0.12"], ["v7.2.1", "v7.2.4"]],
+    "v_range": [
+        ["v6.0.0", "v6.2.7"],
+        ["v6.4.1", "v7.0.12"],
+        ["v7.2.1", "v7.2.4"],
+        ["v7.4.2", "v7.4.2"],
+    ],
 }
 
 

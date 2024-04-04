@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -470,7 +470,7 @@ options:
                     - 'ignore'
             fortisandbox_max_upload:
                 description:
-                    - Maximum size of files that can be uploaded to FortiSandbox.
+                    - Maximum size of files that can be uploaded to FortiSandbox in Mbytes.
                 type: int
             fortisandbox_mode:
                 description:
@@ -1973,12 +1973,11 @@ def antivirus_profile(data, fos):
 
     antivirus_profile_data = data["antivirus_profile"]
     antivirus_profile_data = flatten_multilists_attributes(antivirus_profile_data)
-    filtered_data = underscore_to_hyphen(
-        filter_antivirus_profile_data(antivirus_profile_data)
-    )
+    filtered_data = filter_antivirus_profile_data(antivirus_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("antivirus", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("antivirus", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("antivirus", "profile", mkey=filtered_data["name"], vdom=vdom)

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -237,17 +237,16 @@ def wireless_controller_hotspot20_h2qp_osu_provider_nai(data, fos):
     wireless_controller_hotspot20_h2qp_osu_provider_nai_data = data[
         "wireless_controller_hotspot20_h2qp_osu_provider_nai"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_hotspot20_h2qp_osu_provider_nai_data(
-            wireless_controller_hotspot20_h2qp_osu_provider_nai_data
-        )
+    filtered_data = filter_wireless_controller_hotspot20_h2qp_osu_provider_nai_data(
+        wireless_controller_hotspot20_h2qp_osu_provider_nai_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
             "wireless-controller.hotspot20",
             "h2qp-osu-provider-nai",
-            data=filtered_data,
+            data=converted_data,
             vdom=vdom,
         )
 

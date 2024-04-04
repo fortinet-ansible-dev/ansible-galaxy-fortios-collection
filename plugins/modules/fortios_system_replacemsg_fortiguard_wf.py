@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -249,11 +249,10 @@ def system_replacemsg_fortiguard_wf(data, fos, check_mode=False):
     state = data["state"]
 
     system_replacemsg_fortiguard_wf_data = data["system_replacemsg_fortiguard_wf"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_replacemsg_fortiguard_wf_data(
-            system_replacemsg_fortiguard_wf_data
-        )
+    filtered_data = filter_system_replacemsg_fortiguard_wf_data(
+        system_replacemsg_fortiguard_wf_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -322,7 +321,7 @@ def system_replacemsg_fortiguard_wf(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "system.replacemsg", "fortiguard-wf", data=filtered_data, vdom=vdom
+            "system.replacemsg", "fortiguard-wf", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

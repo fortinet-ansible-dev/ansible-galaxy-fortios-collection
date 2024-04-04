@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -317,15 +317,14 @@ def firewall_access_proxy_ssh_client_cert(data, fos):
     firewall_access_proxy_ssh_client_cert_data = data[
         "firewall_access_proxy_ssh_client_cert"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_access_proxy_ssh_client_cert_data(
-            firewall_access_proxy_ssh_client_cert_data
-        )
+    filtered_data = filter_firewall_access_proxy_ssh_client_cert_data(
+        firewall_access_proxy_ssh_client_cert_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "access-proxy-ssh-client-cert", data=filtered_data, vdom=vdom
+            "firewall", "access-proxy-ssh-client-cert", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

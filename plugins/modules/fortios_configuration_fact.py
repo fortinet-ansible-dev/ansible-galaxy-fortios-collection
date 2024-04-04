@@ -414,6 +414,7 @@ options:
                  - 'vpn.certificate_crl'
                  - 'vpn.certificate_ocsp-server'
                  - 'vpn.certificate_setting'
+                 - 'vpn_qkd'
                  - 'vpn.ssl.web_realm'
                  - 'vpn.ssl.web_host-check-software'
                  - 'vpn.ssl.web_portal'
@@ -421,16 +422,16 @@ options:
                  - 'vpn.ssl.web_user-bookmark'
                  - 'vpn.ssl_settings'
                  - 'vpn.ssl_client'
-                 - 'vpn_kmip-server'
+                 - 'vpn.ipsec_fec'
                  - 'vpn.ipsec_phase1'
                  - 'vpn.ipsec_phase2'
                  - 'vpn.ipsec_manualkey'
                  - 'vpn.ipsec_concentrator'
-                 - 'vpn.ipsec_fec'
                  - 'vpn.ipsec_phase1-interface'
                  - 'vpn.ipsec_phase2-interface'
                  - 'vpn.ipsec_manualkey-interface'
                  - 'vpn.ipsec_forticlient'
+                 - 'vpn_kmip-server'
                  - 'vpn_pptp'
                  - 'vpn_l2tp'
                  - 'certificate_ca'
@@ -454,6 +455,7 @@ options:
                  - 'ips_global'
                  - 'ips_settings'
                  - 'sctp-filter_profile'
+                 - 'diameter-filter_profile'
                  - 'web-proxy_profile'
                  - 'web-proxy_global'
                  - 'web-proxy_explicit'
@@ -477,6 +479,7 @@ options:
                  - 'application_group'
                  - 'dlp_data-type'
                  - 'dlp_dictionary'
+                 - 'dlp_exact-data-match'
                  - 'dlp_sensor'
                  - 'dlp_filepattern'
                  - 'dlp_sensitivity'
@@ -484,7 +487,7 @@ options:
                  - 'dlp_profile'
                  - 'dlp_settings'
                  - 'videofilter_youtube-key'
-                 - 'videofilter_youtube-channel-filter'
+                 - 'videofilter_keyword'
                  - 'videofilter_profile'
                  - 'emailfilter_bword'
                  - 'emailfilter_block-allow-list'
@@ -553,6 +556,8 @@ options:
                  - 'icap_server'
                  - 'icap_server-group'
                  - 'icap_profile'
+                 - 'user_peer'
+                 - 'user_peergrp'
                  - 'user_certificate'
                  - 'user_radius'
                  - 'user_tacacs+'
@@ -562,6 +567,7 @@ options:
                  - 'user_domain-controller'
                  - 'user_pop3'
                  - 'user_saml'
+                 - 'user_external-identity-provider'
                  - 'user_fsso'
                  - 'user_adgrp'
                  - 'user_fsso-polling'
@@ -569,8 +575,6 @@ options:
                  - 'user_password-policy'
                  - 'user_local'
                  - 'user_setting'
-                 - 'user_peer'
-                 - 'user_peergrp'
                  - 'user_quarantine'
                  - 'user_group'
                  - 'user_security-exempt-list'
@@ -640,22 +644,14 @@ options:
                  - 'system_isf-queue-profile'
                  - 'system_npu'
                  - 'system_np6'
+                 - 'system_gi-gk'
                  - 'system_modem'
                  - 'system.3g-modem_custom'
                  - 'system_lte-modem'
-                 - 'firewall_acl'
-                 - 'firewall_acl6'
-                 - 'monitoring_np6-ipsec-engine'
-                 - 'monitoring_npu-hpe'
-                 - 'switch-controller.ptp_settings'
-                 - 'switch-controller.ptp_policy'
-                 - 'system_physical-switch'
-                 - 'system_virtual-switch'
-                 - 'system_stp'
-                 - 'system_gi-gk'
                  - 'firewall_gtp'
                  - 'firewall_pfcp'
-                 - 'vpn_ocvpn'
+                 - 'firewall_acl'
+                 - 'firewall_acl6'
                  - 'gtp_apn'
                  - 'gtp_apngrp'
                  - 'gtp_message-filter-v0v1'
@@ -665,6 +661,17 @@ options:
                  - 'gtp_tunnel-limit'
                  - 'gtp_apn-shaper'
                  - 'pfcp_message-filter'
+                 - 'monitoring_np6-ipsec-engine'
+                 - 'monitoring_npu-hpe'
+                 - 'system_npu-vlink'
+                 - 'system_physical-switch'
+                 - 'system_virtual-switch'
+                 - 'system_stp'
+                 - 'system_smc-ntp'
+                 - 'videofilter_youtube-channel-filter'
+                 - 'switch-controller.ptp_settings'
+                 - 'switch-controller.ptp_policy'
+                 - 'vpn_ocvpn'
                  - 'system.replacemsg_mail'
                  - 'system.replacemsg_http'
                  - 'system.replacemsg_webproxy'
@@ -829,7 +836,6 @@ options:
                  - 'firewall_policy6'
                  - 'antivirus_notification'
                  - 'antivirus_mms-checksum'
-                 - 'system_smc-ntp'
                  - 'switch-controller_vlan'
                  - 'switch-controller.security-policy_captive-portal'
                  - 'user_device'
@@ -1145,6 +1151,7 @@ options:
          - 'vpn.certificate_crl'
          - 'vpn.certificate_ocsp-server'
          - 'vpn.certificate_setting'
+         - 'vpn_qkd'
          - 'vpn.ssl.web_realm'
          - 'vpn.ssl.web_host-check-software'
          - 'vpn.ssl.web_portal'
@@ -1152,16 +1159,16 @@ options:
          - 'vpn.ssl.web_user-bookmark'
          - 'vpn.ssl_settings'
          - 'vpn.ssl_client'
-         - 'vpn_kmip-server'
+         - 'vpn.ipsec_fec'
          - 'vpn.ipsec_phase1'
          - 'vpn.ipsec_phase2'
          - 'vpn.ipsec_manualkey'
          - 'vpn.ipsec_concentrator'
-         - 'vpn.ipsec_fec'
          - 'vpn.ipsec_phase1-interface'
          - 'vpn.ipsec_phase2-interface'
          - 'vpn.ipsec_manualkey-interface'
          - 'vpn.ipsec_forticlient'
+         - 'vpn_kmip-server'
          - 'vpn_pptp'
          - 'vpn_l2tp'
          - 'certificate_ca'
@@ -1185,6 +1192,7 @@ options:
          - 'ips_global'
          - 'ips_settings'
          - 'sctp-filter_profile'
+         - 'diameter-filter_profile'
          - 'web-proxy_profile'
          - 'web-proxy_global'
          - 'web-proxy_explicit'
@@ -1208,6 +1216,7 @@ options:
          - 'application_group'
          - 'dlp_data-type'
          - 'dlp_dictionary'
+         - 'dlp_exact-data-match'
          - 'dlp_sensor'
          - 'dlp_filepattern'
          - 'dlp_sensitivity'
@@ -1215,7 +1224,7 @@ options:
          - 'dlp_profile'
          - 'dlp_settings'
          - 'videofilter_youtube-key'
-         - 'videofilter_youtube-channel-filter'
+         - 'videofilter_keyword'
          - 'videofilter_profile'
          - 'emailfilter_bword'
          - 'emailfilter_block-allow-list'
@@ -1284,6 +1293,8 @@ options:
          - 'icap_server'
          - 'icap_server-group'
          - 'icap_profile'
+         - 'user_peer'
+         - 'user_peergrp'
          - 'user_certificate'
          - 'user_radius'
          - 'user_tacacs+'
@@ -1293,6 +1304,7 @@ options:
          - 'user_domain-controller'
          - 'user_pop3'
          - 'user_saml'
+         - 'user_external-identity-provider'
          - 'user_fsso'
          - 'user_adgrp'
          - 'user_fsso-polling'
@@ -1300,8 +1312,6 @@ options:
          - 'user_password-policy'
          - 'user_local'
          - 'user_setting'
-         - 'user_peer'
-         - 'user_peergrp'
          - 'user_quarantine'
          - 'user_group'
          - 'user_security-exempt-list'
@@ -1371,22 +1381,14 @@ options:
          - 'system_isf-queue-profile'
          - 'system_npu'
          - 'system_np6'
+         - 'system_gi-gk'
          - 'system_modem'
          - 'system.3g-modem_custom'
          - 'system_lte-modem'
-         - 'firewall_acl'
-         - 'firewall_acl6'
-         - 'monitoring_np6-ipsec-engine'
-         - 'monitoring_npu-hpe'
-         - 'switch-controller.ptp_settings'
-         - 'switch-controller.ptp_policy'
-         - 'system_physical-switch'
-         - 'system_virtual-switch'
-         - 'system_stp'
-         - 'system_gi-gk'
          - 'firewall_gtp'
          - 'firewall_pfcp'
-         - 'vpn_ocvpn'
+         - 'firewall_acl'
+         - 'firewall_acl6'
          - 'gtp_apn'
          - 'gtp_apngrp'
          - 'gtp_message-filter-v0v1'
@@ -1396,6 +1398,17 @@ options:
          - 'gtp_tunnel-limit'
          - 'gtp_apn-shaper'
          - 'pfcp_message-filter'
+         - 'monitoring_np6-ipsec-engine'
+         - 'monitoring_npu-hpe'
+         - 'system_npu-vlink'
+         - 'system_physical-switch'
+         - 'system_virtual-switch'
+         - 'system_stp'
+         - 'system_smc-ntp'
+         - 'videofilter_youtube-channel-filter'
+         - 'switch-controller.ptp_settings'
+         - 'switch-controller.ptp_policy'
+         - 'vpn_ocvpn'
          - 'system.replacemsg_mail'
          - 'system.replacemsg_http'
          - 'system.replacemsg_webproxy'
@@ -1560,7 +1573,6 @@ options:
          - 'firewall_policy6'
          - 'antivirus_notification'
          - 'antivirus_mms-checksum'
-         - 'system_smc-ntp'
          - 'switch-controller_vlan'
          - 'switch-controller.security-policy_captive-portal'
          - 'user_device'
@@ -2853,6 +2865,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "vpn_qkd": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "vpn.ssl.web_realm": {
         "mkey": "url_path",
         "mkey_type": str,
@@ -2881,7 +2897,7 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "vpn_kmip-server": {
+    "vpn.ipsec_fec": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -2901,10 +2917,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "id",
         "mkey_type": int,
     },
-    "vpn.ipsec_fec": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
     "vpn.ipsec_phase1-interface": {
         "mkey": "name",
         "mkey_type": str,
@@ -2919,6 +2931,10 @@ MODULE_MKEY_DEFINITONS = {
     },
     "vpn.ipsec_forticlient": {
         "mkey": "realm",
+        "mkey_type": str,
+    },
+    "vpn_kmip-server": {
+        "mkey": "name",
         "mkey_type": str,
     },
     "vpn_pptp": {
@@ -3010,6 +3026,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "sctp-filter_profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "diameter-filter_profile": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3105,6 +3125,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "dlp_exact-data-match": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "dlp_sensor": {
         "mkey": "name",
         "mkey_type": str,
@@ -3133,7 +3157,7 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "id",
         "mkey_type": int,
     },
-    "videofilter_youtube-channel-filter": {
+    "videofilter_keyword": {
         "mkey": "id",
         "mkey_type": int,
     },
@@ -3409,6 +3433,14 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "user_peer": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "user_peergrp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "user_certificate": {
         "mkey": "name",
         "mkey_type": str,
@@ -3445,6 +3477,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "user_external-identity-provider": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "user_fsso": {
         "mkey": "name",
         "mkey_type": str,
@@ -3472,14 +3508,6 @@ MODULE_MKEY_DEFINITONS = {
     "user_setting": {
         "mkey": "None",
         "mkey_type": None,
-    },
-    "user_peer": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "user_peergrp": {
-        "mkey": "name",
-        "mkey_type": str,
     },
     "user_quarantine": {
         "mkey": "None",
@@ -3757,6 +3785,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_gi-gk": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
     "system_modem": {
         "mkey": "None",
         "mkey_type": None,
@@ -3769,46 +3801,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "firewall_acl": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
-    "firewall_acl6": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
-    "monitoring_np6-ipsec-engine": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "monitoring_npu-hpe": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "switch-controller.ptp_settings": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "switch-controller.ptp_policy": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "system_physical-switch": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "system_virtual-switch": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "system_stp": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system_gi-gk": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
     "firewall_gtp": {
         "mkey": "name",
         "mkey_type": str,
@@ -3817,9 +3809,13 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "vpn_ocvpn": {
-        "mkey": "None",
-        "mkey_type": None,
+    "firewall_acl": {
+        "mkey": "policyid",
+        "mkey_type": int,
+    },
+    "firewall_acl6": {
+        "mkey": "policyid",
+        "mkey_type": int,
     },
     "gtp_apn": {
         "mkey": "name",
@@ -3856,6 +3852,50 @@ MODULE_MKEY_DEFINITONS = {
     "pfcp_message-filter": {
         "mkey": "name",
         "mkey_type": str,
+    },
+    "monitoring_np6-ipsec-engine": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "monitoring_npu-hpe": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_npu-vlink": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_physical-switch": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_virtual-switch": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_stp": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_smc-ntp": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "videofilter_youtube-channel-filter": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "switch-controller.ptp_settings": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "switch-controller.ptp_policy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "vpn_ocvpn": {
+        "mkey": "None",
+        "mkey_type": None,
     },
     "system.replacemsg_mail": {
         "mkey": "msg_type",
@@ -4513,10 +4553,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "id",
         "mkey_type": int,
     },
-    "system_smc-ntp": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
     "switch-controller_vlan": {
         "mkey": "name",
         "mkey_type": str,
@@ -4993,6 +5029,7 @@ def main():
                 "vpn.certificate_crl",
                 "vpn.certificate_ocsp-server",
                 "vpn.certificate_setting",
+                "vpn_qkd",
                 "vpn.ssl.web_realm",
                 "vpn.ssl.web_host-check-software",
                 "vpn.ssl.web_portal",
@@ -5000,16 +5037,16 @@ def main():
                 "vpn.ssl.web_user-bookmark",
                 "vpn.ssl_settings",
                 "vpn.ssl_client",
-                "vpn_kmip-server",
+                "vpn.ipsec_fec",
                 "vpn.ipsec_phase1",
                 "vpn.ipsec_phase2",
                 "vpn.ipsec_manualkey",
                 "vpn.ipsec_concentrator",
-                "vpn.ipsec_fec",
                 "vpn.ipsec_phase1-interface",
                 "vpn.ipsec_phase2-interface",
                 "vpn.ipsec_manualkey-interface",
                 "vpn.ipsec_forticlient",
+                "vpn_kmip-server",
                 "vpn_pptp",
                 "vpn_l2tp",
                 "certificate_ca",
@@ -5033,6 +5070,7 @@ def main():
                 "ips_global",
                 "ips_settings",
                 "sctp-filter_profile",
+                "diameter-filter_profile",
                 "web-proxy_profile",
                 "web-proxy_global",
                 "web-proxy_explicit",
@@ -5056,6 +5094,7 @@ def main():
                 "application_group",
                 "dlp_data-type",
                 "dlp_dictionary",
+                "dlp_exact-data-match",
                 "dlp_sensor",
                 "dlp_filepattern",
                 "dlp_sensitivity",
@@ -5063,7 +5102,7 @@ def main():
                 "dlp_profile",
                 "dlp_settings",
                 "videofilter_youtube-key",
-                "videofilter_youtube-channel-filter",
+                "videofilter_keyword",
                 "videofilter_profile",
                 "emailfilter_bword",
                 "emailfilter_block-allow-list",
@@ -5132,6 +5171,8 @@ def main():
                 "icap_server",
                 "icap_server-group",
                 "icap_profile",
+                "user_peer",
+                "user_peergrp",
                 "user_certificate",
                 "user_radius",
                 "user_tacacs+",
@@ -5141,6 +5182,7 @@ def main():
                 "user_domain-controller",
                 "user_pop3",
                 "user_saml",
+                "user_external-identity-provider",
                 "user_fsso",
                 "user_adgrp",
                 "user_fsso-polling",
@@ -5148,8 +5190,6 @@ def main():
                 "user_password-policy",
                 "user_local",
                 "user_setting",
-                "user_peer",
-                "user_peergrp",
                 "user_quarantine",
                 "user_group",
                 "user_security-exempt-list",
@@ -5219,22 +5259,14 @@ def main():
                 "system_isf-queue-profile",
                 "system_npu",
                 "system_np6",
+                "system_gi-gk",
                 "system_modem",
                 "system.3g-modem_custom",
                 "system_lte-modem",
-                "firewall_acl",
-                "firewall_acl6",
-                "monitoring_np6-ipsec-engine",
-                "monitoring_npu-hpe",
-                "switch-controller.ptp_settings",
-                "switch-controller.ptp_policy",
-                "system_physical-switch",
-                "system_virtual-switch",
-                "system_stp",
-                "system_gi-gk",
                 "firewall_gtp",
                 "firewall_pfcp",
-                "vpn_ocvpn",
+                "firewall_acl",
+                "firewall_acl6",
                 "gtp_apn",
                 "gtp_apngrp",
                 "gtp_message-filter-v0v1",
@@ -5244,6 +5276,17 @@ def main():
                 "gtp_tunnel-limit",
                 "gtp_apn-shaper",
                 "pfcp_message-filter",
+                "monitoring_np6-ipsec-engine",
+                "monitoring_npu-hpe",
+                "system_npu-vlink",
+                "system_physical-switch",
+                "system_virtual-switch",
+                "system_stp",
+                "system_smc-ntp",
+                "videofilter_youtube-channel-filter",
+                "switch-controller.ptp_settings",
+                "switch-controller.ptp_policy",
+                "vpn_ocvpn",
                 "system.replacemsg_mail",
                 "system.replacemsg_http",
                 "system.replacemsg_webproxy",
@@ -5408,7 +5451,6 @@ def main():
                 "firewall_policy6",
                 "antivirus_notification",
                 "antivirus_mms-checksum",
-                "system_smc-ntp",
                 "switch-controller_vlan",
                 "switch-controller.security-policy_captive-portal",
                 "user_device",
@@ -5732,6 +5774,7 @@ def main():
                         "vpn.certificate_crl",
                         "vpn.certificate_ocsp-server",
                         "vpn.certificate_setting",
+                        "vpn_qkd",
                         "vpn.ssl.web_realm",
                         "vpn.ssl.web_host-check-software",
                         "vpn.ssl.web_portal",
@@ -5739,16 +5782,16 @@ def main():
                         "vpn.ssl.web_user-bookmark",
                         "vpn.ssl_settings",
                         "vpn.ssl_client",
-                        "vpn_kmip-server",
+                        "vpn.ipsec_fec",
                         "vpn.ipsec_phase1",
                         "vpn.ipsec_phase2",
                         "vpn.ipsec_manualkey",
                         "vpn.ipsec_concentrator",
-                        "vpn.ipsec_fec",
                         "vpn.ipsec_phase1-interface",
                         "vpn.ipsec_phase2-interface",
                         "vpn.ipsec_manualkey-interface",
                         "vpn.ipsec_forticlient",
+                        "vpn_kmip-server",
                         "vpn_pptp",
                         "vpn_l2tp",
                         "certificate_ca",
@@ -5772,6 +5815,7 @@ def main():
                         "ips_global",
                         "ips_settings",
                         "sctp-filter_profile",
+                        "diameter-filter_profile",
                         "web-proxy_profile",
                         "web-proxy_global",
                         "web-proxy_explicit",
@@ -5795,6 +5839,7 @@ def main():
                         "application_group",
                         "dlp_data-type",
                         "dlp_dictionary",
+                        "dlp_exact-data-match",
                         "dlp_sensor",
                         "dlp_filepattern",
                         "dlp_sensitivity",
@@ -5802,7 +5847,7 @@ def main():
                         "dlp_profile",
                         "dlp_settings",
                         "videofilter_youtube-key",
-                        "videofilter_youtube-channel-filter",
+                        "videofilter_keyword",
                         "videofilter_profile",
                         "emailfilter_bword",
                         "emailfilter_block-allow-list",
@@ -5871,6 +5916,8 @@ def main():
                         "icap_server",
                         "icap_server-group",
                         "icap_profile",
+                        "user_peer",
+                        "user_peergrp",
                         "user_certificate",
                         "user_radius",
                         "user_tacacs+",
@@ -5880,6 +5927,7 @@ def main():
                         "user_domain-controller",
                         "user_pop3",
                         "user_saml",
+                        "user_external-identity-provider",
                         "user_fsso",
                         "user_adgrp",
                         "user_fsso-polling",
@@ -5887,8 +5935,6 @@ def main():
                         "user_password-policy",
                         "user_local",
                         "user_setting",
-                        "user_peer",
-                        "user_peergrp",
                         "user_quarantine",
                         "user_group",
                         "user_security-exempt-list",
@@ -5958,22 +6004,14 @@ def main():
                         "system_isf-queue-profile",
                         "system_npu",
                         "system_np6",
+                        "system_gi-gk",
                         "system_modem",
                         "system.3g-modem_custom",
                         "system_lte-modem",
-                        "firewall_acl",
-                        "firewall_acl6",
-                        "monitoring_np6-ipsec-engine",
-                        "monitoring_npu-hpe",
-                        "switch-controller.ptp_settings",
-                        "switch-controller.ptp_policy",
-                        "system_physical-switch",
-                        "system_virtual-switch",
-                        "system_stp",
-                        "system_gi-gk",
                         "firewall_gtp",
                         "firewall_pfcp",
-                        "vpn_ocvpn",
+                        "firewall_acl",
+                        "firewall_acl6",
                         "gtp_apn",
                         "gtp_apngrp",
                         "gtp_message-filter-v0v1",
@@ -5983,6 +6021,17 @@ def main():
                         "gtp_tunnel-limit",
                         "gtp_apn-shaper",
                         "pfcp_message-filter",
+                        "monitoring_np6-ipsec-engine",
+                        "monitoring_npu-hpe",
+                        "system_npu-vlink",
+                        "system_physical-switch",
+                        "system_virtual-switch",
+                        "system_stp",
+                        "system_smc-ntp",
+                        "videofilter_youtube-channel-filter",
+                        "switch-controller.ptp_settings",
+                        "switch-controller.ptp_policy",
+                        "vpn_ocvpn",
                         "system.replacemsg_mail",
                         "system.replacemsg_http",
                         "system.replacemsg_webproxy",
@@ -6147,7 +6196,6 @@ def main():
                         "firewall_policy6",
                         "antivirus_notification",
                         "antivirus_mms-checksum",
-                        "system_smc-ntp",
                         "switch-controller_vlan",
                         "switch-controller.security-policy_captive-portal",
                         "user_device",

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -831,6 +831,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ike_tcp_port:
+                description:
+                    - TCP port for IKE/IPsec traffic .
+                type: int
             implicit_allow_dns:
                 description:
                     - Enable/disable implicitly allowing DNS traffic.
@@ -966,6 +970,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            policy_offload_level:
+                description:
+                    - Configure firewall policy offload level.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'dos-offload'
             prp_trailer_action:
                 description:
                     - Enable/disable action to take on PRP trailer.
@@ -1225,6 +1236,7 @@ EXAMPLES = """
           ike_port: "500"
           ike_quick_crash_detect: "enable"
           ike_session_resume: "enable"
+          ike_tcp_port: "4500"
           implicit_allow_dns: "enable"
           inspection_mode: "proxy"
           internet_service_database_cache: "disable"
@@ -1247,6 +1259,7 @@ EXAMPLES = """
           ngfw_mode: "profile-based"
           opmode: "nat"
           pfcp_monitor_mode: "enable"
+          policy_offload_level: "disable"
           prp_trailer_action: "enable"
           sccp_port: "2000"
           sctp_session_without_init: "enable"
@@ -1463,6 +1476,7 @@ def filter_system_settings_data(json):
         "ike_port",
         "ike_quick_crash_detect",
         "ike_session_resume",
+        "ike_tcp_port",
         "implicit_allow_dns",
         "inspection_mode",
         "internet_service_database_cache",
@@ -1485,6 +1499,7 @@ def filter_system_settings_data(json):
         "ngfw_mode",
         "opmode",
         "pfcp_monitor_mode",
+        "policy_offload_level",
         "prp_trailer_action",
         "sccp_port",
         "sctp_session_without_init",
@@ -1568,11 +1583,10 @@ def system_settings(data, fos):
     vdom = data["vdom"]
     system_settings_data = data["system_settings"]
     system_settings_data = flatten_multilists_attributes(system_settings_data)
-    filtered_data = underscore_to_hyphen(
-        filter_system_settings_data(system_settings_data)
-    )
+    filtered_data = filter_system_settings_data(system_settings_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "settings", data=filtered_data, vdom=vdom)
+    return fos.set("system", "settings", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -1979,9 +1993,12 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "gui_wanopt_cache": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "enable", "v_range": [["v6.0.0", ""]]},
+                {"value": "disable", "v_range": [["v6.0.0", ""]]},
+            ],
         },
         "gui_explicit_proxy": {
             "v_range": [["v6.0.0", ""]],
@@ -2185,6 +2202,7 @@ versioned_schema = {
             "options": [{"value": "with-space"}, {"value": "no-space"}],
         },
         "ike_port": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "ike_tcp_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "ike_policy_route": {
             "v_range": [["v7.0.2", ""]],
             "type": "string",
@@ -2235,6 +2253,26 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "gtp_asym_fgsp": {
+            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "gtp_monitor_mode": {
+            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "pfcp_monitor_mode": {
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "policy_offload_level": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "dos-offload"}],
+        },
         "gui_endpoint_control": {
             "v_range": [["v6.0.0", "v7.2.4"]],
             "type": "string",
@@ -2242,21 +2280,6 @@ versioned_schema = {
         },
         "gui_endpoint_control_advanced": {
             "v_range": [["v6.0.0", "v7.2.4"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "gtp_asym_fgsp": {
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "gtp_monitor_mode": {
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "pfcp_monitor_mode": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

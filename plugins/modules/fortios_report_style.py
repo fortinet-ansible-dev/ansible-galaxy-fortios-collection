@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -438,7 +438,8 @@ def report_style(data, fos, check_mode=False):
 
     report_style_data = data["report_style"]
     report_style_data = flatten_multilists_attributes(report_style_data)
-    filtered_data = underscore_to_hyphen(filter_report_style_data(report_style_data))
+    filtered_data = filter_report_style_data(report_style_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -502,7 +503,7 @@ def report_style(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("report", "style", data=filtered_data, vdom=vdom)
+        return fos.set("report", "style", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("report", "style", mkey=filtered_data["name"], vdom=vdom)

@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -259,9 +259,8 @@ def gtp_apn_shaper(data, fos, check_mode=False):
     state = data["state"]
 
     gtp_apn_shaper_data = data["gtp_apn_shaper"]
-    filtered_data = underscore_to_hyphen(
-        filter_gtp_apn_shaper_data(gtp_apn_shaper_data)
-    )
+    filtered_data = filter_gtp_apn_shaper_data(gtp_apn_shaper_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -325,7 +324,7 @@ def gtp_apn_shaper(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("gtp", "apn-shaper", data=filtered_data, vdom=vdom)
+        return fos.set("gtp", "apn-shaper", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("gtp", "apn-shaper", mkey=filtered_data["id"], vdom=vdom)
@@ -367,7 +366,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "id": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
             "required": True,
         },
@@ -376,28 +375,32 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.2.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
         },
         "rate_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "drop"}, {"value": "reject"}],
         },
         "back_off_time": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
     },
-    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
 }
 
 

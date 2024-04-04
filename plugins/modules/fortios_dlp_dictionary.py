@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -295,12 +295,11 @@ def dlp_dictionary(data, fos):
     state = data["state"]
 
     dlp_dictionary_data = data["dlp_dictionary"]
-    filtered_data = underscore_to_hyphen(
-        filter_dlp_dictionary_data(dlp_dictionary_data)
-    )
+    filtered_data = filter_dlp_dictionary_data(dlp_dictionary_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("dlp", "dictionary", data=filtered_data, vdom=vdom)
+        return fos.set("dlp", "dictionary", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("dlp", "dictionary", mkey=filtered_data["name"], vdom=vdom)

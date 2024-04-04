@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -232,11 +232,10 @@ def switch_controller_virtual_port_pool(data, fos, check_mode=False):
     switch_controller_virtual_port_pool_data = data[
         "switch_controller_virtual_port_pool"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_virtual_port_pool_data(
-            switch_controller_virtual_port_pool_data
-        )
+    filtered_data = filter_switch_controller_virtual_port_pool_data(
+        switch_controller_virtual_port_pool_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -305,7 +304,7 @@ def switch_controller_virtual_port_pool(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller", "virtual-port-pool", data=filtered_data, vdom=vdom
+            "switch-controller", "virtual-port-pool", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

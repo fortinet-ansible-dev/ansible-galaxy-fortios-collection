@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -499,9 +499,8 @@ def firewall_proxy_address(data, fos, check_mode=False):
     firewall_proxy_address_data = flatten_multilists_attributes(
         firewall_proxy_address_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_proxy_address_data(firewall_proxy_address_data)
-    )
+    filtered_data = filter_firewall_proxy_address_data(firewall_proxy_address_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -565,7 +564,7 @@ def firewall_proxy_address(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "proxy-address", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "proxy-address", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

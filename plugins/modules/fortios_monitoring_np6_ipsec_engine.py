@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -249,11 +249,12 @@ def monitoring_np6_ipsec_engine(data, fos):
     monitoring_np6_ipsec_engine_data = flatten_multilists_attributes(
         monitoring_np6_ipsec_engine_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_monitoring_np6_ipsec_engine_data(monitoring_np6_ipsec_engine_data)
+    filtered_data = filter_monitoring_np6_ipsec_engine_data(
+        monitoring_np6_ipsec_engine_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("monitoring", "np6-ipsec-engine", data=filtered_data, vdom=vdom)
+    return fos.set("monitoring", "np6-ipsec-engine", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -287,17 +288,20 @@ def fortios_monitoring(data, fos):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", ""]],
+    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
     "type": "dict",
     "children": {
         "status": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "interval": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
         "threshold": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",

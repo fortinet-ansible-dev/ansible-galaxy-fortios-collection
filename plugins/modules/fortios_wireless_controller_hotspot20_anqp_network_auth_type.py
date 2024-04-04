@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -242,11 +242,10 @@ def wireless_controller_hotspot20_anqp_network_auth_type(data, fos, check_mode=F
     wireless_controller_hotspot20_anqp_network_auth_type_data = data[
         "wireless_controller_hotspot20_anqp_network_auth_type"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_hotspot20_anqp_network_auth_type_data(
-            wireless_controller_hotspot20_anqp_network_auth_type_data
-        )
+    filtered_data = filter_wireless_controller_hotspot20_anqp_network_auth_type_data(
+        wireless_controller_hotspot20_anqp_network_auth_type_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -323,7 +322,7 @@ def wireless_controller_hotspot20_anqp_network_auth_type(data, fos, check_mode=F
         return fos.set(
             "wireless-controller.hotspot20",
             "anqp-network-auth-type",
-            data=filtered_data,
+            data=converted_data,
             vdom=vdom,
         )
 

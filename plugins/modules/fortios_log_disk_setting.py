@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -475,11 +475,10 @@ def log_disk_setting(data, fos):
     vdom = data["vdom"]
     log_disk_setting_data = data["log_disk_setting"]
     log_disk_setting_data = flatten_multilists_attributes(log_disk_setting_data)
-    filtered_data = underscore_to_hyphen(
-        filter_log_disk_setting_data(log_disk_setting_data)
-    )
+    filtered_data = filter_log_disk_setting_data(log_disk_setting_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("log.disk", "setting", data=filtered_data, vdom=vdom)
+    return fos.set("log.disk", "setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -557,7 +556,10 @@ versioned_schema = {
         },
         "log_quota": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "dlp_archive_quota": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "report_quota": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "report_quota": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
         "maximum_log_age": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "upload": {
             "v_range": [["v6.0.0", ""]],

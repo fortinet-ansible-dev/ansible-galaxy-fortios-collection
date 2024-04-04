@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -289,9 +289,8 @@ def system_storage(data, fos, check_mode=False):
     state = data["state"]
 
     system_storage_data = data["system_storage"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_storage_data(system_storage_data)
-    )
+    filtered_data = filter_system_storage_data(system_storage_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -355,7 +354,7 @@ def system_storage(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "storage", data=filtered_data, vdom=vdom)
+        return fos.set("system", "storage", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "storage", mkey=filtered_data["name"], vdom=vdom)
@@ -414,12 +413,19 @@ versioned_schema = {
         "usage": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "log"}, {"value": "wanopt"}],
+            "options": [
+                {"value": "log"},
+                {"value": "wanopt", "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]]},
+            ],
         },
         "wanopt_mode": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "mix"}, {"value": "wanopt"}, {"value": "webcache"}],
+            "options": [
+                {"value": "mix", "v_range": [["v6.0.0", ""]]},
+                {"value": "wanopt", "v_range": [["v6.0.0", ""]]},
+                {"value": "webcache", "v_range": [["v6.0.0", ""]]},
+            ],
         },
     },
     "v_range": [["v6.0.0", ""]],

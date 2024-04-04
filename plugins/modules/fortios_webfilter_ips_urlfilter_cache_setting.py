@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -209,14 +209,13 @@ def webfilter_ips_urlfilter_cache_setting(data, fos):
     webfilter_ips_urlfilter_cache_setting_data = data[
         "webfilter_ips_urlfilter_cache_setting"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_webfilter_ips_urlfilter_cache_setting_data(
-            webfilter_ips_urlfilter_cache_setting_data
-        )
+    filtered_data = filter_webfilter_ips_urlfilter_cache_setting_data(
+        webfilter_ips_urlfilter_cache_setting_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "webfilter", "ips-urlfilter-cache-setting", data=filtered_data, vdom=vdom
+        "webfilter", "ips-urlfilter-cache-setting", data=converted_data, vdom=vdom
     )
 
 

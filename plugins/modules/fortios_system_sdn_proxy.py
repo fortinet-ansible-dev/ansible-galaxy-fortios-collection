@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -244,12 +244,11 @@ def system_sdn_proxy(data, fos):
     state = data["state"]
 
     system_sdn_proxy_data = data["system_sdn_proxy"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_sdn_proxy_data(system_sdn_proxy_data)
-    )
+    filtered_data = filter_system_sdn_proxy_data(system_sdn_proxy_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("system", "sdn-proxy", data=filtered_data, vdom=vdom)
+        return fos.set("system", "sdn-proxy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "sdn-proxy", mkey=filtered_data["name"], vdom=vdom)

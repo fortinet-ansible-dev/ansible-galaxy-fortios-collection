@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -130,6 +130,17 @@ options:
                 description:
                     - Incoming interface name from available options. Source system.zone.name system.interface.name.
                 type: str
+            intf_dict:
+                description:
+                    - Incoming interface name from available options. Use the parameter intf if the fortiOS firmware version <= 7.4.1
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Address name. Source system.zone.name system.interface.name.
+                        required: true
+                        type: str
             policyid:
                 description:
                     - User defined local in policy ID. see <a href='#notes'>Notes</a>.
@@ -211,15 +222,18 @@ EXAMPLES = """
           dstaddr_negate: "enable"
           ha_mgmt_intf_only: "enable"
           intf: "<your_own_value> (source system.zone.name system.interface.name)"
+          intf_dict:
+              -
+                  name: "default_name_11 (source system.zone.name system.interface.name)"
           policyid: "<you_own_value>"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           service:
               -
-                  name: "default_name_13 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_15 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           srcaddr:
               -
-                  name: "default_name_16 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_18 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           status: "enable"
           uuid: "<your_own_value>"
@@ -322,6 +336,7 @@ def filter_firewall_local_in_policy_data(json):
         "dstaddr_negate",
         "ha_mgmt_intf_only",
         "intf",
+        "intf_dict",
         "policyid",
         "schedule",
         "service",
@@ -356,15 +371,39 @@ def underscore_to_hyphen(data):
     return data
 
 
+def remap_attribute_name(data):
+    speciallist = {"intf-dict": "intf"}
+
+    if data in speciallist:
+        return speciallist[data]
+    return data
+
+
+def remap_attribute_names(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = remap_attribute_names(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[remap_attribute_name(k)] = remap_attribute_names(v)
+        data = new_data
+
+    return data
+
+
 def firewall_local_in_policy(data, fos, check_mode=False):
     vdom = data["vdom"]
 
     state = data["state"]
 
     firewall_local_in_policy_data = data["firewall_local_in_policy"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_local_in_policy_data(firewall_local_in_policy_data)
-    )
+    filtered_data = filter_firewall_local_in_policy_data(firewall_local_in_policy_data)
+    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = remap_attribute_names(converted_data)
 
     # check_mode starts from here
     if check_mode:
@@ -428,7 +467,7 @@ def firewall_local_in_policy(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "local-in-policy", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "local-in-policy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -480,7 +519,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "intf": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "intf_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "srcaddr": {
             "type": "list",
             "elements": "dict",
@@ -549,6 +599,7 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "intf": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

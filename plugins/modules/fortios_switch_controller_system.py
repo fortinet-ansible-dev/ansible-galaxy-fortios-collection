@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -133,6 +133,7 @@ options:
                 type: str
                 choices:
                     - 'compatible'
+                    - 'moderate'
                     - 'strict'
 """
 
@@ -276,11 +277,10 @@ def underscore_to_hyphen(data):
 def switch_controller_system(data, fos):
     vdom = data["vdom"]
     switch_controller_system_data = data["switch_controller_system"]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_system_data(switch_controller_system_data)
-    )
+    filtered_data = filter_switch_controller_system_data(switch_controller_system_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("switch-controller", "system", data=filtered_data, vdom=vdom)
+    return fos.set("switch-controller", "system", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -333,7 +333,11 @@ versioned_schema = {
         "tunnel_mode": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
-            "options": [{"value": "compatible"}, {"value": "strict"}],
+            "options": [
+                {"value": "compatible"},
+                {"value": "moderate", "v_range": [["v7.4.2", ""]]},
+                {"value": "strict"},
+            ],
         },
         "caputp_echo_interval": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "caputp_max_retransmit": {"v_range": [["v7.4.0", ""]], "type": "integer"},

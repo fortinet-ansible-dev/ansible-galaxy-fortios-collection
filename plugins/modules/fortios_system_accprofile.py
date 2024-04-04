@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -107,6 +107,41 @@ options:
                     - 'none'
                     - 'read'
                     - 'read-write'
+            cli_config:
+                description:
+                    - Enable/disable permission to run config commands.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            cli_diagnose:
+                description:
+                    - Enable/disable permission to run diagnostic commands.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            cli_exec:
+                description:
+                    - Enable/disable permission to run execute commands.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            cli_get:
+                description:
+                    - Enable/disable permission to run get commands.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            cli_show:
+                description:
+                    - Enable/disable permission to run show commands.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             comments:
                 description:
                     - Comment.
@@ -538,6 +573,11 @@ EXAMPLES = """
           admintimeout: "10"
           admintimeout_override: "enable"
           authgrp: "none"
+          cli_config: "enable"
+          cli_diagnose: "enable"
+          cli_exec: "enable"
+          cli_get: "enable"
+          cli_show: "enable"
           comments: "<your_own_value>"
           ftviewgrp: "none"
           fwgrp: "none"
@@ -553,7 +593,7 @@ EXAMPLES = """
               data_access: "none"
               report_access: "none"
               threat_weight: "none"
-          name: "default_name_21"
+          name: "default_name_26"
           netgrp: "none"
           netgrp_permission:
               cfg: "none"
@@ -688,6 +728,11 @@ def filter_system_accprofile_data(json):
         "admintimeout",
         "admintimeout_override",
         "authgrp",
+        "cli_config",
+        "cli_diagnose",
+        "cli_exec",
+        "cli_get",
+        "cli_show",
         "comments",
         "ftviewgrp",
         "fwgrp",
@@ -740,9 +785,8 @@ def system_accprofile(data, fos, check_mode=False):
     state = data["state"]
 
     system_accprofile_data = data["system_accprofile"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_accprofile_data(system_accprofile_data)
-    )
+    filtered_data = filter_system_accprofile_data(system_accprofile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -806,7 +850,7 @@ def system_accprofile(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "accprofile", data=filtered_data, vdom=vdom)
+        return fos.set("system", "accprofile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "accprofile", mkey=filtered_data["name"], vdom=vdom)
@@ -925,9 +969,13 @@ versioned_schema = {
             ],
         },
         "wanoptgrp": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "none"}, {"value": "read"}, {"value": "read-write"}],
+            "options": [
+                {"value": "none", "v_range": [["v6.0.0", ""]]},
+                {"value": "read", "v_range": [["v6.0.0", ""]]},
+                {"value": "read-write", "v_range": [["v6.0.0", ""]]},
+            ],
         },
         "wifi": {
             "v_range": [["v6.0.0", ""]],
@@ -1242,7 +1290,11 @@ versioned_schema = {
                     ],
                 },
                 "mmsgtp": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                     "options": [
                         {"value": "none"},
@@ -1276,8 +1328,28 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "admintimeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "system_diagnostics": {
-            "v_range": [["v6.4.0", ""]],
+        "cli_diagnose": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cli_get": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cli_show": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cli_exec": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cli_config": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -1288,6 +1360,11 @@ versioned_schema = {
         },
         "system_execute_telnet": {
             "v_range": [["v7.2.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "system_diagnostics": {
+            "v_range": [["v6.4.0", "v7.4.1"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

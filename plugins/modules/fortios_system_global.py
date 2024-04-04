@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -204,7 +204,7 @@ options:
                     - 'disable'
             admin_scp:
                 description:
-                    - Enable/disable using SCP to download the system configuration. You can use SCP as an alternative method for backing up the configuration.
+                    - Enable/disable SCP support for system configuration backup, restore, and firmware file upload.
                 type: str
                 choices:
                     - 'enable'
@@ -355,6 +355,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            bfd_affinity:
+                description:
+                    - Affinity setting for BFD daemon (hexadecimal value up to 256 bits in the format of xxxxxxxxxxxxxxxx).
+                type: str
             block_session_timer:
                 description:
                     - Duration in seconds for blocked sessions (1 - 300 sec  (5 minutes)).
@@ -603,6 +607,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fortigslb_integration:
+                description:
+                    - Enable/disable integration with the FortiGSLB cloud service.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             fortiipam_integration:
                 description:
                     - Enable/disable integration with the FortiIPAM cloud service.
@@ -1233,6 +1244,20 @@ options:
                 description:
                     - Proxy worker count.
                 type: int
+            purdue_level:
+                description:
+                    - Purdue Level of this FortiGate.
+                type: str
+                choices:
+                    - '1'
+                    - '1.5'
+                    - '2'
+                    - '2.5'
+                    - '3'
+                    - '3.5'
+                    - '4'
+                    - '5'
+                    - '5.5'
             quic_ack_thresold:
                 description:
                     - Maximum number of unacknowledged packets before sending ACK (2 - 5).
@@ -1364,11 +1389,43 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            speedtestd_ctrl_port:
+                description:
+                    - Speedtest server controller port number.
+                type: int
+            speedtestd_server_port:
+                description:
+                    - Speedtest server port number.
+                type: int
             split_port:
                 description:
                     - Split port(s) to multiple 10Gbps ports.
                 type: list
                 elements: str
+            split_port_mode:
+                description:
+                    - Configure split port mode of ports.
+                type: list
+                elements: dict
+                suboptions:
+                    interface:
+                        description:
+                            - Split port interface.
+                        required: true
+                        type: str
+                    split_mode:
+                        description:
+                            - The configuration mode for the split port interface.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - '4x10G'
+                            - '4x25G'
+                            - '4x50G'
+                            - '8x25G'
+                            - '8x50G'
+                            - '4x100G'
+                            - '2x200G'
             ssd_trim_date:
                 description:
                     - Date within a month to run ssd trim.
@@ -1439,6 +1496,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ssh_hostkey:
+                description:
+                    - Config SSH host key.
+                type: str
             ssh_hostkey_algo:
                 description:
                     - Select one or more SSH hostkey algorithms.
@@ -1447,9 +1508,22 @@ options:
                 choices:
                     - 'ssh-rsa'
                     - 'ecdsa-sha2-nistp521'
+                    - 'ecdsa-sha2-nistp384'
+                    - 'ecdsa-sha2-nistp256'
                     - 'rsa-sha2-256'
                     - 'rsa-sha2-512'
                     - 'ssh-ed25519'
+            ssh_hostkey_override:
+                description:
+                    - Enable/disable SSH host key override in SSH daemon.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            ssh_hostkey_password:
+                description:
+                    - Password for ssh-hostkey.
+                type: str
             ssh_kex_algo:
                 description:
                     - Select one or more SSH kex algorithms.
@@ -1630,98 +1704,8 @@ options:
                     - 'disable'
             timezone:
                 description:
-                    - Number corresponding to your time zone from 00 to 86. Enter set timezone ? to view the list of time zones and the numbers that represent
-                       them.
+                    - Timezone database name. Enter ? to view the list of timezone. Source system.timezone.name.
                 type: str
-                choices:
-                    - '01'
-                    - '02'
-                    - '03'
-                    - '04'
-                    - '05'
-                    - '81'
-                    - '06'
-                    - '07'
-                    - '08'
-                    - '09'
-                    - '10'
-                    - '11'
-                    - '12'
-                    - '13'
-                    - '74'
-                    - '14'
-                    - '77'
-                    - '15'
-                    - '87'
-                    - '16'
-                    - '17'
-                    - '18'
-                    - '19'
-                    - '20'
-                    - '75'
-                    - '21'
-                    - '22'
-                    - '23'
-                    - '24'
-                    - '80'
-                    - '79'
-                    - '25'
-                    - '26'
-                    - '27'
-                    - '28'
-                    - '78'
-                    - '29'
-                    - '30'
-                    - '31'
-                    - '32'
-                    - '33'
-                    - '34'
-                    - '35'
-                    - '36'
-                    - '37'
-                    - '38'
-                    - '83'
-                    - '84'
-                    - '40'
-                    - '85'
-                    - '39'
-                    - '41'
-                    - '42'
-                    - '43'
-                    - '44'
-                    - '45'
-                    - '46'
-                    - '47'
-                    - '51'
-                    - '48'
-                    - '49'
-                    - '50'
-                    - '52'
-                    - '53'
-                    - '54'
-                    - '55'
-                    - '56'
-                    - '57'
-                    - '58'
-                    - '59'
-                    - '60'
-                    - '61'
-                    - '62'
-                    - '63'
-                    - '64'
-                    - '65'
-                    - '66'
-                    - '67'
-                    - '68'
-                    - '69'
-                    - '70'
-                    - '71'
-                    - '72'
-                    - '00'
-                    - '82'
-                    - '73'
-                    - '86'
-                    - '76'
             tp_mc_skip_policy:
                 description:
                     - Enable/disable skip policy check and allow multicast through.
@@ -1825,6 +1809,13 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            virtual_switch_vlan:
+                description:
+                    - Enable/disable virtual switch VLAN.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             vpn_ems_sn_check:
                 description:
                     - Enable/disable verification of EMS serial number in SSL-VPN and IPsec VPN connection.
@@ -1954,6 +1945,7 @@ EXAMPLES = """
           av_failopen: "pass"
           av_failopen_session: "enable"
           batch_cmdb: "enable"
+          bfd_affinity: "<your_own_value>"
           block_session_timer: "30"
           br_fdb_max_entry: "8192"
           cert_chain_max: "8"
@@ -1995,6 +1987,7 @@ EXAMPLES = """
           fortiextender_discovery_lockdown: "disable"
           fortiextender_provision_on_authorization: "enable"
           fortiextender_vlan_mode: "enable"
+          fortigslb_integration: "disable"
           fortiipam_integration: "enable"
           fortiservice_port: "8013"
           fortitoken_cloud: "enable"
@@ -2034,7 +2027,7 @@ EXAMPLES = """
           internet_service_database: "mini"
           internet_service_download_list:
               -
-                  id: "126 (source firewall.internet-service.id)"
+                  id: "128 (source firewall.internet-service.id)"
           interval: "5"
           ip_fragment_mem_thresholds: "32"
           ip_src_port_range: "<your_own_value>"
@@ -2065,7 +2058,7 @@ EXAMPLES = """
           management_port: "443"
           management_port_use_admin_sport: "enable"
           management_vdom: "<your_own_value> (source system.vdom.name)"
-          max_dlpstat_memory: "157"
+          max_dlpstat_memory: "159"
           max_route_cache_size: "0"
           mc_ttl_notchange: "enable"
           memory_use_threshold_extreme: "95"
@@ -2095,6 +2088,7 @@ EXAMPLES = """
           proxy_re_authentication_time: "30"
           proxy_resource_mode: "enable"
           proxy_worker_count: "0"
+          purdue_level: "1"
           quic_ack_thresold: "3"
           quic_congestion_control_algo: "cubic"
           quic_max_datagram_size: "1500"
@@ -2117,7 +2111,13 @@ EXAMPLES = """
           snat_route_change: "enable"
           special_file_23_support: "disable"
           speedtest_server: "enable"
+          speedtestd_ctrl_port: "5200"
+          speedtestd_server_port: "5201"
           split_port: "<your_own_value>"
+          split_port_mode:
+              -
+                  interface: "<your_own_value>"
+                  split_mode: "disable"
           ssd_trim_date: "1"
           ssd_trim_freq: "never"
           ssd_trim_hour: "1"
@@ -2126,7 +2126,10 @@ EXAMPLES = """
           ssh_cbc_cipher: "enable"
           ssh_enc_algo: "chacha20-poly1305@openssh.com"
           ssh_hmac_md5: "enable"
+          ssh_hostkey: "myhostname"
           ssh_hostkey_algo: "ssh-rsa"
+          ssh_hostkey_override: "disable"
+          ssh_hostkey_password: "myhostname"
           ssh_kex_algo: "diffie-hellman-group1-sha1"
           ssh_kex_sha1: "enable"
           ssh_mac_algo: "hmac-md5"
@@ -2151,7 +2154,7 @@ EXAMPLES = """
           tcp_rst_timer: "5"
           tcp_timewait_timer: "1"
           tftp: "enable"
-          timezone: "01"
+          timezone: "<your_own_value> (source system.timezone.name)"
           tp_mc_skip_policy: "enable"
           traffic_priority: "tos"
           traffic_priority_level: "low"
@@ -2163,15 +2166,16 @@ EXAMPLES = """
           udp_idle_timer: "180"
           url_filter_affinity: "<your_own_value>"
           url_filter_count: "1"
-          user_device_store_max_devices: "20921"
-          user_device_store_max_unified_mem: "104609177"
-          user_device_store_max_users: "20921"
+          user_device_store_max_devices: "20911"
+          user_device_store_max_unified_mem: "104558182"
+          user_device_store_max_users: "20911"
           user_server_cert: "<your_own_value> (source certificate.local.name)"
           vdom_admin: "enable"
           vdom_mode: "no-vdom"
           vip_arp_range: "unlimited"
           virtual_server_count: "20"
           virtual_server_hardware_acceleration: "disable"
+          virtual_switch_vlan: "enable"
           vpn_ems_sn_check: "enable"
           wad_affinity: "<your_own_value>"
           wad_csvc_cs_count: "1"
@@ -2314,6 +2318,7 @@ def filter_system_global_data(json):
         "av_failopen",
         "av_failopen_session",
         "batch_cmdb",
+        "bfd_affinity",
         "block_session_timer",
         "br_fdb_max_entry",
         "cert_chain_max",
@@ -2355,6 +2360,7 @@ def filter_system_global_data(json):
         "fortiextender_discovery_lockdown",
         "fortiextender_provision_on_authorization",
         "fortiextender_vlan_mode",
+        "fortigslb_integration",
         "fortiipam_integration",
         "fortiservice_port",
         "fortitoken_cloud",
@@ -2453,6 +2459,7 @@ def filter_system_global_data(json):
         "proxy_re_authentication_time",
         "proxy_resource_mode",
         "proxy_worker_count",
+        "purdue_level",
         "quic_ack_thresold",
         "quic_congestion_control_algo",
         "quic_max_datagram_size",
@@ -2475,7 +2482,10 @@ def filter_system_global_data(json):
         "snat_route_change",
         "special_file_23_support",
         "speedtest_server",
+        "speedtestd_ctrl_port",
+        "speedtestd_server_port",
         "split_port",
+        "split_port_mode",
         "ssd_trim_date",
         "ssd_trim_freq",
         "ssd_trim_hour",
@@ -2484,7 +2494,10 @@ def filter_system_global_data(json):
         "ssh_cbc_cipher",
         "ssh_enc_algo",
         "ssh_hmac_md5",
+        "ssh_hostkey",
         "ssh_hostkey_algo",
+        "ssh_hostkey_override",
+        "ssh_hostkey_password",
         "ssh_kex_algo",
         "ssh_kex_sha1",
         "ssh_mac_algo",
@@ -2530,6 +2543,7 @@ def filter_system_global_data(json):
         "vip_arp_range",
         "virtual_server_count",
         "virtual_server_hardware_acceleration",
+        "virtual_switch_vlan",
         "vpn_ems_sn_check",
         "wad_affinity",
         "wad_csvc_cs_count",
@@ -2611,9 +2625,10 @@ def system_global(data, fos):
     vdom = data["vdom"]
     system_global_data = data["system_global"]
     system_global_data = flatten_multilists_attributes(system_global_data)
-    filtered_data = underscore_to_hyphen(filter_system_global_data(system_global_data))
+    filtered_data = filter_system_global_data(system_global_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "global", data=filtered_data, vdom=vdom)
+    return fos.set("system", "global", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -2789,32 +2804,41 @@ versioned_schema = {
         "admintimeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "admin_console_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ssd_trim_freq": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [
-                {"value": "never"},
-                {"value": "hourly"},
-                {"value": "daily"},
-                {"value": "weekly"},
-                {"value": "monthly"},
+                {"value": "never", "v_range": [["v6.0.0", ""]]},
+                {"value": "hourly", "v_range": [["v6.0.0", ""]]},
+                {"value": "daily", "v_range": [["v6.0.0", ""]]},
+                {"value": "weekly", "v_range": [["v6.0.0", ""]]},
+                {"value": "monthly", "v_range": [["v6.0.0", ""]]},
             ],
         },
-        "ssd_trim_hour": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "ssd_trim_min": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "ssd_trim_hour": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
+        "ssd_trim_min": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
         "ssd_trim_weekday": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [
-                {"value": "sunday"},
-                {"value": "monday"},
-                {"value": "tuesday"},
-                {"value": "wednesday"},
-                {"value": "thursday"},
-                {"value": "friday"},
-                {"value": "saturday"},
+                {"value": "sunday", "v_range": [["v6.0.0", ""]]},
+                {"value": "monday", "v_range": [["v6.0.0", ""]]},
+                {"value": "tuesday", "v_range": [["v6.0.0", ""]]},
+                {"value": "wednesday", "v_range": [["v6.0.0", ""]]},
+                {"value": "thursday", "v_range": [["v6.0.0", ""]]},
+                {"value": "friday", "v_range": [["v6.0.0", ""]]},
+                {"value": "saturday", "v_range": [["v6.0.0", ""]]},
             ],
         },
-        "ssd_trim_date": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "ssd_trim_date": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
         "admin_concurrent": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2825,6 +2849,21 @@ versioned_schema = {
         "refresh": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "failtime": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "purdue_level": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "1"},
+                {"value": "1.5"},
+                {"value": "2"},
+                {"value": "2.5"},
+                {"value": "3"},
+                {"value": "3.5"},
+                {"value": "4"},
+                {"value": "5"},
+                {"value": "5.5"},
+            ],
+        },
         "daily_restart": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2839,6 +2878,8 @@ versioned_schema = {
         "wad_restart_start_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "wad_restart_end_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "radius_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "speedtestd_server_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "speedtestd_ctrl_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "admin_login_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "remoteauthtimeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ldapconntimeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -2868,100 +2909,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "timezone": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "01"},
-                {"value": "02"},
-                {"value": "03"},
-                {"value": "04"},
-                {"value": "05"},
-                {"value": "81"},
-                {"value": "06"},
-                {"value": "07"},
-                {"value": "08"},
-                {"value": "09"},
-                {"value": "10"},
-                {"value": "11"},
-                {"value": "12"},
-                {"value": "13"},
-                {"value": "74"},
-                {"value": "14"},
-                {"value": "77"},
-                {"value": "15"},
-                {"value": "87"},
-                {"value": "16"},
-                {"value": "17"},
-                {"value": "18"},
-                {"value": "19"},
-                {"value": "20"},
-                {"value": "75"},
-                {"value": "21"},
-                {"value": "22"},
-                {"value": "23"},
-                {"value": "24"},
-                {"value": "80"},
-                {"value": "79"},
-                {"value": "25"},
-                {"value": "26"},
-                {"value": "27"},
-                {"value": "28"},
-                {"value": "78"},
-                {"value": "29"},
-                {"value": "30"},
-                {"value": "31"},
-                {"value": "32"},
-                {"value": "33"},
-                {"value": "34"},
-                {"value": "35"},
-                {"value": "36"},
-                {"value": "37"},
-                {"value": "38"},
-                {"value": "83"},
-                {"value": "84"},
-                {"value": "40"},
-                {"value": "85"},
-                {"value": "39"},
-                {"value": "41"},
-                {"value": "42"},
-                {"value": "43"},
-                {"value": "44"},
-                {"value": "45"},
-                {"value": "46"},
-                {"value": "47"},
-                {"value": "51"},
-                {"value": "48"},
-                {"value": "49"},
-                {"value": "50"},
-                {"value": "52"},
-                {"value": "53"},
-                {"value": "54"},
-                {"value": "55"},
-                {"value": "56"},
-                {"value": "57"},
-                {"value": "58"},
-                {"value": "59"},
-                {"value": "60"},
-                {"value": "61"},
-                {"value": "62"},
-                {"value": "63"},
-                {"value": "64"},
-                {"value": "65"},
-                {"value": "66"},
-                {"value": "67"},
-                {"value": "68"},
-                {"value": "69"},
-                {"value": "70"},
-                {"value": "71"},
-                {"value": "72"},
-                {"value": "00"},
-                {"value": "82"},
-                {"value": "73"},
-                {"value": "86"},
-                {"value": "76"},
-            ],
-        },
+        "timezone": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "traffic_priority": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3112,6 +3060,8 @@ versioned_schema = {
             "options": [
                 {"value": "ssh-rsa"},
                 {"value": "ecdsa-sha2-nistp521"},
+                {"value": "ecdsa-sha2-nistp384", "v_range": [["v7.4.2", ""]]},
+                {"value": "ecdsa-sha2-nistp256", "v_range": [["v7.4.2", ""]]},
                 {"value": "rsa-sha2-256"},
                 {"value": "rsa-sha2-512"},
                 {"value": "ssh-ed25519"},
@@ -3119,6 +3069,13 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
+        "ssh_hostkey_override": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "ssh_hostkey_password": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "ssh_hostkey": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "snat_route_change": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3536,10 +3493,14 @@ versioned_schema = {
         },
         "arp_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ha_affinity": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "bfd_affinity": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "cmdbsvr_affinity": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "av_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "wad_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ips_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "ips_affinity": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+        },
         "miglog_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "syslog_affinity": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "url_filter_affinity": {"v_range": [["v6.2.0", ""]], "type": "string"},
@@ -3567,11 +3528,6 @@ versioned_schema = {
                     ],
                 },
             ],
-        },
-        "ipsec_soft_dec_async": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "device_idle_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "user_device_store_max_devices": {
@@ -3705,8 +3661,13 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "sflowd_max_children_num": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+        "fortigslb_integration": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "split_port": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",
@@ -3742,6 +3703,42 @@ versioned_schema = {
         },
         "ipsec_asic_offload": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "virtual_switch_vlan": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_port_mode": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "interface": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "required": True,
+                },
+                "split_mode": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "4x10G"},
+                        {"value": "4x25G"},
+                        {"value": "4x50G"},
+                        {"value": "8x25G"},
+                        {"value": "8x50G"},
+                        {"value": "4x100G"},
+                        {"value": "2x200G"},
+                    ],
+                },
+            },
+            "v_range": [["v7.4.2", "v7.4.2"]],
+        },
+        "ipsec_soft_dec_async": {
+            "v_range": [["v6.0.0", "v7.4.1"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

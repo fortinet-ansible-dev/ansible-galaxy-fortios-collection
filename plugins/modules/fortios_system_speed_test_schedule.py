@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -88,6 +88,10 @@ options:
         default: null
         type: dict
         suboptions:
+            ctrl_port:
+                description:
+                    - Port of the controller to get access token.
+                type: int
             diffserv:
                 description:
                     - DSCP used for speed test.
@@ -127,6 +131,10 @@ options:
                 description:
                     - Speed test server name.
                 type: str
+            server_port:
+                description:
+                    - Port of the server to run speed test.
+                type: int
             status:
                 description:
                     - Enable/disable scheduled speed test.
@@ -164,6 +172,15 @@ options:
                 description:
                     - Minimum uploading bandwidth (kbps) to be considered effective.
                 type: int
+            update_shaper:
+                description:
+                    - Set egress shaper based on the test result.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'local'
+                    - 'remote'
+                    - 'both'
 """
 
 EXAMPLES = """
@@ -173,14 +190,16 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_speed_test_schedule:
+          ctrl_port: "5200"
           diffserv: "<your_own_value>"
           dynamic_server: "disable"
           interface: "<your_own_value> (source system.interface.name)"
           mode: "UDP"
           schedules:
               -
-                  name: "default_name_8 (source firewall.schedule.recurring.name)"
+                  name: "default_name_9 (source firewall.schedule.recurring.name)"
           server_name: "<your_own_value>"
+          server_port: "5201"
           status: "disable"
           update_inbandwidth: "disable"
           update_inbandwidth_maximum: "0"
@@ -188,6 +207,7 @@ EXAMPLES = """
           update_outbandwidth: "disable"
           update_outbandwidth_maximum: "0"
           update_outbandwidth_minimum: "0"
+          update_shaper: "disable"
 """
 
 RETURN = """
@@ -271,12 +291,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_system_speed_test_schedule_data(json):
     option_list = [
+        "ctrl_port",
         "diffserv",
         "dynamic_server",
         "interface",
         "mode",
         "schedules",
         "server_name",
+        "server_port",
         "status",
         "update_inbandwidth",
         "update_inbandwidth_maximum",
@@ -284,6 +306,7 @@ def filter_system_speed_test_schedule_data(json):
         "update_outbandwidth",
         "update_outbandwidth_maximum",
         "update_outbandwidth_minimum",
+        "update_shaper",
     ]
 
     json = remove_invalid_fields(json)
@@ -315,12 +338,13 @@ def system_speed_test_schedule(data, fos):
     state = data["state"]
 
     system_speed_test_schedule_data = data["system_speed_test_schedule"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_speed_test_schedule_data(system_speed_test_schedule_data)
+    filtered_data = filter_system_speed_test_schedule_data(
+        system_speed_test_schedule_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("system", "speed-test-schedule", data=filtered_data, vdom=vdom)
+        return fos.set("system", "speed-test-schedule", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -393,6 +417,18 @@ versioned_schema = {
             "v_range": [["v7.0.1", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "ctrl_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "server_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "update_shaper": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "local"},
+                {"value": "remote"},
+                {"value": "both"},
+            ],
         },
         "update_inbandwidth": {
             "v_range": [["v7.0.0", ""]],

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -220,11 +220,10 @@ def underscore_to_hyphen(data):
 def wanopt_remote_storage(data, fos):
     vdom = data["vdom"]
     wanopt_remote_storage_data = data["wanopt_remote_storage"]
-    filtered_data = underscore_to_hyphen(
-        filter_wanopt_remote_storage_data(wanopt_remote_storage_data)
-    )
+    filtered_data = filter_wanopt_remote_storage_data(wanopt_remote_storage_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("wanopt", "remote-storage", data=filtered_data, vdom=vdom)
+    return fos.set("wanopt", "remote-storage", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -126,6 +126,17 @@ options:
                 description:
                     - Name of certificate for SSL connections to this server . Source certificate.local.name.
                 type: str
+            ssl_cert_dict:
+                description:
+                    - List of certificate names to use for SSL connections to this server. Use the parameter ssl-cert if the fortiOS firmware version <= 7.4.1
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_dh_bits:
                 description:
                     - Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation .
@@ -157,6 +168,9 @@ EXAMPLES = """
           ssl: "enable"
           ssl_algorithm: "high"
           ssl_cert: "<your_own_value> (source certificate.local.name)"
+          ssl_cert_dict:
+              -
+                  name: "default_name_12 (source vpn.certificate.local.name)"
           ssl_dh_bits: "768"
           status: "enable"
 """
@@ -250,6 +264,7 @@ def filter_ftp_proxy_explicit_data(json):
         "ssl",
         "ssl_algorithm",
         "ssl_cert",
+        "ssl_cert_dict",
         "ssl_dh_bits",
         "status",
     ]
@@ -306,15 +321,39 @@ def underscore_to_hyphen(data):
     return data
 
 
+def remap_attribute_name(data):
+    speciallist = {"ssl-cert-dict": "ssl-cert"}
+
+    if data in speciallist:
+        return speciallist[data]
+    return data
+
+
+def remap_attribute_names(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = remap_attribute_names(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[remap_attribute_name(k)] = remap_attribute_names(v)
+        data = new_data
+
+    return data
+
+
 def ftp_proxy_explicit(data, fos):
     vdom = data["vdom"]
     ftp_proxy_explicit_data = data["ftp_proxy_explicit"]
     ftp_proxy_explicit_data = flatten_multilists_attributes(ftp_proxy_explicit_data)
-    filtered_data = underscore_to_hyphen(
-        filter_ftp_proxy_explicit_data(ftp_proxy_explicit_data)
-    )
+    filtered_data = filter_ftp_proxy_explicit_data(ftp_proxy_explicit_data)
+    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = remap_attribute_names(converted_data)
 
-    return fos.set("ftp-proxy", "explicit", data=filtered_data, vdom=vdom)
+    return fos.set("ftp-proxy", "explicit", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -377,7 +416,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ssl_cert": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "ssl_cert_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "ssl_dh_bits": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
@@ -393,6 +443,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "high"}, {"value": "medium"}, {"value": "low"}],
         },
+        "ssl_cert": {"v_range": [["v6.2.0", "v7.4.1"]], "type": "string"},
     },
 }
 

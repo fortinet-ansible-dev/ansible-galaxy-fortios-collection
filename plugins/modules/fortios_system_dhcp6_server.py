@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -417,9 +417,8 @@ def system_dhcp6_server(data, fos, check_mode=False):
     state = data["state"]
 
     system_dhcp6_server_data = data["system_dhcp6_server"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_dhcp6_server_data(system_dhcp6_server_data)
-    )
+    filtered_data = filter_system_dhcp6_server_data(system_dhcp6_server_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -483,7 +482,7 @@ def system_dhcp6_server(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system.dhcp6", "server", data=filtered_data, vdom=vdom)
+        return fos.set("system.dhcp6", "server", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system.dhcp6", "server", mkey=filtered_data["id"], vdom=vdom)

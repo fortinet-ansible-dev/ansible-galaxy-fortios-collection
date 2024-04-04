@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -182,7 +182,7 @@ options:
                     - 'enable'
             type:
                 description:
-                    - IP pool type (overload, one-to-one, fixed port range, or port block allocation).
+                    - 'IP pool type: overload, one-to-one, fixed-port-range, port-block-allocation, cgn-resource-allocation (hyperscale vdom only)'
                 type: str
                 choices:
                     - 'overload'
@@ -361,9 +361,8 @@ def firewall_ippool(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_ippool_data = data["firewall_ippool"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_ippool_data(firewall_ippool_data)
-    )
+    filtered_data = filter_firewall_ippool_data(firewall_ippool_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -427,7 +426,7 @@ def firewall_ippool(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "ippool", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "ippool", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("firewall", "ippool", mkey=filtered_data["name"], vdom=vdom)

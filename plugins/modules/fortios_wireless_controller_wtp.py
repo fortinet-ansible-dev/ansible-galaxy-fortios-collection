@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -397,6 +397,20 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            purdue_level:
+                description:
+                    - Purdue Level of this WTP.
+                type: str
+                choices:
+                    - '1'
+                    - '1.5'
+                    - '2'
+                    - '2.5'
+                    - '3'
+                    - '3.5'
+                    - '4'
+                    - '5'
+                    - '5.5'
             radio_1:
                 description:
                     - Configuration options for radio 1.
@@ -1161,6 +1175,7 @@ EXAMPLES = """
           override_login_passwd_change: "enable"
           override_split_tunnel: "enable"
           override_wan_port_mode: "enable"
+          purdue_level: "1"
           radio_1:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1184,7 +1199,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_74 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_75 (source wireless-controller.vap-group.name system.interface.name)"
           radio_2:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1208,7 +1223,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_96 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_97 (source wireless-controller.vap-group.name system.interface.name)"
           radio_3:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1232,7 +1247,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_118 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_119 (source wireless-controller.vap-group.name system.interface.name)"
           radio_4:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1255,14 +1270,14 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_139 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_140 (source wireless-controller.vap-group.name system.interface.name)"
           region: "<your_own_value> (source wireless-controller.region.name)"
           region_x: "<your_own_value>"
           region_y: "<your_own_value>"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "145"
+                  id: "146"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           tun_mtu_downlink: "0"
@@ -1394,6 +1409,7 @@ def filter_wireless_controller_wtp_data(json):
         "override_login_passwd_change",
         "override_split_tunnel",
         "override_wan_port_mode",
+        "purdue_level",
         "radio_1",
         "radio_2",
         "radio_3",
@@ -1475,9 +1491,8 @@ def wireless_controller_wtp(data, fos, check_mode=False):
     wireless_controller_wtp_data = flatten_multilists_attributes(
         wireless_controller_wtp_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_wtp_data(wireless_controller_wtp_data)
-    )
+    filtered_data = filter_wireless_controller_wtp_data(wireless_controller_wtp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1541,7 +1556,7 @@ def wireless_controller_wtp(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("wireless-controller", "wtp", data=filtered_data, vdom=vdom)
+        return fos.set("wireless-controller", "wtp", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -2406,6 +2421,21 @@ versioned_schema = {
                 {"value": "default"},
                 {"value": "enable"},
                 {"value": "disable"},
+            ],
+        },
+        "purdue_level": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "1"},
+                {"value": "1.5"},
+                {"value": "2"},
+                {"value": "2.5"},
+                {"value": "3"},
+                {"value": "3.5"},
+                {"value": "4"},
+                {"value": "5"},
+                {"value": "5.5"},
             ],
         },
         "coordinate_latitude": {"v_range": [["v6.0.0", ""]], "type": "string"},

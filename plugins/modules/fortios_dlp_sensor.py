@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -112,7 +112,7 @@ options:
                         type: int
                     dictionary:
                         description:
-                            - Select a DLP dictionary. Source dlp.dictionary.name.
+                            - Select a DLP dictionary. Source dlp.dictionary.name dlp.exact-data-match.name.
                         type: str
                     id:
                         description:
@@ -360,7 +360,7 @@ EXAMPLES = """
           entries:
               -
                   count: "1"
-                  dictionary: "<your_own_value> (source dlp.dictionary.name)"
+                  dictionary: "<your_own_value> (source dlp.dictionary.name dlp.exact-data-match.name)"
                   id: "8"
                   status: "enable"
           eval: "<your_own_value>"
@@ -560,9 +560,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"message": "fos_message"}
+    speciallist = {"message": "fos_message"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -571,8 +571,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -589,8 +592,8 @@ def dlp_sensor(data, fos, check_mode=False):
 
     dlp_sensor_data = data["dlp_sensor"]
     dlp_sensor_data = flatten_multilists_attributes(dlp_sensor_data)
-    filtered_data = underscore_to_hyphen(filter_dlp_sensor_data(dlp_sensor_data))
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    filtered_data = filter_dlp_sensor_data(dlp_sensor_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:

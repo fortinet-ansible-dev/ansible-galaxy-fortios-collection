@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -268,9 +268,10 @@ def firewall_identity_based_route(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_identity_based_route_data = data["firewall_identity_based_route"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_identity_based_route_data(firewall_identity_based_route_data)
+    filtered_data = filter_firewall_identity_based_route_data(
+        firewall_identity_based_route_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -337,7 +338,7 @@ def firewall_identity_based_route(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "identity-based-route", data=filtered_data, vdom=vdom
+            "firewall", "identity-based-route", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

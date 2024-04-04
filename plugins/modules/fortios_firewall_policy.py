@@ -42,7 +42,7 @@ notes:
     - Only one of [after, before] must be specified when action is moving an object.
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -254,6 +254,10 @@ options:
                             - Device or group name. Source user.device.alias user.device-group.name user.device-category.name.
                         required: true
                         type: str
+            diameter_filter_profile:
+                description:
+                    - Name of an existing Diameter filter profile. Source diameter-filter.profile.name.
+                type: str
             diffserv_copy:
                 description:
                     - Enable to copy packet"s DiffServ values from session"s original direction to its reply direction.
@@ -1548,6 +1552,7 @@ EXAMPLES = """
           devices:
               -
                   name: "default_name_28 (source user.device.alias user.device-group.name user.device-category.name)"
+          diameter_filter_profile: "<your_own_value> (source diameter-filter.profile.name)"
           diffserv_copy: "enable"
           diffserv_forward: "enable"
           diffserv_reverse: "enable"
@@ -1563,17 +1568,17 @@ EXAMPLES = """
           dsri: "enable"
           dstaddr:
               -
-                  name: "default_name_43 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
+                  name: "default_name_44 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
                     .name)"
           dstaddr_negate: "enable"
           dstaddr6:
               -
-                  name: "default_name_46 (source firewall.address6.name firewall.vipgrp6.name firewall.vip6.name system.external-resource.name firewall
+                  name: "default_name_47 (source firewall.address6.name firewall.vipgrp6.name firewall.vip6.name system.external-resource.name firewall
                     .addrgrp6.name)"
           dstaddr6_negate: "enable"
           dstintf:
               -
-                  name: "default_name_49 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_50 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           dynamic_shaping: "enable"
           email_collect: "enable"
           emailfilter_profile: "<your_own_value> (source emailfilter.profile.name)"
@@ -1585,13 +1590,13 @@ EXAMPLES = """
           fsso_agent_for_ntlm: "<your_own_value> (source user.fsso.name)"
           fsso_groups:
               -
-                  name: "default_name_60 (source user.adgrp.name)"
+                  name: "default_name_61 (source user.adgrp.name)"
           geoip_anycast: "enable"
           geoip_match: "physical-location"
           global_label: "<your_own_value>"
           groups:
               -
-                  name: "default_name_65 (source user.group.name)"
+                  name: "default_name_66 (source user.group.name)"
           gtp_profile: "<your_own_value> (source firewall.gtp.name)"
           http_policy_redirect: "enable"
           icap_profile: "<your_own_value> (source icap.profile.name)"
@@ -1601,64 +1606,64 @@ EXAMPLES = """
           internet_service: "enable"
           internet_service_custom:
               -
-                  name: "default_name_74 (source firewall.internet-service-custom.name)"
+                  name: "default_name_75 (source firewall.internet-service-custom.name)"
           internet_service_custom_group:
               -
-                  name: "default_name_76 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_77 (source firewall.internet-service-custom-group.name)"
           internet_service_group:
               -
-                  name: "default_name_78 (source firewall.internet-service-group.name)"
+                  name: "default_name_79 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "80 (source firewall.internet-service.id)"
+                  id: "81 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_82 (source firewall.internet-service-name.name)"
+                  name: "default_name_83 (source firewall.internet-service-name.name)"
           internet_service_negate: "enable"
           internet_service_src: "enable"
           internet_service_src_custom:
               -
-                  name: "default_name_86 (source firewall.internet-service-custom.name)"
+                  name: "default_name_87 (source firewall.internet-service-custom.name)"
           internet_service_src_custom_group:
               -
-                  name: "default_name_88 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_89 (source firewall.internet-service-custom-group.name)"
           internet_service_src_group:
               -
-                  name: "default_name_90 (source firewall.internet-service-group.name)"
+                  name: "default_name_91 (source firewall.internet-service-group.name)"
           internet_service_src_id:
               -
-                  id: "92 (source firewall.internet-service.id)"
+                  id: "93 (source firewall.internet-service.id)"
           internet_service_src_name:
               -
-                  name: "default_name_94 (source firewall.internet-service-name.name)"
+                  name: "default_name_95 (source firewall.internet-service-name.name)"
           internet_service_src_negate: "enable"
           internet_service6: "enable"
           internet_service6_custom:
               -
-                  name: "default_name_98 (source firewall.internet-service-custom.name)"
+                  name: "default_name_99 (source firewall.internet-service-custom.name)"
           internet_service6_custom_group:
               -
-                  name: "default_name_100 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_101 (source firewall.internet-service-custom-group.name)"
           internet_service6_group:
               -
-                  name: "default_name_102 (source firewall.internet-service-group.name)"
+                  name: "default_name_103 (source firewall.internet-service-group.name)"
           internet_service6_name:
               -
-                  name: "default_name_104 (source firewall.internet-service-name.name)"
+                  name: "default_name_105 (source firewall.internet-service-name.name)"
           internet_service6_negate: "enable"
           internet_service6_src: "enable"
           internet_service6_src_custom:
               -
-                  name: "default_name_108 (source firewall.internet-service-custom.name)"
+                  name: "default_name_109 (source firewall.internet-service-custom.name)"
           internet_service6_src_custom_group:
               -
-                  name: "default_name_110 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_111 (source firewall.internet-service-custom-group.name)"
           internet_service6_src_group:
               -
-                  name: "default_name_112 (source firewall.internet-service-group.name)"
+                  name: "default_name_113 (source firewall.internet-service-group.name)"
           internet_service6_src_name:
               -
-                  name: "default_name_114 (source firewall.internet-service-name.name)"
+                  name: "default_name_115 (source firewall.internet-service-name.name)"
           internet_service6_src_negate: "enable"
           ippool: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
@@ -1670,7 +1675,7 @@ EXAMPLES = """
           match_vip: "enable"
           match_vip_only: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_126"
+          name: "default_name_127"
           nat: "enable"
           nat46: "enable"
           nat64: "enable"
@@ -1679,10 +1684,10 @@ EXAMPLES = """
           natoutbound: "enable"
           network_service_dynamic:
               -
-                  name: "default_name_134 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_135 (source firewall.network-service-dynamic.name)"
           network_service_src_dynamic:
               -
-                  name: "default_name_136 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_137 (source firewall.network-service-dynamic.name)"
           np_acceleration: "enable"
           ntlm: "enable"
           ntlm_enabled_browsers:
@@ -1695,7 +1700,7 @@ EXAMPLES = """
           pcp_outbound: "enable"
           pcp_poolname:
               -
-                  name: "default_name_147 (source system.pcp-server.pools.name)"
+                  name: "default_name_148 (source system.pcp-server.pools.name)"
           per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
           permit_any_host: "enable"
           permit_stun_host: "enable"
@@ -1706,10 +1711,10 @@ EXAMPLES = """
           policyid: "<you_own_value>"
           poolname:
               -
-                  name: "default_name_157 (source firewall.ippool.name)"
+                  name: "default_name_158 (source firewall.ippool.name)"
           poolname6:
               -
-                  name: "default_name_159 (source firewall.ippool6.name)"
+                  name: "default_name_160 (source firewall.ippool6.name)"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           profile_type: "single"
@@ -1723,7 +1728,7 @@ EXAMPLES = """
           rsso: "enable"
           rtp_addr:
               -
-                  name: "default_name_172 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
+                  name: "default_name_173 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
           rtp_nat: "disable"
           scan_botnet_connections: "disable"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
@@ -1732,34 +1737,34 @@ EXAMPLES = """
           send_deny_packet: "disable"
           service:
               -
-                  name: "default_name_180 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_181 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "<your_own_value>"
           sgt:
               -
-                  id: "184"
+                  id: "185"
           sgt_check: "enable"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           src_vendor_mac:
               -
-                  id: "188 (source firewall.vendor-mac.id)"
+                  id: "189 (source firewall.vendor-mac.id)"
           srcaddr:
               -
-                  name: "default_name_190 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_191 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_193 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
+                  name: "default_name_194 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
           srcaddr6_negate: "enable"
           srcintf:
               -
-                  name: "default_name_196 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_197 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_mirror: "enable"
           ssl_mirror_intf:
               -
-                  name: "default_name_201 (source system.interface.name system.zone.name)"
+                  name: "default_name_202 (source system.interface.name system.zone.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           tcp_mss_receiver: "0"
@@ -1773,10 +1778,10 @@ EXAMPLES = """
           traffic_shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
           url_category:
               -
-                  id: "214"
+                  id: "215"
           users:
               -
-                  name: "default_name_216 (source user.local.name user.certificate.name)"
+                  name: "default_name_217 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -1802,13 +1807,13 @@ EXAMPLES = """
           ztna_device_ownership: "enable"
           ztna_ems_tag:
               -
-                  name: "default_name_241 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_242 (source firewall.address.name firewall.addrgrp.name)"
           ztna_ems_tag_secondary:
               -
-                  name: "default_name_243 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_244 (source firewall.address.name firewall.addrgrp.name)"
           ztna_geo_tag:
               -
-                  name: "default_name_245 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_246 (source firewall.address.name firewall.addrgrp.name)"
           ztna_policy_redirect: "enable"
           ztna_status: "enable"
           ztna_tags_match_logic: "or"
@@ -1925,6 +1930,7 @@ def filter_firewall_policy_data(json):
         "decrypted_traffic_mirror",
         "delay_tcp_npu_session",
         "devices",
+        "diameter_filter_profile",
         "diffserv_copy",
         "diffserv_forward",
         "diffserv_reverse",
@@ -2134,9 +2140,8 @@ def firewall_policy(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_policy_data = data["firewall_policy"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_policy_data(firewall_policy_data)
-    )
+    filtered_data = filter_firewall_policy_data(firewall_policy_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -2200,7 +2205,7 @@ def firewall_policy(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "policy", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "policy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -2804,6 +2809,7 @@ versioned_schema = {
         "voip_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ips_voip_filter": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "sctp_filter_profile": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "diameter_filter_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "virtual_patch_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "icap_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "cifs_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
@@ -2822,9 +2828,12 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "capture_packet": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "enable", "v_range": [["v6.0.0", ""]]},
+                {"value": "disable", "v_range": [["v6.0.0", ""]]},
+            ],
         },
         "auto_asic_offload": {
             "v_range": [["v6.0.0", ""]],
@@ -2832,35 +2841,54 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "wanopt": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "wanopt_detection": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "active"}, {"value": "passive"}, {"value": "off"}],
-        },
-        "wanopt_passive_opt": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [
-                {"value": "default"},
-                {"value": "transparent"},
-                {"value": "non-transparent"},
+                {"value": "enable", "v_range": [["v6.0.0", ""]]},
+                {"value": "disable", "v_range": [["v6.0.0", ""]]},
             ],
         },
-        "wanopt_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "wanopt_peer": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "webcache": {
-            "v_range": [["v6.0.0", ""]],
+        "wanopt_detection": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "active", "v_range": [["v6.0.0", ""]]},
+                {"value": "passive", "v_range": [["v6.0.0", ""]]},
+                {"value": "off", "v_range": [["v6.0.0", ""]]},
+            ],
+        },
+        "wanopt_passive_opt": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [
+                {"value": "default", "v_range": [["v6.0.0", ""]]},
+                {"value": "transparent", "v_range": [["v6.0.0", ""]]},
+                {"value": "non-transparent", "v_range": [["v6.0.0", ""]]},
+            ],
+        },
+        "wanopt_profile": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+        },
+        "wanopt_peer": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+        },
+        "webcache": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [
+                {"value": "enable", "v_range": [["v6.0.0", ""]]},
+                {"value": "disable", "v_range": [["v6.0.0", ""]]},
+            ],
         },
         "webcache_https": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
+            "options": [
+                {"value": "disable", "v_range": [["v6.0.0", ""]]},
+                {"value": "enable", "v_range": [["v6.0.0", ""]]},
+            ],
         },
         "webproxy_forward_server": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "traffic_shaper": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -3189,11 +3217,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "gtp_profile": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
         },
         "pfcp_profile": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
         },
         "dlp_sensor": {"v_range": [["v6.0.0", "v7.0.12"]], "type": "string"},

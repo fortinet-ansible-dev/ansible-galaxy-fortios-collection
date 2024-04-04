@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -429,11 +429,10 @@ def system_fabric_vpn(data, fos):
     vdom = data["vdom"]
     system_fabric_vpn_data = data["system_fabric_vpn"]
     system_fabric_vpn_data = flatten_multilists_attributes(system_fabric_vpn_data)
-    filtered_data = underscore_to_hyphen(
-        filter_system_fabric_vpn_data(system_fabric_vpn_data)
-    )
+    filtered_data = filter_system_fabric_vpn_data(system_fabric_vpn_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "fabric-vpn", data=filtered_data, vdom=vdom)
+    return fos.set("system", "fabric-vpn", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

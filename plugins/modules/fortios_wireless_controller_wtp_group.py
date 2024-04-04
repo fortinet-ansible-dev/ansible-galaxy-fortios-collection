@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -127,7 +127,12 @@ options:
                     - '233G'
                     - '234G'
                     - '431G'
+                    - '432G'
                     - '433G'
+                    - '241K'
+                    - '243K'
+                    - '441K'
+                    - '443K'
                     - 'U421E'
                     - 'U422EV'
                     - 'U423E'
@@ -327,9 +332,10 @@ def wireless_controller_wtp_group(data, fos, check_mode=False):
     state = data["state"]
 
     wireless_controller_wtp_group_data = data["wireless_controller_wtp_group"]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_wtp_group_data(wireless_controller_wtp_group_data)
+    filtered_data = filter_wireless_controller_wtp_group_data(
+        wireless_controller_wtp_group_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -396,7 +402,7 @@ def wireless_controller_wtp_group(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "wireless-controller", "wtp-group", data=filtered_data, vdom=vdom
+            "wireless-controller", "wtp-group", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":
@@ -500,7 +506,12 @@ versioned_schema = {
                 {"value": "233G", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]]},
                 {"value": "234G", "v_range": [["v7.4.0", ""]]},
                 {"value": "431G", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]]},
+                {"value": "432G", "v_range": [["v7.4.2", ""]]},
                 {"value": "433G", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]]},
+                {"value": "241K", "v_range": [["v7.4.2", ""]]},
+                {"value": "243K", "v_range": [["v7.4.2", ""]]},
+                {"value": "441K", "v_range": [["v7.4.2", ""]]},
+                {"value": "443K", "v_range": [["v7.4.2", ""]]},
                 {"value": "U421E"},
                 {"value": "U422EV"},
                 {"value": "U423E"},

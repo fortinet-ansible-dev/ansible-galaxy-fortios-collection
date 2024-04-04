@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -246,11 +246,10 @@ def monitoring_npu_hpe(data, fos):
     vdom = data["vdom"]
     monitoring_npu_hpe_data = data["monitoring_npu_hpe"]
     monitoring_npu_hpe_data = flatten_multilists_attributes(monitoring_npu_hpe_data)
-    filtered_data = underscore_to_hyphen(
-        filter_monitoring_npu_hpe_data(monitoring_npu_hpe_data)
-    )
+    filtered_data = filter_monitoring_npu_hpe_data(monitoring_npu_hpe_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("monitoring", "npu-hpe", data=filtered_data, vdom=vdom)
+    return fos.set("monitoring", "npu-hpe", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

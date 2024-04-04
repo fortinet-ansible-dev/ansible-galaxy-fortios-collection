@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -143,6 +143,14 @@ options:
                             - 'auto'
                             - 'sdwan'
                             - 'specify'
+                    ip_type:
+                        description:
+                            - Choose to connect to IPv4 or/and IPv6 NTP server.
+                        type: str
+                        choices:
+                            - 'IPv6'
+                            - 'IPv4'
+                            - 'Both'
                     key:
                         description:
                             - Key for MD5(NTPv3)/SHA1(NTPv4) authentication.
@@ -216,6 +224,7 @@ EXAMPLES = """
                   id: "11"
                   interface: "<your_own_value> (source system.interface.name)"
                   interface_select_method: "auto"
+                  ip_type: "IPv6"
                   key: "<your_own_value>"
                   key_id: "0"
                   ntpv3: "enable"
@@ -349,9 +358,10 @@ def underscore_to_hyphen(data):
 def system_ntp(data, fos):
     vdom = data["vdom"]
     system_ntp_data = data["system_ntp"]
-    filtered_data = underscore_to_hyphen(filter_system_ntp_data(system_ntp_data))
+    filtered_data = filter_system_ntp_data(system_ntp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "ntp", data=filtered_data, vdom=vdom)
+    return fos.set("system", "ntp", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -419,6 +429,15 @@ versioned_schema = {
                 },
                 "key": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "key_id": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "ip_type": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "IPv6"},
+                        {"value": "IPv4"},
+                        {"value": "Both"},
+                    ],
+                },
                 "interface_select_method": {
                     "v_range": [
                         ["v6.2.0", "v6.2.0"],

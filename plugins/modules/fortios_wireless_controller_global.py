@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -182,6 +182,17 @@ options:
                 description:
                     - Maximum numerical difference between an AP"s Ethernet and wireless MAC values to match for rogue detection (0 - 31).
                 type: int
+            rolling_wtp_upgrade:
+                description:
+                    - Enable/disable rolling WTP upgrade .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            rolling_wtp_upgrade_threshold:
+                description:
+                    - Minimum signal level/threshold in dBm required for the managed WTP to be included in rolling WTP upgrade (-95 to -20).
+                type: str
             tunnel_mode:
                 description:
                     - Compatible/strict tunnel mode.
@@ -226,6 +237,8 @@ EXAMPLES = """
           nac_interval: "120"
           name: "default_name_20"
           rogue_scan_mac_adjacency: "7"
+          rolling_wtp_upgrade: "enable"
+          rolling_wtp_upgrade_threshold: "<your_own_value>"
           tunnel_mode: "compatible"
           wpad_process_count: "0"
           wtp_share: "enable"
@@ -331,6 +344,8 @@ def filter_wireless_controller_global_data(json):
         "nac_interval",
         "name",
         "rogue_scan_mac_adjacency",
+        "rolling_wtp_upgrade",
+        "rolling_wtp_upgrade_threshold",
         "tunnel_mode",
         "wpad_process_count",
         "wtp_share",
@@ -394,11 +409,12 @@ def wireless_controller_global(data, fos):
     wireless_controller_global_data = flatten_multilists_attributes(
         wireless_controller_global_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_global_data(wireless_controller_global_data)
+    filtered_data = filter_wireless_controller_global_data(
+        wireless_controller_global_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("wireless-controller", "global", data=filtered_data, vdom=vdom)
+    return fos.set("wireless-controller", "global", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -443,6 +459,15 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "rolling_wtp_upgrade": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "rolling_wtp_upgrade_threshold": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
         },
         "max_retransmit": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "control_message_offload": {

@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -149,6 +149,10 @@ options:
             comments:
                 description:
                     - Comment.
+                type: str
+            diameter_filter_profile:
+                description:
+                    - Name of an existing Diameter filter profile. Source diameter-filter.profile.name.
                 type: str
             dlp_profile:
                 description:
@@ -772,97 +776,98 @@ EXAMPLES = """
           casb_profile: "<your_own_value> (source casb.profile.name)"
           cifs_profile: "<your_own_value> (source cifs.profile.name)"
           comments: "<your_own_value>"
+          diameter_filter_profile: "<your_own_value> (source diameter-filter.profile.name)"
           dlp_profile: "<your_own_value> (source dlp.profile.name)"
           dlp_sensor: "<your_own_value> (source dlp.sensor.name)"
           dnsfilter_profile: "<your_own_value> (source dnsfilter.profile.name)"
           dstaddr:
               -
-                  name: "default_name_19 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
+                  name: "default_name_20 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
                     .name)"
           dstaddr_negate: "enable"
           dstaddr4:
               -
-                  name: "default_name_22 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name)"
+                  name: "default_name_23 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name)"
           dstaddr6:
               -
-                  name: "default_name_24 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
+                  name: "default_name_25 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
                     .external-resource.name)"
           dstaddr6_negate: "enable"
           dstintf:
               -
-                  name: "default_name_27 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_28 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           emailfilter_profile: "<your_own_value> (source emailfilter.profile.name)"
           enforce_default_app_port: "enable"
           file_filter_profile: "<your_own_value> (source file-filter.profile.name)"
           fsso_groups:
               -
-                  name: "default_name_32 (source user.adgrp.name)"
+                  name: "default_name_33 (source user.adgrp.name)"
           global_label: "<your_own_value>"
           groups:
               -
-                  name: "default_name_35 (source user.group.name)"
+                  name: "default_name_36 (source user.group.name)"
           icap_profile: "<your_own_value> (source icap.profile.name)"
           internet_service: "enable"
           internet_service_custom:
               -
-                  name: "default_name_39 (source firewall.internet-service-custom.name)"
+                  name: "default_name_40 (source firewall.internet-service-custom.name)"
           internet_service_custom_group:
               -
-                  name: "default_name_41 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_42 (source firewall.internet-service-custom-group.name)"
           internet_service_group:
               -
-                  name: "default_name_43 (source firewall.internet-service-group.name)"
+                  name: "default_name_44 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "45 (source firewall.internet-service.id)"
+                  id: "46 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_47 (source firewall.internet-service-name.name)"
+                  name: "default_name_48 (source firewall.internet-service-name.name)"
           internet_service_negate: "enable"
           internet_service_src: "enable"
           internet_service_src_custom:
               -
-                  name: "default_name_51 (source firewall.internet-service-custom.name)"
+                  name: "default_name_52 (source firewall.internet-service-custom.name)"
           internet_service_src_custom_group:
               -
-                  name: "default_name_53 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_54 (source firewall.internet-service-custom-group.name)"
           internet_service_src_group:
               -
-                  name: "default_name_55 (source firewall.internet-service-group.name)"
+                  name: "default_name_56 (source firewall.internet-service-group.name)"
           internet_service_src_id:
               -
-                  id: "57 (source firewall.internet-service.id)"
+                  id: "58 (source firewall.internet-service.id)"
           internet_service_src_name:
               -
-                  name: "default_name_59 (source firewall.internet-service-name.name)"
+                  name: "default_name_60 (source firewall.internet-service-name.name)"
           internet_service_src_negate: "enable"
           internet_service6: "enable"
           internet_service6_custom:
               -
-                  name: "default_name_63 (source firewall.internet-service-custom.name)"
+                  name: "default_name_64 (source firewall.internet-service-custom.name)"
           internet_service6_custom_group:
               -
-                  name: "default_name_65 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_66 (source firewall.internet-service-custom-group.name)"
           internet_service6_group:
               -
-                  name: "default_name_67 (source firewall.internet-service-group.name)"
+                  name: "default_name_68 (source firewall.internet-service-group.name)"
           internet_service6_name:
               -
-                  name: "default_name_69 (source firewall.internet-service-name.name)"
+                  name: "default_name_70 (source firewall.internet-service-name.name)"
           internet_service6_negate: "enable"
           internet_service6_src: "enable"
           internet_service6_src_custom:
               -
-                  name: "default_name_73 (source firewall.internet-service-custom.name)"
+                  name: "default_name_74 (source firewall.internet-service-custom.name)"
           internet_service6_src_custom_group:
               -
-                  name: "default_name_75 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_76 (source firewall.internet-service-custom-group.name)"
           internet_service6_src_group:
               -
-                  name: "default_name_77 (source firewall.internet-service-group.name)"
+                  name: "default_name_78 (source firewall.internet-service-group.name)"
           internet_service6_src_name:
               -
-                  name: "default_name_79 (source firewall.internet-service-name.name)"
+                  name: "default_name_80 (source firewall.internet-service-name.name)"
           internet_service6_src_negate: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
@@ -870,7 +875,7 @@ EXAMPLES = """
           logtraffic: "all"
           logtraffic_start: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_87"
+          name: "default_name_88"
           nat46: "enable"
           nat64: "enable"
           policyid: "<you_own_value>"
@@ -882,29 +887,29 @@ EXAMPLES = """
           send_deny_packet: "disable"
           service:
               -
-                  name: "default_name_98 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_99 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           srcaddr:
               -
-                  name: "default_name_101 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_102 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr4:
               -
-                  name: "default_name_104 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_105 (source firewall.address.name firewall.addrgrp.name)"
           srcaddr6:
               -
-                  name: "default_name_106 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_107 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           srcaddr6_negate: "enable"
           srcintf:
               -
-                  name: "default_name_109 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_110 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           url_category: "<your_own_value>"
           users:
               -
-                  name: "default_name_115 (source user.local.name)"
+                  name: "default_name_116 (source user.local.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           uuid_idx: "2147483647"
@@ -1013,6 +1018,7 @@ def filter_firewall_security_policy_data(json):
         "casb_profile",
         "cifs_profile",
         "comments",
+        "diameter_filter_profile",
         "dlp_profile",
         "dlp_sensor",
         "dnsfilter_profile",
@@ -1154,9 +1160,8 @@ def firewall_security_policy(data, fos, check_mode=False):
     firewall_security_policy_data = flatten_multilists_attributes(
         firewall_security_policy_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_security_policy_data(firewall_security_policy_data)
-    )
+    filtered_data = filter_firewall_security_policy_data(firewall_security_policy_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1220,7 +1225,7 @@ def firewall_security_policy(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "security-policy", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "security-policy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -1670,6 +1675,7 @@ versioned_schema = {
         "voip_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "ips_voip_filter": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "sctp_filter_profile": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "diameter_filter_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "virtual_patch_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "icap_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "cifs_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},

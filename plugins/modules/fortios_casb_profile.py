@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -210,6 +210,13 @@ options:
                                     - Safe search control name.
                                 required: true
                                 type: str
+                    status:
+                        description:
+                            - Enable/disable setting.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     tenant_control:
                         description:
                             - Enable/disable tenant control.
@@ -264,10 +271,11 @@ EXAMPLES = """
                   safe_search_control:
                       -
                           name: "default_name_22"
+                  status: "enable"
                   tenant_control: "enable"
                   tenant_control_tenants:
                       -
-                          name: "default_name_25"
+                          name: "default_name_26"
 """
 
 RETURN = """
@@ -411,10 +419,11 @@ def casb_profile(data, fos):
 
     casb_profile_data = data["casb_profile"]
     casb_profile_data = flatten_multilists_attributes(casb_profile_data)
-    filtered_data = underscore_to_hyphen(filter_casb_profile_data(casb_profile_data))
+    filtered_data = filter_casb_profile_data(casb_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("casb", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("casb", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("casb", "profile", mkey=filtered_data["name"], vdom=vdom)
@@ -463,6 +472,11 @@ versioned_schema = {
                     "v_range": [["v7.4.1", ""]],
                     "type": "string",
                     "required": True,
+                },
+                "status": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "safe_search": {
                     "v_range": [["v7.4.1", ""]],

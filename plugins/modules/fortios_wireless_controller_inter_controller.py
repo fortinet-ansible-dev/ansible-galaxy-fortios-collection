@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -279,14 +279,13 @@ def wireless_controller_inter_controller(data, fos):
     wireless_controller_inter_controller_data = data[
         "wireless_controller_inter_controller"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_inter_controller_data(
-            wireless_controller_inter_controller_data
-        )
+    filtered_data = filter_wireless_controller_inter_controller_data(
+        wireless_controller_inter_controller_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "wireless-controller", "inter-controller", data=filtered_data, vdom=vdom
+        "wireless-controller", "inter-controller", data=converted_data, vdom=vdom
     )
 
 

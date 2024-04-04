@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -240,11 +240,10 @@ def underscore_to_hyphen(data):
 def firewall_auth_portal(data, fos):
     vdom = data["vdom"]
     firewall_auth_portal_data = data["firewall_auth_portal"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_auth_portal_data(firewall_auth_portal_data)
-    )
+    filtered_data = filter_firewall_auth_portal_data(firewall_auth_portal_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("firewall", "auth-portal", data=filtered_data, vdom=vdom)
+    return fos.set("firewall", "auth-portal", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

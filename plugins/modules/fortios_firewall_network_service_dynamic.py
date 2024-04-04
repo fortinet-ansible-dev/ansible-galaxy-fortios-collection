@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -231,15 +231,14 @@ def firewall_network_service_dynamic(data, fos):
     state = data["state"]
 
     firewall_network_service_dynamic_data = data["firewall_network_service_dynamic"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_network_service_dynamic_data(
-            firewall_network_service_dynamic_data
-        )
+    filtered_data = filter_firewall_network_service_dynamic_data(
+        firewall_network_service_dynamic_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "network-service-dynamic", data=filtered_data, vdom=vdom
+            "firewall", "network-service-dynamic", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

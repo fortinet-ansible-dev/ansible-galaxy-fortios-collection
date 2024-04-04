@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -262,9 +262,8 @@ def system_session_helper(data, fos, check_mode=False):
     state = data["state"]
 
     system_session_helper_data = data["system_session_helper"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_session_helper_data(system_session_helper_data)
-    )
+    filtered_data = filter_system_session_helper_data(system_session_helper_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -328,7 +327,7 @@ def system_session_helper(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "session-helper", data=filtered_data, vdom=vdom)
+        return fos.set("system", "session-helper", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -393,19 +392,35 @@ versioned_schema = {
                 {"value": "mgcp"},
                 {
                     "value": "gtp-c",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
                 {
                     "value": "gtp-u",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
                 {
                     "value": "gtp-b",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
                 {
                     "value": "pfcp",
-                    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v7.0.1", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
             ],
         },

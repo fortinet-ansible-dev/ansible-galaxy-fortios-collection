@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -819,15 +819,14 @@ def extender_controller_extender_profile(data, fos):
     extender_controller_extender_profile_data = flatten_multilists_attributes(
         extender_controller_extender_profile_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_extender_controller_extender_profile_data(
-            extender_controller_extender_profile_data
-        )
+    filtered_data = filter_extender_controller_extender_profile_data(
+        extender_controller_extender_profile_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "extender-controller", "extender-profile", data=filtered_data, vdom=vdom
+            "extender-controller", "extender-profile", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

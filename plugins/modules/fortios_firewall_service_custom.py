@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -254,6 +254,10 @@ options:
                 description:
                     - Multiple UDP port ranges.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             visibility:
                 description:
                     - Enable/disable the visibility of the service on the GUI.
@@ -300,6 +304,7 @@ EXAMPLES = """
           tcp_timewait_timer: "0"
           udp_idle_timer: "0"
           udp_portrange: "<your_own_value>"
+          uuid: "<your_own_value>"
           visibility: "enable"
 """
 
@@ -419,6 +424,7 @@ def filter_firewall_service_custom_data(json):
         "tcp_timewait_timer",
         "udp_idle_timer",
         "udp_portrange",
+        "uuid",
         "visibility",
     ]
 
@@ -451,9 +457,8 @@ def firewall_service_custom(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_service_custom_data = data["firewall_service_custom"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_service_custom_data(firewall_service_custom_data)
-    )
+    filtered_data = filter_firewall_service_custom_data(firewall_service_custom_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -517,7 +522,7 @@ def firewall_service_custom(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall.service", "custom", data=filtered_data, vdom=vdom)
+        return fos.set("firewall.service", "custom", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -561,6 +566,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "proxy": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -606,19 +612,35 @@ versioned_schema = {
                 {"value": "mgcp"},
                 {
                     "value": "gtp-c",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
                 {
                     "value": "gtp-u",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
                 {
                     "value": "gtp-b",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
                 {
                     "value": "pfcp",
-                    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v7.0.1", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
             ],
         },

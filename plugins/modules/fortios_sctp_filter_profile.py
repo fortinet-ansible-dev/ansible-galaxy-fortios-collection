@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -254,12 +254,11 @@ def sctp_filter_profile(data, fos):
     state = data["state"]
 
     sctp_filter_profile_data = data["sctp_filter_profile"]
-    filtered_data = underscore_to_hyphen(
-        filter_sctp_filter_profile_data(sctp_filter_profile_data)
-    )
+    filtered_data = filter_sctp_filter_profile_data(sctp_filter_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("sctp-filter", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("sctp-filter", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

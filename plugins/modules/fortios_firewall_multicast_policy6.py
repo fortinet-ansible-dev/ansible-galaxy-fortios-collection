@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -132,13 +132,19 @@ options:
                     - Policy ID (0 - 4294967294). see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
+            ips_sensor:
+                description:
+                    - Name of an existing IPS sensor. Source ips.sensor.name.
+                type: str
             logtraffic:
                 description:
-                    - Enable/disable logging traffic accepted by this policy.
+                    - Enable or disable logging. Log all sessions or security profile sessions.
                 type: str
                 choices:
-                    - 'enable'
+                    - 'all'
+                    - 'utm'
                     - 'disable'
+                    - 'enable'
             name:
                 description:
                     - Policy name.
@@ -173,6 +179,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            utm_status:
+                description:
+                    - Enable to add an IPS security profile to the policy.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             uuid:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
@@ -195,15 +208,17 @@ EXAMPLES = """
           dstintf: "<your_own_value> (source system.interface.name system.zone.name)"
           end_port: "65535"
           id: "10"
-          logtraffic: "enable"
-          name: "default_name_12"
+          ips_sensor: "<your_own_value> (source ips.sensor.name)"
+          logtraffic: "all"
+          name: "default_name_13"
           protocol: "0"
           srcaddr:
               -
-                  name: "default_name_15 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_16 (source firewall.address6.name firewall.addrgrp6.name)"
           srcintf: "<your_own_value> (source system.interface.name system.zone.name)"
           start_port: "1"
           status: "enable"
+          utm_status: "enable"
           uuid: "<your_own_value>"
 """
 
@@ -304,6 +319,7 @@ def filter_firewall_multicast_policy6_data(json):
         "dstintf",
         "end_port",
         "id",
+        "ips_sensor",
         "logtraffic",
         "name",
         "protocol",
@@ -311,6 +327,7 @@ def filter_firewall_multicast_policy6_data(json):
         "srcintf",
         "start_port",
         "status",
+        "utm_status",
         "uuid",
     ]
 
@@ -343,9 +360,10 @@ def firewall_multicast_policy6(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_multicast_policy6_data = data["firewall_multicast_policy6"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_multicast_policy6_data(firewall_multicast_policy6_data)
+    filtered_data = filter_firewall_multicast_policy6_data(
+        firewall_multicast_policy6_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -409,7 +427,7 @@ def firewall_multicast_policy6(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "multicast-policy6", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "multicast-policy6", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -462,11 +480,6 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "name": {"v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]], "type": "string"},
-        "logtraffic": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "srcintf": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dstintf": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "srcaddr": {
@@ -501,6 +514,22 @@ versioned_schema = {
         "protocol": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "start_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "end_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "utm_status": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ips_sensor": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "logtraffic": {
+            "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all", "v_range": [["v7.4.2", ""]]},
+                {"value": "utm", "v_range": [["v7.4.2", ""]]},
+                {"value": "disable"},
+                {"value": "enable", "v_range": [["v6.0.0", "v7.4.1"]]},
+            ],
+        },
         "auto_asic_offload": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

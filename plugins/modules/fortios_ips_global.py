@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -87,6 +87,11 @@ options:
                 choices:
                     - 'periodical'
                     - 'continuous'
+            av_mem_limit:
+                description:
+                    - Maximum percentage of system memory allowed for use on AV scanning (10 - 50). To disable set to zero. When disabled, there is no limit
+                       on the AV memory usage.
+                type: int
             cp_accel_mode:
                 description:
                     - IPS Pattern matching acceleration/offloading to CPx processors.
@@ -227,6 +232,7 @@ EXAMPLES = """
       vdom: "{{ vdom }}"
       ips_global:
           anomaly_mode: "periodical"
+          av_mem_limit: "0"
           cp_accel_mode: "none"
           database: "regular"
           deep_app_insp_db_limit: "0"
@@ -334,6 +340,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 def filter_ips_global_data(json):
     option_list = [
         "anomaly_mode",
+        "av_mem_limit",
         "cp_accel_mode",
         "database",
         "deep_app_insp_db_limit",
@@ -380,9 +387,10 @@ def underscore_to_hyphen(data):
 def ips_global(data, fos):
     vdom = data["vdom"]
     ips_global_data = data["ips_global"]
-    filtered_data = underscore_to_hyphen(filter_ips_global_data(ips_global_data))
+    filtered_data = filter_ips_global_data(ips_global_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("ips", "global", data=filtered_data, vdom=vdom)
+    return fos.set("ips", "global", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -462,6 +470,7 @@ versioned_schema = {
         },
         "packet_log_queue_depth": {"v_range": [["v6.2.7", ""]], "type": "integer"},
         "ngfw_max_scan_range": {"v_range": [["v6.4.4", ""]], "type": "integer"},
+        "av_mem_limit": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "tls_active_probe": {
             "v_range": [["v6.2.7", "v6.2.7"], ["v6.4.4", ""]],
             "type": "dict",
@@ -499,7 +508,7 @@ versioned_schema = {
             "options": [{"value": "none"}, {"value": "basic"}],
         },
         "ips_reserve_cpu": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },

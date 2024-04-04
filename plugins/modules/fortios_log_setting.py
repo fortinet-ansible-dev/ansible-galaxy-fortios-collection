@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -214,6 +214,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            long_live_session_stat:
+                description:
+                    - Enable/disable long-live-session statistics logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             neighbor_event:
                 description:
                     - Enable/disable neighbor event logging.
@@ -291,6 +298,7 @@ EXAMPLES = """
           log_policy_comment: "enable"
           log_policy_name: "enable"
           log_user_in_upper: "enable"
+          long_live_session_stat: "enable"
           neighbor_event: "enable"
           resolve_ip: "enable"
           resolve_port: "enable"
@@ -400,6 +408,7 @@ def filter_log_setting_data(json):
         "log_policy_comment",
         "log_policy_name",
         "log_user_in_upper",
+        "long_live_session_stat",
         "neighbor_event",
         "resolve_ip",
         "resolve_port",
@@ -435,9 +444,10 @@ def underscore_to_hyphen(data):
 def log_setting(data, fos):
     vdom = data["vdom"]
     log_setting_data = data["log_setting"]
-    filtered_data = underscore_to_hyphen(filter_log_setting_data(log_setting_data))
+    filtered_data = filter_log_setting_data(log_setting_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("log", "setting", data=filtered_data, vdom=vdom)
+    return fos.set("log", "setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -577,6 +587,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "long_live_session_stat": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "custom_log_fields": {
             "type": "list",
             "elements": "dict",
@@ -591,7 +606,7 @@ versioned_schema = {
         },
         "anonymization_hash": {"v_range": [["v7.0.2", ""]], "type": "string"},
         "fortiview_weekly_data": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

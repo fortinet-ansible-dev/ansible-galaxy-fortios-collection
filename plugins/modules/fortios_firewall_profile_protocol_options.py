@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -177,7 +177,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             comment:
                 description:
@@ -300,7 +300,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             http:
                 description:
@@ -504,7 +504,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
                     unknown_content_encoding:
                         description:
@@ -592,7 +592,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             mail_signature:
                 description:
@@ -652,7 +652,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             name:
                 description:
@@ -715,7 +715,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             oversize_log:
                 description:
@@ -787,7 +787,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             replacemsg_group:
                 description:
@@ -871,7 +871,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             ssh:
                 description:
@@ -945,7 +945,7 @@ options:
                         type: int
                     uncompressed_oversize_limit:
                         description:
-                            - Maximum in-memory uncompressed file size that can be scanned.
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
                         type: int
             switching_protocols_log:
                 description:
@@ -1301,11 +1301,10 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
     firewall_profile_protocol_options_data = flatten_multilists_attributes(
         firewall_profile_protocol_options_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_profile_protocol_options_data(
-            firewall_profile_protocol_options_data
-        )
+    filtered_data = filter_firewall_profile_protocol_options_data(
+        firewall_profile_protocol_options_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1374,7 +1373,7 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "profile-protocol-options", data=filtered_data, vdom=vdom
+            "firewall", "profile-protocol-options", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

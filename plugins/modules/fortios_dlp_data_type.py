@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -100,11 +100,19 @@ options:
                 description:
                     - Number of characters required to save for verification (1 - 255).
                 type: int
+            match_ahead:
+                description:
+                    - Number of characters behind for match-around (1 - 4096).
+                type: int
             match_around:
                 description:
                     - Dictionary to check whether it has a match around (Only support match-any and basic types, no repeat supported). Source dlp.dictionary
                       .name.
                 type: str
+            match_back:
+                description:
+                    - Number of characters in front for match-around (1 - 4096).
+                type: int
             name:
                 description:
                     - Name of table containing the data type.
@@ -129,6 +137,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            verify2:
+                description:
+                    - Extra regular expression pattern string used to verify the data type.
+                type: str
 """
 
 EXAMPLES = """
@@ -141,12 +153,15 @@ EXAMPLES = """
           comment: "Optional comments."
           look_ahead: "1"
           look_back: "1"
+          match_ahead: "1"
           match_around: "<your_own_value> (source dlp.dictionary.name)"
-          name: "default_name_7"
+          match_back: "1"
+          name: "default_name_9"
           pattern: "<your_own_value>"
           transform: "<your_own_value>"
           verify: "<your_own_value>"
           verify_transformed_pattern: "enable"
+          verify2: "<your_own_value>"
 """
 
 RETURN = """
@@ -233,12 +248,15 @@ def filter_dlp_data_type_data(json):
         "comment",
         "look_ahead",
         "look_back",
+        "match_ahead",
         "match_around",
+        "match_back",
         "name",
         "pattern",
         "transform",
         "verify",
         "verify_transformed_pattern",
+        "verify2",
     ]
 
     json = remove_invalid_fields(json)
@@ -270,10 +288,11 @@ def dlp_data_type(data, fos):
     state = data["state"]
 
     dlp_data_type_data = data["dlp_data_type"]
-    filtered_data = underscore_to_hyphen(filter_dlp_data_type_data(dlp_data_type_data))
+    filtered_data = filter_dlp_data_type_data(dlp_data_type_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("dlp", "data-type", data=filtered_data, vdom=vdom)
+        return fos.set("dlp", "data-type", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("dlp", "data-type", mkey=filtered_data["name"], vdom=vdom)
@@ -316,9 +335,12 @@ versioned_schema = {
         "name": {"v_range": [["v7.2.0", ""]], "type": "string", "required": True},
         "pattern": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "verify": {"v_range": [["v7.2.0", ""]], "type": "string"},
+        "verify2": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "match_around": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "look_back": {"v_range": [["v7.2.0", ""]], "type": "integer"},
         "look_ahead": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+        "match_back": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "match_ahead": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "transform": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "verify_transformed_pattern": {
             "v_range": [["v7.2.0", ""]],

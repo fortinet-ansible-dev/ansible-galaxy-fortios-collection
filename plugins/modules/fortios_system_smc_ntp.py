@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -117,13 +117,13 @@ EXAMPLES = """
   fortinet.fortios.fortios_system_smc_ntp:
       vdom: "{{ vdom }}"
       system_smc_ntp:
-          channel: "32767"
+          channel: "5"
           ntpserver:
               -
                   id: "5"
                   server: "192.168.100.40"
           ntpsync: "enable"
-          syncinterval: "32767"
+          syncinterval: "60"
 """
 
 RETURN = """
@@ -234,11 +234,10 @@ def underscore_to_hyphen(data):
 def system_smc_ntp(data, fos):
     vdom = data["vdom"]
     system_smc_ntp_data = data["system_smc_ntp"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_smc_ntp_data(system_smc_ntp_data)
-    )
+    filtered_data = filter_system_smc_ntp_data(system_smc_ntp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "smc-ntp", data=filtered_data, vdom=vdom)
+    return fos.set("system", "smc-ntp", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -270,28 +269,37 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "v_range": [["v6.2.3", "v6.2.3"]],
+    "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
     "type": "dict",
     "children": {
         "ntpsync": {
-            "v_range": [["v6.2.3", "v6.2.3"]],
+            "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "syncinterval": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
-        "channel": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
+        "syncinterval": {
+            "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
+            "type": "integer",
+        },
+        "channel": {
+            "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
+            "type": "integer",
+        },
         "ntpserver": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "v_range": [["v6.2.3", "v6.2.3"]],
+                    "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
                     "type": "integer",
                     "required": True,
                 },
-                "server": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+                "server": {
+                    "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
+                    "type": "string",
+                },
             },
-            "v_range": [["v6.2.3", "v6.2.3"]],
+            "v_range": [["v6.2.3", "v6.2.3"], ["v7.4.2", "v7.4.2"]],
         },
     },
 }

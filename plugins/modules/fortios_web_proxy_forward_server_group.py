@@ -39,7 +39,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -272,9 +272,10 @@ def web_proxy_forward_server_group(data, fos, check_mode=False):
     state = data["state"]
 
     web_proxy_forward_server_group_data = data["web_proxy_forward_server_group"]
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_forward_server_group_data(web_proxy_forward_server_group_data)
+    filtered_data = filter_web_proxy_forward_server_group_data(
+        web_proxy_forward_server_group_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -343,7 +344,7 @@ def web_proxy_forward_server_group(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "web-proxy", "forward-server-group", data=filtered_data, vdom=vdom
+            "web-proxy", "forward-server-group", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

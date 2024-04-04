@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -303,10 +303,11 @@ def firewall_pfcp(data, fos):
     state = data["state"]
 
     firewall_pfcp_data = data["firewall_pfcp"]
-    filtered_data = underscore_to_hyphen(filter_firewall_pfcp_data(firewall_pfcp_data))
+    filtered_data = filter_firewall_pfcp_data(firewall_pfcp_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("firewall", "pfcp", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "pfcp", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("firewall", "pfcp", mkey=filtered_data["name"], vdom=vdom)
@@ -347,62 +348,62 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "required": True,
         },
         "min_message_length": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "max_message_length": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "monitor_mode": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}, {"value": "vdom"}],
         },
         "message_filter": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
         },
         "pfcp_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "unknown_version": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "invalid_reserved_field": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "forwarded_log": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "denied_log": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "traffic_count_log": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "log_freq": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
     },
-    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
 }
 
 

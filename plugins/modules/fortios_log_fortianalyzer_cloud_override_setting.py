@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -220,14 +220,13 @@ def log_fortianalyzer_cloud_override_setting(data, fos):
     log_fortianalyzer_cloud_override_setting_data = data[
         "log_fortianalyzer_cloud_override_setting"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_log_fortianalyzer_cloud_override_setting_data(
-            log_fortianalyzer_cloud_override_setting_data
-        )
+    filtered_data = filter_log_fortianalyzer_cloud_override_setting_data(
+        log_fortianalyzer_cloud_override_setting_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "log.fortianalyzer-cloud", "override-setting", data=filtered_data, vdom=vdom
+        "log.fortianalyzer-cloud", "override-setting", data=converted_data, vdom=vdom
     )
 
 

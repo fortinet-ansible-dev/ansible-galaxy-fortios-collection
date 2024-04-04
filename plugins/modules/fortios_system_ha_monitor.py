@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -215,11 +215,10 @@ def underscore_to_hyphen(data):
 def system_ha_monitor(data, fos):
     vdom = data["vdom"]
     system_ha_monitor_data = data["system_ha_monitor"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_ha_monitor_data(system_ha_monitor_data)
-    )
+    filtered_data = filter_system_ha_monitor_data(system_ha_monitor_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "ha-monitor", data=filtered_data, vdom=vdom)
+    return fos.set("system", "ha-monitor", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

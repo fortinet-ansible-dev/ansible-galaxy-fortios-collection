@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -253,15 +253,6 @@ options:
                 description:
                     - SDN. Source system.sdn-connector.name.
                 type: str
-                choices:
-                    - 'aci'
-                    - 'aws'
-                    - 'azure'
-                    - 'gcp'
-                    - 'nsx'
-                    - 'nuage'
-                    - 'oci'
-                    - 'openstack'
             sdn_addr_type:
                 description:
                     - Type of addresses to collect.
@@ -425,7 +416,7 @@ EXAMPLES = """
           os: "<your_own_value>"
           policy_group: "<your_own_value>"
           route_tag: "0"
-          sdn: "aci"
+          sdn: "<your_own_value> (source system.sdn-connector.name)"
           sdn_addr_type: "private"
           sdn_tag: "<your_own_value>"
           start_ip: "<your_own_value>"
@@ -618,9 +609,8 @@ def firewall_address(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_address_data = data["firewall_address"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_address_data(firewall_address_data)
-    )
+    filtered_data = filter_firewall_address_data(firewall_address_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -684,7 +674,7 @@ def firewall_address(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "address", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "address", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("firewall", "address", mkey=filtered_data["name"], vdom=vdom)
@@ -791,20 +781,7 @@ versioned_schema = {
         "wildcard_fqdn": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "cache_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "wildcard": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "sdn": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "aci", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "aws", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "azure", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "gcp", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "nsx", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "nuage", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "oci", "v_range": [["v6.0.0", "v6.0.11"]]},
-                {"value": "openstack", "v_range": [["v6.0.0", "v6.0.11"]]},
-            ],
-        },
+        "sdn": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "fsso_group": {
             "type": "list",
             "elements": "dict",

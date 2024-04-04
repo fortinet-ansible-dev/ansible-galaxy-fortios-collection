@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -262,9 +262,8 @@ def user_krb_keytab(data, fos, check_mode=False):
     state = data["state"]
 
     user_krb_keytab_data = data["user_krb_keytab"]
-    filtered_data = underscore_to_hyphen(
-        filter_user_krb_keytab_data(user_krb_keytab_data)
-    )
+    filtered_data = filter_user_krb_keytab_data(user_krb_keytab_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -328,7 +327,7 @@ def user_krb_keytab(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("user", "krb-keytab", data=filtered_data, vdom=vdom)
+        return fos.set("user", "krb-keytab", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("user", "krb-keytab", mkey=filtered_data["name"], vdom=vdom)

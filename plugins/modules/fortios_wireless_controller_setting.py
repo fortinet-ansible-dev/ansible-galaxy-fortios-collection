@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -377,6 +377,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            rolling_wtp_upgrade:
+                description:
+                    - Enable/disable rolling WTP upgrade .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             wfa_compatibility:
                 description:
                     - Enable/disable WFA compatibility.
@@ -410,6 +417,7 @@ EXAMPLES = """
                   id: "17"
                   ssid_pattern: "<your_own_value>"
           phishing_ssid_detect: "enable"
+          rolling_wtp_upgrade: "enable"
           wfa_compatibility: "enable"
 """
 
@@ -507,6 +515,7 @@ def filter_wireless_controller_setting_data(json):
         "firmware_provision_on_authorization",
         "offending_ssid",
         "phishing_ssid_detect",
+        "rolling_wtp_upgrade",
         "wfa_compatibility",
     ]
 
@@ -569,11 +578,12 @@ def wireless_controller_setting(data, fos):
     wireless_controller_setting_data = flatten_multilists_attributes(
         wireless_controller_setting_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_setting_data(wireless_controller_setting_data)
+    filtered_data = filter_wireless_controller_setting_data(
+        wireless_controller_setting_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("wireless-controller", "setting", data=filtered_data, vdom=vdom)
+    return fos.set("wireless-controller", "setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -879,6 +889,11 @@ versioned_schema = {
         },
         "firmware_provision_on_authorization": {
             "v_range": [["v7.0.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "rolling_wtp_upgrade": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

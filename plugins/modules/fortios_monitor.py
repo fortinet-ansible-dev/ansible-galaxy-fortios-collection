@@ -571,7 +571,7 @@ module_selectors_defs = {
         "params": {
             "id": {"type": "int", "required": "False"},
             "method": {"type": "string", "required": "False"},
-            "admins": {"type": "array", "required": "False"},
+            "admins": {"type": "array", "required": "True"},
         },
     },
     "set.system.time": {
@@ -1633,7 +1633,7 @@ module_selectors_defs = {
     "update-global-label.firewall.policy": {
         "url": "firewall/policy/update-global-label",
         "params": {
-            "policyid": {"type": "int", "required": "True"},
+            "policyid": {"type": "string", "required": "True"},
             "current-label": {"type": "string", "required": "False"},
             "new-label": {"type": "string", "required": "False"},
         },
@@ -1641,7 +1641,7 @@ module_selectors_defs = {
     "update-global-label.firewall.security-policy": {
         "url": "firewall/security-policy/update-global-label",
         "params": {
-            "policyid": {"type": "int", "required": "True"},
+            "policyid": {"type": "string", "required": "True"},
             "current-label": {"type": "string", "required": "False"},
             "new-label": {"type": "string", "required": "False"},
         },

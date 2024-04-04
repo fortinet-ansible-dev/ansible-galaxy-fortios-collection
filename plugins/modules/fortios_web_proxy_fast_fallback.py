@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -253,12 +253,11 @@ def web_proxy_fast_fallback(data, fos):
     state = data["state"]
 
     web_proxy_fast_fallback_data = data["web_proxy_fast_fallback"]
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_fast_fallback_data(web_proxy_fast_fallback_data)
-    )
+    filtered_data = filter_web_proxy_fast_fallback_data(web_proxy_fast_fallback_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("web-proxy", "fast-fallback", data=filtered_data, vdom=vdom)
+        return fos.set("web-proxy", "fast-fallback", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

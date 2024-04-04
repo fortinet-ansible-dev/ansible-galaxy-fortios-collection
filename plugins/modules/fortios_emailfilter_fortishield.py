@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -218,11 +218,10 @@ def underscore_to_hyphen(data):
 def emailfilter_fortishield(data, fos):
     vdom = data["vdom"]
     emailfilter_fortishield_data = data["emailfilter_fortishield"]
-    filtered_data = underscore_to_hyphen(
-        filter_emailfilter_fortishield_data(emailfilter_fortishield_data)
-    )
+    filtered_data = filter_emailfilter_fortishield_data(emailfilter_fortishield_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("emailfilter", "fortishield", data=filtered_data, vdom=vdom)
+    return fos.set("emailfilter", "fortishield", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -845,9 +845,10 @@ def underscore_to_hyphen(data):
 def router_ospf6(data, fos):
     vdom = data["vdom"]
     router_ospf6_data = data["router_ospf6"]
-    filtered_data = underscore_to_hyphen(filter_router_ospf6_data(router_ospf6_data))
+    filtered_data = filter_router_ospf6_data(router_ospf6_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("router", "ospf6", data=filtered_data, vdom=vdom)
+    return fos.set("router", "ospf6", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

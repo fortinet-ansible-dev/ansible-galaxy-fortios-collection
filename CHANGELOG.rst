@@ -5,6 +5,34 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.6
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.6
+
+Major Changes
+-------------
+
+- Add notes for backup modules in the documentation in both monitor and monitor_fact modules.
+- Supported new FOS versions 7.4.2 and 7.4.3, and support data type mac_address in the collection.
+- Update the documentation for the supported versions from latest to a fix version number.
+- Update the required ansible version to 2.15.
+
+Bugfixes
+--------
+
+- Fix the issue that ssl-certificate cannot be set in `fortios_firewall_vip` and `fortios_firewall_vip6`.
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- mantis issue
+
 v2.3.5
 ======
 

@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -214,6 +214,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            send_tags_to_all_vdoms:
+                description:
+                    - Relax restrictions on tags to send all EMS tags to all VDOMs
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             serial_number:
                 description:
                     - EMS Serial Number.
@@ -248,13 +255,17 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            verifying_ca:
+                description:
+                    - Lowest CA cert on Fortigate in verified EMS cert chain. Source certificate.ca.name vpn.certificate.ca.name.
+                type: str
             websocket_override:
                 description:
                     - Enable/disable override behavior for how this FortiGate unit connects to EMS using a WebSocket connection.
                 type: str
                 choices:
-                    - 'disable'
                     - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -284,6 +295,7 @@ EXAMPLES = """
           pull_sysinfo: "enable"
           pull_tags: "enable"
           pull_vulnerabilities: "enable"
+          send_tags_to_all_vdoms: "enable"
           serial_number: "<your_own_value>"
           server: "192.168.100.40"
           source_ip: "84.230.14.43"
@@ -291,7 +303,8 @@ EXAMPLES = """
           status_check_interval: "90"
           tenant_id: "<your_own_value>"
           trust_ca_cn: "enable"
-          websocket_override: "disable"
+          verifying_ca: "<your_own_value> (source certificate.ca.name vpn.certificate.ca.name)"
+          websocket_override: "enable"
 """
 
 RETURN = """
@@ -404,6 +417,7 @@ def filter_endpoint_control_fctems_data(json):
         "pull_sysinfo",
         "pull_tags",
         "pull_vulnerabilities",
+        "send_tags_to_all_vdoms",
         "serial_number",
         "server",
         "source_ip",
@@ -411,6 +425,7 @@ def filter_endpoint_control_fctems_data(json):
         "status_check_interval",
         "tenant_id",
         "trust_ca_cn",
+        "verifying_ca",
         "websocket_override",
     ]
 
@@ -475,9 +490,8 @@ def endpoint_control_fctems(data, fos, check_mode=False):
     endpoint_control_fctems_data = flatten_multilists_attributes(
         endpoint_control_fctems_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_endpoint_control_fctems_data(endpoint_control_fctems_data)
-    )
+    filtered_data = filter_endpoint_control_fctems_data(endpoint_control_fctems_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -541,7 +555,7 @@ def endpoint_control_fctems(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("endpoint-control", "fctems", data=filtered_data, vdom=vdom)
+        return fos.set("endpoint-control", "fctems", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -657,10 +671,15 @@ versioned_schema = {
         },
         "call_timeout": {"v_range": [["v6.2.0", ""]], "type": "integer"},
         "out_of_sync_threshold": {"v_range": [["v7.0.8", ""]], "type": "integer"},
+        "send_tags_to_all_vdoms": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "websocket_override": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "preserve_ssl_session": {
             "v_range": [["v7.0.1", ""]],
@@ -681,6 +700,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "verifying_ca": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "cloud_server_type": {
             "v_range": [["v6.4.0", "v7.4.0"]],
             "type": "string",

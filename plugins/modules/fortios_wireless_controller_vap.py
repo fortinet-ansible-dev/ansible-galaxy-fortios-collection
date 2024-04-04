@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -954,6 +954,14 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - '1'
+                    - '1-basic'
+                    - '2'
+                    - '2-basic'
+                    - '5.5'
+                    - '5.5-basic'
+                    - '11'
+                    - '11-basic'
                     - '6'
                     - '6-basic'
                     - '9'
@@ -970,14 +978,6 @@ options:
                     - '48-basic'
                     - '54'
                     - '54-basic'
-                    - '1'
-                    - '1-basic'
-                    - '2'
-                    - '2-basic'
-                    - '5.5'
-                    - '5.5-basic'
-                    - '11'
-                    - '11-basic'
             rates_11ac_mcs_map:
                 description:
                     - Comma separated list of max supported VHT MCS for spatial streams 1 through 8.
@@ -1112,6 +1112,14 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - '1'
+                    - '1-basic'
+                    - '2'
+                    - '2-basic'
+                    - '5.5'
+                    - '5.5-basic'
+                    - '11'
+                    - '11-basic'
                     - '6'
                     - '6-basic'
                     - '9'
@@ -1128,14 +1136,6 @@ options:
                     - '48-basic'
                     - '54'
                     - '54-basic'
-                    - '1'
-                    - '1-basic'
-                    - '2'
-                    - '2-basic'
-                    - '5.5'
-                    - '5.5-basic'
-                    - '11'
-                    - '11-basic'
             rates_11n_ss12:
                 description:
                     - Allowed data rates for 802.11n with 1 or 2 spatial streams.
@@ -1180,6 +1180,13 @@ options:
                     - 'mcs29/4'
                     - 'mcs30/4'
                     - 'mcs31/4'
+            roaming_acct_interim_update:
+                description:
+                    - Enable/disable using accounting interim update instead of accounting start/stop on roaming for WPA-Enterprise security.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             sae_groups:
                 description:
                     - SAE-Groups.
@@ -1205,6 +1212,13 @@ options:
             sae_h2e_only:
                 description:
                     - Use hash-to-element-only mechanism for PWE derivation .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            sae_hnp_only:
+                description:
+                    - Use hunting-and-pecking-only mechanism for PWE derivation .
                 type: str
                 choices:
                     - 'enable'
@@ -1299,6 +1313,20 @@ options:
                             - User group name. Source user.group.name.
                         required: true
                         type: str
+            set_80211k:
+                description:
+                    - Enable/disable 802.11k assisted roaming .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            set_80211v:
+                description:
+                    - Enable/disable 802.11v assisted roaming .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             split_tunneling:
                 description:
                     - Enable/disable split tunneling .
@@ -1606,25 +1634,27 @@ EXAMPLES = """
           radius_mac_mpsk_auth: "enable"
           radius_mac_mpsk_timeout: "86400"
           radius_server: "<your_own_value> (source user.radius.name)"
-          rates_11a: "6"
+          rates_11a: "1"
           rates_11ac_mcs_map: "<your_own_value>"
           rates_11ac_ss12: "mcs0/1"
           rates_11ac_ss34: "mcs0/3"
           rates_11ax_mcs_map: "<your_own_value>"
           rates_11ax_ss12: "mcs0/1"
           rates_11ax_ss34: "mcs0/3"
-          rates_11bg: "6"
+          rates_11bg: "1"
           rates_11n_ss12: "mcs0/1"
           rates_11n_ss34: "mcs16/3"
+          roaming_acct_interim_update: "enable"
           sae_groups: "19"
           sae_h2e_only: "enable"
+          sae_hnp_only: "enable"
           sae_password: "<your_own_value>"
           sae_pk: "enable"
           sae_private_key: "<your_own_value>"
           scan_botnet_connections: "disable"
           schedule:
               -
-                  name: "default_name_165 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_167 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           secondary_wag_profile: "<your_own_value> (source wireless-controller.wag-profile.name)"
           security: "open"
           security_exempt_list: "<your_own_value> (source user.security-exempt-list.name)"
@@ -1632,7 +1662,9 @@ EXAMPLES = """
           security_redirect_url: "<your_own_value>"
           selected_usergroups:
               -
-                  name: "default_name_172 (source user.group.name)"
+                  name: "default_name_174 (source user.group.name)"
+          set_80211k: "disable"
+          set_80211v: "disable"
           split_tunneling: "enable"
           ssid: "<your_own_value>"
           sticky_client_remove: "enable"
@@ -1645,7 +1677,7 @@ EXAMPLES = """
           tunnel_fallback_interval: "7200"
           usergroup:
               -
-                  name: "default_name_184 (source user.group.name)"
+                  name: "default_name_188 (source user.group.name)"
           utm_log: "enable"
           utm_profile: "<your_own_value> (source wireless-controller.utm-profile.name)"
           utm_status: "enable"
@@ -1653,11 +1685,11 @@ EXAMPLES = """
           vlan_auto: "enable"
           vlan_name:
               -
-                  name: "default_name_191"
+                  name: "default_name_195"
                   vlan_id: "<your_own_value>"
           vlan_pool:
               -
-                  id: "194"
+                  id: "198"
                   wtp_group: "<your_own_value> (source wireless-controller.wtp-group.name)"
           vlan_pooling: "wtp-group"
           vlanid: "0"
@@ -1896,8 +1928,10 @@ def filter_wireless_controller_vap_data(json):
         "rates_11bg",
         "rates_11n_ss12",
         "rates_11n_ss34",
+        "roaming_acct_interim_update",
         "sae_groups",
         "sae_h2e_only",
+        "sae_hnp_only",
         "sae_password",
         "sae_pk",
         "sae_private_key",
@@ -1909,6 +1943,8 @@ def filter_wireless_controller_vap_data(json):
         "security_obsolete_option",
         "security_redirect_url",
         "selected_usergroups",
+        "set_80211k",
+        "set_80211v",
         "split_tunneling",
         "ssid",
         "sticky_client_remove",
@@ -2000,6 +2036,32 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    speciallist = {"80211k": "set_80211k", "80211v": "set_80211v"}
+
+    for k, v in speciallist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return data
+
+
 def wireless_controller_vap(data, fos, check_mode=False):
     vdom = data["vdom"]
 
@@ -2009,9 +2071,8 @@ def wireless_controller_vap(data, fos, check_mode=False):
     wireless_controller_vap_data = flatten_multilists_attributes(
         wireless_controller_vap_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_vap_data(wireless_controller_vap_data)
-    )
+    filtered_data = filter_wireless_controller_vap_data(wireless_controller_vap_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:
@@ -2075,7 +2136,7 @@ def wireless_controller_vap(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("wireless-controller", "vap", data=filtered_data, vdom=vdom)
+        return fos.set("wireless-controller", "vap", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -2200,11 +2261,6 @@ versioned_schema = {
                 {"value": "prefer-not"},
                 {"value": "prefer-use"},
             ],
-        },
-        "voice_enterprise": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "neighbor_report_dual_band": {
             "v_range": [["v7.0.0", ""]],
@@ -2386,6 +2442,11 @@ versioned_schema = {
         "sae_password": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "sae_h2e_only": {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "sae_hnp_only": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2755,6 +2816,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "eap_reauth_intv": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "roaming_acct_interim_update": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "qos_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "hotspot20_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "access_control_list": {"v_range": [["v6.4.0", ""]], "type": "string"},
@@ -2766,6 +2832,20 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
             "options": [
+                {"value": "1", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "1-basic", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "2", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "2-basic", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "5.5", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {
+                    "value": "5.5-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]],
+                },
+                {"value": "11", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {
+                    "value": "11-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]],
+                },
                 {"value": "6"},
                 {"value": "6-basic"},
                 {"value": "9"},
@@ -2782,14 +2862,6 @@ versioned_schema = {
                 {"value": "48-basic"},
                 {"value": "54"},
                 {"value": "54-basic"},
-                {"value": "1", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "1-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "2", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "2-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "5.5", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "5.5-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "11", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "11-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2798,6 +2870,20 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
             "options": [
+                {"value": "1", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "1-basic", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "2", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "2-basic", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {"value": "5.5", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {
+                    "value": "5.5-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]],
+                },
+                {"value": "11", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
+                {
+                    "value": "11-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]],
+                },
                 {"value": "6"},
                 {"value": "6-basic"},
                 {"value": "9"},
@@ -2814,14 +2900,6 @@ versioned_schema = {
                 {"value": "48-basic"},
                 {"value": "54"},
                 {"value": "54-basic"},
-                {"value": "1", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "1-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "2", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "2-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "5.5", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "5.5-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "11", "v_range": [["v6.0.0", "v7.4.0"]]},
-                {"value": "11-basic", "v_range": [["v6.0.0", "v7.4.0"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2959,6 +3037,11 @@ versioned_schema = {
             "v_range": [["v7.2.1", ""]],
             "type": "string",
             "options": [{"value": "direct"}, {"value": "indirect"}],
+        },
+        "voice_enterprise": {
+            "v_range": [["v6.0.0", "v7.4.1"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "mac_filter": {
             "v_range": [["v6.0.0", "v7.4.0"]],
@@ -3192,6 +3275,16 @@ versioned_schema = {
             "type": "string",
         },
         "vdom": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
+        "set_80211k": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "set_80211v": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }

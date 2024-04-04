@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -267,9 +267,8 @@ def antivirus_notification(data, fos, check_mode=False):
     state = data["state"]
 
     antivirus_notification_data = data["antivirus_notification"]
-    filtered_data = underscore_to_hyphen(
-        filter_antivirus_notification_data(antivirus_notification_data)
-    )
+    filtered_data = filter_antivirus_notification_data(antivirus_notification_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -333,7 +332,7 @@ def antivirus_notification(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("antivirus", "notification", data=filtered_data, vdom=vdom)
+        return fos.set("antivirus", "notification", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

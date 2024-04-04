@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -257,11 +257,10 @@ def endpoint_control_registered_forticlient(data, fos, check_mode=False):
     endpoint_control_registered_forticlient_data = data[
         "endpoint_control_registered_forticlient"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_endpoint_control_registered_forticlient_data(
-            endpoint_control_registered_forticlient_data
-        )
+    filtered_data = filter_endpoint_control_registered_forticlient_data(
+        endpoint_control_registered_forticlient_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -330,7 +329,7 @@ def endpoint_control_registered_forticlient(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "endpoint-control", "registered-forticlient", data=filtered_data, vdom=vdom
+            "endpoint-control", "registered-forticlient", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

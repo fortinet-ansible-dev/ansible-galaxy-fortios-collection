@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -665,9 +665,8 @@ def gtp_message_filter_v2(data, fos, check_mode=False):
     state = data["state"]
 
     gtp_message_filter_v2_data = data["gtp_message_filter_v2"]
-    filtered_data = underscore_to_hyphen(
-        filter_gtp_message_filter_v2_data(gtp_message_filter_v2_data)
-    )
+    filtered_data = filter_gtp_message_filter_v2_data(gtp_message_filter_v2_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -731,7 +730,7 @@ def gtp_message_filter_v2(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("gtp", "message-filter-v2", data=filtered_data, vdom=vdom)
+        return fos.set("gtp", "message-filter-v2", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -775,12 +774,12 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "required": True,
         },
         "unknown_message": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
@@ -789,245 +788,249 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "id": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "integer",
                     "required": True,
                 }
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
         },
         "echo": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "version_not_support": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "create_session": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "modify_bearer_req_resp": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "delete_session": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "change_notification": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "remote_ue_report_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "modify_bearer_cmd_fail": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "delete_bearer_cmd_fail": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "bearer_resource_cmd_fail": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "dlink_notif_failure": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "trace_session": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "stop_paging_indication": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "create_bearer": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "update_bearer": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "delete_bearer_req_resp": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "delete_pdn_connection_set": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "pgw_dlink_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "identification_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "context_req_res_ack": {
-            "v_range": [["v7.0.2", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.2", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "forward_relocation_req_res": {
-            "v_range": [["v7.0.2", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.2", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "forward_relocation_cmp_notif_ack": {
-            "v_range": [["v7.0.2", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.2", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "forward_access_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "relocation_cancel_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "configuration_transfer_tunnel": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "detach_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "cs_paging": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "ran_info_relay": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "alert_mme_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "ue_activity_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "isr_status": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "ue_registration_query_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "create_forwarding_tunnel_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "suspend": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "resume": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "create_indirect_forwarding_tunnel_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "delete_indirect_forwarding_tunnel_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "release_access_bearer_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "dlink_data_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "reserved_for_earlier_version": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "pgw_restart_notif_ack": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "update_pdn_connection_set": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "modify_access_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "mbms_session_start_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "mbms_session_update_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "mbms_session_stop_req_resp": {
-            "v_range": [["v7.2.1", "v7.2.4"]],
+            "v_range": [["v7.2.1", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
     },
-    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
 }
 
 

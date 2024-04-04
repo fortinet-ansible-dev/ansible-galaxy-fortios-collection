@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -294,11 +294,10 @@ def firewall_decrypted_traffic_mirror(data, fos, check_mode=False):
     firewall_decrypted_traffic_mirror_data = flatten_multilists_attributes(
         firewall_decrypted_traffic_mirror_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_decrypted_traffic_mirror_data(
-            firewall_decrypted_traffic_mirror_data
-        )
+    filtered_data = filter_firewall_decrypted_traffic_mirror_data(
+        firewall_decrypted_traffic_mirror_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -367,7 +366,7 @@ def firewall_decrypted_traffic_mirror(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "decrypted-traffic-mirror", data=filtered_data, vdom=vdom
+            "firewall", "decrypted-traffic-mirror", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

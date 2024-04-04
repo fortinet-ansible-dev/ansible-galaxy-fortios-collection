@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -325,9 +325,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"802_1x": "set_802_1x"}
+    speciallist = {"802_1x": "set_802_1x"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -336,8 +336,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -355,12 +358,10 @@ def switch_controller_dynamic_port_policy(data, fos):
     switch_controller_dynamic_port_policy_data = data[
         "switch_controller_dynamic_port_policy"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_dynamic_port_policy_data(
-            switch_controller_dynamic_port_policy_data
-        )
+    filtered_data = filter_switch_controller_dynamic_port_policy_data(
+        switch_controller_dynamic_port_policy_data
     )
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     if state == "present" or state is True:
         return fos.set(

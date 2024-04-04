@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -295,9 +295,8 @@ def webfilter_content(data, fos, check_mode=False):
     state = data["state"]
 
     webfilter_content_data = data["webfilter_content"]
-    filtered_data = underscore_to_hyphen(
-        filter_webfilter_content_data(webfilter_content_data)
-    )
+    filtered_data = filter_webfilter_content_data(webfilter_content_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -361,7 +360,7 @@ def webfilter_content(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("webfilter", "content", data=filtered_data, vdom=vdom)
+        return fos.set("webfilter", "content", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("webfilter", "content", mkey=filtered_data["id"], vdom=vdom)

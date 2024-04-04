@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -1230,12 +1230,11 @@ def firewall_mms_profile(data, fos):
 
     firewall_mms_profile_data = data["firewall_mms_profile"]
     firewall_mms_profile_data = flatten_multilists_attributes(firewall_mms_profile_data)
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_mms_profile_data(firewall_mms_profile_data)
-    )
+    filtered_data = filter_firewall_mms_profile_data(firewall_mms_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("firewall", "mms-profile", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "mms-profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

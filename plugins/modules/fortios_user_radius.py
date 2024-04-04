@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -501,6 +501,13 @@ options:
                 description:
                     - Switch controller accounting message Framed-IP detection from DHCP snooping (seconds).
                 type: int
+            switch_controller_nas_ip_dynamic:
+                description:
+                    - Enable/Disable switch-controller nas-ip dynamic to dynamically set nas-ip.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             switch_controller_service_type:
                 description:
                     - RADIUS service type.
@@ -633,6 +640,7 @@ EXAMPLES = """
           sso_attribute_value_override: "enable"
           status_ttl: "300"
           switch_controller_acct_fast_framedip_detect: "2"
+          switch_controller_nas_ip_dynamic: "enable"
           switch_controller_service_type: "login"
           tertiary_secret: "<your_own_value>"
           tertiary_server: "<your_own_value>"
@@ -783,6 +791,7 @@ def filter_user_radius_data(json):
         "sso_attribute_value_override",
         "status_ttl",
         "switch_controller_acct_fast_framedip_detect",
+        "switch_controller_nas_ip_dynamic",
         "switch_controller_service_type",
         "tertiary_secret",
         "tertiary_server",
@@ -853,7 +862,8 @@ def user_radius(data, fos, check_mode=False):
 
     user_radius_data = data["user_radius"]
     user_radius_data = flatten_multilists_attributes(user_radius_data)
-    filtered_data = underscore_to_hyphen(filter_user_radius_data(user_radius_data))
+    filtered_data = filter_user_radius_data(user_radius_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -917,7 +927,7 @@ def user_radius(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("user", "radius", data=filtered_data, vdom=vdom)
+        return fos.set("user", "radius", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("user", "radius", mkey=filtered_data["name"], vdom=vdom)
@@ -974,6 +984,11 @@ versioned_schema = {
         },
         "use_management_vdom": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "switch_controller_nas_ip_dynamic": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

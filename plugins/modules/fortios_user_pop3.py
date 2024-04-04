@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -256,7 +256,8 @@ def user_pop3(data, fos, check_mode=False):
     state = data["state"]
 
     user_pop3_data = data["user_pop3"]
-    filtered_data = underscore_to_hyphen(filter_user_pop3_data(user_pop3_data))
+    filtered_data = filter_user_pop3_data(user_pop3_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -320,7 +321,7 @@ def user_pop3(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("user", "pop3", data=filtered_data, vdom=vdom)
+        return fos.set("user", "pop3", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("user", "pop3", mkey=filtered_data["name"], vdom=vdom)

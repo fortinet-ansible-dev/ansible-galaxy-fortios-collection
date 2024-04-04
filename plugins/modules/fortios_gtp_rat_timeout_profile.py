@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -278,12 +278,11 @@ def gtp_rat_timeout_profile(data, fos):
     state = data["state"]
 
     gtp_rat_timeout_profile_data = data["gtp_rat_timeout_profile"]
-    filtered_data = underscore_to_hyphen(
-        filter_gtp_rat_timeout_profile_data(gtp_rat_timeout_profile_data)
-    )
+    filtered_data = filter_gtp_rat_timeout_profile_data(gtp_rat_timeout_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("gtp", "rat-timeout-profile", data=filtered_data, vdom=vdom)
+        return fos.set("gtp", "rat-timeout-profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -326,52 +325,52 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "required": True,
         },
         "utran_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "geran_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "wlan_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "gan_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "hspa_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "eutran_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "virtual_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "nbiot_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "ltem_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "nr_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
     },
-    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
 }
 
 

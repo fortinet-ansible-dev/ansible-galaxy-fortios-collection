@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -105,7 +105,7 @@ options:
                         type: int
                     refresh_direction:
                         description:
-                            - 'Refresh direction: Both, outgoing, incoming'
+                            - Configure refresh direction.
                         type: str
                         choices:
                             - 'both'
@@ -245,11 +245,10 @@ def underscore_to_hyphen(data):
 def system_session_ttl(data, fos):
     vdom = data["vdom"]
     system_session_ttl_data = data["system_session_ttl"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_session_ttl_data(system_session_ttl_data)
-    )
+    filtered_data = filter_system_session_ttl_data(system_session_ttl_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "session-ttl", data=filtered_data, vdom=vdom)
+    return fos.set("system", "session-ttl", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

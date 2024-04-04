@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -218,14 +218,13 @@ def switch_controller_snmp_trap_threshold(data, fos):
     switch_controller_snmp_trap_threshold_data = data[
         "switch_controller_snmp_trap_threshold"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_snmp_trap_threshold_data(
-            switch_controller_snmp_trap_threshold_data
-        )
+    filtered_data = filter_switch_controller_snmp_trap_threshold_data(
+        switch_controller_snmp_trap_threshold_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "switch-controller", "snmp-trap-threshold", data=filtered_data, vdom=vdom
+        "switch-controller", "snmp-trap-threshold", data=converted_data, vdom=vdom
     )
 
 

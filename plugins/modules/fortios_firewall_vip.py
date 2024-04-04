@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -142,6 +142,29 @@ options:
                 description:
                     - Enable to have the VIP send gratuitous ARPs. 0=disabled. Set from 5 up to 8640000 seconds to enable.
                 type: int
+            gslb_domain_name:
+                description:
+                    - Domain to use when integrating with FortiGSLB.
+                type: str
+            gslb_hostname:
+                description:
+                    - Hostname to use within the configured FortiGSLB domain.
+                type: str
+            gslb_public_ips:
+                description:
+                    - Publicly accessible IP addresses for the FortiGSLB service.
+                type: list
+                elements: dict
+                suboptions:
+                    index:
+                        description:
+                            - Index of this public IP setting. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    ip:
+                        description:
+                            - The publicly accessible IP address.
+                        type: str
             h2_support:
                 description:
                     - Enable/disable HTTP2 support .
@@ -319,6 +342,13 @@ options:
             nat46:
                 description:
                     - Enable/disable NAT46.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            one_click_gslb_server:
+                description:
+                    - Enable/disable one click GSLB server integration with FortiGSLB.
                 type: str
                 choices:
                     - 'disable'
@@ -557,6 +587,17 @@ options:
                 description:
                     - The name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
                 type: str
+            ssl_certificate_dict:
+                description:
+                    - Name of the certificate to use for SSL handshake. Use the parameter ssl-certificate instead if the fortiOS firmwear <= 7.4.1
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_cipher_suites:
                 description:
                     - SSL/TLS cipher suites acceptable from a client, ordered by priority.
@@ -1020,6 +1061,12 @@ EXAMPLES = """
           extip: "<your_own_value>"
           extport: "<your_own_value>"
           gratuitous_arp_interval: "0"
+          gslb_domain_name: "<your_own_value>"
+          gslb_hostname: "myhostname"
+          gslb_public_ips:
+              -
+                  index: "<you_own_value>"
+                  ip: "<your_own_value>"
           h2_support: "enable"
           h3_support: "enable"
           http_cookie_age: "60"
@@ -1037,7 +1084,7 @@ EXAMPLES = """
           http_redirect: "enable"
           http_supported_max_version: "http1"
           https_cookie_secure: "disable"
-          id: "31"
+          id: "36"
           ipv6_mappedip: "<your_own_value>"
           ipv6_mappedport: "<your_own_value>"
           ldb_method: "static"
@@ -1049,11 +1096,12 @@ EXAMPLES = """
           max_embryonic_connections: "1000"
           monitor:
               -
-                  name: "default_name_41 (source firewall.ldb-monitor.name)"
-          name: "default_name_42"
+                  name: "default_name_46 (source firewall.ldb-monitor.name)"
+          name: "default_name_47"
           nat_source_vip: "disable"
           nat44: "disable"
           nat46: "disable"
+          one_click_gslb_server: "disable"
           outlook_web_access: "disable"
           persistence: "none"
           portforward: "disable"
@@ -1075,12 +1123,12 @@ EXAMPLES = """
                   healthcheck: "disable"
                   holddown_interval: "300"
                   http_host: "myhostname"
-                  id: "66"
+                  id: "72"
                   ip: "<your_own_value>"
                   max_connections: "0"
                   monitor:
                       -
-                          name: "default_name_70 (source firewall.ldb-monitor.name)"
+                          name: "default_name_76 (source firewall.ldb-monitor.name)"
                   port: "0"
                   status: "active"
                   translate_host: "enable"
@@ -1089,7 +1137,7 @@ EXAMPLES = """
           server_type: "http"
           service:
               -
-                  name: "default_name_78 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_84 (source firewall.service.custom.name firewall.service.group.name)"
           src_filter:
               -
                   range: "<your_own_value>"
@@ -1099,6 +1147,9 @@ EXAMPLES = """
           ssl_accept_ffdhe_groups: "enable"
           ssl_algorithm: "high"
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_certificate_dict:
+              -
+                  name: "default_name_93 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1246,6 +1297,9 @@ def filter_firewall_vip_data(json):
         "extip",
         "extport",
         "gratuitous_arp_interval",
+        "gslb_domain_name",
+        "gslb_hostname",
+        "gslb_public_ips",
         "h2_support",
         "h3_support",
         "http_cookie_age",
@@ -1276,6 +1330,7 @@ def filter_firewall_vip_data(json):
         "nat_source_vip",
         "nat44",
         "nat46",
+        "one_click_gslb_server",
         "outlook_web_access",
         "persistence",
         "portforward",
@@ -1290,6 +1345,7 @@ def filter_firewall_vip_data(json):
         "ssl_accept_ffdhe_groups",
         "ssl_algorithm",
         "ssl_certificate",
+        "ssl_certificate_dict",
         "ssl_cipher_suites",
         "ssl_client_fallback",
         "ssl_client_rekey_count",
@@ -1382,6 +1438,30 @@ def underscore_to_hyphen(data):
     return data
 
 
+def remap_attribute_name(data):
+    speciallist = {"ssl-certificate-dict": "ssl-certificate"}
+
+    if data in speciallist:
+        return speciallist[data]
+    return data
+
+
+def remap_attribute_names(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = remap_attribute_names(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[remap_attribute_name(k)] = remap_attribute_names(v)
+        data = new_data
+
+    return data
+
+
 def firewall_vip(data, fos, check_mode=False):
     vdom = data["vdom"]
 
@@ -1389,7 +1469,9 @@ def firewall_vip(data, fos, check_mode=False):
 
     firewall_vip_data = data["firewall_vip"]
     firewall_vip_data = flatten_multilists_attributes(firewall_vip_data)
-    filtered_data = underscore_to_hyphen(filter_firewall_vip_data(firewall_vip_data))
+    filtered_data = filter_firewall_vip_data(firewall_vip_data)
+    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = remap_attribute_names(converted_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1453,7 +1535,7 @@ def firewall_vip(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "vip", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "vip", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("firewall", "vip", mkey=filtered_data["name"], vdom=vdom)
@@ -1827,7 +1909,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "half"}, {"value": "full"}],
         },
-        "ssl_certificate": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "ssl_certificate_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2257,6 +2350,27 @@ versioned_schema = {
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ipv6_mappedip": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "ipv6_mappedport": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "one_click_gslb_server": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "gslb_hostname": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "gslb_domain_name": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "gslb_public_ips": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "index": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
+        "ssl_certificate": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
         "http_supported_max_version": {
             "v_range": [["v7.2.4", "v7.4.0"]],
             "type": "string",

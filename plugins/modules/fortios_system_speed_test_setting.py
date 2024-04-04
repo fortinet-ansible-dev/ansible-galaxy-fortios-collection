@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -208,11 +208,12 @@ def underscore_to_hyphen(data):
 def system_speed_test_setting(data, fos):
     vdom = data["vdom"]
     system_speed_test_setting_data = data["system_speed_test_setting"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_speed_test_setting_data(system_speed_test_setting_data)
+    filtered_data = filter_system_speed_test_setting_data(
+        system_speed_test_setting_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "speed-test-setting", data=filtered_data, vdom=vdom)
+    return fos.set("system", "speed-test-setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

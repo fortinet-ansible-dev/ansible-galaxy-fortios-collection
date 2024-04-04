@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -253,9 +253,10 @@ def firewall_wildcard_fqdn_custom(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_wildcard_fqdn_custom_data = data["firewall_wildcard_fqdn_custom"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_wildcard_fqdn_custom_data(firewall_wildcard_fqdn_custom_data)
+    filtered_data = filter_firewall_wildcard_fqdn_custom_data(
+        firewall_wildcard_fqdn_custom_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -322,7 +323,7 @@ def firewall_wildcard_fqdn_custom(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall.wildcard-fqdn", "custom", data=filtered_data, vdom=vdom
+            "firewall.wildcard-fqdn", "custom", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

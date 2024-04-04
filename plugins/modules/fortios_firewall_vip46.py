@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -457,9 +457,8 @@ def firewall_vip46(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_vip46_data = data["firewall_vip46"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_vip46_data(firewall_vip46_data)
-    )
+    filtered_data = filter_firewall_vip46_data(firewall_vip46_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -523,7 +522,7 @@ def firewall_vip46(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "vip46", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "vip46", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("firewall", "vip46", mkey=filtered_data["name"], vdom=vdom)

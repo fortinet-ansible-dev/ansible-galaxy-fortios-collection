@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -107,6 +107,57 @@ options:
                     - 'allow'
                     - 'monitor'
                     - 'block'
+            filters:
+                description:
+                    - YouTube filter entries.
+                type: list
+                elements: dict
+                suboptions:
+                    action:
+                        description:
+                            - Video filter action.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'monitor'
+                            - 'block'
+                    category:
+                        description:
+                            - FortiGuard category ID.
+                        type: str
+                    channel:
+                        description:
+                            - Channel ID.
+                        type: str
+                    comment:
+                        description:
+                            - Comment.
+                        type: str
+                    id:
+                        description:
+                            - ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    keyword:
+                        description:
+                            - Video filter keyword ID. Source videofilter.keyword.id.
+                        type: int
+                    log:
+                        description:
+                            - Enable/disable logging.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    type:
+                        description:
+                            - Filter type.
+                        type: str
+                        choices:
+                            - 'category'
+                            - 'channel'
+                            - 'title'
+                            - 'description'
             fortiguard_category:
                 description:
                     - Configure FortiGuard categories.
@@ -201,15 +252,25 @@ EXAMPLES = """
           comment: "Comment."
           dailymotion: "enable"
           default_action: "allow"
+          filters:
+              -
+                  action: "allow"
+                  category: "<your_own_value>"
+                  channel: "<your_own_value>"
+                  comment: "Comment."
+                  id: "11"
+                  keyword: "0"
+                  log: "enable"
+                  type: "category"
           fortiguard_category:
               filters:
                   -
                       action: "allow"
                       category_id: "0"
-                      id: "10"
+                      id: "19"
                       log: "enable"
           log: "enable"
-          name: "default_name_13"
+          name: "default_name_22"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           vimeo: "enable"
           vimeo_restrict: "<your_own_value>"
@@ -302,6 +363,7 @@ def filter_videofilter_profile_data(json):
         "comment",
         "dailymotion",
         "default_action",
+        "filters",
         "fortiguard_category",
         "log",
         "name",
@@ -342,12 +404,11 @@ def videofilter_profile(data, fos):
     state = data["state"]
 
     videofilter_profile_data = data["videofilter_profile"]
-    filtered_data = underscore_to_hyphen(
-        filter_videofilter_profile_data(videofilter_profile_data)
-    )
+    filtered_data = filter_videofilter_profile_data(videofilter_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("videofilter", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("videofilter", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -391,50 +452,45 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v7.0.0", ""]], "type": "string", "required": True},
         "comment": {"v_range": [["v7.0.0", ""]], "type": "string"},
-        "default_action": {
-            "v_range": [["v7.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "allow"}, {"value": "monitor"}, {"value": "block"}],
-        },
-        "log": {
-            "v_range": [["v7.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "youtube_channel_filter": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-        "fortiguard_category": {
-            "v_range": [["v7.0.0", ""]],
-            "type": "dict",
+        "filters": {
+            "type": "list",
+            "elements": "dict",
             "children": {
-                "filters": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "id": {
-                            "v_range": [["v7.0.0", ""]],
-                            "type": "integer",
-                            "required": True,
-                        },
-                        "action": {
-                            "v_range": [["v7.0.0", ""]],
-                            "type": "string",
-                            "options": [
-                                {"value": "allow", "v_range": [["v7.0.1", ""]]},
-                                {"value": "monitor"},
-                                {"value": "block"},
-                                {"value": "bypass", "v_range": [["v7.0.0", "v7.0.0"]]},
-                            ],
-                        },
-                        "category_id": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-                        "log": {
-                            "v_range": [["v7.0.0", ""]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                    },
-                    "v_range": [["v7.0.0", ""]],
-                }
+                "id": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "comment": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "type": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "category"},
+                        {"value": "channel"},
+                        {"value": "title"},
+                        {"value": "description"},
+                    ],
+                },
+                "keyword": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+                "category": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "channel": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "action": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "monitor"},
+                        {"value": "block"},
+                    ],
+                },
+                "log": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
             },
+            "v_range": [["v7.4.2", ""]],
         },
         "youtube": {
             "v_range": [["v7.0.0", ""]],
@@ -452,6 +508,57 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "replacemsg_group": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "default_action": {
+            "v_range": [["v7.4.0", "v7.4.1"]],
+            "type": "string",
+            "options": [{"value": "allow"}, {"value": "monitor"}, {"value": "block"}],
+        },
+        "log": {
+            "v_range": [["v7.4.0", "v7.4.1"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "youtube_channel_filter": {
+            "v_range": [["v7.0.0", "v7.4.1"]],
+            "type": "integer",
+        },
+        "fortiguard_category": {
+            "v_range": [["v7.0.0", "v7.4.1"]],
+            "type": "dict",
+            "children": {
+                "filters": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.0.0", "v7.4.1"]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "action": {
+                            "v_range": [["v7.0.0", "v7.4.1"]],
+                            "type": "string",
+                            "options": [
+                                {"value": "allow", "v_range": [["v7.0.1", "v7.4.1"]]},
+                                {"value": "monitor"},
+                                {"value": "block"},
+                                {"value": "bypass", "v_range": [["v7.0.0", "v7.0.0"]]},
+                            ],
+                        },
+                        "category_id": {
+                            "v_range": [["v7.0.0", "v7.4.1"]],
+                            "type": "integer",
+                        },
+                        "log": {
+                            "v_range": [["v7.0.0", "v7.4.1"]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                    },
+                    "v_range": [["v7.0.0", "v7.4.1"]],
+                }
+            },
+        },
         "youtube_restrict": {
             "v_range": [["v7.0.0", "v7.0.0"]],
             "type": "string",

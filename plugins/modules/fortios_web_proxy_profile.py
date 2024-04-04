@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -446,9 +446,8 @@ def web_proxy_profile(data, fos, check_mode=False):
 
     web_proxy_profile_data = data["web_proxy_profile"]
     web_proxy_profile_data = flatten_multilists_attributes(web_proxy_profile_data)
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_profile_data(web_proxy_profile_data)
-    )
+    filtered_data = filter_web_proxy_profile_data(web_proxy_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -512,7 +511,7 @@ def web_proxy_profile(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("web-proxy", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("web-proxy", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("web-proxy", "profile", mkey=filtered_data["name"], vdom=vdom)

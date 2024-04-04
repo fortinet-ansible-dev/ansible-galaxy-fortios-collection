@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -394,7 +394,8 @@ def system_ddns(data, fos, check_mode=False):
     state = data["state"]
 
     system_ddns_data = data["system_ddns"]
-    filtered_data = underscore_to_hyphen(filter_system_ddns_data(system_ddns_data))
+    filtered_data = filter_system_ddns_data(system_ddns_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -458,7 +459,7 @@ def system_ddns(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "ddns", data=filtered_data, vdom=vdom)
+        return fos.set("system", "ddns", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "ddns", mkey=filtered_data["ddnsid"], vdom=vdom)
@@ -517,6 +518,11 @@ versioned_schema = {
                 {"value": "noip.com"},
             ],
         },
+        "addr_type": {
+            "v_range": [["v7.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "ipv4"}, {"value": "ipv6"}],
+        },
         "server_type": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
@@ -551,11 +557,6 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "addr_type": {
-            "v_range": [["v7.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "ipv4"}, {"value": "ipv6"}],
         },
         "update_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "clear_text": {

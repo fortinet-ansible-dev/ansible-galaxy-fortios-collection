@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -163,9 +163,12 @@ options:
                             - 'disable'
                     quic:
                         description:
-                            - Enable/disable QUIC inspection .
+                            - QUIC inspection status .
                         type: str
                         choices:
+                            - 'inspect'
+                            - 'bypass'
+                            - 'block'
                             - 'disable'
                             - 'enable'
                     revoked_server_cert:
@@ -454,9 +457,12 @@ options:
                             - 'disable'
                     quic:
                         description:
-                            - Enable/disable QUIC inspection .
+                            - QUIC inspection status .
                         type: str
                         choices:
+                            - 'inspect'
+                            - 'bypass'
+                            - 'block'
                             - 'disable'
                             - 'enable'
                     revoked_server_cert:
@@ -1446,7 +1452,7 @@ EXAMPLES = """
               client_certificate: "bypass"
               expired_server_cert: "allow"
               proxy_after_tcp_handshake: "enable"
-              quic: "disable"
+              quic: "inspect"
               revoked_server_cert: "allow"
               sni_server_cert_check: "enable"
               status: "disable"
@@ -1485,7 +1491,7 @@ EXAMPLES = """
               min_allowed_ssl_version: "ssl-3.0"
               ports: "<your_own_value>"
               proxy_after_tcp_handshake: "enable"
-              quic: "disable"
+              quic: "inspect"
               revoked_server_cert: "allow"
               sni_server_cert_check: "enable"
               status: "disable"
@@ -1816,9 +1822,8 @@ def firewall_ssl_ssh_profile(data, fos, check_mode=False):
     firewall_ssl_ssh_profile_data = flatten_multilists_attributes(
         firewall_ssl_ssh_profile_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_ssl_ssh_profile_data(firewall_ssl_ssh_profile_data)
-    )
+    filtered_data = filter_firewall_ssl_ssh_profile_data(firewall_ssl_ssh_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1882,7 +1887,7 @@ def firewall_ssl_ssh_profile(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "ssl-ssh-profile", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "ssl-ssh-profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -2101,7 +2106,13 @@ versioned_schema = {
                 "quic": {
                     "v_range": [["v7.4.1", ""]],
                     "type": "string",
-                    "options": [{"value": "disable"}, {"value": "enable"}],
+                    "options": [
+                        {"value": "inspect", "v_range": [["v7.4.2", ""]]},
+                        {"value": "bypass", "v_range": [["v7.4.2", ""]]},
+                        {"value": "block", "v_range": [["v7.4.2", ""]]},
+                        {"value": "disable", "v_range": [["v7.4.1", "v7.4.1"]]},
+                        {"value": "enable", "v_range": [["v7.4.1", "v7.4.1"]]},
+                    ],
                 },
                 "proxy_after_tcp_handshake": {
                     "v_range": [["v6.4.0", ""]],
@@ -2874,7 +2885,13 @@ versioned_schema = {
                 "quic": {
                     "v_range": [["v7.4.1", ""]],
                     "type": "string",
-                    "options": [{"value": "disable"}, {"value": "enable"}],
+                    "options": [
+                        {"value": "inspect", "v_range": [["v7.4.2", ""]]},
+                        {"value": "bypass", "v_range": [["v7.4.2", ""]]},
+                        {"value": "block", "v_range": [["v7.4.2", ""]]},
+                        {"value": "disable", "v_range": [["v7.4.1", "v7.4.1"]]},
+                        {"value": "enable", "v_range": [["v7.4.1", "v7.4.1"]]},
+                    ],
                 },
                 "proxy_after_tcp_handshake": {
                     "v_range": [["v7.0.0", ""]],

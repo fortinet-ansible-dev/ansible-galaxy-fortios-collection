@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -300,11 +300,10 @@ def underscore_to_hyphen(data):
 def webfilter_fortiguard(data, fos):
     vdom = data["vdom"]
     webfilter_fortiguard_data = data["webfilter_fortiguard"]
-    filtered_data = underscore_to_hyphen(
-        filter_webfilter_fortiguard_data(webfilter_fortiguard_data)
-    )
+    filtered_data = filter_webfilter_fortiguard_data(webfilter_fortiguard_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("webfilter", "fortiguard", data=filtered_data, vdom=vdom)
+    return fos.set("webfilter", "fortiguard", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

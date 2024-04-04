@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -310,6 +310,10 @@ options:
                         description:
                             - Serial.
                         type: str
+            uid:
+                description:
+                    - Unique ID of the current CSF node
+                type: str
             upstream:
                 description:
                     - IP/FQDN of the FortiGate upstream from this FortiGate in the Security Fabric.
@@ -376,6 +380,7 @@ EXAMPLES = """
                   index: "0"
                   name: "default_name_44"
                   serial: "<your_own_value>"
+          uid: "<your_own_value>"
           upstream: "<your_own_value>"
           upstream_ip: "<your_own_value>"
           upstream_port: "8013"
@@ -485,6 +490,7 @@ def filter_system_csf_data(json):
         "saml_configuration_sync",
         "status",
         "trusted_list",
+        "uid",
         "upstream",
         "upstream_ip",
         "upstream_port",
@@ -546,9 +552,10 @@ def system_csf(data, fos):
     vdom = data["vdom"]
     system_csf_data = data["system_csf"]
     system_csf_data = flatten_multilists_attributes(system_csf_data)
-    filtered_data = underscore_to_hyphen(filter_system_csf_data(system_csf_data))
+    filtered_data = filter_system_csf_data(system_csf_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "csf", data=filtered_data, vdom=vdom)
+    return fos.set("system", "csf", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -588,6 +595,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "uid": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "upstream": {"v_range": [["v7.0.2", ""]], "type": "string"},
         "upstream_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "group_name": {"v_range": [["v6.0.0", ""]], "type": "string"},

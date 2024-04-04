@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -302,11 +302,10 @@ def underscore_to_hyphen(data):
 def wanopt_cache_service(data, fos):
     vdom = data["vdom"]
     wanopt_cache_service_data = data["wanopt_cache_service"]
-    filtered_data = underscore_to_hyphen(
-        filter_wanopt_cache_service_data(wanopt_cache_service_data)
-    )
+    filtered_data = filter_wanopt_cache_service_data(wanopt_cache_service_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("wanopt", "cache-service", data=filtered_data, vdom=vdom)
+    return fos.set("wanopt", "cache-service", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

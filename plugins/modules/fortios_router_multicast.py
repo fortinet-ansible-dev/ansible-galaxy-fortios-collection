@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -430,7 +430,7 @@ EXAMPLES = """
                   bfd: "enable"
                   cisco_exclude_genid: "enable"
                   dr_priority: "1"
-                  hello_holdtime: ""
+                  hello_holdtime: "105"
                   hello_interval: "30"
                   igmp:
                       access_group: "<your_own_value> (source router.access-list.name)"
@@ -611,11 +611,10 @@ def underscore_to_hyphen(data):
 def router_multicast(data, fos):
     vdom = data["vdom"]
     router_multicast_data = data["router_multicast"]
-    filtered_data = underscore_to_hyphen(
-        filter_router_multicast_data(router_multicast_data)
-    )
+    filtered_data = filter_router_multicast_data(router_multicast_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("router", "multicast", data=filtered_data, vdom=vdom)
+    return fos.set("router", "multicast", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

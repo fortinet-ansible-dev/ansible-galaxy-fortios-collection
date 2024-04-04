@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -93,6 +93,7 @@ options:
                     - Fortinet device type.
                 type: str
                 choices:
+                    - 'fortigate'
                     - 'fortiswitch'
                     - 'fortiap'
                     - 'fortiextender'
@@ -117,6 +118,21 @@ options:
                     - 'config-error-log-nonempty'
                     - 'csf-tree-not-supported'
                     - 'node-failed'
+            ha_reboot_controller:
+                description:
+                    - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
+                type: str
+            known_ha_members:
+                description:
+                    - Known members of the HA cluster. If a member is missing at upgrade time, the upgrade will be cancelled.
+                type: list
+                elements: dict
+                suboptions:
+                    serial:
+                        description:
+                            - Serial number of HA member
+                        required: true
+                        type: str
             maximum_minutes:
                 description:
                     - Maximum number of minutes to allow for immediate upgrade preparation.
@@ -172,8 +188,12 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_device_upgrade:
-          device_type: "fortiswitch"
+          device_type: "fortigate"
           failure_reason: "none"
+          ha_reboot_controller: "<your_own_value>"
+          known_ha_members:
+              -
+                  serial: "<your_own_value>"
           maximum_minutes: "15"
           serial: "<your_own_value>"
           setup_time: "<your_own_value>"
@@ -266,6 +286,8 @@ def filter_system_device_upgrade_data(json):
     option_list = [
         "device_type",
         "failure_reason",
+        "ha_reboot_controller",
+        "known_ha_members",
         "maximum_minutes",
         "serial",
         "setup_time",
@@ -304,12 +326,11 @@ def system_device_upgrade(data, fos):
     state = data["state"]
 
     system_device_upgrade_data = data["system_device_upgrade"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_device_upgrade_data(system_device_upgrade_data)
-    )
+    filtered_data = filter_system_device_upgrade_data(system_device_upgrade_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("system", "device-upgrade", data=filtered_data, vdom=vdom)
+        return fos.set("system", "device-upgrade", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -365,6 +386,7 @@ versioned_schema = {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
             "options": [
+                {"value": "fortigate", "v_range": [["v7.4.2", ""]]},
                 {"value": "fortiswitch"},
                 {"value": "fortiap"},
                 {"value": "fortiextender"},
@@ -410,6 +432,19 @@ versioned_schema = {
                 {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
                 {"value": "node-failed"},
             ],
+        },
+        "ha_reboot_controller": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "known_ha_members": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "serial": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
         },
     },
     "v_range": [["v7.2.4", ""]],

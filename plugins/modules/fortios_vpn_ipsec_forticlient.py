@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -244,9 +244,8 @@ def vpn_ipsec_forticlient(data, fos, check_mode=False):
     state = data["state"]
 
     vpn_ipsec_forticlient_data = data["vpn_ipsec_forticlient"]
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_ipsec_forticlient_data(vpn_ipsec_forticlient_data)
-    )
+    filtered_data = filter_vpn_ipsec_forticlient_data(vpn_ipsec_forticlient_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -310,7 +309,7 @@ def vpn_ipsec_forticlient(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("vpn.ipsec", "forticlient", data=filtered_data, vdom=vdom)
+        return fos.set("vpn.ipsec", "forticlient", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

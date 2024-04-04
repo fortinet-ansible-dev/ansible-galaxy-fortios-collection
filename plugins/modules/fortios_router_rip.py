@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -569,9 +569,10 @@ def router_rip(data, fos):
     vdom = data["vdom"]
     router_rip_data = data["router_rip"]
     router_rip_data = flatten_multilists_attributes(router_rip_data)
-    filtered_data = underscore_to_hyphen(filter_router_rip_data(router_rip_data))
+    filtered_data = filter_router_rip_data(router_rip_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("router", "rip", data=filtered_data, vdom=vdom)
+    return fos.set("router", "rip", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

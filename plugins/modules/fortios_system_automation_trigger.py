@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -448,9 +448,10 @@ def system_automation_trigger(data, fos, check_mode=False):
     state = data["state"]
 
     system_automation_trigger_data = data["system_automation_trigger"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_automation_trigger_data(system_automation_trigger_data)
+    filtered_data = filter_system_automation_trigger_data(
+        system_automation_trigger_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -514,7 +515,7 @@ def system_automation_trigger(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "automation-trigger", data=filtered_data, vdom=vdom)
+        return fos.set("system", "automation-trigger", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

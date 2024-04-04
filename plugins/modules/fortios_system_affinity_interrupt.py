@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -228,12 +228,13 @@ def system_affinity_interrupt(data, fos):
     state = data["state"]
 
     system_affinity_interrupt_data = data["system_affinity_interrupt"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_affinity_interrupt_data(system_affinity_interrupt_data)
+    filtered_data = filter_system_affinity_interrupt_data(
+        system_affinity_interrupt_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("system", "affinity-interrupt", data=filtered_data, vdom=vdom)
+        return fos.set("system", "affinity-interrupt", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

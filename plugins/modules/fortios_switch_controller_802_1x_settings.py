@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -94,6 +94,49 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            mac_called_station_delimiter:
+                description:
+                    - MAC called station delimiter .
+                type: str
+                choices:
+                    - 'colon'
+                    - 'hyphen'
+                    - 'none'
+                    - 'single-hyphen'
+            mac_calling_station_delimiter:
+                description:
+                    - MAC calling station delimiter .
+                type: str
+                choices:
+                    - 'colon'
+                    - 'hyphen'
+                    - 'none'
+                    - 'single-hyphen'
+            mac_case:
+                description:
+                    - MAC case .
+                type: str
+                choices:
+                    - 'lowercase'
+                    - 'uppercase'
+            mac_password_delimiter:
+                description:
+                    - MAC authentication password delimiter .
+                type: str
+                choices:
+                    - 'colon'
+                    - 'hyphen'
+                    - 'none'
+                    - 'single-hyphen'
+            mac_username_delimiter:
+                description:
+                    - MAC authentication username delimiter .
+                type: str
+                choices:
+                    - 'colon'
+                    - 'hyphen'
+                    - 'none'
+                    - 'single-hyphen'
             max_reauth_attempt:
                 description:
                     - Maximum number of authentication attempts (0 - 15).
@@ -115,6 +158,11 @@ EXAMPLES = """
       switch_controller_802_1x_settings:
           link_down_auth: "set-unauth"
           mab_reauth: "disable"
+          mac_called_station_delimiter: "colon"
+          mac_calling_station_delimiter: "colon"
+          mac_case: "lowercase"
+          mac_password_delimiter: "colon"
+          mac_username_delimiter: "colon"
           max_reauth_attempt: "3"
           reauth_period: "60"
           tx_period: "30"
@@ -203,6 +251,11 @@ def filter_switch_controller_802_1x_settings_data(json):
     option_list = [
         "link_down_auth",
         "mab_reauth",
+        "mac_called_station_delimiter",
+        "mac_calling_station_delimiter",
+        "mac_case",
+        "mac_password_delimiter",
+        "mac_username_delimiter",
         "max_reauth_attempt",
         "reauth_period",
         "tx_period",
@@ -234,14 +287,13 @@ def underscore_to_hyphen(data):
 def switch_controller_802_1x_settings(data, fos):
     vdom = data["vdom"]
     switch_controller_802_1x_settings_data = data["switch_controller_802_1x_settings"]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_802_1x_settings_data(
-            switch_controller_802_1x_settings_data
-        )
+    filtered_data = filter_switch_controller_802_1x_settings_data(
+        switch_controller_802_1x_settings_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "switch-controller", "802-1X-settings", data=filtered_data, vdom=vdom
+        "switch-controller", "802-1X-settings", data=converted_data, vdom=vdom
     )
 
 
@@ -291,6 +343,51 @@ versioned_schema = {
             "v_range": [["v7.2.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "mac_username_delimiter": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "colon"},
+                {"value": "hyphen"},
+                {"value": "none"},
+                {"value": "single-hyphen"},
+            ],
+        },
+        "mac_password_delimiter": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "colon"},
+                {"value": "hyphen"},
+                {"value": "none"},
+                {"value": "single-hyphen"},
+            ],
+        },
+        "mac_calling_station_delimiter": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "colon"},
+                {"value": "hyphen"},
+                {"value": "none"},
+                {"value": "single-hyphen"},
+            ],
+        },
+        "mac_called_station_delimiter": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "colon"},
+                {"value": "hyphen"},
+                {"value": "none"},
+                {"value": "single-hyphen"},
+            ],
+        },
+        "mac_case": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "lowercase"}, {"value": "uppercase"}],
         },
     },
 }

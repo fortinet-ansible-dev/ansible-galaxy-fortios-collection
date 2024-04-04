@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -148,7 +148,7 @@ options:
                 type: str
             mfa_server:
                 description:
-                    - Name of a remote authenticator. Performs client access right check. Source user.ldap.name user.radius.name.
+                    - Name of a remote authenticator. Performs client access right check. Source user.radius.name user.ldap.name.
                 type: str
             mfa_username:
                 description:
@@ -197,7 +197,7 @@ EXAMPLES = """
           mandatory_ca_verify: "enable"
           mfa_mode: "none"
           mfa_password: "<your_own_value>"
-          mfa_server: "<your_own_value> (source user.ldap.name user.radius.name)"
+          mfa_server: "<your_own_value> (source user.radius.name user.ldap.name)"
           mfa_username: "<your_own_value>"
           name: "default_name_15"
           ocsp_override_server: "<your_own_value> (source vpn.certificate.ocsp-server.name)"
@@ -344,7 +344,8 @@ def user_peer(data, fos, check_mode=False):
     state = data["state"]
 
     user_peer_data = data["user_peer"]
-    filtered_data = underscore_to_hyphen(filter_user_peer_data(user_peer_data))
+    filtered_data = filter_user_peer_data(user_peer_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -408,7 +409,7 @@ def user_peer(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("user", "peer", data=filtered_data, vdom=vdom)
+        return fos.set("user", "peer", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("user", "peer", mkey=filtered_data["name"], vdom=vdom)

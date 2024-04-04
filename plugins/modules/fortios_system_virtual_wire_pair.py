@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -104,6 +104,17 @@ options:
                     - Virtual-wire-pair name. Must be a unique interface name.
                 required: true
                 type: str
+            outer_vlan_id:
+                description:
+                    - Outer VLAN ID.
+                type: list
+                elements: dict
+                suboptions:
+                    vlanid:
+                        description:
+                            - VLAN ID (1 - 4094). see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
             vlan_filter:
                 description:
                     - VLAN ranges to allow
@@ -128,6 +139,9 @@ EXAMPLES = """
               -
                   interface_name: "<your_own_value> (source system.interface.name)"
           name: "default_name_5"
+          outer_vlan_id:
+              -
+                  vlanid: "<you_own_value>"
           vlan_filter: "<your_own_value>"
           wildcard_vlan: "enable"
 """
@@ -221,7 +235,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_system_virtual_wire_pair_data(json):
-    option_list = ["member", "name", "vlan_filter", "wildcard_vlan"]
+    option_list = ["member", "name", "outer_vlan_id", "vlan_filter", "wildcard_vlan"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -252,9 +266,8 @@ def system_virtual_wire_pair(data, fos, check_mode=False):
     state = data["state"]
 
     system_virtual_wire_pair_data = data["system_virtual_wire_pair"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_virtual_wire_pair_data(system_virtual_wire_pair_data)
-    )
+    filtered_data = filter_system_virtual_wire_pair_data(system_virtual_wire_pair_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -318,7 +331,7 @@ def system_virtual_wire_pair(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "virtual-wire-pair", data=filtered_data, vdom=vdom)
+        return fos.set("system", "virtual-wire-pair", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -382,6 +395,18 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "vlan_filter": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "outer_vlan_id": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "vlanid": {
+                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "type": "integer",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", "v7.4.2"]],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }

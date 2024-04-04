@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -128,6 +128,10 @@ options:
                     - 'disable'
                     - 'traffic-log-only'
                     - 'enable'
+            protects:
+                description:
+                    - Special arguments for device
+                type: str
             sleep_on_idle:
                 description:
                     - Enable/disable sleep-on-idle support for all FDH engines.
@@ -158,6 +162,7 @@ EXAMPLES = """
           mbufpool_percentage: "25"
           multiqueue: "disable"
           per_session_accounting: "disable"
+          protects: "<your_own_value>"
           sleep_on_idle: "disable"
           status: "disable"
 """
@@ -250,6 +255,7 @@ def filter_dpdk_global_data(json):
         "mbufpool_percentage",
         "multiqueue",
         "per_session_accounting",
+        "protects",
         "sleep_on_idle",
         "status",
     ]
@@ -280,9 +286,10 @@ def underscore_to_hyphen(data):
 def dpdk_global(data, fos):
     vdom = data["vdom"]
     dpdk_global_data = data["dpdk_global"]
-    filtered_data = underscore_to_hyphen(filter_dpdk_global_data(dpdk_global_data))
+    filtered_data = filter_dpdk_global_data(dpdk_global_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("dpdk", "global", data=filtered_data, vdom=vdom)
+    return fos.set("dpdk", "global", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -353,6 +360,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "protects": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "per_session_accounting": {
             "v_range": [["v7.0.0", "v7.0.12"], ["v7.2.1", "v7.2.2"], ["v7.4.0", ""]],
             "type": "string",

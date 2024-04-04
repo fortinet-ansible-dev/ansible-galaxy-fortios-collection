@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -166,6 +166,10 @@ options:
                 description:
                     - SPAN source port.
                 type: str
+            vlan:
+                description:
+                    - VLAN.
+                type: int
 """
 
 EXAMPLES = """
@@ -188,6 +192,7 @@ EXAMPLES = """
           span_dest_port: "<your_own_value>"
           span_direction: "rx"
           span_source_port: "<your_own_value>"
+          vlan: "0"
 """
 
 RETURN = """
@@ -287,6 +292,7 @@ def filter_system_virtual_switch_data(json):
         "span_dest_port",
         "span_direction",
         "span_source_port",
+        "vlan",
     ]
 
     json = remove_invalid_fields(json)
@@ -318,9 +324,8 @@ def system_virtual_switch(data, fos, check_mode=False):
     state = data["state"]
 
     system_virtual_switch_data = data["system_virtual_switch"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_virtual_switch_data(system_virtual_switch_data)
-    )
+    filtered_data = filter_system_virtual_switch_data(system_virtual_switch_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -384,7 +389,7 @@ def system_virtual_switch(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "virtual-switch", data=filtered_data, vdom=vdom)
+        return fos.set("system", "virtual-switch", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -432,6 +437,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
             "required": True,
@@ -441,9 +447,11 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
             "type": "string",
         },
+        "vlan": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
         "port": {
             "type": "list",
             "elements": "dict",
@@ -453,6 +461,7 @@ versioned_schema = {
                         ["v6.0.0", "v6.2.7"],
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
+                        ["v7.4.2", "v7.4.2"],
                     ],
                     "type": "string",
                     "required": True,
@@ -462,6 +471,7 @@ versioned_schema = {
                         ["v6.0.0", "v6.2.7"],
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
+                        ["v7.4.2", "v7.4.2"],
                     ],
                     "type": "string",
                 },
@@ -498,6 +508,7 @@ versioned_schema = {
                 ["v6.0.0", "v6.2.7"],
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
             ],
         },
         "span": {
@@ -535,7 +546,12 @@ versioned_schema = {
             "options": [{"value": "rx"}, {"value": "tx"}, {"value": "both"}],
         },
     },
-    "v_range": [["v6.0.0", "v6.2.7"], ["v6.4.1", "v7.0.12"], ["v7.2.1", "v7.2.4"]],
+    "v_range": [
+        ["v6.0.0", "v6.2.7"],
+        ["v6.4.1", "v7.0.12"],
+        ["v7.2.1", "v7.2.4"],
+        ["v7.4.2", "v7.4.2"],
+    ],
 }
 
 

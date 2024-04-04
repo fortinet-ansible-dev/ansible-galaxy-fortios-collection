@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -838,6 +838,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            web_flow_log_encoding:
+                description:
+                    - Log encoding in flow mode.
+                type: str
+                choices:
+                    - 'utf-8'
+                    - 'punycode'
             web_ftgd_err_log:
                 description:
                     - Enable/disable logging rating errors.
@@ -1053,6 +1060,7 @@ EXAMPLES = """
           web_filter_referer_log: "enable"
           web_filter_unknown_log: "enable"
           web_filter_vbs_log: "enable"
+          web_flow_log_encoding: "utf-8"
           web_ftgd_err_log: "enable"
           web_ftgd_quota_usage: "enable"
           web_invalid_domain_log: "enable"
@@ -1061,12 +1069,12 @@ EXAMPLES = """
           wisp_algorithm: "primary-secondary"
           wisp_servers:
               -
-                  name: "default_name_125 (source web-proxy.wisp.name)"
+                  name: "default_name_126 (source web-proxy.wisp.name)"
           youtube_channel_filter:
               -
                   channel_id: "<your_own_value>"
                   comment: "Comment."
-                  id: "129"
+                  id: "130"
           youtube_channel_status: "disable"
 """
 
@@ -1190,6 +1198,7 @@ def filter_webfilter_profile_data(json):
         "web_filter_referer_log",
         "web_filter_unknown_log",
         "web_filter_vbs_log",
+        "web_flow_log_encoding",
         "web_ftgd_err_log",
         "web_ftgd_quota_usage",
         "web_invalid_domain_log",
@@ -1270,9 +1279,8 @@ def webfilter_profile(data, fos, check_mode=False):
 
     webfilter_profile_data = data["webfilter_profile"]
     webfilter_profile_data = flatten_multilists_attributes(webfilter_profile_data)
-    filtered_data = underscore_to_hyphen(
-        filter_webfilter_profile_data(webfilter_profile_data)
-    )
+    filtered_data = filter_webfilter_profile_data(webfilter_profile_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1336,7 +1344,7 @@ def webfilter_profile(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("webfilter", "profile", data=filtered_data, vdom=vdom)
+        return fos.set("webfilter", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("webfilter", "profile", mkey=filtered_data["name"], vdom=vdom)
@@ -1410,6 +1418,11 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "web_flow_log_encoding": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "utf-8"}, {"value": "punycode"}],
         },
         "ovrd_perm": {
             "v_range": [["v6.0.0", ""]],
@@ -1960,28 +1973,48 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "url_extraction": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "dict",
             "children": {
                 "status": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "server_fqdn": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                 },
                 "redirect_header": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                 },
                 "redirect_url": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                 },
                 "redirect_no_content": {
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },

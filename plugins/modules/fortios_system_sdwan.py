@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -595,6 +595,10 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+                    transport_group:
+                        description:
+                            - Measured transport group (0 - 255).
+                        type: int
                     volume_ratio:
                         description:
                             - Measured volume ratio (this value / sum of all values = percentage of link volume, 1 - 255).
@@ -1036,6 +1040,14 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    shortcut_priority:
+                        description:
+                            - High priority of ADVPN shortcut for this service.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                            - 'auto'
                     shortcut_stickiness:
                         description:
                             - Enable/disable shortcut-stickiness of ADVPN.
@@ -1185,6 +1197,17 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    advpn_health_check:
+                        description:
+                            - Health check for ADVPN local overlay link quality. Source system.sdwan.health-check.name.
+                        type: str
+                    advpn_select:
+                        description:
+                            - Enable/disable selection of ADVPN based on SDWAN information.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     minimum_sla_meet_members:
                         description:
                             - Minimum number of members which meet SLA when the neighbor is preferred.
@@ -1321,6 +1344,7 @@ EXAMPLES = """
                   source6: "<your_own_value>"
                   spillover_threshold: "0"
                   status: "disable"
+                  transport_group: "0"
                   volume_ratio: "1"
                   weight: "1"
                   zone: "<your_own_value> (source system.sdwan.zone.name)"
@@ -1351,52 +1375,52 @@ EXAMPLES = """
                   dscp_reverse_tag: "<your_own_value>"
                   dst:
                       -
-                          name: "default_name_127 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_128 (source firewall.address.name firewall.addrgrp.name)"
                   dst_negate: "enable"
                   dst6:
                       -
-                          name: "default_name_130 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_131 (source firewall.address6.name firewall.addrgrp6.name)"
                   end_port: "65535"
                   end_src_port: "65535"
                   gateway: "enable"
                   groups:
                       -
-                          name: "default_name_135 (source user.group.name)"
+                          name: "default_name_136 (source user.group.name)"
                   hash_mode: "round-robin"
                   health_check:
                       -
-                          name: "default_name_138 (source system.sdwan.health-check.name)"
+                          name: "default_name_139 (source system.sdwan.health-check.name)"
                   hold_down_time: "0"
-                  id: "140"
+                  id: "141"
                   input_device:
                       -
-                          name: "default_name_142 (source system.interface.name)"
+                          name: "default_name_143 (source system.interface.name)"
                   input_device_negate: "enable"
                   input_zone:
                       -
-                          name: "default_name_145 (source system.sdwan.zone.name)"
+                          name: "default_name_146 (source system.sdwan.zone.name)"
                   internet_service: "enable"
                   internet_service_app_ctrl:
                       -
-                          id: "148"
+                          id: "149"
                   internet_service_app_ctrl_category:
                       -
-                          id: "150"
+                          id: "151"
                   internet_service_app_ctrl_group:
                       -
-                          name: "default_name_152 (source application.group.name)"
+                          name: "default_name_153 (source application.group.name)"
                   internet_service_custom:
                       -
-                          name: "default_name_154 (source firewall.internet-service-custom.name)"
+                          name: "default_name_155 (source firewall.internet-service-custom.name)"
                   internet_service_custom_group:
                       -
-                          name: "default_name_156 (source firewall.internet-service-custom-group.name)"
+                          name: "default_name_157 (source firewall.internet-service-custom-group.name)"
                   internet_service_group:
                       -
-                          name: "default_name_158 (source firewall.internet-service-group.name)"
+                          name: "default_name_159 (source firewall.internet-service-group.name)"
                   internet_service_name:
                       -
-                          name: "default_name_160 (source firewall.internet-service-name.name)"
+                          name: "default_name_161 (source firewall.internet-service-name.name)"
                   jitter_weight: "0"
                   latency_weight: "0"
                   link_cost_factor: "latency"
@@ -1404,7 +1428,7 @@ EXAMPLES = """
                   load_balance: "enable"
                   minimum_sla_meet_members: "0"
                   mode: "auto"
-                  name: "default_name_168"
+                  name: "default_name_169"
                   packet_loss_weight: "0"
                   passive_measurement: "enable"
                   priority_members:
@@ -1412,26 +1436,27 @@ EXAMPLES = """
                           seq_num: "<you_own_value>"
                   priority_zone:
                       -
-                          name: "default_name_174 (source system.sdwan.zone.name)"
+                          name: "default_name_175 (source system.sdwan.zone.name)"
                   protocol: "0"
                   quality_link: "0"
                   role: "standalone"
                   route_tag: "0"
                   shortcut: "enable"
+                  shortcut_priority: "enable"
                   shortcut_stickiness: "enable"
                   sla:
                       -
                           health_check: "<your_own_value> (source system.sdwan.health-check.name)"
-                          id: "183"
+                          id: "185"
                   sla_compare_method: "order"
                   sla_stickiness: "enable"
                   src:
                       -
-                          name: "default_name_187 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_189 (source firewall.address.name firewall.addrgrp.name)"
                   src_negate: "enable"
                   src6:
                       -
-                          name: "default_name_190 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_192 (source firewall.address6.name firewall.addrgrp6.name)"
                   standalone_action: "enable"
                   start_port: "1"
                   start_src_port: "1"
@@ -1442,14 +1467,16 @@ EXAMPLES = """
                   use_shortcut_sla: "enable"
                   users:
                       -
-                          name: "default_name_200 (source user.local.name)"
+                          name: "default_name_202 (source user.local.name)"
                   zone_mode: "enable"
           speedtest_bypass_routing: "disable"
           status: "disable"
           zone:
               -
+                  advpn_health_check: "<your_own_value> (source system.sdwan.health-check.name)"
+                  advpn_select: "enable"
                   minimum_sla_meet_members: "1"
-                  name: "default_name_206"
+                  name: "default_name_210"
                   service_sla_tie_break: "cfg-order"
 """
 
@@ -1609,9 +1636,10 @@ def system_sdwan(data, fos):
     vdom = data["vdom"]
     system_sdwan_data = data["system_sdwan"]
     system_sdwan_data = flatten_multilists_attributes(system_sdwan_data)
-    filtered_data = underscore_to_hyphen(filter_system_sdwan_data(system_sdwan_data))
+    filtered_data = filter_system_sdwan_data(system_sdwan_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "sdwan", data=filtered_data, vdom=vdom)
+    return fos.set("system", "sdwan", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -1705,6 +1733,12 @@ versioned_schema = {
                     "type": "string",
                     "required": True,
                 },
+                "advpn_select": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "advpn_health_check": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "service_sla_tie_break": {
                     "v_range": [["v6.4.4", ""]],
                     "type": "string",
@@ -1752,6 +1786,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
+                "transport_group": {"v_range": [["v7.4.2", ""]], "type": "integer"},
                 "comment": {"v_range": [["v6.4.0", ""]], "type": "string"},
             },
             "v_range": [["v6.4.0", ""]],
@@ -2057,6 +2092,15 @@ versioned_schema = {
                         {"value": "inbandwidth"},
                         {"value": "outbandwidth"},
                         {"value": "bibandwidth"},
+                    ],
+                },
+                "shortcut_priority": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "enable"},
+                        {"value": "disable"},
+                        {"value": "auto"},
                     ],
                 },
                 "role": {

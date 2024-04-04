@@ -41,7 +41,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -139,6 +139,7 @@ options:
                     - 'router.policy6'
                     - 'log.syslogd.setting'
                     - 'log.syslogd.override-setting'
+                    - 'firewall.address'
                     - 'firewall.vip46'
                     - 'firewall.vip64'
             oid:
@@ -302,9 +303,8 @@ def system_vdom_exception(data, fos, check_mode=False):
     state = data["state"]
 
     system_vdom_exception_data = data["system_vdom_exception"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_vdom_exception_data(system_vdom_exception_data)
-    )
+    filtered_data = filter_system_vdom_exception_data(system_vdom_exception_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -368,7 +368,7 @@ def system_vdom_exception(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "vdom-exception", data=filtered_data, vdom=vdom)
+        return fos.set("system", "vdom-exception", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -479,8 +479,9 @@ versioned_schema = {
                 {"value": "system.saml", "v_range": []},
                 {"value": "router.policy", "v_range": []},
                 {"value": "router.policy6", "v_range": []},
-                {"value": "log.syslogd.setting", "v_range": [["v7.4.1", ""]]},
-                {"value": "log.syslogd.override-setting", "v_range": [["v7.4.1", ""]]},
+                {"value": "log.syslogd.setting", "v_range": [["v7.4.3", ""]]},
+                {"value": "log.syslogd.override-setting", "v_range": [["v7.4.3", ""]]},
+                {"value": "firewall.address", "v_range": [["v7.4.2", ""]]},
                 {"value": "firewall.vip46", "v_range": []},
                 {"value": "firewall.vip64", "v_range": []},
             ],

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -522,11 +522,10 @@ def antivirus_quarantine(data, fos):
     vdom = data["vdom"]
     antivirus_quarantine_data = data["antivirus_quarantine"]
     antivirus_quarantine_data = flatten_multilists_attributes(antivirus_quarantine_data)
-    filtered_data = underscore_to_hyphen(
-        filter_antivirus_quarantine_data(antivirus_quarantine_data)
-    )
+    filtered_data = filter_antivirus_quarantine_data(antivirus_quarantine_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("antivirus", "quarantine", data=filtered_data, vdom=vdom)
+    return fos.set("antivirus", "quarantine", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

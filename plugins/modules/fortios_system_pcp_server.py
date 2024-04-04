@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -380,11 +380,10 @@ def system_pcp_server(data, fos):
     vdom = data["vdom"]
     system_pcp_server_data = data["system_pcp_server"]
     system_pcp_server_data = flatten_multilists_attributes(system_pcp_server_data)
-    filtered_data = underscore_to_hyphen(
-        filter_system_pcp_server_data(system_pcp_server_data)
-    )
+    filtered_data = filter_system_pcp_server_data(system_pcp_server_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "pcp-server", data=filtered_data, vdom=vdom)
+    return fos.set("system", "pcp-server", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

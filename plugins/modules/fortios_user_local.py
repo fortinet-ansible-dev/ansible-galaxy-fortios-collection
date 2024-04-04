@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -143,6 +143,10 @@ options:
             ppk_secret:
                 description:
                     - IKEv2 Postquantum Preshared Key (ASCII string or hexadecimal encoded with a leading 0x).
+                type: str
+            qkd_profile:
+                description:
+                    - Quantum Key Distribution (QKD) profile. Source vpn.qkd.name.
                 type: str
             radius_server:
                 description:
@@ -249,6 +253,7 @@ EXAMPLES = """
           passwd_time: "<your_own_value>"
           ppk_identity: "<your_own_value>"
           ppk_secret: "<your_own_value>"
+          qkd_profile: "<your_own_value> (source vpn.qkd.name)"
           radius_server: "<your_own_value> (source user.radius.name)"
           sms_custom_server: "<your_own_value> (source system.sms-server.name)"
           sms_phone: "<your_own_value>"
@@ -367,6 +372,7 @@ def filter_user_local_data(json):
         "passwd_time",
         "ppk_identity",
         "ppk_secret",
+        "qkd_profile",
         "radius_server",
         "sms_custom_server",
         "sms_phone",
@@ -406,9 +412,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"tacacs+_server": "tacacs_plus_server"}
+    speciallist = {"tacacs+_server": "tacacs_plus_server"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -417,8 +423,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -434,8 +443,8 @@ def user_local(data, fos, check_mode=False):
     state = data["state"]
 
     user_local_data = data["user_local"]
-    filtered_data = underscore_to_hyphen(filter_user_local_data(user_local_data))
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    filtered_data = filter_user_local_data(user_local_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:
@@ -601,6 +610,7 @@ versioned_schema = {
         "auth_concurrent_value": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ppk_secret": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ppk_identity": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "qkd_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "username_sensitivity": {
             "v_range": [["v7.0.1", ""]],
             "type": "string",

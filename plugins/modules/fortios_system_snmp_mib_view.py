@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -259,12 +259,11 @@ def system_snmp_mib_view(data, fos):
 
     system_snmp_mib_view_data = data["system_snmp_mib_view"]
     system_snmp_mib_view_data = flatten_multilists_attributes(system_snmp_mib_view_data)
-    filtered_data = underscore_to_hyphen(
-        filter_system_snmp_mib_view_data(system_snmp_mib_view_data)
-    )
+    filtered_data = filter_system_snmp_mib_view_data(system_snmp_mib_view_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("system.snmp", "mib-view", data=filtered_data, vdom=vdom)
+        return fos.set("system.snmp", "mib-view", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

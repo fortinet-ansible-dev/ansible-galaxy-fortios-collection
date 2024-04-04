@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -384,11 +384,10 @@ def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
     switch_controller_security_policy_802_1x_data = data[
         "switch_controller_security_policy_802_1x"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_security_policy_802_1x_data(
-            switch_controller_security_policy_802_1x_data
-        )
+    filtered_data = filter_switch_controller_security_policy_802_1x_data(
+        switch_controller_security_policy_802_1x_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -457,7 +456,10 @@ def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller.security-policy", "802-1X", data=filtered_data, vdom=vdom
+            "switch-controller.security-policy",
+            "802-1X",
+            data=converted_data,
+            vdom=vdom,
         )
 
     elif state == "absent":

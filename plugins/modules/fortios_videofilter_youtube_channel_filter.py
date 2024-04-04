@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -295,15 +295,14 @@ def videofilter_youtube_channel_filter(data, fos):
     state = data["state"]
 
     videofilter_youtube_channel_filter_data = data["videofilter_youtube_channel_filter"]
-    filtered_data = underscore_to_hyphen(
-        filter_videofilter_youtube_channel_filter_data(
-            videofilter_youtube_channel_filter_data
-        )
+    filtered_data = filter_videofilter_youtube_channel_filter_data(
+        videofilter_youtube_channel_filter_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "videofilter", "youtube-channel-filter", data=filtered_data, vdom=vdom
+            "videofilter", "youtube-channel-filter", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":
@@ -348,35 +347,35 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "id": {"v_range": [["v7.0.0", ""]], "type": "integer", "required": True},
-        "name": {"v_range": [["v7.0.0", ""]], "type": "string"},
-        "comment": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "id": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "integer", "required": True},
+        "name": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
+        "comment": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
         "entries": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.4.1"]],
                     "type": "integer",
                     "required": True,
                 },
-                "comment": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "comment": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
                 "action": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.4.1"]],
                     "type": "string",
                     "options": [
-                        {"value": "allow", "v_range": [["v7.0.1", ""]]},
+                        {"value": "allow", "v_range": [["v7.0.1", "v7.4.1"]]},
                         {"value": "monitor"},
                         {"value": "block"},
                         {"value": "bypass", "v_range": [["v7.0.0", "v7.0.0"]]},
                     ],
                 },
-                "channel_id": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "channel_id": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
             },
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.4.1"]],
         },
         "log": {
-            "v_range": [["v7.0.1", ""]],
+            "v_range": [["v7.0.1", "v7.4.1"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -391,7 +390,7 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
-    "v_range": [["v7.0.0", ""]],
+    "v_range": [["v7.0.0", "v7.4.1"]],
 }
 
 

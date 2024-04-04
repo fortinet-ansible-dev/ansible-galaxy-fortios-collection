@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -210,7 +210,8 @@ options:
                         type: int
                     server_name:
                         description:
-                            - Name of remote auth server. Source user.radius.name user.ldap.name user.tacacs+.name user.saml.name.
+                            - Name of remote auth server. Source user.radius.name user.ldap.name user.tacacs+.name user.saml.name user
+                              .external-identity-provider.name.
                         type: str
             max_accounts:
                 description:
@@ -218,14 +219,14 @@ options:
                 type: int
             member:
                 description:
-                    - Names of users, peers, LDAP severs, or RADIUS servers to add to the user group.
+                    - Names of users, peers, LDAP severs, RADIUS servers or external idp servers to add to the user group.
                 type: list
                 elements: dict
                 suboptions:
                     name:
                         description:
                             - Group member name. Source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name user.saml.name user
-                              .adgrp.name user.pop3.name user.certificate.name.
+                              .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name.
                         required: true
                         type: str
             mobile_phone:
@@ -328,12 +329,13 @@ EXAMPLES = """
               -
                   group_name: "<your_own_value>"
                   id: "26"
-                  server_name: "<your_own_value> (source user.radius.name user.ldap.name user.tacacs+.name user.saml.name)"
+                  server_name: "<your_own_value> (source user.radius.name user.ldap.name user.tacacs+.name user.saml.name user.external-identity-provider
+                    .name)"
           max_accounts: "0"
           member:
               -
-                  name: "default_name_30 (source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name user.saml.name user.adgrp
-                    .name user.pop3.name user.certificate.name)"
+                  name: "default_name_30 (source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name user.saml.name user
+                    .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name)"
           mobile_phone: "disable"
           multiple_guest_add: "disable"
           name: "default_name_33"
@@ -491,7 +493,8 @@ def user_group(data, fos, check_mode=False):
     state = data["state"]
 
     user_group_data = data["user_group"]
-    filtered_data = underscore_to_hyphen(filter_user_group_data(user_group_data))
+    filtered_data = filter_user_group_data(user_group_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -555,7 +558,7 @@ def user_group(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("user", "group", data=filtered_data, vdom=vdom)
+        return fos.set("user", "group", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("user", "group", mkey=filtered_data["name"], vdom=vdom)

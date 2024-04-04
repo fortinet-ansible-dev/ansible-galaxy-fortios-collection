@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -225,11 +225,12 @@ def underscore_to_hyphen(data):
 def system_autoupdate_tunneling(data, fos):
     vdom = data["vdom"]
     system_autoupdate_tunneling_data = data["system_autoupdate_tunneling"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_autoupdate_tunneling_data(system_autoupdate_tunneling_data)
+    filtered_data = filter_system_autoupdate_tunneling_data(
+        system_autoupdate_tunneling_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system.autoupdate", "tunneling", data=filtered_data, vdom=vdom)
+    return fos.set("system.autoupdate", "tunneling", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

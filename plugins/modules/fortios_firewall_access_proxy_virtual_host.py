@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -112,6 +112,17 @@ options:
                 description:
                     - SSL certificate for this host. Source vpn.certificate.local.name.
                 type: str
+            ssl_certificate_dict:
+                description:
+                    - SSL certificates for this host. Use the parameter ssl_certificate if the fortiOS firmware version <= 7.4.1
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
 """
 
 EXAMPLES = """
@@ -126,6 +137,9 @@ EXAMPLES = """
           name: "default_name_5"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_certificate_dict:
+              -
+                  name: "default_name_9 (source vpn.certificate.local.name)"
 """
 
 RETURN = """
@@ -208,7 +222,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_firewall_access_proxy_virtual_host_data(json):
-    option_list = ["host", "host_type", "name", "replacemsg_group", "ssl_certificate"]
+    option_list = [
+        "host",
+        "host_type",
+        "name",
+        "replacemsg_group",
+        "ssl_certificate",
+        "ssl_certificate_dict",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -233,21 +254,45 @@ def underscore_to_hyphen(data):
     return data
 
 
+def remap_attribute_name(data):
+    speciallist = {"ssl-certificate-dict": "ssl-certificate"}
+
+    if data in speciallist:
+        return speciallist[data]
+    return data
+
+
+def remap_attribute_names(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = remap_attribute_names(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[remap_attribute_name(k)] = remap_attribute_names(v)
+        data = new_data
+
+    return data
+
+
 def firewall_access_proxy_virtual_host(data, fos):
     vdom = data["vdom"]
 
     state = data["state"]
 
     firewall_access_proxy_virtual_host_data = data["firewall_access_proxy_virtual_host"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_access_proxy_virtual_host_data(
-            firewall_access_proxy_virtual_host_data
-        )
+    filtered_data = filter_firewall_access_proxy_virtual_host_data(
+        firewall_access_proxy_virtual_host_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = remap_attribute_names(converted_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "access-proxy-virtual-host", data=filtered_data, vdom=vdom
+            "firewall", "access-proxy-virtual-host", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":
@@ -296,7 +341,18 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.0.0", ""]], "type": "string", "required": True},
-        "ssl_certificate": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "ssl_certificate_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
         "host": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "host_type": {
             "v_range": [["v7.0.0", ""]],
@@ -307,6 +363,7 @@ versioned_schema = {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
             "type": "string",
         },
+        "ssl_certificate": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
     },
     "v_range": [["v7.0.0", ""]],
 }

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -96,6 +96,13 @@ options:
                 description:
                     - Number of packets to log after the IPS signature is detected (0 - 255).
                 type: int
+            proxy_inline_ips:
+                description:
+                    - Enable/disable proxy-mode policy inline IPS support.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
 """
 
 EXAMPLES = """
@@ -107,6 +114,7 @@ EXAMPLES = """
           packet_log_history: "1"
           packet_log_memory: "256"
           packet_log_post_attack: "0"
+          proxy_inline_ips: "disable"
 """
 
 RETURN = """
@@ -194,6 +202,7 @@ def filter_ips_settings_data(json):
         "packet_log_history",
         "packet_log_memory",
         "packet_log_post_attack",
+        "proxy_inline_ips",
     ]
 
     json = remove_invalid_fields(json)
@@ -222,9 +231,10 @@ def underscore_to_hyphen(data):
 def ips_settings(data, fos):
     vdom = data["vdom"]
     ips_settings_data = data["ips_settings"]
-    filtered_data = underscore_to_hyphen(filter_ips_settings_data(ips_settings_data))
+    filtered_data = filter_ips_settings_data(ips_settings_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("ips", "settings", data=filtered_data, vdom=vdom)
+    return fos.set("ips", "settings", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -263,6 +273,11 @@ versioned_schema = {
         "packet_log_post_attack": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "packet_log_memory": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ips_packet_quota": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "proxy_inline_ips": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
     },
 }
 

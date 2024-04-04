@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -225,6 +225,27 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ipsec_phase2_proposal:
+                description:
+                    - IPsec phase2 proposal.
+                type: list
+                elements: str
+                choices:
+                    - 'aes128-sha1'
+                    - 'aes128-sha256'
+                    - 'aes128-sha384'
+                    - 'aes128-sha512'
+                    - 'aes192-sha1'
+                    - 'aes192-sha256'
+                    - 'aes192-sha384'
+                    - 'aes192-sha512'
+                    - 'aes256-sha1'
+                    - 'aes256-sha256'
+                    - 'aes256-sha384'
+                    - 'aes256-sha512'
+                    - 'aes128gcm'
+                    - 'aes256gcm'
+                    - 'chacha20poly1305'
             key:
                 description:
                     - Key.
@@ -607,6 +628,10 @@ options:
                         description:
                             - Remote IP monitoring failover threshold (0 - 50).
                         type: int
+                    pingserver_flip_timeout:
+                        description:
+                            - Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+                        type: int
                     pingserver_monitor_interface:
                         description:
                             - Interfaces to check for remote IP monitoring. Source system.interface.name.
@@ -710,6 +735,7 @@ EXAMPLES = """
           http_proxy_threshold: "<your_own_value>"
           imap_proxy_threshold: "<your_own_value>"
           inter_cluster_session_sync: "enable"
+          ipsec_phase2_proposal: "aes128-sha1"
           key: "<your_own_value>"
           l2ep_eth_type: "<your_own_value>"
           link_failed_signal: "enable"
@@ -769,7 +795,7 @@ EXAMPLES = """
           unicast_hb_peerip: "<your_own_value>"
           unicast_peers:
               -
-                  id: "91"
+                  id: "92"
                   peer_ip: "<your_own_value>"
           unicast_status: "enable"
           uninterruptible_primary_wait: "30"
@@ -781,6 +807,7 @@ EXAMPLES = """
                   override: "enable"
                   override_wait_time: "0"
                   pingserver_failover_threshold: "0"
+                  pingserver_flip_timeout: "60"
                   pingserver_monitor_interface: "<your_own_value> (source system.interface.name)"
                   pingserver_secondary_force_reset: "enable"
                   pingserver_slave_force_reset: "enable"
@@ -788,7 +815,7 @@ EXAMPLES = """
                   vcluster_id: "<you_own_value>"
                   vdom:
                       -
-                          name: "default_name_108 (source system.vdom.name)"
+                          name: "default_name_110 (source system.vdom.name)"
           vcluster_id: "0"
           vcluster_status: "enable"
           vcluster2: "enable"
@@ -902,6 +929,7 @@ def filter_system_ha_data(json):
         "http_proxy_threshold",
         "imap_proxy_threshold",
         "inter_cluster_session_sync",
+        "ipsec_phase2_proposal",
         "key",
         "l2ep_eth_type",
         "link_failed_signal",
@@ -998,6 +1026,7 @@ def flatten_multilists_attributes(data):
         ["pingserver_monitor_interface"],
         ["vcluster", "monitor"],
         ["vcluster", "pingserver_monitor_interface"],
+        ["ipsec_phase2_proposal"],
         ["secondary_vcluster", "monitor"],
         ["secondary_vcluster", "pingserver_monitor_interface"],
     ]
@@ -1025,9 +1054,10 @@ def system_ha(data, fos):
     vdom = data["vdom"]
     system_ha_data = data["system_ha"]
     system_ha_data = flatten_multilists_attributes(system_ha_data)
-    filtered_data = underscore_to_hyphen(filter_system_ha_data(system_ha_data))
+    filtered_data = filter_system_ha_data(system_ha_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "ha", data=filtered_data, vdom=vdom)
+    return fos.set("system", "ha", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -1377,6 +1407,10 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "pingserver_flip_timeout": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                },
                 "vdom": {
                     "type": "list",
                     "elements": "dict",
@@ -1403,9 +1437,12 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ssd_failover": {
-            "v_range": [["v6.2.0", ""]],
+            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "enable", "v_range": [["v6.2.0", ""]]},
+                {"value": "disable", "v_range": [["v6.2.0", ""]]},
+            ],
         },
         "memory_compatible_mode": {
             "v_range": [["v6.0.0", ""]],
@@ -1428,6 +1465,29 @@ versioned_schema = {
             "type": "integer",
         },
         "failover_hold_time": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "ipsec_phase2_proposal": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "list",
+            "options": [
+                {"value": "aes128-sha1"},
+                {"value": "aes128-sha256"},
+                {"value": "aes128-sha384"},
+                {"value": "aes128-sha512"},
+                {"value": "aes192-sha1"},
+                {"value": "aes192-sha256"},
+                {"value": "aes192-sha384"},
+                {"value": "aes192-sha512"},
+                {"value": "aes256-sha1"},
+                {"value": "aes256-sha256"},
+                {"value": "aes256-sha384"},
+                {"value": "aes256-sha512"},
+                {"value": "aes128gcm"},
+                {"value": "aes256gcm"},
+                {"value": "chacha20poly1305"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
         "uninterruptible_upgrade": {
             "v_range": [["v6.0.0", "v7.4.0"]],
             "type": "string",

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -207,9 +207,10 @@ def underscore_to_hyphen(data):
 def system_gi_gk(data, fos):
     vdom = data["vdom"]
     system_gi_gk_data = data["system_gi_gk"]
-    filtered_data = underscore_to_hyphen(filter_system_gi_gk_data(system_gi_gk_data))
+    filtered_data = filter_system_gi_gk_data(system_gi_gk_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "gi-gk", data=filtered_data, vdom=vdom)
+    return fos.set("system", "gi-gk", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -241,15 +242,15 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
     "type": "dict",
     "children": {
         "context": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "port": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "integer",
         },
     },

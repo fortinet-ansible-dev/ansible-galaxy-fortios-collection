@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -226,15 +226,14 @@ def wireless_controller_nac_profile(data, fos):
     state = data["state"]
 
     wireless_controller_nac_profile_data = data["wireless_controller_nac_profile"]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_nac_profile_data(
-            wireless_controller_nac_profile_data
-        )
+    filtered_data = filter_wireless_controller_nac_profile_data(
+        wireless_controller_nac_profile_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
         return fos.set(
-            "wireless-controller", "nac-profile", data=filtered_data, vdom=vdom
+            "wireless-controller", "nac-profile", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

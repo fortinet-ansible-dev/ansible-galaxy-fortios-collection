@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -745,9 +745,10 @@ def underscore_to_hyphen(data):
 def system_ike(data, fos):
     vdom = data["vdom"]
     system_ike_data = data["system_ike"]
-    filtered_data = underscore_to_hyphen(filter_system_ike_data(system_ike_data))
+    filtered_data = filter_system_ike_data(system_ike_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "ike", data=filtered_data, vdom=vdom)
+    return fos.set("system", "ike", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

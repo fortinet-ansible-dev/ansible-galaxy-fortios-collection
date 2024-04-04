@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -360,6 +360,14 @@ options:
                         description:
                             - IP address of VPNv4 next-hop.
                         type: str
+                    set_vpnv6_nexthop:
+                        description:
+                            - IPv6 global address of VPNv6 next-hop.
+                        type: str
+                    set_vpnv6_nexthop_local:
+                        description:
+                            - IPv6 link-local address of VPNv6 next-hop.
+                        type: str
                     set_weight:
                         description:
                             - BGP weight for routing table.
@@ -432,6 +440,8 @@ EXAMPLES = """
                   set_route_tag: ""
                   set_tag: ""
                   set_vpnv4_nexthop: "<your_own_value>"
+                  set_vpnv6_nexthop: "<your_own_value>"
+                  set_vpnv6_nexthop_local: "<your_own_value>"
                   set_weight: ""
 """
 
@@ -555,9 +565,8 @@ def router_route_map(data, fos, check_mode=False):
     state = data["state"]
 
     router_route_map_data = data["router_route_map"]
-    filtered_data = underscore_to_hyphen(
-        filter_router_route_map_data(router_route_map_data)
-    )
+    filtered_data = filter_router_route_map_data(router_route_map_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -621,7 +630,7 @@ def router_route_map(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("router", "route-map", data=filtered_data, vdom=vdom)
+        return fos.set("router", "route-map", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("router", "route-map", mkey=filtered_data["name"], vdom=vdom)
@@ -809,6 +818,11 @@ versioned_schema = {
                 "set_ip6_nexthop": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "set_ip6_nexthop_local": {
                     "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                },
+                "set_vpnv6_nexthop": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "set_vpnv6_nexthop_local": {
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                 },
                 "set_local_preference": {

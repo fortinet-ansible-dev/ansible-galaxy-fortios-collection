@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -80,6 +80,13 @@ options:
         default: null
         type: dict
         suboptions:
+            asymmetric_traffic_control:
+                description:
+                    - Asymmetric traffic control mode.
+                type: str
+                choices:
+                    - 'cps-preferred'
+                    - 'strict-anti-replay'
             cluster_peer:
                 description:
                     - Configure FortiGate Session Life Support Protocol (FGSP) session synchronization.
@@ -232,11 +239,12 @@ EXAMPLES = """
   fortinet.fortios.fortios_system_standalone_cluster:
       vdom: "{{ vdom }}"
       system_standalone_cluster:
+          asymmetric_traffic_control: "cps-preferred"
           cluster_peer:
               -
                   down_intfs_before_sess_sync:
                       -
-                          name: "default_name_5 (source system.interface.name)"
+                          name: "default_name_6 (source system.interface.name)"
                   hb_interval: "2"
                   hb_lost_threshold: "10"
                   ipsec_tunnel_sync: "enable"
@@ -247,7 +255,7 @@ EXAMPLES = """
                       custom_service:
                           -
                               dst_port_range: "<your_own_value>"
-                              id: "15"
+                              id: "16"
                               src_port_range: "<your_own_value>"
                       dstaddr: "<your_own_value>"
                       dstaddr6: "<your_own_value>"
@@ -258,7 +266,7 @@ EXAMPLES = """
                   sync_id: "<you_own_value>"
                   syncvd:
                       -
-                          name: "default_name_25 (source system.vdom.name)"
+                          name: "default_name_26 (source system.vdom.name)"
           encryption: "enable"
           group_member_id: "0"
           layer2_connection: "available"
@@ -348,6 +356,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_system_standalone_cluster_data(json):
     option_list = [
+        "asymmetric_traffic_control",
         "cluster_peer",
         "encryption",
         "group_member_id",
@@ -415,11 +424,12 @@ def system_standalone_cluster(data, fos):
     system_standalone_cluster_data = flatten_multilists_attributes(
         system_standalone_cluster_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_system_standalone_cluster_data(system_standalone_cluster_data)
+    filtered_data = filter_system_standalone_cluster_data(
+        system_standalone_cluster_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "standalone-cluster", data=filtered_data, vdom=vdom)
+    return fos.set("system", "standalone-cluster", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -475,6 +485,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "psksecret": {"v_range": [["v6.4.0", ""]], "type": "string"},
+        "asymmetric_traffic_control": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "cps-preferred"}, {"value": "strict-anti-replay"}],
+        },
         "cluster_peer": {
             "type": "list",
             "elements": "dict",

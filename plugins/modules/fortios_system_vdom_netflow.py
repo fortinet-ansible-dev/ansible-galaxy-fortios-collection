@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -88,6 +88,41 @@ options:
                 description:
                     - NetFlow collector port number.
                 type: int
+            collectors:
+                description:
+                    - Netflow collectors.
+                type: list
+                elements: dict
+                suboptions:
+                    collector_ip:
+                        description:
+                            - Collector IP.
+                        type: str
+                    collector_port:
+                        description:
+                            - NetFlow collector port number.
+                        type: int
+                    id:
+                        description:
+                            - ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    interface:
+                        description:
+                            - Specify outgoing interface to reach server. Source system.interface.name.
+                        type: str
+                    interface_select_method:
+                        description:
+                            - Specify how to select outgoing interface to reach server.
+                        type: str
+                        choices:
+                            - 'auto'
+                            - 'sdwan'
+                            - 'specify'
+                    source_ip:
+                        description:
+                            - Source IP address for communication with the NetFlow agent.
+                        type: str
             interface:
                 description:
                     - Specify outgoing interface to reach server. Source system.interface.name.
@@ -120,6 +155,14 @@ EXAMPLES = """
       system_vdom_netflow:
           collector_ip: "<your_own_value>"
           collector_port: "2055"
+          collectors:
+              -
+                  collector_ip: "<your_own_value>"
+                  collector_port: "2055"
+                  id: "8"
+                  interface: "<your_own_value> (source system.interface.name)"
+                  interface_select_method: "auto"
+                  source_ip: "84.230.14.43"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
           source_ip: "84.230.14.43"
@@ -209,6 +252,7 @@ def filter_system_vdom_netflow_data(json):
     option_list = [
         "collector_ip",
         "collector_port",
+        "collectors",
         "interface",
         "interface_select_method",
         "source_ip",
@@ -241,11 +285,10 @@ def underscore_to_hyphen(data):
 def system_vdom_netflow(data, fos):
     vdom = data["vdom"]
     system_vdom_netflow_data = data["system_vdom_netflow"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_vdom_netflow_data(system_vdom_netflow_data)
-    )
+    filtered_data = filter_system_vdom_netflow_data(system_vdom_netflow_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "vdom-netflow", data=filtered_data, vdom=vdom)
+    return fos.set("system", "vdom-netflow", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -285,15 +328,40 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "collector_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "collector_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "source_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "collectors": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "collector_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "collector_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+                "source_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "interface_select_method": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "auto"},
+                        {"value": "sdwan"},
+                        {"value": "specify"},
+                    ],
+                },
+                "interface": {"v_range": [["v7.4.2", ""]], "type": "string"},
+            },
+            "v_range": [["v7.4.2", ""]],
+        },
+        "collector_ip": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
+        "collector_port": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "integer"},
+        "source_ip": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
         "interface_select_method": {
-            "v_range": [["v7.0.1", ""]],
+            "v_range": [["v7.0.1", "v7.4.1"]],
             "type": "string",
             "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
-        "interface": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "interface": {"v_range": [["v7.0.1", "v7.4.1"]], "type": "string"},
     },
 }
 

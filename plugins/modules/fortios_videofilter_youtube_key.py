@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -231,12 +231,11 @@ def videofilter_youtube_key(data, fos):
     state = data["state"]
 
     videofilter_youtube_key_data = data["videofilter_youtube_key"]
-    filtered_data = underscore_to_hyphen(
-        filter_videofilter_youtube_key_data(videofilter_youtube_key_data)
-    )
+    filtered_data = filter_videofilter_youtube_key_data(videofilter_youtube_key_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("videofilter", "youtube-key", data=filtered_data, vdom=vdom)
+        return fos.set("videofilter", "youtube-key", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

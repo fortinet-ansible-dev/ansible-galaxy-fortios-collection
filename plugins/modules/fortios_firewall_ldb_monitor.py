@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -309,9 +309,8 @@ def firewall_ldb_monitor(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_ldb_monitor_data = data["firewall_ldb_monitor"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_ldb_monitor_data(firewall_ldb_monitor_data)
-    )
+    filtered_data = filter_firewall_ldb_monitor_data(firewall_ldb_monitor_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -375,7 +374,7 @@ def firewall_ldb_monitor(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "ldb-monitor", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "ldb-monitor", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -430,7 +429,11 @@ versioned_schema = {
                 {"value": "dns", "v_range": [["v7.0.0", ""]]},
                 {
                     "value": "passive-sip",
-                    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"]],
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
                 },
             ],
         },

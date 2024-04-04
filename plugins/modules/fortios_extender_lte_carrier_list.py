@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -200,9 +200,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"<sn>": "sn"}
+    speciallist = {"<sn>": "sn"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -211,8 +211,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -225,10 +228,10 @@ def valid_attr_to_invalid_attrs(data):
 def extender_lte_carrier_list(data, fos):
     vdom = data["vdom"]
     extender_lte_carrier_list_data = data["extender_lte_carrier_list"]
-    filtered_data = underscore_to_hyphen(
-        filter_extender_lte_carrier_list_data(extender_lte_carrier_list_data)
+    filtered_data = filter_extender_lte_carrier_list_data(
+        extender_lte_carrier_list_data
     )
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     return fos.set("extender", "lte-carrier-list", data=converted_data, vdom=vdom)
 

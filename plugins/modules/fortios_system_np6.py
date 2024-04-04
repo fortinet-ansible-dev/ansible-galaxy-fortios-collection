@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -708,7 +708,8 @@ def system_np6(data, fos, check_mode=False):
     state = data["state"]
 
     system_np6_data = data["system_np6"]
-    filtered_data = underscore_to_hyphen(filter_system_np6_data(system_np6_data))
+    filtered_data = filter_system_np6_data(system_np6_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -772,7 +773,7 @@ def system_np6(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "np6", data=filtered_data, vdom=vdom)
+        return fos.set("system", "np6", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "np6", mkey=filtered_data["name"], vdom=vdom)
@@ -813,19 +814,23 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "name": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "required": True,
+        },
         "fastpath": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "low_latency_mode": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "per_session_accounting": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -834,54 +839,100 @@ versioned_schema = {
             ],
         },
         "garbage_session_collector": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "session_collector_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "session_timeout_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "session_collector_interval": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
+        "session_timeout_interval": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "integer",
+        },
         "session_timeout_random_range": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "integer",
         },
         "session_timeout_fixed": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "hpe": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "dict",
             "children": {
-                "tcpsyn_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "tcpsyn_ack_max": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-                "tcpfin_rst_max": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-                "tcp_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "udp_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "icmp_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "sctp_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "esp_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "ip_frag_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "ip_others_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "arp_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "l2_others_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "tcpsyn_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "tcpsyn_ack_max": {
+                    "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "tcpfin_rst_max": {
+                    "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "tcp_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "udp_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "icmp_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "sctp_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "esp_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "ip_frag_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "ip_others_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "arp_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
+                "l2_others_max": {
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "type": "integer",
+                },
                 "pri_type_max": {
-                    "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", ""]],
+                    "v_range": [
+                        ["v6.0.0", "v6.0.0"],
+                        ["v6.0.11", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
                     "type": "integer",
                 },
                 "enable_shaper": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
             },
         },
         "fp_anomaly": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "dict",
             "children": {
                 "tcp_syn_fin": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -890,7 +941,7 @@ versioned_schema = {
                     ],
                 },
                 "tcp_fin_noack": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -899,7 +950,7 @@ versioned_schema = {
                     ],
                 },
                 "tcp_fin_only": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -908,7 +959,7 @@ versioned_schema = {
                     ],
                 },
                 "tcp_no_flag": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -917,7 +968,7 @@ versioned_schema = {
                     ],
                 },
                 "tcp_syn_data": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -926,7 +977,7 @@ versioned_schema = {
                     ],
                 },
                 "tcp_winnuke": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -935,7 +986,7 @@ versioned_schema = {
                     ],
                 },
                 "tcp_land": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -944,7 +995,7 @@ versioned_schema = {
                     ],
                 },
                 "udp_land": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -953,7 +1004,7 @@ versioned_schema = {
                     ],
                 },
                 "icmp_land": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -962,7 +1013,7 @@ versioned_schema = {
                     ],
                 },
                 "icmp_frag": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -971,7 +1022,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_land": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -980,7 +1031,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_proto_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -989,7 +1040,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_unknopt": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -998,7 +1049,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_optrr": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1007,7 +1058,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_optssrr": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1016,7 +1067,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_optlsrr": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1025,7 +1076,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_optstream": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1034,7 +1085,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_optsecurity": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1043,7 +1094,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_opttimestamp": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1052,27 +1103,27 @@ versioned_schema = {
                     ],
                 },
                 "ipv4_csum_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [{"value": "drop"}, {"value": "trap-to-host"}],
                 },
                 "tcp_csum_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [{"value": "drop"}, {"value": "trap-to-host"}],
                 },
                 "udp_csum_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [{"value": "drop"}, {"value": "trap-to-host"}],
                 },
                 "icmp_csum_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [{"value": "drop"}, {"value": "trap-to-host"}],
                 },
                 "ipv6_land": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1081,7 +1132,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_proto_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1090,7 +1141,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_unknopt": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1099,7 +1150,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_saddr_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1108,7 +1159,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_daddr_err": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1117,7 +1168,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_optralert": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1126,7 +1177,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_optjumbo": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1135,7 +1186,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_opttunnel": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1144,7 +1195,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_opthomeaddr": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1153,7 +1204,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_optnsap": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1162,7 +1213,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_optendpid": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1171,7 +1222,7 @@ versioned_schema = {
                     ],
                 },
                 "ipv6_optinvld": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "allow"},
@@ -1200,7 +1251,7 @@ versioned_schema = {
             "options": [{"value": "global-hash"}, {"value": "round-robin-global"}],
         },
     },
-    "v_range": [["v6.0.0", ""]],
+    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
 }
 
 

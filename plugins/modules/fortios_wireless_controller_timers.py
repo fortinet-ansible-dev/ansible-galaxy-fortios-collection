@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -80,6 +80,20 @@ options:
         default: null
         type: dict
         suboptions:
+            ap_reboot_wait_interval1:
+                description:
+                    - Time in minutes to wait before AP reboots when there is no controller detected (5 - 65535).
+                type: int
+            ap_reboot_wait_interval2:
+                description:
+                    - Time in minutes to wait before AP reboots when there is no controller detected and standalone SSIDs are pushed to the AP in the previous
+                       session (5 - 65535).
+                type: int
+            ap_reboot_wait_time:
+                description:
+                    - 'Time to reboot the AP when there is no controller detected and standalone SSIDs are pushed to the AP in the previous session, format hh
+                      :mm.'
+                type: str
             auth_timeout:
                 description:
                     - Time after which a client is considered failed in RADIUS authentication and times out (5 - 30 sec).
@@ -143,6 +157,10 @@ options:
                 description:
                     - Time period to keep IPsec VPN interfaces up after WTP sessions are disconnected (30 - 3600 sec).
                 type: int
+            nat_session_keep_alive:
+                description:
+                    - Maximal time in seconds between control requests sent by the managed WTP, AP, or FortiAP (0 - 255 sec).
+                type: int
             radio_stats_interval:
                 description:
                     - Time between running radio reports (1 - 255 sec).
@@ -178,6 +196,9 @@ EXAMPLES = """
   fortinet.fortios.fortios_wireless_controller_timers:
       vdom: "{{ vdom }}"
       wireless_controller_timers:
+          ap_reboot_wait_interval1: "0"
+          ap_reboot_wait_interval2: "0"
+          ap_reboot_wait_time: "<your_own_value>"
           auth_timeout: "5"
           ble_scan_report_intv: "30"
           client_idle_rehome_timeout: "20"
@@ -192,12 +213,13 @@ EXAMPLES = """
           echo_interval: "30"
           fake_ap_log: "1"
           ipsec_intf_cleanup: "120"
+          nat_session_keep_alive: "0"
           radio_stats_interval: "15"
           rogue_ap_cleanup: "0"
           rogue_ap_log: "0"
           sta_capability_interval: "30"
           sta_locate_timer: "1800"
-          sta_stats_interval: "1"
+          sta_stats_interval: "10"
           vap_stats_interval: "15"
 """
 
@@ -282,6 +304,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_wireless_controller_timers_data(json):
     option_list = [
+        "ap_reboot_wait_interval1",
+        "ap_reboot_wait_interval2",
+        "ap_reboot_wait_time",
         "auth_timeout",
         "ble_scan_report_intv",
         "client_idle_rehome_timeout",
@@ -294,6 +319,7 @@ def filter_wireless_controller_timers_data(json):
         "echo_interval",
         "fake_ap_log",
         "ipsec_intf_cleanup",
+        "nat_session_keep_alive",
         "radio_stats_interval",
         "rogue_ap_cleanup",
         "rogue_ap_log",
@@ -329,11 +355,12 @@ def underscore_to_hyphen(data):
 def wireless_controller_timers(data, fos):
     vdom = data["vdom"]
     wireless_controller_timers_data = data["wireless_controller_timers"]
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_timers_data(wireless_controller_timers_data)
+    filtered_data = filter_wireless_controller_timers_data(
+        wireless_controller_timers_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("wireless-controller", "timers", data=filtered_data, vdom=vdom)
+    return fos.set("wireless-controller", "timers", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -371,6 +398,7 @@ versioned_schema = {
     "type": "dict",
     "children": {
         "echo_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "nat_session_keep_alive": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "discovery_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "client_idle_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "client_idle_rehome_timeout": {"v_range": [["v7.2.0", ""]], "type": "integer"},
@@ -386,6 +414,9 @@ versioned_schema = {
         "ipsec_intf_cleanup": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ble_scan_report_intv": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "drma_interval": {"v_range": [["v6.4.4", ""]], "type": "integer"},
+        "ap_reboot_wait_interval1": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "ap_reboot_wait_time": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "ap_reboot_wait_interval2": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "darrp_optimize": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "integer"},
         "darrp_day": {
             "v_range": [["v6.0.0", "v6.0.11"]],

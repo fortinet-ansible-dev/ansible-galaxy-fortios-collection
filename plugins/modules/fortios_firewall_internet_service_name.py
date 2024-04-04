@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -260,9 +260,10 @@ def firewall_internet_service_name(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_internet_service_name_data = data["firewall_internet_service_name"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_internet_service_name_data(firewall_internet_service_name_data)
+    filtered_data = filter_firewall_internet_service_name_data(
+        firewall_internet_service_name_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -331,7 +332,7 @@ def firewall_internet_service_name(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "internet-service-name", data=filtered_data, vdom=vdom
+            "firewall", "internet-service-name", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

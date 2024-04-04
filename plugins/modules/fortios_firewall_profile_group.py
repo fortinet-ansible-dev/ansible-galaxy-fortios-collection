@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -103,6 +103,10 @@ options:
             cifs_profile:
                 description:
                     - Name of an existing CIFS profile. Source cifs.profile.name.
+                type: str
+            diameter_filter_profile:
+                description:
+                    - Name of an existing Diameter filter profile. Source diameter-filter.profile.name.
                 type: str
             dlp_profile:
                 description:
@@ -198,6 +202,7 @@ EXAMPLES = """
           av_profile: "<your_own_value> (source antivirus.profile.name)"
           casb_profile: "<your_own_value> (source casb.profile.name)"
           cifs_profile: "<your_own_value> (source cifs.profile.name)"
+          diameter_filter_profile: "<your_own_value> (source diameter-filter.profile.name)"
           dlp_profile: "<your_own_value> (source dlp.profile.name)"
           dlp_sensor: "<your_own_value> (source dlp.sensor.name)"
           dnsfilter_profile: "<your_own_value> (source dnsfilter.profile.name)"
@@ -207,7 +212,7 @@ EXAMPLES = """
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_16"
+          name: "default_name_17"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
@@ -314,6 +319,7 @@ def filter_firewall_profile_group_data(json):
         "av_profile",
         "casb_profile",
         "cifs_profile",
+        "diameter_filter_profile",
         "dlp_profile",
         "dlp_sensor",
         "dnsfilter_profile",
@@ -365,9 +371,8 @@ def firewall_profile_group(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_profile_group_data = data["firewall_profile_group"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_profile_group_data(firewall_profile_group_data)
-    )
+    filtered_data = filter_firewall_profile_group_data(firewall_profile_group_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -431,7 +436,7 @@ def firewall_profile_group(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "profile-group", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "profile-group", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -488,6 +493,7 @@ versioned_schema = {
         "voip_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ips_voip_filter": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "sctp_filter_profile": {"v_range": [["v7.0.1", ""]], "type": "string"},
+        "diameter_filter_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "virtual_patch_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "icap_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "cifs_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},

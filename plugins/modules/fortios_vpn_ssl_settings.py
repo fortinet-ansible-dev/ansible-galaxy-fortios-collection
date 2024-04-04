@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -1030,11 +1030,10 @@ def vpn_ssl_settings(data, fos):
     vdom = data["vdom"]
     vpn_ssl_settings_data = data["vpn_ssl_settings"]
     vpn_ssl_settings_data = flatten_multilists_attributes(vpn_ssl_settings_data)
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_ssl_settings_data(vpn_ssl_settings_data)
-    )
+    filtered_data = filter_vpn_ssl_settings_data(vpn_ssl_settings_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("vpn.ssl", "settings", data=filtered_data, vdom=vdom)
+    return fos.set("vpn.ssl", "settings", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

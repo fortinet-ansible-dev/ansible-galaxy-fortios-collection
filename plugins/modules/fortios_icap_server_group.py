@@ -39,7 +39,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -245,12 +245,11 @@ def icap_server_group(data, fos):
     state = data["state"]
 
     icap_server_group_data = data["icap_server_group"]
-    filtered_data = underscore_to_hyphen(
-        filter_icap_server_group_data(icap_server_group_data)
-    )
+    filtered_data = filter_icap_server_group_data(icap_server_group_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     if state == "present" or state is True:
-        return fos.set("icap", "server-group", data=filtered_data, vdom=vdom)
+        return fos.set("icap", "server-group", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("icap", "server-group", mkey=filtered_data["name"], vdom=vdom)

@@ -9,7 +9,7 @@ The collection is the FortiOS Ansible Automation project. It includes the module
 This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/), the installation steps are as follows:
 
 1. Install or upgrade to Ansible 2.14+
-2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.5`
+2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.6`
 
 ## Requirements
 * Ansible 2.14+ is required to support the newer Ansible Collections format
@@ -17,7 +17,7 @@ This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/)
 ## Supported FortiOS Versions
 From `v2.0.0` on, FortiOS galaxy collections are unified, and cover FortiOS 6.0, 6.2, 6.4, 7.0, 7.2 versions. There is only one sequential collection at any moment. users who install these collections are expected to find the version compatibility information for each module and its parameters.
 
-The latest version is 2.3.5, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.5`
+The latest version is 2.3.6, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.6`
 
 Prior to FortiOS collection `v2.0.0`, FortiOS Galaxy collections were built over three FOS major versions, i.e. `v6.0`, `v6.2` and `v6.4`, thus, users are expected to install the collection according to the following table to avoid potential compatibility issues.
 
@@ -72,8 +72,10 @@ The collection provides the following modules:
 * `fortios_cifs_profile` Configure CIFS profile in Fortinet's FortiOS and FortiGate.
 * `fortios_configuration_fact` Retrieve Facts of FortiOS Configurable Objects.
 * `fortios_credential_store_domain_controller` Define known domain controller servers in Fortinet's FortiOS and FortiGate.
+* `fortios_diameter_filter_profile` Configure Diameter filter profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_data_type` Configure predefined data type used by DLP blocking in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_dictionary` Configure dictionaries used by DLP blocking in Fortinet's FortiOS and FortiGate.
+* `fortios_dlp_exact_data_match` Configure exact-data-match template used by DLP scan in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_filepattern` Configure file patterns used by DLP blocking in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_fp_doc_source` Create a DLP fingerprint database by allowing the FortiGate to access a file server containing files from which to create fingerprints in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_fp_sensitivity` Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source in Fortinet's FortiOS and FortiGate.
@@ -487,6 +489,7 @@ The collection provides the following modules:
 * `fortios_system_netflow` Configure NetFlow in Fortinet's FortiOS and FortiGate.
 * `fortios_system_network_visibility` Configure network visibility settings in Fortinet's FortiOS and FortiGate.
 * `fortios_system_np6` Configure NP6 attributes in Fortinet's FortiOS and FortiGate.
+* `fortios_system_npu_vlink` Configure NPU VDOM link in Fortinet's FortiOS and FortiGate.
 * `fortios_system_npu` Configure NPU attributes in Fortinet's FortiOS and FortiGate.
 * `fortios_system_ntp` Configure system NTP information in Fortinet's FortiOS and FortiGate.
 * `fortios_system_object_tagging` Configure object tagging in Fortinet's FortiOS and FortiGate.
@@ -574,6 +577,7 @@ The collection provides the following modules:
 * `fortios_user_device` Configure devices in Fortinet's FortiOS and FortiGate.
 * `fortios_user_domain_controller` Configure domain controller entries in Fortinet's FortiOS and FortiGate.
 * `fortios_user_exchange` Configure MS Exchange server entries in Fortinet's FortiOS and FortiGate.
+* `fortios_user_external_identity_provider` Configure external identity provider in Fortinet's FortiOS and FortiGate.
 * `fortios_user_fortitoken` Configure FortiToken in Fortinet's FortiOS and FortiGate.
 * `fortios_user_fsso_polling` Configure FSSO active directory servers for polling mode in Fortinet's FortiOS and FortiGate.
 * `fortios_user_fsso` Configure Fortinet Single Sign On (FSSO) agents in Fortinet's FortiOS and FortiGate.
@@ -592,6 +596,7 @@ The collection provides the following modules:
 * `fortios_user_security_exempt_list` Configure security exemption list in Fortinet's FortiOS and FortiGate.
 * `fortios_user_setting` Configure user authentication setting in Fortinet's FortiOS and FortiGate.
 * `fortios_user_tacacsplus` Configure TACACS+ server entries in Fortinet's FortiOS and FortiGate.
+* `fortios_videofilter_keyword` Configure video filter keywords in Fortinet's FortiOS and FortiGate.
 * `fortios_videofilter_profile` Configure VideoFilter profile in Fortinet's FortiOS and FortiGate.
 * `fortios_videofilter_youtube_channel_filter` Configure YouTube channel filter in Fortinet's FortiOS and FortiGate.
 * `fortios_videofilter_youtube_key` Configure YouTube API keys in Fortinet's FortiOS and FortiGate.
@@ -617,6 +622,7 @@ The collection provides the following modules:
 * `fortios_vpn_l2tp` Configure L2TP in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ocvpn` Configure Overlay Controller VPN settings in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_pptp` Configure PPTP in Fortinet's FortiOS and FortiGate.
+* `fortios_vpn_qkd` Configure Quantum Key Distribution server in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_client` Client in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_settings` Configure SSL-VPN in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_web_host_check_software` SSL-VPN host check software in Fortinet's FortiOS and FortiGate.

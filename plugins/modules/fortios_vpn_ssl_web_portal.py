@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -222,6 +222,7 @@ options:
                                     - 'it'
                                     - 'it-142'
                                     - 'ja'
+                                    - 'ja-106'
                                     - 'ko'
                                     - 'la-am'
                                     - 'lt'
@@ -1427,9 +1428,8 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
 
     vpn_ssl_web_portal_data = data["vpn_ssl_web_portal"]
     vpn_ssl_web_portal_data = flatten_multilists_attributes(vpn_ssl_web_portal_data)
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_ssl_web_portal_data(vpn_ssl_web_portal_data)
-    )
+    filtered_data = filter_vpn_ssl_web_portal_data(vpn_ssl_web_portal_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1493,7 +1493,7 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("vpn.ssl.web", "portal", data=filtered_data, vdom=vdom)
+        return fos.set("vpn.ssl.web", "portal", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -1823,6 +1823,7 @@ versioned_schema = {
                                 {"value": "it"},
                                 {"value": "it-142"},
                                 {"value": "ja"},
+                                {"value": "ja-106", "v_range": [["v7.4.2", ""]]},
                                 {"value": "ko"},
                                 {"value": "la-am", "v_range": [["v7.4.1", ""]]},
                                 {"value": "lt"},

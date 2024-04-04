@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -446,11 +446,12 @@ def system_central_management(data, fos):
     system_central_management_data = flatten_multilists_attributes(
         system_central_management_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_system_central_management_data(system_central_management_data)
+    filtered_data = filter_system_central_management_data(
+        system_central_management_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "central-management", data=filtered_data, vdom=vdom)
+    return fos.set("system", "central-management", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

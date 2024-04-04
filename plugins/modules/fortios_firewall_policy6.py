@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -1044,9 +1044,8 @@ def firewall_policy6(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_policy6_data = data["firewall_policy6"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_policy6_data(firewall_policy6_data)
-    )
+    filtered_data = filter_firewall_policy6_data(firewall_policy6_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1110,7 +1109,7 @@ def firewall_policy6(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall", "policy6", data=filtered_data, vdom=vdom)
+        return fos.set("firewall", "policy6", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(

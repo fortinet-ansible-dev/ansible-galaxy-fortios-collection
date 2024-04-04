@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -222,6 +222,7 @@ options:
                 type: str
                 choices:
                     - 'enable'
+                    - 'mandatory'
                     - 'disable'
             proxy:
                 description:
@@ -493,11 +494,10 @@ def underscore_to_hyphen(data):
 def vpn_certificate_setting(data, fos):
     vdom = data["vdom"]
     vpn_certificate_setting_data = data["vpn_certificate_setting"]
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_certificate_setting_data(vpn_certificate_setting_data)
-    )
+    filtered_data = filter_vpn_certificate_setting_data(vpn_certificate_setting_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("vpn.certificate", "setting", data=filtered_data, vdom=vdom)
+    return fos.set("vpn.certificate", "setting", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -535,7 +535,11 @@ versioned_schema = {
         "ocsp_status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "enable"},
+                {"value": "mandatory", "v_range": [["v7.4.2", ""]]},
+                {"value": "disable"},
+            ],
         },
         "ocsp_option": {
             "v_range": [["v6.2.0", ""]],

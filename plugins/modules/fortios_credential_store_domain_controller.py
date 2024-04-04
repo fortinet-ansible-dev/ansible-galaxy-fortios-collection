@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -269,11 +269,10 @@ def credential_store_domain_controller(data, fos, check_mode=False):
     state = data["state"]
 
     credential_store_domain_controller_data = data["credential_store_domain_controller"]
-    filtered_data = underscore_to_hyphen(
-        filter_credential_store_domain_controller_data(
-            credential_store_domain_controller_data
-        )
+    filtered_data = filter_credential_store_domain_controller_data(
+        credential_store_domain_controller_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -342,7 +341,7 @@ def credential_store_domain_controller(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "credential-store", "domain-controller", data=filtered_data, vdom=vdom
+            "credential-store", "domain-controller", data=converted_data, vdom=vdom
         )
 
     elif state == "absent":

@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -131,6 +131,13 @@ options:
                         description:
                             - Configure IPAM pool subnet, Class A - Class B subnet.
                         type: str
+            require_subnet_size_match:
+                description:
+                    - Enable/disable reassignment of subnets to make requested and actual sizes match.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             rules:
                 description:
                     - Configure IPAM allocation rules.
@@ -227,20 +234,21 @@ EXAMPLES = """
                   description: "<your_own_value>"
                   name: "default_name_10"
                   subnet: "<your_own_value>"
+          require_subnet_size_match: "disable"
           rules:
               -
                   description: "<your_own_value>"
                   device:
                       -
-                          name: "default_name_15"
+                          name: "default_name_16"
                   dhcp: "enable"
                   interface:
                       -
-                          name: "default_name_18"
-                  name: "default_name_19"
+                          name: "default_name_19"
+                  name: "default_name_20"
                   pool:
                       -
-                          name: "default_name_21 (source system.ipam.pools.name)"
+                          name: "default_name_22 (source system.ipam.pools.name)"
                   role: "any"
           server_type: "fabric-root"
           status: "enable"
@@ -333,6 +341,7 @@ def filter_system_ipam_data(json):
         "manage_ssid_addresses",
         "pool_subnet",
         "pools",
+        "require_subnet_size_match",
         "rules",
         "server_type",
         "status",
@@ -364,9 +373,10 @@ def underscore_to_hyphen(data):
 def system_ipam(data, fos):
     vdom = data["vdom"]
     system_ipam_data = data["system_ipam"]
-    filtered_data = underscore_to_hyphen(filter_system_ipam_data(system_ipam_data))
+    filtered_data = filter_system_ipam_data(system_ipam_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("system", "ipam", data=filtered_data, vdom=vdom)
+    return fos.set("system", "ipam", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -416,6 +426,11 @@ versioned_schema = {
         },
         "automatic_conflict_resolution": {
             "v_range": [["v7.4.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "require_subnet_size_match": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },

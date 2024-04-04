@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -151,8 +151,9 @@ options:
                     - 'ospf-virtnbr-state-change'
                     - 'temperature-high'
                     - 'voltage-alert'
-                    - 'power-supply-failure'
+                    - 'power-supply'
                     - 'fan-failure'
+                    - 'power-supply-failure'
             ha_direct:
                 description:
                     - Enable/disable direct management of HA cluster members.
@@ -458,9 +459,8 @@ def system_snmp_user(data, fos, check_mode=False):
 
     system_snmp_user_data = data["system_snmp_user"]
     system_snmp_user_data = flatten_multilists_attributes(system_snmp_user_data)
-    filtered_data = underscore_to_hyphen(
-        filter_system_snmp_user_data(system_snmp_user_data)
-    )
+    filtered_data = filter_system_snmp_user_data(system_snmp_user_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -524,7 +524,7 @@ def system_snmp_user(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system.snmp", "user", data=filtered_data, vdom=vdom)
+        return fos.set("system.snmp", "user", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system.snmp", "user", mkey=filtered_data["name"], vdom=vdom)
@@ -652,8 +652,9 @@ versioned_schema = {
                 {"value": "ospf-virtnbr-state-change", "v_range": [["v7.0.0", ""]]},
                 {"value": "temperature-high"},
                 {"value": "voltage-alert"},
-                {"value": "power-supply-failure"},
+                {"value": "power-supply", "v_range": [["v7.4.2", ""]]},
                 {"value": "fan-failure"},
+                {"value": "power-supply-failure", "v_range": [["v6.0.0", "v7.4.1"]]},
             ],
             "multiple_values": True,
             "elements": "str",

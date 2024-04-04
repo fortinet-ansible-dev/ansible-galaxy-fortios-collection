@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -204,14 +204,13 @@ def switch_controller_mac_sync_settings(data, fos):
     switch_controller_mac_sync_settings_data = data[
         "switch_controller_mac_sync_settings"
     ]
-    filtered_data = underscore_to_hyphen(
-        filter_switch_controller_mac_sync_settings_data(
-            switch_controller_mac_sync_settings_data
-        )
+    filtered_data = filter_switch_controller_mac_sync_settings_data(
+        switch_controller_mac_sync_settings_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
     return fos.set(
-        "switch-controller", "mac-sync-settings", data=filtered_data, vdom=vdom
+        "switch-controller", "mac-sync-settings", data=converted_data, vdom=vdom
     )
 
 

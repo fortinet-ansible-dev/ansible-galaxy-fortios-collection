@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -158,6 +158,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            azure_ad_autoconnect:
+                description:
+                    - Enable/disable Azure AD Auto-Connect for FortiClient.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             backup_gateway:
                 description:
                     - Instruct unity clients about the backup gateway address(es).
@@ -180,6 +187,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            cert_trust_store:
+                description:
+                    - CA certificate trust store.
+                type: str
+                choices:
+                    - 'local'
+                    - 'ems'
             certificate:
                 description:
                     - Names of up to 4 signed personal certificates.
@@ -216,6 +230,17 @@ options:
                 description:
                     - Comment.
                 type: str
+            dev_id:
+                description:
+                    - Device ID carried by the device ID notification.
+                type: str
+            dev_id_notification:
+                description:
+                    - Enable/disable device ID notification.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             dhcp_ra_giaddr:
                 description:
                     - Relay agent gateway IP address to use in the giaddr field of DHCP requests.
@@ -292,6 +317,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            eap_cert_auth:
+                description:
+                    - Enable/disable peer certificate authentication in addition to EAP if peer is a FortiClient endpoint.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             eap_exclude_peergrp:
                 description:
                     - Peer group excluded from EAP authentication. Source user.peergrp.name.
@@ -303,6 +335,13 @@ options:
                 choices:
                     - 'use-id-payload'
                     - 'send-request'
+            ems_sn_check:
+                description:
+                    - Enable/disable verification of EMS serial number.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             enforce_unique_id:
                 description:
                     - Enable/disable peer ID uniqueness check.
@@ -319,6 +358,17 @@ options:
                     - 'require'
                     - 'allow'
                     - 'disable'
+            exchange_fgt_device_id:
+                description:
+                    - Enable/disable device identifier exchange with peer FortiGate units for use of VPN monitor data by FortiManager.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fallback_tcp_threshold:
+                description:
+                    - Timeout in seconds before falling back IKE/IPsec traffic to tcp.
+                type: int
             fec_base:
                 description:
                     - Number of base Forward Error Correction packets (1 - 20).
@@ -350,7 +400,7 @@ options:
                     - 'disable'
             fec_mapping_profile:
                 description:
-                    - Forward Error Correction (FEC) mapping profile.
+                    - Forward Error Correction (FEC) mapping profile. Source vpn.ipsec.fec.name.
                 type: str
             fec_receive_timeout:
                 description:
@@ -374,6 +424,13 @@ options:
             forticlient_enforcement:
                 description:
                     - Enable/disable FortiClient enforcement.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fortinet_esp:
+                description:
+                    - Enable/disable Fortinet ESP encapsulaton.
                 type: str
                 choices:
                     - 'enable'
@@ -584,6 +641,14 @@ options:
                 description:
                     - Time to wait in seconds before phase 1 encryption key expires.
                 type: int
+            kms:
+                description:
+                    - Key Management Services server. Source vpn.kmip-server.name.
+                type: str
+            link_cost:
+                description:
+                    - VPN tunnel underlay link cost.
+                type: int
             local_gw:
                 description:
                     - Local VPN gateway.
@@ -787,6 +852,18 @@ options:
                 description:
                     - Pre-shared secret for remote side PSK authentication (ASCII string or hexadecimal encoded with a leading 0x).
                 type: str
+            qkd:
+                description:
+                    - Enable/disable use of Quantum Key Distribution (QKD) server.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'allow'
+                    - 'require'
+            qkd_profile:
+                description:
+                    - Quantum Key Distribution (QKD) server profile. Source vpn.qkd.name.
+                type: str
             reauth:
                 description:
                     - Enable/disable re-authentication upon IKE SA lifetime expiration.
@@ -859,6 +936,14 @@ options:
                     - 'disable'
                     - 'suite-b-gcm-128'
                     - 'suite-b-gcm-256'
+            transport:
+                description:
+                    - Set IKE transport protocol.
+                type: str
+                choices:
+                    - 'udp'
+                    - 'udp-fallback-tcp'
+                    - 'tcp'
             type:
                 description:
                     - Remote gateway type.
@@ -926,18 +1011,22 @@ EXAMPLES = """
           authusr: "<your_own_value>"
           authusrgrp: "<your_own_value> (source user.group.name)"
           auto_negotiate: "enable"
+          azure_ad_autoconnect: "enable"
           backup_gateway:
               -
                   address: "<your_own_value>"
           banner: "<your_own_value>"
           cert_id_validation: "enable"
+          cert_trust_store: "local"
           certificate:
               -
-                  name: "default_name_19 (source vpn.certificate.local.name)"
+                  name: "default_name_21 (source vpn.certificate.local.name)"
           childless_ike: "enable"
           client_auto_negotiate: "disable"
           client_keep_alive: "disable"
           comments: "<your_own_value>"
+          dev_id: "<your_own_value>"
+          dev_id_notification: "disable"
           dhcp_ra_giaddr: "<your_own_value>"
           dhcp6_ra_linkaddr: "<your_own_value>"
           dhgrp: "1"
@@ -949,21 +1038,26 @@ EXAMPLES = """
           dpd_retrycount: "3"
           dpd_retryinterval: "<your_own_value>"
           eap: "enable"
+          eap_cert_auth: "enable"
           eap_exclude_peergrp: "<your_own_value> (source user.peergrp.name)"
           eap_identity: "use-id-payload"
+          ems_sn_check: "enable"
           enforce_unique_id: "disable"
           esn: "require"
+          exchange_fgt_device_id: "enable"
+          fallback_tcp_threshold: "15"
           fec_base: "10"
           fec_codec: "rs"
           fec_egress: "enable"
           fec_health_check: "<your_own_value> (source system.sdwan.health-check.name)"
           fec_ingress: "enable"
-          fec_mapping_profile: "<your_own_value>"
+          fec_mapping_profile: "<your_own_value> (source vpn.ipsec.fec.name)"
           fec_receive_timeout: "50"
           fec_redundant: "1"
           fec_send_timeout: "5"
           fgsp_sync: "enable"
           forticlient_enforcement: "enable"
+          fortinet_esp: "enable"
           fragmentation: "enable"
           fragmentation_mtu: "1200"
           group_authentication: "enable"
@@ -986,7 +1080,7 @@ EXAMPLES = """
           ipv4_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "70"
+                  id: "79"
                   start_ip: "<your_own_value>"
           ipv4_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
           ipv4_netmask: "<your_own_value>"
@@ -1002,7 +1096,7 @@ EXAMPLES = """
           ipv6_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "85"
+                  id: "94"
                   start_ip: "<your_own_value>"
           ipv6_name: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_prefix: "128"
@@ -1011,6 +1105,8 @@ EXAMPLES = """
           ipv6_start_ip: "<your_own_value>"
           keepalive: "10"
           keylife: "86400"
+          kms: "<your_own_value> (source vpn.kmip-server.name)"
+          link_cost: "0"
           local_gw: "<your_own_value>"
           localid: "<your_own_value>"
           localid_type: "auto"
@@ -1019,7 +1115,7 @@ EXAMPLES = """
           mode: "aggressive"
           mode_cfg: "disable"
           mode_cfg_allow_client_selector: "disable"
-          name: "default_name_102"
+          name: "default_name_113"
           nattraversal: "enable"
           negotiate_timeout: "30"
           network_id: "0"
@@ -1036,6 +1132,8 @@ EXAMPLES = """
           proposal: "des-md5"
           psksecret: "<your_own_value>"
           psksecret_remote: "<your_own_value>"
+          qkd: "disable"
+          qkd_profile: "<your_own_value> (source vpn.qkd.name)"
           reauth: "disable"
           rekey: "enable"
           remote_gw: "<your_own_value>"
@@ -1047,6 +1145,7 @@ EXAMPLES = """
           signature_hash_alg: "sha1"
           split_include_service: "<your_own_value> (source firewall.service.group.name firewall.service.custom.name)"
           suite_b: "disable"
+          transport: "udp"
           type: "static"
           unity_support: "disable"
           usrgrp: "<your_own_value> (source user.group.name)"
@@ -1155,14 +1254,18 @@ def filter_vpn_ipsec_phase1_data(json):
         "authusr",
         "authusrgrp",
         "auto_negotiate",
+        "azure_ad_autoconnect",
         "backup_gateway",
         "banner",
         "cert_id_validation",
+        "cert_trust_store",
         "certificate",
         "childless_ike",
         "client_auto_negotiate",
         "client_keep_alive",
         "comments",
+        "dev_id",
+        "dev_id_notification",
         "dhcp_ra_giaddr",
         "dhcp6_ra_linkaddr",
         "dhgrp",
@@ -1174,10 +1277,14 @@ def filter_vpn_ipsec_phase1_data(json):
         "dpd_retrycount",
         "dpd_retryinterval",
         "eap",
+        "eap_cert_auth",
         "eap_exclude_peergrp",
         "eap_identity",
+        "ems_sn_check",
         "enforce_unique_id",
         "esn",
+        "exchange_fgt_device_id",
+        "fallback_tcp_threshold",
         "fec_base",
         "fec_codec",
         "fec_egress",
@@ -1189,6 +1296,7 @@ def filter_vpn_ipsec_phase1_data(json):
         "fec_send_timeout",
         "fgsp_sync",
         "forticlient_enforcement",
+        "fortinet_esp",
         "fragmentation",
         "fragmentation_mtu",
         "group_authentication",
@@ -1226,6 +1334,8 @@ def filter_vpn_ipsec_phase1_data(json):
         "ipv6_start_ip",
         "keepalive",
         "keylife",
+        "kms",
+        "link_cost",
         "local_gw",
         "localid",
         "localid_type",
@@ -1251,6 +1361,8 @@ def filter_vpn_ipsec_phase1_data(json):
         "proposal",
         "psksecret",
         "psksecret_remote",
+        "qkd",
+        "qkd_profile",
         "reauth",
         "rekey",
         "remote_gw",
@@ -1262,6 +1374,7 @@ def filter_vpn_ipsec_phase1_data(json):
         "signature_hash_alg",
         "split_include_service",
         "suite_b",
+        "transport",
         "type",
         "unity_support",
         "usrgrp",
@@ -1330,9 +1443,8 @@ def vpn_ipsec_phase1(data, fos, check_mode=False):
 
     vpn_ipsec_phase1_data = data["vpn_ipsec_phase1"]
     vpn_ipsec_phase1_data = flatten_multilists_attributes(vpn_ipsec_phase1_data)
-    filtered_data = underscore_to_hyphen(
-        filter_vpn_ipsec_phase1_data(vpn_ipsec_phase1_data)
-    )
+    filtered_data = filter_vpn_ipsec_phase1_data(vpn_ipsec_phase1_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -1396,7 +1508,7 @@ def vpn_ipsec_phase1(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("vpn.ipsec", "phase1", data=filtered_data, vdom=vdom)
+        return fos.set("vpn.ipsec", "phase1", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("vpn.ipsec", "phase1", mkey=filtered_data["name"], vdom=vdom)
@@ -1805,6 +1917,11 @@ versioned_schema = {
             "options": [{"value": "use-id-payload"}, {"value": "send-request"}],
         },
         "eap_exclude_peergrp": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "eap_cert_auth": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "acct_verify": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1906,6 +2023,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "azure_ad_autoconnect": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "rekey": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1976,19 +2098,66 @@ versioned_schema = {
         "fec_receive_timeout": {"v_range": [["v6.2.0", ""]], "type": "integer"},
         "fec_health_check": {"v_range": [["v7.0.2", ""]], "type": "string"},
         "fec_mapping_profile": {"v_range": [["v7.0.2", ""]], "type": "string"},
-        "forticlient_enforcement": {
-            "v_range": [["v6.0.0", "v7.4.0"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "network_overlay": {
-            "v_range": [["v6.2.0", "v7.0.1"]],
+            "v_range": [["v6.2.0", "v7.0.1"], ["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "network_id": {"v_range": [["v6.2.0", "v7.0.1"]], "type": "integer"},
+        "network_id": {
+            "v_range": [["v6.2.0", "v7.0.1"], ["v7.4.2", ""]],
+            "type": "integer",
+        },
+        "dev_id_notification": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "dev_id": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "loopback_asymroute": {
-            "v_range": [["v7.0.0", "v7.0.1"]],
+            "v_range": [["v7.0.0", "v7.0.1"], ["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "link_cost": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "kms": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "exchange_fgt_device_id": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ems_sn_check": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cert_trust_store": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "local"}, {"value": "ems"}],
+        },
+        "qkd": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "allow"}, {"value": "require"}],
+        },
+        "qkd_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "transport": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [
+                {"value": "udp"},
+                {"value": "udp-fallback-tcp"},
+                {"value": "tcp"},
+            ],
+        },
+        "fortinet_esp": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fallback_tcp_threshold": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "forticlient_enforcement": {
+            "v_range": [["v6.0.0", "v7.4.0"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

@@ -40,7 +40,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -307,9 +307,8 @@ def emailfilter_bwl(data, fos, check_mode=False):
     state = data["state"]
 
     emailfilter_bwl_data = data["emailfilter_bwl"]
-    filtered_data = underscore_to_hyphen(
-        filter_emailfilter_bwl_data(emailfilter_bwl_data)
-    )
+    filtered_data = filter_emailfilter_bwl_data(emailfilter_bwl_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -373,7 +372,7 @@ def emailfilter_bwl(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("emailfilter", "bwl", data=filtered_data, vdom=vdom)
+        return fos.set("emailfilter", "bwl", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("emailfilter", "bwl", mkey=filtered_data["id"], vdom=vdom)

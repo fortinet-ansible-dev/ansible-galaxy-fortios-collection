@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -315,11 +315,12 @@ def underscore_to_hyphen(data):
 def endpoint_control_settings(data, fos):
     vdom = data["vdom"]
     endpoint_control_settings_data = data["endpoint_control_settings"]
-    filtered_data = underscore_to_hyphen(
-        filter_endpoint_control_settings_data(endpoint_control_settings_data)
+    filtered_data = filter_endpoint_control_settings_data(
+        endpoint_control_settings_data
     )
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("endpoint-control", "settings", data=filtered_data, vdom=vdom)
+    return fos.set("endpoint-control", "settings", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):

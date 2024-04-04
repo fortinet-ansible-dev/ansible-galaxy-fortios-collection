@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -88,6 +88,13 @@ options:
         default: null
         type: dict
         suboptions:
+            auto_asic_offload:
+                description:
+                    - Enable/disable automatic ASIC offloading.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             checksum_reception:
                 description:
                     - Enable/disable validating checksums in received GRE packets.
@@ -191,6 +198,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_gre_tunnel:
+          auto_asic_offload: "enable"
           checksum_reception: "disable"
           checksum_transmission: "disable"
           diffservcode: "<your_own_value>"
@@ -203,7 +211,7 @@ EXAMPLES = """
           key_outbound: "0"
           local_gw: "<your_own_value>"
           local_gw6: "<your_own_value>"
-          name: "default_name_15"
+          name: "default_name_16"
           remote_gw: "<your_own_value>"
           remote_gw6: "<your_own_value>"
           sequence_number_reception: "disable"
@@ -301,6 +309,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_system_gre_tunnel_data(json):
     option_list = [
+        "auto_asic_offload",
         "checksum_reception",
         "checksum_transmission",
         "diffservcode",
@@ -350,9 +359,8 @@ def system_gre_tunnel(data, fos, check_mode=False):
     state = data["state"]
 
     system_gre_tunnel_data = data["system_gre_tunnel"]
-    filtered_data = underscore_to_hyphen(
-        filter_system_gre_tunnel_data(system_gre_tunnel_data)
-    )
+    filtered_data = filter_system_gre_tunnel_data(system_gre_tunnel_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -416,7 +424,7 @@ def system_gre_tunnel(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("system", "gre-tunnel", data=filtered_data, vdom=vdom)
+        return fos.set("system", "gre-tunnel", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete("system", "gre-tunnel", mkey=filtered_data["name"], vdom=vdom)
@@ -577,6 +585,11 @@ versioned_schema = {
         "diffservcode": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "keepalive_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "keepalive_failtimes": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "auto_asic_offload": {
+            "v_range": [["v7.4.2", "v7.4.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }

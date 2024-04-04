@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -319,6 +319,10 @@ options:
             ble_profile:
                 description:
                     - Bluetooth Low Energy profile name. Source wireless-controller.ble-profile.name.
+                type: str
+            bonjour_profile:
+                description:
+                    - Bonjour profile name. Source wireless-controller.bonjour-profile.name.
                 type: str
             comment:
                 description:
@@ -943,7 +947,12 @@ options:
                             - '233G'
                             - '234G'
                             - '431G'
+                            - '432G'
                             - '433G'
+                            - '241K'
+                            - '243K'
+                            - '441K'
+                            - '443K'
                             - 'U421E'
                             - 'U422EV'
                             - 'U423E'
@@ -1299,6 +1308,7 @@ options:
                         type: str
                         choices:
                             - 'none'
+                            - 'custom'
                             - 'FANT-04ABGN-0606-O-N'
                             - 'FANT-04ABGN-1414-P-N'
                             - 'FANT-04ABGN-8065-P-N'
@@ -1306,6 +1316,10 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                    optional_antenna_gain:
+                        description:
+                            - Optional antenna gain in dBi (0 to 20).
+                        type: str
                     power_level:
                         description:
                             - Radio EIRP power level as a percentage of the maximum EIRP power (0 - 100).
@@ -1354,6 +1368,10 @@ options:
                         description:
                             - BSSID for WiFi network.
                         type: str
+                    sam_ca_certificate:
+                        description:
+                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_captive_portal:
                         description:
                             - Enable/disable Captive Portal Authentication .
@@ -1361,6 +1379,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    sam_client_certificate:
+                        description:
+                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_cwp_failure_string:
                         description:
                             - Failure identification on the page after an incorrect login.
@@ -1385,9 +1407,25 @@ options:
                         description:
                             - Username for captive portal authentication.
                         type: str
+                    sam_eap_method:
+                        description:
+                            - Select WPA2/WPA3-ENTERPRISE EAP Method .
+                        type: str
+                        choices:
+                            - 'both'
+                            - 'tls'
+                            - 'peap'
                     sam_password:
                         description:
                             - Passphrase for WiFi network connection.
+                        type: str
+                    sam_private_key:
+                        description:
+                            - Private key for WPA2/WPA3-ENTERPRISE.
+                        type: str
+                    sam_private_key_password:
+                        description:
+                            - Password for private key file for WPA2/WPA3-ENTERPRISE.
                         type: str
                     sam_report_intv:
                         description:
@@ -1401,6 +1439,8 @@ options:
                             - 'open'
                             - 'wpa-personal'
                             - 'wpa-enterprise'
+                            - 'wpa3-sae'
+                            - 'owe'
                     sam_server:
                         description:
                             - SAM test server IP address or domain name.
@@ -1793,6 +1833,7 @@ options:
                         type: str
                         choices:
                             - 'none'
+                            - 'custom'
                             - 'FANT-04ABGN-0606-O-N'
                             - 'FANT-04ABGN-1414-P-N'
                             - 'FANT-04ABGN-8065-P-N'
@@ -1800,6 +1841,10 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                    optional_antenna_gain:
+                        description:
+                            - Optional antenna gain in dBi (0 to 20).
+                        type: str
                     power_level:
                         description:
                             - Radio EIRP power level as a percentage of the maximum EIRP power (0 - 100).
@@ -1848,6 +1893,10 @@ options:
                         description:
                             - BSSID for WiFi network.
                         type: str
+                    sam_ca_certificate:
+                        description:
+                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_captive_portal:
                         description:
                             - Enable/disable Captive Portal Authentication .
@@ -1855,6 +1904,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    sam_client_certificate:
+                        description:
+                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_cwp_failure_string:
                         description:
                             - Failure identification on the page after an incorrect login.
@@ -1879,9 +1932,25 @@ options:
                         description:
                             - Username for captive portal authentication.
                         type: str
+                    sam_eap_method:
+                        description:
+                            - Select WPA2/WPA3-ENTERPRISE EAP Method .
+                        type: str
+                        choices:
+                            - 'both'
+                            - 'tls'
+                            - 'peap'
                     sam_password:
                         description:
                             - Passphrase for WiFi network connection.
+                        type: str
+                    sam_private_key:
+                        description:
+                            - Private key for WPA2/WPA3-ENTERPRISE.
+                        type: str
+                    sam_private_key_password:
+                        description:
+                            - Password for private key file for WPA2/WPA3-ENTERPRISE.
                         type: str
                     sam_report_intv:
                         description:
@@ -1895,6 +1964,8 @@ options:
                             - 'open'
                             - 'wpa-personal'
                             - 'wpa-enterprise'
+                            - 'wpa3-sae'
+                            - 'owe'
                     sam_server:
                         description:
                             - SAM test server IP address or domain name.
@@ -2287,6 +2358,7 @@ options:
                         type: str
                         choices:
                             - 'none'
+                            - 'custom'
                             - 'FANT-04ABGN-0606-O-N'
                             - 'FANT-04ABGN-1414-P-N'
                             - 'FANT-04ABGN-8065-P-N'
@@ -2294,6 +2366,10 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                    optional_antenna_gain:
+                        description:
+                            - Optional antenna gain in dBi (0 to 20).
+                        type: str
                     power_level:
                         description:
                             - Radio EIRP power level as a percentage of the maximum EIRP power (0 - 100).
@@ -2342,6 +2418,10 @@ options:
                         description:
                             - BSSID for WiFi network.
                         type: str
+                    sam_ca_certificate:
+                        description:
+                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_captive_portal:
                         description:
                             - Enable/disable Captive Portal Authentication .
@@ -2349,6 +2429,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    sam_client_certificate:
+                        description:
+                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_cwp_failure_string:
                         description:
                             - Failure identification on the page after an incorrect login.
@@ -2373,9 +2457,25 @@ options:
                         description:
                             - Username for captive portal authentication.
                         type: str
+                    sam_eap_method:
+                        description:
+                            - Select WPA2/WPA3-ENTERPRISE EAP Method .
+                        type: str
+                        choices:
+                            - 'both'
+                            - 'tls'
+                            - 'peap'
                     sam_password:
                         description:
                             - Passphrase for WiFi network connection.
+                        type: str
+                    sam_private_key:
+                        description:
+                            - Private key for WPA2/WPA3-ENTERPRISE.
+                        type: str
+                    sam_private_key_password:
+                        description:
+                            - Password for private key file for WPA2/WPA3-ENTERPRISE.
                         type: str
                     sam_report_intv:
                         description:
@@ -2389,6 +2489,8 @@ options:
                             - 'open'
                             - 'wpa-personal'
                             - 'wpa-enterprise'
+                            - 'wpa3-sae'
+                            - 'owe'
                     sam_server:
                         description:
                             - SAM test server IP address or domain name.
@@ -2590,7 +2692,7 @@ options:
                         type: str
                     band:
                         description:
-                            - WiFi band that Radio 3 operates on.
+                            - WiFi band that Radio 4 operates on.
                         type: str
                         choices:
                             - '802.11a'
@@ -2767,7 +2869,7 @@ options:
                             - '8x8'
                     mode:
                         description:
-                            - Mode of radio 3. Radio 3 can be disabled, configured as an access point, a rogue AP monitor, a sniffer, or a station.
+                            - Mode of radio 4. Radio 4 can be disabled, configured as an access point, a rogue AP monitor, a sniffer, or a station.
                         type: str
                         choices:
                             - 'disabled'
@@ -2781,6 +2883,7 @@ options:
                         type: str
                         choices:
                             - 'none'
+                            - 'custom'
                             - 'FANT-04ABGN-0606-O-N'
                             - 'FANT-04ABGN-1414-P-N'
                             - 'FANT-04ABGN-8065-P-N'
@@ -2788,6 +2891,10 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                    optional_antenna_gain:
+                        description:
+                            - Optional antenna gain in dBi (0 to 20).
+                        type: str
                     power_level:
                         description:
                             - Radio EIRP power level as a percentage of the maximum EIRP power (0 - 100).
@@ -2832,6 +2939,10 @@ options:
                         description:
                             - BSSID for WiFi network.
                         type: str
+                    sam_ca_certificate:
+                        description:
+                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_captive_portal:
                         description:
                             - Enable/disable Captive Portal Authentication .
@@ -2839,6 +2950,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    sam_client_certificate:
+                        description:
+                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                        type: str
                     sam_cwp_failure_string:
                         description:
                             - Failure identification on the page after an incorrect login.
@@ -2863,9 +2978,25 @@ options:
                         description:
                             - Username for captive portal authentication.
                         type: str
+                    sam_eap_method:
+                        description:
+                            - Select WPA2/WPA3-ENTERPRISE EAP Method .
+                        type: str
+                        choices:
+                            - 'both'
+                            - 'tls'
+                            - 'peap'
                     sam_password:
                         description:
                             - Passphrase for WiFi network connection.
+                        type: str
+                    sam_private_key:
+                        description:
+                            - Private key for WPA2/WPA3-ENTERPRISE.
+                        type: str
+                    sam_private_key_password:
+                        description:
+                            - Password for private key file for WPA2/WPA3-ENTERPRISE.
                         type: str
                     sam_report_intv:
                         description:
@@ -2879,6 +3010,8 @@ options:
                             - 'open'
                             - 'wpa-personal'
                             - 'wpa-enterprise'
+                            - 'wpa3-sae'
+                            - 'owe'
                     sam_server:
                         description:
                             - SAM test server IP address or domain name.
@@ -3034,6 +3167,13 @@ options:
                 choices:
                     - 'none'
                     - '802.1x'
+            wan_port_auth_macsec:
+                description:
+                    - Enable/disable WAN port 802.1x supplicant MACsec policy .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             wan_port_auth_methods:
                 description:
                     - WAN port 802.1x supplicant EAP methods .
@@ -3072,12 +3212,13 @@ EXAMPLES = """
           ap_handoff: "enable"
           apcfg_profile: "<your_own_value> (source wireless-controller.apcfg-profile.name)"
           ble_profile: "<your_own_value> (source wireless-controller.ble-profile.name)"
+          bonjour_profile: "<your_own_value> (source wireless-controller.bonjour-profile.name)"
           comment: "Comment."
           console_login: "enable"
           control_message_offload: "ebp-frame"
           deny_mac_list:
               -
-                  id: "12"
+                  id: "13"
                   mac: "<your_own_value>"
           dtls_in_kernel: "enable"
           dtls_policy: "clear-text"
@@ -3162,13 +3303,13 @@ EXAMPLES = """
               station_locate: "enable"
           led_schedules:
               -
-                  name: "default_name_96 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_97 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           led_state: "enable"
           lldp: "enable"
           login_passwd: "<your_own_value>"
           login_passwd_change: "yes"
           max_clients: "0"
-          name: "default_name_102"
+          name: "default_name_103"
           platform:
               ddscan: "enable"
               mode: "single-5G"
@@ -3219,6 +3360,7 @@ EXAMPLES = """
               mimo_mode: "default"
               mode: "disabled"
               optional_antenna: "none"
+              optional_antenna_gain: "<your_own_value>"
               power_level: "100"
               power_mode: "dBm"
               power_value: "27"
@@ -3227,14 +3369,19 @@ EXAMPLES = """
               radio_id: "2"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value>"
               sam_captive_portal: "enable"
+              sam_client_certificate: "<your_own_value>"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
               sam_cwp_success_string: "<your_own_value>"
               sam_cwp_test_url: "<your_own_value>"
               sam_cwp_username: "<your_own_value>"
+              sam_eap_method: "both"
               sam_password: "<your_own_value>"
+              sam_private_key: "<your_own_value>"
+              sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
               sam_server: "<your_own_value>"
@@ -3251,7 +3398,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_183 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_190 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_2:
@@ -3299,6 +3446,7 @@ EXAMPLES = """
               mimo_mode: "default"
               mode: "disabled"
               optional_antenna: "none"
+              optional_antenna_gain: "<your_own_value>"
               power_level: "100"
               power_mode: "dBm"
               power_value: "27"
@@ -3307,14 +3455,19 @@ EXAMPLES = """
               radio_id: "2"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value>"
               sam_captive_portal: "enable"
+              sam_client_certificate: "<your_own_value>"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
               sam_cwp_success_string: "<your_own_value>"
               sam_cwp_test_url: "<your_own_value>"
               sam_cwp_username: "<your_own_value>"
+              sam_eap_method: "both"
               sam_password: "<your_own_value>"
+              sam_private_key: "<your_own_value>"
+              sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
               sam_server: "<your_own_value>"
@@ -3331,7 +3484,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_261 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_274 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_3:
@@ -3340,7 +3493,7 @@ EXAMPLES = """
               ap_handoff: "enable"
               ap_sniffer_addr: "<your_own_value>"
               ap_sniffer_bufsize: "16"
-              ap_sniffer_chan: "6"
+              ap_sniffer_chan: "37"
               ap_sniffer_ctl: "enable"
               ap_sniffer_data: "enable"
               ap_sniffer_mgmt_beacon: "enable"
@@ -3379,6 +3532,7 @@ EXAMPLES = """
               mimo_mode: "default"
               mode: "disabled"
               optional_antenna: "none"
+              optional_antenna_gain: "<your_own_value>"
               power_level: "100"
               power_mode: "dBm"
               power_value: "27"
@@ -3387,14 +3541,19 @@ EXAMPLES = """
               radio_id: "2"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value>"
               sam_captive_portal: "enable"
+              sam_client_certificate: "<your_own_value>"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
               sam_cwp_success_string: "<your_own_value>"
               sam_cwp_test_url: "<your_own_value>"
               sam_cwp_username: "<your_own_value>"
+              sam_eap_method: "both"
               sam_password: "<your_own_value>"
+              sam_private_key: "<your_own_value>"
+              sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
               sam_server: "<your_own_value>"
@@ -3411,7 +3570,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_339 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_358 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_4:
@@ -3459,6 +3618,7 @@ EXAMPLES = """
               mimo_mode: "default"
               mode: "disabled"
               optional_antenna: "none"
+              optional_antenna_gain: "<your_own_value>"
               power_level: "100"
               power_mode: "dBm"
               power_value: "27"
@@ -3466,14 +3626,19 @@ EXAMPLES = """
               protection_mode: "rtscts"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value>"
               sam_captive_portal: "enable"
+              sam_client_certificate: "<your_own_value>"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
               sam_cwp_success_string: "<your_own_value>"
               sam_cwp_test_url: "<your_own_value>"
               sam_cwp_username: "<your_own_value>"
+              sam_eap_method: "both"
               sam_password: "<your_own_value>"
+              sam_private_key: "<your_own_value>"
+              sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
               sam_server: "<your_own_value>"
@@ -3490,13 +3655,13 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_416 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_441 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "421"
+                  id: "446"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           syslog_profile: "<your_own_value> (source wireless-controller.syslog-profile.name)"
@@ -3504,6 +3669,7 @@ EXAMPLES = """
           tun_mtu_uplink: "0"
           unii_4_5ghz_band: "enable"
           wan_port_auth: "none"
+          wan_port_auth_macsec: "enable"
           wan_port_auth_methods: "all"
           wan_port_auth_password: "<your_own_value>"
           wan_port_auth_usrname: "<your_own_value>"
@@ -3605,6 +3771,7 @@ def filter_wireless_controller_wtp_profile_data(json):
         "ap_handoff",
         "apcfg_profile",
         "ble_profile",
+        "bonjour_profile",
         "comment",
         "console_login",
         "control_message_offload",
@@ -3643,6 +3810,7 @@ def filter_wireless_controller_wtp_profile_data(json):
         "tun_mtu_uplink",
         "unii_4_5ghz_band",
         "wan_port_auth",
+        "wan_port_auth_macsec",
         "wan_port_auth_methods",
         "wan_port_auth_password",
         "wan_port_auth_usrname",
@@ -3713,9 +3881,9 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    specillist = {"80211d": "set_80211d"}
+    speciallist = {"80211d": "set_80211d"}
 
-    for k, v in specillist.items():
+    for k, v in speciallist.items():
         if v == data:
             return k
 
@@ -3724,8 +3892,11 @@ def valid_attr_to_invalid_attr(data):
 
 def valid_attr_to_invalid_attrs(data):
     if isinstance(data, list):
+        new_data = []
         for elem in data:
             elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
@@ -3744,12 +3915,10 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
     wireless_controller_wtp_profile_data = flatten_multilists_attributes(
         wireless_controller_wtp_profile_data
     )
-    filtered_data = underscore_to_hyphen(
-        filter_wireless_controller_wtp_profile_data(
-            wireless_controller_wtp_profile_data
-        )
+    filtered_data = filter_wireless_controller_wtp_profile_data(
+        wireless_controller_wtp_profile_data
     )
-    converted_data = valid_attr_to_invalid_attrs(filtered_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:
@@ -3957,10 +4126,15 @@ versioned_schema = {
                             "value": "431G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
+                        {"value": "432G", "v_range": [["v7.4.2", ""]]},
                         {
                             "value": "433G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
+                        {"value": "241K", "v_range": [["v7.4.2", ""]]},
+                        {"value": "243K", "v_range": [["v7.4.2", ""]]},
+                        {"value": "441K", "v_range": [["v7.4.2", ""]]},
+                        {"value": "443K", "v_range": [["v7.4.2", ""]]},
                         {"value": "U421E"},
                         {"value": "U422EV"},
                         {"value": "U423E"},
@@ -4049,6 +4223,7 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
+        "bonjour_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "apcfg_profile": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "ble_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "syslog_profile": {"v_range": [["v7.0.2", ""]], "type": "string"},
@@ -4687,6 +4862,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "none"},
+                        {"value": "custom", "v_range": [["v7.4.2", ""]]},
                         {"value": "FANT-04ABGN-0606-O-N"},
                         {"value": "FANT-04ABGN-1414-P-N"},
                         {"value": "FANT-04ABGN-8065-P-N"},
@@ -4695,6 +4871,10 @@ versioned_schema = {
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
                     ],
+                },
+                "optional_antenna_gain": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
                 },
                 "auto_power_level": {
                     "v_range": [["v6.0.0", ""]],
@@ -4752,6 +4932,8 @@ versioned_schema = {
                         {"value": "open"},
                         {"value": "wpa-personal"},
                         {"value": "wpa-enterprise"},
+                        {"value": "wpa3-sae", "v_range": [["v7.4.2", ""]]},
+                        {"value": "owe", "v_range": [["v7.4.2", ""]]},
                     ],
                 },
                 "sam_captive_portal": {
@@ -4771,6 +4953,21 @@ versioned_schema = {
                     "v_range": [["v7.0.1", ""]],
                     "type": "string",
                 },
+                "sam_eap_method": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "both"}, {"value": "tls"}, {"value": "peap"}],
+                },
+                "sam_client_certificate": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_private_key": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "sam_private_key_password": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_ca_certificate": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "sam_username": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_password": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_test": {
@@ -5049,6 +5246,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "none"},
+                        {"value": "custom", "v_range": [["v7.4.2", ""]]},
                         {"value": "FANT-04ABGN-0606-O-N"},
                         {"value": "FANT-04ABGN-1414-P-N"},
                         {"value": "FANT-04ABGN-8065-P-N"},
@@ -5057,6 +5255,10 @@ versioned_schema = {
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
                     ],
+                },
+                "optional_antenna_gain": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
                 },
                 "auto_power_level": {
                     "v_range": [["v6.0.0", ""]],
@@ -5114,6 +5316,8 @@ versioned_schema = {
                         {"value": "open"},
                         {"value": "wpa-personal"},
                         {"value": "wpa-enterprise"},
+                        {"value": "wpa3-sae", "v_range": [["v7.4.2", ""]]},
+                        {"value": "owe", "v_range": [["v7.4.2", ""]]},
                     ],
                 },
                 "sam_captive_portal": {
@@ -5133,6 +5337,21 @@ versioned_schema = {
                     "v_range": [["v7.0.1", ""]],
                     "type": "string",
                 },
+                "sam_eap_method": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "both"}, {"value": "tls"}, {"value": "peap"}],
+                },
+                "sam_client_certificate": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_private_key": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "sam_private_key_password": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_ca_certificate": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "sam_username": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_password": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_test": {
@@ -5411,6 +5630,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "none"},
+                        {"value": "custom", "v_range": [["v7.4.2", ""]]},
                         {"value": "FANT-04ABGN-0606-O-N"},
                         {"value": "FANT-04ABGN-1414-P-N"},
                         {"value": "FANT-04ABGN-8065-P-N"},
@@ -5419,6 +5639,10 @@ versioned_schema = {
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
                     ],
+                },
+                "optional_antenna_gain": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
                 },
                 "auto_power_level": {
                     "v_range": [["v6.2.0", ""]],
@@ -5476,6 +5700,8 @@ versioned_schema = {
                         {"value": "open"},
                         {"value": "wpa-personal"},
                         {"value": "wpa-enterprise"},
+                        {"value": "wpa3-sae", "v_range": [["v7.4.2", ""]]},
+                        {"value": "owe", "v_range": [["v7.4.2", ""]]},
                     ],
                 },
                 "sam_captive_portal": {
@@ -5495,6 +5721,21 @@ versioned_schema = {
                     "v_range": [["v7.0.1", ""]],
                     "type": "string",
                 },
+                "sam_eap_method": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "both"}, {"value": "tls"}, {"value": "peap"}],
+                },
+                "sam_client_certificate": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_private_key": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "sam_private_key_password": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_ca_certificate": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "sam_username": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_password": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_test": {
@@ -5770,6 +6011,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "none"},
+                        {"value": "custom", "v_range": [["v7.4.2", ""]]},
                         {"value": "FANT-04ABGN-0606-O-N"},
                         {"value": "FANT-04ABGN-1414-P-N"},
                         {"value": "FANT-04ABGN-8065-P-N"},
@@ -5778,6 +6020,10 @@ versioned_schema = {
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
                     ],
+                },
+                "optional_antenna_gain": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
                 },
                 "auto_power_level": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -5865,6 +6111,8 @@ versioned_schema = {
                         {"value": "open"},
                         {"value": "wpa-personal"},
                         {"value": "wpa-enterprise"},
+                        {"value": "wpa3-sae", "v_range": [["v7.4.2", ""]]},
+                        {"value": "owe", "v_range": [["v7.4.2", ""]]},
                     ],
                 },
                 "sam_captive_portal": {
@@ -5884,6 +6132,21 @@ versioned_schema = {
                     "v_range": [["v7.0.1", ""]],
                     "type": "string",
                 },
+                "sam_eap_method": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                    "options": [{"value": "both"}, {"value": "tls"}, {"value": "peap"}],
+                },
+                "sam_client_certificate": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_private_key": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "sam_private_key_password": {
+                    "v_range": [["v7.4.2", ""]],
+                    "type": "string",
+                },
+                "sam_ca_certificate": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "sam_username": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_password": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "sam_test": {
@@ -6266,6 +6529,11 @@ versioned_schema = {
                 {"value": "EAP-TLS"},
                 {"value": "EAP-PEAP"},
             ],
+        },
+        "wan_port_auth_macsec": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "unii_4_5ghz_band": {
             "v_range": [["v7.4.0", ""]],

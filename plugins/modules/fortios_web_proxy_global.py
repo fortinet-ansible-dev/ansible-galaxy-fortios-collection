@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -143,9 +143,23 @@ options:
                             - Address name. Source firewall.address6.name firewall.addrgrp6.name.
                         required: true
                         type: str
+            log_app_id:
+                description:
+                    - Enable/disable always log application type in traffic log.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             log_forward_server:
                 description:
                     - Enable/disable forward server name logging in forward traffic log.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            log_policy_pending:
+                description:
+                    - Enable/disable logging sessions that are pending on policy matching.
                 type: str
                 choices:
                     - 'enable'
@@ -162,6 +176,13 @@ options:
                 description:
                     - Maximum length of HTTP messages processed by Web Application Firewall (WAF) (10 - 1024 Kbytes).
                 type: int
+            policy_category_deep_inspect:
+                description:
+                    - Enable/disable deep inspection for application level category policy matching.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             proxy_fqdn:
                 description:
                     - Fully Qualified Domain Name (FQDN) that clients connect to  to connect to the explicit web proxy.
@@ -230,10 +251,13 @@ EXAMPLES = """
           learn_client_ip_srcaddr6:
               -
                   name: "default_name_12 (source firewall.address6.name firewall.addrgrp6.name)"
+          log_app_id: "enable"
           log_forward_server: "enable"
+          log_policy_pending: "enable"
           max_message_length: "32"
           max_request_length: "8"
           max_waf_body_cache_length: "32"
+          policy_category_deep_inspect: "enable"
           proxy_fqdn: "<your_own_value>"
           src_affinity_exempt_addr: "<your_own_value>"
           src_affinity_exempt_addr6: "<your_own_value>"
@@ -334,10 +358,13 @@ def filter_web_proxy_global_data(json):
         "learn_client_ip_from_header",
         "learn_client_ip_srcaddr",
         "learn_client_ip_srcaddr6",
+        "log_app_id",
         "log_forward_server",
+        "log_policy_pending",
         "max_message_length",
         "max_request_length",
         "max_waf_body_cache_length",
+        "policy_category_deep_inspect",
         "proxy_fqdn",
         "src_affinity_exempt_addr",
         "src_affinity_exempt_addr6",
@@ -407,11 +434,10 @@ def web_proxy_global(data, fos):
     vdom = data["vdom"]
     web_proxy_global_data = data["web_proxy_global"]
     web_proxy_global_data = flatten_multilists_attributes(web_proxy_global_data)
-    filtered_data = underscore_to_hyphen(
-        filter_web_proxy_global_data(web_proxy_global_data)
-    )
+    filtered_data = filter_web_proxy_global_data(web_proxy_global_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
-    return fos.set("web-proxy", "global", data=filtered_data, vdom=vdom)
+    return fos.set("web-proxy", "global", data=converted_data, vdom=vdom)
 
 
 def is_successful_status(resp):
@@ -529,8 +555,23 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
+        "policy_category_deep_inspect": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "log_policy_pending": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "log_forward_server": {
             "v_range": [["v7.4.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "log_app_id": {
+            "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

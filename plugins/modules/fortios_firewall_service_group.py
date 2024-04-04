@@ -38,7 +38,7 @@ notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
 requirements:
-    - ansible>=2.14
+    - ansible>=2.15
 options:
     access_token:
         description:
@@ -126,6 +126,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
 
 EXAMPLES = """
@@ -143,6 +147,7 @@ EXAMPLES = """
                   name: "default_name_7 (source firewall.service.custom.name firewall.service.group.name)"
           name: "default_name_8"
           proxy: "enable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -234,7 +239,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_service_group_data(json):
-    option_list = ["color", "comment", "fabric_object", "member", "name", "proxy"]
+    option_list = [
+        "color",
+        "comment",
+        "fabric_object",
+        "member",
+        "name",
+        "proxy",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -265,9 +278,8 @@ def firewall_service_group(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_service_group_data = data["firewall_service_group"]
-    filtered_data = underscore_to_hyphen(
-        filter_firewall_service_group_data(firewall_service_group_data)
-    )
+    filtered_data = filter_firewall_service_group_data(firewall_service_group_data)
+    converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
     if check_mode:
@@ -331,7 +343,7 @@ def firewall_service_group(data, fos, check_mode=False):
         return True, False, {"reason: ": "Must provide state parameter"}, {}
 
     if state == "present" or state is True:
-        return fos.set("firewall.service", "group", data=filtered_data, vdom=vdom)
+        return fos.set("firewall.service", "group", data=converted_data, vdom=vdom)
 
     elif state == "absent":
         return fos.delete(
@@ -375,6 +387,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "proxy": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
