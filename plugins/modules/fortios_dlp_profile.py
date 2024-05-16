@@ -260,7 +260,7 @@ options:
                         type: str
                         choices:
                             - 'file'
-                            - 'fos_message'
+                            - 'message'
             summary_proto:
                 description:
                     - Protocols to always log summary.
@@ -466,7 +466,7 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    speciallist = {"message": "fos_message"}
+    speciallist = {"message": "message"}
 
     for k, v in speciallist.items():
         if v == data:
@@ -574,7 +574,7 @@ versioned_schema = {
                 "type": {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
-                    "options": [{"value": "file"}, {"value": "fos_message"}],
+                    "options": [{"value": "file"}, {"value": "message"}],
                 },
                 "proto": {
                     "v_range": [["v7.2.0", ""]],
