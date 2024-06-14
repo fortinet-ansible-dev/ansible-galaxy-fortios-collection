@@ -459,7 +459,7 @@ def router_static(data, fos, check_mode=False):
         return fos.set("router", "static", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("router", "static", mkey=filtered_data["seq-num"], vdom=vdom)
+        return fos.delete("router", "static", mkey=filtered_data["seq_num"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
