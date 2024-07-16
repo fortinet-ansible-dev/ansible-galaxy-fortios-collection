@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -80,6 +81,13 @@ options:
         default: null
         type: dict
         suboptions:
+            always_learn_client_ip:
+                description:
+                    - Enable/disable learning the client"s IP address from headers for every request.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fast_policy_match:
                 description:
                     - Enable/disable fast matching algorithm for explicit and transparent proxy policy.
@@ -187,6 +195,13 @@ options:
                 description:
                     - Fully Qualified Domain Name (FQDN) that clients connect to  to connect to the explicit web proxy.
                 type: str
+            proxy_transparent_cert_inspection:
+                description:
+                    - Enable/disable transparent proxy certificate inspection.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             src_affinity_exempt_addr:
                 description:
                     - IPv4 source addresses to exempt proxy affinity.
@@ -239,6 +254,7 @@ EXAMPLES = """
   fortinet.fortios.fortios_web_proxy_global:
       vdom: "{{ vdom }}"
       web_proxy_global:
+          always_learn_client_ip: "enable"
           fast_policy_match: "enable"
           forward_proxy_auth: "enable"
           forward_server_affinity_timeout: "30"
@@ -247,10 +263,10 @@ EXAMPLES = """
           learn_client_ip_from_header: "true-client-ip"
           learn_client_ip_srcaddr:
               -
-                  name: "default_name_10 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_11 (source firewall.address.name firewall.addrgrp.name)"
           learn_client_ip_srcaddr6:
               -
-                  name: "default_name_12 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_13 (source firewall.address6.name firewall.addrgrp6.name)"
           log_app_id: "enable"
           log_forward_server: "enable"
           log_policy_pending: "enable"
@@ -259,6 +275,7 @@ EXAMPLES = """
           max_waf_body_cache_length: "32"
           policy_category_deep_inspect: "enable"
           proxy_fqdn: "<your_own_value>"
+          proxy_transparent_cert_inspection: "enable"
           src_affinity_exempt_addr: "<your_own_value>"
           src_affinity_exempt_addr6: "<your_own_value>"
           ssl_ca_cert: "<your_own_value> (source vpn.certificate.local.name)"
@@ -350,6 +367,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_web_proxy_global_data(json):
     option_list = [
+        "always_learn_client_ip",
         "fast_policy_match",
         "forward_proxy_auth",
         "forward_server_affinity_timeout",
@@ -366,6 +384,7 @@ def filter_web_proxy_global_data(json):
         "max_waf_body_cache_length",
         "policy_category_deep_inspect",
         "proxy_fqdn",
+        "proxy_transparent_cert_inspection",
         "src_affinity_exempt_addr",
         "src_affinity_exempt_addr6",
         "ssl_ca_cert",
@@ -431,6 +450,7 @@ def underscore_to_hyphen(data):
 
 
 def web_proxy_global(data, fos):
+    state = None
     vdom = data["vdom"]
     web_proxy_global_data = data["web_proxy_global"]
     web_proxy_global_data = flatten_multilists_attributes(web_proxy_global_data)
@@ -508,6 +528,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "always_learn_client_ip": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "learn_client_ip_from_header": {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
@@ -575,6 +600,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "proxy_transparent_cert_inspection": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "tunnel_non_http": {
             "v_range": [["v6.0.0", "v6.2.7"]],
             "type": "string",
@@ -632,12 +662,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "web_proxy_global"

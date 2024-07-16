@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -89,10 +91,6 @@ options:
         type: dict
         suboptions:
             apn:
-                description:
-                    - APN configuration.
-                type: str
-            APN:
                 description:
                     - APN configuration.
                 type: str
@@ -156,14 +154,6 @@ options:
                     - 'ipv4-only'
                     - 'ipv6-only'
                     - 'ipv4-ipv6'
-            PDN:
-                description:
-                    - PDN type.
-                type: str
-                choices:
-                    - 'ipv4-only'
-                    - 'ipv6-only'
-                    - 'ipv4-ipv6'
             preferred_subnet:
                 description:
                     - Preferred subnet mask (0 - 32).
@@ -213,7 +203,6 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       extender_controller_dataplan:
           apn: "<your_own_value>"
-          APN: "<your_own_value>"
           auth_type: "none"
           billing_date: "1"
           capacity: "0"
@@ -221,11 +210,10 @@ EXAMPLES = """
           iccid: "<your_own_value>"
           modem_id: "modem1"
           monthly_fee: "0"
-          name: "default_name_12"
+          name: "default_name_11"
           overage: "disable"
           password: "<your_own_value>"
           pdn: "ipv4-only"
-          PDN: "ipv4-only"
           preferred_subnet: "32"
           private_network: "disable"
           signal_period: "3600"
@@ -326,7 +314,6 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_extender_controller_dataplan_data(json):
     option_list = [
         "apn",
-        "APN",
         "auth_type",
         "billing_date",
         "capacity",
@@ -338,7 +325,6 @@ def filter_extender_controller_dataplan_data(json):
         "overage",
         "password",
         "pdn",
-        "PDN",
         "preferred_subnet",
         "private_network",
         "signal_period",
@@ -372,6 +358,7 @@ def underscore_to_hyphen(data):
 
 
 def extender_controller_dataplan(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -450,7 +437,7 @@ def extender_controller_dataplan(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "extender-controller", "dataplan", mkey=filtered_data["name"], vdom=vdom
+            "extender-controller", "dataplan", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -524,7 +511,10 @@ versioned_schema = {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.2.0"]],
             "type": "string",
         },
-        "apn": {"v_range": [["v6.4.4", "v7.2.0"]], "type": "string"},
+        "apn": {
+            "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.2.0"]],
+            "type": "string",
+        },
         "auth_type": {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.2.0"]],
             "type": "string",
@@ -539,7 +529,7 @@ versioned_schema = {
             "type": "string",
         },
         "pdn": {
-            "v_range": [["v6.4.4", "v7.2.0"]],
+            "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.2.0"]],
             "type": "string",
             "options": [
                 {"value": "ipv4-only"},
@@ -580,16 +570,6 @@ versioned_schema = {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.2.0"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "APN": {"v_range": [["v6.4.0", "v6.4.0"]], "type": "string"},
-        "PDN": {
-            "v_range": [["v6.4.0", "v6.4.0"]],
-            "type": "string",
-            "options": [
-                {"value": "ipv4-only"},
-                {"value": "ipv6-only"},
-                {"value": "ipv4-ipv6"},
-            ],
         },
     },
     "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.2.0"]],
@@ -638,12 +618,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "extender_controller_dataplan"

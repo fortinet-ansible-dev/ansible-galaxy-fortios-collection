@@ -5,6 +5,37 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.7
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.7
+
+Major Changes
+-------------
+
+- Add a sanity_test.yaml file to trigger CI tests in GitHub.
+- Support Ansible-core 2.17.
+- Support new FOS versions 7.4.4.
+
+Bugfixes
+--------
+
+- Fix some issues in sanity test.
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- Github issue
+- mantis issue
+- mantis issue
+- mantis issue
+
 v2.3.6
 ======
 

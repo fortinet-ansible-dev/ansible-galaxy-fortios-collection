@@ -452,6 +452,8 @@ options:
                  - 'router_sdwan_routes-statistics'
                  - 'extender-controller_extender_modem-firmware'
                  - 'user_radius_get-test-connect'
+                 - 'endpoint-control_ems_malware-hash'
+                 - 'switch-controller_managed-switch_health-status'
 
     selector:
         description:
@@ -784,6 +786,8 @@ options:
          - 'router_sdwan_routes-statistics'
          - 'extender-controller_extender_modem-firmware'
          - 'user_radius_get-test-connect'
+         - 'endpoint-control_ems_malware-hash'
+         - 'switch-controller_managed-switch_health-status'
 
     params:
         description:
@@ -883,7 +887,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import (
     FAIL_SOCKET_MSG,
 )
-from urllib.parse import quote
+
+# from urllib.parse import quote
+try:
+    # For Python 3
+    from urllib.parse import quote
+except ImportError:
+    # For Python 2
+    from urllib import quote
 
 module_selectors_defs = {
     "endpoint-control_profile_xml": {
@@ -976,6 +987,7 @@ module_selectors_defs = {
         "url": "firewall/session",
         "params": {
             "ip_version": {"type": "string", "required": "False"},
+            "count": {"type": "int", "required": "True"},
             "summary": {"type": "boolean", "required": "False"},
             "sourceport": {"type": "int", "required": "False"},
             "policyid": {"type": "int", "required": "False"},
@@ -1013,7 +1025,10 @@ module_selectors_defs = {
         "url": "firewall/per-ip-shaper",
         "params": {"shaper_name": {"type": "string", "required": "False"}},
     },
-    "firewall_load-balance": {"url": "firewall/load-balance", "params": {}},
+    "firewall_load-balance": {
+        "url": "firewall/load-balance",
+        "params": {"count": {"type": "int", "required": "True"}},
+    },
     "firewall_address-fqdns": {
         "url": "firewall/address-fqdns",
         "params": {"mkey": {"type": "string", "required": "False"}},
@@ -1127,6 +1142,7 @@ module_selectors_defs = {
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
+            "origin": {"type": "string", "required": "False"},
             "interface": {"type": "string", "required": "False"},
         },
     },
@@ -1136,6 +1152,7 @@ module_selectors_defs = {
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
+            "origin": {"type": "string", "required": "False"},
             "interface": {"type": "string", "required": "False"},
         },
     },
@@ -1146,6 +1163,7 @@ module_selectors_defs = {
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
+            "origin": {"type": "string", "required": "False"},
             "interface": {"type": "string", "required": "False"},
         },
     },
@@ -1303,7 +1321,10 @@ module_selectors_defs = {
         "url": "system/fortiguard/server-info",
         "params": {},
     },
-    "system_fortimanager_status": {"url": "system/fortimanager/status", "params": {}},
+    "system_fortimanager_status": {
+        "url": "system/fortimanager/status",
+        "params": {"skip_detect": {"type": "boolean", "required": "False"}},
+    },
     "system_fortimanager_backup-summary": {
         "url": "system/fortimanager/backup-summary",
         "params": {},
@@ -1627,10 +1648,19 @@ module_selectors_defs = {
             "layout": {"type": "string", "required": "False"},
         },
     },
-    "network_lldp_neighbors": {"url": "network/lldp/neighbors", "params": {}},
+    "network_lldp_neighbors": {
+        "url": "network/lldp/neighbors",
+        "params": {
+            "scope": {"type": "string", "required": "False"},
+            "port": {"type": "string", "required": "False"},
+        },
+    },
     "network_lldp_ports": {
         "url": "network/lldp/ports",
-        "params": {"mkey": {"type": "string", "required": "False"}},
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "scope": {"type": "string", "required": "False"},
+        },
     },
     "network_dns_latency": {"url": "network/dns/latency", "params": {}},
     "network_fortiguard_live-services-latency": {
@@ -1728,7 +1758,10 @@ module_selectors_defs = {
     },
     "utm_blacklisted-certificates": {
         "url": "utm/blacklisted-certificates",
-        "params": {},
+        "params": {
+            "start": {"type": "int", "required": "True"},
+            "count": {"type": "int", "required": "True"},
+        },
     },
     "utm_blacklisted-certificates_statistics": {
         "url": "utm/blacklisted-certificates/statistics",
@@ -2021,6 +2054,7 @@ module_selectors_defs = {
         "url": "firewall/proxy/sessions",
         "params": {
             "ip_version": {"type": "string", "required": "False"},
+            "count": {"type": "int", "required": "True"},
             "summary": {"type": "boolean", "required": "False"},
             "srcaddr": {"type": "object", "required": "False"},
             "dstaddr": {"type": "object", "required": "False"},
@@ -2300,7 +2334,7 @@ module_selectors_defs = {
     },
     "system_central-management_status": {
         "url": "system/central-management/status",
-        "params": {},
+        "params": {"skip_detect": {"type": "boolean", "required": "False"}},
     },
     "user_device_stats": {
         "url": "user/device/stats",
@@ -2364,6 +2398,17 @@ module_selectors_defs = {
             "auth_type": {"type": "string", "required": "False"},
             "user": {"type": "string", "required": "False"},
             "password": {"type": "string", "required": "False"},
+        },
+    },
+    "endpoint-control_ems_malware-hash": {
+        "url": "endpoint-control/ems/malware-hash",
+        "params": {},
+    },
+    "switch-controller_managed-switch_health-status": {
+        "url": "switch-controller/managed-switch/health-status",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "serial": {"type": "string", "required": "False"},
         },
     },
 }
@@ -2804,6 +2849,8 @@ def main():
                 "router_sdwan_routes-statistics",
                 "extender-controller_extender_modem-firmware",
                 "user_radius_get-test-connect",
+                "endpoint-control_ems_malware-hash",
+                "switch-controller_managed-switch_health-status",
             ],
         },
         "selectors": {
@@ -3144,6 +3191,8 @@ def main():
                         "router_sdwan_routes-statistics",
                         "extender-controller_extender_modem-firmware",
                         "user_radius_get-test-connect",
+                        "endpoint-control_ems_malware-hash",
+                        "switch-controller_managed-switch_health-status",
                     ],
                 },
             },
@@ -3165,13 +3214,13 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         # Logging for fact module could be disabled/enabled.
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
 
         fos = FortiOSHandler(connection, module)
 

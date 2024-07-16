@@ -39,6 +39,8 @@ notes:
        available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -163,6 +165,10 @@ options:
                             - 'iso'
                             - 'crx'
                             - 'flac'
+                            - 'registry'
+                            - 'hwp'
+                            - 'rpm'
+                            - 'c/cpp'
                             - 'msc'
                             - 'ignored'
                     filter_type:
@@ -320,6 +326,7 @@ def underscore_to_hyphen(data):
 
 
 def dlp_filepattern(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -393,7 +400,7 @@ def dlp_filepattern(data, fos, check_mode=False):
         return fos.set("dlp", "filepattern", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("dlp", "filepattern", mkey=filtered_data["id"], vdom=vdom)
+        return fos.delete("dlp", "filepattern", mkey=converted_data["id"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -510,6 +517,10 @@ versioned_schema = {
                         {"value": "iso"},
                         {"value": "crx"},
                         {"value": "flac", "v_range": [["v6.2.0", ""]]},
+                        {"value": "registry", "v_range": [["v7.4.4", ""]]},
+                        {"value": "hwp", "v_range": [["v7.4.4", ""]]},
+                        {"value": "rpm", "v_range": [["v7.4.4", ""]]},
+                        {"value": "c/cpp", "v_range": [["v7.4.4", ""]]},
                         {"value": "msc", "v_range": [["v6.0.0", "v6.4.1"]]},
                         {"value": "ignored", "v_range": [["v6.0.0", "v6.0.11"]]},
                     ],
@@ -562,12 +573,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "dlp_filepattern"

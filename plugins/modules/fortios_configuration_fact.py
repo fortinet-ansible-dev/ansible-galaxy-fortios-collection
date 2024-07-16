@@ -243,6 +243,7 @@ options:
                  - 'system_acme'
                  - 'system_ipam'
                  - 'system_fabric-vpn'
+                 - 'system_ssh-config'
                  - 'wireless-controller_inter-controller'
                  - 'wireless-controller_global'
                  - 'wireless-controller.hotspot20_anqp-venue-name'
@@ -403,6 +404,7 @@ options:
                  - 'firewall_DoS-policy'
                  - 'firewall_DoS-policy6'
                  - 'firewall_sniffer'
+                 - 'firewall_on-demand-sniffer'
                  - 'firewall_central-snat-map'
                  - 'firewall.ssl_setting'
                  - 'firewall_ip-translation'
@@ -604,6 +606,7 @@ options:
                  - 'authentication_rule'
                  - 'authentication_setting'
                  - 'extension-controller_dataplan'
+                 - 'extension-controller_extender-vap'
                  - 'extension-controller_extender-profile'
                  - 'extension-controller_extender'
                  - 'extension-controller_fortigate-profile'
@@ -980,6 +983,7 @@ options:
          - 'system_acme'
          - 'system_ipam'
          - 'system_fabric-vpn'
+         - 'system_ssh-config'
          - 'wireless-controller_inter-controller'
          - 'wireless-controller_global'
          - 'wireless-controller.hotspot20_anqp-venue-name'
@@ -1140,6 +1144,7 @@ options:
          - 'firewall_DoS-policy'
          - 'firewall_DoS-policy6'
          - 'firewall_sniffer'
+         - 'firewall_on-demand-sniffer'
          - 'firewall_central-snat-map'
          - 'firewall.ssl_setting'
          - 'firewall_ip-translation'
@@ -1341,6 +1346,7 @@ options:
          - 'authentication_rule'
          - 'authentication_setting'
          - 'extension-controller_dataplan'
+         - 'extension-controller_extender-vap'
          - 'extension-controller_extender-profile'
          - 'extension-controller_extender'
          - 'extension-controller_fortigate-profile'
@@ -1718,7 +1724,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import (
     FAIL_SOCKET_MSG,
 )
-from urllib.parse import quote
+
+# from urllib.parse import quote
+try:
+    # For Python 3
+    from urllib.parse import quote
+except ImportError:
+    # For Python 2
+    from urllib import quote
 
 MODULE_MKEY_DEFINITONS = {
     "system_vdom": {
@@ -2178,6 +2191,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "system_fabric-vpn": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_ssh-config": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -2820,6 +2837,10 @@ MODULE_MKEY_DEFINITONS = {
     "firewall_sniffer": {
         "mkey": "id",
         "mkey_type": int,
+    },
+    "firewall_on-demand-sniffer": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "firewall_central-snat-map": {
         "mkey": "policyid",
@@ -3622,6 +3643,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "extension-controller_dataplan": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "extension-controller_extender-vap": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -4858,6 +4883,7 @@ def main():
                 "system_acme",
                 "system_ipam",
                 "system_fabric-vpn",
+                "system_ssh-config",
                 "wireless-controller_inter-controller",
                 "wireless-controller_global",
                 "wireless-controller.hotspot20_anqp-venue-name",
@@ -5018,6 +5044,7 @@ def main():
                 "firewall_DoS-policy",
                 "firewall_DoS-policy6",
                 "firewall_sniffer",
+                "firewall_on-demand-sniffer",
                 "firewall_central-snat-map",
                 "firewall.ssl_setting",
                 "firewall_ip-translation",
@@ -5219,6 +5246,7 @@ def main():
                 "authentication_rule",
                 "authentication_setting",
                 "extension-controller_dataplan",
+                "extension-controller_extender-vap",
                 "extension-controller_extender-profile",
                 "extension-controller_extender",
                 "extension-controller_fortigate-profile",
@@ -5603,6 +5631,7 @@ def main():
                         "system_acme",
                         "system_ipam",
                         "system_fabric-vpn",
+                        "system_ssh-config",
                         "wireless-controller_inter-controller",
                         "wireless-controller_global",
                         "wireless-controller.hotspot20_anqp-venue-name",
@@ -5763,6 +5792,7 @@ def main():
                         "firewall_DoS-policy",
                         "firewall_DoS-policy6",
                         "firewall_sniffer",
+                        "firewall_on-demand-sniffer",
                         "firewall_central-snat-map",
                         "firewall.ssl_setting",
                         "firewall_ip-translation",
@@ -5964,6 +5994,7 @@ def main():
                         "authentication_rule",
                         "authentication_setting",
                         "extension-controller_dataplan",
+                        "extension-controller_extender-vap",
                         "extension-controller_extender-profile",
                         "extension-controller_extender",
                         "extension-controller_fortigate-profile",
@@ -6240,11 +6271,11 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
 
         fos = FortiOSHandler(connection, module)
 

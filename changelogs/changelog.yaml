@@ -303,3 +303,26 @@ releases:
     fragments:
       - 2.3.6_relase.yml
     release_date: "2024-04-03"
+  2.3.7:
+    changes:
+      bugfixes:
+        - Fix some issues in sanity test.
+        - Github issue
+        - Github issue
+        - Github issue
+        - Github issue
+        - Github issue
+        - Github issue
+        - Github issue
+        - Github issue
+        - mantis issue
+        - mantis issue
+        - mantis issue
+      major_changes:
+        - Add a sanity_test.yaml file to trigger CI tests in GitHub.
+        - Support Ansible-core 2.17.
+        - Support new FOS versions 7.4.4.
+      release_summary: patch release of 2.3.7
+    fragments:
+      - release_2.3.7.yml
+    release_date: "2024-07-10"

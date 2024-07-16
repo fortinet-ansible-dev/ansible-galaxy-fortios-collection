@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -108,6 +110,13 @@ options:
                 description:
                     - URL of the EST server.
                 type: str
+            fabric_ca:
+                description:
+                    - Enable/disable synchronization of CA across Security Fabric.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             last_updated:
                 description:
                     - Time at which CA was last updated.
@@ -175,8 +184,9 @@ EXAMPLES = """
           ca: "<your_own_value>"
           ca_identifier: "myId_6"
           est_url: "<your_own_value>"
+          fabric_ca: "disable"
           last_updated: "2147483647"
-          name: "default_name_9"
+          name: "default_name_10"
           obsolete: "disable"
           range: "global"
           scep_url: "<your_own_value>"
@@ -281,6 +291,7 @@ def filter_certificate_ca_data(json):
         "ca",
         "ca_identifier",
         "est_url",
+        "fabric_ca",
         "last_updated",
         "name",
         "obsolete",
@@ -316,6 +327,7 @@ def underscore_to_hyphen(data):
 
 
 def certificate_ca(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -389,7 +401,7 @@ def certificate_ca(data, fos, check_mode=False):
         return fos.set("certificate", "ca", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("certificate", "ca", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("certificate", "ca", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -455,6 +467,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "fabric_ca": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "last_updated": {
             "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "integer",
@@ -509,12 +526,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "certificate_ca"

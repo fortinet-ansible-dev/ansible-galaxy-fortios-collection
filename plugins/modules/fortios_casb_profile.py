@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -88,6 +89,10 @@ options:
         default: null
         type: dict
         suboptions:
+            comment:
+                description:
+                    - Comment.
+                type: str
             name:
                 description:
                     - CASB profile name.
@@ -110,9 +115,9 @@ options:
                                     - CASB access rule action.
                                 type: str
                                 choices:
+                                    - 'monitor'
                                     - 'bypass'
                                     - 'block'
-                                    - 'monitor'
                             bypass:
                                 description:
                                     - CASB bypass options.
@@ -244,38 +249,39 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       casb_profile:
-          name: "default_name_3"
+          comment: "Comment."
+          name: "default_name_4"
           saas_application:
               -
                   access_rule:
                       -
-                          action: "bypass"
+                          action: "monitor"
                           bypass: "av"
-                          name: "default_name_8 (source casb.user-activity.name)"
+                          name: "default_name_9 (source casb.user-activity.name)"
                   custom_control:
                       -
-                          name: "default_name_10 (source casb.user-activity.name)"
+                          name: "default_name_11 (source casb.user-activity.name)"
                           option:
                               -
-                                  name: "default_name_12"
+                                  name: "default_name_13"
                                   user_input:
                                       -
                                           value: "<your_own_value>"
                   domain_control: "enable"
                   domain_control_domains:
                       -
-                          name: "default_name_17"
+                          name: "default_name_18"
                   log: "enable"
-                  name: "default_name_19 (source casb.saas-application.name)"
+                  name: "default_name_20 (source casb.saas-application.name)"
                   safe_search: "enable"
                   safe_search_control:
                       -
-                          name: "default_name_22"
+                          name: "default_name_23"
                   status: "enable"
                   tenant_control: "enable"
                   tenant_control_tenants:
                       -
-                          name: "default_name_26"
+                          name: "default_name_27"
 """
 
 RETURN = """
@@ -358,7 +364,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_casb_profile_data(json):
-    option_list = ["name", "saas_application"]
+    option_list = ["comment", "name", "saas_application"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -413,6 +419,7 @@ def underscore_to_hyphen(data):
 
 
 def casb_profile(data, fos):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -426,7 +433,7 @@ def casb_profile(data, fos):
         return fos.set("casb", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("casb", "profile", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("casb", "profile", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -464,6 +471,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "comment": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "saas_application": {
             "type": "list",
             "elements": "dict",
@@ -547,9 +555,9 @@ versioned_schema = {
                             "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "options": [
+                                {"value": "monitor"},
                                 {"value": "bypass"},
                                 {"value": "block"},
-                                {"value": "monitor"},
                             ],
                         },
                         "bypass": {
@@ -652,12 +660,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "casb_profile"

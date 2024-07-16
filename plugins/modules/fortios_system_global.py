@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -476,6 +477,10 @@ options:
                     - '4096'
                     - '6144'
                     - '8192'
+            dhcp_lease_backup_interval:
+                description:
+                    - DHCP leases backup interval in seconds (10 - 3600).
+                type: int
             dnsproxy_worker_count:
                 description:
                     - DNS proxy worker count. For a FortiGate with multiple logical CPUs, you can set the DNS process number from 1 to the number of logical
@@ -912,6 +917,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ipsec_qat_offload:
+                description:
+                    - Enable/disable QAT offloading (Intel QuickAssist) for IPsec VPN traffic. QuickAssist can accelerate IPsec encryption and decryption.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ipsec_round_robin:
                 description:
                     - Enable/disable round-robin redistribution to multiple CPUs for IPsec VPN traffic.
@@ -933,6 +945,13 @@ options:
             ipv6_allow_anycast_probe:
                 description:
                     - Enable/disable IPv6 address probe through Anycast.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            ipv6_allow_local_in_silent_drop:
+                description:
+                    - Enable/disable silent drop of IPv6 local-in traffic.
                 type: str
                 choices:
                     - 'enable'
@@ -1120,6 +1139,13 @@ options:
                 description:
                     - Maximum number of NDP table entries (set to 65,536 or higher; if set to 0, kernel holds 65,536 entries).
                 type: int
+            npu_neighbor_update:
+                description:
+                    - Enable/disable sending of ARP/ICMP6 probing packets to update neighbors for offloaded sessions.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             per_user_bal:
                 description:
                     - Enable/disable per-user block/allow list filter.
@@ -1377,7 +1403,7 @@ options:
                     - 'disable'
             special_file_23_support:
                 description:
-                    - Enable/disable detection of those special format files when using Data Leak Prevention.
+                    - Enable/disable detection of those special format files when using Data Loss Prevention.
                 type: str
                 choices:
                     - 'disable'
@@ -1818,7 +1844,7 @@ options:
                     - 'disable'
             vpn_ems_sn_check:
                 description:
-                    - Enable/disable verification of EMS serial number in SSL-VPN and IPsec VPN connection.
+                    - Enable/disable verification of EMS serial number in SSL-VPN connection.
                 type: str
                 choices:
                     - 'enable'
@@ -1906,7 +1932,7 @@ EXAMPLES = """
           admin_forticloud_sso_default_profile: "<your_own_value> (source system.accprofile.name)"
           admin_forticloud_sso_login: "enable"
           admin_host: "myhostname"
-          admin_hsts_max_age: "15552000"
+          admin_hsts_max_age: "63072000"
           admin_https_pki_required: "enable"
           admin_https_redirect: "enable"
           admin_https_ssl_banned_ciphers: "RSA"
@@ -1966,6 +1992,7 @@ EXAMPLES = """
           device_identification_active_scan_delay: "1800"
           device_idle_timeout: "300"
           dh_params: "1024"
+          dhcp_lease_backup_interval: "60"
           dnsproxy_worker_count: "1"
           dst: "enable"
           early_tcp_npu_session: "enable"
@@ -2027,7 +2054,7 @@ EXAMPLES = """
           internet_service_database: "mini"
           internet_service_download_list:
               -
-                  id: "128 (source firewall.internet-service.id)"
+                  id: "129 (source firewall.internet-service.id)"
           interval: "5"
           ip_fragment_mem_thresholds: "32"
           ip_src_port_range: "<your_own_value>"
@@ -2035,10 +2062,12 @@ EXAMPLES = """
           ipsec_asic_offload: "enable"
           ipsec_ha_seqjump_rate: "10"
           ipsec_hmac_offload: "enable"
+          ipsec_qat_offload: "enable"
           ipsec_round_robin: "enable"
           ipsec_soft_dec_async: "enable"
           ipv6_accept_dad: "1"
           ipv6_allow_anycast_probe: "enable"
+          ipv6_allow_local_in_silent_drop: "enable"
           ipv6_allow_local_in_slient_drop: "enable"
           ipv6_allow_multicast_probe: "enable"
           ipv6_allow_traffic_redirect: "enable"
@@ -2058,7 +2087,7 @@ EXAMPLES = """
           management_port: "443"
           management_port_use_admin_sport: "enable"
           management_vdom: "<your_own_value> (source system.vdom.name)"
-          max_dlpstat_memory: "159"
+          max_dlpstat_memory: "162"
           max_route_cache_size: "0"
           mc_ttl_notchange: "enable"
           memory_use_threshold_extreme: "95"
@@ -2069,6 +2098,7 @@ EXAMPLES = """
           multi_factor_authentication: "optional"
           multicast_forward: "enable"
           ndp_max_entry: "0"
+          npu_neighbor_update: "enable"
           per_user_bal: "enable"
           per_user_bwl: "enable"
           pmtu_discovery: "enable"
@@ -2166,9 +2196,9 @@ EXAMPLES = """
           udp_idle_timer: "180"
           url_filter_affinity: "<your_own_value>"
           url_filter_count: "1"
-          user_device_store_max_devices: "20911"
-          user_device_store_max_unified_mem: "104558182"
-          user_device_store_max_users: "20911"
+          user_device_store_max_devices: "20903"
+          user_device_store_max_unified_mem: "104519680"
+          user_device_store_max_users: "20903"
           user_server_cert: "<your_own_value> (source certificate.local.name)"
           vdom_admin: "enable"
           vdom_mode: "no-vdom"
@@ -2339,6 +2369,7 @@ def filter_system_global_data(json):
         "device_identification_active_scan_delay",
         "device_idle_timeout",
         "dh_params",
+        "dhcp_lease_backup_interval",
         "dnsproxy_worker_count",
         "dst",
         "early_tcp_npu_session",
@@ -2406,10 +2437,12 @@ def filter_system_global_data(json):
         "ipsec_asic_offload",
         "ipsec_ha_seqjump_rate",
         "ipsec_hmac_offload",
+        "ipsec_qat_offload",
         "ipsec_round_robin",
         "ipsec_soft_dec_async",
         "ipv6_accept_dad",
         "ipv6_allow_anycast_probe",
+        "ipv6_allow_local_in_silent_drop",
         "ipv6_allow_local_in_slient_drop",
         "ipv6_allow_multicast_probe",
         "ipv6_allow_traffic_redirect",
@@ -2440,6 +2473,7 @@ def filter_system_global_data(json):
         "multi_factor_authentication",
         "multicast_forward",
         "ndp_max_entry",
+        "npu_neighbor_update",
         "per_user_bal",
         "per_user_bwl",
         "pmtu_discovery",
@@ -2594,12 +2628,12 @@ def flatten_multilists_attributes(data):
         ["admin_https_ssl_versions"],
         ["admin_https_ssl_ciphersuites"],
         ["admin_https_ssl_banned_ciphers"],
+        ["fgd_alert_subscription"],
+        ["split_port"],
         ["ssh_kex_algo"],
         ["ssh_enc_algo"],
         ["ssh_mac_algo"],
         ["ssh_hostkey_algo"],
-        ["fgd_alert_subscription"],
-        ["split_port"],
     ]
 
     for attr in multilist_attrs:
@@ -2622,6 +2656,7 @@ def underscore_to_hyphen(data):
 
 
 def system_global(data, fos):
+    state = None
     vdom = data["vdom"]
     system_global_data = data["system_global"]
     system_global_data = flatten_multilists_attributes(system_global_data)
@@ -2986,96 +3021,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ssh_kex_algo": {
-            "v_range": [["v7.0.2", ""]],
-            "type": "list",
-            "options": [
-                {"value": "diffie-hellman-group1-sha1"},
-                {"value": "diffie-hellman-group14-sha1"},
-                {"value": "diffie-hellman-group14-sha256", "v_range": [["v7.4.1", ""]]},
-                {"value": "diffie-hellman-group16-sha512", "v_range": [["v7.4.1", ""]]},
-                {"value": "diffie-hellman-group18-sha512", "v_range": [["v7.4.1", ""]]},
-                {"value": "diffie-hellman-group-exchange-sha1"},
-                {"value": "diffie-hellman-group-exchange-sha256"},
-                {"value": "curve25519-sha256@libssh.org"},
-                {"value": "ecdh-sha2-nistp256"},
-                {"value": "ecdh-sha2-nistp384"},
-                {"value": "ecdh-sha2-nistp521"},
-            ],
-            "multiple_values": True,
-            "elements": "str",
-        },
-        "ssh_enc_algo": {
-            "v_range": [["v7.0.2", ""]],
-            "type": "list",
-            "options": [
-                {"value": "chacha20-poly1305@openssh.com"},
-                {"value": "aes128-ctr"},
-                {"value": "aes192-ctr"},
-                {"value": "aes256-ctr"},
-                {"value": "arcfour256"},
-                {"value": "arcfour128"},
-                {"value": "aes128-cbc"},
-                {"value": "3des-cbc"},
-                {"value": "blowfish-cbc"},
-                {"value": "cast128-cbc"},
-                {"value": "aes192-cbc"},
-                {"value": "aes256-cbc"},
-                {"value": "arcfour"},
-                {"value": "rijndael-cbc@lysator.liu.se"},
-                {"value": "aes128-gcm@openssh.com"},
-                {"value": "aes256-gcm@openssh.com"},
-            ],
-            "multiple_values": True,
-            "elements": "str",
-        },
-        "ssh_mac_algo": {
-            "v_range": [["v7.0.2", ""]],
-            "type": "list",
-            "options": [
-                {"value": "hmac-md5"},
-                {"value": "hmac-md5-etm@openssh.com"},
-                {"value": "hmac-md5-96"},
-                {"value": "hmac-md5-96-etm@openssh.com"},
-                {"value": "hmac-sha1"},
-                {"value": "hmac-sha1-etm@openssh.com"},
-                {"value": "hmac-sha2-256"},
-                {"value": "hmac-sha2-256-etm@openssh.com"},
-                {"value": "hmac-sha2-512"},
-                {"value": "hmac-sha2-512-etm@openssh.com"},
-                {"value": "hmac-ripemd160"},
-                {"value": "hmac-ripemd160@openssh.com"},
-                {"value": "hmac-ripemd160-etm@openssh.com"},
-                {"value": "umac-64@openssh.com"},
-                {"value": "umac-128@openssh.com"},
-                {"value": "umac-64-etm@openssh.com"},
-                {"value": "umac-128-etm@openssh.com"},
-            ],
-            "multiple_values": True,
-            "elements": "str",
-        },
-        "ssh_hostkey_algo": {
-            "v_range": [["v7.4.0", ""]],
-            "type": "list",
-            "options": [
-                {"value": "ssh-rsa"},
-                {"value": "ecdsa-sha2-nistp521"},
-                {"value": "ecdsa-sha2-nistp384", "v_range": [["v7.4.2", ""]]},
-                {"value": "ecdsa-sha2-nistp256", "v_range": [["v7.4.2", ""]]},
-                {"value": "rsa-sha2-256"},
-                {"value": "rsa-sha2-512"},
-                {"value": "ssh-ed25519"},
-            ],
-            "multiple_values": True,
-            "elements": "str",
-        },
-        "ssh_hostkey_override": {
-            "v_range": [["v7.4.2", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "ssh_hostkey_password": {"v_range": [["v7.4.2", ""]], "type": "string"},
-        "ssh_hostkey": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "snat_route_change": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3291,6 +3236,7 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "wifi_certificate": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "dhcp_lease_backup_interval": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "wifi_ca_certificate": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "auth_http_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "auth_https_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -3329,11 +3275,6 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "admin_scp": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "security_rating_result_submission": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3412,8 +3353,8 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ipv6_allow_local_in_slient_drop": {
-            "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", ""]],
+        "ipv6_allow_local_in_silent_drop": {
+            "v_range": [["v7.4.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -3507,6 +3448,14 @@ versioned_schema = {
         "ndp_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "br_fdb_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "max_route_cache_size": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "ipsec_qat_offload": {
+            "v_range": [],
+            "type": "string",
+            "options": [
+                {"value": "enable", "v_range": [["v7.4.4", ""]]},
+                {"value": "disable", "v_range": [["v7.4.4", ""]]},
+            ],
+        },
         "ipsec_round_robin": {
             "v_range": [["v7.4.0", ""]],
             "type": "string",
@@ -3655,6 +3604,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "npu_neighbor_update": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "interface_subnet_usage": {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
@@ -3703,6 +3657,115 @@ versioned_schema = {
         },
         "ipsec_asic_offload": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ssh_kex_algo": {
+            "v_range": [["v7.0.2", "v7.4.3"]],
+            "type": "list",
+            "options": [
+                {"value": "diffie-hellman-group1-sha1"},
+                {"value": "diffie-hellman-group14-sha1"},
+                {
+                    "value": "diffie-hellman-group14-sha256",
+                    "v_range": [["v7.4.1", "v7.4.3"]],
+                },
+                {
+                    "value": "diffie-hellman-group16-sha512",
+                    "v_range": [["v7.4.1", "v7.4.3"]],
+                },
+                {
+                    "value": "diffie-hellman-group18-sha512",
+                    "v_range": [["v7.4.1", "v7.4.3"]],
+                },
+                {"value": "diffie-hellman-group-exchange-sha1"},
+                {"value": "diffie-hellman-group-exchange-sha256"},
+                {"value": "curve25519-sha256@libssh.org"},
+                {"value": "ecdh-sha2-nistp256"},
+                {"value": "ecdh-sha2-nistp384"},
+                {"value": "ecdh-sha2-nistp521"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "ssh_enc_algo": {
+            "v_range": [["v7.0.2", "v7.4.3"]],
+            "type": "list",
+            "options": [
+                {"value": "chacha20-poly1305@openssh.com"},
+                {"value": "aes128-ctr"},
+                {"value": "aes192-ctr"},
+                {"value": "aes256-ctr"},
+                {"value": "arcfour256"},
+                {"value": "arcfour128"},
+                {"value": "aes128-cbc"},
+                {"value": "3des-cbc"},
+                {"value": "blowfish-cbc"},
+                {"value": "cast128-cbc"},
+                {"value": "aes192-cbc"},
+                {"value": "aes256-cbc"},
+                {"value": "arcfour"},
+                {"value": "rijndael-cbc@lysator.liu.se"},
+                {"value": "aes128-gcm@openssh.com"},
+                {"value": "aes256-gcm@openssh.com"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "ssh_mac_algo": {
+            "v_range": [["v7.0.2", "v7.4.3"]],
+            "type": "list",
+            "options": [
+                {"value": "hmac-md5"},
+                {"value": "hmac-md5-etm@openssh.com"},
+                {"value": "hmac-md5-96"},
+                {"value": "hmac-md5-96-etm@openssh.com"},
+                {"value": "hmac-sha1"},
+                {"value": "hmac-sha1-etm@openssh.com"},
+                {"value": "hmac-sha2-256"},
+                {"value": "hmac-sha2-256-etm@openssh.com"},
+                {"value": "hmac-sha2-512"},
+                {"value": "hmac-sha2-512-etm@openssh.com"},
+                {"value": "hmac-ripemd160"},
+                {"value": "hmac-ripemd160@openssh.com"},
+                {"value": "hmac-ripemd160-etm@openssh.com"},
+                {"value": "umac-64@openssh.com"},
+                {"value": "umac-128@openssh.com"},
+                {"value": "umac-64-etm@openssh.com"},
+                {"value": "umac-128-etm@openssh.com"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "ssh_hostkey_algo": {
+            "v_range": [["v7.4.0", "v7.4.3"]],
+            "type": "list",
+            "options": [
+                {"value": "ssh-rsa"},
+                {"value": "ecdsa-sha2-nistp521"},
+                {"value": "ecdsa-sha2-nistp384", "v_range": [["v7.4.2", "v7.4.3"]]},
+                {"value": "ecdsa-sha2-nistp256", "v_range": [["v7.4.2", "v7.4.3"]]},
+                {"value": "rsa-sha2-256"},
+                {"value": "rsa-sha2-512"},
+                {"value": "ssh-ed25519"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "ssh_hostkey_override": {
+            "v_range": [["v7.4.2", "v7.4.3"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "ssh_hostkey_password": {"v_range": [["v7.4.2", "v7.4.3"]], "type": "string"},
+        "ssh_hostkey": {"v_range": [["v7.4.2", "v7.4.3"]], "type": "string"},
+        "security_rating_result_submission": {
+            "v_range": [["v6.0.0", "v7.4.3"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_allow_local_in_slient_drop": {
+            "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", "v7.4.3"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -3962,12 +4025,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_global"

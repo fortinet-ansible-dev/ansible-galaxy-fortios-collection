@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -80,6 +81,21 @@ options:
         default: null
         type: dict
         suboptions:
+            client_cert:
+                description:
+                    - Enable/disable to request client certificate.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            empty_cert_action:
+                description:
+                    - Action of an empty client certificate.
+                type: str
+                choices:
+                    - 'accept'
+                    - 'block'
+                    - 'accept-unmanageable'
             ftp_incoming_port:
                 description:
                     - Accept incoming FTP-over-HTTP requests on one or more ports (0 - 65535).
@@ -246,6 +262,8 @@ options:
                 choices:
                     - 'ipv4'
                     - 'ipv6'
+                    - 'ipv4-strict'
+                    - 'ipv6-strict'
             realm:
                 description:
                     - Authentication realm used to identify the explicit web proxy (maximum of 63 characters).
@@ -333,6 +351,13 @@ options:
                     - 'reject'
                     - 'best-effort'
                     - 'tunnel'
+            user_agent_detect:
+                description:
+                    - Enable/disable to detect device type by HTTP user-agent if no client certificate provided.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
 """
 
 EXAMPLES = """
@@ -340,6 +365,8 @@ EXAMPLES = """
   fortinet.fortios.fortios_web_proxy_explicit:
       vdom: "{{ vdom }}"
       web_proxy_explicit:
+          client_cert: "disable"
+          empty_cert_action: "accept"
           ftp_incoming_port: "<your_own_value>"
           ftp_over_http: "enable"
           http_connection_mode: "static"
@@ -363,16 +390,16 @@ EXAMPLES = """
                   comments: "<your_own_value>"
                   dstaddr:
                       -
-                          name: "default_name_24 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_26 (source firewall.address.name firewall.addrgrp.name)"
                   pac_file_data: "<your_own_value>"
                   pac_file_name: "<your_own_value>"
                   policyid: "<you_own_value>"
                   srcaddr:
                       -
-                          name: "default_name_29 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
+                          name: "default_name_31 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
                   srcaddr6:
                       -
-                          name: "default_name_31 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_33 (source firewall.address6.name firewall.addrgrp6.name)"
                   status: "enable"
           pref_dns_result: "ipv4"
           realm: "<your_own_value>"
@@ -380,7 +407,7 @@ EXAMPLES = """
           secure_web_proxy: "disable"
           secure_web_proxy_cert:
               -
-                  name: "default_name_38 (source vpn.certificate.local.name)"
+                  name: "default_name_40 (source vpn.certificate.local.name)"
           socks: "enable"
           socks_incoming_port: "<your_own_value>"
           ssl_algorithm: "high"
@@ -389,6 +416,7 @@ EXAMPLES = """
           strict_guest: "enable"
           trace_auth_no_rsp: "enable"
           unknown_http_version: "reject"
+          user_agent_detect: "disable"
 """
 
 RETURN = """
@@ -472,6 +500,8 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_web_proxy_explicit_data(json):
     option_list = [
+        "client_cert",
+        "empty_cert_action",
         "ftp_incoming_port",
         "ftp_over_http",
         "http_connection_mode",
@@ -504,6 +534,7 @@ def filter_web_proxy_explicit_data(json):
         "strict_guest",
         "trace_auth_no_rsp",
         "unknown_http_version",
+        "user_agent_detect",
     ]
 
     json = remove_invalid_fields(json)
@@ -560,6 +591,7 @@ def underscore_to_hyphen(data):
 
 
 def web_proxy_explicit(data, fos):
+    state = None
     vdom = data["vdom"]
     web_proxy_explicit_data = data["web_proxy_explicit"]
     web_proxy_explicit_data = flatten_multilists_attributes(web_proxy_explicit_data)
@@ -644,6 +676,25 @@ versioned_schema = {
             },
             "v_range": [["v7.4.0", ""]],
         },
+        "client_cert": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "user_agent_detect": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "empty_cert_action": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "accept"},
+                {"value": "block"},
+                {"value": "accept-unmanageable"},
+            ],
+        },
         "ssl_dh_bits": {
             "v_range": [["v7.4.0", ""]],
             "type": "string",
@@ -683,7 +734,12 @@ versioned_schema = {
         "pref_dns_result": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "ipv4"}, {"value": "ipv6"}],
+            "options": [
+                {"value": "ipv4"},
+                {"value": "ipv6"},
+                {"value": "ipv4-strict", "v_range": [["v7.4.4", ""]]},
+                {"value": "ipv6-strict", "v_range": [["v7.4.4", ""]]},
+            ],
         },
         "unknown_http_version": {
             "v_range": [["v6.0.0", ""]],
@@ -836,12 +892,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "web_proxy_explicit"

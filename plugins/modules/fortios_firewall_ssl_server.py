@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -122,8 +124,15 @@ options:
                     - 'low'
             ssl_cert:
                 description:
-                    - Name of certificate for SSL connections to this server . Source vpn.certificate.local.name.
-                type: str
+                    - List of certificate names to use for SSL connections to this server. . Source vpn.certificate.local.name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_cert_dict:
                 description:
                     - List of certificate names to use for SSL connections to this server. . Use the parameter ssl_cert if the fortiOS firmware version <= 7.4
@@ -207,10 +216,12 @@ EXAMPLES = """
           name: "default_name_6"
           port: "443"
           ssl_algorithm: "high"
-          ssl_cert: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_cert:
+              -
+                  name: "default_name_10 (source vpn.certificate.local.name)"
           ssl_cert_dict:
               -
-                  name: "default_name_11 (source vpn.certificate.local.name)"
+                  name: "default_name_12 (source vpn.certificate.local.name)"
           ssl_client_renegotiation: "allow"
           ssl_dh_bits: "768"
           ssl_max_version: "tls-1.0"
@@ -375,6 +386,7 @@ def remap_attribute_names(data):
 
 
 def firewall_ssl_server(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -450,7 +462,7 @@ def firewall_ssl_server(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "ssl-server", mkey=filtered_data["name"], vdom=vdom
+            "firewall", "ssl-server", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -503,17 +515,17 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "mapped_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "ssl_cert_dict": {
+        "ssl_cert": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.2", ""]],
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v7.4.2", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.4", ""]],
         },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
@@ -565,7 +577,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ssl_cert": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
+        "ssl_cert_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.3"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", "v7.4.3"]],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }
@@ -611,12 +634,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_ssl_server"

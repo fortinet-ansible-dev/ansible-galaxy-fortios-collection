@@ -64,23 +64,24 @@ def is_same_ip_address(current_ip, applied_ip):
 
 def is_same_comparison(reorder_current, reorder_filtered):
     for key, value in reorder_filtered.items():
-        if key not in reorder_current:
+        if key.replace("_", "-") not in reorder_current:
             return False
+
         if isinstance(value, dict):
-            if not is_same_comparison(reorder_current[key], value):
+            if not is_same_comparison(reorder_current[key.replace("_", "-")], value):
                 return False
         elif isinstance(value, list):
-            if len(value) != len(reorder_current[key]):
+            if len(value) != len(reorder_current[key.replace("_", "-")]):
                 return False
             if len(value) and isinstance(value[0], dict):
-                for current_dict in reorder_current[key]:
+                for current_dict in reorder_current[key.replace("_", "-")]:
                     if not is_same_comparison(current_dict, value[0]):
                         return False
-            elif reorder_current[key] != value:
+            elif reorder_current[key.replace("_", "-")] != value:
                 return False
         elif isinstance(value, str) and IP_PREFIX.match(value):
-            return is_same_ip_address(reorder_current[key], value)
-        elif reorder_current[key] != value:
+            return is_same_ip_address(reorder_current[key.replace("_", "-")], value)
+        elif reorder_current[key.replace("_", "-")] != value:
             return False
 
     return True
@@ -90,17 +91,21 @@ def find_current_values(reorder_current, reorder_filtered):
     '''Find keyvalues in current according to keys from filtered'''
     result = {}
     for key, value in reorder_filtered.items():
+        if key.replace("_", "-") not in reorder_current:
+            result[key] = None  # Handle missing key
+            continue
+
         if isinstance(value, dict):
-            result[key] = find_current_values(reorder_current[key], value)
+            result[key] = find_current_values(reorder_current[key.replace("_", "-")], value)
         elif isinstance(value, list):
             result[key] = []
             for i in range(len(value)):
                 if isinstance(value[i], dict):
-                    result[key].append(find_current_values(reorder_current[key][i], value[i]))
+                    result[key].append(find_current_values(reorder_current[key.replace("_", "-")][i], value[i]))
                 else:
-                    result[key].append(reorder_current[key])
+                    result[key].append(reorder_current[key.replace("_", "-")])
         elif isinstance(value, str):
-            result[key] = reorder_current[key]
+            result[key] = reorder_current[key.replace("_", "-")]
 
     return result
 

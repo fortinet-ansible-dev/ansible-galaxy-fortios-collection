@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -1118,18 +1120,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 1 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -1203,13 +1212,22 @@ options:
                                 type: str
                     channel_bonding:
                         description:
-                            - 'Channel bandwidth: 160,80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
+                            - 'Channel bandwidth: 320, 240, 160, 80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
                         type: str
                         choices:
+                            - '320MHz'
+                            - '240MHz'
                             - '160MHz'
                             - '80MHz'
                             - '40MHz'
                             - '20MHz'
+                    channel_bonding_ext:
+                        description:
+                            - 'Channel bandwidth extension: 320 MHz-1 and 320 MHz-2 .'
+                        type: str
+                        choices:
+                            - '320MHz-1'
+                            - '320MHz-2'
                     channel_utilization:
                         description:
                             - Enable/disable measuring channel utilization.
@@ -1370,7 +1388,7 @@ options:
                         type: str
                     sam_ca_certificate:
                         description:
-                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                            - CA certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.ca.name.
                         type: str
                     sam_captive_portal:
                         description:
@@ -1381,7 +1399,7 @@ options:
                             - 'disable'
                     sam_client_certificate:
                         description:
-                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                            - Client certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_cwp_failure_string:
                         description:
@@ -1421,7 +1439,7 @@ options:
                         type: str
                     sam_private_key:
                         description:
-                            - Private key for WPA2/WPA3-ENTERPRISE.
+                            - Private key for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_private_key_password:
                         description:
@@ -1643,18 +1661,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 2 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -1728,13 +1753,22 @@ options:
                                 type: str
                     channel_bonding:
                         description:
-                            - 'Channel bandwidth: 160,80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
+                            - 'Channel bandwidth: 320, 240, 160, 80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
                         type: str
                         choices:
+                            - '320MHz'
+                            - '240MHz'
                             - '160MHz'
                             - '80MHz'
                             - '40MHz'
                             - '20MHz'
+                    channel_bonding_ext:
+                        description:
+                            - 'Channel bandwidth extension: 320 MHz-1 and 320 MHz-2 .'
+                        type: str
+                        choices:
+                            - '320MHz-1'
+                            - '320MHz-2'
                     channel_utilization:
                         description:
                             - Enable/disable measuring channel utilization.
@@ -1895,7 +1929,7 @@ options:
                         type: str
                     sam_ca_certificate:
                         description:
-                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                            - CA certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.ca.name.
                         type: str
                     sam_captive_portal:
                         description:
@@ -1906,7 +1940,7 @@ options:
                             - 'disable'
                     sam_client_certificate:
                         description:
-                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                            - Client certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_cwp_failure_string:
                         description:
@@ -1946,7 +1980,7 @@ options:
                         type: str
                     sam_private_key:
                         description:
-                            - Private key for WPA2/WPA3-ENTERPRISE.
+                            - Private key for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_private_key_password:
                         description:
@@ -2168,18 +2202,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 3 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -2253,13 +2294,22 @@ options:
                                 type: str
                     channel_bonding:
                         description:
-                            - 'Channel bandwidth: 160,80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
+                            - 'Channel bandwidth: 320, 240, 160, 80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
                         type: str
                         choices:
+                            - '320MHz'
+                            - '240MHz'
                             - '160MHz'
                             - '80MHz'
                             - '40MHz'
                             - '20MHz'
+                    channel_bonding_ext:
+                        description:
+                            - 'Channel bandwidth extension: 320 MHz-1 and 320 MHz-2 .'
+                        type: str
+                        choices:
+                            - '320MHz-1'
+                            - '320MHz-2'
                     channel_utilization:
                         description:
                             - Enable/disable measuring channel utilization.
@@ -2420,7 +2470,7 @@ options:
                         type: str
                     sam_ca_certificate:
                         description:
-                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                            - CA certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.ca.name.
                         type: str
                     sam_captive_portal:
                         description:
@@ -2431,7 +2481,7 @@ options:
                             - 'disable'
                     sam_client_certificate:
                         description:
-                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                            - Client certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_cwp_failure_string:
                         description:
@@ -2471,7 +2521,7 @@ options:
                         type: str
                     sam_private_key:
                         description:
-                            - Private key for WPA2/WPA3-ENTERPRISE.
+                            - Private key for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_private_key_password:
                         description:
@@ -2693,18 +2743,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 4 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -2778,13 +2835,22 @@ options:
                                 type: str
                     channel_bonding:
                         description:
-                            - 'Channel bandwidth: 160,80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
+                            - 'Channel bandwidth: 320, 240, 160, 80, 40, or 20MHz. Channels may use both 20 and 40 by enabling coexistence.'
                         type: str
                         choices:
+                            - '320MHz'
+                            - '240MHz'
                             - '160MHz'
                             - '80MHz'
                             - '40MHz'
                             - '20MHz'
+                    channel_bonding_ext:
+                        description:
+                            - 'Channel bandwidth extension: 320 MHz-1 and 320 MHz-2 .'
+                        type: str
+                        choices:
+                            - '320MHz-1'
+                            - '320MHz-2'
                     channel_utilization:
                         description:
                             - Enable/disable measuring channel utilization.
@@ -2941,7 +3007,7 @@ options:
                         type: str
                     sam_ca_certificate:
                         description:
-                            - CA certificate for WPA2/WPA3-ENTERPRISE.
+                            - CA certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.ca.name.
                         type: str
                     sam_captive_portal:
                         description:
@@ -2952,7 +3018,7 @@ options:
                             - 'disable'
                     sam_client_certificate:
                         description:
-                            - Client certificate for WPA2/WPA3-ENTERPRISE.
+                            - Client certificate for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_cwp_failure_string:
                         description:
@@ -2992,7 +3058,7 @@ options:
                         type: str
                     sam_private_key:
                         description:
-                            - Private key for WPA2/WPA3-ENTERPRISE.
+                            - Private key for WPA2/WPA3-ENTERPRISE. Source vpn.certificate.local.name.
                         type: str
                     sam_private_key_password:
                         description:
@@ -3156,6 +3222,13 @@ options:
             unii_4_5ghz_band:
                 description:
                     - Enable/disable UNII-4 5Ghz band channels .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            usb_port:
+                description:
+                    - Enable/disable USB port of the WTP .
                 type: str
                 choices:
                     - 'enable'
@@ -3344,7 +3417,8 @@ EXAMPLES = """
               channel:
                   -
                       chan: "<your_own_value>"
-              channel_bonding: "160MHz"
+              channel_bonding: "320MHz"
+              channel_bonding_ext: "320MHz-1"
               channel_utilization: "enable"
               coexistence: "enable"
               darrp: "enable"
@@ -3369,9 +3443,9 @@ EXAMPLES = """
               radio_id: "2"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
-              sam_ca_certificate: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value> (source vpn.certificate.ca.name)"
               sam_captive_portal: "enable"
-              sam_client_certificate: "<your_own_value>"
+              sam_client_certificate: "<your_own_value> (source vpn.certificate.local.name)"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
@@ -3380,7 +3454,7 @@ EXAMPLES = """
               sam_cwp_username: "<your_own_value>"
               sam_eap_method: "both"
               sam_password: "<your_own_value>"
-              sam_private_key: "<your_own_value>"
+              sam_private_key: "<your_own_value> (source vpn.certificate.local.name)"
               sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
@@ -3398,7 +3472,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_190 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_191 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_2:
@@ -3430,7 +3504,8 @@ EXAMPLES = """
               channel:
                   -
                       chan: "<your_own_value>"
-              channel_bonding: "160MHz"
+              channel_bonding: "320MHz"
+              channel_bonding_ext: "320MHz-1"
               channel_utilization: "enable"
               coexistence: "enable"
               darrp: "enable"
@@ -3455,9 +3530,9 @@ EXAMPLES = """
               radio_id: "2"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
-              sam_ca_certificate: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value> (source vpn.certificate.ca.name)"
               sam_captive_portal: "enable"
-              sam_client_certificate: "<your_own_value>"
+              sam_client_certificate: "<your_own_value> (source vpn.certificate.local.name)"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
@@ -3466,7 +3541,7 @@ EXAMPLES = """
               sam_cwp_username: "<your_own_value>"
               sam_eap_method: "both"
               sam_password: "<your_own_value>"
-              sam_private_key: "<your_own_value>"
+              sam_private_key: "<your_own_value> (source vpn.certificate.local.name)"
               sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
@@ -3484,7 +3559,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_274 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_276 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_3:
@@ -3516,7 +3591,8 @@ EXAMPLES = """
               channel:
                   -
                       chan: "<your_own_value>"
-              channel_bonding: "160MHz"
+              channel_bonding: "320MHz"
+              channel_bonding_ext: "320MHz-1"
               channel_utilization: "enable"
               coexistence: "enable"
               darrp: "enable"
@@ -3541,9 +3617,9 @@ EXAMPLES = """
               radio_id: "2"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
-              sam_ca_certificate: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value> (source vpn.certificate.ca.name)"
               sam_captive_portal: "enable"
-              sam_client_certificate: "<your_own_value>"
+              sam_client_certificate: "<your_own_value> (source vpn.certificate.local.name)"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
@@ -3552,7 +3628,7 @@ EXAMPLES = """
               sam_cwp_username: "<your_own_value>"
               sam_eap_method: "both"
               sam_password: "<your_own_value>"
-              sam_private_key: "<your_own_value>"
+              sam_private_key: "<your_own_value> (source vpn.certificate.local.name)"
               sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
@@ -3570,7 +3646,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_358 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_361 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_4:
@@ -3602,7 +3678,8 @@ EXAMPLES = """
               channel:
                   -
                       chan: "<your_own_value>"
-              channel_bonding: "160MHz"
+              channel_bonding: "320MHz"
+              channel_bonding_ext: "320MHz-1"
               channel_utilization: "enable"
               coexistence: "enable"
               darrp: "enable"
@@ -3626,9 +3703,9 @@ EXAMPLES = """
               protection_mode: "rtscts"
               rts_threshold: "2346"
               sam_bssid: "<your_own_value>"
-              sam_ca_certificate: "<your_own_value>"
+              sam_ca_certificate: "<your_own_value> (source vpn.certificate.ca.name)"
               sam_captive_portal: "enable"
-              sam_client_certificate: "<your_own_value>"
+              sam_client_certificate: "<your_own_value> (source vpn.certificate.local.name)"
               sam_cwp_failure_string: "<your_own_value>"
               sam_cwp_match_string: "<your_own_value>"
               sam_cwp_password: "<your_own_value>"
@@ -3637,7 +3714,7 @@ EXAMPLES = """
               sam_cwp_username: "<your_own_value>"
               sam_eap_method: "both"
               sam_password: "<your_own_value>"
-              sam_private_key: "<your_own_value>"
+              sam_private_key: "<your_own_value> (source vpn.certificate.local.name)"
               sam_private_key_password: "<your_own_value>"
               sam_report_intv: "0"
               sam_security_type: "open"
@@ -3655,19 +3732,20 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_441 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_445 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "446"
+                  id: "450"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           syslog_profile: "<your_own_value> (source wireless-controller.syslog-profile.name)"
           tun_mtu_downlink: "0"
           tun_mtu_uplink: "0"
           unii_4_5ghz_band: "enable"
+          usb_port: "enable"
           wan_port_auth: "none"
           wan_port_auth_macsec: "enable"
           wan_port_auth_methods: "all"
@@ -3809,6 +3887,7 @@ def filter_wireless_controller_wtp_profile_data(json):
         "tun_mtu_downlink",
         "tun_mtu_uplink",
         "unii_4_5ghz_band",
+        "usb_port",
         "wan_port_auth",
         "wan_port_auth_macsec",
         "wan_port_auth_methods",
@@ -3851,12 +3930,16 @@ def flatten_multilists_attributes(data):
         ["dtls_policy"],
         ["ip_fragment_preventing"],
         ["allowaccess"],
+        ["radio_1", "band"],
         ["radio_1", "powersave_optimize"],
         ["radio_1", "transmit_optimize"],
+        ["radio_2", "band"],
         ["radio_2", "powersave_optimize"],
         ["radio_2", "transmit_optimize"],
+        ["radio_3", "band"],
         ["radio_3", "powersave_optimize"],
         ["radio_3", "transmit_optimize"],
+        ["radio_4", "band"],
         ["radio_4", "powersave_optimize"],
         ["radio_4", "transmit_optimize"],
     ]
@@ -3903,10 +3986,11 @@ def valid_attr_to_invalid_attrs(data):
             new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
         data = new_data
 
-    return data
+    return valid_attr_to_invalid_attr(data)
 
 
 def wireless_controller_wtp_profile(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -3992,7 +4076,7 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "wireless-controller", "wtp-profile", mkey=filtered_data["name"], vdom=vdom
+            "wireless-controller", "wtp-profile", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -4687,6 +4771,11 @@ versioned_schema = {
                 {"value": "low", "v_range": [["v6.4.4", ""]]},
             ],
         },
+        "usb_port": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "frequency_handoff": {
             "v_range": [["v6.4.0", ""]],
             "type": "string",
@@ -4714,34 +4803,54 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.0.0", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax", "v_range": [["v6.2.0", ""]]},
                         {"value": "802.11ac-2G", "v_range": [["v6.4.0", ""]]},
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,ac,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-5G-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n,g-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-only", "v_range": [["v6.2.0", ""]]},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11n", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ax", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n,g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-5G-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac,n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax-only", "v_range": [["v6.2.0", "v7.4.3"]]},
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "band_5g_type": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -4851,11 +4960,18 @@ versioned_schema = {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
                     "options": [
+                        {"value": "320MHz", "v_range": [["v7.4.4", ""]]},
+                        {"value": "240MHz", "v_range": [["v7.4.4", ""]]},
                         {"value": "160MHz", "v_range": [["v6.2.0", ""]]},
                         {"value": "80MHz"},
                         {"value": "40MHz"},
                         {"value": "20MHz"},
                     ],
+                },
+                "channel_bonding_ext": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "320MHz-1"}, {"value": "320MHz-2"}],
                 },
                 "optional_antenna": {
                     "v_range": [["v7.4.0", ""]],
@@ -5098,34 +5214,54 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.0.0", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax", "v_range": [["v6.2.0", ""]]},
                         {"value": "802.11ac-2G", "v_range": [["v6.4.0", ""]]},
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,ac,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-5G-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n,g-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-only", "v_range": [["v6.2.0", ""]]},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11n", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ax", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n,g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-5G-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac,n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax-only", "v_range": [["v6.2.0", "v7.4.3"]]},
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "band_5g_type": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -5235,11 +5371,18 @@ versioned_schema = {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
                     "options": [
+                        {"value": "320MHz", "v_range": [["v7.4.4", ""]]},
+                        {"value": "240MHz", "v_range": [["v7.4.4", ""]]},
                         {"value": "160MHz", "v_range": [["v6.2.0", ""]]},
                         {"value": "80MHz"},
                         {"value": "40MHz"},
                         {"value": "20MHz"},
                     ],
+                },
+                "channel_bonding_ext": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "320MHz-1"}, {"value": "320MHz-2"}],
                 },
                 "optional_antenna": {
                     "v_range": [["v7.4.0", ""]],
@@ -5482,34 +5625,54 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.2.0", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G"},
-                        {"value": "802.11ax"},
                         {"value": "802.11ac-2G", "v_range": [["v6.4.0", ""]]},
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G"},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only"},
-                        {"value": "802.11ax,ac,n-only"},
-                        {"value": "802.11ax-5G-only"},
-                        {"value": "802.11ax,n-only"},
-                        {"value": "802.11ax,n,g-only"},
-                        {"value": "802.11ax-only"},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11n", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ac", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ax", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n,g-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11g-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n-5G-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ac,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ac-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax-only", "v_range": [["v6.2.0", "v7.4.3"]]},
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "band_5g_type": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -5619,11 +5782,18 @@ versioned_schema = {
                     "v_range": [["v6.2.0", ""]],
                     "type": "string",
                     "options": [
+                        {"value": "320MHz", "v_range": [["v7.4.4", ""]]},
+                        {"value": "240MHz", "v_range": [["v7.4.4", ""]]},
                         {"value": "160MHz"},
                         {"value": "80MHz"},
                         {"value": "40MHz"},
                         {"value": "20MHz"},
                     ],
+                },
+                "channel_bonding_ext": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "320MHz-1"}, {"value": "320MHz-2"}],
                 },
                 "optional_antenna": {
                     "v_range": [["v7.4.0", ""]],
@@ -5863,34 +6033,87 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G"},
-                        {"value": "802.11ax"},
                         {"value": "802.11ac-2G", "v_range": [["v6.4.0", ""]]},
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G"},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only"},
-                        {"value": "802.11ax,ac,n-only"},
-                        {"value": "802.11ax-5G-only"},
-                        {"value": "802.11ax,n-only"},
-                        {"value": "802.11ax,n,g-only"},
-                        {"value": "802.11ax-only"},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {
+                            "value": "802.11n",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ac",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11n,g-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11g-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11n-5G-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ac,n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ac-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "band_5g_type": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -6000,11 +6223,18 @@ versioned_schema = {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "string",
                     "options": [
+                        {"value": "320MHz", "v_range": [["v7.4.4", ""]]},
+                        {"value": "240MHz", "v_range": [["v7.4.4", ""]]},
                         {"value": "160MHz"},
                         {"value": "80MHz"},
                         {"value": "40MHz"},
                         {"value": "20MHz"},
                     ],
+                },
+                "channel_bonding_ext": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "320MHz-1"}, {"value": "320MHz-2"}],
                 },
                 "optional_antenna": {
                     "v_range": [["v7.4.0", ""]],
@@ -6588,12 +6818,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_wtp_profile"

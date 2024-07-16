@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -80,6 +81,13 @@ options:
         default: null
         type: dict
         suboptions:
+            append_index:
+                description:
+                    - Enable/disable allowance of appending vdom or interface index in some RFC tables.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             contact_info:
                 description:
                     - Contact information.
@@ -138,6 +146,7 @@ EXAMPLES = """
   fortinet.fortios.fortios_system_snmp_sysinfo:
       vdom: "{{ vdom }}"
       system_snmp_sysinfo:
+          append_index: "enable"
           contact_info: "<your_own_value>"
           description: "<your_own_value>"
           engine_id: "<your_own_value>"
@@ -232,6 +241,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_system_snmp_sysinfo_data(json):
     option_list = [
+        "append_index",
         "contact_info",
         "description",
         "engine_id",
@@ -269,6 +279,7 @@ def underscore_to_hyphen(data):
 
 
 def system_snmp_sysinfo(data, fos):
+    state = None
     vdom = data["vdom"]
     system_snmp_sysinfo_data = data["system_snmp_sysinfo"]
     filtered_data = filter_system_snmp_sysinfo_data(system_snmp_sysinfo_data)
@@ -331,6 +342,11 @@ versioned_schema = {
             "v_range": [["v7.4.2", ""]],
             "type": "integer",
         },
+        "append_index": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
     },
 }
 
@@ -374,12 +390,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_snmp_sysinfo"

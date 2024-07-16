@@ -27,7 +27,7 @@ secret_fields = [
     "tertiary_key", "sae_private_key", "tertiary_secret", "search_key", "est_http_password", "est_srp_password",
     "fortitoken_cloud_sync_interval", "mfa_password", "default_user_password_policy", "polestar_server_token",
     "ssh_hostkey", "ssh_hostkey_password", "keyword", "sam_private_key", "sam_private_key_password",
-    "videofilter_keyword"
+    "videofilter_keyword", "cloud_authentication_access_key", "cloud_authentication_access_key", "auth_server_secret", "ssh_hsk_password"
 ]
 
 

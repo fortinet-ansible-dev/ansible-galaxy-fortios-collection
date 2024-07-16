@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -367,6 +369,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            dhcp_relay_allow_no_end_option:
+                description:
+                    - Enable/disable relaying DHCP messages with no end option.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             dhcp_relay_circuit_id:
                 description:
                     - DHCP relay circuit ID.
@@ -1951,11 +1960,12 @@ options:
                     - 'disable'
             switch_controller_arp_inspection:
                 description:
-                    - Enable/disable FortiSwitch ARP inspection.
+                    - Enable/disable/Monitor FortiSwitch ARP inspection.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
+                    - 'monitor'
             switch_controller_dhcp_snooping:
                 description:
                     - Switch controller DHCP snooping.
@@ -2374,6 +2384,7 @@ EXAMPLES = """
           dhcp_classless_route_addition: "enable"
           dhcp_client_identifier: "myId_46"
           dhcp_relay_agent_option: "enable"
+          dhcp_relay_allow_no_end_option: "disable"
           dhcp_relay_circuit_id: "<your_own_value>"
           dhcp_relay_interface: "<your_own_value> (source system.interface.name)"
           dhcp_relay_interface_select_method: "auto"
@@ -2387,7 +2398,7 @@ EXAMPLES = """
           dhcp_smart_relay: "disable"
           dhcp_snooping_server_list:
               -
-                  name: "default_name_60"
+                  name: "default_name_61"
                   server_ip: "<your_own_value>"
           disc_retry_timeout: "1"
           disconnect_threshold: "0"
@@ -2422,7 +2433,7 @@ EXAMPLES = """
           fail_action_on_extender: "soft-restart"
           fail_alert_interfaces:
               -
-                  name: "default_name_94 (source system.interface.name)"
+                  name: "default_name_95 (source system.interface.name)"
           fail_alert_method: "link-failed-signal"
           fail_detect: "enable"
           fail_detect_option: "detectserver"
@@ -2476,7 +2487,7 @@ EXAMPLES = """
               dhcp6_relay_source_ip: "<your_own_value>"
               dhcp6_relay_type: "regular"
               icmp6_send_redirect: "enable"
-              interface_identifier: "myId_147"
+              interface_identifier: "myId_148"
               ip6_address: "<your_own_value>"
               ip6_allowaccess: "ping"
               ip6_default_life: "1800"
@@ -2556,7 +2567,7 @@ EXAMPLES = """
           macaddr: "<your_own_value>"
           managed_device:
               -
-                  name: "default_name_221"
+                  name: "default_name_222"
           managed_subnetwork_size: "32"
           management_ip: "<your_own_value>"
           measured_downstream_bandwidth: "0"
@@ -2579,7 +2590,7 @@ EXAMPLES = """
           monitor_bandwidth: "enable"
           mtu: "1500"
           mtu_override: "enable"
-          name: "default_name_243"
+          name: "default_name_244"
           ndiscforward: "enable"
           netbios_forward: "disable"
           netflow_sampler: "disable"
@@ -2619,7 +2630,7 @@ EXAMPLES = """
                   detectserver: "<your_own_value>"
                   gwdetect: "enable"
                   ha_priority: "1"
-                  id: "282"
+                  id: "283"
                   ip: "<your_own_value>"
                   ping_serv_status: "0"
                   secip_relay_ip: "<your_own_value>"
@@ -2632,7 +2643,7 @@ EXAMPLES = """
           security_external_web: "<your_own_value>"
           security_groups:
               -
-                  name: "default_name_294 (source user.group.name)"
+                  name: "default_name_295 (source user.group.name)"
           security_mac_auth_bypass: "mac-auth-only"
           security_mode: "none"
           security_redirect_url: "<your_own_value>"
@@ -2681,10 +2692,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_342"
+                  name: "default_name_343"
                   tags:
                       -
-                          name: "default_name_344 (source system.object-tagging.tags.name)"
+                          name: "default_name_345 (source system.object-tagging.tags.name)"
           tcp_mss: "0"
           trunk: "enable"
           trust_ip_1: "<your_own_value>"
@@ -2710,7 +2721,7 @@ EXAMPLES = """
                   priority: "100"
                   proxy_arp:
                       -
-                          id: "368"
+                          id: "369"
                           ip: "<your_own_value>"
                   start_time: "3"
                   status: "enable"
@@ -2856,6 +2867,7 @@ def filter_system_interface_data(json):
         "dhcp_classless_route_addition",
         "dhcp_client_identifier",
         "dhcp_relay_agent_option",
+        "dhcp_relay_allow_no_end_option",
         "dhcp_relay_circuit_id",
         "dhcp_relay_interface",
         "dhcp_relay_interface_select_method",
@@ -3131,6 +3143,7 @@ def underscore_to_hyphen(data):
 
 
 def system_interface(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -3205,7 +3218,7 @@ def system_interface(data, fos, check_mode=False):
         return fos.set("system", "interface", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("system", "interface", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("system", "interface", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -3323,6 +3336,11 @@ versioned_schema = {
         "dhcp_relay_link_selection": {"v_range": [["v7.0.4", ""]], "type": "string"},
         "dhcp_relay_request_all_server": {
             "v_range": [["v7.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "dhcp_relay_allow_no_end_option": {
+            "v_range": [["v7.4.4", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
@@ -4155,7 +4173,11 @@ versioned_schema = {
         "switch_controller_arp_inspection": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "enable"},
+                {"value": "disable"},
+                {"value": "monitor", "v_range": [["v7.4.4", ""]]},
+            ],
         },
         "switch_controller_learning_limit": {
             "v_range": [["v6.0.0", ""]],
@@ -5029,12 +5051,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_interface"

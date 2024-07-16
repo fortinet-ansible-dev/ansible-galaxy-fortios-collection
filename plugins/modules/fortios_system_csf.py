@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -254,6 +255,10 @@ options:
                 choices:
                     - 'default'
                     - 'local'
+            source_ip:
+                description:
+                    - Source IP address for communication with the upstream FortiGate.
+                type: str
             status:
                 description:
                     - Enable/disable Security Fabric.
@@ -318,6 +323,18 @@ options:
                 description:
                     - IP/FQDN of the FortiGate upstream from this FortiGate in the Security Fabric.
                 type: str
+            upstream_interface:
+                description:
+                    - Specify outgoing interface to reach server. Source system.interface.name.
+                type: str
+            upstream_interface_select_method:
+                description:
+                    - Specify how to select outgoing interface to reach server.
+                type: str
+                choices:
+                    - 'auto'
+                    - 'sdwan'
+                    - 'specify'
             upstream_ip:
                 description:
                     - IP address of the FortiGate upstream from this FortiGate in the Security Fabric.
@@ -369,6 +386,7 @@ EXAMPLES = """
           management_ip: "<your_own_value>"
           management_port: "32767"
           saml_configuration_sync: "default"
+          source_ip: "84.230.14.43"
           status: "enable"
           trusted_list:
               -
@@ -378,10 +396,12 @@ EXAMPLES = """
                   downstream_authorization: "enable"
                   ha_members: "<your_own_value>"
                   index: "0"
-                  name: "default_name_44"
+                  name: "default_name_45"
                   serial: "<your_own_value>"
           uid: "<your_own_value>"
           upstream: "<your_own_value>"
+          upstream_interface: "<your_own_value> (source system.interface.name)"
+          upstream_interface_select_method: "auto"
           upstream_ip: "<your_own_value>"
           upstream_port: "8013"
 """
@@ -488,10 +508,13 @@ def filter_system_csf_data(json):
         "management_ip",
         "management_port",
         "saml_configuration_sync",
+        "source_ip",
         "status",
         "trusted_list",
         "uid",
         "upstream",
+        "upstream_interface",
+        "upstream_interface_select_method",
         "upstream_ip",
         "upstream_port",
     ]
@@ -549,6 +572,7 @@ def underscore_to_hyphen(data):
 
 
 def system_csf(data, fos):
+    state = None
     vdom = data["vdom"]
     system_csf_data = data["system_csf"]
     system_csf_data = flatten_multilists_attributes(system_csf_data)
@@ -597,6 +621,13 @@ versioned_schema = {
         },
         "uid": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "upstream": {"v_range": [["v7.0.2", ""]], "type": "string"},
+        "source_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "upstream_interface_select_method": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
+        },
+        "upstream_interface": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "upstream_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "group_name": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "group_password": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -794,12 +825,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_csf"

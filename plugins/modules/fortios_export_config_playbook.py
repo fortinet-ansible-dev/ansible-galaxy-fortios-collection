@@ -247,6 +247,7 @@ options:
                  - 'system_acme'
                  - 'system_ipam'
                  - 'system_fabric-vpn'
+                 - 'system_ssh-config'
                  - 'wireless-controller_inter-controller'
                  - 'wireless-controller_global'
                  - 'wireless-controller.hotspot20_anqp-venue-name'
@@ -407,6 +408,7 @@ options:
                  - 'firewall_DoS-policy'
                  - 'firewall_DoS-policy6'
                  - 'firewall_sniffer'
+                 - 'firewall_on-demand-sniffer'
                  - 'firewall_central-snat-map'
                  - 'firewall.ssl_setting'
                  - 'firewall_ip-translation'
@@ -608,6 +610,7 @@ options:
                  - 'authentication_rule'
                  - 'authentication_setting'
                  - 'extension-controller_dataplan'
+                 - 'extension-controller_extender-vap'
                  - 'extension-controller_extender-profile'
                  - 'extension-controller_extender'
                  - 'extension-controller_fortigate-profile'
@@ -984,6 +987,7 @@ options:
          - 'system_acme'
          - 'system_ipam'
          - 'system_fabric-vpn'
+         - 'system_ssh-config'
          - 'wireless-controller_inter-controller'
          - 'wireless-controller_global'
          - 'wireless-controller.hotspot20_anqp-venue-name'
@@ -1144,6 +1148,7 @@ options:
          - 'firewall_DoS-policy'
          - 'firewall_DoS-policy6'
          - 'firewall_sniffer'
+         - 'firewall_on-demand-sniffer'
          - 'firewall_central-snat-map'
          - 'firewall.ssl_setting'
          - 'firewall_ip-translation'
@@ -1345,6 +1350,7 @@ options:
          - 'authentication_rule'
          - 'authentication_setting'
          - 'extension-controller_dataplan'
+         - 'extension-controller_extender-vap'
          - 'extension-controller_extender-profile'
          - 'extension-controller_extender'
          - 'extension-controller_fortigate-profile'
@@ -1683,7 +1689,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import (
     FAIL_SOCKET_MSG,
 )
-from urllib.parse import quote
+
+# from urllib.parse import quote
+try:
+    # For Python 3
+    from urllib.parse import quote
+except ImportError:
+    # For Python 2
+    from urllib import quote
 
 MODULE_MKEY_DEFINITONS = {
     "system_vdom": {
@@ -2143,6 +2156,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "system_fabric-vpn": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_ssh-config": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -2785,6 +2802,10 @@ MODULE_MKEY_DEFINITONS = {
     "firewall_sniffer": {
         "mkey": "id",
         "mkey_type": int,
+    },
+    "firewall_on-demand-sniffer": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "firewall_central-snat-map": {
         "mkey": "policyid",
@@ -3587,6 +3608,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "extension-controller_dataplan": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "extension-controller_extender-vap": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -4613,12 +4638,12 @@ SPECIAL_ATTRIBUTE_TABLE = {
         ["admin_https_ssl_versions"],
         ["admin_https_ssl_ciphersuites"],
         ["admin_https_ssl_banned_ciphers"],
+        ["fgd_alert_subscription"],
+        ["split_port"],
         ["ssh_kex_algo"],
         ["ssh_enc_algo"],
         ["ssh_mac_algo"],
         ["ssh_hostkey_algo"],
-        ["fgd_alert_subscription"],
-        ["split_port"],
     ],
     "system_interface": [
         ["client_options", "ip"],
@@ -4701,6 +4726,12 @@ SPECIAL_ATTRIBUTE_TABLE = {
     "system_wccp": [["server_list"], ["router_list"], ["ports"], ["primary_hash"]],
     "system_csf": [["trusted_list", "ha_members"]],
     "system_fabric_vpn": [["advertised_subnets", "policies"], ["health_checks"]],
+    "system_ssh_config": [
+        ["ssh_kex_algo"],
+        ["ssh_enc_algo"],
+        ["ssh_mac_algo"],
+        ["ssh_hsk_algo"],
+    ],
     "wireless_controller_global": [["control_message_offload"]],
     "wireless_controller_hotspot20_h2qp_osu_provider": [["osu_method"]],
     "wireless_controller_vap": [
@@ -4729,16 +4760,27 @@ SPECIAL_ATTRIBUTE_TABLE = {
         ["dtls_policy"],
         ["ip_fragment_preventing"],
         ["allowaccess"],
+        ["radio_1", "band"],
         ["radio_1", "powersave_optimize"],
         ["radio_1", "transmit_optimize"],
+        ["radio_2", "band"],
         ["radio_2", "powersave_optimize"],
         ["radio_2", "transmit_optimize"],
+        ["radio_3", "band"],
         ["radio_3", "powersave_optimize"],
         ["radio_3", "transmit_optimize"],
+        ["radio_4", "band"],
         ["radio_4", "powersave_optimize"],
         ["radio_4", "transmit_optimize"],
     ],
-    "wireless_controller_wtp": [["ip_fragment_preventing"], ["allowaccess"]],
+    "wireless_controller_wtp": [
+        ["ip_fragment_preventing"],
+        ["allowaccess"],
+        ["radio_1", "band"],
+        ["radio_2", "band"],
+        ["radio_3", "band"],
+        ["radio_4", "band"],
+    ],
     "wireless_controller_snmp": [["user", "notify_hosts"]],
     "switch_controller_security_policy_local_access": [
         ["mgmt_allowaccess"],
@@ -4937,11 +4979,14 @@ SPECIAL_ATTRIBUTE_TABLE = {
     ],
     "casb_profile": [["saas_application", "access_rule", "bypass"]],
     "authentication_scheme": [["method"]],
+    "extension_controller_extender_vap": [["allowaccess"]],
     "extension_controller_extender_profile": [
         ["allowaccess"],
         ["cellular", "sms_notification", "receiver", "alert"],
         ["cellular", "modem1", "auto_switch", "switch_back"],
         ["cellular", "modem2", "auto_switch", "switch_back"],
+        ["wifi", "radio_1", "channel"],
+        ["wifi", "radio_2", "channel"],
     ],
     "extension_controller_extender": [["allowaccess"]],
     "endpoint_control_fctems": [["capabilities"]],
@@ -5108,7 +5153,11 @@ def flatten_single_path(data, path, index):
         return
 
     if index == len(path) - 1:
-        data[path[index]] = data[path[index]].split(" ")
+        data[path[index]] = (
+            data[path[index]]
+            if isinstance(data[path[index]], str)
+            else data[path[index]]
+        )
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -5336,6 +5385,7 @@ def main():
                 "system_acme",
                 "system_ipam",
                 "system_fabric-vpn",
+                "system_ssh-config",
                 "wireless-controller_inter-controller",
                 "wireless-controller_global",
                 "wireless-controller.hotspot20_anqp-venue-name",
@@ -5496,6 +5546,7 @@ def main():
                 "firewall_DoS-policy",
                 "firewall_DoS-policy6",
                 "firewall_sniffer",
+                "firewall_on-demand-sniffer",
                 "firewall_central-snat-map",
                 "firewall.ssl_setting",
                 "firewall_ip-translation",
@@ -5697,6 +5748,7 @@ def main():
                 "authentication_rule",
                 "authentication_setting",
                 "extension-controller_dataplan",
+                "extension-controller_extender-vap",
                 "extension-controller_extender-profile",
                 "extension-controller_extender",
                 "extension-controller_fortigate-profile",
@@ -6081,6 +6133,7 @@ def main():
                         "system_acme",
                         "system_ipam",
                         "system_fabric-vpn",
+                        "system_ssh-config",
                         "wireless-controller_inter-controller",
                         "wireless-controller_global",
                         "wireless-controller.hotspot20_anqp-venue-name",
@@ -6241,6 +6294,7 @@ def main():
                         "firewall_DoS-policy",
                         "firewall_DoS-policy6",
                         "firewall_sniffer",
+                        "firewall_on-demand-sniffer",
                         "firewall_central-snat-map",
                         "firewall.ssl_setting",
                         "firewall_ip-translation",
@@ -6442,6 +6496,7 @@ def main():
                         "authentication_rule",
                         "authentication_setting",
                         "extension-controller_dataplan",
+                        "extension-controller_extender-vap",
                         "extension-controller_extender-profile",
                         "extension-controller_extender",
                         "extension-controller_fortigate-profile",
@@ -6718,11 +6773,11 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
 
         fos = FortiOSHandler(connection, module)
 

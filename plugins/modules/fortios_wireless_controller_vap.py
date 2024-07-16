@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -103,6 +105,7 @@ options:
                 elements: str
                 choices:
                     - 'akm6'
+                    - 'akm24'
             address_group:
                 description:
                     - Firewall Address Group Name. Source firewall.addrgrp.name.
@@ -115,6 +118,13 @@ options:
                     - 'disable'
                     - 'allow'
                     - 'deny'
+            akm24_only:
+                description:
+                    - WPA3 SAE using group-dependent hash only .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             alias:
                 description:
                     - Alias.
@@ -174,6 +184,13 @@ options:
                     - 'name'
                     - 'model'
                     - 'serial-number'
+            beacon_protection:
+                description:
+                    - Enable/disable beacon protection support .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             broadcast_ssid:
                 description:
                     - Enable/disable broadcasting the SSID .
@@ -224,6 +241,13 @@ options:
                 description:
                     - Time interval for client to voluntarily leave AP before forcing a disassociation due to low RSSI (0 to 2000).
                 type: int
+            captive_portal:
+                description:
+                    - Enable/disable captive portal.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             captive_portal_ac_name:
                 description:
                     - Local-bridging captive portal ac-name.
@@ -402,7 +426,7 @@ options:
                     - 'disable'
             gtk_rekey_intv:
                 description:
-                    - GTK rekey interval (1800 - 864000 sec).
+                    - GTK rekey interval (600 - 864000 sec).
                 type: int
             high_efficiency:
                 description:
@@ -738,6 +762,13 @@ options:
                     - Virtual AP name.
                 required: true
                 type: str
+            nas_filter_rule:
+                description:
+                    - Enable/disable NAS filter rule support .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             neighbor_report_dual_band:
                 description:
                     - Enable/disable dual-band neighbor report .
@@ -879,7 +910,7 @@ options:
                     - 'disable'
             ptk_rekey_intv:
                 description:
-                    - PTK rekey interval (1800 - 864000 sec).
+                    - PTK rekey interval (600 - 864000 sec).
                 type: int
             qos_profile:
                 description:
@@ -1106,6 +1137,18 @@ options:
                     - 'mcs9/4'
                     - 'mcs10/4'
                     - 'mcs11/4'
+            rates_11be_mcs_map:
+                description:
+                    - Comma separated list of max nss that supports EHT-MCS 0-9, 10-11, 12-13 for 20MHz/40MHz/80MHz bandwidth.
+                type: str
+            rates_11be_mcs_map_160:
+                description:
+                    - Comma separated list of max nss that supports EHT-MCS 0-9, 10-11, 12-13 for 160MHz bandwidth.
+                type: str
+            rates_11be_mcs_map_320:
+                description:
+                    - Comma separated list of max nss that supports EHT-MCS 0-9, 10-11, 12-13 for 320MHz bandwidth.
+                type: str
             rates_11bg:
                 description:
                     - Allowed data rates for 802.11b/g.
@@ -1268,17 +1311,13 @@ options:
                 type: str
                 choices:
                     - 'open'
-                    - 'captive-portal'
                     - 'wep64'
                     - 'wep128'
                     - 'wpa-personal'
-                    - 'wpa-personal+captive-portal'
                     - 'wpa-enterprise'
                     - 'wpa-only-personal'
-                    - 'wpa-only-personal+captive-portal'
                     - 'wpa-only-enterprise'
                     - 'wpa2-only-personal'
-                    - 'wpa2-only-personal+captive-portal'
                     - 'wpa2-only-enterprise'
                     - 'wpa3-enterprise'
                     - 'wpa3-only-enterprise'
@@ -1287,6 +1326,10 @@ options:
                     - 'wpa3-sae-transition'
                     - 'owe'
                     - 'osen'
+                    - 'captive-portal'
+                    - 'wpa-personal+captive-portal'
+                    - 'wpa-only-personal+captive-portal'
+                    - 'wpa2-only-personal+captive-portal'
             security_exempt_list:
                 description:
                     - Optional security exempt list for captive portal authentication. Source user.security-exempt-list.name.
@@ -1490,6 +1533,7 @@ EXAMPLES = """
           additional_akms: "akm6"
           address_group: "<your_own_value> (source firewall.addrgrp.name)"
           address_group_policy: "disable"
+          akm24_only: "disable"
           alias: "<your_own_value>"
           antivirus_profile: "<your_own_value> (source antivirus.profile.name)"
           application_detection_engine: "enable"
@@ -1501,12 +1545,14 @@ EXAMPLES = """
           auth_cert: "<your_own_value> (source vpn.certificate.local.name)"
           auth_portal_addr: "<your_own_value>"
           beacon_advertising: "name"
+          beacon_protection: "disable"
           broadcast_ssid: "enable"
           broadcast_suppression: "dhcp-up"
           bss_color_partial: "enable"
           bstm_disassociation_imminent: "enable"
           bstm_load_balancing_disassoc_timer: "10"
           bstm_rssi_disassoc_timer: "200"
+          captive_portal: "enable"
           captive_portal_ac_name: "<your_own_value>"
           captive_portal_auth_timeout: "0"
           captive_portal_fw_accounting: "enable"
@@ -1565,7 +1611,7 @@ EXAMPLES = """
           mac_filter: "enable"
           mac_filter_list:
               -
-                  id: "82"
+                  id: "85"
                   mac: "<your_own_value>"
                   mac_filter_policy: "allow"
           mac_filter_policy_other: "allow"
@@ -1586,7 +1632,7 @@ EXAMPLES = """
                   key_name: "<your_own_value>"
                   mpsk_schedules:
                       -
-                          name: "default_name_101 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                          name: "default_name_104 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
                   passphrase: "<your_own_value>"
           mpsk_profile: "<your_own_value> (source wireless-controller.mpsk-profile.name)"
           mu_mimo: "enable"
@@ -1594,7 +1640,8 @@ EXAMPLES = """
           multicast_rate: "0"
           nac: "enable"
           nac_profile: "<your_own_value> (source wireless-controller.nac-profile.name)"
-          name: "default_name_109"
+          name: "default_name_112"
+          nas_filter_rule: "enable"
           neighbor_report_dual_band: "disable"
           okc: "disable"
           osen: "enable"
@@ -1630,7 +1677,7 @@ EXAMPLES = """
           radius_mac_auth_server: "<your_own_value> (source user.radius.name)"
           radius_mac_auth_usergroups:
               -
-                  name: "default_name_144"
+                  name: "default_name_148"
           radius_mac_mpsk_auth: "enable"
           radius_mac_mpsk_timeout: "86400"
           radius_server: "<your_own_value> (source user.radius.name)"
@@ -1641,6 +1688,9 @@ EXAMPLES = """
           rates_11ax_mcs_map: "<your_own_value>"
           rates_11ax_ss12: "mcs0/1"
           rates_11ax_ss34: "mcs0/3"
+          rates_11be_mcs_map: "<your_own_value>"
+          rates_11be_mcs_map_160: "<your_own_value>"
+          rates_11be_mcs_map_320: "<your_own_value>"
           rates_11bg: "1"
           rates_11n_ss12: "mcs0/1"
           rates_11n_ss34: "mcs16/3"
@@ -1654,7 +1704,7 @@ EXAMPLES = """
           scan_botnet_connections: "disable"
           schedule:
               -
-                  name: "default_name_167 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_174 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           secondary_wag_profile: "<your_own_value> (source wireless-controller.wag-profile.name)"
           security: "open"
           security_exempt_list: "<your_own_value> (source user.security-exempt-list.name)"
@@ -1662,7 +1712,7 @@ EXAMPLES = """
           security_redirect_url: "<your_own_value>"
           selected_usergroups:
               -
-                  name: "default_name_174 (source user.group.name)"
+                  name: "default_name_181 (source user.group.name)"
           set_80211k: "disable"
           set_80211v: "disable"
           split_tunneling: "enable"
@@ -1677,7 +1727,7 @@ EXAMPLES = """
           tunnel_fallback_interval: "7200"
           usergroup:
               -
-                  name: "default_name_188 (source user.group.name)"
+                  name: "default_name_195 (source user.group.name)"
           utm_log: "enable"
           utm_profile: "<your_own_value> (source wireless-controller.utm-profile.name)"
           utm_status: "enable"
@@ -1685,11 +1735,11 @@ EXAMPLES = """
           vlan_auto: "enable"
           vlan_name:
               -
-                  name: "default_name_195"
+                  name: "default_name_202"
                   vlan_id: "<your_own_value>"
           vlan_pool:
               -
-                  id: "198"
+                  id: "205"
                   wtp_group: "<your_own_value> (source wireless-controller.wtp-group.name)"
           vlan_pooling: "wtp-group"
           vlanid: "0"
@@ -1792,6 +1842,7 @@ def filter_wireless_controller_vap_data(json):
         "additional_akms",
         "address_group",
         "address_group_policy",
+        "akm24_only",
         "alias",
         "antivirus_profile",
         "application_detection_engine",
@@ -1803,12 +1854,14 @@ def filter_wireless_controller_vap_data(json):
         "auth_cert",
         "auth_portal_addr",
         "beacon_advertising",
+        "beacon_protection",
         "broadcast_ssid",
         "broadcast_suppression",
         "bss_color_partial",
         "bstm_disassociation_imminent",
         "bstm_load_balancing_disassoc_timer",
         "bstm_rssi_disassoc_timer",
+        "captive_portal",
         "captive_portal_ac_name",
         "captive_portal_auth_timeout",
         "captive_portal_fw_accounting",
@@ -1885,6 +1938,7 @@ def filter_wireless_controller_vap_data(json):
         "nac",
         "nac_profile",
         "name",
+        "nas_filter_rule",
         "neighbor_report_dual_band",
         "okc",
         "osen",
@@ -1925,6 +1979,9 @@ def filter_wireless_controller_vap_data(json):
         "rates_11ax_mcs_map",
         "rates_11ax_ss12",
         "rates_11ax_ss34",
+        "rates_11be_mcs_map",
+        "rates_11be_mcs_map_160",
+        "rates_11be_mcs_map_320",
         "rates_11bg",
         "rates_11n_ss12",
         "rates_11n_ss34",
@@ -2059,10 +2116,11 @@ def valid_attr_to_invalid_attrs(data):
             new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
         data = new_data
 
-    return data
+    return valid_attr_to_invalid_attr(data)
 
 
 def wireless_controller_vap(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -2140,7 +2198,7 @@ def wireless_controller_vap(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "wireless-controller", "vap", mkey=filtered_data["name"], vdom=vdom
+            "wireless-controller", "vap", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -2209,17 +2267,13 @@ versioned_schema = {
             "type": "string",
             "options": [
                 {"value": "open"},
-                {"value": "captive-portal"},
                 {"value": "wep64"},
                 {"value": "wep128"},
                 {"value": "wpa-personal"},
-                {"value": "wpa-personal+captive-portal"},
                 {"value": "wpa-enterprise"},
                 {"value": "wpa-only-personal"},
-                {"value": "wpa-only-personal+captive-portal"},
                 {"value": "wpa-only-enterprise"},
                 {"value": "wpa2-only-personal"},
-                {"value": "wpa2-only-personal+captive-portal"},
                 {"value": "wpa2-only-enterprise"},
                 {"value": "wpa3-enterprise", "v_range": [["v6.2.0", ""]]},
                 {"value": "wpa3-only-enterprise", "v_range": [["v7.0.0", ""]]},
@@ -2228,6 +2282,19 @@ versioned_schema = {
                 {"value": "wpa3-sae-transition", "v_range": [["v6.2.0", ""]]},
                 {"value": "owe", "v_range": [["v6.2.0", ""]]},
                 {"value": "osen"},
+                {"value": "captive-portal", "v_range": [["v6.0.0", "v7.4.3"]]},
+                {
+                    "value": "wpa-personal+captive-portal",
+                    "v_range": [["v6.0.0", "v7.4.3"]],
+                },
+                {
+                    "value": "wpa-only-personal+captive-portal",
+                    "v_range": [["v6.0.0", "v7.4.3"]],
+                },
+                {
+                    "value": "wpa2-only-personal+captive-portal",
+                    "v_range": [["v6.0.0", "v7.4.3"]],
+                },
             ],
         },
         "pmf": {
@@ -2241,6 +2308,11 @@ versioned_schema = {
         },
         "pmf_assoc_comeback_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "pmf_sa_query_retry_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "beacon_protection": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "okc": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2319,7 +2391,10 @@ versioned_schema = {
         "additional_akms": {
             "v_range": [["v7.0.0", ""]],
             "type": "list",
-            "options": [{"value": "akm6"}],
+            "options": [
+                {"value": "akm6"},
+                {"value": "akm24", "v_range": [["v7.4.4", ""]]},
+            ],
             "multiple_values": True,
             "elements": "str",
         },
@@ -2459,7 +2534,17 @@ versioned_schema = {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
             "type": "string",
         },
+        "akm24_only": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "radius_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "nas_filter_rule": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "local_standalone": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2634,6 +2719,11 @@ versioned_schema = {
         },
         "dynamic_vlan": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "captive_portal": {
+            "v_range": [["v7.4.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2954,6 +3044,9 @@ versioned_schema = {
         },
         "rates_11ac_mcs_map": {"v_range": [["v7.2.1", ""]], "type": "string"},
         "rates_11ax_mcs_map": {"v_range": [["v7.2.1", ""]], "type": "string"},
+        "rates_11be_mcs_map": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "rates_11be_mcs_map_160": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "rates_11be_mcs_map_320": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "utm_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "utm_status": {
             "v_range": [["v7.0.1", ""]],
@@ -3332,12 +3425,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_vap"

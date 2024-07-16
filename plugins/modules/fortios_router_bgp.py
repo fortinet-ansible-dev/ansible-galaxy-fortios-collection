@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -1977,6 +1978,10 @@ options:
                         description:
                             - AS number of neighbor.
                         type: str
+                    remote_as_filter:
+                        description:
+                            - BGP filter for remote AS. Source router.aspath-list.name.
+                        type: str
                     remove_private_as:
                         description:
                             - Enable/disable remove private AS number from IPv4 outbound updates.
@@ -3014,6 +3019,7 @@ EXAMPLES = """
                   prefix_list_out_vpnv6: "<your_own_value> (source router.prefix-list6.name)"
                   prefix_list_out6: "<your_own_value> (source router.prefix-list6.name)"
                   remote_as: "<your_own_value>"
+                  remote_as_filter: "<your_own_value> (source router.aspath-list.name)"
                   remove_private_as: "enable"
                   remove_private_as_evpn: "enable"
                   remove_private_as_vpnv4: "enable"
@@ -3064,20 +3070,20 @@ EXAMPLES = """
                   weight: "4294967295"
           neighbor_range:
               -
-                  id: "388"
+                  id: "389"
                   max_neighbor_num: "0"
                   neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
                   prefix: "<your_own_value>"
           neighbor_range6:
               -
-                  id: "393"
+                  id: "394"
                   max_neighbor_num: "0"
                   neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
                   prefix6: "<your_own_value>"
           network:
               -
                   backdoor: "enable"
-                  id: "399"
+                  id: "400"
                   network_import_check: "global"
                   prefix: "<your_own_value>"
                   route_map: "<your_own_value> (source router.route-map.name)"
@@ -3085,7 +3091,7 @@ EXAMPLES = """
           network6:
               -
                   backdoor: "enable"
-                  id: "406"
+                  id: "407"
                   network_import_check: "global"
                   prefix6: "<your_own_value>"
                   route_map: "<your_own_value> (source router.route-map.name)"
@@ -3093,12 +3099,12 @@ EXAMPLES = """
           recursive_next_hop: "enable"
           redistribute:
               -
-                  name: "default_name_413"
+                  name: "default_name_414"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           redistribute6:
               -
-                  name: "default_name_417"
+                  name: "default_name_418"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           router_id: "<your_own_value>"
@@ -3368,6 +3374,7 @@ def underscore_to_hyphen(data):
 
 
 def router_bgp(data, fos):
+    state = None
     vdom = data["vdom"]
     router_bgp_data = data["router_bgp"]
     router_bgp_data = flatten_multilists_attributes(router_bgp_data)
@@ -4811,6 +4818,7 @@ versioned_schema = {
                     "type": "string",
                 },
                 "remote_as": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "remote_as_filter": {"v_range": [["v7.4.4", ""]], "type": "string"},
                 "local_as": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "local_as_no_prepend": {
                     "v_range": [["v6.0.0", ""]],
@@ -5337,12 +5345,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "router_bgp"

@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -450,8 +452,8 @@ def flatten_single_path(data, path, index):
 def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["med_tlvs"],
-        ["802.1_tlvs"],
-        ["802.3_tlvs"],
+        ["tlvs_802dot1"],
+        ["tlvs_802dot3"],
     ]
 
     for attr in multilist_attrs:
@@ -496,10 +498,11 @@ def valid_attr_to_invalid_attrs(data):
             new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
         data = new_data
 
-    return data
+    return valid_attr_to_invalid_attr(data)
 
 
 def switch_controller_lldp_profile(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -585,7 +588,7 @@ def switch_controller_lldp_profile(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "switch-controller", "lldp-profile", mkey=filtered_data["name"], vdom=vdom
+            "switch-controller", "lldp-profile", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -792,12 +795,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "switch_controller_lldp_profile"

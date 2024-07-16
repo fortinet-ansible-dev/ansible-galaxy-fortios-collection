@@ -41,6 +41,8 @@ notes:
     - Adjust object order by moving self after(before) another.
     - Only one of [after, before] must be specified when action is moving an object.
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -229,6 +231,13 @@ options:
                     - Policy ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
+            port_preserve:
+                description:
+                    - Enable/disable preservation of the original source port from source NAT if it has not been used.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             protocol:
                 description:
                     - Integer value for the protocol type (0 - 255).
@@ -300,10 +309,11 @@ EXAMPLES = """
                   name: "default_name_22 (source firewall.address6.name firewall.addrgrp6.name)"
           orig_port: "<your_own_value>"
           policyid: "<you_own_value>"
+          port_preserve: "enable"
           protocol: "0"
           srcintf:
               -
-                  name: "default_name_27 (source system.interface.name system.zone.name)"
+                  name: "default_name_28 (source system.interface.name system.zone.name)"
           status: "enable"
           type: "ipv4"
           uuid: "<your_own_value>"
@@ -414,6 +424,7 @@ def filter_firewall_central_snat_map_data(json):
         "orig_addr6",
         "orig_port",
         "policyid",
+        "port_preserve",
         "protocol",
         "srcintf",
         "status",
@@ -445,6 +456,7 @@ def underscore_to_hyphen(data):
 
 
 def firewall_central_snat_map(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -521,7 +533,7 @@ def firewall_central_snat_map(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "central-snat-map", mkey=filtered_data["policyid"], vdom=vdom
+            "firewall", "central-snat-map", mkey=converted_data["policyid"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -709,6 +721,11 @@ versioned_schema = {
             },
             "v_range": [["v6.4.0", ""]],
         },
+        "port_preserve": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "nat_port": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dst_port": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -763,12 +780,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_central_snat_map"

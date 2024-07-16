@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -107,6 +109,18 @@ options:
                 description:
                     - Authentication server timeout period (3 - 15 sec).
                 type: int
+            authserver_timeout_tagged:
+                description:
+                    - Configure timeout option for the tagged VLAN which allows limited access when the authentication server is unavailable.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'lldp-voice'
+                    - 'static'
+            authserver_timeout_tagged_vlanid:
+                description:
+                    - Tagged VLAN name for which the timeout option is applied to (only one VLAN ID). Source system.interface.name.
+                type: str
             authserver_timeout_vlan:
                 description:
                     - Enable/disable the authentication server timeout VLAN to allow limited access when RADIUS is unavailable.
@@ -118,6 +132,13 @@ options:
                 description:
                     - Authentication server timeout VLAN name. Source system.interface.name.
                 type: str
+            dacl:
+                description:
+                    - Enable/disable dynamic access control list on this interface.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             eap_auto_untagged_vlans:
                 description:
                     - Enable/disable automatic inclusion of untagged VLANs.
@@ -221,8 +242,11 @@ EXAMPLES = """
           auth_fail_vlan_id: "<your_own_value> (source system.interface.name)"
           auth_fail_vlanid: "32767"
           authserver_timeout_period: "3"
+          authserver_timeout_tagged: "disable"
+          authserver_timeout_tagged_vlanid: "<your_own_value> (source system.interface.name)"
           authserver_timeout_vlan: "disable"
           authserver_timeout_vlanid: "<your_own_value> (source system.interface.name)"
+          dacl: "disable"
           eap_auto_untagged_vlans: "disable"
           eap_passthru: "disable"
           framevid_apply: "disable"
@@ -231,14 +255,14 @@ EXAMPLES = """
           guest_vlan_id: "<your_own_value> (source system.interface.name)"
           guest_vlanid: "32767"
           mac_auth_bypass: "disable"
-          name: "default_name_17"
+          name: "default_name_20"
           open_auth: "disable"
           policy_type: "802.1X"
           radius_timeout_overwrite: "disable"
           security_mode: "802.1X"
           user_group:
               -
-                  name: "default_name_23 (source user.group.name)"
+                  name: "default_name_26 (source user.group.name)"
 """
 
 RETURN = """
@@ -335,8 +359,11 @@ def filter_switch_controller_security_policy_802_1x_data(json):
         "auth_fail_vlan_id",
         "auth_fail_vlanid",
         "authserver_timeout_period",
+        "authserver_timeout_tagged",
+        "authserver_timeout_tagged_vlanid",
         "authserver_timeout_vlan",
         "authserver_timeout_vlanid",
+        "dacl",
         "eap_auto_untagged_vlans",
         "eap_passthru",
         "framevid_apply",
@@ -377,6 +404,7 @@ def underscore_to_hyphen(data):
 
 
 def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -466,7 +494,7 @@ def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
         return fos.delete(
             "switch-controller.security-policy",
             "802-1X",
-            mkey=filtered_data["name"],
+            mkey=converted_data["name"],
             vdom=vdom,
         )
     else:
@@ -581,6 +609,24 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "authserver_timeout_vlanid": {"v_range": [["v6.4.4", ""]], "type": "string"},
+        "authserver_timeout_tagged": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "lldp-voice"},
+                {"value": "static"},
+            ],
+        },
+        "authserver_timeout_tagged_vlanid": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+        },
+        "dacl": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "guest_vlanid": {
             "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
             "type": "integer",
@@ -636,12 +682,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "switch_controller_security_policy_802_1x"

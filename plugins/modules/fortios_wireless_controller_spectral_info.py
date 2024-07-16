@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -222,10 +224,11 @@ def valid_attr_to_invalid_attrs(data):
             new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
         data = new_data
 
-    return data
+    return valid_attr_to_invalid_attr(data)
 
 
 def wireless_controller_spectral_info(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
     wireless_controller_spectral_info_data = data["wireless_controller_spectral_info"]
     filtered_data = filter_wireless_controller_spectral_info_data(
@@ -326,12 +329,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_spectral_info"

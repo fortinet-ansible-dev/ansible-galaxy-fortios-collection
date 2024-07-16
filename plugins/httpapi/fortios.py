@@ -36,17 +36,24 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.5'
+        self._ansible_galaxy_version = '2.3.7'
         self._log = None
         self._logged_in = False
         self._session_key = ''
 
+    def set_custom_option(self, k, v):
+        # _options is defined at https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/__init__.py#L60
+        # seems to be an ansible bug that the value can be defined in the doc above but not set/get
+        self._options[k] = v
+
     def log(self, msg):
-        log_enabled = self._conn.get_option('enable_log')
+        log_enabled = self._options.get('enable_log', False)
         if not log_enabled:
             return
         if not self._log:
             self._log = open("/tmp/fortios.ansible.log", "w")
+            self._log.write('All set options:')
+            self._log.write(str(self.get_options()) + '\n')
         log_message = str(datetime.now())
         log_message += ": " + str(msg) + '\n'
         self._log.write(log_message)
@@ -54,7 +61,8 @@ class HttpApi(HttpApiBase):
 
     def get_access_token(self):
         '''get pre issued access token for API access or session_key from API based authentication.'''
-        token = self._conn.get_option('access_token') if 'access_token' in self._conn._options else None
+        # token = self._options.get('access_token') if 'access_token' in self._options else None
+        token = self._options.get('access_token', None)
 
         if not token and self._session_key:
             token = self._session_key
@@ -245,7 +253,7 @@ class HttpApi(HttpApiBase):
         retrieve the system status of fortigate device
         """
         self.log('checking system_version')
-        check_system_status = self._conn.get_option('check_system_status') if 'check_system_status' in self._conn._options else True
+        check_system_status = self._options.get('check_system_status', True)
         if not check_system_status or self._system_version:
             return
         url = '/api/v2/monitor/system/status?vdom=root'

@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -440,18 +442,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 1 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -598,18 +607,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 2 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -756,18 +772,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 3 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -914,18 +937,25 @@ options:
                     band:
                         description:
                             - WiFi band that Radio 4 operates on.
-                        type: str
+                        type: list
+                        elements: str
                         choices:
                             - '802.11a'
                             - '802.11b'
                             - '802.11g'
-                            - '802.11n'
+                            - '802.11n-2G'
                             - '802.11n-5G'
-                            - '802.11ac'
-                            - '802.11ax-5G'
-                            - '802.11ax'
                             - '802.11ac-2G'
+                            - '802.11ac-5G'
+                            - '802.11ax-2G'
+                            - '802.11ax-5G'
                             - '802.11ax-6G'
+                            - '802.11be-2G'
+                            - '802.11be-5G'
+                            - '802.11be-6G'
+                            - '802.11n'
+                            - '802.11ac'
+                            - '802.11ax'
                             - '802.11n,g-only'
                             - '802.11g-only'
                             - '802.11n-only'
@@ -1461,6 +1491,10 @@ def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["ip_fragment_preventing"],
         ["allowaccess"],
+        ["radio_1", "band"],
+        ["radio_2", "band"],
+        ["radio_3", "band"],
+        ["radio_4", "band"],
     ]
 
     for attr in multilist_attrs:
@@ -1483,6 +1517,7 @@ def underscore_to_hyphen(data):
 
 
 def wireless_controller_wtp(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -1560,7 +1595,7 @@ def wireless_controller_wtp(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "wireless-controller", "wtp", mkey=filtered_data["wtp-id"], vdom=vdom
+            "wireless-controller", "wtp", mkey=converted_data["wtp-id"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -1852,37 +1887,57 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.0.0", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "802.11ac-2G",
                             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
                         },
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,ac,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-5G-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n,g-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-only", "v_range": [["v6.2.0", ""]]},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11n", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ax", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n,g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-5G-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac,n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax-only", "v_range": [["v6.2.0", "v7.4.3"]]},
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "override_txpower": {
                     "v_range": [["v6.0.0", ""]],
@@ -1990,37 +2045,57 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.0.0", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "802.11ac-2G",
                             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
                         },
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,ac,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-5G-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax,n,g-only", "v_range": [["v6.2.0", ""]]},
-                        {"value": "802.11ax-only", "v_range": [["v6.2.0", ""]]},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11n", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ax", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n,g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11g-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11n-5G-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac,n-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {"value": "802.11ac-only", "v_range": [["v6.0.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax-only", "v_range": [["v6.2.0", "v7.4.3"]]},
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "override_txpower": {
                     "v_range": [["v6.0.0", ""]],
@@ -2128,37 +2203,57 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.2.0", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G"},
-                        {"value": "802.11ax"},
                         {
                             "value": "802.11ac-2G",
                             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
                         },
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G"},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only"},
-                        {"value": "802.11ax,ac,n-only"},
-                        {"value": "802.11ax-5G-only"},
-                        {"value": "802.11ax,n-only"},
-                        {"value": "802.11ax,n,g-only"},
-                        {"value": "802.11ax-only"},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11n", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ac", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ax", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n,g-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11g-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11n-5G-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ac,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {"value": "802.11ac-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax,n-only", "v_range": [["v6.2.0", "v7.4.3"]]},
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v7.4.3"]],
+                        },
+                        {"value": "802.11ax-only", "v_range": [["v6.2.0", "v7.4.3"]]},
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "override_txpower": {
                     "v_range": [["v6.2.0", ""]],
@@ -2263,37 +2358,90 @@ versioned_schema = {
                 },
                 "band": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
-                    "type": "string",
+                    "type": "list",
                     "options": [
                         {"value": "802.11a"},
                         {"value": "802.11b"},
                         {"value": "802.11g"},
-                        {"value": "802.11n"},
+                        {"value": "802.11n-2G", "v_range": [["v7.4.4", ""]]},
                         {"value": "802.11n-5G"},
-                        {"value": "802.11ac"},
-                        {"value": "802.11ax-5G"},
-                        {"value": "802.11ax"},
                         {
                             "value": "802.11ac-2G",
                             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
                         },
+                        {"value": "802.11ac-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11ax-5G"},
                         {
                             "value": "802.11ax-6G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
-                        {"value": "802.11n,g-only"},
-                        {"value": "802.11g-only"},
-                        {"value": "802.11n-only"},
-                        {"value": "802.11n-5G-only"},
-                        {"value": "802.11ac,n-only"},
-                        {"value": "802.11ac-only"},
-                        {"value": "802.11ax,ac-only"},
-                        {"value": "802.11ax,ac,n-only"},
-                        {"value": "802.11ax-5G-only"},
-                        {"value": "802.11ax,n-only"},
-                        {"value": "802.11ax,n,g-only"},
-                        {"value": "802.11ax-only"},
+                        {"value": "802.11be-2G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-5G", "v_range": [["v7.4.4", ""]]},
+                        {"value": "802.11be-6G", "v_range": [["v7.4.4", ""]]},
+                        {
+                            "value": "802.11n",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ac",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11n,g-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11g-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11n-5G-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ac,n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ac-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,ac,n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-5G-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,n-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax,n,g-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
+                        {
+                            "value": "802.11ax-only",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.4.3"]],
+                        },
                     ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "override_txpower": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -2503,12 +2651,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_wtp"

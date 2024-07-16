@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -110,8 +111,15 @@ options:
                 type: str
             ssl_certificate:
                 description:
-                    - SSL certificate for this host. Source vpn.certificate.local.name.
-                type: str
+                    - SSL certificates for this host. Source vpn.certificate.local.name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_certificate_dict:
                 description:
                     - SSL certificates for this host. Use the parameter ssl_certificate if the fortiOS firmware version <= 7.4.1
@@ -136,10 +144,12 @@ EXAMPLES = """
           host_type: "sub-string"
           name: "default_name_5"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
-          ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_certificate:
+              -
+                  name: "default_name_8 (source vpn.certificate.local.name)"
           ssl_certificate_dict:
               -
-                  name: "default_name_9 (source vpn.certificate.local.name)"
+                  name: "default_name_10 (source vpn.certificate.local.name)"
 """
 
 RETURN = """
@@ -279,6 +289,7 @@ def remap_attribute_names(data):
 
 
 def firewall_access_proxy_virtual_host(data, fos):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -299,7 +310,7 @@ def firewall_access_proxy_virtual_host(data, fos):
         return fos.delete(
             "firewall",
             "access-proxy-virtual-host",
-            mkey=filtered_data["name"],
+            mkey=converted_data["name"],
             vdom=vdom,
         )
     else:
@@ -341,17 +352,17 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.0.0", ""]], "type": "string", "required": True},
-        "ssl_certificate_dict": {
+        "ssl_certificate": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.2", ""]],
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v7.4.2", ""]],
+            "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.4", ""]],
         },
         "host": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "host_type": {
@@ -363,7 +374,18 @@ versioned_schema = {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
             "type": "string",
         },
-        "ssl_certificate": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
+        "ssl_certificate_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.3"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", "v7.4.3"]],
+        },
     },
     "v_range": [["v7.0.0", ""]],
 }
@@ -411,12 +433,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_access_proxy_virtual_host"

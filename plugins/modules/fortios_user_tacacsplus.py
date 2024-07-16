@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -146,6 +148,11 @@ options:
                 description:
                     - Source IP address for communications to TACACS+ server.
                 type: str
+            status_ttl:
+                description:
+                    - Time for which server reachability is cached so that when a server is unreachable, it will not be retried for at least this period of
+                       time (0 = cache disabled).
+                type: int
             tertiary_key:
                 description:
                     - Key to access the tertiary server.
@@ -174,6 +181,7 @@ EXAMPLES = """
           secondary_server: "<your_own_value>"
           server: "192.168.100.40"
           source_ip: "84.230.14.43"
+          status_ttl: "300"
           tertiary_key: "<your_own_value>"
           tertiary_server: "<your_own_value>"
 """
@@ -279,6 +287,7 @@ def filter_user_tacacsplus_data(json):
         "secondary_server",
         "server",
         "source_ip",
+        "status_ttl",
         "tertiary_key",
         "tertiary_server",
     ]
@@ -307,6 +316,7 @@ def underscore_to_hyphen(data):
 
 
 def user_tacacsplus(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -380,7 +390,7 @@ def user_tacacsplus(data, fos, check_mode=False):
         return fos.set("user", "tacacs+", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("user", "tacacs+", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("user", "tacacs+", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -426,6 +436,7 @@ versioned_schema = {
         "key": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "secondary_key": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "tertiary_key": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "status_ttl": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "authen_type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -497,12 +508,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "user_tacacsplus"

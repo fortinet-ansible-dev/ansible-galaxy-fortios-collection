@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -108,11 +109,12 @@ options:
                 type: int
             key_type:
                 description:
-                    - Key type for authentication (MD5, SHA1).
+                    - Key type for authentication (MD5, SHA1, SHA256).
                 type: str
                 choices:
                     - 'MD5'
                     - 'SHA1'
+                    - 'SHA256'
             ntpserver:
                 description:
                     - Configure the FortiGate to connect to any available third-party NTP server.
@@ -121,7 +123,7 @@ options:
                 suboptions:
                     authentication:
                         description:
-                            - Enable/disable MD5(NTPv3)/SHA1(NTPv4) authentication.
+                            - Enable/disable authentication.
                         type: str
                         choices:
                             - 'enable'
@@ -153,12 +155,20 @@ options:
                             - 'Both'
                     key:
                         description:
-                            - Key for MD5(NTPv3)/SHA1(NTPv4) authentication.
+                            - Key for MD5(NTPv3)/SHA1(NTPv4)/SHA256(NTPv4) authentication.
                         type: str
                     key_id:
                         description:
                             - Key ID for authentication.
                         type: int
+                    key_type:
+                        description:
+                            - Select NTP authentication type.
+                        type: str
+                        choices:
+                            - 'MD5'
+                            - 'SHA1'
+                            - 'SHA256'
                     ntpv3:
                         description:
                             - Enable to use NTPv3 instead of NTPv4.
@@ -227,6 +237,7 @@ EXAMPLES = """
                   ip_type: "IPv6"
                   key: "<your_own_value>"
                   key_id: "0"
+                  key_type: "MD5"
                   ntpv3: "enable"
                   server: "192.168.100.40"
           ntpsync: "enable"
@@ -356,6 +367,7 @@ def underscore_to_hyphen(data):
 
 
 def system_ntp(data, fos):
+    state = None
     vdom = data["vdom"]
     system_ntp_data = data["system_ntp"]
     filtered_data = filter_system_ntp_data(system_ntp_data)
@@ -427,6 +439,15 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "key_type": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "MD5"},
+                        {"value": "SHA1"},
+                        {"value": "SHA256"},
+                    ],
+                },
                 "key": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "key_id": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ip_type": {
@@ -477,7 +498,11 @@ versioned_schema = {
         "key_type": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
-            "options": [{"value": "MD5"}, {"value": "SHA1"}],
+            "options": [
+                {"value": "MD5"},
+                {"value": "SHA1"},
+                {"value": "SHA256", "v_range": [["v7.4.4", ""]]},
+            ],
         },
         "key": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "key_id": {"v_range": [["v6.2.0", ""]], "type": "integer"},
@@ -536,12 +561,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_ntp"

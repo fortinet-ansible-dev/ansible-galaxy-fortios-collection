@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -122,6 +123,21 @@ options:
                         description:
                             - Description.
                         type: str
+                    exclude:
+                        description:
+                            - Configure pool exclude subnets.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            exclude_subnet:
+                                description:
+                                    - Configure subnet to exclude from the IPAM pool.
+                                type: str
+                            ID:
+                                description:
+                                    - Exclude ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
                     name:
                         description:
                             - IPAM pool name.
@@ -232,7 +248,11 @@ EXAMPLES = """
           pools:
               -
                   description: "<your_own_value>"
-                  name: "default_name_10"
+                  exclude:
+                      -
+                          exclude_subnet: "<your_own_value>"
+                          ID: "<you_own_value>"
+                  name: "default_name_13"
                   subnet: "<your_own_value>"
           require_subnet_size_match: "disable"
           rules:
@@ -240,15 +260,15 @@ EXAMPLES = """
                   description: "<your_own_value>"
                   device:
                       -
-                          name: "default_name_16"
+                          name: "default_name_19"
                   dhcp: "enable"
                   interface:
                       -
-                          name: "default_name_19"
-                  name: "default_name_20"
+                          name: "default_name_22"
+                  name: "default_name_23"
                   pool:
                       -
-                          name: "default_name_22 (source system.ipam.pools.name)"
+                          name: "default_name_25 (source system.ipam.pools.name)"
                   role: "any"
           server_type: "fabric-root"
           status: "enable"
@@ -371,6 +391,7 @@ def underscore_to_hyphen(data):
 
 
 def system_ipam(data, fos):
+    state = None
     vdom = data["vdom"]
     system_ipam_data = data["system_ipam"]
     filtered_data = filter_system_ipam_data(system_ipam_data)
@@ -460,6 +481,22 @@ versioned_schema = {
                 },
                 "description": {"v_range": [["v7.2.1", ""]], "type": "string"},
                 "subnet": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "exclude": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "ID": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "exclude_subnet": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                        },
+                    },
+                    "v_range": [["v7.4.4", ""]],
+                },
             },
             "v_range": [["v7.2.1", ""]],
         },
@@ -572,12 +609,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_ipam"

@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -96,6 +98,7 @@ options:
                     - 'device'
                     - 'firewall-user'
                     - 'ems-tag'
+                    - 'fortivoice-tag'
                     - 'vulnerability'
             description:
                 description:
@@ -113,6 +116,10 @@ options:
                 description:
                     - Dynamic firewall address to associate MAC which match this policy. Source firewall.address.name.
                 type: str
+            fortivoice_tag:
+                description:
+                    - NAC policy matching FortiVoice tag. Source firewall.address.name.
+                type: str
             host:
                 description:
                     - NAC policy matching host.
@@ -129,6 +136,17 @@ options:
                 description:
                     - NAC policy matching MAC address.
                 type: str
+            match_period:
+                description:
+                    - Number of days the matched devices will be retained (0 - always retain)
+                type: int
+            match_type:
+                description:
+                    - Match and retain the devices based on the type.
+                type: str
+                choices:
+                    - 'dynamic'
+                    - 'override'
             name:
                 description:
                     - NAC policy name.
@@ -236,11 +254,14 @@ EXAMPLES = """
           ems_tag: "<your_own_value> (source firewall.address.name)"
           family: "<your_own_value>"
           firewall_address: "<your_own_value> (source firewall.address.name)"
+          fortivoice_tag: "<your_own_value> (source firewall.address.name)"
           host: "myhostname"
           hw_vendor: "<your_own_value>"
           hw_version: "<your_own_value>"
           mac: "<your_own_value>"
-          name: "default_name_12"
+          match_period: "0"
+          match_type: "dynamic"
+          name: "default_name_15"
           os: "<your_own_value>"
           severity:
               -
@@ -253,7 +274,7 @@ EXAMPLES = """
           switch_fortilink: "<your_own_value> (source system.interface.name)"
           switch_group:
               -
-                  name: "default_name_23 (source switch-controller.switch-group.name)"
+                  name: "default_name_26 (source switch-controller.switch-group.name)"
           switch_mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
           switch_port_policy: "<your_own_value> (source switch-controller.port-policy.name)"
           switch_scope:
@@ -359,10 +380,13 @@ def filter_user_nac_policy_data(json):
         "ems_tag",
         "family",
         "firewall_address",
+        "fortivoice_tag",
         "host",
         "hw_vendor",
         "hw_version",
         "mac",
+        "match_period",
+        "match_type",
         "name",
         "os",
         "severity",
@@ -405,6 +429,7 @@ def underscore_to_hyphen(data):
 
 
 def user_nac_policy(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -478,7 +503,7 @@ def user_nac_policy(data, fos, check_mode=False):
         return fos.set("user", "nac-policy", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("user", "nac-policy", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("user", "nac-policy", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -525,6 +550,7 @@ versioned_schema = {
                 {"value": "device"},
                 {"value": "firewall-user"},
                 {"value": "ems-tag", "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]]},
+                {"value": "fortivoice-tag", "v_range": [["v7.4.4", ""]]},
                 {"value": "vulnerability", "v_range": [["v7.4.0", ""]]},
             ],
         },
@@ -533,6 +559,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "match_type": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "dynamic"}, {"value": "override"}],
+        },
+        "match_period": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "mac": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "hw_vendor": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "type": {"v_range": [["v6.4.0", ""]], "type": "string"},
@@ -548,6 +580,7 @@ versioned_schema = {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
             "type": "string",
         },
+        "fortivoice_tag": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "severity": {
             "type": "list",
             "elements": "dict",
@@ -639,12 +672,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "user_nac_policy"

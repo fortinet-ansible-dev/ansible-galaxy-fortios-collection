@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -96,6 +98,7 @@ options:
                     - 'othername'
                     - 'rfc822name'
                     - 'dnsname'
+                    - 'cn'
             account_key_filter:
                 description:
                     - Account key filter, using the UPN as the search filter.
@@ -268,6 +271,11 @@ options:
                     - 'TLSv1-1'
                     - 'TLSv1-2'
                     - 'TLSv1-3'
+            status_ttl:
+                description:
+                    - Time for which server reachability is cached so that when a server is unreachable, it will not be retried for at least this period of
+                       time (0 = cache disabled).
+                type: int
             tertiary_server:
                 description:
                     - Tertiary LDAP server CN domain name or IP.
@@ -355,6 +363,7 @@ EXAMPLES = """
           source_ip: "84.230.14.43"
           source_port: "0"
           ssl_min_proto_version: "default"
+          status_ttl: "300"
           tertiary_server: "<your_own_value>"
           two_factor: "disable"
           two_factor_authentication: "fortitoken"
@@ -487,6 +496,7 @@ def filter_user_ldap_data(json):
         "source_ip",
         "source_port",
         "ssl_min_proto_version",
+        "status_ttl",
         "tertiary_server",
         "two_factor",
         "two_factor_authentication",
@@ -550,6 +560,7 @@ def underscore_to_hyphen(data):
 
 
 def user_ldap(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -624,7 +635,7 @@ def user_ldap(data, fos, check_mode=False):
         return fos.set("user", "ldap", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("user", "ldap", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("user", "ldap", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -666,6 +677,7 @@ versioned_schema = {
         "server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "secondary_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "tertiary_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "status_ttl": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "server_identity_check": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -760,6 +772,7 @@ versioned_schema = {
                 {"value": "othername"},
                 {"value": "rfc822name"},
                 {"value": "dnsname"},
+                {"value": "cn", "v_range": [["v7.4.4", ""]]},
             ],
         },
         "account_key_filter": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -851,12 +864,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "user_ldap"

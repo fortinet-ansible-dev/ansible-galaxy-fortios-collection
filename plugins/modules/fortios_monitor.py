@@ -1995,16 +1995,16 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         # Checking system status prevents upload.system.vmlicense from uploading a licence to a newly installed machine.
-        connection.set_option("check_system_status", False)
+        connection.set_custom_option("check_system_status", False)
 
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         # Logging for fact module could be disabled/enabled.
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
 
         fos = FortiOSHandler(connection, module)
 

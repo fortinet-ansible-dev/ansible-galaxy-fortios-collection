@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -263,6 +265,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            strip_ech:
+                description:
+                    - Enable/disable removal of the encrypted client hello service parameter from supporting DNS RRs.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             transparent_dns_database:
                 description:
                     - Transparent DNS database zones.
@@ -281,6 +290,7 @@ options:
                 choices:
                     - 'strict'
                     - 'moderate'
+                    - 'none'
 """
 
 EXAMPLES = """
@@ -324,9 +334,10 @@ EXAMPLES = """
           safe_search: "disable"
           sdns_domain_log: "enable"
           sdns_ftgd_err_log: "enable"
+          strip_ech: "disable"
           transparent_dns_database:
               -
-                  name: "default_name_35 (source system.dns-database.name)"
+                  name: "default_name_36 (source system.dns-database.name)"
           youtube_restrict: "strict"
 """
 
@@ -434,6 +445,7 @@ def filter_dnsfilter_profile_data(json):
         "safe_search",
         "sdns_domain_log",
         "sdns_ftgd_err_log",
+        "strip_ech",
         "transparent_dns_database",
         "youtube_restrict",
     ]
@@ -491,6 +503,7 @@ def underscore_to_hyphen(data):
 
 
 def dnsfilter_profile(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -565,7 +578,9 @@ def dnsfilter_profile(data, fos, check_mode=False):
         return fos.set("dnsfilter", "profile", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("dnsfilter", "profile", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete(
+            "dnsfilter", "profile", mkey=converted_data["name"], vdom=vdom
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -687,7 +702,11 @@ versioned_schema = {
         "youtube_restrict": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "strict"}, {"value": "moderate"}],
+            "options": [
+                {"value": "strict"},
+                {"value": "moderate"},
+                {"value": "none", "v_range": [["v7.4.4", ""]]},
+            ],
         },
         "external_ip_blocklist": {
             "type": "list",
@@ -741,6 +760,11 @@ versioned_schema = {
             },
             "v_range": [["v7.4.1", ""]],
         },
+        "strip_ech": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }
@@ -786,12 +810,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "dnsfilter_profile"

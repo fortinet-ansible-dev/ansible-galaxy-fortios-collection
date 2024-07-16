@@ -303,11 +303,11 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if 'access_token' in module.params:
-            connection.set_option('access_token', module.params['access_token'])
+            connection.set_custom_option('access_token', module.params['access_token'])
         if 'enable_log' in module.params:
-            connection.set_option('enable_log', module.params['enable_log'])
+            connection.set_custom_option('enable_log', module.params['enable_log'])
         else:
-            connection.set_option('enable_log', False)
+            connection.set_custom_option('enable_log', False)
         fos = FortiOSHandler(connection, module)
         is_error, has_changed, result = fortios_json(module.params, fos)
     else:

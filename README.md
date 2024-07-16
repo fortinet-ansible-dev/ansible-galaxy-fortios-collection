@@ -8,16 +8,16 @@ The collection is the FortiOS Ansible Automation project. It includes the module
 ## Installation
 This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/), the installation steps are as follows:
 
-1. Install or upgrade to Ansible 2.14+
-2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.6`
+1. Install or upgrade to Ansible 2.15+
+2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.7`
 
 ## Requirements
-* Ansible 2.14+ is required to support the newer Ansible Collections format
+* Ansible 2.15+ is required to support the newer Ansible Collections format
 
 ## Supported FortiOS Versions
 From `v2.0.0` on, FortiOS galaxy collections are unified, and cover FortiOS 6.0, 6.2, 6.4, 7.0, 7.2 versions. There is only one sequential collection at any moment. users who install these collections are expected to find the version compatibility information for each module and its parameters.
 
-The latest version is 2.3.6, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.6`
+The latest version is 2.3.7, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.7`
 
 Prior to FortiOS collection `v2.0.0`, FortiOS Galaxy collections were built over three FOS major versions, i.e. `v6.0`, `v6.2` and `v6.4`, thus, users are expected to install the collection according to the following table to avoid potential compatibility issues.
 
@@ -115,6 +115,7 @@ The collection provides the following modules:
 * `fortios_extender_sys_info` Display detailed FortiExtender system information in Fortinet's FortiOS and FortiGate.
 * `fortios_extension_controller_dataplan` FortiExtender dataplan configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_extension_controller_extender_profile` FortiExtender extender profile configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_extension_controller_extender_vap` FortiExtender wifi vap configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_extension_controller_extender` Extender controller configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_extension_controller_fortigate_profile` FortiGate connector profile configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_extension_controller_fortigate` FortiGate controller configuration in Fortinet's FortiOS and FortiGate.
@@ -177,6 +178,7 @@ The collection provides the following modules:
 * `fortios_firewall_multicast_policy6` Configure IPv6 multicast NAT policies in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_multicast_policy` Configure multicast NAT policies in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_network_service_dynamic` Configure Dynamic Network Services in Fortinet's FortiOS and FortiGate.
+* `fortios_firewall_on_demand_sniffer` Configure on-demand packet sniffer in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_pfcp` Configure PFCP in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_policy46` Configure IPv4 to IPv6 policies in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_policy64` Configure IPv6 to IPv4 policies in Fortinet's FortiOS and FortiGate.
@@ -546,6 +548,7 @@ The collection provides the following modules:
 * `fortios_system_speed_test_schedule` Speed test schedule for each interface in Fortinet's FortiOS and FortiGate.
 * `fortios_system_speed_test_server` Configure speed test server list in Fortinet's FortiOS and FortiGate.
 * `fortios_system_speed_test_setting` Configure speed test setting in Fortinet's FortiOS and FortiGate.
+* `fortios_system_ssh_config` Configure SSH config in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sso_admin` Configure SSO admin users in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sso_forticloud_admin` Configure FortiCloud SSO admin users in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sso_fortigate_cloud_admin` Configure FortiCloud SSO admin users in Fortinet's FortiOS and FortiGate.

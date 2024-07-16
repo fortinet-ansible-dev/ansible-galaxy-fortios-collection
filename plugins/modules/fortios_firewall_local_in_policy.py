@@ -39,6 +39,8 @@ notes:
        available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -126,10 +128,75 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            internet_service_src:
+                description:
+                    - Enable/disable use of Internet Services in source for this local-in policy. If enabled, source address is not used.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            internet_service_src_custom:
+                description:
+                    - Custom Internet Service source name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Custom Internet Service name. Source firewall.internet-service-custom.name.
+                        required: true
+                        type: str
+            internet_service_src_custom_group:
+                description:
+                    - Custom Internet Service source group name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                        required: true
+                        type: str
+            internet_service_src_group:
+                description:
+                    - Internet Service source group name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Internet Service group name. Source firewall.internet-service-group.name.
+                        required: true
+                        type: str
+            internet_service_src_name:
+                description:
+                    - Internet Service source name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Internet Service name. Source firewall.internet-service-name.name.
+                        required: true
+                        type: str
+            internet_service_src_negate:
+                description:
+                    - When enabled internet-service-src specifies what the service must NOT be.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             intf:
                 description:
                     - Incoming interface name from available options. Source system.zone.name system.interface.name.
-                type: str
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Address name. Source system.zone.name system.interface.name.
+                        required: true
+                        type: str
             intf_dict:
                 description:
                     - Incoming interface name from available options. Use the parameter intf if the fortiOS firmware version <= 7.4.1
@@ -221,19 +288,35 @@ EXAMPLES = """
                   name: "default_name_6 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           dstaddr_negate: "enable"
           ha_mgmt_intf_only: "enable"
-          intf: "<your_own_value> (source system.zone.name system.interface.name)"
+          internet_service_src: "enable"
+          internet_service_src_custom:
+              -
+                  name: "default_name_11 (source firewall.internet-service-custom.name)"
+          internet_service_src_custom_group:
+              -
+                  name: "default_name_13 (source firewall.internet-service-custom-group.name)"
+          internet_service_src_group:
+              -
+                  name: "default_name_15 (source firewall.internet-service-group.name)"
+          internet_service_src_name:
+              -
+                  name: "default_name_17 (source firewall.internet-service-name.name)"
+          internet_service_src_negate: "enable"
+          intf:
+              -
+                  name: "default_name_20 (source system.zone.name system.interface.name)"
           intf_dict:
               -
-                  name: "default_name_11 (source system.zone.name system.interface.name)"
+                  name: "default_name_22 (source system.zone.name system.interface.name)"
           policyid: "<you_own_value>"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           service:
               -
-                  name: "default_name_15 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_26 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           srcaddr:
               -
-                  name: "default_name_18 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_29 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           status: "enable"
           uuid: "<your_own_value>"
@@ -335,6 +418,12 @@ def filter_firewall_local_in_policy_data(json):
         "dstaddr",
         "dstaddr_negate",
         "ha_mgmt_intf_only",
+        "internet_service_src",
+        "internet_service_src_custom",
+        "internet_service_src_custom_group",
+        "internet_service_src_group",
+        "internet_service_src_name",
+        "internet_service_src_negate",
         "intf",
         "intf_dict",
         "policyid",
@@ -396,6 +485,7 @@ def remap_attribute_names(data):
 
 
 def firewall_local_in_policy(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -471,7 +561,7 @@ def firewall_local_in_policy(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "local-in-policy", mkey=filtered_data["policyid"], vdom=vdom
+            "firewall", "local-in-policy", mkey=converted_data["policyid"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -519,17 +609,17 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "intf_dict": {
+        "intf": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.2", ""]],
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v7.4.2", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.4", ""]],
         },
         "srcaddr": {
             "type": "list",
@@ -560,6 +650,59 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "internet_service_src": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "internet_service_src_name": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.4", ""]],
+        },
+        "internet_service_src_group": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.4", ""]],
+        },
+        "internet_service_src_custom": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.4", ""]],
+        },
+        "internet_service_src_custom_group": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.4", ""]],
+        },
         "dstaddr_negate": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
@@ -587,6 +730,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "internet_service_src_negate": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "schedule": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "status": {
             "v_range": [["v6.0.0", ""]],
@@ -599,7 +747,18 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "intf": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
+        "intf_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.3"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", "v7.4.3"]],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }
@@ -647,12 +806,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_local_in_policy"

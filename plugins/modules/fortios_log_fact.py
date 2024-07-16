@@ -520,7 +520,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import (
     FAIL_SOCKET_MSG,
 )
-from urllib.parse import quote
+
+# from urllib.parse import quote
+try:
+    # For Python 3
+    from urllib.parse import quote
+except ImportError:
+    # For Python 2
+    from urllib import quote
 
 module_selectors_defs = {
     "disk_virus_archive": {
@@ -2647,13 +2654,13 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         # Logging for fact module could be disabled/enabled.
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
 
         fos = FortiOSHandler(connection, module)
 

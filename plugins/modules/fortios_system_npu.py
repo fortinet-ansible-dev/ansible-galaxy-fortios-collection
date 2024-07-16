@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -3251,6 +3252,13 @@ options:
                         choices:
                             - 'include'
                             - 'exclude'
+            tunnel_over_vlink:
+                description:
+                    - Enable/disable selection of which NP6 chip the tunnel uses .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             uesp_offload:
                 description:
                     - Enable/disable UDP-encapsulated ESP offload .
@@ -3747,6 +3755,7 @@ EXAMPLES = """
           sw_tr_hash:
               draco15: "enable"
               tcp_udp_port: "include"
+          tunnel_over_vlink: "enable"
           uesp_offload: "enable"
           ull_port_mode: "10G"
           vlan_lookup_cache: "enable"
@@ -3887,6 +3896,7 @@ def filter_system_npu_data(json):
         "sw_eh_hash",
         "sw_np_bandwidth",
         "sw_tr_hash",
+        "tunnel_over_vlink",
         "uesp_offload",
         "ull_port_mode",
         "vlan_lookup_cache",
@@ -3916,6 +3926,7 @@ def underscore_to_hyphen(data):
 
 
 def system_npu(data, fos):
+    state = None
     vdom = data["vdom"]
     system_npu_data = data["system_npu"]
     filtered_data = filter_system_npu_data(system_npu_data)
@@ -4316,6 +4327,11 @@ versioned_schema = {
             "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "tunnel_over_vlink": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "priority_protocol": {
             "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", "v7.4.1"], ["v7.4.3", ""]],
@@ -6969,12 +6985,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_npu"

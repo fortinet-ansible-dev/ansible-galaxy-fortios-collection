@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -162,6 +163,17 @@ options:
                         description:
                             - Match policy based on MAC address.
                         type: str
+                    match_period:
+                        description:
+                            - Number of days the matched devices will be retained (0 - 120, 0 = always retain).
+                        type: int
+                    match_type:
+                        description:
+                            - Match and retain the devices based on the type.
+                        type: str
+                        choices:
+                            - 'dynamic'
+                            - 'override'
                     name:
                         description:
                             - Policy name.
@@ -212,7 +224,9 @@ EXAMPLES = """
                           tag_name: "<your_own_value> (source switch-controller.switch-interface-tag.name)"
                   lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
                   mac: "<your_own_value>"
-                  name: "default_name_18"
+                  match_period: "0"
+                  match_type: "dynamic"
+                  name: "default_name_20"
                   qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
                   status: "enable"
                   type: "<your_own_value>"
@@ -347,10 +361,11 @@ def valid_attr_to_invalid_attrs(data):
             new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
         data = new_data
 
-    return data
+    return valid_attr_to_invalid_attr(data)
 
 
 def switch_controller_dynamic_port_policy(data, fos):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -372,7 +387,7 @@ def switch_controller_dynamic_port_policy(data, fos):
         return fos.delete(
             "switch-controller",
             "dynamic-port-policy",
-            mkey=filtered_data["name"],
+            mkey=converted_data["name"],
             vdom=vdom,
         )
     else:
@@ -436,6 +451,12 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "device"}, {"value": "interface-tag"}],
                 },
+                "match_type": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "dynamic"}, {"value": "override"}],
+                },
+                "match_period": {"v_range": [["v7.4.4", ""]], "type": "integer"},
                 "interface_tags": {
                     "type": "list",
                     "elements": "dict",
@@ -512,12 +533,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "switch_controller_dynamic_port_policy"

@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -408,7 +409,7 @@ options:
                     - 'disable'
             gui_dlp_profile:
                 description:
-                    - Enable/disable Data Leak Prevention on the GUI.
+                    - Enable/disable Data Loss Prevention on the GUI.
                 type: str
                 choices:
                     - 'enable'
@@ -849,6 +850,11 @@ options:
                 choices:
                     - 'proxy'
                     - 'flow'
+            internet_service_app_ctrl_size:
+                description:
+                    - Maximum number of tuple entries (protocol, port, IP address, application ID) stored by the FortiGate unit (0 - 4294967295). A smaller
+                       value limits the FortiGate unit from learning about internet applications.
+                type: int
             internet_service_database_cache:
                 description:
                     - Enable/disable Internet Service database caching.
@@ -1239,6 +1245,7 @@ EXAMPLES = """
           ike_tcp_port: "4500"
           implicit_allow_dns: "enable"
           inspection_mode: "proxy"
+          internet_service_app_ctrl_size: "32768"
           internet_service_database_cache: "disable"
           ip: "<your_own_value>"
           ip6: "<your_own_value>"
@@ -1479,6 +1486,7 @@ def filter_system_settings_data(json):
         "ike_tcp_port",
         "implicit_allow_dns",
         "inspection_mode",
+        "internet_service_app_ctrl_size",
         "internet_service_database_cache",
         "ip",
         "ip6",
@@ -1580,6 +1588,7 @@ def underscore_to_hyphen(data):
 
 
 def system_settings(data, fos):
+    state = None
     vdom = data["vdom"]
     system_settings_data = data["system_settings"]
     system_settings_data = flatten_multilists_attributes(system_settings_data)
@@ -2253,6 +2262,10 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "internet_service_app_ctrl_size": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "integer",
+        },
         "gtp_asym_fgsp": {
             "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
@@ -2397,12 +2410,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "system_settings"

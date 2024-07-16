@@ -1,0 +1,36 @@
+name: Sanity tests
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 6 * * *"
+
+concurrency:
+  group: >-
+    ${{ github.workflow }}-${{
+      github.event.pull_request.number || github.sha
+    }}
+  cancel-in-progress: true
+
+jobs:
+  sanity:
+    name: Sanity (${{ matrix.ansible }})
+    strategy:
+      matrix:
+        ansible:
+          - stable-2.15
+          - stable-2.16
+          - stable-2.17
+          - devel
+    runs-on: >-
+      ${{ contains(fromJson(
+          '["stable-2.9", "stable-2.10", "stable-2.11"]'
+      ), matrix.ansible) && 'ubuntu-20.04' || 'ubuntu-latest' }}
+    steps:
+      - name: Perform sanity testing
+        uses: ansible-community/ansible-test-gh-action@release/v1
+        with:
+          ansible-core-version: ${{ matrix.ansible }}
+          testing-type: sanity
+          pull-request-change-detection: false

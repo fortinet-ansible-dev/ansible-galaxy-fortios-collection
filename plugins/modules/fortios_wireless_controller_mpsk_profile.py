@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -92,6 +94,17 @@ options:
                 description:
                     - Maximum number of concurrent clients that connect using the same passphrase in multiple PSK authentication (0 - 65535).
                 type: int
+            mpsk_external_server:
+                description:
+                    - RADIUS server to be used to authenticate MPSK users. Source user.radius.name.
+                type: str
+            mpsk_external_server_auth:
+                description:
+                    - Enable/Disable MPSK external server authentication .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             mpsk_group:
                 description:
                     - List of multiple PSK groups.
@@ -120,6 +133,13 @@ options:
                                 description:
                                     - Number of clients that can connect using this pre-shared key (1 - 65535).
                                 type: int
+                            key_type:
+                                description:
+                                    - Select the type of the key.
+                                type: str
+                                choices:
+                                    - 'wpa2-personal'
+                                    - 'wpa3-sae'
                             mac:
                                 description:
                                     - MAC address.
@@ -145,6 +165,21 @@ options:
                                 description:
                                     - WPA Pre-shared key.
                                 type: str
+                            sae_password:
+                                description:
+                                    - WPA3 SAE password.
+                                type: str
+                            sae_pk:
+                                description:
+                                    - Enable/disable WPA3 SAE-PK .
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
+                            sae_private_key:
+                                description:
+                                    - Private key used for WPA3 SAE-PK authentication.
+                                type: str
                     name:
                         description:
                             - MPSK group name.
@@ -161,6 +196,14 @@ options:
                         choices:
                             - 'no-vlan'
                             - 'fixed-vlan'
+            mpsk_type:
+                description:
+                    - Select the security type of keys for this profile.
+                type: str
+                choices:
+                    - 'wpa2-personal'
+                    - 'wpa3-sae'
+                    - 'wpa3-sae-transition'
             name:
                 description:
                     - MPSK profile name.
@@ -176,6 +219,8 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       wireless_controller_mpsk_profile:
           mpsk_concurrent_clients: "0"
+          mpsk_external_server: "<your_own_value> (source user.radius.name)"
+          mpsk_external_server_auth: "enable"
           mpsk_group:
               -
                   mpsk_key:
@@ -183,16 +228,21 @@ EXAMPLES = """
                           comment: "Comment."
                           concurrent_client_limit_type: "default"
                           concurrent_clients: "256"
+                          key_type: "wpa2-personal"
                           mac: "<your_own_value>"
                           mpsk_schedules:
                               -
-                                  name: "default_name_11 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
-                          name: "default_name_12"
+                                  name: "default_name_14 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                          name: "default_name_15"
                           passphrase: "<your_own_value>"
-                  name: "default_name_14"
+                          sae_password: "<your_own_value>"
+                          sae_pk: "enable"
+                          sae_private_key: "<your_own_value>"
+                  name: "default_name_20"
                   vlan_id: "0"
                   vlan_type: "no-vlan"
-          name: "default_name_17"
+          mpsk_type: "wpa2-personal"
+          name: "default_name_24"
 """
 
 RETURN = """
@@ -284,7 +334,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_wireless_controller_mpsk_profile_data(json):
-    option_list = ["mpsk_concurrent_clients", "mpsk_group", "name"]
+    option_list = [
+        "mpsk_concurrent_clients",
+        "mpsk_external_server",
+        "mpsk_external_server_auth",
+        "mpsk_group",
+        "mpsk_type",
+        "name",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -310,6 +367,7 @@ def underscore_to_hyphen(data):
 
 
 def wireless_controller_mpsk_profile(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -392,7 +450,10 @@ def wireless_controller_mpsk_profile(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "wireless-controller", "mpsk-profile", mkey=filtered_data["name"], vdom=vdom
+            "wireless-controller",
+            "mpsk-profile",
+            mkey=converted_data["name"],
+            vdom=vdom,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -442,6 +503,21 @@ versioned_schema = {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
             "type": "integer",
         },
+        "mpsk_external_server_auth": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "mpsk_external_server": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "mpsk_type": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "wpa2-personal"},
+                {"value": "wpa3-sae"},
+                {"value": "wpa3-sae-transition"},
+            ],
+        },
         "mpsk_group": {
             "type": "list",
             "elements": "dict",
@@ -469,12 +545,30 @@ versioned_schema = {
                             "type": "string",
                             "required": True,
                         },
+                        "key_type": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "wpa2-personal"},
+                                {"value": "wpa3-sae"},
+                            ],
+                        },
                         "mac": {
                             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
                             "type": "string",
                         },
                         "passphrase": {
                             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
+                            "type": "string",
+                        },
+                        "sae_password": {"v_range": [["v7.4.4", ""]], "type": "string"},
+                        "sae_pk": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "sae_private_key": {
+                            "v_range": [["v7.4.4", ""]],
                             "type": "string",
                         },
                         "concurrent_client_limit_type": {
@@ -559,12 +653,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_mpsk_profile"

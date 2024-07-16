@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -662,6 +663,10 @@ options:
                     echo_request:
                         description:
                             - Rate limit for echo requests (packets per second).
+                        type: int
+                    echo_response:
+                        description:
+                            - Rate limit for echo response (packets per second).
                         type: int
                     error_indication:
                         description:
@@ -1440,6 +1445,7 @@ EXAMPLES = """
               delete_pdp_response: "0"
               echo_reponse: "0"
               echo_request: "0"
+              echo_response: "0"
               error_indication: "0"
               failure_report_request: "0"
               failure_report_response: "0"
@@ -1499,13 +1505,13 @@ EXAMPLES = """
           min_message_length: "0"
           miss_must_ie: "allow"
           monitor_mode: "enable"
-          name: "default_name_168"
+          name: "default_name_169"
           noip_filter: "enable"
           noip_policy:
               -
                   action: "allow"
                   end: "0"
-                  id: "173"
+                  id: "174"
                   start: "0"
                   type: "etsi"
           out_of_state_ie: "allow"
@@ -1513,7 +1519,7 @@ EXAMPLES = """
           per_apn_shaper:
               -
                   apn: "<your_own_value> (source gtp.apn.name)"
-                  id: "180"
+                  id: "181"
                   rate_limit: "0"
                   version: "1"
           policy:
@@ -1522,8 +1528,8 @@ EXAMPLES = """
                   apn_sel_mode: "ms"
                   apnmember:
                       -
-                          name: "default_name_187 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "188"
+                          name: "default_name_188 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "189"
                   imei: "<your_own_value>"
                   imsi: "<your_own_value>"
                   imsi_prefix: "<your_own_value>"
@@ -1541,8 +1547,8 @@ EXAMPLES = """
                   apn_sel_mode: "ms"
                   apnmember:
                       -
-                          name: "default_name_204 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "205"
+                          name: "default_name_205 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "206"
                   imsi_prefix: "<your_own_value>"
                   max_apn_restriction: "all"
                   mei: "<your_own_value>"
@@ -1805,6 +1811,7 @@ def underscore_to_hyphen(data):
 
 
 def firewall_gtp(data, fos):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -1818,7 +1825,7 @@ def firewall_gtp(data, fos):
         return fos.set("firewall", "gtp", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("firewall", "gtp", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("firewall", "gtp", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -3009,14 +3016,7 @@ versioned_schema = {
                     ],
                     "type": "integer",
                 },
-                "echo_reponse": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "integer",
-                },
+                "echo_response": {"v_range": [["v7.4.4", ""]], "type": "integer"},
                 "version_not_support": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
@@ -3465,6 +3465,14 @@ versioned_schema = {
                     ],
                     "type": "integer",
                 },
+                "echo_reponse": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", "v7.4.3"],
+                    ],
+                    "type": "integer",
+                },
             },
         },
         "rate_limit_mode": {
@@ -3657,12 +3665,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_gtp"

@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -376,7 +378,8 @@ options:
                             - 'vip'
                     holddown_interval:
                         description:
-                            - Time in seconds that the health check monitor continues to monitor an unresponsive server that should be active.
+                            - Time in seconds that the system waits before re-activating a previously down active server in the active-standby mode. This is
+                               to prevent any flapping issues.
                         type: int
                     http_host:
                         description:
@@ -455,6 +458,13 @@ options:
                             - Source-filter range.
                         required: true
                         type: str
+            src_vip_filter:
+                description:
+                    - Enable/disable use of "src-filter" to match destinations for the reverse SNAT rule.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             ssl_accept_ffdhe_groups:
                 description:
                     - Enable/disable FFDHE cipher suite for SSL key exchange.
@@ -473,8 +483,15 @@ options:
                     - 'custom'
             ssl_certificate:
                 description:
-                    - The name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
-                type: str
+                    - Name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_certificate_dict:
                 description:
                     - Name of the certificate to use for SSL handshake. Use the parameter ssl-certificate instead if the fortiOS firmwear <= 7.4.1
@@ -995,12 +1012,15 @@ EXAMPLES = """
           src_filter:
               -
                   range: "<your_own_value>"
+          src_vip_filter: "disable"
           ssl_accept_ffdhe_groups: "enable"
           ssl_algorithm: "high"
-          ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
-          ssl_certificate_dict:
+          ssl_certificate:
               -
                   name: "default_name_71 (source vpn.certificate.local.name)"
+          ssl_certificate_dict:
+              -
+                  name: "default_name_73 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1178,6 +1198,7 @@ def filter_firewall_vip6_data(json):
         "realservers",
         "server_type",
         "src_filter",
+        "src_vip_filter",
         "ssl_accept_ffdhe_groups",
         "ssl_algorithm",
         "ssl_certificate",
@@ -1298,6 +1319,7 @@ def remap_attribute_names(data):
 
 
 def firewall_vip6(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -1373,7 +1395,7 @@ def firewall_vip6(data, fos, check_mode=False):
         return fos.set("firewall", "vip6", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("firewall", "vip6", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("firewall", "vip6", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -1435,6 +1457,11 @@ versioned_schema = {
                 }
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "src_vip_filter": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "extip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "mappedip": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -1663,17 +1690,17 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "half"}, {"value": "full"}],
         },
-        "ssl_certificate_dict": {
+        "ssl_certificate": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.2", ""]],
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v7.4.2", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.4", ""]],
         },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
@@ -2108,7 +2135,18 @@ versioned_schema = {
         },
         "ipv4_mappedip": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "ipv4_mappedport": {"v_range": [["v7.0.1", ""]], "type": "string"},
-        "ssl_certificate": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
+        "ssl_certificate_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.3"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", "v7.4.3"]],
+        },
         "arp_reply": {
             "v_range": [["v6.0.0", "v7.0.7"], ["v7.2.0", "v7.2.2"]],
             "type": "string",
@@ -2159,12 +2197,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_vip6"

@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -544,16 +545,513 @@ options:
                     - 'FX311F'
                     - 'FX312F'
                     - 'FX511F'
+                    - 'FXR51G'
                     - 'FVG21F'
                     - 'FVA21F'
                     - 'FVG22F'
                     - 'FVA22F'
                     - 'FX04DA'
+                    - 'FG'
+                    - 'BS10FW'
+                    - 'BS20GW'
+                    - 'BS20GN'
             name:
                 description:
                     - FortiExtender profile name.
                 required: true
                 type: str
+            wifi:
+                description:
+                    - FortiExtender wifi configuration.
+                type: dict
+                suboptions:
+                    country:
+                        description:
+                            - Country in which this FEX will operate .
+                        type: str
+                        choices:
+                            - '--'
+                            - 'AF'
+                            - 'AL'
+                            - 'DZ'
+                            - 'AS'
+                            - 'AO'
+                            - 'AR'
+                            - 'AM'
+                            - 'AU'
+                            - 'AT'
+                            - 'AZ'
+                            - 'BS'
+                            - 'BH'
+                            - 'BD'
+                            - 'BB'
+                            - 'BY'
+                            - 'BE'
+                            - 'BZ'
+                            - 'BJ'
+                            - 'BM'
+                            - 'BT'
+                            - 'BO'
+                            - 'BA'
+                            - 'BW'
+                            - 'BR'
+                            - 'BN'
+                            - 'BG'
+                            - 'BF'
+                            - 'KH'
+                            - 'CM'
+                            - 'KY'
+                            - 'CF'
+                            - 'TD'
+                            - 'CL'
+                            - 'CN'
+                            - 'CX'
+                            - 'CO'
+                            - 'CG'
+                            - 'CD'
+                            - 'CR'
+                            - 'HR'
+                            - 'CY'
+                            - 'CZ'
+                            - 'DK'
+                            - 'DJ'
+                            - 'DM'
+                            - 'DO'
+                            - 'EC'
+                            - 'EG'
+                            - 'SV'
+                            - 'ET'
+                            - 'EE'
+                            - 'GF'
+                            - 'PF'
+                            - 'FO'
+                            - 'FJ'
+                            - 'FI'
+                            - 'FR'
+                            - 'GA'
+                            - 'GE'
+                            - 'GM'
+                            - 'DE'
+                            - 'GH'
+                            - 'GI'
+                            - 'GR'
+                            - 'GL'
+                            - 'GD'
+                            - 'GP'
+                            - 'GU'
+                            - 'GT'
+                            - 'GY'
+                            - 'HT'
+                            - 'HN'
+                            - 'HK'
+                            - 'HU'
+                            - 'IS'
+                            - 'IN'
+                            - 'ID'
+                            - 'IQ'
+                            - 'IE'
+                            - 'IM'
+                            - 'IL'
+                            - 'IT'
+                            - 'CI'
+                            - 'JM'
+                            - 'JO'
+                            - 'KZ'
+                            - 'KE'
+                            - 'KR'
+                            - 'KW'
+                            - 'LA'
+                            - 'LV'
+                            - 'LB'
+                            - 'LS'
+                            - 'LR'
+                            - 'LY'
+                            - 'LI'
+                            - 'LT'
+                            - 'LU'
+                            - 'MO'
+                            - 'MK'
+                            - 'MG'
+                            - 'MW'
+                            - 'MY'
+                            - 'MV'
+                            - 'ML'
+                            - 'MT'
+                            - 'MH'
+                            - 'MQ'
+                            - 'MR'
+                            - 'MU'
+                            - 'YT'
+                            - 'MX'
+                            - 'FM'
+                            - 'MD'
+                            - 'MC'
+                            - 'MN'
+                            - 'MA'
+                            - 'MZ'
+                            - 'MM'
+                            - 'NA'
+                            - 'NP'
+                            - 'NL'
+                            - 'AN'
+                            - 'AW'
+                            - 'NZ'
+                            - 'NI'
+                            - 'NE'
+                            - 'NG'
+                            - 'NO'
+                            - 'MP'
+                            - 'OM'
+                            - 'PK'
+                            - 'PW'
+                            - 'PA'
+                            - 'PG'
+                            - 'PY'
+                            - 'PE'
+                            - 'PH'
+                            - 'PL'
+                            - 'PT'
+                            - 'PR'
+                            - 'QA'
+                            - 'RE'
+                            - 'RO'
+                            - 'RU'
+                            - 'RW'
+                            - 'BL'
+                            - 'KN'
+                            - 'LC'
+                            - 'MF'
+                            - 'PM'
+                            - 'VC'
+                            - 'SA'
+                            - 'SN'
+                            - 'RS'
+                            - 'ME'
+                            - 'SL'
+                            - 'SG'
+                            - 'SK'
+                            - 'SI'
+                            - 'SO'
+                            - 'ZA'
+                            - 'ES'
+                            - 'LK'
+                            - 'SR'
+                            - 'SZ'
+                            - 'SE'
+                            - 'CH'
+                            - 'TW'
+                            - 'TZ'
+                            - 'TH'
+                            - 'TG'
+                            - 'TT'
+                            - 'TN'
+                            - 'TR'
+                            - 'TM'
+                            - 'AE'
+                            - 'TC'
+                            - 'UG'
+                            - 'UA'
+                            - 'GB'
+                            - 'US'
+                            - 'PS'
+                            - 'UY'
+                            - 'UZ'
+                            - 'VU'
+                            - 'VE'
+                            - 'VN'
+                            - 'VI'
+                            - 'WF'
+                            - 'YE'
+                            - 'ZM'
+                            - 'ZW'
+                            - 'JP'
+                            - 'CA'
+                    radio_1:
+                        description:
+                            - Radio-1 config for Wi-Fi 2.4GHz
+                        type: dict
+                        suboptions:
+                            band:
+                                description:
+                                    - Wi-Fi band selection 2.4GHz / 5GHz.
+                                type: str
+                                choices:
+                                    - '2.4GHz'
+                            bandwidth:
+                                description:
+                                    - Wi-Fi channel bandwidth.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - '20MHz'
+                                    - '40MHz'
+                                    - '80MHz'
+                            beacon_interval:
+                                description:
+                                    - Wi-Fi beacon interval in miliseconds (100 - 3500).
+                                type: int
+                            bss_color:
+                                description:
+                                    - Wi-Fi 802.11AX BSS color value (0 - 63, 0 = disable).
+                                type: int
+                            bss_color_mode:
+                                description:
+                                    - Wi-Fi 802.11AX BSS color mode.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - 'static'
+                            channel:
+                                description:
+                                    - Wi-Fi channels.
+                                type: list
+                                elements: str
+                                choices:
+                                    - 'CH1'
+                                    - 'CH2'
+                                    - 'CH3'
+                                    - 'CH4'
+                                    - 'CH5'
+                                    - 'CH6'
+                                    - 'CH7'
+                                    - 'CH8'
+                                    - 'CH9'
+                                    - 'CH10'
+                                    - 'CH11'
+                            extension_channel:
+                                description:
+                                    - Wi-Fi extension channel.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - 'higher'
+                                    - 'lower'
+                            guard_interval:
+                                description:
+                                    - Wi-Fi guard interval.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - '400ns'
+                                    - '800ns'
+                            lan_ext_vap:
+                                description:
+                                    - Wi-Fi LAN-Extention VAP. Select only one VAP. Source extension-controller.extender-vap.name.
+                                type: str
+                            local_vaps:
+                                description:
+                                    - Wi-Fi local VAP. Select up to three VAPs.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    name:
+                                        description:
+                                            - Wi-Fi local VAP name. Source extension-controller.extender-vap.name.
+                                        required: true
+                                        type: str
+                            max_clients:
+                                description:
+                                    - Maximum number of Wi-Fi radio clients (0 - 512, 0 = unlimited).
+                                type: int
+                            mode:
+                                description:
+                                    - Wi-Fi radio mode AP(LAN mode) / Client(WAN mode).
+                                type: str
+                                choices:
+                                    - 'AP'
+                                    - 'Client'
+                            operating_standard:
+                                description:
+                                    - Wi-Fi operating standard.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - '11A-N-AC-AX'
+                                    - '11A-N-AC'
+                                    - '11A-N'
+                                    - '11A'
+                                    - '11N-AC-AX'
+                                    - '11AC-AX'
+                                    - '11AC'
+                                    - '11N-AC'
+                                    - '11B-G-N-AX'
+                                    - '11B-G-N'
+                                    - '11B-G'
+                                    - '11B'
+                                    - '11G-N-AX'
+                                    - '11N-AX'
+                                    - '11AX'
+                                    - '11G-N'
+                                    - '11N'
+                                    - '11G'
+                            power_level:
+                                description:
+                                    - Wi-Fi power level in percent (0 - 100, 0 = auto).
+                                type: int
+                            set_80211d:
+                                description:
+                                    - Enable/disable Wi-Fi 802.11d.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                            status:
+                                description:
+                                    - Enable/disable Wi-Fi radio.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                    radio_2:
+                        description:
+                            - Radio-2 config for Wi-Fi 5GHz
+                        type: dict
+                        suboptions:
+                            band:
+                                description:
+                                    - Wi-Fi band selection 2.4GHz / 5GHz.
+                                type: str
+                                choices:
+                                    - '5GHz'
+                            bandwidth:
+                                description:
+                                    - Wi-Fi channel bandwidth.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - '20MHz'
+                                    - '40MHz'
+                                    - '80MHz'
+                            beacon_interval:
+                                description:
+                                    - Wi-Fi beacon interval in miliseconds (100 - 3500).
+                                type: int
+                            bss_color:
+                                description:
+                                    - Wi-Fi 802.11AX BSS color value (0 - 63, 0 = disable).
+                                type: int
+                            bss_color_mode:
+                                description:
+                                    - Wi-Fi 802.11AX BSS color mode.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - 'static'
+                            channel:
+                                description:
+                                    - Wi-Fi channels.
+                                type: list
+                                elements: str
+                                choices:
+                                    - 'CH36'
+                                    - 'CH40'
+                                    - 'CH44'
+                                    - 'CH48'
+                                    - 'CH52'
+                                    - 'CH56'
+                                    - 'CH60'
+                                    - 'CH64'
+                                    - 'CH100'
+                                    - 'CH104'
+                                    - 'CH108'
+                                    - 'CH112'
+                                    - 'CH116'
+                                    - 'CH120'
+                                    - 'CH124'
+                                    - 'CH128'
+                                    - 'CH132'
+                                    - 'CH136'
+                                    - 'CH140'
+                                    - 'CH144'
+                                    - 'CH149'
+                                    - 'CH153'
+                                    - 'CH157'
+                                    - 'CH161'
+                                    - 'CH165'
+                            extension_channel:
+                                description:
+                                    - Wi-Fi extension channel.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - 'higher'
+                                    - 'lower'
+                            guard_interval:
+                                description:
+                                    - Wi-Fi guard interval.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - '400ns'
+                                    - '800ns'
+                            lan_ext_vap:
+                                description:
+                                    - Wi-Fi LAN-Extention VAP. Select only one VAP. Source extension-controller.extender-vap.name.
+                                type: str
+                            local_vaps:
+                                description:
+                                    - Wi-Fi local VAP. Select up to three VAPs.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    name:
+                                        description:
+                                            - Wi-Fi local VAP name. Source extension-controller.extender-vap.name.
+                                        required: true
+                                        type: str
+                            max_clients:
+                                description:
+                                    - Maximum number of Wi-Fi radio clients (0 - 512, 0 = unlimited).
+                                type: int
+                            mode:
+                                description:
+                                    - Wi-Fi radio mode AP(LAN mode) / Client(WAN mode).
+                                type: str
+                                choices:
+                                    - 'AP'
+                                    - 'Client'
+                            operating_standard:
+                                description:
+                                    - Wi-Fi operating standard.
+                                type: str
+                                choices:
+                                    - 'auto'
+                                    - '11A-N-AC-AX'
+                                    - '11A-N-AC'
+                                    - '11A-N'
+                                    - '11A'
+                                    - '11N-AC-AX'
+                                    - '11AC-AX'
+                                    - '11AC'
+                                    - '11N-AC'
+                                    - '11B-G-N-AX'
+                                    - '11B-G-N'
+                                    - '11B-G'
+                                    - '11B'
+                                    - '11G-N-AX'
+                                    - '11N-AX'
+                                    - '11AX'
+                                    - '11G-N'
+                                    - '11N'
+                                    - '11G'
+                            power_level:
+                                description:
+                                    - Wi-Fi power level in percent (0 - 100, 0 = auto).
+                                type: int
+                            set_80211d:
+                                description:
+                                    - Enable/disable Wi-Fi 802.11d.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                            status:
+                                description:
+                                    - Enable/disable Wi-Fi radio.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
 """
 
 EXAMPLES = """
@@ -645,6 +1143,46 @@ EXAMPLES = """
           login_password_change: "yes"
           model: "FX201E"
           name: "default_name_81"
+          wifi:
+              country: "--"
+              radio_1:
+                  band: "2.4GHz"
+                  bandwidth: "auto"
+                  beacon_interval: "100"
+                  bss_color: "0"
+                  bss_color_mode: "auto"
+                  channel: "CH1"
+                  extension_channel: "auto"
+                  guard_interval: "auto"
+                  lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
+                  local_vaps:
+                      -
+                          name: "default_name_95 (source extension-controller.extender-vap.name)"
+                  max_clients: "0"
+                  mode: "AP"
+                  operating_standard: "auto"
+                  power_level: "100"
+                  set_80211d: "disable"
+                  status: "disable"
+              radio_2:
+                  band: "5GHz"
+                  bandwidth: "auto"
+                  beacon_interval: "100"
+                  bss_color: "0"
+                  bss_color_mode: "auto"
+                  channel: "CH36"
+                  extension_channel: "auto"
+                  guard_interval: "auto"
+                  lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
+                  local_vaps:
+                      -
+                          name: "default_name_113 (source extension-controller.extender-vap.name)"
+                  max_clients: "0"
+                  mode: "AP"
+                  operating_standard: "auto"
+                  power_level: "100"
+                  set_80211d: "disable"
+                  status: "disable"
 """
 
 RETURN = """
@@ -739,6 +1277,7 @@ def filter_extension_controller_extender_profile_data(json):
         "login_password_change",
         "model",
         "name",
+        "wifi",
     ]
 
     json = remove_invalid_fields(json)
@@ -775,6 +1314,8 @@ def flatten_multilists_attributes(data):
         ["cellular", "sms_notification", "receiver", "alert"],
         ["cellular", "modem1", "auto_switch", "switch_back"],
         ["cellular", "modem2", "auto_switch", "switch_back"],
+        ["wifi", "radio_1", "channel"],
+        ["wifi", "radio_2", "channel"],
     ]
 
     for attr in multilist_attrs:
@@ -796,7 +1337,34 @@ def underscore_to_hyphen(data):
     return data
 
 
+def valid_attr_to_invalid_attr(data):
+    speciallist = {"80211d": "set_80211d"}
+
+    for k, v in speciallist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return valid_attr_to_invalid_attr(data)
+
+
 def extension_controller_extender_profile(data, fos):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -810,7 +1378,7 @@ def extension_controller_extender_profile(data, fos):
     filtered_data = filter_extension_controller_extender_profile_data(
         extension_controller_extender_profile_data
     )
-    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     if state == "present" or state is True:
         return fos.set(
@@ -821,7 +1389,7 @@ def extension_controller_extender_profile(data, fos):
         return fos.delete(
             "extension-controller",
             "extender-profile",
-            mkey=filtered_data["name"],
+            mkey=converted_data["name"],
             vdom=vdom,
         )
     else:
@@ -881,11 +1449,16 @@ versioned_schema = {
                 {"value": "FX311F"},
                 {"value": "FX312F"},
                 {"value": "FX511F"},
+                {"value": "FXR51G", "v_range": [["v7.4.4", ""]]},
                 {"value": "FVG21F"},
                 {"value": "FVA21F"},
                 {"value": "FVG22F"},
                 {"value": "FVA22F"},
                 {"value": "FX04DA"},
+                {"value": "FG", "v_range": [["v7.4.4", ""]]},
+                {"value": "BS10FW", "v_range": [["v7.4.4", ""]]},
+                {"value": "BS20GW", "v_range": [["v7.4.4", ""]]},
+                {"value": "BS20GN", "v_range": [["v7.4.4", ""]]},
             ],
         },
         "extension": {
@@ -1294,6 +1867,474 @@ versioned_schema = {
                 },
             },
         },
+        "wifi": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "dict",
+            "children": {
+                "country": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "--"},
+                        {"value": "AF"},
+                        {"value": "AL"},
+                        {"value": "DZ"},
+                        {"value": "AS"},
+                        {"value": "AO"},
+                        {"value": "AR"},
+                        {"value": "AM"},
+                        {"value": "AU"},
+                        {"value": "AT"},
+                        {"value": "AZ"},
+                        {"value": "BS"},
+                        {"value": "BH"},
+                        {"value": "BD"},
+                        {"value": "BB"},
+                        {"value": "BY"},
+                        {"value": "BE"},
+                        {"value": "BZ"},
+                        {"value": "BJ"},
+                        {"value": "BM"},
+                        {"value": "BT"},
+                        {"value": "BO"},
+                        {"value": "BA"},
+                        {"value": "BW"},
+                        {"value": "BR"},
+                        {"value": "BN"},
+                        {"value": "BG"},
+                        {"value": "BF"},
+                        {"value": "KH"},
+                        {"value": "CM"},
+                        {"value": "KY"},
+                        {"value": "CF"},
+                        {"value": "TD"},
+                        {"value": "CL"},
+                        {"value": "CN"},
+                        {"value": "CX"},
+                        {"value": "CO"},
+                        {"value": "CG"},
+                        {"value": "CD"},
+                        {"value": "CR"},
+                        {"value": "HR"},
+                        {"value": "CY"},
+                        {"value": "CZ"},
+                        {"value": "DK"},
+                        {"value": "DJ"},
+                        {"value": "DM"},
+                        {"value": "DO"},
+                        {"value": "EC"},
+                        {"value": "EG"},
+                        {"value": "SV"},
+                        {"value": "ET"},
+                        {"value": "EE"},
+                        {"value": "GF"},
+                        {"value": "PF"},
+                        {"value": "FO"},
+                        {"value": "FJ"},
+                        {"value": "FI"},
+                        {"value": "FR"},
+                        {"value": "GA"},
+                        {"value": "GE"},
+                        {"value": "GM"},
+                        {"value": "DE"},
+                        {"value": "GH"},
+                        {"value": "GI"},
+                        {"value": "GR"},
+                        {"value": "GL"},
+                        {"value": "GD"},
+                        {"value": "GP"},
+                        {"value": "GU"},
+                        {"value": "GT"},
+                        {"value": "GY"},
+                        {"value": "HT"},
+                        {"value": "HN"},
+                        {"value": "HK"},
+                        {"value": "HU"},
+                        {"value": "IS"},
+                        {"value": "IN"},
+                        {"value": "ID"},
+                        {"value": "IQ"},
+                        {"value": "IE"},
+                        {"value": "IM"},
+                        {"value": "IL"},
+                        {"value": "IT"},
+                        {"value": "CI"},
+                        {"value": "JM"},
+                        {"value": "JO"},
+                        {"value": "KZ"},
+                        {"value": "KE"},
+                        {"value": "KR"},
+                        {"value": "KW"},
+                        {"value": "LA"},
+                        {"value": "LV"},
+                        {"value": "LB"},
+                        {"value": "LS"},
+                        {"value": "LR"},
+                        {"value": "LY"},
+                        {"value": "LI"},
+                        {"value": "LT"},
+                        {"value": "LU"},
+                        {"value": "MO"},
+                        {"value": "MK"},
+                        {"value": "MG"},
+                        {"value": "MW"},
+                        {"value": "MY"},
+                        {"value": "MV"},
+                        {"value": "ML"},
+                        {"value": "MT"},
+                        {"value": "MH"},
+                        {"value": "MQ"},
+                        {"value": "MR"},
+                        {"value": "MU"},
+                        {"value": "YT"},
+                        {"value": "MX"},
+                        {"value": "FM"},
+                        {"value": "MD"},
+                        {"value": "MC"},
+                        {"value": "MN"},
+                        {"value": "MA"},
+                        {"value": "MZ"},
+                        {"value": "MM"},
+                        {"value": "NA"},
+                        {"value": "NP"},
+                        {"value": "NL"},
+                        {"value": "AN"},
+                        {"value": "AW"},
+                        {"value": "NZ"},
+                        {"value": "NI"},
+                        {"value": "NE"},
+                        {"value": "NG"},
+                        {"value": "NO"},
+                        {"value": "MP"},
+                        {"value": "OM"},
+                        {"value": "PK"},
+                        {"value": "PW"},
+                        {"value": "PA"},
+                        {"value": "PG"},
+                        {"value": "PY"},
+                        {"value": "PE"},
+                        {"value": "PH"},
+                        {"value": "PL"},
+                        {"value": "PT"},
+                        {"value": "PR"},
+                        {"value": "QA"},
+                        {"value": "RE"},
+                        {"value": "RO"},
+                        {"value": "RU"},
+                        {"value": "RW"},
+                        {"value": "BL"},
+                        {"value": "KN"},
+                        {"value": "LC"},
+                        {"value": "MF"},
+                        {"value": "PM"},
+                        {"value": "VC"},
+                        {"value": "SA"},
+                        {"value": "SN"},
+                        {"value": "RS"},
+                        {"value": "ME"},
+                        {"value": "SL"},
+                        {"value": "SG"},
+                        {"value": "SK"},
+                        {"value": "SI"},
+                        {"value": "SO"},
+                        {"value": "ZA"},
+                        {"value": "ES"},
+                        {"value": "LK"},
+                        {"value": "SR"},
+                        {"value": "SZ"},
+                        {"value": "SE"},
+                        {"value": "CH"},
+                        {"value": "TW"},
+                        {"value": "TZ"},
+                        {"value": "TH"},
+                        {"value": "TG"},
+                        {"value": "TT"},
+                        {"value": "TN"},
+                        {"value": "TR"},
+                        {"value": "TM"},
+                        {"value": "AE"},
+                        {"value": "TC"},
+                        {"value": "UG"},
+                        {"value": "UA"},
+                        {"value": "GB"},
+                        {"value": "US"},
+                        {"value": "PS"},
+                        {"value": "UY"},
+                        {"value": "UZ"},
+                        {"value": "VU"},
+                        {"value": "VE"},
+                        {"value": "VN"},
+                        {"value": "VI"},
+                        {"value": "WF"},
+                        {"value": "YE"},
+                        {"value": "ZM"},
+                        {"value": "ZW"},
+                        {"value": "JP"},
+                        {"value": "CA"},
+                    ],
+                },
+                "radio_1": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "dict",
+                    "children": {
+                        "mode": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "AP"}, {"value": "Client"}],
+                        },
+                        "band": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "2.4GHz"}],
+                        },
+                        "status": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "operating_standard": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "11A-N-AC-AX"},
+                                {"value": "11A-N-AC"},
+                                {"value": "11A-N"},
+                                {"value": "11A"},
+                                {"value": "11N-AC-AX"},
+                                {"value": "11AC-AX"},
+                                {"value": "11AC"},
+                                {"value": "11N-AC"},
+                                {"value": "11B-G-N-AX"},
+                                {"value": "11B-G-N"},
+                                {"value": "11B-G"},
+                                {"value": "11B"},
+                                {"value": "11G-N-AX"},
+                                {"value": "11N-AX"},
+                                {"value": "11AX"},
+                                {"value": "11G-N"},
+                                {"value": "11N"},
+                                {"value": "11G"},
+                            ],
+                        },
+                        "guard_interval": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "400ns"},
+                                {"value": "800ns"},
+                            ],
+                        },
+                        "channel": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "list",
+                            "options": [
+                                {"value": "CH1"},
+                                {"value": "CH2"},
+                                {"value": "CH3"},
+                                {"value": "CH4"},
+                                {"value": "CH5"},
+                                {"value": "CH6"},
+                                {"value": "CH7"},
+                                {"value": "CH8"},
+                                {"value": "CH9"},
+                                {"value": "CH10"},
+                                {"value": "CH11"},
+                            ],
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                        "bandwidth": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "20MHz"},
+                                {"value": "40MHz"},
+                                {"value": "80MHz"},
+                            ],
+                        },
+                        "power_level": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                        "beacon_interval": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "integer",
+                        },
+                        "max_clients": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                        "extension_channel": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "higher"},
+                                {"value": "lower"},
+                            ],
+                        },
+                        "bss_color_mode": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "auto"}, {"value": "static"}],
+                        },
+                        "bss_color": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                        "lan_ext_vap": {"v_range": [["v7.4.4", ""]], "type": "string"},
+                        "local_vaps": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "name": {
+                                    "v_range": [["v7.4.4", ""]],
+                                    "type": "string",
+                                    "required": True,
+                                }
+                            },
+                            "v_range": [["v7.4.4", ""]],
+                        },
+                        "set_80211d": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                    },
+                },
+                "radio_2": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "dict",
+                    "children": {
+                        "mode": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "AP"}, {"value": "Client"}],
+                        },
+                        "band": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "5GHz"}],
+                        },
+                        "status": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "operating_standard": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "11A-N-AC-AX"},
+                                {"value": "11A-N-AC"},
+                                {"value": "11A-N"},
+                                {"value": "11A"},
+                                {"value": "11N-AC-AX"},
+                                {"value": "11AC-AX"},
+                                {"value": "11AC"},
+                                {"value": "11N-AC"},
+                                {"value": "11B-G-N-AX"},
+                                {"value": "11B-G-N"},
+                                {"value": "11B-G"},
+                                {"value": "11B"},
+                                {"value": "11G-N-AX"},
+                                {"value": "11N-AX"},
+                                {"value": "11AX"},
+                                {"value": "11G-N"},
+                                {"value": "11N"},
+                                {"value": "11G"},
+                            ],
+                        },
+                        "guard_interval": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "400ns"},
+                                {"value": "800ns"},
+                            ],
+                        },
+                        "channel": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "list",
+                            "options": [
+                                {"value": "CH36"},
+                                {"value": "CH40"},
+                                {"value": "CH44"},
+                                {"value": "CH48"},
+                                {"value": "CH52"},
+                                {"value": "CH56"},
+                                {"value": "CH60"},
+                                {"value": "CH64"},
+                                {"value": "CH100"},
+                                {"value": "CH104"},
+                                {"value": "CH108"},
+                                {"value": "CH112"},
+                                {"value": "CH116"},
+                                {"value": "CH120"},
+                                {"value": "CH124"},
+                                {"value": "CH128"},
+                                {"value": "CH132"},
+                                {"value": "CH136"},
+                                {"value": "CH140"},
+                                {"value": "CH144"},
+                                {"value": "CH149"},
+                                {"value": "CH153"},
+                                {"value": "CH157"},
+                                {"value": "CH161"},
+                                {"value": "CH165"},
+                            ],
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                        "bandwidth": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "20MHz"},
+                                {"value": "40MHz"},
+                                {"value": "80MHz"},
+                            ],
+                        },
+                        "power_level": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                        "beacon_interval": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "integer",
+                        },
+                        "max_clients": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                        "extension_channel": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "auto"},
+                                {"value": "higher"},
+                                {"value": "lower"},
+                            ],
+                        },
+                        "bss_color_mode": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "auto"}, {"value": "static"}],
+                        },
+                        "bss_color": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                        "lan_ext_vap": {"v_range": [["v7.4.4", ""]], "type": "string"},
+                        "local_vaps": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "name": {
+                                    "v_range": [["v7.4.4", ""]],
+                                    "type": "string",
+                                    "required": True,
+                                }
+                            },
+                            "v_range": [["v7.4.4", ""]],
+                        },
+                        "set_80211d": {
+                            "v_range": [["v7.4.4", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                    },
+                },
+            },
+        },
     },
     "v_range": [["v7.2.1", ""]],
 }
@@ -1341,12 +2382,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "extension_controller_extender_profile"

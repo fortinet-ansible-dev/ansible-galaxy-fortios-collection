@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -124,8 +125,15 @@ options:
                     - 'low'
             ssl_cert:
                 description:
-                    - Name of certificate for SSL connections to this server . Source certificate.local.name.
-                type: str
+                    - List of certificate names to use for SSL connections to this server. Source certificate.local.name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Certificate list. Source vpn.certificate.local.name.
+                        required: true
+                        type: str
             ssl_cert_dict:
                 description:
                     - List of certificate names to use for SSL connections to this server. Use the parameter ssl-cert if the fortiOS firmware version <= 7.4.1
@@ -167,10 +175,12 @@ EXAMPLES = """
           server_data_mode: "client"
           ssl: "enable"
           ssl_algorithm: "high"
-          ssl_cert: "<your_own_value> (source certificate.local.name)"
+          ssl_cert:
+              -
+                  name: "default_name_11 (source vpn.certificate.local.name)"
           ssl_cert_dict:
               -
-                  name: "default_name_12 (source vpn.certificate.local.name)"
+                  name: "default_name_13 (source vpn.certificate.local.name)"
           ssl_dh_bits: "768"
           status: "enable"
 """
@@ -346,6 +356,7 @@ def remap_attribute_names(data):
 
 
 def ftp_proxy_explicit(data, fos):
+    state = None
     vdom = data["vdom"]
     ftp_proxy_explicit_data = data["ftp_proxy_explicit"]
     ftp_proxy_explicit_data = flatten_multilists_attributes(ftp_proxy_explicit_data)
@@ -416,17 +427,17 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ssl_cert_dict": {
+        "ssl_cert": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.2", ""]],
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v7.4.2", ""]],
+            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.4", ""]],
         },
         "ssl_dh_bits": {
             "v_range": [["v6.2.0", ""]],
@@ -443,7 +454,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "high"}, {"value": "medium"}, {"value": "low"}],
         },
-        "ssl_cert": {"v_range": [["v6.2.0", "v7.4.1"]], "type": "string"},
+        "ssl_cert_dict": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.3"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.4.2", "v7.4.3"]],
+        },
     },
 }
 
@@ -487,12 +509,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "ftp_proxy_explicit"

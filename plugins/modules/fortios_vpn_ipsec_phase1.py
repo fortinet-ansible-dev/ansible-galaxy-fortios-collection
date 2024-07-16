@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -187,6 +189,22 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            cert_peer_username_strip:
+                description:
+                    - Enable/disable domain stripping on certificate identity.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            cert_peer_username_validation:
+                description:
+                    - Enable/disable cross validation of peer username and the identity in the peer"s certificate.
+                type: str
+                choices:
+                    - 'none'
+                    - 'othername'
+                    - 'rfc822name'
+                    - 'cn'
             cert_trust_store:
                 description:
                     - CA certificate trust store.
@@ -226,6 +244,20 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            client_resume:
+                description:
+                    - Enable/disable resumption of offline FortiClient sessions.  When a FortiClient enabled laptop is closed or enters sleep/hibernate mode,
+                       enabling this feature allows FortiClient to keep the tunnel during this period, and allows users to immediately resume using the IPsec
+                          tunnel when the device wakes up.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            client_resume_interval:
+                description:
+                    - Maximum time in seconds during which a VPN client may resume using a tunnel after a client PC has entered sleep mode or temporarily lost
+                       its network connection (120 - 172800).
+                type: int
             comments:
                 description:
                     - Comment.
@@ -882,6 +914,56 @@ options:
                 description:
                     - Remote VPN gateway.
                 type: str
+            remote_gw_country:
+                description:
+                    - IPv4 addresses associated to a specific country.
+                type: str
+            remote_gw_end_ip:
+                description:
+                    - Last IPv4 address in the range.
+                type: str
+            remote_gw_match:
+                description:
+                    - Set type of IPv4 remote gateway address matching.
+                type: str
+                choices:
+                    - 'any'
+                    - 'ipmask'
+                    - 'iprange'
+                    - 'geography'
+            remote_gw_start_ip:
+                description:
+                    - First IPv4 address in the range.
+                type: str
+            remote_gw_subnet:
+                description:
+                    - IPv4 address and subnet mask.
+                type: str
+            remote_gw6_country:
+                description:
+                    - IPv6 addresses associated to a specific country.
+                type: str
+            remote_gw6_end_ip:
+                description:
+                    - Last IPv6 address in the range.
+                type: str
+            remote_gw6_match:
+                description:
+                    - Set type of IPv6 remote gateway address matching.
+                type: str
+                choices:
+                    - 'any'
+                    - 'ipprefix'
+                    - 'iprange'
+                    - 'geography'
+            remote_gw6_start_ip:
+                description:
+                    - First IPv6 address in the range.
+                type: str
+            remote_gw6_subnet:
+                description:
+                    - IPv6 address and prefix.
+                type: str
             remotegw_ddns:
                 description:
                     - Domain name of remote gateway. For example, name.ddns.com.
@@ -1017,13 +1099,17 @@ EXAMPLES = """
                   address: "<your_own_value>"
           banner: "<your_own_value>"
           cert_id_validation: "enable"
+          cert_peer_username_strip: "disable"
+          cert_peer_username_validation: "none"
           cert_trust_store: "local"
           certificate:
               -
-                  name: "default_name_21 (source vpn.certificate.local.name)"
+                  name: "default_name_23 (source vpn.certificate.local.name)"
           childless_ike: "enable"
           client_auto_negotiate: "disable"
           client_keep_alive: "disable"
+          client_resume: "enable"
+          client_resume_interval: "1800"
           comments: "<your_own_value>"
           dev_id: "<your_own_value>"
           dev_id_notification: "disable"
@@ -1080,7 +1166,7 @@ EXAMPLES = """
           ipv4_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "79"
+                  id: "83"
                   start_ip: "<your_own_value>"
           ipv4_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
           ipv4_netmask: "<your_own_value>"
@@ -1096,7 +1182,7 @@ EXAMPLES = """
           ipv6_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "94"
+                  id: "98"
                   start_ip: "<your_own_value>"
           ipv6_name: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_prefix: "128"
@@ -1115,7 +1201,7 @@ EXAMPLES = """
           mode: "aggressive"
           mode_cfg: "disable"
           mode_cfg_allow_client_selector: "disable"
-          name: "default_name_113"
+          name: "default_name_117"
           nattraversal: "enable"
           negotiate_timeout: "30"
           network_id: "0"
@@ -1137,6 +1223,16 @@ EXAMPLES = """
           reauth: "disable"
           rekey: "enable"
           remote_gw: "<your_own_value>"
+          remote_gw_country: "<your_own_value>"
+          remote_gw_end_ip: "<your_own_value>"
+          remote_gw_match: "any"
+          remote_gw_start_ip: "<your_own_value>"
+          remote_gw_subnet: "<your_own_value>"
+          remote_gw6_country: "<your_own_value>"
+          remote_gw6_end_ip: "<your_own_value>"
+          remote_gw6_match: "any"
+          remote_gw6_start_ip: "<your_own_value>"
+          remote_gw6_subnet: "<your_own_value>"
           remotegw_ddns: "<your_own_value>"
           rsa_signature_format: "pkcs1"
           rsa_signature_hash_override: "enable"
@@ -1258,11 +1354,15 @@ def filter_vpn_ipsec_phase1_data(json):
         "backup_gateway",
         "banner",
         "cert_id_validation",
+        "cert_peer_username_strip",
+        "cert_peer_username_validation",
         "cert_trust_store",
         "certificate",
         "childless_ike",
         "client_auto_negotiate",
         "client_keep_alive",
+        "client_resume",
+        "client_resume_interval",
         "comments",
         "dev_id",
         "dev_id_notification",
@@ -1366,6 +1466,16 @@ def filter_vpn_ipsec_phase1_data(json):
         "reauth",
         "rekey",
         "remote_gw",
+        "remote_gw_country",
+        "remote_gw_end_ip",
+        "remote_gw_match",
+        "remote_gw_start_ip",
+        "remote_gw_subnet",
+        "remote_gw6_country",
+        "remote_gw6_end_ip",
+        "remote_gw6_match",
+        "remote_gw6_start_ip",
+        "remote_gw6_subnet",
         "remotegw_ddns",
         "rsa_signature_format",
         "rsa_signature_hash_override",
@@ -1437,6 +1547,7 @@ def underscore_to_hyphen(data):
 
 
 def vpn_ipsec_phase1(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -1511,7 +1622,7 @@ def vpn_ipsec_phase1(data, fos, check_mode=False):
         return fos.set("vpn.ipsec", "phase1", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("vpn.ipsec", "phase1", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("vpn.ipsec", "phase1", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -2028,6 +2139,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "client_resume": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "client_resume_interval": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "rekey": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2156,6 +2273,49 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "fallback_tcp_threshold": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "remote_gw_match": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "any"},
+                {"value": "ipmask"},
+                {"value": "iprange"},
+                {"value": "geography"},
+            ],
+        },
+        "remote_gw_subnet": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw_start_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw_end_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw_country": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw6_match": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "any"},
+                {"value": "ipprefix"},
+                {"value": "iprange"},
+                {"value": "geography"},
+            ],
+        },
+        "remote_gw6_subnet": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw6_start_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw6_end_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw6_country": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "cert_peer_username_validation": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "none"},
+                {"value": "othername"},
+                {"value": "rfc822name"},
+                {"value": "cn"},
+            ],
+        },
+        "cert_peer_username_strip": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "forticlient_enforcement": {
             "v_range": [["v6.0.0", "v7.4.0"]],
             "type": "string",
@@ -2206,12 +2366,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "vpn_ipsec_phase1"

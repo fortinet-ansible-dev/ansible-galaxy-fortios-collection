@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -158,6 +159,10 @@ options:
                 description:
                     - Description of the location of the wireless controller.
                 type: str
+            max_ble_device:
+                description:
+                    - Maximum number of BLE devices stored on the controller .
+                type: int
             max_clients:
                 description:
                     - Maximum number of clients that can connect simultaneously .
@@ -165,6 +170,26 @@ options:
             max_retransmit:
                 description:
                     - Maximum number of tunnel packet retransmissions (0 - 64).
+                type: int
+            max_rogue_ap:
+                description:
+                    - Maximum number of rogue APs stored on the controller .
+                type: int
+            max_rogue_ap_wtp:
+                description:
+                    - Maximum number of rogue AP"s wtp info stored on the controller (1 - 16).
+                type: int
+            max_rogue_sta:
+                description:
+                    - Maximum number of rogue stations stored on the controller .
+                type: int
+            max_sta_cap:
+                description:
+                    - Maximum number of station cap stored on the controller .
+                type: int
+            max_sta_cap_wtp:
+                description:
+                    - Maximum number of station cap"s wtp info stored on the controller (1 - 16).
                 type: int
             mesh_eth_type:
                 description:
@@ -231,11 +256,17 @@ EXAMPLES = """
           ipsec_base_ip: "<your_own_value>"
           link_aggregation: "enable"
           location: "<your_own_value>"
+          max_ble_device: "0"
           max_clients: "0"
           max_retransmit: "3"
+          max_rogue_ap: "0"
+          max_rogue_ap_wtp: "16"
+          max_rogue_sta: "0"
+          max_sta_cap: "0"
+          max_sta_cap_wtp: "8"
           mesh_eth_type: "8755"
           nac_interval: "120"
-          name: "default_name_20"
+          name: "default_name_26"
           rogue_scan_mac_adjacency: "7"
           rolling_wtp_upgrade: "enable"
           rolling_wtp_upgrade_threshold: "<your_own_value>"
@@ -338,8 +369,14 @@ def filter_wireless_controller_global_data(json):
         "ipsec_base_ip",
         "link_aggregation",
         "location",
+        "max_ble_device",
         "max_clients",
         "max_retransmit",
+        "max_rogue_ap",
+        "max_rogue_ap_wtp",
+        "max_rogue_sta",
+        "max_sta_cap",
+        "max_sta_cap_wtp",
         "mesh_eth_type",
         "nac_interval",
         "name",
@@ -404,6 +441,7 @@ def underscore_to_hyphen(data):
 
 
 def wireless_controller_global(data, fos):
+    state = None
     vdom = data["vdom"]
     wireless_controller_global_data = data["wireless_controller_global"]
     wireless_controller_global_data = flatten_multilists_attributes(
@@ -521,6 +559,12 @@ versioned_schema = {
         },
         "ap_log_server_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ap_log_server_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "max_sta_cap": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "max_sta_cap_wtp": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "max_rogue_ap": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "max_rogue_ap_wtp": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "max_rogue_sta": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "max_ble_device": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "dfs_lab_test": {
             "v_range": [["v7.0.12", "v7.0.12"], ["v7.2.1", ""]],
             "type": "string",
@@ -571,12 +615,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_global"

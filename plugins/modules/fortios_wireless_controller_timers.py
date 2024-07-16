@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -97,6 +98,10 @@ options:
             auth_timeout:
                 description:
                     - Time after which a client is considered failed in RADIUS authentication and times out (5 - 30 sec).
+                type: int
+            ble_device_cleanup:
+                description:
+                    - Time period in minutes to keep BLE device after it is gone .
                 type: int
             ble_scan_report_intv:
                 description:
@@ -173,6 +178,14 @@ options:
                 description:
                     - Time between logging rogue AP messages if periodic rogue AP logging is configured (0 - 1440 min).
                 type: int
+            rogue_sta_cleanup:
+                description:
+                    - Time period in minutes to keep rogue station after it is gone .
+                type: int
+            sta_cap_cleanup:
+                description:
+                    - Time period in minutes to keep station capability data after it is gone .
+                type: int
             sta_capability_interval:
                 description:
                     - Time between running station capability reports (1 - 255 sec).
@@ -200,6 +213,7 @@ EXAMPLES = """
           ap_reboot_wait_interval2: "0"
           ap_reboot_wait_time: "<your_own_value>"
           auth_timeout: "5"
+          ble_device_cleanup: "60"
           ble_scan_report_intv: "30"
           client_idle_rehome_timeout: "20"
           client_idle_timeout: "300"
@@ -217,6 +231,8 @@ EXAMPLES = """
           radio_stats_interval: "15"
           rogue_ap_cleanup: "0"
           rogue_ap_log: "0"
+          rogue_sta_cleanup: "0"
+          sta_cap_cleanup: "0"
           sta_capability_interval: "30"
           sta_locate_timer: "1800"
           sta_stats_interval: "10"
@@ -308,6 +324,7 @@ def filter_wireless_controller_timers_data(json):
         "ap_reboot_wait_interval2",
         "ap_reboot_wait_time",
         "auth_timeout",
+        "ble_device_cleanup",
         "ble_scan_report_intv",
         "client_idle_rehome_timeout",
         "client_idle_timeout",
@@ -323,6 +340,8 @@ def filter_wireless_controller_timers_data(json):
         "radio_stats_interval",
         "rogue_ap_cleanup",
         "rogue_ap_log",
+        "rogue_sta_cleanup",
+        "sta_cap_cleanup",
         "sta_capability_interval",
         "sta_locate_timer",
         "sta_stats_interval",
@@ -353,6 +372,7 @@ def underscore_to_hyphen(data):
 
 
 def wireless_controller_timers(data, fos):
+    state = None
     vdom = data["vdom"]
     wireless_controller_timers_data = data["wireless_controller_timers"]
     filtered_data = filter_wireless_controller_timers_data(
@@ -405,7 +425,10 @@ versioned_schema = {
         "auth_timeout": {"v_range": [["v7.0.6", ""]], "type": "integer"},
         "rogue_ap_log": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "fake_ap_log": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "sta_cap_cleanup": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "rogue_ap_cleanup": {"v_range": [["v7.0.6", ""]], "type": "integer"},
+        "rogue_sta_cleanup": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "ble_device_cleanup": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "sta_stats_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "vap_stats_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "radio_stats_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -488,12 +511,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "wireless_controller_timers"

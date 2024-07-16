@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -92,6 +94,13 @@ options:
                 description:
                     - Select an active authentication method. Source authentication.scheme.name.
                 type: str
+            cert_auth_cookie:
+                description:
+                    - Enable/disable to use device certificate as authentication cookie .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             comments:
                 description:
                     - Comment.
@@ -227,29 +236,30 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       authentication_rule:
           active_auth_method: "<your_own_value> (source authentication.scheme.name)"
+          cert_auth_cookie: "enable"
           comments: "<your_own_value>"
           cors_depth: "3"
           cors_stateful: "enable"
           dstaddr:
               -
-                  name: "default_name_8 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
+                  name: "default_name_9 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
                     .external-resource.name)"
           dstaddr6:
               -
-                  name: "default_name_10 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_11 (source firewall.address6.name firewall.addrgrp6.name)"
           ip_based: "enable"
-          name: "default_name_12"
+          name: "default_name_13"
           protocol: "http"
           srcaddr:
               -
-                  name: "default_name_15 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
+                  name: "default_name_16 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
                     .external-resource.name)"
           srcaddr6:
               -
-                  name: "default_name_17 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_18 (source firewall.address6.name firewall.addrgrp6.name)"
           srcintf:
               -
-                  name: "default_name_19 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_20 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           sso_auth_method: "<your_own_value> (source authentication.scheme.name)"
           status: "enable"
           transaction_based: "enable"
@@ -348,6 +358,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_authentication_rule_data(json):
     option_list = [
         "active_auth_method",
+        "cert_auth_cookie",
         "comments",
         "cors_depth",
         "cors_stateful",
@@ -390,6 +401,7 @@ def underscore_to_hyphen(data):
 
 
 def authentication_rule(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -464,7 +476,7 @@ def authentication_rule(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "authentication", "rule", mkey=filtered_data["name"], vdom=vdom
+            "authentication", "rule", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -597,6 +609,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "cors_depth": {"v_range": [["v7.4.1", ""]], "type": "integer"},
+        "cert_auth_cookie": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "transaction_based": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -653,12 +670,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "authentication_rule"

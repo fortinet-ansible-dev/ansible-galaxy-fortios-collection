@@ -37,6 +37,7 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+
 requirements:
     - ansible>=2.15
 options:
@@ -273,6 +274,7 @@ def underscore_to_hyphen(data):
 
 
 def gtp_rat_timeout_profile(data, fos):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -286,7 +288,7 @@ def gtp_rat_timeout_profile(data, fos):
 
     elif state == "absent":
         return fos.delete(
-            "gtp", "rat-timeout-profile", mkey=filtered_data["name"], vdom=vdom
+            "gtp", "rat-timeout-profile", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -416,12 +418,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "gtp_rat_timeout_profile"

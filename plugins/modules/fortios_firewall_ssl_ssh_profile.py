@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -224,6 +226,21 @@ options:
                             - 'allow'
                             - 'block'
                             - 'ignore'
+            ech_outer_sni:
+                description:
+                    - ClientHelloOuter SNIs to be blocked.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - ClientHelloOuter SNI name.
+                        required: true
+                        type: str
+                    sni:
+                        description:
+                            - ClientHelloOuter SNI to be blocked.
+                        type: str
             ftps:
                 description:
                     - Configure FTPS options.
@@ -417,6 +434,13 @@ options:
                         choices:
                             - 'bypass'
                             - 'inspect'
+                            - 'block'
+                    encrypted_client_hello:
+                        description:
+                            - Block/allow session based on existence of encrypted-client-hello.
+                        type: str
+                        choices:
+                            - 'allow'
                             - 'block'
                     expired_server_cert:
                         description:
@@ -1102,6 +1126,13 @@ options:
                             - 'bypass'
                             - 'inspect'
                             - 'block'
+                    encrypted_client_hello:
+                        description:
+                            - Block/allow session based on existence of encrypted-client-hello.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'block'
                     expired_server_cert:
                         description:
                             - Action based on server certificate is expired.
@@ -1460,6 +1491,10 @@ EXAMPLES = """
               unsupported_ssl_negotiation: "allow"
               unsupported_ssl_version: "allow"
               untrusted_server_cert: "allow"
+          ech_outer_sni:
+              -
+                  name: "default_name_23"
+                  sni: "<your_own_value>"
           ftps:
               allow_invalid_server_cert: "enable"
               cert_validation_failure: "allow"
@@ -1486,6 +1521,7 @@ EXAMPLES = """
               cert_validation_timeout: "allow"
               client_cert_request: "bypass"
               client_certificate: "bypass"
+              encrypted_client_hello: "allow"
               expired_server_cert: "allow"
               invalid_server_cert: "allow"
               min_allowed_ssl_version: "ssl-3.0"
@@ -1521,7 +1557,7 @@ EXAMPLES = """
               untrusted_cert: "allow"
               untrusted_server_cert: "allow"
           mapi_over_https: "enable"
-          name: "default_name_83"
+          name: "default_name_87"
           pop3s:
               allow_invalid_server_cert: "enable"
               cert_validation_failure: "allow"
@@ -1544,7 +1580,7 @@ EXAMPLES = """
           rpc_over_https: "enable"
           server_cert:
               -
-                  name: "default_name_105 (source vpn.certificate.local.name)"
+                  name: "default_name_109 (source vpn.certificate.local.name)"
           server_cert_mode: "re-sign"
           smtps:
               allow_invalid_server_cert: "enable"
@@ -1581,6 +1617,7 @@ EXAMPLES = """
               cert_validation_timeout: "allow"
               client_cert_request: "bypass"
               client_certificate: "bypass"
+              encrypted_client_hello: "allow"
               expired_server_cert: "allow"
               inspect_all: "disable"
               invalid_server_cert: "allow"
@@ -1600,7 +1637,7 @@ EXAMPLES = """
                   address: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   address6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
                   fortiguard_category: "0"
-                  id: "160"
+                  id: "165"
                   regex: "<your_own_value>"
                   type: "fortiguard-category"
                   wildcard_fqdn: "<your_own_value> (source firewall.wildcard-fqdn.custom.name firewall.wildcard-fqdn.group.name)"
@@ -1615,7 +1652,7 @@ EXAMPLES = """
                   ftps_client_certificate: "bypass"
                   https_client_cert_request: "bypass"
                   https_client_certificate: "bypass"
-                  id: "174"
+                  id: "179"
                   imaps_client_cert_request: "bypass"
                   imaps_client_certificate: "bypass"
                   ip: "<your_own_value>"
@@ -1728,6 +1765,7 @@ def filter_firewall_ssl_ssh_profile_data(json):
         "caname",
         "comment",
         "dot",
+        "ech_outer_sni",
         "ftps",
         "https",
         "imaps",
@@ -1814,6 +1852,7 @@ def underscore_to_hyphen(data):
 
 
 def firewall_ssl_ssh_profile(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -1891,7 +1930,7 @@ def firewall_ssl_ssh_profile(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "ssl-ssh-profile", mkey=filtered_data["name"], vdom=vdom
+            "firewall", "ssl-ssh-profile", mkey=converted_data["name"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -2031,6 +2070,11 @@ versioned_schema = {
                 },
                 "cert_probe_failure": {
                     "v_range": [["v7.0.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "allow"}, {"value": "block"}],
+                },
+                "encrypted_client_hello": {
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "block"}],
                 },
@@ -2203,6 +2247,11 @@ versioned_schema = {
                 },
                 "cert_probe_failure": {
                     "v_range": [["v7.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "allow"}, {"value": "block"}],
+                },
+                "encrypted_client_hello": {
+                    "v_range": [["v7.4.4", ""]],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "block"}],
                 },
@@ -3020,6 +3069,19 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "ech_outer_sni": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "sni": {"v_range": [["v7.4.4", ""]], "type": "string"},
+            },
+            "v_range": [["v7.4.4", ""]],
+        },
         "server_cert_mode": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3282,12 +3344,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_ssl_ssh_profile"

@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -142,6 +144,10 @@ options:
                 description:
                     - Number of addresses blocks that can be used by a user (1 to 128).
                 type: int
+            pba_interim_log:
+                description:
+                    - Port block allocation interim logging interval (600 - 86400 seconds).
+                type: int
             pba_timeout:
                 description:
                     - Port block allocation timeout (seconds).
@@ -209,6 +215,7 @@ EXAMPLES = """
           name: "default_name_11"
           nat64: "disable"
           num_blocks_per_user: "8"
+          pba_interim_log: "0"
           pba_timeout: "30"
           permit_any_host: "disable"
           port_per_user: "0"
@@ -321,6 +328,7 @@ def filter_firewall_ippool_data(json):
         "name",
         "nat64",
         "num_blocks_per_user",
+        "pba_interim_log",
         "pba_timeout",
         "permit_any_host",
         "port_per_user",
@@ -356,6 +364,7 @@ def underscore_to_hyphen(data):
 
 
 def firewall_ippool(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -429,7 +438,7 @@ def firewall_ippool(data, fos, check_mode=False):
         return fos.set("firewall", "ippool", data=converted_data, vdom=vdom)
 
     elif state == "absent":
-        return fos.delete("firewall", "ippool", mkey=filtered_data["name"], vdom=vdom)
+        return fos.delete("firewall", "ippool", mkey=converted_data["name"], vdom=vdom)
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 
@@ -488,6 +497,7 @@ versioned_schema = {
         "port_per_user": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "num_blocks_per_user": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "pba_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "pba_interim_log": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "permit_any_host": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -561,12 +571,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_ippool"

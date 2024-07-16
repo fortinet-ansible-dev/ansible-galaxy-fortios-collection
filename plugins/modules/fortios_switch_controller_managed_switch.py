@@ -37,6 +37,8 @@ author:
 notes:
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -540,6 +542,13 @@ options:
                         choices:
                             - 'bandwidth'
                             - 'count'
+                    allow_arp_monitor:
+                        description:
+                            - Enable/Disable allow ARP monitor.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     allowed_vlans:
                         description:
                             - Configure switch port tagged VLANs.
@@ -647,6 +656,10 @@ options:
                         description:
                             - Switch controller export port to pool-list.
                         type: int
+                    fallback_port:
+                        description:
+                            - LACP fallback port.
+                        type: str
                     fec_capable:
                         description:
                             - FEC capable.
@@ -1065,6 +1078,7 @@ options:
                             - '100FX-full'
                             - '100000full'
                             - '2500auto'
+                            - '2500full'
                             - '25000full'
                             - '50000full'
                             - '10000cr'
@@ -1073,6 +1087,7 @@ options:
                             - '100000cr4'
                             - '40000sr4'
                             - '40000cr4'
+                            - '40000auto'
                             - '25000cr'
                             - '25000sr'
                             - '50000cr'
@@ -1084,7 +1099,6 @@ options:
                             - '25000cr4'
                             - '25000sr4'
                             - '5000full'
-                            - '2500full'
                     speed_mask:
                         description:
                             - Switch port speed mask.
@@ -1876,6 +1890,7 @@ EXAMPLES = """
                       -
                           name: "default_name_81 (source switch-controller.acl.group.name)"
                   aggregator_mode: "bandwidth"
+                  allow_arp_monitor: "disable"
                   allowed_vlans:
                       -
                           vlan_name: "<your_own_value> (source system.interface.name)"
@@ -1898,6 +1913,7 @@ EXAMPLES = """
                   export_to: "<your_own_value> (source system.vdom.name)"
                   export_to_pool: "<your_own_value> (source switch-controller.virtual-port-pool.name)"
                   export_to_pool_flag: "0"
+                  fallback_port: "<your_own_value>"
                   fec_capable: "0"
                   fec_state: "disabled"
                   fgt_peer_device_name: "<your_own_value>"
@@ -1912,7 +1928,7 @@ EXAMPLES = """
                   fortilink_port: "0"
                   fortiswitch_acls:
                       -
-                          id: "115"
+                          id: "117"
                   igmp_snooping: "enable"
                   igmp_snooping_flood_reports: "enable"
                   igmps_flood_reports: "enable"
@@ -2002,7 +2018,7 @@ EXAMPLES = """
               -
                   csv: "enable"
                   facility: "kernel"
-                  name: "default_name_201"
+                  name: "default_name_203"
                   port: "514"
                   server: "192.168.100.40"
                   severity: "emergency"
@@ -2019,10 +2035,10 @@ EXAMPLES = """
                   events: "cpu-high"
                   hosts:
                       -
-                          id: "215"
+                          id: "217"
                           ip: "<your_own_value>"
-                  id: "217"
-                  name: "default_name_218"
+                  id: "219"
+                  name: "default_name_220"
                   query_v1_port: "161"
                   query_v1_status: "disable"
                   query_v2c_port: "161"
@@ -2048,7 +2064,7 @@ EXAMPLES = """
               -
                   auth_proto: "md5"
                   auth_pwd: "<your_own_value>"
-                  name: "default_name_243"
+                  name: "default_name_245"
                   priv_proto: "aes128"
                   priv_pwd: "<your_own_value>"
                   queries: "disable"
@@ -2058,7 +2074,7 @@ EXAMPLES = """
           static_mac:
               -
                   description: "<your_own_value>"
-                  id: "252"
+                  id: "254"
                   interface: "<your_own_value>"
                   mac: "<your_own_value>"
                   type: "static"
@@ -2071,7 +2087,7 @@ EXAMPLES = """
               unknown_unicast: "enable"
           stp_instance:
               -
-                  id: "264"
+                  id: "266"
                   priority: "0"
           stp_settings:
               forward_time: "15"
@@ -2079,7 +2095,7 @@ EXAMPLES = """
               local_override: "enable"
               max_age: "20"
               max_hops: "20"
-              name: "default_name_272"
+              name: "default_name_274"
               pending_timer: "4"
               revision: "0"
               status: "enable"
@@ -2336,10 +2352,11 @@ def valid_attr_to_invalid_attrs(data):
             new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
         data = new_data
 
-    return data
+    return valid_attr_to_invalid_attr(data)
 
 
 def switch_controller_managed_switch(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -2427,7 +2444,7 @@ def switch_controller_managed_switch(data, fos, check_mode=False):
         return fos.delete(
             "switch-controller",
             "managed-switch",
-            mkey=filtered_data["switch-id"],
+            mkey=converted_data["switch-id"],
             vdom=vdom,
         )
     else:
@@ -2639,6 +2656,14 @@ versioned_schema = {
                             "value": "2500auto",
                             "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                         },
+                        {
+                            "value": "2500full",
+                            "v_range": [
+                                ["v6.0.0", "v6.0.11"],
+                                ["v6.2.3", "v6.2.3"],
+                                ["v7.4.4", ""],
+                            ],
+                        },
                         {"value": "25000full"},
                         {"value": "50000full"},
                         {
@@ -2665,6 +2690,7 @@ versioned_schema = {
                             "value": "40000cr4",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
                         },
+                        {"value": "40000auto", "v_range": [["v7.4.4", ""]]},
                         {
                             "value": "25000cr",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
@@ -2720,10 +2746,6 @@ versioned_schema = {
                                 ["v6.0.11", "v7.0.7"],
                                 ["v7.2.0", "v7.2.2"],
                             ],
-                        },
-                        {
-                            "value": "2500full",
-                            "v_range": [["v6.0.0", "v6.0.11"], ["v6.2.3", "v6.2.3"]],
                         },
                     ],
                 },
@@ -3034,6 +3056,11 @@ versioned_schema = {
                 "lldp_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "export_to": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "mac_addr": {"v_range": [["v6.2.0", ""]], "type": "string"},
+                "allow_arp_monitor": {
+                    "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
                 "port_selection_criteria": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -3090,6 +3117,7 @@ versioned_schema = {
                     },
                     "v_range": [["v6.0.0", ""]],
                 },
+                "fallback_port": {"v_range": [["v7.4.4", ""]], "type": "string"},
                 "switch_id": {
                     "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
                     "type": "string",
@@ -3902,12 +3930,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "switch_controller_managed_switch"

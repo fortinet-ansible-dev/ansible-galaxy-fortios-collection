@@ -39,6 +39,8 @@ notes:
        available number for the object, it does have limitations. Please find more details in Q&A.
     - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -117,9 +119,15 @@ options:
                     - 'tenant-id'
                     - 'client-avatars'
                     - 'single-vdom-connector'
+                    - 'fgt-sysinfo-api'
+                    - 'ztna-server-info'
             certificate:
                 description:
                     - FortiClient EMS certificate. Source certificate.remote.name.
+                type: str
+            cloud_authentication_access_key:
+                description:
+                    - FortiClient EMS Cloud multitenancy access key
                 type: str
             cloud_server_type:
                 description:
@@ -280,6 +288,7 @@ EXAMPLES = """
           call_timeout: "30"
           capabilities: "fabric-auth"
           certificate: "<your_own_value> (source certificate.remote.name)"
+          cloud_authentication_access_key: "<your_own_value>"
           cloud_server_type: "production"
           dirty_reason: "none"
           ems_id: "<you_own_value>"
@@ -287,7 +296,7 @@ EXAMPLES = """
           https_port: "443"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
-          name: "default_name_15"
+          name: "default_name_16"
           out_of_sync_threshold: "180"
           preserve_ssl_session: "enable"
           pull_avatars: "enable"
@@ -402,6 +411,7 @@ def filter_endpoint_control_fctems_data(json):
         "call_timeout",
         "capabilities",
         "certificate",
+        "cloud_authentication_access_key",
         "cloud_server_type",
         "dirty_reason",
         "ems_id",
@@ -482,6 +492,7 @@ def underscore_to_hyphen(data):
 
 
 def endpoint_control_fctems(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -559,7 +570,7 @@ def endpoint_control_fctems(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "endpoint-control", "fctems", mkey=filtered_data["ems-id"], vdom=vdom
+            "endpoint-control", "fctems", mkey=converted_data["ems-id"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -619,6 +630,10 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "cloud_authentication_access_key": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+        },
         "server": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "https_port": {"v_range": [["v6.2.0", ""]], "type": "integer"},
         "serial_number": {
@@ -665,6 +680,8 @@ versioned_schema = {
                 {"value": "tenant-id", "v_range": [["v7.2.1", ""]]},
                 {"value": "client-avatars", "v_range": [["v7.4.1", ""]]},
                 {"value": "single-vdom-connector", "v_range": [["v7.4.0", ""]]},
+                {"value": "fgt-sysinfo-api", "v_range": [["v7.4.4", ""]]},
+                {"value": "ztna-server-info", "v_range": [["v7.4.4", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -733,6 +750,7 @@ def main():
             "required": False,
             "type": "dict",
             "default": None,
+            "no_log": True,
             "options": {},
         },
     }
@@ -757,12 +775,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "endpoint_control_fctems"

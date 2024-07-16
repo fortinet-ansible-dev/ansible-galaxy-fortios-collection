@@ -41,6 +41,8 @@ notes:
     - Adjust object order by moving self after(before) another.
     - Only one of [after, before] must be specified when action is moving an object.
 
+    - The module supports check_mode.
+
 requirements:
     - ansible>=2.15
 options:
@@ -358,8 +360,8 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Address name. Source firewall.address6.name firewall.vipgrp6.name firewall.vip6.name system.external-resource.name firewall
-                              .addrgrp6.name.
+                            - Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
+                              .external-resource.name.
                         required: true
                         type: str
             dstaddr6_negate:
@@ -1020,6 +1022,13 @@ options:
                             - IPv6 pool name. Source firewall.ippool6.name.
                         required: true
                         type: str
+            port_preserve:
+                description:
+                    - Enable/disable preservation of the original source port from source NAT if it has not been used.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             profile_group:
                 description:
                     - Name of profile group. Source firewall.profile-group.name.
@@ -1573,8 +1582,8 @@ EXAMPLES = """
           dstaddr_negate: "enable"
           dstaddr6:
               -
-                  name: "default_name_47 (source firewall.address6.name firewall.vipgrp6.name firewall.vip6.name system.external-resource.name firewall
-                    .addrgrp6.name)"
+                  name: "default_name_47 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
+                    .external-resource.name)"
           dstaddr6_negate: "enable"
           dstintf:
               -
@@ -1715,6 +1724,7 @@ EXAMPLES = """
           poolname6:
               -
                   name: "default_name_160 (source firewall.ippool6.name)"
+          port_preserve: "enable"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           profile_type: "single"
@@ -1728,7 +1738,7 @@ EXAMPLES = """
           rsso: "enable"
           rtp_addr:
               -
-                  name: "default_name_173 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
+                  name: "default_name_174 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
           rtp_nat: "disable"
           scan_botnet_connections: "disable"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
@@ -1737,34 +1747,34 @@ EXAMPLES = """
           send_deny_packet: "disable"
           service:
               -
-                  name: "default_name_181 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_182 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "<your_own_value>"
           sgt:
               -
-                  id: "185"
+                  id: "186"
           sgt_check: "enable"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           src_vendor_mac:
               -
-                  id: "189 (source firewall.vendor-mac.id)"
+                  id: "190 (source firewall.vendor-mac.id)"
           srcaddr:
               -
-                  name: "default_name_191 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_192 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_194 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
+                  name: "default_name_195 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
           srcaddr6_negate: "enable"
           srcintf:
               -
-                  name: "default_name_197 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_198 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_mirror: "enable"
           ssl_mirror_intf:
               -
-                  name: "default_name_202 (source system.interface.name system.zone.name)"
+                  name: "default_name_203 (source system.interface.name system.zone.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           tcp_mss_receiver: "0"
@@ -1778,10 +1788,10 @@ EXAMPLES = """
           traffic_shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
           url_category:
               -
-                  id: "215"
+                  id: "216"
           users:
               -
-                  name: "default_name_217 (source user.local.name user.certificate.name)"
+                  name: "default_name_218 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -1807,13 +1817,13 @@ EXAMPLES = """
           ztna_device_ownership: "enable"
           ztna_ems_tag:
               -
-                  name: "default_name_242 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_243 (source firewall.address.name firewall.addrgrp.name)"
           ztna_ems_tag_secondary:
               -
-                  name: "default_name_244 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_245 (source firewall.address.name firewall.addrgrp.name)"
           ztna_geo_tag:
               -
-                  name: "default_name_246 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_247 (source firewall.address.name firewall.addrgrp.name)"
           ztna_policy_redirect: "enable"
           ztna_status: "enable"
           ztna_tags_match_logic: "or"
@@ -2033,6 +2043,7 @@ def filter_firewall_policy_data(json):
         "policyid",
         "poolname",
         "poolname6",
+        "port_preserve",
         "profile_group",
         "profile_protocol_options",
         "profile_type",
@@ -2135,6 +2146,7 @@ def underscore_to_hyphen(data):
 
 
 def firewall_policy(data, fos, check_mode=False):
+    state = None
     vdom = data["vdom"]
 
     state = data["state"]
@@ -2209,7 +2221,7 @@ def firewall_policy(data, fos, check_mode=False):
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "policy", mkey=filtered_data["policyid"], vdom=vdom
+            "firewall", "policy", mkey=converted_data["policyid"], vdom=vdom
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
@@ -2936,6 +2948,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "port_preserve": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ippool": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3421,12 +3438,12 @@ def main():
     if module._socket_path:
         connection = Connection(module._socket_path)
         if "access_token" in module.params:
-            connection.set_option("access_token", module.params["access_token"])
+            connection.set_custom_option("access_token", module.params["access_token"])
 
         if "enable_log" in module.params:
-            connection.set_option("enable_log", module.params["enable_log"])
+            connection.set_custom_option("enable_log", module.params["enable_log"])
         else:
-            connection.set_option("enable_log", False)
+            connection.set_custom_option("enable_log", False)
         fos = FortiOSHandler(connection, module, mkeyname)
         versions_check_result = check_schema_versioning(
             fos, versioned_schema, "firewall_policy"
