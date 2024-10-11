@@ -136,6 +136,7 @@ options:
                     - 'fabric'
                     - 'ftm'
                     - 'speed-test'
+                    - 'scim'
                     - 'capwap'
             ap_discover:
                 description:
@@ -844,6 +845,39 @@ options:
                         description:
                             - CLI IPv6 connection status.
                         type: int
+                    client_options:
+                        description:
+                            - DHCP6 client options.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            code:
+                                description:
+                                    - DHCPv6 option code.
+                                type: int
+                            id:
+                                description:
+                                    - ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            ip6:
+                                description:
+                                    - DHCP option IP6s.
+                                type: list
+                                elements: str
+                            type:
+                                description:
+                                    - DHCPv6 option type.
+                                type: str
+                                choices:
+                                    - 'hex'
+                                    - 'string'
+                                    - 'ip6'
+                                    - 'fqdn'
+                            value:
+                                description:
+                                    - DHCPv6 option value (hexadecimal value must be even).
+                                type: str
                     dhcp6_client_options:
                         description:
                             - DHCPv6 client options.
@@ -1226,7 +1260,7 @@ options:
                                     - 'disable'
                             adv_interval:
                                 description:
-                                    - Advertisement interval (1 - 255 seconds).
+                                    - Advertisement interval (250 - 255000 milliseconds).
                                 type: int
                             ignore_default_route:
                                 description:
@@ -1257,6 +1291,10 @@ options:
                                 choices:
                                     - 'enable'
                                     - 'disable'
+                            vrdst_priority:
+                                description:
+                                    - Priority of the virtual router when the virtual router destination becomes unreachable (0 - 254).
+                                type: int
                             vrdst6:
                                 description:
                                     - Monitor the route to this destination.
@@ -1513,6 +1551,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            netflow_sample_rate:
+                description:
+                    - NetFlow sample rate.  Sample one packet every configured number of packets(1 - 65535).
+                type: int
             netflow_sampler:
                 description:
                     - Enable/disable NetFlow on this interface and set the data that NetFlow collects (rx, tx, or both).
@@ -1522,6 +1564,10 @@ options:
                     - 'tx'
                     - 'rx'
                     - 'both'
+            netflow_sampler_id:
+                description:
+                    - Netflow sampler ID.
+                type: int
             np_qos_profile:
                 description:
                     - NP QoS profile ID.
@@ -1553,6 +1599,19 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            pppoe_egress_cos:
+                description:
+                    - CoS in VLAN tag for outgoing PPPoE/PPP packets.
+                type: str
+                choices:
+                    - 'cos0'
+                    - 'cos1'
+                    - 'cos2'
+                    - 'cos3'
+                    - 'cos4'
+                    - 'cos5'
+                    - 'cos6'
+                    - 'cos7'
             pppoe_unnumbered_negotiate:
                 description:
                     - Enable/disable PPPoE unnumbered negotiation.
@@ -1702,6 +1761,7 @@ options:
                             - 'fabric'
                             - 'ftm'
                             - 'speed-test'
+                            - 'scim'
                             - 'capwap'
                     detectprotocol:
                         description:
@@ -1792,6 +1852,13 @@ options:
                             - Names of user groups that can authenticate with the captive portal. Source user.group.name.
                         required: true
                         type: str
+            security_ip_auth_bypass:
+                description:
+                    - Enable/disable IP authentication bypass.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             security_mac_auth_bypass:
                 description:
                     - Enable/disable MAC authentication bypass.
@@ -2195,6 +2262,10 @@ options:
                 description:
                     - Switch control interface VLAN ID.
                 type: int
+            virtual_mac:
+                description:
+                    - Change the interface"s virtual MAC address.
+                type: str
             vlan_protocol:
                 description:
                     - Ethernet protocol of VLAN.
@@ -2232,7 +2303,7 @@ options:
                             - 'disable'
                     adv_interval:
                         description:
-                            - Advertisement interval (1 - 255 seconds).
+                            - Advertisement interval (250 - 255000 milliseconds).
                         type: int
                     ignore_default_route:
                         description:
@@ -2468,6 +2539,13 @@ EXAMPLES = """
           ipv6:
               autoconf: "enable"
               cli_conn6_status: "0"
+              client_options:
+                  -
+                      code: "0"
+                      id: "132"
+                      ip6: "<your_own_value>"
+                      type: "hex"
+                      value: "<your_own_value>"
               dhcp6_client_options: "rapid"
               dhcp6_iapd_list:
                   -
@@ -2487,7 +2565,7 @@ EXAMPLES = """
               dhcp6_relay_source_ip: "<your_own_value>"
               dhcp6_relay_type: "regular"
               icmp6_send_redirect: "enable"
-              interface_identifier: "myId_148"
+              interface_identifier: "myId_154"
               ip6_address: "<your_own_value>"
               ip6_allowaccess: "ping"
               ip6_default_life: "1800"
@@ -2543,12 +2621,13 @@ EXAMPLES = """
               vrrp6:
                   -
                       accept_mode: "enable"
-                      adv_interval: "1"
+                      adv_interval: "1000"
                       ignore_default_route: "enable"
                       preempt: "enable"
                       priority: "100"
                       start_time: "3"
                       status: "enable"
+                      vrdst_priority: "0"
                       vrdst6: "<your_own_value>"
                       vrgrp: "0"
                       vrid: "<you_own_value>"
@@ -2567,7 +2646,7 @@ EXAMPLES = """
           macaddr: "<your_own_value>"
           managed_device:
               -
-                  name: "default_name_222"
+                  name: "default_name_229"
           managed_subnetwork_size: "32"
           management_ip: "<your_own_value>"
           measured_downstream_bandwidth: "0"
@@ -2590,10 +2669,12 @@ EXAMPLES = """
           monitor_bandwidth: "enable"
           mtu: "1500"
           mtu_override: "enable"
-          name: "default_name_244"
+          name: "default_name_251"
           ndiscforward: "enable"
           netbios_forward: "disable"
+          netflow_sample_rate: "1"
           netflow_sampler: "disable"
+          netflow_sampler_id: "0"
           np_qos_profile: "0"
           outbandwidth: "0"
           padt_retry_timeout: "1"
@@ -2601,6 +2682,7 @@ EXAMPLES = """
           ping_serv_status: "0"
           polling_interval: "20"
           port_mirroring: "disable"
+          pppoe_egress_cos: "cos0"
           pppoe_unnumbered_negotiate: "enable"
           pptp_auth_type: "auto"
           pptp_client: "enable"
@@ -2630,7 +2712,7 @@ EXAMPLES = """
                   detectserver: "<your_own_value>"
                   gwdetect: "enable"
                   ha_priority: "1"
-                  id: "283"
+                  id: "293"
                   ip: "<your_own_value>"
                   ping_serv_status: "0"
                   secip_relay_ip: "<your_own_value>"
@@ -2643,7 +2725,8 @@ EXAMPLES = """
           security_external_web: "<your_own_value>"
           security_groups:
               -
-                  name: "default_name_295 (source user.group.name)"
+                  name: "default_name_305 (source user.group.name)"
+          security_ip_auth_bypass: "enable"
           security_mac_auth_bypass: "mac-auth-only"
           security_mode: "none"
           security_redirect_url: "<your_own_value>"
@@ -2692,10 +2775,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_343"
+                  name: "default_name_354"
                   tags:
                       -
-                          name: "default_name_345 (source system.object-tagging.tags.name)"
+                          name: "default_name_356 (source system.object-tagging.tags.name)"
           tcp_mss: "0"
           trunk: "enable"
           trust_ip_1: "<your_own_value>"
@@ -2708,6 +2791,7 @@ EXAMPLES = """
           username: "<your_own_value>"
           vdom: "<your_own_value> (source system.vdom.name)"
           vindex: "0"
+          virtual_mac: "<your_own_value>"
           vlan_protocol: "8021q"
           vlanforward: "enable"
           vlanid: "0"
@@ -2715,13 +2799,13 @@ EXAMPLES = """
           vrrp:
               -
                   accept_mode: "enable"
-                  adv_interval: "1"
+                  adv_interval: "1000"
                   ignore_default_route: "enable"
                   preempt: "enable"
                   priority: "100"
                   proxy_arp:
                       -
-                          id: "369"
+                          id: "381"
                           ip: "<your_own_value>"
                   start_time: "3"
                   status: "enable"
@@ -2967,7 +3051,9 @@ def filter_system_interface_data(json):
         "name",
         "ndiscforward",
         "netbios_forward",
+        "netflow_sample_rate",
         "netflow_sampler",
+        "netflow_sampler_id",
         "np_qos_profile",
         "outbandwidth",
         "padt_retry_timeout",
@@ -2975,6 +3061,7 @@ def filter_system_interface_data(json):
         "ping_serv_status",
         "polling_interval",
         "port_mirroring",
+        "pppoe_egress_cos",
         "pppoe_unnumbered_negotiate",
         "pptp_auth_type",
         "pptp_client",
@@ -3006,6 +3093,7 @@ def filter_system_interface_data(json):
         "security_external_logout",
         "security_external_web",
         "security_groups",
+        "security_ip_auth_bypass",
         "security_mac_auth_bypass",
         "security_mode",
         "security_redirect_url",
@@ -3064,6 +3152,7 @@ def filter_system_interface_data(json):
         "username",
         "vdom",
         "vindex",
+        "virtual_mac",
         "vlan_protocol",
         "vlanforward",
         "vlanid",
@@ -3091,11 +3180,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -3115,6 +3207,7 @@ def flatten_multilists_attributes(data):
         ["secondaryip", "secip_relay_ip"],
         ["secondaryip", "allowaccess"],
         ["secondaryip", "detectprotocol"],
+        ["ipv6", "client_options", "ip6"],
         ["ipv6", "ip6_allowaccess"],
         ["ipv6", "ip6_prefix_list", "rdnss"],
         ["ipv6", "ip6_delegated_prefix_list", "rdnss"],
@@ -3149,8 +3242,9 @@ def system_interface(data, fos, check_mode=False):
     state = data["state"]
 
     system_interface_data = data["system_interface"]
-    system_interface_data = flatten_multilists_attributes(system_interface_data)
+
     filtered_data = filter_system_interface_data(system_interface_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -3175,20 +3269,24 @@ def system_interface(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -3213,6 +3311,14 @@ def system_interface(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_interface"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "interface",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "interface", data=converted_data, vdom=vdom)
@@ -3236,7 +3342,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos, check_mode):
-    fos.do_member_operation("system", "interface")
     if data["system_interface"]:
         resp = system_interface(data, fos, check_mode)
     else:
@@ -3382,6 +3487,7 @@ versioned_schema = {
                 {"value": "fabric", "v_range": [["v6.2.0", ""]]},
                 {"value": "ftm"},
                 {"value": "speed-test", "v_range": [["v7.0.1", ""]]},
+                {"value": "scim", "v_range": [["v7.6.0", ""]]},
                 {"value": "capwap", "v_range": [["v6.0.0", "v6.0.11"]]},
             ],
             "multiple_values": True,
@@ -3447,6 +3553,20 @@ versioned_schema = {
         "dhcp_renew_time": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ipunnumbered": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "username": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "pppoe_egress_cos": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
         "pppoe_unnumbered_negotiate": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3587,6 +3707,7 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "macaddr": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "virtual_mac": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "substitute_dst_mac": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "speed": {
             "v_range": [["v6.0.0", ""]],
@@ -3699,6 +3820,8 @@ versioned_schema = {
                 {"value": "both"},
             ],
         },
+        "netflow_sample_rate": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "netflow_sampler_id": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "sflow_sampler": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3848,6 +3971,11 @@ versioned_schema = {
                 {"value": "enable"},
                 {"value": "disable"},
             ],
+        },
+        "security_ip_auth_bypass": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "security_external_web": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "security_external_logout": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -4024,6 +4152,7 @@ versioned_schema = {
                         {"value": "fabric", "v_range": [["v6.2.0", ""]]},
                         {"value": "ftm"},
                         {"value": "speed-test", "v_range": [["v7.0.1", ""]]},
+                        {"value": "scim", "v_range": [["v7.6.0", ""]]},
                         {"value": "capwap", "v_range": [["v6.0.0", "v6.0.11"]]},
                     ],
                     "multiple_values": True,
@@ -4284,6 +4413,36 @@ versioned_schema = {
                         {"value": "pppoe"},
                         {"value": "delegated"},
                     ],
+                },
+                "client_options": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "code": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                        "type": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "hex"},
+                                {"value": "string"},
+                                {"value": "ip6"},
+                                {"value": "fqdn"},
+                            ],
+                        },
+                        "value": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                        "ip6": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "list",
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                    },
+                    "v_range": [["v7.6.0", ""]],
                 },
                 "nd_mode": {
                     "v_range": [["v6.0.0", ""]],
@@ -4579,6 +4738,10 @@ versioned_schema = {
                             "type": "list",
                             "multiple_values": True,
                             "elements": "str",
+                        },
+                        "vrdst_priority": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
                         },
                         "ignore_default_route": {
                             "v_range": [["v7.4.2", ""]],

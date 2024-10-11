@@ -508,8 +508,18 @@ def casb_user_activity(data, fos):
     state = data["state"]
 
     casb_user_activity_data = data["casb_user_activity"]
+
     filtered_data = filter_casb_user_activity_data(casb_user_activity_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["casb_user_activity"] = converted_data
+    fos.do_member_operation(
+        "casb",
+        "user-activity",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("casb", "user-activity", data=converted_data, vdom=vdom)
@@ -535,7 +545,6 @@ def is_successful_status(resp):
 
 
 def fortios_casb(data, fos):
-    fos.do_member_operation("casb", "user-activity")
     if data["casb_user_activity"]:
         resp = casb_user_activity(data, fos)
     else:

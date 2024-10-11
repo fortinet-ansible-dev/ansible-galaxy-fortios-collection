@@ -184,6 +184,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            scim_client:
+                description:
+                    - SCIM client name. Source user.scim.name.
+                type: str
             single_logout_url:
                 description:
                     - SP single logout URL.
@@ -245,6 +249,7 @@ EXAMPLES = """
           limit_relaystate: "enable"
           name: "default_name_16"
           reauth: "enable"
+          scim_client: "<your_own_value> (source user.scim.name)"
           single_logout_url: "<your_own_value>"
           single_sign_on_url: "<your_own_value>"
           user_claim_type: "email"
@@ -356,6 +361,7 @@ def filter_user_saml_data(json):
         "limit_relaystate",
         "name",
         "reauth",
+        "scim_client",
         "single_logout_url",
         "single_sign_on_url",
         "user_claim_type",
@@ -392,6 +398,7 @@ def user_saml(data, fos, check_mode=False):
     state = data["state"]
 
     user_saml_data = data["user_saml"]
+
     filtered_data = filter_user_saml_data(user_saml_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -417,20 +424,24 @@ def user_saml(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -455,6 +466,14 @@ def user_saml(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["user_saml"] = converted_data
+    fos.do_member_operation(
+        "user",
+        "saml",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("user", "saml", data=converted_data, vdom=vdom)
@@ -478,7 +497,6 @@ def is_successful_status(resp):
 
 
 def fortios_user(data, fos, check_mode):
-    fos.do_member_operation("user", "saml")
     if data["user_saml"]:
         resp = user_saml(data, fos, check_mode)
     else:
@@ -507,6 +525,7 @@ versioned_schema = {
         "idp_single_sign_on_url": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "idp_single_logout_url": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "idp_cert": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "scim_client": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "user_name": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "group_name": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "digest_method": {

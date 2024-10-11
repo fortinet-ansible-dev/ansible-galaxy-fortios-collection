@@ -319,8 +319,18 @@ def vpn_ssl_client(data, fos):
     state = data["state"]
 
     vpn_ssl_client_data = data["vpn_ssl_client"]
+
     filtered_data = filter_vpn_ssl_client_data(vpn_ssl_client_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_ssl_client"] = converted_data
+    fos.do_member_operation(
+        "vpn.ssl",
+        "client",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("vpn.ssl", "client", data=converted_data, vdom=vdom)
@@ -344,7 +354,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_ssl(data, fos):
-    fos.do_member_operation("vpn.ssl", "client")
     if data["vpn_ssl_client"]:
         resp = vpn_ssl_client(data, fos)
     else:

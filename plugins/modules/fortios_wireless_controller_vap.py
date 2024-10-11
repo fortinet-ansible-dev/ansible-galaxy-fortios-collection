@@ -324,6 +324,13 @@ options:
                 choices:
                     - 'style-1'
                     - 'disable'
+            domain_name_stripping:
+                description:
+                    - Enable/disable stripping domain name from identity .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             dynamic_vlan:
                 description:
                     - Enable/disable dynamic VLAN assignment.
@@ -528,6 +535,13 @@ options:
                 choices:
                     - 'allow'
                     - 'deny'
+            local_lan_partition:
+                description:
+                    - Enable/disable segregating client traffic to local LAN side .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             local_standalone:
                 description:
                     - Enable/disable AP local standalone .
@@ -985,14 +999,6 @@ options:
                 type: list
                 elements: str
                 choices:
-                    - '1'
-                    - '1-basic'
-                    - '2'
-                    - '2-basic'
-                    - '5.5'
-                    - '5.5-basic'
-                    - '11'
-                    - '11-basic'
                     - '6'
                     - '6-basic'
                     - '9'
@@ -1009,6 +1015,14 @@ options:
                     - '48-basic'
                     - '54'
                     - '54-basic'
+                    - '1'
+                    - '1-basic'
+                    - '2'
+                    - '2-basic'
+                    - '5.5'
+                    - '5.5-basic'
+                    - '11'
+                    - '11-basic'
             rates_11ac_mcs_map:
                 description:
                     - Comma separated list of max supported VHT MCS for spatial streams 1 through 8.
@@ -1567,6 +1581,7 @@ EXAMPLES = """
           dhcp_option82_circuit_id_insertion: "style-1"
           dhcp_option82_insertion: "enable"
           dhcp_option82_remote_id_insertion: "style-1"
+          domain_name_stripping: "disable"
           dynamic_vlan: "enable"
           eap_reauth: "enable"
           eap_reauth_intv: "86400"
@@ -1600,6 +1615,7 @@ EXAMPLES = """
           local_authentication: "enable"
           local_bridging: "enable"
           local_lan: "allow"
+          local_lan_partition: "enable"
           local_standalone: "enable"
           local_standalone_dns: "enable"
           local_standalone_dns_ip: "<your_own_value>"
@@ -1611,7 +1627,7 @@ EXAMPLES = """
           mac_filter: "enable"
           mac_filter_list:
               -
-                  id: "85"
+                  id: "87"
                   mac: "<your_own_value>"
                   mac_filter_policy: "allow"
           mac_filter_policy_other: "allow"
@@ -1632,7 +1648,7 @@ EXAMPLES = """
                   key_name: "<your_own_value>"
                   mpsk_schedules:
                       -
-                          name: "default_name_104 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                          name: "default_name_106 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
                   passphrase: "<your_own_value>"
           mpsk_profile: "<your_own_value> (source wireless-controller.mpsk-profile.name)"
           mu_mimo: "enable"
@@ -1640,7 +1656,7 @@ EXAMPLES = """
           multicast_rate: "0"
           nac: "enable"
           nac_profile: "<your_own_value> (source wireless-controller.nac-profile.name)"
-          name: "default_name_112"
+          name: "default_name_114"
           nas_filter_rule: "enable"
           neighbor_report_dual_band: "disable"
           okc: "disable"
@@ -1677,11 +1693,11 @@ EXAMPLES = """
           radius_mac_auth_server: "<your_own_value> (source user.radius.name)"
           radius_mac_auth_usergroups:
               -
-                  name: "default_name_148"
+                  name: "default_name_150"
           radius_mac_mpsk_auth: "enable"
           radius_mac_mpsk_timeout: "86400"
           radius_server: "<your_own_value> (source user.radius.name)"
-          rates_11a: "1"
+          rates_11a: "6"
           rates_11ac_mcs_map: "<your_own_value>"
           rates_11ac_ss12: "mcs0/1"
           rates_11ac_ss34: "mcs0/3"
@@ -1704,7 +1720,7 @@ EXAMPLES = """
           scan_botnet_connections: "disable"
           schedule:
               -
-                  name: "default_name_174 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_176 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           secondary_wag_profile: "<your_own_value> (source wireless-controller.wag-profile.name)"
           security: "open"
           security_exempt_list: "<your_own_value> (source user.security-exempt-list.name)"
@@ -1712,7 +1728,7 @@ EXAMPLES = """
           security_redirect_url: "<your_own_value>"
           selected_usergroups:
               -
-                  name: "default_name_181 (source user.group.name)"
+                  name: "default_name_183 (source user.group.name)"
           set_80211k: "disable"
           set_80211v: "disable"
           split_tunneling: "enable"
@@ -1727,7 +1743,7 @@ EXAMPLES = """
           tunnel_fallback_interval: "7200"
           usergroup:
               -
-                  name: "default_name_195 (source user.group.name)"
+                  name: "default_name_197 (source user.group.name)"
           utm_log: "enable"
           utm_profile: "<your_own_value> (source wireless-controller.utm-profile.name)"
           utm_status: "enable"
@@ -1735,11 +1751,11 @@ EXAMPLES = """
           vlan_auto: "enable"
           vlan_name:
               -
-                  name: "default_name_202"
+                  name: "default_name_204"
                   vlan_id: "<your_own_value>"
           vlan_pool:
               -
-                  id: "205"
+                  id: "207"
                   wtp_group: "<your_own_value> (source wireless-controller.wtp-group.name)"
           vlan_pooling: "wtp-group"
           vlanid: "0"
@@ -1876,6 +1892,7 @@ def filter_wireless_controller_vap_data(json):
         "dhcp_option82_circuit_id_insertion",
         "dhcp_option82_insertion",
         "dhcp_option82_remote_id_insertion",
+        "domain_name_stripping",
         "dynamic_vlan",
         "eap_reauth",
         "eap_reauth_intv",
@@ -1909,6 +1926,7 @@ def filter_wireless_controller_vap_data(json):
         "local_authentication",
         "local_bridging",
         "local_lan",
+        "local_lan_partition",
         "local_standalone",
         "local_standalone_dns",
         "local_standalone_dns_ip",
@@ -2042,11 +2060,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -2126,10 +2147,9 @@ def wireless_controller_vap(data, fos, check_mode=False):
     state = data["state"]
 
     wireless_controller_vap_data = data["wireless_controller_vap"]
-    wireless_controller_vap_data = flatten_multilists_attributes(
-        wireless_controller_vap_data
-    )
+
     filtered_data = filter_wireless_controller_vap_data(wireless_controller_vap_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
@@ -2154,20 +2174,24 @@ def wireless_controller_vap(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -2192,6 +2216,14 @@ def wireless_controller_vap(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_vap"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "vap",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("wireless-controller", "vap", data=converted_data, vdom=vdom)
@@ -2217,7 +2249,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
-    fos.do_member_operation("wireless-controller", "vap")
     if data["wireless_controller_vap"]:
         resp = wireless_controller_vap(data, fos, check_mode)
     else:
@@ -2545,6 +2576,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "domain_name_stripping": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "local_standalone": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2567,6 +2603,11 @@ versioned_schema = {
             "type": "list",
             "multiple_values": True,
             "elements": "str",
+        },
+        "local_lan_partition": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "local_bridging": {
             "v_range": [["v6.0.0", ""]],
@@ -2594,6 +2635,11 @@ versioned_schema = {
                 }
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "captive_portal": {
+            "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "portal_message_override_group": {
             "v_range": [["v6.0.0", ""]],
@@ -2719,11 +2765,6 @@ versioned_schema = {
         },
         "dynamic_vlan": {
             "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "captive_portal": {
-            "v_range": [["v7.4.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2922,20 +2963,6 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
             "options": [
-                {"value": "1", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
-                {"value": "1-basic", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
-                {"value": "2", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
-                {"value": "2-basic", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
-                {"value": "5.5", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
-                {
-                    "value": "5.5-basic",
-                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]],
-                },
-                {"value": "11", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]]},
-                {
-                    "value": "11-basic",
-                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", ""]],
-                },
                 {"value": "6"},
                 {"value": "6-basic"},
                 {"value": "9"},
@@ -2952,6 +2979,32 @@ versioned_schema = {
                 {"value": "48-basic"},
                 {"value": "54"},
                 {"value": "54-basic"},
+                {"value": "1", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]]},
+                {
+                    "value": "1-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]],
+                },
+                {"value": "2", "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]]},
+                {
+                    "value": "2-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]],
+                },
+                {
+                    "value": "5.5",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]],
+                },
+                {
+                    "value": "5.5-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]],
+                },
+                {
+                    "value": "11",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]],
+                },
+                {
+                    "value": "11-basic",
+                    "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.2", "v7.4.4"]],
+                },
             ],
             "multiple_values": True,
             "elements": "str",

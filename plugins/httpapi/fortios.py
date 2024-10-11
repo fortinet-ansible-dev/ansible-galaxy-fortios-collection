@@ -36,10 +36,10 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.7'
+        self._ansible_galaxy_version = '2.3.8'
         self._log = None
         self._logged_in = False
-        self._session_key = ''
+        self._session_key = None
 
     def set_custom_option(self, k, v):
         # _options is defined at https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/__init__.py#L60
@@ -63,11 +63,16 @@ class HttpApi(HttpApiBase):
         '''get pre issued access token for API access or session_key from API based authentication.'''
         # token = self._options.get('access_token') if 'access_token' in self._options else None
         token = self._options.get('access_token', None)
+        if token:
+            return token
 
-        if not token and self._session_key:
-            token = self._session_key
+        # Read from session_key as dict in ausible host files, e.g: ansible_httpapi_session_key={"access_token":"XXX"}
+        if self._conn.get_option('session_key'):
+            token_from_session = self._conn.get_option('session_key').get("access_token", None)
+            if token_from_session:
+                return token_from_session
 
-        return token
+        return self._session_key
 
     def set_become(self, become_context):
         """
@@ -92,7 +97,7 @@ class HttpApi(HttpApiBase):
             self.log('login with access token')
             self._logged_in = True
             self.send_request(url='/logincheck')
-            status, dummy = self.send_request(url='/api/v2/monitor/system/status?vdom=root')
+            status, dummy = self.send_request(url='/api/v2/monitor/system/status')
 
             if status == 401:
                 raise Exception('Invalid access token. Please check')
@@ -256,7 +261,7 @@ class HttpApi(HttpApiBase):
         check_system_status = self._options.get('check_system_status', True)
         if not check_system_status or self._system_version:
             return
-        url = '/api/v2/monitor/system/status?vdom=root'
+        url = '/api/v2/monitor/system/status'
         status, result = self.send_request(url=url)
         result_json = json.loads(result)
         self._system_version = result_json.get('version', 'undefined')

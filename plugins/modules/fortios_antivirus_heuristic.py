@@ -208,8 +208,18 @@ def antivirus_heuristic(data, fos):
     state = None
     vdom = data["vdom"]
     antivirus_heuristic_data = data["antivirus_heuristic"]
+
     filtered_data = filter_antivirus_heuristic_data(antivirus_heuristic_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["antivirus_heuristic"] = converted_data
+    fos.do_member_operation(
+        "antivirus",
+        "heuristic",
+        data_copy,
+    )
 
     return fos.set("antivirus", "heuristic", data=converted_data, vdom=vdom)
 
@@ -227,7 +237,6 @@ def is_successful_status(resp):
 
 
 def fortios_antivirus(data, fos):
-    fos.do_member_operation("antivirus", "heuristic")
     if data["antivirus_heuristic"]:
         resp = antivirus_heuristic(data, fos)
     else:

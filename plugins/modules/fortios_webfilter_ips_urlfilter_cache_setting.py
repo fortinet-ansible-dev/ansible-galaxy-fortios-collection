@@ -211,10 +211,20 @@ def webfilter_ips_urlfilter_cache_setting(data, fos):
     webfilter_ips_urlfilter_cache_setting_data = data[
         "webfilter_ips_urlfilter_cache_setting"
     ]
+
     filtered_data = filter_webfilter_ips_urlfilter_cache_setting_data(
         webfilter_ips_urlfilter_cache_setting_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["webfilter_ips_urlfilter_cache_setting"] = converted_data
+    fos.do_member_operation(
+        "webfilter",
+        "ips-urlfilter-cache-setting",
+        data_copy,
+    )
 
     return fos.set(
         "webfilter", "ips-urlfilter-cache-setting", data=converted_data, vdom=vdom
@@ -234,7 +244,6 @@ def is_successful_status(resp):
 
 
 def fortios_webfilter(data, fos):
-    fos.do_member_operation("webfilter", "ips-urlfilter-cache-setting")
     if data["webfilter_ips_urlfilter_cache_setting"]:
         resp = webfilter_ips_urlfilter_cache_setting(data, fos)
     else:

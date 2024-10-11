@@ -236,8 +236,18 @@ def system_smc_ntp(data, fos):
     state = None
     vdom = data["vdom"]
     system_smc_ntp_data = data["system_smc_ntp"]
+
     filtered_data = filter_system_smc_ntp_data(system_smc_ntp_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_smc_ntp"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "smc-ntp",
+        data_copy,
+    )
 
     return fos.set("system", "smc-ntp", data=converted_data, vdom=vdom)
 
@@ -255,7 +265,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "smc-ntp")
     if data["system_smc_ntp"]:
         resp = system_smc_ntp(data, fos)
     else:

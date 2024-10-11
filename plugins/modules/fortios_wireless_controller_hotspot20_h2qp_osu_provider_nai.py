@@ -239,10 +239,20 @@ def wireless_controller_hotspot20_h2qp_osu_provider_nai(data, fos):
     wireless_controller_hotspot20_h2qp_osu_provider_nai_data = data[
         "wireless_controller_hotspot20_h2qp_osu_provider_nai"
     ]
+
     filtered_data = filter_wireless_controller_hotspot20_h2qp_osu_provider_nai_data(
         wireless_controller_hotspot20_h2qp_osu_provider_nai_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_hotspot20_h2qp_osu_provider_nai"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller.hotspot20",
+        "h2qp-osu-provider-nai",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -276,7 +286,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller_hotspot20(data, fos):
-    fos.do_member_operation("wireless-controller.hotspot20", "h2qp-osu-provider-nai")
     if data["wireless_controller_hotspot20_h2qp_osu_provider_nai"]:
         resp = wireless_controller_hotspot20_h2qp_osu_provider_nai(data, fos)
     else:

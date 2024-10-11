@@ -277,10 +277,20 @@ def wireless_controller_syslog_profile(data, fos):
     state = data["state"]
 
     wireless_controller_syslog_profile_data = data["wireless_controller_syslog_profile"]
+
     filtered_data = filter_wireless_controller_syslog_profile_data(
         wireless_controller_syslog_profile_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_syslog_profile"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "syslog-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -311,7 +321,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos):
-    fos.do_member_operation("wireless-controller", "syslog-profile")
     if data["wireless_controller_syslog_profile"]:
         resp = wireless_controller_syslog_profile(data, fos)
     else:

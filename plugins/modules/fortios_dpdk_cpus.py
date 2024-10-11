@@ -237,8 +237,18 @@ def dpdk_cpus(data, fos):
     state = None
     vdom = data["vdom"]
     dpdk_cpus_data = data["dpdk_cpus"]
+
     filtered_data = filter_dpdk_cpus_data(dpdk_cpus_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["dpdk_cpus"] = converted_data
+    fos.do_member_operation(
+        "dpdk",
+        "cpus",
+        data_copy,
+    )
 
     return fos.set("dpdk", "cpus", data=converted_data, vdom=vdom)
 
@@ -256,7 +266,6 @@ def is_successful_status(resp):
 
 
 def fortios_dpdk(data, fos):
-    fos.do_member_operation("dpdk", "cpus")
     if data["dpdk_cpus"]:
         resp = dpdk_cpus(data, fos)
     else:

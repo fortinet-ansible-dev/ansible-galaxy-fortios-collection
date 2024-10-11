@@ -180,6 +180,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            http_transaction:
+                description:
+                    - Enable/disable log HTTP transaction messages.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             local_traffic:
                 description:
                     - Enable/disable local in or out traffic logging.
@@ -264,6 +271,7 @@ EXAMPLES = """
                   filter_type: "include"
                   id: "14"
           gtp: "enable"
+          http_transaction: "enable"
           local_traffic: "enable"
           multicast_traffic: "enable"
           netscan_discovery: "<your_own_value>"
@@ -365,6 +373,7 @@ def filter_log_fortianalyzer_cloud_filter_data(json):
         "forward_traffic",
         "free_style",
         "gtp",
+        "http_transaction",
         "local_traffic",
         "multicast_traffic",
         "netscan_discovery",
@@ -403,10 +412,20 @@ def log_fortianalyzer_cloud_filter(data, fos):
     state = None
     vdom = data["vdom"]
     log_fortianalyzer_cloud_filter_data = data["log_fortianalyzer_cloud_filter"]
+
     filtered_data = filter_log_fortianalyzer_cloud_filter_data(
         log_fortianalyzer_cloud_filter_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_fortianalyzer_cloud_filter"] = converted_data
+    fos.do_member_operation(
+        "log.fortianalyzer-cloud",
+        "filter",
+        data_copy,
+    )
 
     return fos.set("log.fortianalyzer-cloud", "filter", data=converted_data, vdom=vdom)
 
@@ -424,7 +443,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_fortianalyzer_cloud(data, fos):
-    fos.do_member_operation("log.fortianalyzer-cloud", "filter")
     if data["log_fortianalyzer_cloud_filter"]:
         resp = log_fortianalyzer_cloud_filter(data, fos)
     else:
@@ -481,6 +499,11 @@ versioned_schema = {
         },
         "ztna_traffic": {
             "v_range": [["v7.0.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "http_transaction": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

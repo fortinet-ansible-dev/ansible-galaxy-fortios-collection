@@ -217,8 +217,18 @@ def system_ha_monitor(data, fos):
     state = None
     vdom = data["vdom"]
     system_ha_monitor_data = data["system_ha_monitor"]
+
     filtered_data = filter_system_ha_monitor_data(system_ha_monitor_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_ha_monitor"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "ha-monitor",
+        data_copy,
+    )
 
     return fos.set("system", "ha-monitor", data=converted_data, vdom=vdom)
 
@@ -236,7 +246,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "ha-monitor")
     if data["system_ha_monitor"]:
         resp = system_ha_monitor(data, fos)
     else:

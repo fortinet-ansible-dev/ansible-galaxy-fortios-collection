@@ -314,8 +314,18 @@ def vpn_kmip_server(data, fos):
     state = data["state"]
 
     vpn_kmip_server_data = data["vpn_kmip_server"]
+
     filtered_data = filter_vpn_kmip_server_data(vpn_kmip_server_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_kmip_server"] = converted_data
+    fos.do_member_operation(
+        "vpn",
+        "kmip-server",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("vpn", "kmip-server", data=converted_data, vdom=vdom)
@@ -339,7 +349,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn(data, fos):
-    fos.do_member_operation("vpn", "kmip-server")
     if data["vpn_kmip_server"]:
         resp = vpn_kmip_server(data, fos)
     else:

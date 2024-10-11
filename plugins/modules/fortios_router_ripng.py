@@ -505,8 +505,18 @@ def router_ripng(data, fos):
     state = None
     vdom = data["vdom"]
     router_ripng_data = data["router_ripng"]
+
     filtered_data = filter_router_ripng_data(router_ripng_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_ripng"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "ripng",
+        data_copy,
+    )
 
     return fos.set("router", "ripng", data=converted_data, vdom=vdom)
 
@@ -524,7 +534,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "ripng")
     if data["router_ripng"]:
         resp = router_ripng(data, fos)
     else:

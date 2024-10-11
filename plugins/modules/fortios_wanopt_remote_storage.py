@@ -222,8 +222,18 @@ def wanopt_remote_storage(data, fos):
     state = None
     vdom = data["vdom"]
     wanopt_remote_storage_data = data["wanopt_remote_storage"]
+
     filtered_data = filter_wanopt_remote_storage_data(wanopt_remote_storage_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wanopt_remote_storage"] = converted_data
+    fos.do_member_operation(
+        "wanopt",
+        "remote-storage",
+        data_copy,
+    )
 
     return fos.set("wanopt", "remote-storage", data=converted_data, vdom=vdom)
 
@@ -241,7 +251,6 @@ def is_successful_status(resp):
 
 
 def fortios_wanopt(data, fos):
-    fos.do_member_operation("wanopt", "remote-storage")
     if data["wanopt_remote_storage"]:
         resp = wanopt_remote_storage(data, fos)
     else:

@@ -105,6 +105,22 @@ options:
                 description:
                     - VLAN ID on which authentication failed.
                 type: int
+            auth_order:
+                description:
+                    - Configure authentication order.
+                type: str
+                choices:
+                    - 'dot1x-mab'
+                    - 'mab-dot1x'
+                    - 'mab'
+            auth_priority:
+                description:
+                    - Configure authentication priority.
+                type: str
+                choices:
+                    - 'legacy'
+                    - 'dot1x-mab'
+                    - 'mab-dot1x'
             authserver_timeout_period:
                 description:
                     - Authentication server timeout period (3 - 15 sec).
@@ -241,6 +257,8 @@ EXAMPLES = """
           auth_fail_vlan: "disable"
           auth_fail_vlan_id: "<your_own_value> (source system.interface.name)"
           auth_fail_vlanid: "32767"
+          auth_order: "dot1x-mab"
+          auth_priority: "legacy"
           authserver_timeout_period: "3"
           authserver_timeout_tagged: "disable"
           authserver_timeout_tagged_vlanid: "<your_own_value> (source system.interface.name)"
@@ -255,14 +273,14 @@ EXAMPLES = """
           guest_vlan_id: "<your_own_value> (source system.interface.name)"
           guest_vlanid: "32767"
           mac_auth_bypass: "disable"
-          name: "default_name_20"
+          name: "default_name_22"
           open_auth: "disable"
           policy_type: "802.1X"
           radius_timeout_overwrite: "disable"
           security_mode: "802.1X"
           user_group:
               -
-                  name: "default_name_26 (source user.group.name)"
+                  name: "default_name_28 (source user.group.name)"
 """
 
 RETURN = """
@@ -358,6 +376,8 @@ def filter_switch_controller_security_policy_802_1x_data(json):
         "auth_fail_vlan",
         "auth_fail_vlan_id",
         "auth_fail_vlanid",
+        "auth_order",
+        "auth_priority",
         "authserver_timeout_period",
         "authserver_timeout_tagged",
         "authserver_timeout_tagged_vlanid",
@@ -412,6 +432,7 @@ def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
     switch_controller_security_policy_802_1x_data = data[
         "switch_controller_security_policy_802_1x"
     ]
+
     filtered_data = filter_switch_controller_security_policy_802_1x_data(
         switch_controller_security_policy_802_1x_data
     )
@@ -443,20 +464,24 @@ def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -481,6 +506,14 @@ def switch_controller_security_policy_802_1x(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_security_policy_802_1x"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.security-policy",
+        "802-1X",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -514,7 +547,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_security_policy(data, fos, check_mode):
-    fos.do_member_operation("switch-controller.security-policy", "802-1X")
     if data["switch_controller_security_policy_802_1x"]:
         resp = switch_controller_security_policy_802_1x(data, fos, check_mode)
     else:
@@ -558,6 +590,24 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "auth_order": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "dot1x-mab"},
+                {"value": "mab-dot1x"},
+                {"value": "mab"},
+            ],
+        },
+        "auth_priority": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "legacy"},
+                {"value": "dot1x-mab"},
+                {"value": "mab-dot1x"},
+            ],
         },
         "open_auth": {
             "v_range": [["v6.0.0", ""]],

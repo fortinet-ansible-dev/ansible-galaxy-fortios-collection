@@ -394,8 +394,18 @@ def system_ipam(data, fos):
     state = None
     vdom = data["vdom"]
     system_ipam_data = data["system_ipam"]
+
     filtered_data = filter_system_ipam_data(system_ipam_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_ipam"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "ipam",
+        data_copy,
+    )
 
     return fos.set("system", "ipam", data=converted_data, vdom=vdom)
 
@@ -413,7 +423,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "ipam")
     if data["system_ipam"]:
         resp = system_ipam(data, fos)
     else:

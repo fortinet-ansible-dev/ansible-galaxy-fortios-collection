@@ -209,8 +209,18 @@ def switch_controller_sflow(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_sflow_data = data["switch_controller_sflow"]
+
     filtered_data = filter_switch_controller_sflow_data(switch_controller_sflow_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_sflow"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "sflow",
+        data_copy,
+    )
 
     return fos.set("switch-controller", "sflow", data=converted_data, vdom=vdom)
 
@@ -228,7 +238,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "sflow")
     if data["switch_controller_sflow"]:
         resp = switch_controller_sflow(data, fos)
     else:

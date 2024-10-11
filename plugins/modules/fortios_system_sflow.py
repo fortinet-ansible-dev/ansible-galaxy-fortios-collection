@@ -280,8 +280,18 @@ def system_sflow(data, fos):
     state = None
     vdom = data["vdom"]
     system_sflow_data = data["system_sflow"]
+
     filtered_data = filter_system_sflow_data(system_sflow_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_sflow"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "sflow",
+        data_copy,
+    )
 
     return fos.set("system", "sflow", data=converted_data, vdom=vdom)
 
@@ -299,7 +309,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "sflow")
     if data["system_sflow"]:
         resp = system_sflow(data, fos)
     else:

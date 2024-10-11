@@ -3929,8 +3929,18 @@ def system_npu(data, fos):
     state = None
     vdom = data["vdom"]
     system_npu_data = data["system_npu"]
+
     filtered_data = filter_system_npu_data(system_npu_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_npu"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "npu",
+        data_copy,
+    )
 
     return fos.set("system", "npu", data=converted_data, vdom=vdom)
 
@@ -3948,7 +3958,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "npu")
     if data["system_npu"]:
         resp = system_npu(data, fos)
     else:

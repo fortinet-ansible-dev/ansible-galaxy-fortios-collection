@@ -225,10 +225,20 @@ def system_autoupdate_push_update(data, fos):
     state = None
     vdom = data["vdom"]
     system_autoupdate_push_update_data = data["system_autoupdate_push_update"]
+
     filtered_data = filter_system_autoupdate_push_update_data(
         system_autoupdate_push_update_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_autoupdate_push_update"] = converted_data
+    fos.do_member_operation(
+        "system.autoupdate",
+        "push-update",
+        data_copy,
+    )
 
     return fos.set("system.autoupdate", "push-update", data=converted_data, vdom=vdom)
 
@@ -246,7 +256,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_autoupdate(data, fos):
-    fos.do_member_operation("system.autoupdate", "push-update")
     if data["system_autoupdate_push_update"]:
         resp = system_autoupdate_push_update(data, fos)
     else:

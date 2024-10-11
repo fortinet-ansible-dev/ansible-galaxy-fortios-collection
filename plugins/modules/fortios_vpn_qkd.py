@@ -257,8 +257,18 @@ def vpn_qkd(data, fos):
     state = data["state"]
 
     vpn_qkd_data = data["vpn_qkd"]
+
     filtered_data = filter_vpn_qkd_data(vpn_qkd_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_qkd"] = converted_data
+    fos.do_member_operation(
+        "vpn",
+        "qkd",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("vpn", "qkd", data=converted_data, vdom=vdom)
@@ -282,7 +292,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn(data, fos):
-    fos.do_member_operation("vpn", "qkd")
     if data["vpn_qkd"]:
         resp = vpn_qkd(data, fos)
     else:

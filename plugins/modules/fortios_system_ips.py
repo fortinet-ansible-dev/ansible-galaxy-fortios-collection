@@ -212,8 +212,18 @@ def system_ips(data, fos):
     state = None
     vdom = data["vdom"]
     system_ips_data = data["system_ips"]
+
     filtered_data = filter_system_ips_data(system_ips_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_ips"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "ips",
+        data_copy,
+    )
 
     return fos.set("system", "ips", data=converted_data, vdom=vdom)
 
@@ -231,7 +241,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "ips")
     if data["system_ips"]:
         resp = system_ips(data, fos)
     else:

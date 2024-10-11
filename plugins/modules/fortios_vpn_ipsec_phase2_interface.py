@@ -98,6 +98,76 @@ options:
                     - 'phase1'
                     - 'enable'
                     - 'disable'
+            addke1:
+                description:
+                    - phase2 ADDKE1 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke2:
+                description:
+                    - phase2 ADDKE2 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke3:
+                description:
+                    - phase2 ADDKE3 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke4:
+                description:
+                    - phase2 ADDKE4 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke5:
+                description:
+                    - phase2 ADDKE5 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke6:
+                description:
+                    - phase2 ADDKE6 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke7:
+                description:
+                    - phase2 ADDKE7 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
             auto_discovery_forwarder:
                 description:
                     - Enable/disable forwarding short-cut messages.
@@ -443,6 +513,13 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       vpn_ipsec_phase2_interface:
           add_route: "phase1"
+          addke1: "0"
+          addke2: "0"
+          addke3: "0"
+          addke4: "0"
+          addke5: "0"
+          addke6: "0"
+          addke7: "0"
           auto_discovery_forwarder: "phase1"
           auto_discovery_sender: "phase1"
           auto_negotiate: "enable"
@@ -470,7 +547,7 @@ EXAMPLES = """
           keylifekbs: "5120"
           keylifeseconds: "43200"
           l2tp: "enable"
-          name: "default_name_31"
+          name: "default_name_38"
           pfs: "enable"
           phase1name: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
           proposal: "null-md5"
@@ -581,6 +658,13 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_vpn_ipsec_phase2_interface_data(json):
     option_list = [
         "add_route",
+        "addke1",
+        "addke2",
+        "addke3",
+        "addke4",
+        "addke5",
+        "addke6",
+        "addke7",
         "auto_discovery_forwarder",
         "auto_discovery_sender",
         "auto_negotiate",
@@ -644,11 +728,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -660,6 +747,13 @@ def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["proposal"],
         ["dhgrp"],
+        ["addke1"],
+        ["addke2"],
+        ["addke3"],
+        ["addke4"],
+        ["addke5"],
+        ["addke6"],
+        ["addke7"],
     ]
 
     for attr in multilist_attrs:
@@ -688,12 +782,11 @@ def vpn_ipsec_phase2_interface(data, fos, check_mode=False):
     state = data["state"]
 
     vpn_ipsec_phase2_interface_data = data["vpn_ipsec_phase2_interface"]
-    vpn_ipsec_phase2_interface_data = flatten_multilists_attributes(
-        vpn_ipsec_phase2_interface_data
-    )
+
     filtered_data = filter_vpn_ipsec_phase2_interface_data(
         vpn_ipsec_phase2_interface_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -718,20 +811,24 @@ def vpn_ipsec_phase2_interface(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -756,6 +853,14 @@ def vpn_ipsec_phase2_interface(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_ipsec_phase2_interface"] = converted_data
+    fos.do_member_operation(
+        "vpn.ipsec",
+        "phase2-interface",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("vpn.ipsec", "phase2-interface", data=converted_data, vdom=vdom)
@@ -781,7 +886,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_ipsec(data, fos, check_mode):
-    fos.do_member_operation("vpn.ipsec", "phase2-interface")
     if data["vpn_ipsec_phase2_interface"]:
         resp = vpn_ipsec_phase2_interface(data, fos, check_mode)
     else:
@@ -911,6 +1015,90 @@ versioned_schema = {
                 {"value": "30"},
                 {"value": "31"},
                 {"value": "32", "v_range": [["v6.2.0", ""]]},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke1": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke2": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke3": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke4": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke5": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke6": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke7": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
             ],
             "multiple_values": True,
             "elements": "str",

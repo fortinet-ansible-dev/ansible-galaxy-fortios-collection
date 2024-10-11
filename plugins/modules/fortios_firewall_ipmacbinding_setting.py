@@ -223,10 +223,20 @@ def firewall_ipmacbinding_setting(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_ipmacbinding_setting_data = data["firewall_ipmacbinding_setting"]
+
     filtered_data = filter_firewall_ipmacbinding_setting_data(
         firewall_ipmacbinding_setting_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_ipmacbinding_setting"] = converted_data
+    fos.do_member_operation(
+        "firewall.ipmacbinding",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("firewall.ipmacbinding", "setting", data=converted_data, vdom=vdom)
 
@@ -244,7 +254,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall_ipmacbinding(data, fos):
-    fos.do_member_operation("firewall.ipmacbinding", "setting")
     if data["firewall_ipmacbinding_setting"]:
         resp = firewall_ipmacbinding_setting(data, fos)
     else:

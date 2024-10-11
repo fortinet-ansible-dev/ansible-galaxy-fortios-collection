@@ -81,6 +81,13 @@ options:
         default: null
         type: dict
         suboptions:
+            ha_session_pickup:
+                description:
+                    - IPS HA failover session pickup preference.
+                type: str
+                choices:
+                    - 'connectivity'
+                    - 'security'
             ips_packet_quota:
                 description:
                     - Maximum amount of disk space in MB for logged packets when logging to disk. Range depends on disk size.
@@ -111,6 +118,7 @@ EXAMPLES = """
   fortinet.fortios.fortios_ips_settings:
       vdom: "{{ vdom }}"
       ips_settings:
+          ha_session_pickup: "connectivity"
           ips_packet_quota: "0"
           packet_log_history: "1"
           packet_log_memory: "256"
@@ -199,6 +207,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 def filter_ips_settings_data(json):
     option_list = [
+        "ha_session_pickup",
         "ips_packet_quota",
         "packet_log_history",
         "packet_log_memory",
@@ -233,8 +242,18 @@ def ips_settings(data, fos):
     state = None
     vdom = data["vdom"]
     ips_settings_data = data["ips_settings"]
+
     filtered_data = filter_ips_settings_data(ips_settings_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["ips_settings"] = converted_data
+    fos.do_member_operation(
+        "ips",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("ips", "settings", data=converted_data, vdom=vdom)
 
@@ -252,7 +271,6 @@ def is_successful_status(resp):
 
 
 def fortios_ips(data, fos):
-    fos.do_member_operation("ips", "settings")
     if data["ips_settings"]:
         resp = ips_settings(data, fos)
     else:
@@ -279,6 +297,11 @@ versioned_schema = {
             "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "ha_session_pickup": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "connectivity"}, {"value": "security"}],
         },
     },
 }

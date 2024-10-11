@@ -1,47 +1,89 @@
 ![Fortinet logo|](https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Fortinet_logo.svg/320px-Fortinet_logo.svg.png)
 
-## FortiOS Ansible Collection
-***
+# fortinet.fortios - Configuring FortiGate
 
-The collection is the FortiOS Ansible Automation project. It includes the modules that are able to  configure FortiOS and FortiGate by allowing the user to configure firewall features.
+## Description
 
-## Installation
-This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/), the installation steps are as follows:
-
-1. Install or upgrade to Ansible 2.15+
-2. Download this collection from galaxy: `ansible-galaxy collection install fortinet.fortios:2.3.7`
+The collection includes modules that allow users to configure FortiOS and FortiGate, specifically for managing firewall features.
+Please refer to https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/index.html for more information.
 
 ## Requirements
-* Ansible 2.15+ is required to support the newer Ansible Collections format
 
-## Supported FortiOS Versions
-From `v2.0.0` on, FortiOS galaxy collections are unified, and cover FortiOS 6.0, 6.2, 6.4, 7.0, 7.2 versions. There is only one sequential collection at any moment. users who install these collections are expected to find the version compatibility information for each module and its parameters.
+- Ansible 2.15.0 or above
+- Python 3.9 or above
 
-The latest version is 2.3.7, path to install: `ansible-galaxy collection install fortinet.fortios:2.3.7`
+## Installation
+This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/).
 
-Prior to FortiOS collection `v2.0.0`, FortiOS Galaxy collections were built over three FOS major versions, i.e. `v6.0`, `v6.2` and `v6.4`, thus, users are expected to install the collection according to the following table to avoid potential compatibility issues.
+Before using this collection, you need to install it with the Ansible Galaxy command-line tool:
 
-| FOS version|Galaxy  Version| Release date|Path to Install |
-|----------|:-------------:|:-------------:|:------:|
-|6.0.0|1.0.13 |2020/5/26|`ansible-galaxy collection install fortinet.fortios:1.0.13`|
-|6.0.0|1.1.2 |2020/12/4|`ansible-galaxy collection install fortinet.fortios:1.1.2`|
-|6.0.0|1.1.5 |2020/12/7|`ansible-galaxy collection install fortinet.fortios:1.1.5`|
-|6.0.0|1.1.8 |2020/12/21|`ansible-galaxy collection install fortinet.fortios:1.1.8`|
-|6.0.0|1.1.9 `latest`|2021/3/1|`ansible-galaxy collection install fortinet.fortios:1.1.9`|
-|6.2.0|1.0.10 |2020/5/6|`ansible-galaxy collection install fortinet.fortios:1.0.10`|
-|6.2.0|1.1.0 |2020/12/4|`ansible-galaxy collection install fortinet.fortios:1.1.0`|
-|6.2.0|1.1.3 |2020/12/7|`ansible-galaxy collection install fortinet.fortios:1.1.3`|
-|6.2.0|1.1.6 `latest`|2020/12/21|`ansible-galaxy collection install fortinet.fortios:1.1.6`|
-|6.4.0|1.0.11 |2020/5/11|`ansible-galaxy collection install fortinet.fortios:1.0.11`|
-|6.4.0|1.1.1 |2020/12/4|`ansible-galaxy collection install fortinet.fortios:1.1.1`|
-|6.4.0|1.1.4 |2020/12/7|`ansible-galaxy collection install fortinet.fortios:1.1.4`|
-|6.4.0|1.1.7 `latest`|2020/12/21|`ansible-galaxy collection install fortinet.fortios:1.1.7`|
+```
+ansible-galaxy collection install fortinet.fortios
+```
 
-__Note__: Use `-f` option (i.e. `ansible-galaxy collection install -f fortinet.fortios:x.x.x`) to renew your existing local installation.
+You can also include it in a requirements.yml file and install it with ansible-galaxy collection install -r requirements.yml, using the format:
 
+
+```yaml
+collections:
+  - name: fortinet.fortios
+```
+
+Note that if you install any collections from Ansible Galaxy, they will not be upgraded automatically when you upgrade the Ansible package.
+To upgrade the collection to the latest available version, run the following command:
+
+```
+ansible-galaxy collection install fortinet.fortios --upgrade
+```
+
+You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax to install version 2.3.7:
+
+```
+ansible-galaxy collection install fortinet.fortios:==2.3.7
+```
+
+See [using Ansible collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
+
+## Use Cases
+
+The FortiOS collection supports both username/password and access token authentication, with access tokens being the recommended method for enhanced security. For more infirmation about generating an access_token, please refer to https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/faq.html#what-s-access-token.
+
+Follow the example here https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/playbook.html to configure the hosts file and write your first playbook.
+
+Change the FortiGate host name:
+```yaml
+tasks:
+  - name: Change hostname
+    fortios_system_global:
+      vdom:  "{{ vdom }}"
+        system_global:
+          hostname: 'YOUR_OWN_VALUE'
+```
+
+Run the playbook:
+```bash
+ansible-playbook change_hostname.yml
+```
+
+## Testing
+
+Testing is conducted by the Fortinet team. The new version will be released once the entire collection passes both unit and sanity tests.
+
+## Support
+
+Please open a Github issue if your have any questions https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues
+
+## Release Notes and Roadmap
+
+Refer to the release notes here https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/release.html
+The FortiOS Ansible collection is scheduled to be updated every two months.
+
+## Related Information
+
+For more information, please refer to [Documentation](https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/index.html)
 
 ## Modules
-The collection provides the following modules:
+The collection incluses the following modules:
 
 
 * `fortios_alertemail_setting` Configure alert email settings in Fortinet's FortiOS and FortiGate.
@@ -543,6 +585,7 @@ The collection provides the following modules:
 * `fortios_system_sms_server` Configure SMS server for sending SMS messages to support user authentication in Fortinet's FortiOS and FortiGate.
 * `fortios_system_snmp_community` SNMP community configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_system_snmp_mib_view` SNMP Access Control MIB View configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_system_snmp_rmon_stat` SNMP Remote Network Monitoring (RMON) Ethernet statistics configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_system_snmp_sysinfo` SNMP system info configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_system_snmp_user` SNMP user configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_system_speed_test_schedule` Speed test schedule for each interface in Fortinet's FortiOS and FortiGate.
@@ -568,6 +611,7 @@ The collection provides the following modules:
 * `fortios_system_virtual_switch` Configure virtual hardware switch interfaces in Fortinet's FortiOS and FortiGate.
 * `fortios_system_virtual_wan_link` Configure redundant internet connections using SD-WAN (formerly virtual WAN link) in Fortinet's FortiOS and FortiGate.
 * `fortios_system_virtual_wire_pair` Configure virtual wire pairs in Fortinet's FortiOS and FortiGate.
+* `fortios_system_vne_interface` Configure virtual network enabler tunnels in Fortinet's FortiOS and FortiGate.
 * `fortios_system_vne_tunnel` Configure virtual network enabler tunnel in Fortinet's FortiOS and FortiGate.
 * `fortios_system_vxlan` Configure VXLAN devices in Fortinet's FortiOS and FortiGate.
 * `fortios_system_wccp` Configure WCCP in Fortinet's FortiOS and FortiGate.
@@ -596,6 +640,7 @@ The collection provides the following modules:
 * `fortios_user_quarantine` Configure quarantine support in Fortinet's FortiOS and FortiGate.
 * `fortios_user_radius` Configure RADIUS server entries in Fortinet's FortiOS and FortiGate.
 * `fortios_user_saml` SAML server entry configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_user_scim` Configure SCIM client entries in Fortinet's FortiOS and FortiGate.
 * `fortios_user_security_exempt_list` Configure security exemption list in Fortinet's FortiOS and FortiGate.
 * `fortios_user_setting` Configure user authentication setting in Fortinet's FortiOS and FortiGate.
 * `fortios_user_tacacsplus` Configure TACACS+ server entries in Fortinet's FortiOS and FortiGate.
@@ -652,7 +697,7 @@ The collection provides the following modules:
 * `fortios_web_proxy_forward_server` Configure forward-server addresses in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_global` Configure Web proxy global settings in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_profile` Configure web proxy profiles in Fortinet's FortiOS and FortiGate.
-* `fortios_web_proxy_url_match` Exempt URLs from web proxy forwarding and caching in Fortinet's FortiOS and FortiGate.
+* `fortios_web_proxy_url_match` Exempt URLs from web proxy forwarding, caching and fast-fallback in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_wisp` Configure Websense Integrated Services Protocol (WISP) servers in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_content_header` Configure content types used by Web filter in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_content` Configure Web filter banned word table in Fortinet's FortiOS and FortiGate.
@@ -718,44 +763,9 @@ The collection provides the following modules:
 * `fortios_wireless_controller_wtp_profile` Configure WTP profiles or FortiAP profiles that define radio settings for manageable FortiAP platforms in Fortinet's FortiOS and FortiGate.
 * `fortios_wireless_controller_wtp_status` Wireless controller WTP-status in Fortinet's FortiOS and FortiGate.
 * `fortios_wireless_controller_wtp` Configure Wireless Termination Points (WTPs), that is, FortiAPs or APs to be managed by FortiGate in Fortinet's FortiOS and FortiGate.
+* `fortios_ztna_traffic_forward_proxy_reverse_service` Configure ZTNA traffic forward proxy reverse service in Fortinet's FortiOS and FortiGate.
+* `fortios_ztna_traffic_forward_proxy` Configure ZTNA traffic forward proxy in Fortinet's FortiOS and FortiGate.
 
-## Roles
+## License Information
 
-## Usage
-The following example is used to configure global attributes in Fortinet's FortiOS and FortiGate.
-
-Create `fw_global_set.yml` with the following template:
-```yaml
----
-- hosts: fortigates
-  collections:
-   - fortinet.fortios
-  connection: httpapi
-  vars:
-   vdom: "root"
-   ansible_httpapi_use_ssl: yes
-   ansible_httpapi_validate_certs: no
-   ansible_httpapi_port: 443
-  tasks:
-  - name: Configure global attributes.
-    fortios_system_global:
-      vdom:  "{{ vdom }}"
-      system_global:
-        admintimeout: "23"
-        hostname: "FortiGate02"
-```
-Create the `hosts` inventory file
-```
-[fortigates]
-fortigate01 ansible_host=192.168.190.100 ansible_user="admin" ansible_password="password"
-
-[fortigates:vars]
-ansible_network_os=fortinet.fortios.fortios
-```
-
-Run the test:
-```bash
-ansible-playbook -i hosts fw_global_set.yml
-```
-
-This will configure the firewall's hostname and admin timeout.
+FortiOS Ansible Collection follows [GNU General Public License v3.0](LICENSE).

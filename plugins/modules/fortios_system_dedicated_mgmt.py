@@ -248,8 +248,18 @@ def system_dedicated_mgmt(data, fos):
     state = None
     vdom = data["vdom"]
     system_dedicated_mgmt_data = data["system_dedicated_mgmt"]
+
     filtered_data = filter_system_dedicated_mgmt_data(system_dedicated_mgmt_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_dedicated_mgmt"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "dedicated-mgmt",
+        data_copy,
+    )
 
     return fos.set("system", "dedicated-mgmt", data=converted_data, vdom=vdom)
 
@@ -267,7 +277,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "dedicated-mgmt")
     if data["system_dedicated_mgmt"]:
         resp = system_dedicated_mgmt(data, fos)
     else:

@@ -227,10 +227,20 @@ def switch_controller_snmp_sysinfo(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_snmp_sysinfo_data = data["switch_controller_snmp_sysinfo"]
+
     filtered_data = filter_switch_controller_snmp_sysinfo_data(
         switch_controller_snmp_sysinfo_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_snmp_sysinfo"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "snmp-sysinfo",
+        data_copy,
+    )
 
     return fos.set("switch-controller", "snmp-sysinfo", data=converted_data, vdom=vdom)
 
@@ -248,7 +258,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "snmp-sysinfo")
     if data["switch_controller_snmp_sysinfo"]:
         resp = switch_controller_snmp_sysinfo(data, fos)
     else:

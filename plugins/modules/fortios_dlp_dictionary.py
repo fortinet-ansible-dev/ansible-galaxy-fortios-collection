@@ -297,8 +297,18 @@ def dlp_dictionary(data, fos):
     state = data["state"]
 
     dlp_dictionary_data = data["dlp_dictionary"]
+
     filtered_data = filter_dlp_dictionary_data(dlp_dictionary_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["dlp_dictionary"] = converted_data
+    fos.do_member_operation(
+        "dlp",
+        "dictionary",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("dlp", "dictionary", data=converted_data, vdom=vdom)
@@ -322,7 +332,6 @@ def is_successful_status(resp):
 
 
 def fortios_dlp(data, fos):
-    fos.do_member_operation("dlp", "dictionary")
     if data["dlp_dictionary"]:
         resp = dlp_dictionary(data, fos)
     else:

@@ -353,11 +353,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -396,13 +399,21 @@ def extension_controller_extender(data, fos):
     state = data["state"]
 
     extension_controller_extender_data = data["extension_controller_extender"]
-    extension_controller_extender_data = flatten_multilists_attributes(
-        extension_controller_extender_data
-    )
+
     filtered_data = filter_extension_controller_extender_data(
         extension_controller_extender_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extension_controller_extender"] = converted_data
+    fos.do_member_operation(
+        "extension-controller",
+        "extender",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -430,7 +441,6 @@ def is_successful_status(resp):
 
 
 def fortios_extension_controller(data, fos):
-    fos.do_member_operation("extension-controller", "extender")
     if data["extension_controller_extender"]:
         resp = extension_controller_extender(data, fos)
     else:

@@ -110,6 +110,13 @@ options:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
                 type: str
+            ignore_signing_errors:
+                description:
+                    - Allow/reject use of FortiGate firmware images that are unsigned.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             known_ha_members:
                 description:
                     - Known members of the HA cluster. If a member is missing at upgrade time, the upgrade will be cancelled.
@@ -172,6 +179,13 @@ options:
                         description:
                             - Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.
                         type: str
+            source:
+                description:
+                    - Source that set up the federated upgrade config.
+                type: str
+                choices:
+                    - 'user'
+                    - 'auto-firmware-upgrade'
             status:
                 description:
                     - Current status of the upgrade.
@@ -189,6 +203,7 @@ options:
                     - 'cancelled'
                     - 'confirmed'
                     - 'done'
+                    - 'dry-run-done'
                     - 'failed'
                     - 'download-failed'
             upgrade_id:
@@ -205,6 +220,7 @@ EXAMPLES = """
           failure_device: "<your_own_value>"
           failure_reason: "none"
           ha_reboot_controller: "<your_own_value>"
+          ignore_signing_errors: "enable"
           known_ha_members:
               -
                   serial: "<your_own_value>"
@@ -219,6 +235,7 @@ EXAMPLES = """
                   time: "<your_own_value>"
                   timing: "immediate"
                   upgrade_path: "<your_own_value>"
+          source: "user"
           status: "disabled"
           upgrade_id: "0"
 """
@@ -307,9 +324,11 @@ def filter_system_federated_upgrade_data(json):
         "failure_device",
         "failure_reason",
         "ha_reboot_controller",
+        "ignore_signing_errors",
         "known_ha_members",
         "next_path_index",
         "node_list",
+        "source",
         "status",
         "upgrade_id",
     ]
@@ -341,8 +360,18 @@ def system_federated_upgrade(data, fos):
     state = None
     vdom = data["vdom"]
     system_federated_upgrade_data = data["system_federated_upgrade"]
+
     filtered_data = filter_system_federated_upgrade_data(system_federated_upgrade_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_federated_upgrade"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "federated-upgrade",
+        data_copy,
+    )
 
     return fos.set("system", "federated-upgrade", data=converted_data, vdom=vdom)
 
@@ -360,7 +389,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "federated-upgrade")
     if data["system_federated_upgrade"]:
         resp = system_federated_upgrade(data, fos)
     else:
@@ -397,9 +425,15 @@ versioned_schema = {
                 {"value": "cancelled"},
                 {"value": "confirmed"},
                 {"value": "done"},
+                {"value": "dry-run-done", "v_range": [["v7.6.0", ""]]},
                 {"value": "failed"},
                 {"value": "download-failed", "v_range": [["v7.0.0", "v7.0.1"]]},
             ],
+        },
+        "source": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "user"}, {"value": "auto-firmware-upgrade"}],
         },
         "failure_reason": {
             "v_range": [["v7.0.2", ""]],
@@ -426,6 +460,11 @@ versioned_schema = {
         "failure_device": {"v_range": [["v7.0.2", ""]], "type": "string"},
         "upgrade_id": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "next_path_index": {"v_range": [["v7.0.4", ""]], "type": "integer"},
+        "ignore_signing_errors": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ha_reboot_controller": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "known_ha_members": {
             "type": "list",

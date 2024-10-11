@@ -280,8 +280,18 @@ def firewall_ssl_setting(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_ssl_setting_data = data["firewall_ssl_setting"]
+
     filtered_data = filter_firewall_ssl_setting_data(firewall_ssl_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_ssl_setting"] = converted_data
+    fos.do_member_operation(
+        "firewall.ssl",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("firewall.ssl", "setting", data=converted_data, vdom=vdom)
 
@@ -299,7 +309,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall_ssl(data, fos):
-    fos.do_member_operation("firewall.ssl", "setting")
     if data["firewall_ssl_setting"]:
         resp = firewall_ssl_setting(data, fos)
     else:

@@ -438,9 +438,8 @@ class FortiOSHandler(object):
                         changed = True
         self._module.exit_json(meta=meta, changed=changed, failed=failed)
 
-    def do_member_operation(self, path, name):
+    def do_member_operation(self, path, name, data):
         toplevel_name = (path + '_' + name).replace('-', '_').replace('.', '_').replace('+', 'plus')
-        data = self._module.params
         if not data['member_state']:
             return
         if not data['member_path']:
@@ -459,7 +458,7 @@ class FortiOSHandler(object):
             raise AssertionError('parameter %s or %s.%s empty!' % (toplevel_name, toplevel_name, self._mkeyname))
         toplevel_url_token = ''
         if state_present:
-            toplevel_url_token = '/%s' % (data[toplevel_name][self._mkeyname])
+            toplevel_url_token = '/%s' % urlencoding.quote(data[toplevel_name][self._mkeyname])
 
         # here we get both module arg spec and provided params
         arg_spec = self._module.argument_spec[toplevel_name]['options']
@@ -609,14 +608,11 @@ class FortiOSHandler(object):
             mkey = self.get_mkey(path, name, data, vdom=vdom)
         url = self.cmdb_url(path, name, vdom, mkey)
 
-        http_status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='PUT')
-
-        if parameters and 'action' in parameters and parameters['action'] == 'move':
-            return self.formatresponse(result_data, http_status, vdom=vdom)
-
-        if http_status == 404 or http_status == 405 or http_status == 500:
+        http_get_status, unused_response_data = self._conn.send_request(url=url, params=parameters, method='GET')
+        if http_get_status != 200:
             return self.post(path, name, data, vdom, mkey)
         else:
+            http_status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='PUT')
             return self.formatresponse(result_data, http_status, vdom=vdom)
 
     def post(self, path, name, data, vdom=None,
@@ -669,7 +665,7 @@ class FortiOSHandler(object):
         return resp
 
     def jsonraw(self, method, path, data, specific_params, vdom=None, parameters=None):
-        url = path
+        url = urlencoding.quote(path)
         bvdom = False
         if vdom:
             if vdom == "global":

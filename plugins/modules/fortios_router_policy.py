@@ -442,6 +442,7 @@ def router_policy(data, fos, check_mode=False):
     state = data["state"]
 
     router_policy_data = data["router_policy"]
+
     filtered_data = filter_router_policy_data(router_policy_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -467,20 +468,24 @@ def router_policy(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -505,6 +510,14 @@ def router_policy(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_policy"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("router", "policy", data=converted_data, vdom=vdom)
@@ -528,7 +541,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos, check_mode):
-    fos.do_member_operation("router", "policy")
     if data["router_policy"]:
         resp = router_policy(data, fos, check_mode)
     else:

@@ -136,6 +136,8 @@ options:
                     - 'per-cpu-high'
                     - 'dhcp'
                     - 'pool-usage'
+                    - 'ippool'
+                    - 'interface'
                     - 'ospf-nbr-state-change'
                     - 'ospf-virtnbr-state-change'
                     - 'temperature-high'
@@ -169,6 +171,18 @@ options:
                             - Host entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
+                    interface:
+                        description:
+                            - Specify outgoing interface to reach server. Source system.interface.name.
+                        type: str
+                    interface_select_method:
+                        description:
+                            - Specify how to select outgoing interface to reach server.
+                        type: str
+                        choices:
+                            - 'auto'
+                            - 'sdwan'
+                            - 'specify'
                     ip:
                         description:
                             - IPv4 address of the SNMP manager (host).
@@ -203,6 +217,18 @@ options:
                             - Host6 entry ID. see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
+                    interface:
+                        description:
+                            - Specify outgoing interface to reach server. Source system.interface.name.
+                        type: str
+                    interface_select_method:
+                        description:
+                            - Specify how to select outgoing interface to reach server.
+                        type: str
+                        choices:
+                            - 'auto'
+                            - 'sdwan'
+                            - 'specify'
                     ipv6:
                         description:
                             - SNMP manager IPv6 address prefix.
@@ -309,18 +335,22 @@ EXAMPLES = """
                   ha_direct: "enable"
                   host_type: "any"
                   id: "7"
+                  interface: "<your_own_value> (source system.interface.name)"
+                  interface_select_method: "auto"
                   ip: "<your_own_value>"
                   source_ip: "84.230.14.43"
           hosts6:
               -
                   ha_direct: "enable"
                   host_type: "any"
-                  id: "13"
+                  id: "15"
+                  interface: "<your_own_value> (source system.interface.name)"
+                  interface_select_method: "auto"
                   ipv6: "<your_own_value>"
                   source_ipv6: "<your_own_value>"
-          id: "16"
+          id: "20"
           mib_view: "<your_own_value> (source system.snmp.mib-view.name)"
-          name: "default_name_18"
+          name: "default_name_22"
           query_v1_port: "161"
           query_v1_status: "enable"
           query_v2c_port: "161"
@@ -334,7 +364,7 @@ EXAMPLES = """
           trap_v2c_status: "enable"
           vdoms:
               -
-                  name: "default_name_31 (source system.vdom.name)"
+                  name: "default_name_35 (source system.vdom.name)"
 """
 
 RETURN = """
@@ -463,11 +493,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -506,10 +539,9 @@ def system_snmp_community(data, fos, check_mode=False):
     state = data["state"]
 
     system_snmp_community_data = data["system_snmp_community"]
-    system_snmp_community_data = flatten_multilists_attributes(
-        system_snmp_community_data
-    )
+
     filtered_data = filter_system_snmp_community_data(system_snmp_community_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -534,20 +566,24 @@ def system_snmp_community(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -572,6 +608,14 @@ def system_snmp_community(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_snmp_community"] = converted_data
+    fos.do_member_operation(
+        "system.snmp",
+        "community",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system.snmp", "community", data=converted_data, vdom=vdom)
@@ -597,7 +641,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_snmp(data, fos, check_mode):
-    fos.do_member_operation("system.snmp", "community")
     if data["system_snmp_community"]:
         resp = system_snmp_community(data, fos, check_mode)
     else:
@@ -649,6 +692,16 @@ versioned_schema = {
                         {"value": "trap"},
                     ],
                 },
+                "interface_select_method": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "auto"},
+                        {"value": "sdwan"},
+                        {"value": "specify"},
+                    ],
+                },
+                "interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -677,6 +730,16 @@ versioned_schema = {
                         {"value": "trap"},
                     ],
                 },
+                "interface_select_method": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "auto"},
+                        {"value": "sdwan"},
+                        {"value": "specify"},
+                    ],
+                },
+                "interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -751,6 +814,8 @@ versioned_schema = {
                     "value": "pool-usage",
                     "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", ""]],
                 },
+                {"value": "ippool", "v_range": [["v7.6.0", ""]]},
+                {"value": "interface", "v_range": [["v7.6.0", ""]]},
                 {"value": "ospf-nbr-state-change", "v_range": [["v7.0.0", ""]]},
                 {"value": "ospf-virtnbr-state-change", "v_range": [["v7.0.0", ""]]},
                 {"value": "temperature-high"},

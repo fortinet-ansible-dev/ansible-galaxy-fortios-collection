@@ -815,6 +815,13 @@ options:
                             - 'rx-only'
                             - 'tx-only'
                             - 'tx-rx'
+                    log_mac_event:
+                        description:
+                            - Enable/disable logging for dynamic MAC address events.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     loop_guard:
                         description:
                             - Enable/disable loop-guard on this interface, an STP optimization used to prevent network loops.
@@ -921,6 +928,10 @@ options:
                             - '75%'
                             - '50%'
                             - '25%'
+                    pd_capable:
+                        description:
+                            - Powered device capable.
+                        type: int
                     poe_capable:
                         description:
                             - PoE capable.
@@ -1024,6 +1035,10 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+                    qnq:
+                        description:
+                            - 802.1AD VLANs in the VDom. Source system.interface.name.
+                        type: str
                     qos_policy:
                         description:
                             - Switch controller QoS policy from available options. Source switch-controller.qos.qos-policy.name.
@@ -1356,6 +1371,7 @@ options:
                             - 'log-full'
                             - 'intf-ip'
                             - 'ent-conf-change'
+                            - 'l2mac'
                     hosts:
                         description:
                             - Configure IPv4 SNMP managers (hosts).
@@ -1944,6 +1960,7 @@ EXAMPLES = """
                   learning_limit: "0"
                   lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
                   lldp_status: "disable"
+                  log_mac_event: "disable"
                   loop_guard: "enabled"
                   loop_guard_timeout: "45"
                   mac_addr: "<your_own_value>"
@@ -1965,6 +1982,7 @@ EXAMPLES = """
                   packet_sampler: "enabled"
                   pause_meter: "0"
                   pause_meter_resume: "75%"
+                  pd_capable: "0"
                   poe_capable: "0"
                   poe_max_power: "<your_own_value>"
                   poe_mode_bt_cabable: "0"
@@ -1983,6 +2001,7 @@ EXAMPLES = """
                   port_selection_criteria: "src-mac"
                   ptp_policy: "<your_own_value> (source switch-controller.ptp.interface-policy.name)"
                   ptp_status: "disable"
+                  qnq: "<your_own_value> (source system.interface.name)"
                   qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
                   rpvst_port: "disabled"
                   sample_direction: "tx"
@@ -2018,7 +2037,7 @@ EXAMPLES = """
               -
                   csv: "enable"
                   facility: "kernel"
-                  name: "default_name_203"
+                  name: "default_name_206"
                   port: "514"
                   server: "192.168.100.40"
                   severity: "emergency"
@@ -2035,10 +2054,10 @@ EXAMPLES = """
                   events: "cpu-high"
                   hosts:
                       -
-                          id: "217"
+                          id: "220"
                           ip: "<your_own_value>"
-                  id: "219"
-                  name: "default_name_220"
+                  id: "222"
+                  name: "default_name_223"
                   query_v1_port: "161"
                   query_v1_status: "disable"
                   query_v2c_port: "161"
@@ -2064,7 +2083,7 @@ EXAMPLES = """
               -
                   auth_proto: "md5"
                   auth_pwd: "<your_own_value>"
-                  name: "default_name_245"
+                  name: "default_name_248"
                   priv_proto: "aes128"
                   priv_pwd: "<your_own_value>"
                   queries: "disable"
@@ -2074,7 +2093,7 @@ EXAMPLES = """
           static_mac:
               -
                   description: "<your_own_value>"
-                  id: "254"
+                  id: "257"
                   interface: "<your_own_value>"
                   mac: "<your_own_value>"
                   type: "static"
@@ -2087,7 +2106,7 @@ EXAMPLES = """
               unknown_unicast: "enable"
           stp_instance:
               -
-                  id: "266"
+                  id: "269"
                   priority: "0"
           stp_settings:
               forward_time: "15"
@@ -2095,7 +2114,7 @@ EXAMPLES = """
               local_override: "enable"
               max_age: "20"
               max_hops: "20"
-              name: "default_name_274"
+              name: "default_name_277"
               pending_timer: "4"
               revision: "0"
               status: "enable"
@@ -2293,11 +2312,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -2362,12 +2384,11 @@ def switch_controller_managed_switch(data, fos, check_mode=False):
     state = data["state"]
 
     switch_controller_managed_switch_data = data["switch_controller_managed_switch"]
-    switch_controller_managed_switch_data = flatten_multilists_attributes(
-        switch_controller_managed_switch_data
-    )
+
     filtered_data = filter_switch_controller_managed_switch_data(
         switch_controller_managed_switch_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
@@ -2396,20 +2417,24 @@ def switch_controller_managed_switch(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -2434,6 +2459,14 @@ def switch_controller_managed_switch(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_managed_switch"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "managed-switch",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -2464,7 +2497,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos, check_mode):
-    fos.do_member_operation("switch-controller", "managed-switch")
     if data["switch_controller_managed_switch"]:
         resp = switch_controller_managed_switch(data, fos, check_mode)
     else:
@@ -2797,6 +2829,7 @@ versioned_schema = {
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "poe_capable": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "pd_capable": {"v_range": [["v7.6.0", ""]], "type": "integer"},
                 "poe_mode_bt_cabable": {"v_range": [["v7.2.4", ""]], "type": "integer"},
                 "poe_port_mode": {
                     "v_range": [["v7.2.4", ""]],
@@ -3058,6 +3091,12 @@ versioned_schema = {
                 "mac_addr": {"v_range": [["v6.2.0", ""]], "type": "string"},
                 "allow_arp_monitor": {
                     "v_range": [["v7.4.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "qnq": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "log_mac_event": {
+                    "v_range": [["v7.6.0", ""]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
@@ -3428,6 +3467,7 @@ versioned_schema = {
                         {"value": "log-full"},
                         {"value": "intf-ip"},
                         {"value": "ent-conf-change"},
+                        {"value": "l2mac", "v_range": [["v7.6.0", ""]]},
                     ],
                     "multiple_values": True,
                     "elements": "str",

@@ -230,8 +230,18 @@ def vpn_ike_gateway(data, fos):
     state = None
     vdom = data["vdom"]
     vpn_ike_gateway_data = data["vpn_ike_gateway"]
+
     filtered_data = filter_vpn_ike_gateway_data(vpn_ike_gateway_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_ike_gateway"] = converted_data
+    fos.do_member_operation(
+        "vpn.ike",
+        "gateway",
+        data_copy,
+    )
 
     return fos.set("vpn.ike", "gateway", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_ike(data, fos):
-    fos.do_member_operation("vpn.ike", "gateway")
     if data["vpn_ike_gateway"]:
         resp = vpn_ike_gateway(data, fos)
     else:

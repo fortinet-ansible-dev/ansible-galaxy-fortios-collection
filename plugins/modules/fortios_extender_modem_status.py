@@ -230,8 +230,18 @@ def extender_modem_status(data, fos):
     state = None
     vdom = data["vdom"]
     extender_modem_status_data = data["extender_modem_status"]
+
     filtered_data = filter_extender_modem_status_data(extender_modem_status_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extender_modem_status"] = converted_data
+    fos.do_member_operation(
+        "extender",
+        "modem-status",
+        data_copy,
+    )
 
     return fos.set("extender", "modem-status", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_extender(data, fos):
-    fos.do_member_operation("extender", "modem-status")
     if data["extender_modem_status"]:
         resp = extender_modem_status(data, fos)
     else:

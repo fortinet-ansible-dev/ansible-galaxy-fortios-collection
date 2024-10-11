@@ -382,11 +382,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -425,9 +428,19 @@ def casb_profile(data, fos):
     state = data["state"]
 
     casb_profile_data = data["casb_profile"]
-    casb_profile_data = flatten_multilists_attributes(casb_profile_data)
+
     filtered_data = filter_casb_profile_data(casb_profile_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["casb_profile"] = converted_data
+    fos.do_member_operation(
+        "casb",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("casb", "profile", data=converted_data, vdom=vdom)
@@ -451,7 +464,6 @@ def is_successful_status(resp):
 
 
 def fortios_casb(data, fos):
-    fos.do_member_operation("casb", "profile")
     if data["casb_profile"]:
         resp = casb_profile(data, fos)
     else:

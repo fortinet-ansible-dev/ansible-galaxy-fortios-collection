@@ -226,8 +226,18 @@ def system_fortiai(data, fos):
     state = None
     vdom = data["vdom"]
     system_fortiai_data = data["system_fortiai"]
+
     filtered_data = filter_system_fortiai_data(system_fortiai_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fortiai"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fortiai",
+        data_copy,
+    )
 
     return fos.set("system", "fortiai", data=converted_data, vdom=vdom)
 
@@ -245,7 +255,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fortiai")
     if data["system_fortiai"]:
         resp = system_fortiai(data, fos)
     else:

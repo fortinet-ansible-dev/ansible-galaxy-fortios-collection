@@ -317,10 +317,20 @@ def endpoint_control_settings(data, fos):
     state = None
     vdom = data["vdom"]
     endpoint_control_settings_data = data["endpoint_control_settings"]
+
     filtered_data = filter_endpoint_control_settings_data(
         endpoint_control_settings_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["endpoint_control_settings"] = converted_data
+    fos.do_member_operation(
+        "endpoint-control",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("endpoint-control", "settings", data=converted_data, vdom=vdom)
 
@@ -338,7 +348,6 @@ def is_successful_status(resp):
 
 
 def fortios_endpoint_control(data, fos):
-    fos.do_member_operation("endpoint-control", "settings")
     if data["endpoint_control_settings"]:
         resp = endpoint_control_settings(data, fos)
     else:

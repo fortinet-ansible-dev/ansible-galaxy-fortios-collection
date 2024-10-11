@@ -389,8 +389,18 @@ def ips_global(data, fos):
     state = None
     vdom = data["vdom"]
     ips_global_data = data["ips_global"]
+
     filtered_data = filter_ips_global_data(ips_global_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["ips_global"] = converted_data
+    fos.do_member_operation(
+        "ips",
+        "global",
+        data_copy,
+    )
 
     return fos.set("ips", "global", data=converted_data, vdom=vdom)
 
@@ -408,7 +418,6 @@ def is_successful_status(resp):
 
 
 def fortios_ips(data, fos):
-    fos.do_member_operation("ips", "global")
     if data["ips_global"]:
         resp = ips_global(data, fos)
     else:

@@ -255,6 +255,13 @@ options:
                 description:
                     - Logging of frequency of GTP-U packets.
                 type: int
+            gtpv0:
+                description:
+                    - GTPv0 traffic.
+                type: str
+                choices:
+                    - 'allow'
+                    - 'deny'
             half_close_timeout:
                 description:
                     - Half-close tunnel timeout (in seconds).
@@ -1364,6 +1371,7 @@ EXAMPLES = """
           gtpu_denied_log: "enable"
           gtpu_forwarded_log: "enable"
           gtpu_log_freq: "0"
+          gtpv0: "allow"
           half_close_timeout: "10"
           half_open_timeout: "300"
           handover_group: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
@@ -1372,7 +1380,7 @@ EXAMPLES = """
           ie_allow_list_v2: "<your_own_value> (source gtp.ie-allow-list.name)"
           ie_remove_policy:
               -
-                  id: "39"
+                  id: "40"
                   remove_ies: "apn-restriction"
                   sgsn_addr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   sgsn_addr6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
@@ -1404,8 +1412,8 @@ EXAMPLES = """
                   action: "allow"
                   apnmember:
                       -
-                          name: "default_name_69 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "70"
+                          name: "default_name_70 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "71"
                   mcc_mnc: "<your_own_value>"
                   msisdn_prefix: "<your_own_value>"
                   selection_mode: "ms"
@@ -1420,7 +1428,7 @@ EXAMPLES = """
                   action: "allow"
                   dstaddr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   dstaddr6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
-                  id: "84"
+                  id: "85"
                   srcaddr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   srcaddr6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           log_freq: "0"
@@ -1505,13 +1513,13 @@ EXAMPLES = """
           min_message_length: "0"
           miss_must_ie: "allow"
           monitor_mode: "enable"
-          name: "default_name_169"
+          name: "default_name_170"
           noip_filter: "enable"
           noip_policy:
               -
                   action: "allow"
                   end: "0"
-                  id: "174"
+                  id: "175"
                   start: "0"
                   type: "etsi"
           out_of_state_ie: "allow"
@@ -1519,7 +1527,7 @@ EXAMPLES = """
           per_apn_shaper:
               -
                   apn: "<your_own_value> (source gtp.apn.name)"
-                  id: "181"
+                  id: "182"
                   rate_limit: "0"
                   version: "1"
           policy:
@@ -1528,8 +1536,8 @@ EXAMPLES = """
                   apn_sel_mode: "ms"
                   apnmember:
                       -
-                          name: "default_name_188 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "189"
+                          name: "default_name_189 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "190"
                   imei: "<your_own_value>"
                   imsi: "<your_own_value>"
                   imsi_prefix: "<your_own_value>"
@@ -1547,8 +1555,8 @@ EXAMPLES = """
                   apn_sel_mode: "ms"
                   apnmember:
                       -
-                          name: "default_name_205 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "206"
+                          name: "default_name_206 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "207"
                   imsi_prefix: "<your_own_value>"
                   max_apn_restriction: "all"
                   mei: "<your_own_value>"
@@ -1684,6 +1692,7 @@ def filter_firewall_gtp_data(json):
         "gtpu_denied_log",
         "gtpu_forwarded_log",
         "gtpu_log_freq",
+        "gtpv0",
         "half_close_timeout",
         "half_open_timeout",
         "handover_group",
@@ -1765,11 +1774,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1817,9 +1829,19 @@ def firewall_gtp(data, fos):
     state = data["state"]
 
     firewall_gtp_data = data["firewall_gtp"]
-    firewall_gtp_data = flatten_multilists_attributes(firewall_gtp_data)
+
     filtered_data = filter_firewall_gtp_data(firewall_gtp_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_gtp"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "gtp",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "gtp", data=converted_data, vdom=vdom)
@@ -1843,7 +1865,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "gtp")
     if data["firewall_gtp"]:
         resp = firewall_gtp(data, fos)
     else:
@@ -1898,6 +1919,11 @@ versioned_schema = {
         },
         "unknown_version_action": {
             "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "allow"}, {"value": "deny"}],
+        },
+        "gtpv0": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },

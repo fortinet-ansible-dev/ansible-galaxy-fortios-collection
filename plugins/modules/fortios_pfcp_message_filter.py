@@ -352,8 +352,18 @@ def pfcp_message_filter(data, fos):
     state = data["state"]
 
     pfcp_message_filter_data = data["pfcp_message_filter"]
+
     filtered_data = filter_pfcp_message_filter_data(pfcp_message_filter_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["pfcp_message_filter"] = converted_data
+    fos.do_member_operation(
+        "pfcp",
+        "message-filter",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("pfcp", "message-filter", data=converted_data, vdom=vdom)
@@ -379,7 +389,6 @@ def is_successful_status(resp):
 
 
 def fortios_pfcp(data, fos):
-    fos.do_member_operation("pfcp", "message-filter")
     if data["pfcp_message_filter"]:
         resp = pfcp_message_filter(data, fos)
     else:

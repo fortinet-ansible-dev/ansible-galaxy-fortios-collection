@@ -235,8 +235,18 @@ def wanopt_settings(data, fos):
     state = None
     vdom = data["vdom"]
     wanopt_settings_data = data["wanopt_settings"]
+
     filtered_data = filter_wanopt_settings_data(wanopt_settings_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wanopt_settings"] = converted_data
+    fos.do_member_operation(
+        "wanopt",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("wanopt", "settings", data=converted_data, vdom=vdom)
 
@@ -254,7 +264,6 @@ def is_successful_status(resp):
 
 
 def fortios_wanopt(data, fos):
-    fos.do_member_operation("wanopt", "settings")
     if data["wanopt_settings"]:
         resp = wanopt_settings(data, fos)
     else:

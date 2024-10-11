@@ -304,8 +304,18 @@ def wanopt_cache_service(data, fos):
     state = None
     vdom = data["vdom"]
     wanopt_cache_service_data = data["wanopt_cache_service"]
+
     filtered_data = filter_wanopt_cache_service_data(wanopt_cache_service_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wanopt_cache_service"] = converted_data
+    fos.do_member_operation(
+        "wanopt",
+        "cache-service",
+        data_copy,
+    )
 
     return fos.set("wanopt", "cache-service", data=converted_data, vdom=vdom)
 
@@ -323,7 +333,6 @@ def is_successful_status(resp):
 
 
 def fortios_wanopt(data, fos):
-    fos.do_member_operation("wanopt", "cache-service")
     if data["wanopt_cache_service"]:
         resp = wanopt_cache_service(data, fos)
     else:

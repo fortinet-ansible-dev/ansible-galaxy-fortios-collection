@@ -237,10 +237,20 @@ def system_sso_fortigate_cloud_admin(data, fos):
     state = data["state"]
 
     system_sso_fortigate_cloud_admin_data = data["system_sso_fortigate_cloud_admin"]
+
     filtered_data = filter_system_sso_fortigate_cloud_admin_data(
         system_sso_fortigate_cloud_admin_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_sso_fortigate_cloud_admin"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "sso-fortigate-cloud-admin",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -271,7 +281,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "sso-fortigate-cloud-admin")
     if data["system_sso_fortigate_cloud_admin"]:
         resp = system_sso_fortigate_cloud_admin(data, fos)
     else:

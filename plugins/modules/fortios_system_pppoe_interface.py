@@ -155,6 +155,19 @@ options:
                 description:
                     - Enter the password.
                 type: str
+            pppoe_egress_cos:
+                description:
+                    - CoS in VLAN tag for outgoing PPPoE/PPP packets.
+                type: str
+                choices:
+                    - 'cos0'
+                    - 'cos1'
+                    - 'cos2'
+                    - 'cos3'
+                    - 'cos4'
+                    - 'cos5'
+                    - 'cos6'
+                    - 'cos7'
             pppoe_unnumbered_negotiate:
                 description:
                     - Enable/disable PPPoE unnumbered negotiation.
@@ -192,6 +205,7 @@ EXAMPLES = """
           name: "default_name_13"
           padt_retry_timeout: "1"
           password: "<your_own_value>"
+          pppoe_egress_cos: "cos0"
           pppoe_unnumbered_negotiate: "enable"
           service_name: "<your_own_value>"
           username: "<your_own_value>"
@@ -300,6 +314,7 @@ def filter_system_pppoe_interface_data(json):
         "name",
         "padt_retry_timeout",
         "password",
+        "pppoe_egress_cos",
         "pppoe_unnumbered_negotiate",
         "service_name",
         "username",
@@ -335,6 +350,7 @@ def system_pppoe_interface(data, fos, check_mode=False):
     state = data["state"]
 
     system_pppoe_interface_data = data["system_pppoe_interface"]
+
     filtered_data = filter_system_pppoe_interface_data(system_pppoe_interface_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -360,20 +376,24 @@ def system_pppoe_interface(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -398,6 +418,14 @@ def system_pppoe_interface(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_pppoe_interface"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "pppoe-interface",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "pppoe-interface", data=converted_data, vdom=vdom)
@@ -423,7 +451,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos, check_mode):
-    fos.do_member_operation("system", "pppoe-interface")
     if data["system_pppoe_interface"]:
         resp = system_pppoe_interface(data, fos, check_mode)
     else:
@@ -457,6 +484,20 @@ versioned_schema = {
         "device": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "username": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "password": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "pppoe_egress_cos": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
         "auth_type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

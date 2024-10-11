@@ -747,8 +747,18 @@ def system_ike(data, fos):
     state = None
     vdom = data["vdom"]
     system_ike_data = data["system_ike"]
+
     filtered_data = filter_system_ike_data(system_ike_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_ike"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "ike",
+        data_copy,
+    )
 
     return fos.set("system", "ike", data=converted_data, vdom=vdom)
 
@@ -766,7 +776,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "ike")
     if data["system_ike"]:
         resp = system_ike(data, fos)
     else:

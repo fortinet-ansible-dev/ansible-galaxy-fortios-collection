@@ -406,8 +406,18 @@ def videofilter_profile(data, fos):
     state = data["state"]
 
     videofilter_profile_data = data["videofilter_profile"]
+
     filtered_data = filter_videofilter_profile_data(videofilter_profile_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["videofilter_profile"] = converted_data
+    fos.do_member_operation(
+        "videofilter",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("videofilter", "profile", data=converted_data, vdom=vdom)
@@ -433,7 +443,6 @@ def is_successful_status(resp):
 
 
 def fortios_videofilter(data, fos):
-    fos.do_member_operation("videofilter", "profile")
     if data["videofilter_profile"]:
         resp = videofilter_profile(data, fos)
     else:

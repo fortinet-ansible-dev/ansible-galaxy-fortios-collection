@@ -220,6 +220,28 @@ options:
                 choices:
                     - 'available'
                     - 'unavailable'
+            monitor_interface:
+                description:
+                    - Configure a list of interfaces on which to monitor itself. Monitoring is performed on the status of the interface.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Interface name. Source system.interface.name.
+                        required: true
+                        type: str
+            pingsvr_monitor_interface:
+                description:
+                    - List of pingsvr monitor interface to check for remote IP monitoring.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Interface name. Source system.interface.name.
+                        required: true
+                        type: str
             psksecret:
                 description:
                     - Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
@@ -271,6 +293,12 @@ EXAMPLES = """
           encryption: "enable"
           group_member_id: "0"
           layer2_connection: "available"
+          monitor_interface:
+              -
+                  name: "default_name_31 (source system.interface.name)"
+          pingsvr_monitor_interface:
+              -
+                  name: "default_name_33 (source system.interface.name)"
           psksecret: "<your_own_value>"
           session_sync_dev: "<your_own_value> (source system.interface.name)"
           standalone_group_id: "0"
@@ -362,6 +390,8 @@ def filter_system_standalone_cluster_data(json):
         "encryption",
         "group_member_id",
         "layer2_connection",
+        "monitor_interface",
+        "pingsvr_monitor_interface",
         "psksecret",
         "session_sync_dev",
         "standalone_group_id",
@@ -383,11 +413,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -423,13 +456,21 @@ def system_standalone_cluster(data, fos):
     state = None
     vdom = data["vdom"]
     system_standalone_cluster_data = data["system_standalone_cluster"]
-    system_standalone_cluster_data = flatten_multilists_attributes(
-        system_standalone_cluster_data
-    )
+
     filtered_data = filter_system_standalone_cluster_data(
         system_standalone_cluster_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_standalone_cluster"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "standalone-cluster",
+        data_copy,
+    )
 
     return fos.set("system", "standalone-cluster", data=converted_data, vdom=vdom)
 
@@ -447,7 +488,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "standalone-cluster")
     if data["system_standalone_cluster"]:
         resp = system_standalone_cluster(data, fos)
     else:
@@ -573,6 +613,30 @@ versioned_schema = {
                 },
             },
             "v_range": [["v7.2.1", ""]],
+        },
+        "monitor_interface": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.0", ""]],
+        },
+        "pingsvr_monitor_interface": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.0", ""]],
         },
     },
 }

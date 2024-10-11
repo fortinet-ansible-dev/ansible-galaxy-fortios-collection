@@ -281,10 +281,20 @@ def wireless_controller_inter_controller(data, fos):
     wireless_controller_inter_controller_data = data[
         "wireless_controller_inter_controller"
     ]
+
     filtered_data = filter_wireless_controller_inter_controller_data(
         wireless_controller_inter_controller_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_inter_controller"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "inter-controller",
+        data_copy,
+    )
 
     return fos.set(
         "wireless-controller", "inter-controller", data=converted_data, vdom=vdom
@@ -304,7 +314,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos):
-    fos.do_member_operation("wireless-controller", "inter-controller")
     if data["wireless_controller_inter_controller"]:
         resp = wireless_controller_inter_controller(data, fos)
     else:

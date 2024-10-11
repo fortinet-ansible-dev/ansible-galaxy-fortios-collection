@@ -220,8 +220,18 @@ def spamfilter_fortishield(data, fos):
     state = None
     vdom = data["vdom"]
     spamfilter_fortishield_data = data["spamfilter_fortishield"]
+
     filtered_data = filter_spamfilter_fortishield_data(spamfilter_fortishield_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["spamfilter_fortishield"] = converted_data
+    fos.do_member_operation(
+        "spamfilter",
+        "fortishield",
+        data_copy,
+    )
 
     return fos.set("spamfilter", "fortishield", data=converted_data, vdom=vdom)
 
@@ -239,7 +249,6 @@ def is_successful_status(resp):
 
 
 def fortios_spamfilter(data, fos):
-    fos.do_member_operation("spamfilter", "fortishield")
     if data["spamfilter_fortishield"]:
         resp = spamfilter_fortishield(data, fos)
     else:

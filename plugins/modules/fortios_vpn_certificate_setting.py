@@ -496,8 +496,18 @@ def vpn_certificate_setting(data, fos):
     state = None
     vdom = data["vdom"]
     vpn_certificate_setting_data = data["vpn_certificate_setting"]
+
     filtered_data = filter_vpn_certificate_setting_data(vpn_certificate_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_certificate_setting"] = converted_data
+    fos.do_member_operation(
+        "vpn.certificate",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("vpn.certificate", "setting", data=converted_data, vdom=vdom)
 
@@ -515,7 +525,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_certificate(data, fos):
-    fos.do_member_operation("vpn.certificate", "setting")
     if data["vpn_certificate_setting"]:
         resp = vpn_certificate_setting(data, fos)
     else:

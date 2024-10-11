@@ -428,6 +428,7 @@ options:
                                     - 'jitter'
                                     - 'packet-loss'
                                     - 'mos'
+                                    - 'remote'
                             mos_threshold:
                                 description:
                                     - Minimum Mean Opinion Score for SLA to be marked as pass. (1.0 - 5.0).
@@ -471,6 +472,295 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+                    threshold_alert_jitter:
+                        description:
+                            - Alert threshold for jitter (ms).
+                        type: int
+                    threshold_alert_latency:
+                        description:
+                            - Alert threshold for latency (ms).
+                        type: int
+                    threshold_alert_packetloss:
+                        description:
+                            - Alert threshold for packet loss (percentage).
+                        type: int
+                    threshold_warning_jitter:
+                        description:
+                            - Warning threshold for jitter (ms).
+                        type: int
+                    threshold_warning_latency:
+                        description:
+                            - Warning threshold for latency (ms).
+                        type: int
+                    threshold_warning_packetloss:
+                        description:
+                            - Warning threshold for packet loss (percentage).
+                        type: int
+                    update_cascade_interface:
+                        description:
+                            - Enable/disable update cascade interface.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    update_static_route:
+                        description:
+                            - Enable/disable updating the static route.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    user:
+                        description:
+                            - The user name to access probe server.
+                        type: str
+                    vrf:
+                        description:
+                            - Virtual Routing Forwarding ID.
+                        type: int
+            health_check_fortiguard:
+                description:
+                    - SD-WAN status checking or health checking. Identify a server predefine by FortiGuard and determine how SD-WAN verifies that FGT can
+                       communicate with it.
+                type: list
+                elements: dict
+                suboptions:
+                    addr_mode:
+                        description:
+                            - Address mode (IPv4 or IPv6).
+                        type: str
+                        choices:
+                            - 'ipv4'
+                            - 'ipv6'
+                    class_id:
+                        description:
+                            - Traffic class ID. Source firewall.traffic-class.class-id.
+                        type: int
+                    detect_mode:
+                        description:
+                            - The mode determining how to detect the server.
+                        type: str
+                        choices:
+                            - 'active'
+                            - 'passive'
+                            - 'prefer-passive'
+                            - 'remote'
+                            - 'agent-based'
+                    diffservcode:
+                        description:
+                            - Differentiated services code point (DSCP) in the IP header of the probe packet.
+                        type: str
+                    dns_match_ip:
+                        description:
+                            - Response IP expected from DNS server if the protocol is DNS.
+                        type: str
+                    dns_request_domain:
+                        description:
+                            - Fully qualified domain name to resolve for the DNS probe.
+                        type: str
+                    embed_measured_health:
+                        description:
+                            - Enable/disable embedding measured health information.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    failtime:
+                        description:
+                            - Number of failures before server is considered lost (1 - 3600).
+                        type: int
+                    ftp_file:
+                        description:
+                            - Full path and file name on the FTP server to download for FTP health-check to probe.
+                        type: str
+                    ftp_mode:
+                        description:
+                            - FTP mode.
+                        type: str
+                        choices:
+                            - 'passive'
+                            - 'port'
+                    ha_priority:
+                        description:
+                            - HA election priority (1 - 50).
+                        type: int
+                    http_agent:
+                        description:
+                            - String in the http-agent field in the HTTP header.
+                        type: str
+                    http_get:
+                        description:
+                            - URL used to communicate with the server if the protocol if the protocol is HTTP.
+                        type: str
+                    http_match:
+                        description:
+                            - Response string expected from the server if the protocol is HTTP.
+                        type: str
+                    interval:
+                        description:
+                            - Status check interval in milliseconds, or the time between attempting to connect to the server (20 - 3600*1000 msec).
+                        type: int
+                    members:
+                        description:
+                            - Member sequence number list.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            seq_num:
+                                description:
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
+                                required: true
+                                type: int
+                    mos_codec:
+                        description:
+                            - Codec to use for MOS calculation .
+                        type: str
+                        choices:
+                            - 'g711'
+                            - 'g722'
+                            - 'g729'
+                    packet_size:
+                        description:
+                            - Packet size of a TWAMP test session. (124/158 - 1024)
+                        type: int
+                    password:
+                        description:
+                            - TWAMP controller password in authentication mode.
+                        type: str
+                    port:
+                        description:
+                            - 'Port number used to communicate with the server over the selected protocol (0 - 65535).'
+                        type: int
+                    probe_count:
+                        description:
+                            - Number of most recent probes that should be used to calculate latency and jitter (5 - 30).
+                        type: int
+                    probe_packets:
+                        description:
+                            - Enable/disable transmission of probe packets.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    probe_timeout:
+                        description:
+                            - Time to wait before a probe packet is considered lost (20 - 3600*1000 msec).
+                        type: int
+                    protocol:
+                        description:
+                            - Protocol used to determine if the FortiGate can communicate with the server.
+                        type: str
+                        choices:
+                            - 'ping'
+                            - 'tcp-echo'
+                            - 'udp-echo'
+                            - 'http'
+                            - 'https'
+                            - 'twamp'
+                            - 'dns'
+                            - 'tcp-connect'
+                            - 'ftp'
+                    quality_measured_method:
+                        description:
+                            - Method to measure the quality of tcp-connect.
+                        type: str
+                        choices:
+                            - 'half-open'
+                            - 'half-close'
+                    recoverytime:
+                        description:
+                            - Number of successful responses received before server is considered recovered (1 - 3600).
+                        type: int
+                    security_mode:
+                        description:
+                            - Twamp controller security mode.
+                        type: str
+                        choices:
+                            - 'none'
+                            - 'authentication'
+                    server:
+                        description:
+                            - Predefined IP address or FQDN name from FortiGuard.
+                        type: list
+                        elements: str
+                    sla:
+                        description:
+                            - Service level agreement (SLA).
+                        type: list
+                        elements: dict
+                        suboptions:
+                            id:
+                                description:
+                                    - SLA ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            jitter_threshold:
+                                description:
+                                    - Jitter for SLA to make decision in milliseconds. (0 - 10000000).
+                                type: int
+                            latency_threshold:
+                                description:
+                                    - Latency for SLA to make decision in milliseconds. (0 - 10000000).
+                                type: int
+                            link_cost_factor:
+                                description:
+                                    - Criteria on which to base link selection.
+                                type: list
+                                elements: str
+                                choices:
+                                    - 'latency'
+                                    - 'jitter'
+                                    - 'packet-loss'
+                                    - 'mos'
+                                    - 'remote'
+                            mos_threshold:
+                                description:
+                                    - Minimum Mean Opinion Score for SLA to be marked as pass. (1.0 - 5.0).
+                                type: str
+                            packetloss_threshold:
+                                description:
+                                    - Packet loss for SLA to make decision in percentage. (0 - 100).
+                                type: int
+                            priority_in_sla:
+                                description:
+                                    - Value to be distributed into routing table when in-sla (0 - 65535).
+                                type: int
+                            priority_out_sla:
+                                description:
+                                    - Value to be distributed into routing table when out-sla (0 - 65535).
+                                type: int
+                    sla_fail_log_period:
+                        description:
+                            - Time interval in seconds that SLA fail log messages will be generated (0 - 3600).
+                        type: int
+                    sla_id_redistribute:
+                        description:
+                            - Select the ID from the SLA sub-table. The selected SLA"s priority value will be distributed into the routing table (0 - 32).
+                        type: int
+                    sla_pass_log_period:
+                        description:
+                            - Time interval in seconds that SLA pass log messages will be generated (0 - 3600).
+                        type: int
+                    source:
+                        description:
+                            - Source IP address used in the health-check packet to the server.
+                        type: str
+                    source6:
+                        description:
+                            - Source IPv6 address used in the health-check packet to server.
+                        type: str
+                    system_dns:
+                        description:
+                            - Enable/disable system DNS as the probe server.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    target_name:
+                        description:
+                            - Status check or predefined health-check targets name.
+                        required: true
+                        type: str
                     threshold_alert_jitter:
                         description:
                             - Alert threshold for jitter (ms).
@@ -567,6 +857,14 @@ options:
                         description:
                             - Priority of the interface for IPv4 (1 - 65535). Used for SD-WAN rules or priority rules.
                         type: int
+                    priority_in_sla:
+                        description:
+                            - Preferred priority of routes to this member when this member is in-sla (0 - 65535).
+                        type: int
+                    priority_out_sla:
+                        description:
+                            - Preferred priority of routes to this member when this member is out-of-sla (0 - 65535).
+                        type: int
                     priority6:
                         description:
                             - Priority of the interface for IPv6 (1 - 65535). Used for SD-WAN rules or priority rules.
@@ -620,7 +918,7 @@ options:
                 suboptions:
                     health_check:
                         description:
-                            - SD-WAN health-check name. Source system.sdwan.health-check.name.
+                            - SD-WAN health-check name. Source system.sdwan.health-check.name system.sdwan.health-check-fortiguard.target-name.
                         type: str
                     ip:
                         description:
@@ -704,6 +1002,10 @@ options:
                         description:
                             - Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
                         type: int
+                    comment:
+                        description:
+                            - Comments.
+                        type: str
                     default:
                         description:
                             - Enable/disable use of SD-WAN as default service.
@@ -807,7 +1109,7 @@ options:
                         suboptions:
                             name:
                                 description:
-                                    - Health check name. Source system.sdwan.health-check.name.
+                                    - Health check name. Source system.sdwan.health-check.name system.sdwan.health-check-fortiguard.target-name.
                                 required: true
                                 type: str
                     hold_down_time:
@@ -1064,7 +1366,7 @@ options:
                         suboptions:
                             health_check:
                                 description:
-                                    - SD-WAN health-check. Source system.sdwan.health-check.name.
+                                    - SD-WAN health-check. Source system.sdwan.health-check.name system.sdwan.health-check-fortiguard.target-name.
                                 required: true
                                 type: str
                             id:
@@ -1328,6 +1630,65 @@ EXAMPLES = """
                   update_static_route: "enable"
                   user: "<your_own_value>"
                   vrf: "0"
+          health_check_fortiguard:
+              -
+                  addr_mode: "ipv4"
+                  class_id: "0"
+                  detect_mode: "active"
+                  diffservcode: "<your_own_value>"
+                  dns_match_ip: "<your_own_value>"
+                  dns_request_domain: "<your_own_value>"
+                  embed_measured_health: "enable"
+                  failtime: "5"
+                  ftp_file: "<your_own_value>"
+                  ftp_mode: "passive"
+                  ha_priority: "1"
+                  http_agent: "<your_own_value>"
+                  http_get: "<your_own_value>"
+                  http_match: "<your_own_value>"
+                  interval: "500"
+                  members:
+                      -
+                          seq_num: "<you_own_value>"
+                  mos_codec: "g711"
+                  packet_size: "124"
+                  password: "<your_own_value>"
+                  port: "0"
+                  probe_count: "30"
+                  probe_packets: "disable"
+                  probe_timeout: "500"
+                  protocol: "ping"
+                  quality_measured_method: "half-open"
+                  recoverytime: "5"
+                  security_mode: "none"
+                  server: "192.168.100.40"
+                  sla:
+                      -
+                          id: "116"
+                          jitter_threshold: "5"
+                          latency_threshold: "5"
+                          link_cost_factor: "latency"
+                          mos_threshold: "<your_own_value>"
+                          packetloss_threshold: "0"
+                          priority_in_sla: "0"
+                          priority_out_sla: "0"
+                  sla_fail_log_period: "0"
+                  sla_id_redistribute: "0"
+                  sla_pass_log_period: "0"
+                  source: "<your_own_value>"
+                  source6: "<your_own_value>"
+                  system_dns: "disable"
+                  target_name: "<your_own_value>"
+                  threshold_alert_jitter: "0"
+                  threshold_alert_latency: "0"
+                  threshold_alert_packetloss: "0"
+                  threshold_warning_jitter: "0"
+                  threshold_warning_latency: "0"
+                  threshold_warning_packetloss: "0"
+                  update_cascade_interface: "enable"
+                  update_static_route: "enable"
+                  user: "<your_own_value>"
+                  vrf: "0"
           load_balance_mode: "source-ip-based"
           members:
               -
@@ -1339,6 +1700,8 @@ EXAMPLES = """
                   interface: "<your_own_value> (source system.interface.name)"
                   preferred_source: "<your_own_value>"
                   priority: "1"
+                  priority_in_sla: "0"
+                  priority_out_sla: "0"
                   priority6: "1024"
                   seq_num: "<you_own_value>"
                   source: "<your_own_value>"
@@ -1351,7 +1714,7 @@ EXAMPLES = """
                   zone: "<your_own_value> (source system.sdwan.zone.name)"
           neighbor:
               -
-                  health_check: "<your_own_value> (source system.sdwan.health-check.name)"
+                  health_check: "<your_own_value> (source system.sdwan.health-check.name system.sdwan.health-check-fortiguard.target-name)"
                   ip: "<your_own_value> (source router.bgp.neighbor-group.name router.bgp.neighbor.ip)"
                   member:
                       -
@@ -1369,6 +1732,7 @@ EXAMPLES = """
                   addr_mode: "ipv4"
                   agent_exclusive: "enable"
                   bandwidth_weight: "0"
+                  comment: "Comments."
                   default: "enable"
                   dscp_forward: "enable"
                   dscp_forward_tag: "<your_own_value>"
@@ -1376,52 +1740,52 @@ EXAMPLES = """
                   dscp_reverse_tag: "<your_own_value>"
                   dst:
                       -
-                          name: "default_name_128 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_187 (source firewall.address.name firewall.addrgrp.name)"
                   dst_negate: "enable"
                   dst6:
                       -
-                          name: "default_name_131 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_190 (source firewall.address6.name firewall.addrgrp6.name)"
                   end_port: "65535"
                   end_src_port: "65535"
                   gateway: "enable"
                   groups:
                       -
-                          name: "default_name_136 (source user.group.name)"
+                          name: "default_name_195 (source user.group.name)"
                   hash_mode: "round-robin"
                   health_check:
                       -
-                          name: "default_name_139 (source system.sdwan.health-check.name)"
+                          name: "default_name_198 (source system.sdwan.health-check.name system.sdwan.health-check-fortiguard.target-name)"
                   hold_down_time: "0"
-                  id: "141"
+                  id: "200"
                   input_device:
                       -
-                          name: "default_name_143 (source system.interface.name)"
+                          name: "default_name_202 (source system.interface.name)"
                   input_device_negate: "enable"
                   input_zone:
                       -
-                          name: "default_name_146 (source system.sdwan.zone.name)"
+                          name: "default_name_205 (source system.sdwan.zone.name)"
                   internet_service: "enable"
                   internet_service_app_ctrl:
                       -
-                          id: "149"
+                          id: "208"
                   internet_service_app_ctrl_category:
                       -
-                          id: "151"
+                          id: "210"
                   internet_service_app_ctrl_group:
                       -
-                          name: "default_name_153 (source application.group.name)"
+                          name: "default_name_212 (source application.group.name)"
                   internet_service_custom:
                       -
-                          name: "default_name_155 (source firewall.internet-service-custom.name)"
+                          name: "default_name_214 (source firewall.internet-service-custom.name)"
                   internet_service_custom_group:
                       -
-                          name: "default_name_157 (source firewall.internet-service-custom-group.name)"
+                          name: "default_name_216 (source firewall.internet-service-custom-group.name)"
                   internet_service_group:
                       -
-                          name: "default_name_159 (source firewall.internet-service-group.name)"
+                          name: "default_name_218 (source firewall.internet-service-group.name)"
                   internet_service_name:
                       -
-                          name: "default_name_161 (source firewall.internet-service-name.name)"
+                          name: "default_name_220 (source firewall.internet-service-name.name)"
                   jitter_weight: "0"
                   latency_weight: "0"
                   link_cost_factor: "latency"
@@ -1429,7 +1793,7 @@ EXAMPLES = """
                   load_balance: "enable"
                   minimum_sla_meet_members: "0"
                   mode: "auto"
-                  name: "default_name_169"
+                  name: "default_name_228"
                   packet_loss_weight: "0"
                   passive_measurement: "enable"
                   priority_members:
@@ -1437,7 +1801,7 @@ EXAMPLES = """
                           seq_num: "<you_own_value>"
                   priority_zone:
                       -
-                          name: "default_name_175 (source system.sdwan.zone.name)"
+                          name: "default_name_234 (source system.sdwan.zone.name)"
                   protocol: "0"
                   quality_link: "0"
                   role: "standalone"
@@ -1447,17 +1811,17 @@ EXAMPLES = """
                   shortcut_stickiness: "enable"
                   sla:
                       -
-                          health_check: "<your_own_value> (source system.sdwan.health-check.name)"
-                          id: "185"
+                          health_check: "<your_own_value> (source system.sdwan.health-check.name system.sdwan.health-check-fortiguard.target-name)"
+                          id: "244"
                   sla_compare_method: "order"
                   sla_stickiness: "enable"
                   src:
                       -
-                          name: "default_name_189 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_248 (source firewall.address.name firewall.addrgrp.name)"
                   src_negate: "enable"
                   src6:
                       -
-                          name: "default_name_192 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_251 (source firewall.address6.name firewall.addrgrp6.name)"
                   standalone_action: "enable"
                   start_port: "1"
                   start_src_port: "1"
@@ -1468,7 +1832,7 @@ EXAMPLES = """
                   use_shortcut_sla: "enable"
                   users:
                       -
-                          name: "default_name_202 (source user.local.name)"
+                          name: "default_name_261 (source user.local.name)"
                   zone_mode: "enable"
           speedtest_bypass_routing: "disable"
           status: "disable"
@@ -1477,7 +1841,7 @@ EXAMPLES = """
                   advpn_health_check: "<your_own_value> (source system.sdwan.health-check.name)"
                   advpn_select: "enable"
                   minimum_sla_meet_members: "1"
-                  name: "default_name_210"
+                  name: "default_name_269"
                   service_sla_tie_break: "cfg-order"
 """
 
@@ -1568,6 +1932,7 @@ def filter_system_sdwan_data(json):
         "fail_alert_interfaces",
         "fail_detect",
         "health_check",
+        "health_check_fortiguard",
         "load_balance_mode",
         "members",
         "neighbor",
@@ -1596,11 +1961,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1612,6 +1980,8 @@ def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["health_check", "server"],
         ["health_check", "sla", "link_cost_factor"],
+        ["health_check_fortiguard", "server"],
+        ["health_check_fortiguard", "sla", "link_cost_factor"],
     ]
 
     for attr in multilist_attrs:
@@ -1637,9 +2007,19 @@ def system_sdwan(data, fos):
     state = None
     vdom = data["vdom"]
     system_sdwan_data = data["system_sdwan"]
-    system_sdwan_data = flatten_multilists_attributes(system_sdwan_data)
+
     filtered_data = filter_system_sdwan_data(system_sdwan_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_sdwan"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "sdwan",
+        data_copy,
+    )
 
     return fos.set("system", "sdwan", data=converted_data, vdom=vdom)
 
@@ -1657,7 +2037,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "sdwan")
     if data["system_sdwan"]:
         resp = system_sdwan(data, fos)
     else:
@@ -1777,6 +2156,8 @@ versioned_schema = {
                 "weight": {"v_range": [["v6.4.0", ""]], "type": "integer"},
                 "priority": {"v_range": [["v6.4.0", ""]], "type": "integer"},
                 "priority6": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+                "priority_in_sla": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "priority_out_sla": {"v_range": [["v7.6.0", ""]], "type": "integer"},
                 "spillover_threshold": {"v_range": [["v6.4.0", ""]], "type": "integer"},
                 "ingress_spillover_threshold": {
                     "v_range": [["v6.4.0", ""]],
@@ -1981,6 +2362,7 @@ versioned_schema = {
                                 {"value": "jitter"},
                                 {"value": "packet-loss"},
                                 {"value": "mos", "v_range": [["v7.2.0", ""]]},
+                                {"value": "remote", "v_range": [["v7.6.0", ""]]},
                             ],
                             "multiple_values": True,
                             "elements": "str",
@@ -2014,6 +2396,213 @@ versioned_schema = {
                 },
             },
             "v_range": [["v6.4.0", ""]],
+        },
+        "health_check_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "target_name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "probe_packets": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "addr_mode": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "ipv4"}, {"value": "ipv6"}],
+                },
+                "system_dns": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "server": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "list",
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "detect_mode": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "active"},
+                        {"value": "passive"},
+                        {"value": "prefer-passive"},
+                        {"value": "remote"},
+                        {"value": "agent-based"},
+                    ],
+                },
+                "protocol": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "ping"},
+                        {"value": "tcp-echo"},
+                        {"value": "udp-echo"},
+                        {"value": "http"},
+                        {"value": "https"},
+                        {"value": "twamp"},
+                        {"value": "dns"},
+                        {"value": "tcp-connect"},
+                        {"value": "ftp"},
+                    ],
+                },
+                "port": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "quality_measured_method": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "half-open"}, {"value": "half-close"}],
+                },
+                "security_mode": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "none"}, {"value": "authentication"}],
+                },
+                "user": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "password": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "packet_size": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "ha_priority": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "ftp_mode": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "passive"}, {"value": "port"}],
+                },
+                "ftp_file": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "http_get": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "http_agent": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "http_match": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "dns_request_domain": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "dns_match_ip": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "interval": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "probe_timeout": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "failtime": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "recoverytime": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "probe_count": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "diffservcode": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "update_cascade_interface": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "update_static_route": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "embed_measured_health": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "sla_id_redistribute": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "sla_fail_log_period": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "sla_pass_log_period": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "threshold_warning_packetloss": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                },
+                "threshold_alert_packetloss": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                },
+                "threshold_warning_latency": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                },
+                "threshold_alert_latency": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                },
+                "threshold_warning_jitter": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                },
+                "threshold_alert_jitter": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                },
+                "vrf": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "source": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "source6": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "members": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "seq_num": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.6.0", ""]],
+                },
+                "mos_codec": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "g711"},
+                        {"value": "g722"},
+                        {"value": "g729"},
+                    ],
+                },
+                "class_id": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "sla": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "link_cost_factor": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "list",
+                            "options": [
+                                {"value": "latency"},
+                                {"value": "jitter"},
+                                {"value": "packet-loss"},
+                                {"value": "mos"},
+                                {"value": "remote"},
+                            ],
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                        "latency_threshold": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                        },
+                        "jitter_threshold": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                        },
+                        "packetloss_threshold": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                        },
+                        "mos_threshold": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                        },
+                        "priority_in_sla": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                        },
+                        "priority_out_sla": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.6.0", ""]],
+                },
+            },
+            "v_range": [["v7.6.0", ""]],
         },
         "service": {
             "type": "list",
@@ -2433,6 +3022,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "comment": {"v_range": [["v7.6.0", ""]], "type": "string"},
                 "shortcut_stickiness": {
                     "v_range": [["v7.4.0", "v7.4.0"]],
                     "type": "string",

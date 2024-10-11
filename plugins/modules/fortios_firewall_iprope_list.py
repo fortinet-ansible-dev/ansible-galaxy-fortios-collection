@@ -230,8 +230,18 @@ def firewall_iprope_list(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_iprope_list_data = data["firewall_iprope_list"]
+
     filtered_data = filter_firewall_iprope_list_data(firewall_iprope_list_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_iprope_list"] = converted_data
+    fos.do_member_operation(
+        "firewall.iprope",
+        "list",
+        data_copy,
+    )
 
     return fos.set("firewall.iprope", "list", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall_iprope(data, fos):
-    fos.do_member_operation("firewall.iprope", "list")
     if data["firewall_iprope_list"]:
         resp = firewall_iprope_list(data, fos)
     else:

@@ -520,6 +520,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            gui_gtp:
+                description:
+                    - Enable/disable Manage general radio packet service (GPRS) protocols on the GUI.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             gui_icap:
                 description:
                     - Enable/disable ICAP on the GUI.
@@ -1197,6 +1204,7 @@ EXAMPLES = """
           gui_file_filter: "enable"
           gui_fortiap_split_tunneling: "enable"
           gui_fortiextender_controller: "enable"
+          gui_gtp: "enable"
           gui_icap: "enable"
           gui_implicit_policy: "enable"
           gui_ips: "enable"
@@ -1438,6 +1446,7 @@ def filter_system_settings_data(json):
         "gui_file_filter",
         "gui_fortiap_split_tunneling",
         "gui_fortiextender_controller",
+        "gui_gtp",
         "gui_icap",
         "gui_implicit_policy",
         "gui_ips",
@@ -1547,11 +1556,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1591,9 +1603,19 @@ def system_settings(data, fos):
     state = None
     vdom = data["vdom"]
     system_settings_data = data["system_settings"]
-    system_settings_data = flatten_multilists_attributes(system_settings_data)
+
     filtered_data = filter_system_settings_data(system_settings_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_settings"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("system", "settings", data=converted_data, vdom=vdom)
 
@@ -1611,7 +1633,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "settings")
     if data["system_settings"]:
         resp = system_settings(data, fos)
     else:
@@ -1936,11 +1957,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "proxy-based"}, {"value": "kernel-helper-based"}],
         },
-        "gui_proxy_inspection": {
-            "v_range": [["v7.2.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "gui_icap": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2194,6 +2210,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "gui_gtp": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "location_id": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "ike_session_resume": {
             "v_range": [["v6.0.0", ""]],
@@ -2278,6 +2299,11 @@ versioned_schema = {
         },
         "pfcp_monitor_mode": {
             "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "gui_proxy_inspection": {
+            "v_range": [["v7.2.4", "v7.4.4"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

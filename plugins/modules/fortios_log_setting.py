@@ -124,6 +124,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            extended_utm_log:
+                description:
+                    - Enable/disable extended UTM logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             faz_override:
                 description:
                     - Enable/disable override FortiAnalyzer settings.
@@ -169,6 +176,13 @@ options:
             local_in_deny_unicast:
                 description:
                     - Enable/disable local-in-deny-unicast logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            local_in_policy_log:
+                description:
+                    - Enable/disable local-in-policy logging.
                 type: str
                 choices:
                     - 'enable'
@@ -286,6 +300,7 @@ EXAMPLES = """
           daemon_log: "enable"
           expolicy_implicit_log: "enable"
           extended_log: "enable"
+          extended_utm_log: "enable"
           faz_override: "enable"
           fortiview_weekly_data: "enable"
           fwpolicy_implicit_log: "enable"
@@ -293,6 +308,7 @@ EXAMPLES = """
           local_in_allow: "enable"
           local_in_deny_broadcast: "enable"
           local_in_deny_unicast: "enable"
+          local_in_policy_log: "enable"
           local_out: "enable"
           local_out_ioc_detection: "enable"
           log_invalid_packet: "enable"
@@ -396,6 +412,7 @@ def filter_log_setting_data(json):
         "daemon_log",
         "expolicy_implicit_log",
         "extended_log",
+        "extended_utm_log",
         "faz_override",
         "fortiview_weekly_data",
         "fwpolicy_implicit_log",
@@ -403,6 +420,7 @@ def filter_log_setting_data(json):
         "local_in_allow",
         "local_in_deny_broadcast",
         "local_in_deny_unicast",
+        "local_in_policy_log",
         "local_out",
         "local_out_ioc_detection",
         "log_invalid_packet",
@@ -446,8 +464,18 @@ def log_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_setting_data = data["log_setting"]
+
     filtered_data = filter_log_setting_data(log_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_setting"] = converted_data
+    fos.do_member_operation(
+        "log",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("log", "setting", data=converted_data, vdom=vdom)
 
@@ -465,7 +493,6 @@ def is_successful_status(resp):
 
 
 def fortios_log(data, fos):
-    fos.do_member_operation("log", "setting")
     if data["log_setting"]:
         resp = log_setting(data, fos)
     else:
@@ -526,6 +553,11 @@ versioned_schema = {
         },
         "local_in_deny_broadcast": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "local_in_policy_log": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -591,6 +623,11 @@ versioned_schema = {
         },
         "long_live_session_stat": {
             "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "extended_utm_log": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

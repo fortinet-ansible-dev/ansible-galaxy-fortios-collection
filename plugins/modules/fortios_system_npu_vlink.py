@@ -218,8 +218,18 @@ def system_npu_vlink(data, fos):
     state = data["state"]
 
     system_npu_vlink_data = data["system_npu_vlink"]
+
     filtered_data = filter_system_npu_vlink_data(system_npu_vlink_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_npu_vlink"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "npu-vlink",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "npu-vlink", data=converted_data, vdom=vdom)
@@ -243,7 +253,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "npu-vlink")
     if data["system_npu_vlink"]:
         resp = system_npu_vlink(data, fos)
     else:

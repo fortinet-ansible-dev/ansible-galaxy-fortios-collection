@@ -270,10 +270,20 @@ def switch_controller_ptp_profile(data, fos):
     state = data["state"]
 
     switch_controller_ptp_profile_data = data["switch_controller_ptp_profile"]
+
     filtered_data = filter_switch_controller_ptp_profile_data(
         switch_controller_ptp_profile_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_ptp_profile"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.ptp",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -301,7 +311,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_ptp(data, fos):
-    fos.do_member_operation("switch-controller.ptp", "profile")
     if data["switch_controller_ptp_profile"]:
         resp = switch_controller_ptp_profile(data, fos)
     else:

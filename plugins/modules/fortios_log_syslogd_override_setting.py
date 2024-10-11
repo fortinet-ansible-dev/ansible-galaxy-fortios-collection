@@ -202,6 +202,10 @@ options:
                 description:
                     - Source IP address of syslog.
                 type: str
+            source_ip_interface:
+                description:
+                    - Source interface of syslog. Source system.interface.name.
+                type: str
             ssl_min_proto_version:
                 description:
                     - Minimum supported protocol version for SSL/TLS connections .
@@ -224,6 +228,13 @@ options:
                 description:
                     - Hidden setting index of Syslog.
                 type: int
+            use_management_vdom:
+                description:
+                    - Enable/disable use of management VDOM as source VDOM for logs sent to syslog server.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -249,9 +260,11 @@ EXAMPLES = """
           priority: "default"
           server: "192.168.100.40"
           source_ip: "84.230.14.43"
+          source_ip_interface: "<your_own_value> (source system.interface.name)"
           ssl_min_proto_version: "default"
           status: "enable"
           syslog_type: "2147483647"
+          use_management_vdom: "enable"
 """
 
 RETURN = """
@@ -349,9 +362,11 @@ def filter_log_syslogd_override_setting_data(json):
         "priority",
         "server",
         "source_ip",
+        "source_ip_interface",
         "ssl_min_proto_version",
         "status",
         "syslog_type",
+        "use_management_vdom",
     ]
 
     json = remove_invalid_fields(json)
@@ -381,10 +396,20 @@ def log_syslogd_override_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_syslogd_override_setting_data = data["log_syslogd_override_setting"]
+
     filtered_data = filter_log_syslogd_override_setting_data(
         log_syslogd_override_setting_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_syslogd_override_setting"] = converted_data
+    fos.do_member_operation(
+        "log.syslogd",
+        "override-setting",
+        data_copy,
+    )
 
     return fos.set("log.syslogd", "override-setting", data=converted_data, vdom=vdom)
 
@@ -402,7 +427,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_syslogd(data, fos):
-    fos.do_member_operation("log.syslogd", "override-setting")
     if data["log_syslogd_override_setting"]:
         resp = log_syslogd_override_setting(data, fos)
     else:
@@ -438,6 +462,11 @@ versioned_schema = {
                 {"value": "reliable"},
             ],
         },
+        "use_management_vdom": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "facility": {
             "v_range": [["v6.0.0", ""]],
@@ -469,6 +498,7 @@ versioned_schema = {
                 {"value": "local7"},
             ],
         },
+        "source_ip_interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "source_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "format": {
             "v_range": [["v6.0.0", ""]],

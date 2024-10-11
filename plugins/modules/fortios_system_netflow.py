@@ -128,6 +128,41 @@ options:
                         description:
                             - Source IP address for communication with the NetFlow agent.
                         type: str
+                    source_ip_interface:
+                        description:
+                            - Name of the interface used to determine the source IP for exporting packets. Source system.interface.name.
+                        type: str
+            exclusion_filters:
+                description:
+                    - Exclusion filters
+                type: list
+                elements: dict
+                suboptions:
+                    destination_ip:
+                        description:
+                            - Session destination address.
+                        type: str
+                    destination_port:
+                        description:
+                            - Session destination port number or range.
+                        type: str
+                    id:
+                        description:
+                            - Filter ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    protocol:
+                        description:
+                            - Session IP protocol (0 - 255).
+                        type: int
+                    source_ip:
+                        description:
+                            - Session source address.
+                        type: str
+                    source_port:
+                        description:
+                            - Session source port number or range.
+                        type: str
             inactive_flow_timeout:
                 description:
                     - Timeout for periodic report of finished flows (10 - 600 sec).
@@ -174,6 +209,15 @@ EXAMPLES = """
                   interface: "<your_own_value> (source system.interface.name)"
                   interface_select_method: "auto"
                   source_ip: "84.230.14.43"
+                  source_ip_interface: "<your_own_value> (source system.interface.name)"
+          exclusion_filters:
+              -
+                  destination_ip: "<your_own_value>"
+                  destination_port: "<your_own_value>"
+                  id: "17"
+                  protocol: "255"
+                  source_ip: "84.230.14.43"
+                  source_port: "<your_own_value>"
           inactive_flow_timeout: "15"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
@@ -267,6 +311,7 @@ def filter_system_netflow_data(json):
         "collector_ip",
         "collector_port",
         "collectors",
+        "exclusion_filters",
         "inactive_flow_timeout",
         "interface",
         "interface_select_method",
@@ -302,8 +347,18 @@ def system_netflow(data, fos):
     state = None
     vdom = data["vdom"]
     system_netflow_data = data["system_netflow"]
+
     filtered_data = filter_system_netflow_data(system_netflow_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_netflow"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "netflow",
+        data_copy,
+    )
 
     return fos.set("system", "netflow", data=converted_data, vdom=vdom)
 
@@ -321,7 +376,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "netflow")
     if data["system_netflow"]:
         resp = system_netflow(data, fos)
     else:
@@ -344,6 +398,23 @@ versioned_schema = {
         "inactive_flow_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "template_tx_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "template_tx_counter": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "exclusion_filters": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "source_ip": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "destination_ip": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "source_port": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "destination_port": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "protocol": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+            },
+            "v_range": [["v7.6.0", ""]],
+        },
         "collectors": {
             "type": "list",
             "elements": "dict",
@@ -356,6 +427,7 @@ versioned_schema = {
                 "collector_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "collector_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
                 "source_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "source_ip_interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
                 "interface_select_method": {
                     "v_range": [["v7.4.2", ""]],
                     "type": "string",

@@ -227,10 +227,20 @@ def system_autoupdate_tunneling(data, fos):
     state = None
     vdom = data["vdom"]
     system_autoupdate_tunneling_data = data["system_autoupdate_tunneling"]
+
     filtered_data = filter_system_autoupdate_tunneling_data(
         system_autoupdate_tunneling_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_autoupdate_tunneling"] = converted_data
+    fos.do_member_operation(
+        "system.autoupdate",
+        "tunneling",
+        data_copy,
+    )
 
     return fos.set("system.autoupdate", "tunneling", data=converted_data, vdom=vdom)
 
@@ -248,7 +258,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_autoupdate(data, fos):
-    fos.do_member_operation("system.autoupdate", "tunneling")
     if data["system_autoupdate_tunneling"]:
         resp = system_autoupdate_tunneling(data, fos)
     else:

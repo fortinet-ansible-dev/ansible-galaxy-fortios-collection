@@ -255,8 +255,18 @@ def web_proxy_fast_fallback(data, fos):
     state = data["state"]
 
     web_proxy_fast_fallback_data = data["web_proxy_fast_fallback"]
+
     filtered_data = filter_web_proxy_fast_fallback_data(web_proxy_fast_fallback_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["web_proxy_fast_fallback"] = converted_data
+    fos.do_member_operation(
+        "web-proxy",
+        "fast-fallback",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("web-proxy", "fast-fallback", data=converted_data, vdom=vdom)
@@ -282,7 +292,6 @@ def is_successful_status(resp):
 
 
 def fortios_web_proxy(data, fos):
-    fos.do_member_operation("web-proxy", "fast-fallback")
     if data["web_proxy_fast_fallback"]:
         resp = web_proxy_fast_fallback(data, fos)
     else:

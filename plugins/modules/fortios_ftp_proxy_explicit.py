@@ -125,18 +125,11 @@ options:
                     - 'low'
             ssl_cert:
                 description:
-                    - List of certificate names to use for SSL connections to this server. Source certificate.local.name.
-                type: list
-                elements: dict
-                suboptions:
-                    name:
-                        description:
-                            - Certificate list. Source vpn.certificate.local.name.
-                        required: true
-                        type: str
+                    - Name of certificate for SSL connections to this server . Source certificate.local.name.
+                type: str
             ssl_cert_dict:
                 description:
-                    - List of certificate names to use for SSL connections to this server. Use the parameter ssl-cert if the fortiOS firmware version <= 7.4.1
+                    - List of certificate names to use for SSL connections to this server.
                 type: list
                 elements: dict
                 suboptions:
@@ -175,12 +168,10 @@ EXAMPLES = """
           server_data_mode: "client"
           ssl: "enable"
           ssl_algorithm: "high"
-          ssl_cert:
-              -
-                  name: "default_name_11 (source vpn.certificate.local.name)"
+          ssl_cert: "<your_own_value> (source certificate.local.name)"
           ssl_cert_dict:
               -
-                  name: "default_name_13 (source vpn.certificate.local.name)"
+                  name: "default_name_12 (source vpn.certificate.local.name)"
           ssl_dh_bits: "768"
           status: "enable"
 """
@@ -295,11 +286,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -359,10 +353,20 @@ def ftp_proxy_explicit(data, fos):
     state = None
     vdom = data["vdom"]
     ftp_proxy_explicit_data = data["ftp_proxy_explicit"]
-    ftp_proxy_explicit_data = flatten_multilists_attributes(ftp_proxy_explicit_data)
+
     filtered_data = filter_ftp_proxy_explicit_data(ftp_proxy_explicit_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
     converted_data = remap_attribute_names(converted_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["ftp_proxy_explicit"] = converted_data
+    fos.do_member_operation(
+        "ftp-proxy",
+        "explicit",
+        data_copy,
+    )
 
     return fos.set("ftp-proxy", "explicit", data=converted_data, vdom=vdom)
 
@@ -380,7 +384,6 @@ def is_successful_status(resp):
 
 
 def fortios_ftp_proxy(data, fos):
-    fos.do_member_operation("ftp-proxy", "explicit")
     if data["ftp_proxy_explicit"]:
         resp = ftp_proxy_explicit(data, fos)
     else:
@@ -427,17 +430,17 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ssl_cert": {
+        "ssl_cert_dict": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.4", ""]],
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.4", ""]],
+            "v_range": [["v7.4.2", ""]],
         },
         "ssl_dh_bits": {
             "v_range": [["v6.2.0", ""]],
@@ -454,18 +457,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "high"}, {"value": "medium"}, {"value": "low"}],
         },
-        "ssl_cert_dict": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v7.4.2", "v7.4.3"]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v7.4.2", "v7.4.3"]],
-        },
+        "ssl_cert": {"v_range": [["v6.2.0", "v7.4.1"]], "type": "string"},
     },
 }
 

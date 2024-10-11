@@ -427,8 +427,18 @@ def system_saml(data, fos):
     state = None
     vdom = data["vdom"]
     system_saml_data = data["system_saml"]
+
     filtered_data = filter_system_saml_data(system_saml_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_saml"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "saml",
+        data_copy,
+    )
 
     return fos.set("system", "saml", data=converted_data, vdom=vdom)
 
@@ -446,7 +456,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "saml")
     if data["system_saml"]:
         resp = system_saml(data, fos)
     else:

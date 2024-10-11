@@ -337,8 +337,18 @@ def wanopt_webcache(data, fos):
     state = None
     vdom = data["vdom"]
     wanopt_webcache_data = data["wanopt_webcache"]
+
     filtered_data = filter_wanopt_webcache_data(wanopt_webcache_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wanopt_webcache"] = converted_data
+    fos.do_member_operation(
+        "wanopt",
+        "webcache",
+        data_copy,
+    )
 
     return fos.set("wanopt", "webcache", data=converted_data, vdom=vdom)
 
@@ -356,7 +366,6 @@ def is_successful_status(resp):
 
 
 def fortios_wanopt(data, fos):
-    fos.do_member_operation("wanopt", "webcache")
     if data["wanopt_webcache"]:
         resp = wanopt_webcache(data, fos)
     else:

@@ -408,6 +408,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            lsa_refresh_interval:
+                description:
+                    - The minimal OSPF LSA update time interval
+                type: int
             neighbor:
                 description:
                     - OSPF neighbor configuration are used when OSPF runs on non-broadcast media.
@@ -524,6 +528,13 @@ options:
                         description:
                             - Message-digest key-chain name. Source router.key-chain.name.
                         type: str
+                    linkdown_fast_failover:
+                        description:
+                            - Enable/disable fast link failover.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     md5_key:
                         description:
                             - MD5 key.
@@ -781,10 +792,11 @@ EXAMPLES = """
           distribute_list_in: "<your_own_value> (source router.access-list.name router.prefix-list.name)"
           distribute_route_map_in: "<your_own_value> (source router.route-map.name)"
           log_neighbour_changes: "enable"
+          lsa_refresh_interval: "5"
           neighbor:
               -
                   cost: "0"
-                  id: "65"
+                  id: "66"
                   ip: "<your_own_value>"
                   poll_interval: "10"
                   priority: "1"
@@ -792,7 +804,7 @@ EXAMPLES = """
               -
                   area: "<your_own_value>"
                   comments: "<your_own_value>"
-                  id: "72"
+                  id: "73"
                   prefix: "<your_own_value>"
           ospf_interface:
               -
@@ -808,15 +820,16 @@ EXAMPLES = """
                   interface: "<your_own_value> (source system.interface.name)"
                   ip: "<your_own_value>"
                   keychain: "<your_own_value> (source router.key-chain.name)"
+                  linkdown_fast_failover: "enable"
                   md5_key: "<your_own_value>"
                   md5_keychain: "<your_own_value> (source router.key-chain.name)"
                   md5_keys:
                       -
-                          id: "90"
+                          id: "92"
                           key_string: "<your_own_value>"
                   mtu: "0"
                   mtu_ignore: "enable"
-                  name: "default_name_94"
+                  name: "default_name_96"
                   network_type: "broadcast"
                   prefix_length: "0"
                   priority: "1"
@@ -826,12 +839,12 @@ EXAMPLES = """
                   transmit_delay: "1"
           passive_interface:
               -
-                  name: "default_name_103 (source system.interface.name)"
+                  name: "default_name_105 (source system.interface.name)"
           redistribute:
               -
                   metric: "0"
                   metric_type: "1"
-                  name: "default_name_107"
+                  name: "default_name_109"
                   routemap: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
                   tag: "0"
@@ -844,7 +857,7 @@ EXAMPLES = """
           summary_address:
               -
                   advertise: "disable"
-                  id: "119"
+                  id: "121"
                   prefix: "<your_own_value>"
                   tag: "0"
 """
@@ -950,6 +963,7 @@ def filter_router_ospf_data(json):
         "distribute_list_in",
         "distribute_route_map_in",
         "log_neighbour_changes",
+        "lsa_refresh_interval",
         "neighbor",
         "network",
         "ospf_interface",
@@ -991,8 +1005,18 @@ def router_ospf(data, fos):
     state = None
     vdom = data["vdom"]
     router_ospf_data = data["router_ospf"]
+
     filtered_data = filter_router_ospf_data(router_ospf_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_ospf"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "ospf",
+        data_copy,
+    )
 
     return fos.set("router", "ospf", data=converted_data, vdom=vdom)
 
@@ -1010,7 +1034,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "ospf")
     if data["router_ospf"]:
         resp = router_ospf(data, fos)
     else:
@@ -1070,6 +1093,7 @@ versioned_schema = {
         },
         "default_metric": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "distance": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "lsa_refresh_interval": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "rfc1583_compatible": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1304,6 +1328,11 @@ versioned_schema = {
                 "comments": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "linkdown_fast_failover": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "authentication": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",

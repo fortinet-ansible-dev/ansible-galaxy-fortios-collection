@@ -485,8 +485,18 @@ def alertemail_setting(data, fos):
     state = None
     vdom = data["vdom"]
     alertemail_setting_data = data["alertemail_setting"]
+
     filtered_data = filter_alertemail_setting_data(alertemail_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["alertemail_setting"] = converted_data
+    fos.do_member_operation(
+        "alertemail",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("alertemail", "setting", data=converted_data, vdom=vdom)
 
@@ -504,7 +514,6 @@ def is_successful_status(resp):
 
 
 def fortios_alertemail(data, fos):
-    fos.do_member_operation("alertemail", "setting")
     if data["alertemail_setting"]:
         resp = alertemail_setting(data, fos)
     else:

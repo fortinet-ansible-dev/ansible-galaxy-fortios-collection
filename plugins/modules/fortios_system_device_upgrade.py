@@ -138,6 +138,10 @@ options:
                 description:
                     - Maximum number of minutes to allow for immediate upgrade preparation.
                 type: int
+            next_path_index:
+                description:
+                    - The index of the next image to upgrade to.
+                type: int
             serial:
                 description:
                     - Serial number of the node to include.
@@ -164,6 +168,7 @@ options:
                     - 'cancelled'
                     - 'confirmed'
                     - 'done'
+                    - 'dry-run-done'
                     - 'failed'
             time:
                 description:
@@ -196,6 +201,7 @@ EXAMPLES = """
               -
                   serial: "<your_own_value>"
           maximum_minutes: "15"
+          next_path_index: "0"
           serial: "<your_own_value>"
           setup_time: "<your_own_value>"
           status: "disabled"
@@ -290,6 +296,7 @@ def filter_system_device_upgrade_data(json):
         "ha_reboot_controller",
         "known_ha_members",
         "maximum_minutes",
+        "next_path_index",
         "serial",
         "setup_time",
         "status",
@@ -328,8 +335,18 @@ def system_device_upgrade(data, fos):
     state = data["state"]
 
     system_device_upgrade_data = data["system_device_upgrade"]
+
     filtered_data = filter_system_device_upgrade_data(system_device_upgrade_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_device_upgrade"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "device-upgrade",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "device-upgrade", data=converted_data, vdom=vdom)
@@ -355,7 +372,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "device-upgrade")
     if data["system_device_upgrade"]:
         resp = system_device_upgrade(data, fos)
     else:
@@ -410,6 +426,7 @@ versioned_schema = {
                 {"value": "cancelled"},
                 {"value": "confirmed"},
                 {"value": "done"},
+                {"value": "dry-run-done", "v_range": [["v7.6.0", ""]]},
                 {"value": "failed"},
             ],
         },
@@ -436,6 +453,7 @@ versioned_schema = {
             ],
         },
         "ha_reboot_controller": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "next_path_index": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "known_ha_members": {
             "type": "list",
             "elements": "dict",

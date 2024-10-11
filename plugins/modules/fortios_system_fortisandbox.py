@@ -284,8 +284,18 @@ def system_fortisandbox(data, fos):
     state = None
     vdom = data["vdom"]
     system_fortisandbox_data = data["system_fortisandbox"]
+
     filtered_data = filter_system_fortisandbox_data(system_fortisandbox_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fortisandbox"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fortisandbox",
+        data_copy,
+    )
 
     return fos.set("system", "fortisandbox", data=converted_data, vdom=vdom)
 
@@ -303,7 +313,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fortisandbox")
     if data["system_fortisandbox"]:
         resp = system_fortisandbox(data, fos)
     else:

@@ -308,10 +308,20 @@ def emailfilter_block_allow_list(data, fos):
     state = data["state"]
 
     emailfilter_block_allow_list_data = data["emailfilter_block_allow_list"]
+
     filtered_data = filter_emailfilter_block_allow_list_data(
         emailfilter_block_allow_list_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["emailfilter_block_allow_list"] = converted_data
+    fos.do_member_operation(
+        "emailfilter",
+        "block-allow-list",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -339,7 +349,6 @@ def is_successful_status(resp):
 
 
 def fortios_emailfilter(data, fos):
-    fos.do_member_operation("emailfilter", "block-allow-list")
     if data["emailfilter_block_allow_list"]:
         resp = emailfilter_block_allow_list(data, fos)
     else:

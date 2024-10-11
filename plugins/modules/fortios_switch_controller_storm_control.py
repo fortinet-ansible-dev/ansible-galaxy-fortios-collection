@@ -228,10 +228,20 @@ def switch_controller_storm_control(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_storm_control_data = data["switch_controller_storm_control"]
+
     filtered_data = filter_switch_controller_storm_control_data(
         switch_controller_storm_control_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_storm_control"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "storm-control",
+        data_copy,
+    )
 
     return fos.set("switch-controller", "storm-control", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "storm-control")
     if data["switch_controller_storm_control"]:
         resp = switch_controller_storm_control(data, fos)
     else:

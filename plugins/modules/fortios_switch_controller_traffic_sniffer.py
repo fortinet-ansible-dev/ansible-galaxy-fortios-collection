@@ -318,10 +318,20 @@ def switch_controller_traffic_sniffer(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_traffic_sniffer_data = data["switch_controller_traffic_sniffer"]
+
     filtered_data = filter_switch_controller_traffic_sniffer_data(
         switch_controller_traffic_sniffer_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_traffic_sniffer"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "traffic-sniffer",
+        data_copy,
+    )
 
     return fos.set(
         "switch-controller", "traffic-sniffer", data=converted_data, vdom=vdom
@@ -341,7 +351,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "traffic-sniffer")
     if data["switch_controller_traffic_sniffer"]:
         resp = switch_controller_traffic_sniffer(data, fos)
     else:

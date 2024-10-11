@@ -288,8 +288,18 @@ def dpdk_global(data, fos):
     state = None
     vdom = data["vdom"]
     dpdk_global_data = data["dpdk_global"]
+
     filtered_data = filter_dpdk_global_data(dpdk_global_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["dpdk_global"] = converted_data
+    fos.do_member_operation(
+        "dpdk",
+        "global",
+        data_copy,
+    )
 
     return fos.set("dpdk", "global", data=converted_data, vdom=vdom)
 
@@ -307,7 +317,6 @@ def is_successful_status(resp):
 
 
 def fortios_dpdk(data, fos):
-    fos.do_member_operation("dpdk", "global")
     if data["dpdk_global"]:
         resp = dpdk_global(data, fos)
     else:

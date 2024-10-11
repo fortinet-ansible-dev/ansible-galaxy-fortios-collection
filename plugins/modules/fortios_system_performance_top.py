@@ -230,8 +230,18 @@ def system_performance_top(data, fos):
     state = None
     vdom = data["vdom"]
     system_performance_top_data = data["system_performance_top"]
+
     filtered_data = filter_system_performance_top_data(system_performance_top_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_performance_top"] = converted_data
+    fos.do_member_operation(
+        "system.performance",
+        "top",
+        data_copy,
+    )
 
     return fos.set("system.performance", "top", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_performance(data, fos):
-    fos.do_member_operation("system.performance", "top")
     if data["system_performance_top"]:
         resp = system_performance_top(data, fos)
     else:

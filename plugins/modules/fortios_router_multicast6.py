@@ -119,6 +119,13 @@ options:
                     - PIM sparse-mode global settings.
                 type: dict
                 suboptions:
+                    pim_use_sdwan:
+                        description:
+                            - Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     register_rate_limit:
                         description:
                             - Limit of packets/sec per source registered through this RP (0 means unlimited).
@@ -153,10 +160,11 @@ EXAMPLES = """
           multicast_pmtu: "enable"
           multicast_routing: "enable"
           pim_sm_global:
+              pim_use_sdwan: "enable"
               register_rate_limit: "0"
               rp_address:
                   -
-                      id: "12"
+                      id: "13"
                       ip6_address: "<your_own_value>"
 """
 
@@ -269,8 +277,18 @@ def router_multicast6(data, fos):
     state = None
     vdom = data["vdom"]
     router_multicast6_data = data["router_multicast6"]
+
     filtered_data = filter_router_multicast6_data(router_multicast6_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_multicast6"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "multicast6",
+        data_copy,
+    )
 
     return fos.set("router", "multicast6", data=converted_data, vdom=vdom)
 
@@ -288,7 +306,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "multicast6")
     if data["router_multicast6"]:
         resp = router_multicast6(data, fos)
     else:
@@ -336,6 +353,11 @@ versioned_schema = {
             "type": "dict",
             "children": {
                 "register_rate_limit": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "pim_use_sdwan": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "rp_address": {
                     "type": "list",
                     "elements": "dict",

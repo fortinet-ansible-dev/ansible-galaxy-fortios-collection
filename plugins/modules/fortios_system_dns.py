@@ -135,6 +135,14 @@ options:
                 description:
                     - FQDN cache minimum refresh time in seconds (10 - 3600).
                 type: int
+            hostname_limit:
+                description:
+                    - Limit of the number of hostname table entries (0 - 50000).
+                type: int
+            hostname_ttl:
+                description:
+                    - TTL of hostname table entries (60 - 86400).
+                type: int
             interface:
                 description:
                     - Specify outgoing interface to reach server. Source system.interface.name.
@@ -180,6 +188,11 @@ options:
                 description:
                     - Number of times to retry (0 - 5).
                 type: int
+            root_servers:
+                description:
+                    - Configure up to two preferred servers that serve the DNS root zone .
+                type: list
+                elements: str
             secondary:
                 description:
                     - Secondary DNS server IP address.
@@ -233,6 +246,8 @@ EXAMPLES = """
           fqdn_cache_ttl: "0"
           fqdn_max_refresh: "3600"
           fqdn_min_refresh: "60"
+          hostname_limit: "5000"
+          hostname_ttl: "86400"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
           ip6_primary: "<your_own_value>"
@@ -241,6 +256,7 @@ EXAMPLES = """
           primary: "<your_own_value>"
           protocol: "cleartext"
           retry: "2"
+          root_servers: "<your_own_value>"
           secondary: "<your_own_value>"
           server_hostname:
               -
@@ -342,6 +358,8 @@ def filter_system_dns_data(json):
         "fqdn_cache_ttl",
         "fqdn_max_refresh",
         "fqdn_min_refresh",
+        "hostname_limit",
+        "hostname_ttl",
         "interface",
         "interface_select_method",
         "ip6_primary",
@@ -350,6 +368,7 @@ def filter_system_dns_data(json):
         "primary",
         "protocol",
         "retry",
+        "root_servers",
         "secondary",
         "server_hostname",
         "server_select_method",
@@ -374,11 +393,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -389,6 +411,7 @@ def flatten_single_path(data, path, index):
 def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["protocol"],
+        ["root_servers"],
     ]
 
     for attr in multilist_attrs:
@@ -414,9 +437,19 @@ def system_dns(data, fos):
     state = None
     vdom = data["vdom"]
     system_dns_data = data["system_dns"]
-    system_dns_data = flatten_multilists_attributes(system_dns_data)
+
     filtered_data = filter_system_dns_data(system_dns_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_dns"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "dns",
+        data_copy,
+    )
 
     return fos.set("system", "dns", data=converted_data, vdom=vdom)
 
@@ -434,7 +467,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "dns")
     if data["system_dns"]:
         resp = system_dns(data, fos)
     else:
@@ -499,6 +531,12 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "source_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "root_servers": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "multiple_values": True,
+            "elements": "str",
+        },
         "interface_select_method": {
             "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
             "type": "string",
@@ -523,6 +561,8 @@ versioned_schema = {
         "fqdn_cache_ttl": {"v_range": [["v7.2.1", ""]], "type": "integer"},
         "fqdn_max_refresh": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "fqdn_min_refresh": {"v_range": [["v7.2.1", ""]], "type": "integer"},
+        "hostname_ttl": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "hostname_limit": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "dns_over_tls": {
             "v_range": [["v6.2.0", "v6.4.4"]],
             "type": "string",

@@ -292,10 +292,20 @@ def firewall_on_demand_sniffer(data, fos):
     state = data["state"]
 
     firewall_on_demand_sniffer_data = data["firewall_on_demand_sniffer"]
+
     filtered_data = filter_firewall_on_demand_sniffer_data(
         firewall_on_demand_sniffer_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_on_demand_sniffer"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "on-demand-sniffer",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "on-demand-sniffer", data=converted_data, vdom=vdom)
@@ -321,7 +331,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "on-demand-sniffer")
     if data["firewall_on_demand_sniffer"]:
         resp = firewall_on_demand_sniffer(data, fos)
     else:

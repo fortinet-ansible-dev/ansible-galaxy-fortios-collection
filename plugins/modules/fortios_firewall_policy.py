@@ -789,6 +789,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            log_http_transaction:
+                description:
+                    - Enable/disable HTTP transaction log.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             logtraffic:
                 description:
                     - Enable or disable logging. Log all sessions or security profile sessions.
@@ -1044,6 +1051,13 @@ options:
                 choices:
                     - 'single'
                     - 'group'
+            radius_ip_auth_bypass:
+                description:
+                    - Enable IP authentication bypass. The bypassed IP address must be received from RADIUS server.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             radius_mac_auth_bypass:
                 description:
                     - Enable MAC authentication bypass. The bypassed MAC address must be received from RADIUS server.
@@ -1679,12 +1693,13 @@ EXAMPLES = """
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
           label: "<your_own_value>"
           learning_mode: "enable"
+          log_http_transaction: "enable"
           logtraffic: "all"
           logtraffic_start: "enable"
           match_vip: "enable"
           match_vip_only: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_127"
+          name: "default_name_128"
           nat: "enable"
           nat46: "enable"
           nat64: "enable"
@@ -1693,10 +1708,10 @@ EXAMPLES = """
           natoutbound: "enable"
           network_service_dynamic:
               -
-                  name: "default_name_135 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_136 (source firewall.network-service-dynamic.name)"
           network_service_src_dynamic:
               -
-                  name: "default_name_137 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_138 (source firewall.network-service-dynamic.name)"
           np_acceleration: "enable"
           ntlm: "enable"
           ntlm_enabled_browsers:
@@ -1709,7 +1724,7 @@ EXAMPLES = """
           pcp_outbound: "enable"
           pcp_poolname:
               -
-                  name: "default_name_148 (source system.pcp-server.pools.name)"
+                  name: "default_name_149 (source system.pcp-server.pools.name)"
           per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
           permit_any_host: "enable"
           permit_stun_host: "enable"
@@ -1720,14 +1735,15 @@ EXAMPLES = """
           policyid: "<you_own_value>"
           poolname:
               -
-                  name: "default_name_158 (source firewall.ippool.name)"
+                  name: "default_name_159 (source firewall.ippool.name)"
           poolname6:
               -
-                  name: "default_name_160 (source firewall.ippool6.name)"
+                  name: "default_name_161 (source firewall.ippool6.name)"
           port_preserve: "enable"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           profile_type: "single"
+          radius_ip_auth_bypass: "enable"
           radius_mac_auth_bypass: "enable"
           redirect_url: "<your_own_value>"
           replacemsg_override_group: "<your_own_value> (source system.replacemsg-group.name)"
@@ -1738,7 +1754,7 @@ EXAMPLES = """
           rsso: "enable"
           rtp_addr:
               -
-                  name: "default_name_174 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
+                  name: "default_name_176 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
           rtp_nat: "disable"
           scan_botnet_connections: "disable"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
@@ -1747,34 +1763,34 @@ EXAMPLES = """
           send_deny_packet: "disable"
           service:
               -
-                  name: "default_name_182 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_184 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "<your_own_value>"
           sgt:
               -
-                  id: "186"
+                  id: "188"
           sgt_check: "enable"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           src_vendor_mac:
               -
-                  id: "190 (source firewall.vendor-mac.id)"
+                  id: "192 (source firewall.vendor-mac.id)"
           srcaddr:
               -
-                  name: "default_name_192 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_194 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_195 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
+                  name: "default_name_197 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
           srcaddr6_negate: "enable"
           srcintf:
               -
-                  name: "default_name_198 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_200 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_mirror: "enable"
           ssl_mirror_intf:
               -
-                  name: "default_name_203 (source system.interface.name system.zone.name)"
+                  name: "default_name_205 (source system.interface.name system.zone.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           tcp_mss_receiver: "0"
@@ -1788,10 +1804,10 @@ EXAMPLES = """
           traffic_shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
           url_category:
               -
-                  id: "216"
+                  id: "218"
           users:
               -
-                  name: "default_name_218 (source user.local.name user.certificate.name)"
+                  name: "default_name_220 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -1817,13 +1833,13 @@ EXAMPLES = """
           ztna_device_ownership: "enable"
           ztna_ems_tag:
               -
-                  name: "default_name_243 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_245 (source firewall.address.name firewall.addrgrp.name)"
           ztna_ems_tag_secondary:
               -
-                  name: "default_name_245 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_247 (source firewall.address.name firewall.addrgrp.name)"
           ztna_geo_tag:
               -
-                  name: "default_name_247 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_249 (source firewall.address.name firewall.addrgrp.name)"
           ztna_policy_redirect: "enable"
           ztna_status: "enable"
           ztna_tags_match_logic: "or"
@@ -2010,6 +2026,7 @@ def filter_firewall_policy_data(json):
         "ips_voip_filter",
         "label",
         "learning_mode",
+        "log_http_transaction",
         "logtraffic",
         "logtraffic_start",
         "match_vip",
@@ -2047,6 +2064,7 @@ def filter_firewall_policy_data(json):
         "profile_group",
         "profile_protocol_options",
         "profile_type",
+        "radius_ip_auth_bypass",
         "radius_mac_auth_bypass",
         "redirect_url",
         "replacemsg_override_group",
@@ -2152,6 +2170,7 @@ def firewall_policy(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_policy_data = data["firewall_policy"]
+
     filtered_data = filter_firewall_policy_data(firewall_policy_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -2177,20 +2196,24 @@ def firewall_policy(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -2215,6 +2238,14 @@ def firewall_policy(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_policy"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "policy", data=converted_data, vdom=vdom)
@@ -2260,7 +2291,6 @@ def move_fortios_firewall(data, fos):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "policy")
     if data["action"] == "move":
         resp = move_fortios_firewall(data, fos)
     elif data["firewall_policy"]:
@@ -2839,6 +2869,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "log_http_transaction": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "capture_packet": {
             "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "string",
@@ -3206,6 +3241,11 @@ versioned_schema = {
         },
         "radius_mac_auth_bypass": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "radius_ip_auth_bypass": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

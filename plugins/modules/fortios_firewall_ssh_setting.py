@@ -257,8 +257,18 @@ def firewall_ssh_setting(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_ssh_setting_data = data["firewall_ssh_setting"]
+
     filtered_data = filter_firewall_ssh_setting_data(firewall_ssh_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_ssh_setting"] = converted_data
+    fos.do_member_operation(
+        "firewall.ssh",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("firewall.ssh", "setting", data=converted_data, vdom=vdom)
 
@@ -276,7 +286,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall_ssh(data, fos):
-    fos.do_member_operation("firewall.ssh", "setting")
     if data["firewall_ssh_setting"]:
         resp = firewall_ssh_setting(data, fos)
     else:

@@ -308,8 +308,18 @@ def system_resource_limits(data, fos):
     state = None
     vdom = data["vdom"]
     system_resource_limits_data = data["system_resource_limits"]
+
     filtered_data = filter_system_resource_limits_data(system_resource_limits_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_resource_limits"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "resource-limits",
+        data_copy,
+    )
 
     return fos.set("system", "resource-limits", data=converted_data, vdom=vdom)
 
@@ -327,7 +337,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "resource-limits")
     if data["system_resource_limits"]:
         resp = system_resource_limits(data, fos)
     else:

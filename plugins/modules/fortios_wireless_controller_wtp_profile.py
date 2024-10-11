@@ -1056,6 +1056,17 @@ options:
                         description:
                             - Channel on which to operate the sniffer .
                         type: int
+                    ap_sniffer_chan_width:
+                        description:
+                            - Channel bandwidth for sniffer.
+                        type: str
+                        choices:
+                            - '320MHz'
+                            - '240MHz'
+                            - '160MHz'
+                            - '80MHz'
+                            - '40MHz'
+                            - '20MHz'
                     ap_sniffer_ctl:
                         description:
                             - Enable/disable sniffer on WiFi control frame .
@@ -1500,6 +1511,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    set_80211mc:
+                        description:
+                            - Enable/disable 802.11mc responder mode .
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -1597,6 +1615,17 @@ options:
                         description:
                             - Channel on which to operate the sniffer .
                         type: int
+                    ap_sniffer_chan_width:
+                        description:
+                            - Channel bandwidth for sniffer.
+                        type: str
+                        choices:
+                            - '320MHz'
+                            - '240MHz'
+                            - '160MHz'
+                            - '80MHz'
+                            - '40MHz'
+                            - '20MHz'
                     ap_sniffer_ctl:
                         description:
                             - Enable/disable sniffer on WiFi control frame .
@@ -2041,6 +2070,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    set_80211mc:
+                        description:
+                            - Enable/disable 802.11mc responder mode .
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -2138,6 +2174,17 @@ options:
                         description:
                             - Channel on which to operate the sniffer .
                         type: int
+                    ap_sniffer_chan_width:
+                        description:
+                            - Channel bandwidth for sniffer.
+                        type: str
+                        choices:
+                            - '320MHz'
+                            - '240MHz'
+                            - '160MHz'
+                            - '80MHz'
+                            - '40MHz'
+                            - '20MHz'
                     ap_sniffer_ctl:
                         description:
                             - Enable/disable sniffer on WiFi control frame .
@@ -2582,6 +2629,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    set_80211mc:
+                        description:
+                            - Enable/disable 802.11mc responder mode .
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -2679,6 +2733,17 @@ options:
                         description:
                             - Channel on which to operate the sniffer .
                         type: int
+                    ap_sniffer_chan_width:
+                        description:
+                            - Channel bandwidth for sniffer.
+                        type: str
+                        choices:
+                            - '320MHz'
+                            - '240MHz'
+                            - '160MHz'
+                            - '80MHz'
+                            - '40MHz'
+                            - '20MHz'
                     ap_sniffer_ctl:
                         description:
                             - Enable/disable sniffer on WiFi control frame .
@@ -3119,6 +3184,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    set_80211mc:
+                        description:
+                            - Enable/disable 802.11mc responder mode .
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     short_guard_interval:
                         description:
                             - Use either the short guard interval (Short GI) of 400 ns or the long guard interval (Long GI) of 800 ns.
@@ -3395,6 +3467,7 @@ EXAMPLES = """
               ap_sniffer_addr: "<your_own_value>"
               ap_sniffer_bufsize: "16"
               ap_sniffer_chan: "36"
+              ap_sniffer_chan_width: "320MHz"
               ap_sniffer_ctl: "enable"
               ap_sniffer_data: "enable"
               ap_sniffer_mgmt_beacon: "enable"
@@ -3466,13 +3539,14 @@ EXAMPLES = """
               sam_test: "ping"
               sam_username: "<your_own_value>"
               set_80211d: "enable"
+              set_80211mc: "enable"
               short_guard_interval: "enable"
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_191 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_193 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_2:
@@ -3482,6 +3556,7 @@ EXAMPLES = """
               ap_sniffer_addr: "<your_own_value>"
               ap_sniffer_bufsize: "16"
               ap_sniffer_chan: "6"
+              ap_sniffer_chan_width: "320MHz"
               ap_sniffer_ctl: "enable"
               ap_sniffer_data: "enable"
               ap_sniffer_mgmt_beacon: "enable"
@@ -3553,13 +3628,14 @@ EXAMPLES = """
               sam_test: "ping"
               sam_username: "<your_own_value>"
               set_80211d: "enable"
+              set_80211mc: "enable"
               short_guard_interval: "enable"
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_276 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_280 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_3:
@@ -3569,6 +3645,7 @@ EXAMPLES = """
               ap_sniffer_addr: "<your_own_value>"
               ap_sniffer_bufsize: "16"
               ap_sniffer_chan: "37"
+              ap_sniffer_chan_width: "320MHz"
               ap_sniffer_ctl: "enable"
               ap_sniffer_data: "enable"
               ap_sniffer_mgmt_beacon: "enable"
@@ -3640,13 +3717,14 @@ EXAMPLES = """
               sam_test: "ping"
               sam_username: "<your_own_value>"
               set_80211d: "enable"
+              set_80211mc: "enable"
               short_guard_interval: "enable"
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_361 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_367 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_4:
@@ -3656,6 +3734,7 @@ EXAMPLES = """
               ap_sniffer_addr: "<your_own_value>"
               ap_sniffer_bufsize: "16"
               ap_sniffer_chan: "6"
+              ap_sniffer_chan_width: "320MHz"
               ap_sniffer_ctl: "enable"
               ap_sniffer_data: "enable"
               ap_sniffer_mgmt_beacon: "enable"
@@ -3726,19 +3805,20 @@ EXAMPLES = """
               sam_test: "ping"
               sam_username: "<your_own_value>"
               set_80211d: "enable"
+              set_80211mc: "enable"
               short_guard_interval: "enable"
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_445 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_453 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "450"
+                  id: "458"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           syslog_profile: "<your_own_value> (source wireless-controller.syslog-profile.name)"
@@ -3912,11 +3992,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -3964,7 +4047,7 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    speciallist = {"80211d": "set_80211d"}
+    speciallist = {"80211d": "set_80211d", "80211mc": "set_80211mc"}
 
     for k, v in speciallist.items():
         if v == data:
@@ -3996,12 +4079,11 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
     state = data["state"]
 
     wireless_controller_wtp_profile_data = data["wireless_controller_wtp_profile"]
-    wireless_controller_wtp_profile_data = flatten_multilists_attributes(
-        wireless_controller_wtp_profile_data
-    )
+
     filtered_data = filter_wireless_controller_wtp_profile_data(
         wireless_controller_wtp_profile_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
@@ -4030,20 +4112,24 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -4068,6 +4154,14 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_wtp_profile"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "wtp-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -4095,7 +4189,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
-    fos.do_member_operation("wireless-controller", "wtp-profile")
     if data["wireless_controller_wtp_profile"]:
         resp = wireless_controller_wtp_profile(data, fos, check_mode)
     else:
@@ -5013,6 +5106,18 @@ versioned_schema = {
                 "frag_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_bufsize": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_chan": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "ap_sniffer_chan_width": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "320MHz"},
+                        {"value": "240MHz"},
+                        {"value": "160MHz"},
+                        {"value": "80MHz"},
+                        {"value": "40MHz"},
+                        {"value": "20MHz"},
+                    ],
+                },
                 "ap_sniffer_addr": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "ap_sniffer_mgmt_beacon": {
                     "v_range": [["v6.0.0", ""]],
@@ -5192,6 +5297,11 @@ versioned_schema = {
                 },
                 "set_80211d": {
                     "v_range": [["v7.2.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "set_80211mc": {
+                    "v_range": [["v7.6.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -5424,6 +5534,18 @@ versioned_schema = {
                 "frag_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_bufsize": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_chan": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "ap_sniffer_chan_width": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "320MHz"},
+                        {"value": "240MHz"},
+                        {"value": "160MHz"},
+                        {"value": "80MHz"},
+                        {"value": "40MHz"},
+                        {"value": "20MHz"},
+                    ],
+                },
                 "ap_sniffer_addr": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "ap_sniffer_mgmt_beacon": {
                     "v_range": [["v6.0.0", ""]],
@@ -5603,6 +5725,11 @@ versioned_schema = {
                 },
                 "set_80211d": {
                     "v_range": [["v7.2.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "set_80211mc": {
+                    "v_range": [["v7.6.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -5835,6 +5962,18 @@ versioned_schema = {
                 "frag_threshold": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "ap_sniffer_bufsize": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "ap_sniffer_chan": {"v_range": [["v6.2.0", ""]], "type": "integer"},
+                "ap_sniffer_chan_width": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "320MHz"},
+                        {"value": "240MHz"},
+                        {"value": "160MHz"},
+                        {"value": "80MHz"},
+                        {"value": "40MHz"},
+                        {"value": "20MHz"},
+                    ],
+                },
                 "ap_sniffer_addr": {"v_range": [["v6.2.0", ""]], "type": "string"},
                 "ap_sniffer_mgmt_beacon": {
                     "v_range": [["v6.2.0", ""]],
@@ -6011,6 +6150,11 @@ versioned_schema = {
                 "radio_id": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "integer"},
                 "set_80211d": {
                     "v_range": [["v7.2.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "set_80211mc": {
+                    "v_range": [["v7.6.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -6303,6 +6447,18 @@ versioned_schema = {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "integer",
                 },
+                "ap_sniffer_chan_width": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "320MHz"},
+                        {"value": "240MHz"},
+                        {"value": "160MHz"},
+                        {"value": "80MHz"},
+                        {"value": "40MHz"},
+                        {"value": "20MHz"},
+                    ],
+                },
                 "ap_sniffer_addr": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "string",
@@ -6506,6 +6662,11 @@ versioned_schema = {
                 },
                 "set_80211d": {
                     "v_range": [["v7.2.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "set_80211mc": {
+                    "v_range": [["v7.6.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },

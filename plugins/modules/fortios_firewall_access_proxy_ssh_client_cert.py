@@ -319,10 +319,20 @@ def firewall_access_proxy_ssh_client_cert(data, fos):
     firewall_access_proxy_ssh_client_cert_data = data[
         "firewall_access_proxy_ssh_client_cert"
     ]
+
     filtered_data = filter_firewall_access_proxy_ssh_client_cert_data(
         firewall_access_proxy_ssh_client_cert_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_access_proxy_ssh_client_cert"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "access-proxy-ssh-client-cert",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -353,7 +363,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "access-proxy-ssh-client-cert")
     if data["firewall_access_proxy_ssh_client_cert"]:
         resp = firewall_access_proxy_ssh_client_cert(data, fos)
     else:

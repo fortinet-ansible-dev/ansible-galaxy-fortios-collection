@@ -245,10 +245,20 @@ def switch_controller_quarantine(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_quarantine_data = data["switch_controller_quarantine"]
+
     filtered_data = filter_switch_controller_quarantine_data(
         switch_controller_quarantine_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_quarantine"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "quarantine",
+        data_copy,
+    )
 
     return fos.set("switch-controller", "quarantine", data=converted_data, vdom=vdom)
 
@@ -266,7 +276,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "quarantine")
     if data["switch_controller_quarantine"]:
         resp = switch_controller_quarantine(data, fos)
     else:

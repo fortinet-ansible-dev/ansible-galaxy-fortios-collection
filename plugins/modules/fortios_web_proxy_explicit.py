@@ -553,11 +553,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -594,9 +597,19 @@ def web_proxy_explicit(data, fos):
     state = None
     vdom = data["vdom"]
     web_proxy_explicit_data = data["web_proxy_explicit"]
-    web_proxy_explicit_data = flatten_multilists_attributes(web_proxy_explicit_data)
+
     filtered_data = filter_web_proxy_explicit_data(web_proxy_explicit_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["web_proxy_explicit"] = converted_data
+    fos.do_member_operation(
+        "web-proxy",
+        "explicit",
+        data_copy,
+    )
 
     return fos.set("web-proxy", "explicit", data=converted_data, vdom=vdom)
 
@@ -614,7 +627,6 @@ def is_successful_status(resp):
 
 
 def fortios_web_proxy(data, fos):
-    fos.do_member_operation("web-proxy", "explicit")
     if data["web_proxy_explicit"]:
         resp = web_proxy_explicit(data, fos)
     else:

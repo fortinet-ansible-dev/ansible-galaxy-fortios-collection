@@ -188,6 +188,10 @@ options:
                 description:
                     - Name of an existing DLP sensor. Source dlp.sensor.name.
                 type: str
+            dnsfilter_profile:
+                description:
+                    - Name of an existing DNS filter profile. Source dnsfilter.profile.name.
+                type: str
             dstaddr:
                 description:
                     - Destination address objects.
@@ -403,6 +407,13 @@ options:
                 description:
                     - VDOM-specific GUI visible label.
                 type: str
+            log_http_transaction:
+                description:
+                    - Enable/disable HTTP transaction log.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             logtraffic:
                 description:
                     - Enable/disable logging traffic through the policy.
@@ -468,6 +479,7 @@ options:
                     - 'ssh'
                     - 'ssh-tunnel'
                     - 'access-proxy'
+                    - 'ztna-proxy'
                     - 'wanopt'
             redirect_url:
                 description:
@@ -664,6 +676,17 @@ options:
                             - EMS Tag name. Source firewall.address.name firewall.addrgrp.name.
                         required: true
                         type: str
+            ztna_proxy:
+                description:
+                    - IPv4 ZTNA traffic forward proxy.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - ZTNA Traffic Forward Proxy name. Source ztna.traffic-forward-proxy.name.
+                        required: true
+                        type: str
             ztna_tags_match_logic:
                 description:
                     - ZTNA tag matching logic.
@@ -700,68 +723,70 @@ EXAMPLES = """
           disclaimer: "disable"
           dlp_profile: "<your_own_value> (source dlp.profile.name)"
           dlp_sensor: "<your_own_value> (source dlp.sensor.name)"
+          dnsfilter_profile: "<your_own_value> (source dnsfilter.profile.name)"
           dstaddr:
               -
-                  name: "default_name_22 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name firewall
+                  name: "default_name_23 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name firewall
                     .vip.name firewall.vipgrp.name system.external-resource.name)"
           dstaddr_negate: "enable"
           dstaddr6:
               -
-                  name: "default_name_25 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
+                  name: "default_name_26 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
                     .external-resource.name)"
           dstintf:
               -
-                  name: "default_name_27 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_28 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           emailfilter_profile: "<your_own_value> (source emailfilter.profile.name)"
           file_filter_profile: "<your_own_value> (source file-filter.profile.name)"
           global_label: "<your_own_value>"
           groups:
               -
-                  name: "default_name_32 (source user.group.name)"
+                  name: "default_name_33 (source user.group.name)"
           http_tunnel_auth: "enable"
           icap_profile: "<your_own_value> (source icap.profile.name)"
           internet_service: "enable"
           internet_service_custom:
               -
-                  name: "default_name_37 (source firewall.internet-service-custom.name)"
+                  name: "default_name_38 (source firewall.internet-service-custom.name)"
           internet_service_custom_group:
               -
-                  name: "default_name_39 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_40 (source firewall.internet-service-custom-group.name)"
           internet_service_group:
               -
-                  name: "default_name_41 (source firewall.internet-service-group.name)"
+                  name: "default_name_42 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "43 (source firewall.internet-service.id)"
+                  id: "44 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_45 (source firewall.internet-service-name.name)"
+                  name: "default_name_46 (source firewall.internet-service-name.name)"
           internet_service_negate: "enable"
           internet_service6: "enable"
           internet_service6_custom:
               -
-                  name: "default_name_49 (source firewall.internet-service-custom.name)"
+                  name: "default_name_50 (source firewall.internet-service-custom.name)"
           internet_service6_custom_group:
               -
-                  name: "default_name_51 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_52 (source firewall.internet-service-custom-group.name)"
           internet_service6_group:
               -
-                  name: "default_name_53 (source firewall.internet-service-group.name)"
+                  name: "default_name_54 (source firewall.internet-service-group.name)"
           internet_service6_name:
               -
-                  name: "default_name_55 (source firewall.internet-service-name.name)"
+                  name: "default_name_56 (source firewall.internet-service-name.name)"
           internet_service6_negate: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
           label: "<your_own_value>"
+          log_http_transaction: "enable"
           logtraffic: "all"
           logtraffic_start: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_63"
+          name: "default_name_65"
           policyid: "<you_own_value>"
           poolname:
               -
-                  name: "default_name_66 (source firewall.ippool.name)"
+                  name: "default_name_68 (source firewall.ippool.name)"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           profile_type: "single"
@@ -773,21 +798,21 @@ EXAMPLES = """
           sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
           service:
               -
-                  name: "default_name_77 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_79 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "0"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           srcaddr:
               -
-                  name: "default_name_82 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
+                  name: "default_name_84 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
                     .external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_85 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_87 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           srcintf:
               -
-                  name: "default_name_87 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_89 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
@@ -795,7 +820,7 @@ EXAMPLES = """
           transparent: "enable"
           users:
               -
-                  name: "default_name_94 (source user.local.name user.certificate.name)"
+                  name: "default_name_96 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -809,7 +834,10 @@ EXAMPLES = """
           webproxy_profile: "<your_own_value> (source web-proxy.profile.name)"
           ztna_ems_tag:
               -
-                  name: "default_name_107 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_109 (source firewall.address.name firewall.addrgrp.name)"
+          ztna_proxy:
+              -
+                  name: "default_name_111 (source ztna.traffic-forward-proxy.name)"
           ztna_tags_match_logic: "or"
 """
 
@@ -919,6 +947,7 @@ def filter_firewall_proxy_policy_data(json):
         "disclaimer",
         "dlp_profile",
         "dlp_sensor",
+        "dnsfilter_profile",
         "dstaddr",
         "dstaddr_negate",
         "dstaddr6",
@@ -945,6 +974,7 @@ def filter_firewall_proxy_policy_data(json):
         "ips_sensor",
         "ips_voip_filter",
         "label",
+        "log_http_transaction",
         "logtraffic",
         "logtraffic_start",
         "mms_profile",
@@ -986,6 +1016,7 @@ def filter_firewall_proxy_policy_data(json):
         "webproxy_forward_server",
         "webproxy_profile",
         "ztna_ems_tag",
+        "ztna_proxy",
         "ztna_tags_match_logic",
     ]
 
@@ -1019,6 +1050,7 @@ def firewall_proxy_policy(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_proxy_policy_data = data["firewall_proxy_policy"]
+
     filtered_data = filter_firewall_proxy_policy_data(firewall_proxy_policy_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -1044,20 +1076,24 @@ def firewall_proxy_policy(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -1082,6 +1118,14 @@ def firewall_proxy_policy(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_proxy_policy"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "proxy-policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "proxy-policy", data=converted_data, vdom=vdom)
@@ -1107,7 +1151,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "proxy-policy")
     if data["firewall_proxy_policy"]:
         resp = firewall_proxy_policy(data, fos, check_mode)
     else:
@@ -1140,6 +1183,7 @@ versioned_schema = {
                 {"value": "ssh"},
                 {"value": "ssh-tunnel"},
                 {"value": "access-proxy", "v_range": [["v7.0.0", ""]]},
+                {"value": "ztna-proxy", "v_range": [["v7.6.0", ""]]},
                 {"value": "wanopt", "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]]},
             ],
         },
@@ -1166,6 +1210,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.0.1", ""]],
+        },
+        "ztna_proxy": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.0", ""]],
         },
         "srcintf": {
             "type": "list",
@@ -1515,6 +1571,7 @@ versioned_schema = {
         "ssl_ssh_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "av_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "webfilter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "dnsfilter_profile": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "emailfilter_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "dlp_profile": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "file_filter_profile": {"v_range": [["v6.4.0", ""]], "type": "string"},
@@ -1531,6 +1588,11 @@ versioned_schema = {
         "replacemsg_override_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "logtraffic_start": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "log_http_transaction": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

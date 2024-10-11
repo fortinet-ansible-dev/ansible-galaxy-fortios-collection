@@ -208,11 +208,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -248,13 +251,21 @@ def monitoring_np6_ipsec_engine(data, fos):
     state = None
     vdom = data["vdom"]
     monitoring_np6_ipsec_engine_data = data["monitoring_np6_ipsec_engine"]
-    monitoring_np6_ipsec_engine_data = flatten_multilists_attributes(
-        monitoring_np6_ipsec_engine_data
-    )
+
     filtered_data = filter_monitoring_np6_ipsec_engine_data(
         monitoring_np6_ipsec_engine_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["monitoring_np6_ipsec_engine"] = converted_data
+    fos.do_member_operation(
+        "monitoring",
+        "np6-ipsec-engine",
+        data_copy,
+    )
 
     return fos.set("monitoring", "np6-ipsec-engine", data=converted_data, vdom=vdom)
 
@@ -272,7 +283,6 @@ def is_successful_status(resp):
 
 
 def fortios_monitoring(data, fos):
-    fos.do_member_operation("monitoring", "np6-ipsec-engine")
     if data["monitoring_np6_ipsec_engine"]:
         resp = monitoring_np6_ipsec_engine(data, fos)
     else:

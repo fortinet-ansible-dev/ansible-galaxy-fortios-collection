@@ -208,8 +208,18 @@ def firewall_global(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_global_data = data["firewall_global"]
+
     filtered_data = filter_firewall_global_data(firewall_global_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_global"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "global",
+        data_copy,
+    )
 
     return fos.set("firewall", "global", data=converted_data, vdom=vdom)
 
@@ -227,7 +237,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "global")
     if data["firewall_global"]:
         resp = firewall_global(data, fos)
     else:

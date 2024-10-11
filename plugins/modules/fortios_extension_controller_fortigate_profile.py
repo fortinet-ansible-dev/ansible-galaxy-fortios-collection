@@ -246,10 +246,20 @@ def extension_controller_fortigate_profile(data, fos):
     extension_controller_fortigate_profile_data = data[
         "extension_controller_fortigate_profile"
     ]
+
     filtered_data = filter_extension_controller_fortigate_profile_data(
         extension_controller_fortigate_profile_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extension_controller_fortigate_profile"] = converted_data
+    fos.do_member_operation(
+        "extension-controller",
+        "fortigate-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -280,7 +290,6 @@ def is_successful_status(resp):
 
 
 def fortios_extension_controller(data, fos):
-    fos.do_member_operation("extension-controller", "fortigate-profile")
     if data["extension_controller_fortigate_profile"]:
         resp = extension_controller_fortigate_profile(data, fos)
     else:

@@ -225,8 +225,18 @@ def system_fsso_polling(data, fos):
     state = None
     vdom = data["vdom"]
     system_fsso_polling_data = data["system_fsso_polling"]
+
     filtered_data = filter_system_fsso_polling_data(system_fsso_polling_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fsso_polling"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fsso-polling",
+        data_copy,
+    )
 
     return fos.set("system", "fsso-polling", data=converted_data, vdom=vdom)
 
@@ -244,7 +254,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fsso-polling")
     if data["system_fsso_polling"]:
         resp = system_fsso_polling(data, fos)
     else:

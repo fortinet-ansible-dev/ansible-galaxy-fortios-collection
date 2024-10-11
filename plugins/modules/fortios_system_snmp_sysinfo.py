@@ -112,6 +112,13 @@ options:
                 description:
                     - System location.
                 type: str
+            non_mgmt_vdom_query:
+                description:
+                    - Enable/disable allowance of SNMPv3 query from non-management vdoms.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             status:
                 description:
                     - Enable/disable SNMP.
@@ -152,6 +159,7 @@ EXAMPLES = """
           engine_id: "<your_own_value>"
           engine_id_type: "text"
           location: "<your_own_value>"
+          non_mgmt_vdom_query: "enable"
           status: "enable"
           trap_free_memory_threshold: "5"
           trap_freeable_memory_threshold: "60"
@@ -247,6 +255,7 @@ def filter_system_snmp_sysinfo_data(json):
         "engine_id",
         "engine_id_type",
         "location",
+        "non_mgmt_vdom_query",
         "status",
         "trap_free_memory_threshold",
         "trap_freeable_memory_threshold",
@@ -282,8 +291,18 @@ def system_snmp_sysinfo(data, fos):
     state = None
     vdom = data["vdom"]
     system_snmp_sysinfo_data = data["system_snmp_sysinfo"]
+
     filtered_data = filter_system_snmp_sysinfo_data(system_snmp_sysinfo_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_snmp_sysinfo"] = converted_data
+    fos.do_member_operation(
+        "system.snmp",
+        "sysinfo",
+        data_copy,
+    )
 
     return fos.set("system.snmp", "sysinfo", data=converted_data, vdom=vdom)
 
@@ -301,7 +320,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_snmp(data, fos):
-    fos.do_member_operation("system.snmp", "sysinfo")
     if data["system_snmp_sysinfo"]:
         resp = system_snmp_sysinfo(data, fos)
     else:
@@ -344,6 +362,11 @@ versioned_schema = {
         },
         "append_index": {
             "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "non_mgmt_vdom_query": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

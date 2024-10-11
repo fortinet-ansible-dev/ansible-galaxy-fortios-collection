@@ -5,6 +5,36 @@ Fortinet.Fortios Release Notes
 .. contents:: Topics
 
 
+v2.3.8
+======
+
+Release Summary
+---------------
+
+patch release of 2.3.8
+
+Major Changes
+-------------
+
+- Improve the logic for SET function to send GET request first then PUT or POST
+- Mantis
+- Support new FOS versions 7.6.0.
+
+Bugfixes
+--------
+
+- Github
+- Github
+- Github
+- Mantis
+- Mantis
+- Mantis
+- Mantis
+- Mantis
+- Mantis
+- Mantis
+- Return invalid json content instead of error while adding redundant comma at the end of the last variable in `fortios_json_generic`.
+
 v2.3.7
 ======
 

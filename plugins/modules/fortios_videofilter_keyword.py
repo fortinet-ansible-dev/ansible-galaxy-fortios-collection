@@ -273,8 +273,18 @@ def videofilter_keyword(data, fos):
     state = data["state"]
 
     videofilter_keyword_data = data["videofilter_keyword"]
+
     filtered_data = filter_videofilter_keyword_data(videofilter_keyword_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["videofilter_keyword"] = converted_data
+    fos.do_member_operation(
+        "videofilter",
+        "keyword",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("videofilter", "keyword", data=converted_data, vdom=vdom)
@@ -300,7 +310,6 @@ def is_successful_status(resp):
 
 
 def fortios_videofilter(data, fos):
-    fos.do_member_operation("videofilter", "keyword")
     if data["videofilter_keyword"]:
         resp = videofilter_keyword(data, fos)
     else:

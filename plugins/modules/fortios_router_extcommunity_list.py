@@ -266,8 +266,18 @@ def router_extcommunity_list(data, fos):
     state = data["state"]
 
     router_extcommunity_list_data = data["router_extcommunity_list"]
+
     filtered_data = filter_router_extcommunity_list_data(router_extcommunity_list_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_extcommunity_list"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "extcommunity-list",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("router", "extcommunity-list", data=converted_data, vdom=vdom)
@@ -293,7 +303,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "extcommunity-list")
     if data["router_extcommunity_list"]:
         resp = router_extcommunity_list(data, fos)
     else:

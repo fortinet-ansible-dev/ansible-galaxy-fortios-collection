@@ -328,6 +328,14 @@ options:
                         description:
                             - Interval between successive transmissions of data for client comforting (seconds).
                         type: int
+                    domain_fronting:
+                        description:
+                            - Configure HTTP domain fronting .
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'block'
+                            - 'monitor'
                     fortinet_bar:
                         description:
                             - Enable/disable Fortinet bar on HTML content.
@@ -1010,6 +1018,7 @@ EXAMPLES = """
               block_page_status_code: "403"
               comfort_amount: "1"
               comfort_interval: "10"
+              domain_fronting: "allow"
               fortinet_bar: "enable"
               fortinet_bar_port: "32767"
               h2c: "enable"
@@ -1061,7 +1070,7 @@ EXAMPLES = """
               status: "enable"
               uncompressed_nest_limit: "12"
               uncompressed_oversize_limit: "10"
-          name: "default_name_98"
+          name: "default_name_99"
           nntp:
               inspect_all: "enable"
               options: "oversize"
@@ -1240,11 +1249,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1301,12 +1313,11 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_profile_protocol_options_data = data["firewall_profile_protocol_options"]
-    firewall_profile_protocol_options_data = flatten_multilists_attributes(
-        firewall_profile_protocol_options_data
-    )
+
     filtered_data = filter_firewall_profile_protocol_options_data(
         firewall_profile_protocol_options_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -1335,20 +1346,24 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -1373,6 +1388,14 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_profile_protocol_options"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "profile-protocol-options",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -1403,7 +1426,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "profile-protocol-options")
     if data["firewall_profile_protocol_options"]:
         resp = firewall_profile_protocol_options(data, fos, check_mode)
     else:
@@ -1582,6 +1604,15 @@ versioned_schema = {
                     "type": "integer",
                 },
                 "retry_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "domain_fronting": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
                 "tcp_window_type": {
                     "v_range": [["v6.2.0", ""]],
                     "type": "string",

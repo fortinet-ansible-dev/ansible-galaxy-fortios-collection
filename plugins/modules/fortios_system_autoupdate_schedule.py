@@ -235,10 +235,20 @@ def system_autoupdate_schedule(data, fos):
     state = None
     vdom = data["vdom"]
     system_autoupdate_schedule_data = data["system_autoupdate_schedule"]
+
     filtered_data = filter_system_autoupdate_schedule_data(
         system_autoupdate_schedule_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_autoupdate_schedule"] = converted_data
+    fos.do_member_operation(
+        "system.autoupdate",
+        "schedule",
+        data_copy,
+    )
 
     return fos.set("system.autoupdate", "schedule", data=converted_data, vdom=vdom)
 
@@ -256,7 +266,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_autoupdate(data, fos):
-    fos.do_member_operation("system.autoupdate", "schedule")
     if data["system_autoupdate_schedule"]:
         resp = system_autoupdate_schedule(data, fos)
     else:

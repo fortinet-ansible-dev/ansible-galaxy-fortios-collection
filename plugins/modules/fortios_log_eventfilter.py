@@ -362,8 +362,18 @@ def log_eventfilter(data, fos):
     state = None
     vdom = data["vdom"]
     log_eventfilter_data = data["log_eventfilter"]
+
     filtered_data = filter_log_eventfilter_data(log_eventfilter_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_eventfilter"] = converted_data
+    fos.do_member_operation(
+        "log",
+        "eventfilter",
+        data_copy,
+    )
 
     return fos.set("log", "eventfilter", data=converted_data, vdom=vdom)
 
@@ -381,7 +391,6 @@ def is_successful_status(resp):
 
 
 def fortios_log(data, fos):
-    fos.do_member_operation("log", "eventfilter")
     if data["log_eventfilter"]:
         resp = log_eventfilter(data, fos)
     else:

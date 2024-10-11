@@ -249,8 +249,18 @@ def user_certificate(data, fos):
     state = data["state"]
 
     user_certificate_data = data["user_certificate"]
+
     filtered_data = filter_user_certificate_data(user_certificate_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["user_certificate"] = converted_data
+    fos.do_member_operation(
+        "user",
+        "certificate",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("user", "certificate", data=converted_data, vdom=vdom)
@@ -274,7 +284,6 @@ def is_successful_status(resp):
 
 
 def fortios_user(data, fos):
-    fos.do_member_operation("user", "certificate")
     if data["user_certificate"]:
         resp = user_certificate(data, fos)
     else:

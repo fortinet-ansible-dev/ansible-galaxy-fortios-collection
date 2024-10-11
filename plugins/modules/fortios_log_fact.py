@@ -532,31 +532,19 @@ except ImportError:
 module_selectors_defs = {
     "disk_virus_archive": {
         "url": "disk/virus/archive",
-        "params": {
-            "mkey": {"type": "int", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
+        "params": {"mkey": {"type": "int", "required": "False"}},
     },
     "memory_virus_archive": {
         "url": "memory/virus/archive",
-        "params": {
-            "mkey": {"type": "int", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
+        "params": {"mkey": {"type": "int", "required": "False"}},
     },
     "fortianalyzer_virus_archive": {
         "url": "fortianalyzer/virus/archive",
-        "params": {
-            "mkey": {"type": "int", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
+        "params": {"mkey": {"type": "int", "required": "False"}},
     },
     "forticloud_virus_archive": {
         "url": "forticloud/virus/archive",
-        "params": {
-            "mkey": {"type": "int", "required": "False"},
-            "filename": {"type": "string", "required": "False"},
-        },
+        "params": {"mkey": {"type": "int", "required": "False"}},
     },
     "disk_ips_archive": {
         "url": "disk/ips/archive",
@@ -681,7 +669,6 @@ module_selectors_defs = {
     "disk_virus_raw": {
         "url": "disk/virus/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -692,7 +679,6 @@ module_selectors_defs = {
     "disk_webfilter_raw": {
         "url": "disk/webfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -703,7 +689,6 @@ module_selectors_defs = {
     "disk_waf_raw": {
         "url": "disk/waf/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -714,7 +699,6 @@ module_selectors_defs = {
     "disk_ips_raw": {
         "url": "disk/ips/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -725,7 +709,6 @@ module_selectors_defs = {
     "disk_anomaly_raw": {
         "url": "disk/anomaly/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -736,7 +719,6 @@ module_selectors_defs = {
     "disk_app-ctrl_raw": {
         "url": "disk/app-ctrl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -747,7 +729,6 @@ module_selectors_defs = {
     "disk_cifs_raw": {
         "url": "disk/cifs/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -758,7 +739,6 @@ module_selectors_defs = {
     "disk_emailfilter_raw": {
         "url": "disk/emailfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -769,7 +749,6 @@ module_selectors_defs = {
     "disk_dlp_raw": {
         "url": "disk/dlp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -780,7 +759,6 @@ module_selectors_defs = {
     "disk_voip_raw": {
         "url": "disk/voip/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -791,7 +769,6 @@ module_selectors_defs = {
     "disk_gtp_raw": {
         "url": "disk/gtp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -802,7 +779,6 @@ module_selectors_defs = {
     "disk_dns_raw": {
         "url": "disk/dns/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -813,7 +789,6 @@ module_selectors_defs = {
     "disk_ssh_raw": {
         "url": "disk/ssh/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -824,7 +799,6 @@ module_selectors_defs = {
     "disk_ssl_raw": {
         "url": "disk/ssl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -835,7 +809,6 @@ module_selectors_defs = {
     "disk_file-filter_raw": {
         "url": "disk/file-filter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -846,7 +819,6 @@ module_selectors_defs = {
     "memory_virus_raw": {
         "url": "memory/virus/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -857,7 +829,6 @@ module_selectors_defs = {
     "memory_webfilter_raw": {
         "url": "memory/webfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -868,7 +839,6 @@ module_selectors_defs = {
     "memory_waf_raw": {
         "url": "memory/waf/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -879,7 +849,6 @@ module_selectors_defs = {
     "memory_ips_raw": {
         "url": "memory/ips/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -890,7 +859,6 @@ module_selectors_defs = {
     "memory_anomaly_raw": {
         "url": "memory/anomaly/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -901,7 +869,6 @@ module_selectors_defs = {
     "memory_app-ctrl_raw": {
         "url": "memory/app-ctrl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -912,7 +879,6 @@ module_selectors_defs = {
     "memory_cifs_raw": {
         "url": "memory/cifs/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -923,7 +889,6 @@ module_selectors_defs = {
     "memory_emailfilter_raw": {
         "url": "memory/emailfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -934,7 +899,6 @@ module_selectors_defs = {
     "memory_dlp_raw": {
         "url": "memory/dlp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -945,7 +909,6 @@ module_selectors_defs = {
     "memory_voip_raw": {
         "url": "memory/voip/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -956,7 +919,6 @@ module_selectors_defs = {
     "memory_gtp_raw": {
         "url": "memory/gtp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -967,7 +929,6 @@ module_selectors_defs = {
     "memory_dns_raw": {
         "url": "memory/dns/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -978,7 +939,6 @@ module_selectors_defs = {
     "memory_ssh_raw": {
         "url": "memory/ssh/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -989,7 +949,6 @@ module_selectors_defs = {
     "memory_ssl_raw": {
         "url": "memory/ssl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1000,7 +959,6 @@ module_selectors_defs = {
     "memory_file-filter_raw": {
         "url": "memory/file-filter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1011,7 +969,6 @@ module_selectors_defs = {
     "fortianalyzer_virus_raw": {
         "url": "fortianalyzer/virus/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1022,7 +979,6 @@ module_selectors_defs = {
     "fortianalyzer_webfilter_raw": {
         "url": "fortianalyzer/webfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1033,7 +989,6 @@ module_selectors_defs = {
     "fortianalyzer_waf_raw": {
         "url": "fortianalyzer/waf/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1044,7 +999,6 @@ module_selectors_defs = {
     "fortianalyzer_ips_raw": {
         "url": "fortianalyzer/ips/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1055,7 +1009,6 @@ module_selectors_defs = {
     "fortianalyzer_anomaly_raw": {
         "url": "fortianalyzer/anomaly/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1066,7 +1019,6 @@ module_selectors_defs = {
     "fortianalyzer_app-ctrl_raw": {
         "url": "fortianalyzer/app-ctrl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1077,7 +1029,6 @@ module_selectors_defs = {
     "fortianalyzer_cifs_raw": {
         "url": "fortianalyzer/cifs/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1088,7 +1039,6 @@ module_selectors_defs = {
     "fortianalyzer_emailfilter_raw": {
         "url": "fortianalyzer/emailfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1099,7 +1049,6 @@ module_selectors_defs = {
     "fortianalyzer_dlp_raw": {
         "url": "fortianalyzer/dlp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1110,7 +1059,6 @@ module_selectors_defs = {
     "fortianalyzer_voip_raw": {
         "url": "fortianalyzer/voip/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1121,7 +1069,6 @@ module_selectors_defs = {
     "fortianalyzer_gtp_raw": {
         "url": "fortianalyzer/gtp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1132,7 +1079,6 @@ module_selectors_defs = {
     "fortianalyzer_dns_raw": {
         "url": "fortianalyzer/dns/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1143,7 +1089,6 @@ module_selectors_defs = {
     "fortianalyzer_ssh_raw": {
         "url": "fortianalyzer/ssh/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1154,7 +1099,6 @@ module_selectors_defs = {
     "fortianalyzer_ssl_raw": {
         "url": "fortianalyzer/ssl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1165,7 +1109,6 @@ module_selectors_defs = {
     "fortianalyzer_file-filter_raw": {
         "url": "fortianalyzer/file-filter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1176,7 +1119,6 @@ module_selectors_defs = {
     "forticloud_virus_raw": {
         "url": "forticloud/virus/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1187,7 +1129,6 @@ module_selectors_defs = {
     "forticloud_webfilter_raw": {
         "url": "forticloud/webfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1198,7 +1139,6 @@ module_selectors_defs = {
     "forticloud_waf_raw": {
         "url": "forticloud/waf/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1209,7 +1149,6 @@ module_selectors_defs = {
     "forticloud_ips_raw": {
         "url": "forticloud/ips/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1220,7 +1159,6 @@ module_selectors_defs = {
     "forticloud_anomaly_raw": {
         "url": "forticloud/anomaly/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1231,7 +1169,6 @@ module_selectors_defs = {
     "forticloud_app-ctrl_raw": {
         "url": "forticloud/app-ctrl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1242,7 +1179,6 @@ module_selectors_defs = {
     "forticloud_cifs_raw": {
         "url": "forticloud/cifs/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1253,7 +1189,6 @@ module_selectors_defs = {
     "forticloud_emailfilter_raw": {
         "url": "forticloud/emailfilter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1264,7 +1199,6 @@ module_selectors_defs = {
     "forticloud_dlp_raw": {
         "url": "forticloud/dlp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1275,7 +1209,6 @@ module_selectors_defs = {
     "forticloud_voip_raw": {
         "url": "forticloud/voip/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1286,7 +1219,6 @@ module_selectors_defs = {
     "forticloud_gtp_raw": {
         "url": "forticloud/gtp/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1297,7 +1229,6 @@ module_selectors_defs = {
     "forticloud_dns_raw": {
         "url": "forticloud/dns/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1308,7 +1239,6 @@ module_selectors_defs = {
     "forticloud_ssh_raw": {
         "url": "forticloud/ssh/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1319,7 +1249,6 @@ module_selectors_defs = {
     "forticloud_ssl_raw": {
         "url": "forticloud/ssl/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1330,7 +1259,6 @@ module_selectors_defs = {
     "forticloud_file-filter_raw": {
         "url": "forticloud/file-filter/raw",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1341,7 +1269,6 @@ module_selectors_defs = {
     "disk_event_vpn": {
         "url": "disk/event/vpn",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1353,7 +1280,6 @@ module_selectors_defs = {
     "disk_event_user": {
         "url": "disk/event/user",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1365,7 +1291,6 @@ module_selectors_defs = {
     "disk_event_router": {
         "url": "disk/event/router",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1377,7 +1302,6 @@ module_selectors_defs = {
     "disk_event_wireless": {
         "url": "disk/event/wireless",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1389,7 +1313,6 @@ module_selectors_defs = {
     "disk_event_wad": {
         "url": "disk/event/wad",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1401,7 +1324,6 @@ module_selectors_defs = {
     "disk_event_endpoint": {
         "url": "disk/event/endpoint",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1413,7 +1335,6 @@ module_selectors_defs = {
     "disk_event_ha": {
         "url": "disk/event/ha",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1425,7 +1346,6 @@ module_selectors_defs = {
     "disk_event_compliance-check": {
         "url": "disk/event/compliance-check",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1437,7 +1357,6 @@ module_selectors_defs = {
     "disk_event_system": {
         "url": "disk/event/system",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1449,7 +1368,6 @@ module_selectors_defs = {
     "disk_event_connector": {
         "url": "disk/event/connector",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1461,7 +1379,6 @@ module_selectors_defs = {
     "disk_event_security-rating": {
         "url": "disk/event/security-rating",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1473,7 +1390,6 @@ module_selectors_defs = {
     "disk_event_fortiextender": {
         "url": "disk/event/fortiextender",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1485,7 +1401,6 @@ module_selectors_defs = {
     "disk_traffic_forward": {
         "url": "disk/traffic/forward",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1497,7 +1412,6 @@ module_selectors_defs = {
     "disk_traffic_local": {
         "url": "disk/traffic/local",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1509,7 +1423,6 @@ module_selectors_defs = {
     "disk_traffic_multicast": {
         "url": "disk/traffic/multicast",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1521,7 +1434,6 @@ module_selectors_defs = {
     "disk_traffic_sniffer": {
         "url": "disk/traffic/sniffer",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1533,7 +1445,6 @@ module_selectors_defs = {
     "disk_traffic_fortiview": {
         "url": "disk/traffic/fortiview",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1545,7 +1456,6 @@ module_selectors_defs = {
     "disk_traffic_threat": {
         "url": "disk/traffic/threat",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1557,7 +1467,6 @@ module_selectors_defs = {
     "memory_event_vpn": {
         "url": "memory/event/vpn",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1569,7 +1478,6 @@ module_selectors_defs = {
     "memory_event_user": {
         "url": "memory/event/user",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1581,7 +1489,6 @@ module_selectors_defs = {
     "memory_event_router": {
         "url": "memory/event/router",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1593,7 +1500,6 @@ module_selectors_defs = {
     "memory_event_wireless": {
         "url": "memory/event/wireless",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1605,7 +1511,6 @@ module_selectors_defs = {
     "memory_event_wad": {
         "url": "memory/event/wad",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1617,7 +1522,6 @@ module_selectors_defs = {
     "memory_event_endpoint": {
         "url": "memory/event/endpoint",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1629,7 +1533,6 @@ module_selectors_defs = {
     "memory_event_ha": {
         "url": "memory/event/ha",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1641,7 +1544,6 @@ module_selectors_defs = {
     "memory_event_compliance-check": {
         "url": "memory/event/compliance-check",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1653,7 +1555,6 @@ module_selectors_defs = {
     "memory_event_system": {
         "url": "memory/event/system",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1665,7 +1566,6 @@ module_selectors_defs = {
     "memory_event_connector": {
         "url": "memory/event/connector",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1677,7 +1577,6 @@ module_selectors_defs = {
     "memory_event_security-rating": {
         "url": "memory/event/security-rating",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1689,7 +1588,6 @@ module_selectors_defs = {
     "memory_event_fortiextender": {
         "url": "memory/event/fortiextender",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1701,7 +1599,6 @@ module_selectors_defs = {
     "memory_traffic_forward": {
         "url": "memory/traffic/forward",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1713,7 +1610,6 @@ module_selectors_defs = {
     "memory_traffic_local": {
         "url": "memory/traffic/local",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1725,7 +1621,6 @@ module_selectors_defs = {
     "memory_traffic_multicast": {
         "url": "memory/traffic/multicast",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1737,7 +1632,6 @@ module_selectors_defs = {
     "memory_traffic_sniffer": {
         "url": "memory/traffic/sniffer",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1749,7 +1643,6 @@ module_selectors_defs = {
     "memory_traffic_fortiview": {
         "url": "memory/traffic/fortiview",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1761,7 +1654,6 @@ module_selectors_defs = {
     "memory_traffic_threat": {
         "url": "memory/traffic/threat",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1773,7 +1665,6 @@ module_selectors_defs = {
     "fortianalyzer_event_vpn": {
         "url": "fortianalyzer/event/vpn",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1785,7 +1676,6 @@ module_selectors_defs = {
     "fortianalyzer_event_user": {
         "url": "fortianalyzer/event/user",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1797,7 +1687,6 @@ module_selectors_defs = {
     "fortianalyzer_event_router": {
         "url": "fortianalyzer/event/router",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1809,7 +1698,6 @@ module_selectors_defs = {
     "fortianalyzer_event_wireless": {
         "url": "fortianalyzer/event/wireless",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1821,7 +1709,6 @@ module_selectors_defs = {
     "fortianalyzer_event_wad": {
         "url": "fortianalyzer/event/wad",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1833,7 +1720,6 @@ module_selectors_defs = {
     "fortianalyzer_event_endpoint": {
         "url": "fortianalyzer/event/endpoint",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1845,7 +1731,6 @@ module_selectors_defs = {
     "fortianalyzer_event_ha": {
         "url": "fortianalyzer/event/ha",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1857,7 +1742,6 @@ module_selectors_defs = {
     "fortianalyzer_event_compliance-check": {
         "url": "fortianalyzer/event/compliance-check",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1869,7 +1753,6 @@ module_selectors_defs = {
     "fortianalyzer_event_system": {
         "url": "fortianalyzer/event/system",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1881,7 +1764,6 @@ module_selectors_defs = {
     "fortianalyzer_event_connector": {
         "url": "fortianalyzer/event/connector",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1893,7 +1775,6 @@ module_selectors_defs = {
     "fortianalyzer_event_security-rating": {
         "url": "fortianalyzer/event/security-rating",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1905,7 +1786,6 @@ module_selectors_defs = {
     "fortianalyzer_event_fortiextender": {
         "url": "fortianalyzer/event/fortiextender",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1917,7 +1797,6 @@ module_selectors_defs = {
     "fortianalyzer_traffic_forward": {
         "url": "fortianalyzer/traffic/forward",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1929,7 +1808,6 @@ module_selectors_defs = {
     "fortianalyzer_traffic_local": {
         "url": "fortianalyzer/traffic/local",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1941,7 +1819,6 @@ module_selectors_defs = {
     "fortianalyzer_traffic_multicast": {
         "url": "fortianalyzer/traffic/multicast",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1953,7 +1830,6 @@ module_selectors_defs = {
     "fortianalyzer_traffic_sniffer": {
         "url": "fortianalyzer/traffic/sniffer",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1965,7 +1841,6 @@ module_selectors_defs = {
     "fortianalyzer_traffic_fortiview": {
         "url": "fortianalyzer/traffic/fortiview",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1977,7 +1852,6 @@ module_selectors_defs = {
     "fortianalyzer_traffic_threat": {
         "url": "fortianalyzer/traffic/threat",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -1989,7 +1863,6 @@ module_selectors_defs = {
     "forticloud_event_vpn": {
         "url": "forticloud/event/vpn",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2001,7 +1874,6 @@ module_selectors_defs = {
     "forticloud_event_user": {
         "url": "forticloud/event/user",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2013,7 +1885,6 @@ module_selectors_defs = {
     "forticloud_event_router": {
         "url": "forticloud/event/router",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2025,7 +1896,6 @@ module_selectors_defs = {
     "forticloud_event_wireless": {
         "url": "forticloud/event/wireless",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2037,7 +1907,6 @@ module_selectors_defs = {
     "forticloud_event_wad": {
         "url": "forticloud/event/wad",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2049,7 +1918,6 @@ module_selectors_defs = {
     "forticloud_event_endpoint": {
         "url": "forticloud/event/endpoint",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2061,7 +1929,6 @@ module_selectors_defs = {
     "forticloud_event_ha": {
         "url": "forticloud/event/ha",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2073,7 +1940,6 @@ module_selectors_defs = {
     "forticloud_event_compliance-check": {
         "url": "forticloud/event/compliance-check",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2085,7 +1951,6 @@ module_selectors_defs = {
     "forticloud_event_system": {
         "url": "forticloud/event/system",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2097,7 +1962,6 @@ module_selectors_defs = {
     "forticloud_event_connector": {
         "url": "forticloud/event/connector",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2109,7 +1973,6 @@ module_selectors_defs = {
     "forticloud_event_security-rating": {
         "url": "forticloud/event/security-rating",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2121,7 +1984,6 @@ module_selectors_defs = {
     "forticloud_event_fortiextender": {
         "url": "forticloud/event/fortiextender",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2133,7 +1995,6 @@ module_selectors_defs = {
     "forticloud_traffic_forward": {
         "url": "forticloud/traffic/forward",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2145,7 +2006,6 @@ module_selectors_defs = {
     "forticloud_traffic_local": {
         "url": "forticloud/traffic/local",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2157,7 +2017,6 @@ module_selectors_defs = {
     "forticloud_traffic_multicast": {
         "url": "forticloud/traffic/multicast",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2169,7 +2028,6 @@ module_selectors_defs = {
     "forticloud_traffic_sniffer": {
         "url": "forticloud/traffic/sniffer",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2181,7 +2039,6 @@ module_selectors_defs = {
     "forticloud_traffic_fortiview": {
         "url": "forticloud/traffic/fortiview",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},
@@ -2193,7 +2050,6 @@ module_selectors_defs = {
     "forticloud_traffic_threat": {
         "url": "forticloud/traffic/threat",
         "params": {
-            "start": {"type": "int", "required": "False"},
             "rows": {"type": "int", "required": "False"},
             "session_id": {"type": "int", "required": "False"},
             "serial_no": {"type": "string", "required": "False"},

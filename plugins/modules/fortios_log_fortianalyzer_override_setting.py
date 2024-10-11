@@ -455,10 +455,20 @@ def log_fortianalyzer_override_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_fortianalyzer_override_setting_data = data["log_fortianalyzer_override_setting"]
+
     filtered_data = filter_log_fortianalyzer_override_setting_data(
         log_fortianalyzer_override_setting_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_fortianalyzer_override_setting"] = converted_data
+    fos.do_member_operation(
+        "log.fortianalyzer",
+        "override-setting",
+        data_copy,
+    )
 
     return fos.set(
         "log.fortianalyzer", "override-setting", data=converted_data, vdom=vdom
@@ -478,7 +488,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_fortianalyzer(data, fos):
-    fos.do_member_operation("log.fortianalyzer", "override-setting")
     if data["log_fortianalyzer_override_setting"]:
         resp = log_fortianalyzer_override_setting(data, fos)
     else:

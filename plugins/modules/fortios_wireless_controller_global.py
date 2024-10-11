@@ -404,11 +404,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -444,13 +447,21 @@ def wireless_controller_global(data, fos):
     state = None
     vdom = data["vdom"]
     wireless_controller_global_data = data["wireless_controller_global"]
-    wireless_controller_global_data = flatten_multilists_attributes(
-        wireless_controller_global_data
-    )
+
     filtered_data = filter_wireless_controller_global_data(
         wireless_controller_global_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_global"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "global",
+        data_copy,
+    )
 
     return fos.set("wireless-controller", "global", data=converted_data, vdom=vdom)
 
@@ -468,7 +479,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos):
-    fos.do_member_operation("wireless-controller", "global")
     if data["wireless_controller_global"]:
         resp = wireless_controller_global(data, fos)
     else:

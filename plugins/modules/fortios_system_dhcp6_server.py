@@ -166,6 +166,24 @@ options:
                         description:
                             - Start of IP range.
                         type: str
+                    vci_match:
+                        description:
+                            - Enable/disable vendor class option matching. When enabled only DHCP requests with a matching VC are served with this range.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    vci_string:
+                        description:
+                            - One or more VCI strings in quotes separated by spaces.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            vci_string:
+                                description:
+                                    - VCI strings.
+                                required: true
+                                type: str
             lease_time:
                 description:
                     - Lease time in seconds, 0 means unlimited.
@@ -182,6 +200,57 @@ options:
                 description:
                     - Option 3.
                 type: str
+            options:
+                description:
+                    - DHCPv6 options.
+                type: list
+                elements: dict
+                suboptions:
+                    code:
+                        description:
+                            - DHCPv6 option code.
+                        type: int
+                    id:
+                        description:
+                            - ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    ip6:
+                        description:
+                            - DHCP option IP6s.
+                        type: list
+                        elements: str
+                    type:
+                        description:
+                            - DHCPv6 option type.
+                        type: str
+                        choices:
+                            - 'hex'
+                            - 'string'
+                            - 'ip6'
+                            - 'fqdn'
+                    value:
+                        description:
+                            - DHCPv6 option value (hexadecimal value must be even).
+                        type: str
+                    vci_match:
+                        description:
+                            - Enable/disable vendor class option matching. When enabled only DHCP requests with a matching VCI are served with this option.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    vci_string:
+                        description:
+                            - One or more VCI strings in quotes separated by spaces.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            vci_string:
+                                description:
+                                    - VCI strings.
+                                required: true
+                                type: str
             prefix_mode:
                 description:
                     - Assigning a prefix from a DHCPv6 client or RA.
@@ -259,15 +328,30 @@ EXAMPLES = """
                   end_ip: "<your_own_value>"
                   id: "16"
                   start_ip: "<your_own_value>"
+                  vci_match: "disable"
+                  vci_string:
+                      -
+                          vci_string: "<your_own_value>"
           lease_time: "604800"
           option1: "<your_own_value>"
           option2: "<your_own_value>"
           option3: "<your_own_value>"
+          options:
+              -
+                  code: "0"
+                  id: "27"
+                  ip6: "<your_own_value>"
+                  type: "hex"
+                  value: "<your_own_value>"
+                  vci_match: "disable"
+                  vci_string:
+                      -
+                          vci_string: "<your_own_value>"
           prefix_mode: "dhcp6"
           prefix_range:
               -
                   end_prefix: "<your_own_value>"
-                  id: "25"
+                  id: "37"
                   prefix_length: "0"
                   start_prefix: "<your_own_value>"
           rapid_commit: "disable"
@@ -382,6 +466,7 @@ def filter_system_dhcp6_server_data(json):
         "option1",
         "option2",
         "option3",
+        "options",
         "prefix_mode",
         "prefix_range",
         "rapid_commit",
@@ -398,6 +483,38 @@ def filter_system_dhcp6_server_data(json):
             dictionary[attribute] = json[attribute]
 
     return dictionary
+
+
+def flatten_single_path(data, path, index):
+    if (
+        not data
+        or index == len(path)
+        or path[index] not in data
+        or not data[path[index]]
+        and not isinstance(data[path[index]], list)
+    ):
+        return
+
+    if index == len(path) - 1:
+        data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
+    elif isinstance(data[path[index]], list):
+        for value in data[path[index]]:
+            flatten_single_path(value, path, index + 1)
+    else:
+        flatten_single_path(data[path[index]], path, index + 1)
+
+
+def flatten_multilists_attributes(data):
+    multilist_attrs = [
+        ["options", "ip6"],
+    ]
+
+    for attr in multilist_attrs:
+        flatten_single_path(data, attr, 0)
+
+    return data
 
 
 def underscore_to_hyphen(data):
@@ -420,7 +537,9 @@ def system_dhcp6_server(data, fos, check_mode=False):
     state = data["state"]
 
     system_dhcp6_server_data = data["system_dhcp6_server"]
+
     filtered_data = filter_system_dhcp6_server_data(system_dhcp6_server_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -445,20 +564,24 @@ def system_dhcp6_server(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -483,6 +606,14 @@ def system_dhcp6_server(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_dhcp6_server"] = converted_data
+    fos.do_member_operation(
+        "system.dhcp6",
+        "server",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system.dhcp6", "server", data=converted_data, vdom=vdom)
@@ -508,7 +639,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_dhcp6(data, fos, check_mode):
-    fos.do_member_operation("system.dhcp6", "server")
     if data["system_dhcp6_server"]:
         resp = system_dhcp6_server(data, fos, check_mode)
     else:
@@ -561,9 +691,53 @@ versioned_schema = {
         "domain": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "subnet": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "option1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "option2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "option3": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "options": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "code": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "type": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "hex"},
+                        {"value": "string"},
+                        {"value": "ip6"},
+                        {"value": "fqdn"},
+                    ],
+                },
+                "value": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "ip6": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "list",
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "vci_match": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "vci_string": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "vci_string": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.6.0", ""]],
+                },
+            },
+            "v_range": [["v7.6.0", ""]],
+        },
         "upstream_interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "delegated_prefix_iaid": {"v_range": [["v7.0.2", ""]], "type": "integer"},
         "ip_mode": {
@@ -602,9 +776,29 @@ versioned_schema = {
                 },
                 "start_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "end_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "vci_match": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "vci_string": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "vci_string": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.6.0", ""]],
+                },
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "option1": {"v_range": [["v6.0.0", "v7.4.4"]], "type": "string"},
+        "option2": {"v_range": [["v6.0.0", "v7.4.4"]], "type": "string"},
+        "option3": {"v_range": [["v6.0.0", "v7.4.4"]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

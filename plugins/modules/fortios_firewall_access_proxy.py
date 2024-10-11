@@ -1505,11 +1505,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1549,11 +1552,19 @@ def firewall_access_proxy(data, fos):
     state = data["state"]
 
     firewall_access_proxy_data = data["firewall_access_proxy"]
-    firewall_access_proxy_data = flatten_multilists_attributes(
-        firewall_access_proxy_data
-    )
+
     filtered_data = filter_firewall_access_proxy_data(firewall_access_proxy_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_access_proxy"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "access-proxy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "access-proxy", data=converted_data, vdom=vdom)
@@ -1579,7 +1590,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "access-proxy")
     if data["firewall_access_proxy"]:
         resp = firewall_access_proxy(data, fos)
     else:

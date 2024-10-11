@@ -98,6 +98,13 @@ options:
                 description:
                     - Default class ID to handle unclassified packets (including all local traffic). Source firewall.traffic-class.class-id.
                 type: int
+            npu_offloading:
+                description:
+                    - Enable/disable NPU offloading.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             profile_name:
                 description:
                     - Shaping profile name.
@@ -178,6 +185,7 @@ EXAMPLES = """
       firewall_shaping_profile:
           comment: "Comment."
           default_class_id: "0"
+          npu_offloading: "disable"
           profile_name: "<your_own_value>"
           shaping_entries:
               -
@@ -185,7 +193,7 @@ EXAMPLES = """
                   cburst_in_msec: "0"
                   class_id: "0"
                   guaranteed_bandwidth_percentage: "0"
-                  id: "11"
+                  id: "12"
                   limit: "1000"
                   max: "250"
                   maximum_bandwidth_percentage: "1"
@@ -287,6 +295,7 @@ def filter_firewall_shaping_profile_data(json):
     option_list = [
         "comment",
         "default_class_id",
+        "npu_offloading",
         "profile_name",
         "shaping_entries",
         "type",
@@ -322,6 +331,7 @@ def firewall_shaping_profile(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_shaping_profile_data = data["firewall_shaping_profile"]
+
     filtered_data = filter_firewall_shaping_profile_data(firewall_shaping_profile_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -347,20 +357,24 @@ def firewall_shaping_profile(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -385,6 +399,14 @@ def firewall_shaping_profile(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_shaping_profile"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "shaping-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "shaping-profile", data=converted_data, vdom=vdom)
@@ -413,7 +435,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "shaping-profile")
     if data["firewall_shaping_profile"]:
         resp = firewall_shaping_profile(data, fos, check_mode)
     else:
@@ -445,6 +466,11 @@ versioned_schema = {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
             "options": [{"value": "policing"}, {"value": "queuing"}],
+        },
+        "npu_offloading": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "default_class_id": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "shaping_entries": {

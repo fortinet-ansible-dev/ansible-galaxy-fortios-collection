@@ -677,8 +677,18 @@ def log_threat_weight(data, fos):
     state = None
     vdom = data["vdom"]
     log_threat_weight_data = data["log_threat_weight"]
+
     filtered_data = filter_log_threat_weight_data(log_threat_weight_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_threat_weight"] = converted_data
+    fos.do_member_operation(
+        "log",
+        "threat-weight",
+        data_copy,
+    )
 
     return fos.set("log", "threat-weight", data=converted_data, vdom=vdom)
 
@@ -696,7 +706,6 @@ def is_successful_status(resp):
 
 
 def fortios_log(data, fos):
-    fos.do_member_operation("log", "threat-weight")
     if data["log_threat_weight"]:
         resp = log_threat_weight(data, fos)
     else:

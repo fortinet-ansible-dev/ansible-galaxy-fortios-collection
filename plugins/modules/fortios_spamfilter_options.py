@@ -204,8 +204,18 @@ def spamfilter_options(data, fos):
     state = None
     vdom = data["vdom"]
     spamfilter_options_data = data["spamfilter_options"]
+
     filtered_data = filter_spamfilter_options_data(spamfilter_options_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["spamfilter_options"] = converted_data
+    fos.do_member_operation(
+        "spamfilter",
+        "options",
+        data_copy,
+    )
 
     return fos.set("spamfilter", "options", data=converted_data, vdom=vdom)
 
@@ -223,7 +233,6 @@ def is_successful_status(resp):
 
 
 def fortios_spamfilter(data, fos):
-    fos.do_member_operation("spamfilter", "options")
     if data["spamfilter_options"]:
         resp = spamfilter_options(data, fos)
     else:

@@ -847,8 +847,18 @@ def router_ospf6(data, fos):
     state = None
     vdom = data["vdom"]
     router_ospf6_data = data["router_ospf6"]
+
     filtered_data = filter_router_ospf6_data(router_ospf6_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_ospf6"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "ospf6",
+        data_copy,
+    )
 
     return fos.set("router", "ospf6", data=converted_data, vdom=vdom)
 
@@ -866,7 +876,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "ospf6")
     if data["router_ospf6"]:
         resp = router_ospf6(data, fos)
     else:

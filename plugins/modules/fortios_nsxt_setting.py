@@ -212,8 +212,18 @@ def nsxt_setting(data, fos):
     state = None
     vdom = data["vdom"]
     nsxt_setting_data = data["nsxt_setting"]
+
     filtered_data = filter_nsxt_setting_data(nsxt_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["nsxt_setting"] = converted_data
+    fos.do_member_operation(
+        "nsxt",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("nsxt", "setting", data=converted_data, vdom=vdom)
 
@@ -231,7 +241,6 @@ def is_successful_status(resp):
 
 
 def fortios_nsxt(data, fos):
-    fos.do_member_operation("nsxt", "setting")
     if data["nsxt_setting"]:
         resp = nsxt_setting(data, fos)
     else:

@@ -107,7 +107,7 @@ EXAMPLES = """
           full_final_warning_threshold: "95"
           full_first_warning_threshold: "75"
           full_second_warning_threshold: "90"
-          max_size: "20903936"
+          max_size: "20920934"
 """
 
 RETURN = """
@@ -224,10 +224,20 @@ def log_memory_global_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_memory_global_setting_data = data["log_memory_global_setting"]
+
     filtered_data = filter_log_memory_global_setting_data(
         log_memory_global_setting_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_memory_global_setting"] = converted_data
+    fos.do_member_operation(
+        "log.memory",
+        "global-setting",
+        data_copy,
+    )
 
     return fos.set("log.memory", "global-setting", data=converted_data, vdom=vdom)
 
@@ -245,7 +255,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_memory(data, fos):
-    fos.do_member_operation("log.memory", "global-setting")
     if data["log_memory_global_setting"]:
         resp = log_memory_global_setting(data, fos)
     else:

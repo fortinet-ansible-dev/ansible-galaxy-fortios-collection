@@ -223,6 +223,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            http_transaction:
+                description:
+                    - Enable/disable log HTTP transaction messages.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ipsec:
                 description:
                     - Enable/disable IPsec negotiation messages logging.
@@ -404,6 +411,7 @@ EXAMPLES = """
                   id: "19"
           gtp: "enable"
           ha: "enable"
+          http_transaction: "enable"
           ipsec: "enable"
           ldb_monitor: "enable"
           local_traffic: "enable"
@@ -524,6 +532,7 @@ def filter_log_disk_filter_data(json):
         "free_style",
         "gtp",
         "ha",
+        "http_transaction",
         "ipsec",
         "ldb_monitor",
         "local_traffic",
@@ -575,8 +584,18 @@ def log_disk_filter(data, fos):
     state = None
     vdom = data["vdom"]
     log_disk_filter_data = data["log_disk_filter"]
+
     filtered_data = filter_log_disk_filter_data(log_disk_filter_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_disk_filter"] = converted_data
+    fos.do_member_operation(
+        "log.disk",
+        "filter",
+        data_copy,
+    )
 
     return fos.set("log.disk", "filter", data=converted_data, vdom=vdom)
 
@@ -594,7 +613,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_disk(data, fos):
-    fos.do_member_operation("log.disk", "filter")
     if data["log_disk_filter"]:
         resp = log_disk_filter(data, fos)
     else:
@@ -649,6 +667,11 @@ versioned_schema = {
         },
         "ztna_traffic": {
             "v_range": [["v7.0.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "http_transaction": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

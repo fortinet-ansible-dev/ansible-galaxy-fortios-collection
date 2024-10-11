@@ -219,10 +219,20 @@ def webfilter_ips_urlfilter_setting6(data, fos):
     state = None
     vdom = data["vdom"]
     webfilter_ips_urlfilter_setting6_data = data["webfilter_ips_urlfilter_setting6"]
+
     filtered_data = filter_webfilter_ips_urlfilter_setting6_data(
         webfilter_ips_urlfilter_setting6_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["webfilter_ips_urlfilter_setting6"] = converted_data
+    fos.do_member_operation(
+        "webfilter",
+        "ips-urlfilter-setting6",
+        data_copy,
+    )
 
     return fos.set(
         "webfilter", "ips-urlfilter-setting6", data=converted_data, vdom=vdom
@@ -242,7 +252,6 @@ def is_successful_status(resp):
 
 
 def fortios_webfilter(data, fos):
-    fos.do_member_operation("webfilter", "ips-urlfilter-setting6")
     if data["webfilter_ips_urlfilter_setting6"]:
         resp = webfilter_ips_urlfilter_setting6(data, fos)
     else:

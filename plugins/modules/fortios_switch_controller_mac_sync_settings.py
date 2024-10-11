@@ -206,10 +206,20 @@ def switch_controller_mac_sync_settings(data, fos):
     switch_controller_mac_sync_settings_data = data[
         "switch_controller_mac_sync_settings"
     ]
+
     filtered_data = filter_switch_controller_mac_sync_settings_data(
         switch_controller_mac_sync_settings_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_mac_sync_settings"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "mac-sync-settings",
+        data_copy,
+    )
 
     return fos.set(
         "switch-controller", "mac-sync-settings", data=converted_data, vdom=vdom
@@ -229,7 +239,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "mac-sync-settings")
     if data["switch_controller_mac_sync_settings"]:
         resp = switch_controller_mac_sync_settings(data, fos)
     else:

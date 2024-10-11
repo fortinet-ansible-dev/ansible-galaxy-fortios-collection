@@ -483,18 +483,11 @@ options:
                     - 'custom'
             ssl_certificate:
                 description:
-                    - Name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
-                type: list
-                elements: dict
-                suboptions:
-                    name:
-                        description:
-                            - Certificate list. Source vpn.certificate.local.name.
-                        required: true
-                        type: str
+                    - The name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
+                type: str
             ssl_certificate_dict:
                 description:
-                    - Name of the certificate to use for SSL handshake. Use the parameter ssl-certificate instead if the fortiOS firmwear <= 7.4.1
+                    - Name of the certificate to use for SSL handshake.
                 type: list
                 elements: dict
                 suboptions:
@@ -1015,12 +1008,10 @@ EXAMPLES = """
           src_vip_filter: "disable"
           ssl_accept_ffdhe_groups: "enable"
           ssl_algorithm: "high"
-          ssl_certificate:
-              -
-                  name: "default_name_71 (source vpn.certificate.local.name)"
+          ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
           ssl_certificate_dict:
               -
-                  name: "default_name_73 (source vpn.certificate.local.name)"
+                  name: "default_name_72 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1257,11 +1248,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1325,8 +1319,9 @@ def firewall_vip6(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_vip6_data = data["firewall_vip6"]
-    firewall_vip6_data = flatten_multilists_attributes(firewall_vip6_data)
+
     filtered_data = filter_firewall_vip6_data(firewall_vip6_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
     converted_data = remap_attribute_names(converted_data)
 
@@ -1352,20 +1347,24 @@ def firewall_vip6(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -1390,6 +1389,14 @@ def firewall_vip6(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_vip6"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "vip6",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "vip6", data=converted_data, vdom=vdom)
@@ -1413,7 +1420,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "vip6")
     if data["firewall_vip6"]:
         resp = firewall_vip6(data, fos, check_mode)
     else:
@@ -1690,17 +1696,17 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "half"}, {"value": "full"}],
         },
-        "ssl_certificate": {
+        "ssl_certificate_dict": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.4", ""]],
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.4", ""]],
+            "v_range": [["v7.4.2", ""]],
         },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
@@ -2135,18 +2141,7 @@ versioned_schema = {
         },
         "ipv4_mappedip": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "ipv4_mappedport": {"v_range": [["v7.0.1", ""]], "type": "string"},
-        "ssl_certificate_dict": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v7.4.2", "v7.4.3"]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v7.4.2", "v7.4.3"]],
-        },
+        "ssl_certificate": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
         "arp_reply": {
             "v_range": [["v6.0.0", "v7.0.7"], ["v7.2.0", "v7.2.2"]],
             "type": "string",

@@ -158,6 +158,7 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'info'
                     - 'low'
                     - 'medium'
                     - 'high'
@@ -185,7 +186,7 @@ EXAMPLES = """
                   status: "enable"
           log: "enable"
           name: "default_name_13"
-          severity: "low"
+          severity: "info"
 """
 
 RETURN = """
@@ -286,11 +287,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -329,11 +333,19 @@ def virtual_patch_profile(data, fos):
     state = data["state"]
 
     virtual_patch_profile_data = data["virtual_patch_profile"]
-    virtual_patch_profile_data = flatten_multilists_attributes(
-        virtual_patch_profile_data
-    )
+
     filtered_data = filter_virtual_patch_profile_data(virtual_patch_profile_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["virtual_patch_profile"] = converted_data
+    fos.do_member_operation(
+        "virtual-patch",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("virtual-patch", "profile", data=converted_data, vdom=vdom)
@@ -359,7 +371,6 @@ def is_successful_status(resp):
 
 
 def fortios_virtual_patch(data, fos):
-    fos.do_member_operation("virtual-patch", "profile")
     if data["virtual_patch_profile"]:
         resp = virtual_patch_profile(data, fos)
     else:
@@ -384,6 +395,7 @@ versioned_schema = {
             "v_range": [["v7.4.1", ""]],
             "type": "list",
             "options": [
+                {"value": "info", "v_range": [["v7.6.0", ""]]},
                 {"value": "low"},
                 {"value": "medium"},
                 {"value": "high"},

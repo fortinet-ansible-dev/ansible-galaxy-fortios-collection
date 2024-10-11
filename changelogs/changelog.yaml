@@ -326,3 +326,26 @@ releases:
     fragments:
       - release_2.3.7.yml
     release_date: "2024-07-10"
+  2.3.8:
+    changes:
+      bugfixes:
+        - Github
+        - Github
+        - Github
+        - Mantis
+        - Mantis
+        - Mantis
+        - Mantis
+        - Mantis
+        - Mantis
+        - Mantis
+        - Return invalid json content instead of error while adding redundant comma
+          at the end of the last variable in `fortios_json_generic`.
+      major_changes:
+        - Improve the logic for SET function to send GET request first then PUT or POST
+        - Mantis
+        - Support new FOS versions 7.6.0.
+      release_summary: patch release of 2.3.8
+    fragments:
+      - 2.3.8_release.yml
+    release_date: "2024-10-04"

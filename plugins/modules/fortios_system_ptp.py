@@ -276,8 +276,18 @@ def system_ptp(data, fos):
     state = None
     vdom = data["vdom"]
     system_ptp_data = data["system_ptp"]
+
     filtered_data = filter_system_ptp_data(system_ptp_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_ptp"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "ptp",
+        data_copy,
+    )
 
     return fos.set("system", "ptp", data=converted_data, vdom=vdom)
 
@@ -295,7 +305,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "ptp")
     if data["system_ptp"]:
         resp = system_ptp(data, fos)
     else:

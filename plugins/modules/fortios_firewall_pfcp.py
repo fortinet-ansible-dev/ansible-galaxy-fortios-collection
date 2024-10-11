@@ -305,8 +305,18 @@ def firewall_pfcp(data, fos):
     state = data["state"]
 
     firewall_pfcp_data = data["firewall_pfcp"]
+
     filtered_data = filter_firewall_pfcp_data(firewall_pfcp_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_pfcp"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "pfcp",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "pfcp", data=converted_data, vdom=vdom)
@@ -330,7 +340,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "pfcp")
     if data["firewall_pfcp"]:
         resp = firewall_pfcp(data, fos)
     else:

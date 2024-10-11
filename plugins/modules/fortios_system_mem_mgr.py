@@ -204,8 +204,18 @@ def system_mem_mgr(data, fos):
     state = None
     vdom = data["vdom"]
     system_mem_mgr_data = data["system_mem_mgr"]
+
     filtered_data = filter_system_mem_mgr_data(system_mem_mgr_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_mem_mgr"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "mem-mgr",
+        data_copy,
+    )
 
     return fos.set("system", "mem-mgr", data=converted_data, vdom=vdom)
 
@@ -223,7 +233,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "mem-mgr")
     if data["system_mem_mgr"]:
         resp = system_mem_mgr(data, fos)
     else:

@@ -204,8 +204,18 @@ def emailfilter_options(data, fos):
     state = None
     vdom = data["vdom"]
     emailfilter_options_data = data["emailfilter_options"]
+
     filtered_data = filter_emailfilter_options_data(emailfilter_options_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["emailfilter_options"] = converted_data
+    fos.do_member_operation(
+        "emailfilter",
+        "options",
+        data_copy,
+    )
 
     return fos.set("emailfilter", "options", data=converted_data, vdom=vdom)
 
@@ -223,7 +233,6 @@ def is_successful_status(resp):
 
 
 def fortios_emailfilter(data, fos):
-    fos.do_member_operation("emailfilter", "options")
     if data["emailfilter_options"]:
         resp = emailfilter_options(data, fos)
     else:

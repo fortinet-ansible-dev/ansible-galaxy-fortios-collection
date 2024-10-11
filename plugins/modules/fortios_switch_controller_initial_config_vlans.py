@@ -244,10 +244,20 @@ def switch_controller_initial_config_vlans(data, fos):
     switch_controller_initial_config_vlans_data = data[
         "switch_controller_initial_config_vlans"
     ]
+
     filtered_data = filter_switch_controller_initial_config_vlans_data(
         switch_controller_initial_config_vlans_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_initial_config_vlans"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.initial-config",
+        "vlans",
+        data_copy,
+    )
 
     return fos.set(
         "switch-controller.initial-config", "vlans", data=converted_data, vdom=vdom
@@ -267,7 +277,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_initial_config(data, fos):
-    fos.do_member_operation("switch-controller.initial-config", "vlans")
     if data["switch_controller_initial_config_vlans"]:
         resp = switch_controller_initial_config_vlans(data, fos)
     else:

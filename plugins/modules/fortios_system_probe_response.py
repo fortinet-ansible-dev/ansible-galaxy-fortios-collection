@@ -253,8 +253,18 @@ def system_probe_response(data, fos):
     state = None
     vdom = data["vdom"]
     system_probe_response_data = data["system_probe_response"]
+
     filtered_data = filter_system_probe_response_data(system_probe_response_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_probe_response"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "probe-response",
+        data_copy,
+    )
 
     return fos.set("system", "probe-response", data=converted_data, vdom=vdom)
 
@@ -272,7 +282,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "probe-response")
     if data["system_probe_response"]:
         resp = system_probe_response(data, fos)
     else:

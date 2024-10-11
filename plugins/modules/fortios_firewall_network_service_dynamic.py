@@ -233,10 +233,20 @@ def firewall_network_service_dynamic(data, fos):
     state = data["state"]
 
     firewall_network_service_dynamic_data = data["firewall_network_service_dynamic"]
+
     filtered_data = filter_firewall_network_service_dynamic_data(
         firewall_network_service_dynamic_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_network_service_dynamic"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "network-service-dynamic",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -267,7 +277,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "network-service-dynamic")
     if data["firewall_network_service_dynamic"]:
         resp = firewall_network_service_dynamic(data, fos)
     else:

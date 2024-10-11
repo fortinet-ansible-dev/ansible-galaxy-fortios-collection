@@ -354,10 +354,20 @@ def extension_controller_dataplan(data, fos):
     state = data["state"]
 
     extension_controller_dataplan_data = data["extension_controller_dataplan"]
+
     filtered_data = filter_extension_controller_dataplan_data(
         extension_controller_dataplan_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extension_controller_dataplan"] = converted_data
+    fos.do_member_operation(
+        "extension-controller",
+        "dataplan",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -385,7 +395,6 @@ def is_successful_status(resp):
 
 
 def fortios_extension_controller(data, fos):
-    fos.do_member_operation("extension-controller", "dataplan")
     if data["extension_controller_dataplan"]:
         resp = extension_controller_dataplan(data, fos)
     else:

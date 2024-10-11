@@ -166,6 +166,7 @@ options:
                  - 'system.snmp_mib-view'
                  - 'system.snmp_community'
                  - 'system.snmp_user'
+                 - 'system.snmp_rmon-stat'
                  - 'system.autoupdate_schedule'
                  - 'system.autoupdate_tunneling'
                  - 'system_session-ttl'
@@ -238,7 +239,7 @@ options:
                  - 'system_saml'
                  - 'system_federated-upgrade'
                  - 'system_device-upgrade'
-                 - 'system_vne-tunnel'
+                 - 'system_vne-interface'
                  - 'system_ike'
                  - 'system_acme'
                  - 'system_ipam'
@@ -568,6 +569,7 @@ options:
                  - 'user_krb-keytab'
                  - 'user_domain-controller'
                  - 'user_pop3'
+                 - 'user_scim'
                  - 'user_saml'
                  - 'user_external-identity-provider'
                  - 'user_fsso'
@@ -595,6 +597,8 @@ options:
                  - 'virtual-patch_profile'
                  - 'report_layout'
                  - 'report_setting'
+                 - 'ztna_traffic-forward-proxy'
+                 - 'ztna_traffic-forward-proxy-reverse-service'
                  - 'waf_main-class'
                  - 'waf_sub-class'
                  - 'waf_signature'
@@ -666,6 +670,7 @@ options:
                  - 'pfcp_message-filter'
                  - 'monitoring_np6-ipsec-engine'
                  - 'monitoring_npu-hpe'
+                 - 'system_vne-tunnel'
                  - 'system_npu-vlink'
                  - 'system_physical-switch'
                  - 'system_virtual-switch'
@@ -906,6 +911,7 @@ options:
          - 'system.snmp_mib-view'
          - 'system.snmp_community'
          - 'system.snmp_user'
+         - 'system.snmp_rmon-stat'
          - 'system.autoupdate_schedule'
          - 'system.autoupdate_tunneling'
          - 'system_session-ttl'
@@ -978,7 +984,7 @@ options:
          - 'system_saml'
          - 'system_federated-upgrade'
          - 'system_device-upgrade'
-         - 'system_vne-tunnel'
+         - 'system_vne-interface'
          - 'system_ike'
          - 'system_acme'
          - 'system_ipam'
@@ -1308,6 +1314,7 @@ options:
          - 'user_krb-keytab'
          - 'user_domain-controller'
          - 'user_pop3'
+         - 'user_scim'
          - 'user_saml'
          - 'user_external-identity-provider'
          - 'user_fsso'
@@ -1335,6 +1342,8 @@ options:
          - 'virtual-patch_profile'
          - 'report_layout'
          - 'report_setting'
+         - 'ztna_traffic-forward-proxy'
+         - 'ztna_traffic-forward-proxy-reverse-service'
          - 'waf_main-class'
          - 'waf_sub-class'
          - 'waf_signature'
@@ -1406,6 +1415,7 @@ options:
          - 'pfcp_message-filter'
          - 'monitoring_np6-ipsec-engine'
          - 'monitoring_npu-hpe'
+         - 'system_vne-tunnel'
          - 'system_npu-vlink'
          - 'system_physical-switch'
          - 'system_virtual-switch'
@@ -1886,6 +1896,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system.snmp_rmon-stat": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
     "system.autoupdate_schedule": {
         "mkey": "None",
         "mkey_type": None,
@@ -2174,9 +2188,9 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "serial",
         "mkey_type": str,
     },
-    "system_vne-tunnel": {
-        "mkey": "None",
-        "mkey_type": None,
+    "system_vne-interface": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "system_ike": {
         "mkey": "None",
@@ -3494,6 +3508,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "user_scim": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "user_saml": {
         "mkey": "name",
         "mkey_type": str,
@@ -3599,6 +3617,14 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "report_setting": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "ztna_traffic-forward-proxy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "ztna_traffic-forward-proxy-reverse-service": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -3883,6 +3909,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "monitoring_npu-hpe": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_vne-tunnel": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -4806,6 +4836,7 @@ def main():
                 "system.snmp_mib-view",
                 "system.snmp_community",
                 "system.snmp_user",
+                "system.snmp_rmon-stat",
                 "system.autoupdate_schedule",
                 "system.autoupdate_tunneling",
                 "system_session-ttl",
@@ -4878,7 +4909,7 @@ def main():
                 "system_saml",
                 "system_federated-upgrade",
                 "system_device-upgrade",
-                "system_vne-tunnel",
+                "system_vne-interface",
                 "system_ike",
                 "system_acme",
                 "system_ipam",
@@ -5208,6 +5239,7 @@ def main():
                 "user_krb-keytab",
                 "user_domain-controller",
                 "user_pop3",
+                "user_scim",
                 "user_saml",
                 "user_external-identity-provider",
                 "user_fsso",
@@ -5235,6 +5267,8 @@ def main():
                 "virtual-patch_profile",
                 "report_layout",
                 "report_setting",
+                "ztna_traffic-forward-proxy",
+                "ztna_traffic-forward-proxy-reverse-service",
                 "waf_main-class",
                 "waf_sub-class",
                 "waf_signature",
@@ -5306,6 +5340,7 @@ def main():
                 "pfcp_message-filter",
                 "monitoring_np6-ipsec-engine",
                 "monitoring_npu-hpe",
+                "system_vne-tunnel",
                 "system_npu-vlink",
                 "system_physical-switch",
                 "system_virtual-switch",
@@ -5554,6 +5589,7 @@ def main():
                         "system.snmp_mib-view",
                         "system.snmp_community",
                         "system.snmp_user",
+                        "system.snmp_rmon-stat",
                         "system.autoupdate_schedule",
                         "system.autoupdate_tunneling",
                         "system_session-ttl",
@@ -5626,7 +5662,7 @@ def main():
                         "system_saml",
                         "system_federated-upgrade",
                         "system_device-upgrade",
-                        "system_vne-tunnel",
+                        "system_vne-interface",
                         "system_ike",
                         "system_acme",
                         "system_ipam",
@@ -5956,6 +5992,7 @@ def main():
                         "user_krb-keytab",
                         "user_domain-controller",
                         "user_pop3",
+                        "user_scim",
                         "user_saml",
                         "user_external-identity-provider",
                         "user_fsso",
@@ -5983,6 +6020,8 @@ def main():
                         "virtual-patch_profile",
                         "report_layout",
                         "report_setting",
+                        "ztna_traffic-forward-proxy",
+                        "ztna_traffic-forward-proxy-reverse-service",
                         "waf_main-class",
                         "waf_sub-class",
                         "waf_signature",
@@ -6054,6 +6093,7 @@ def main():
                         "pfcp_message-filter",
                         "monitoring_np6-ipsec-engine",
                         "monitoring_npu-hpe",
+                        "system_vne-tunnel",
                         "system_npu-vlink",
                         "system_physical-switch",
                         "system_virtual-switch",

@@ -101,6 +101,10 @@ options:
                 description:
                     - isis_debug_flags
                 type: str
+            kernel_route_distance:
+                description:
+                    - Administrative distance for routes learned from kernel (0 - 255).
+                type: int
             ospf_debug_events_flags:
                 description:
                     - ospf_debug_events_flags
@@ -197,6 +201,7 @@ EXAMPLES = """
           igmp_debug_flags: "<your_own_value>"
           imi_debug_flags: "<your_own_value>"
           isis_debug_flags: "<your_own_value>"
+          kernel_route_distance: "255"
           ospf_debug_events_flags: "<your_own_value>"
           ospf_debug_ifsm_flags: "<your_own_value>"
           ospf_debug_lsa_flags: "<your_own_value>"
@@ -306,6 +311,7 @@ def filter_router_setting_data(json):
         "igmp_debug_flags",
         "imi_debug_flags",
         "isis_debug_flags",
+        "kernel_route_distance",
         "ospf_debug_events_flags",
         "ospf_debug_ifsm_flags",
         "ospf_debug_lsa_flags",
@@ -356,8 +362,18 @@ def router_setting(data, fos):
     state = None
     vdom = data["vdom"]
     router_setting_data = data["router_setting"]
+
     filtered_data = filter_router_setting_data(router_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_setting"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("router", "setting", data=converted_data, vdom=vdom)
 
@@ -375,7 +391,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "setting")
     if data["router_setting"]:
         resp = router_setting(data, fos)
     else:
@@ -396,6 +411,7 @@ versioned_schema = {
     "children": {
         "show_filter": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "hostname": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "kernel_route_distance": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "ospf_debug_lsa_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
         "ospf_debug_nfsm_flags": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
         "ospf_debug_packet_flags": {

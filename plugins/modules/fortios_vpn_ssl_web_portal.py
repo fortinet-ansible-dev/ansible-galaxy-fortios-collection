@@ -466,6 +466,13 @@ options:
                 description:
                     - Relay agent gateway IP address to use in the giaddr field of DHCP requests.
                 type: str
+            dhcp_reservation:
+                description:
+                    - Enable/disable dhcp reservation.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             dhcp6_ra_linkaddr:
                 description:
                     - Relay agent IPv6 link address to use in DHCP6 requests.
@@ -1093,6 +1100,7 @@ EXAMPLES = """
           default_window_width: "1024"
           dhcp_ip_overlap: "use-new"
           dhcp_ra_giaddr: "<your_own_value>"
+          dhcp_reservation: "enable"
           dhcp6_ra_linkaddr: "<your_own_value>"
           display_bookmark: "enable"
           display_connection_tools: "enable"
@@ -1111,22 +1119,22 @@ EXAMPLES = """
           host_check_interval: "0"
           host_check_policy:
               -
-                  name: "default_name_68 (source vpn.ssl.web.host-check-software.name)"
+                  name: "default_name_69 (source vpn.ssl.web.host-check-software.name)"
           ip_mode: "range"
           ip_pools:
               -
-                  name: "default_name_71 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_72 (source firewall.address.name firewall.addrgrp.name)"
           ipv6_dns_server1: "<your_own_value>"
           ipv6_dns_server2: "<your_own_value>"
           ipv6_exclusive_routing: "enable"
           ipv6_pools:
               -
-                  name: "default_name_76 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_77 (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_service_restriction: "enable"
           ipv6_split_tunneling: "enable"
           ipv6_split_tunneling_routing_address:
               -
-                  name: "default_name_80 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_81 (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_split_tunneling_routing_negate: "enable"
           ipv6_tunnel_mode: "enable"
           ipv6_wins_server1: "<your_own_value>"
@@ -1135,7 +1143,7 @@ EXAMPLES = """
           landing_page:
               form_data:
                   -
-                      name: "default_name_88"
+                      name: "default_name_89"
                       value: "<your_own_value>"
               logout_url: "<your_own_value>"
               sso: "disable"
@@ -1153,15 +1161,15 @@ EXAMPLES = """
                       -
                           addr: "<your_own_value>"
                   mac_addr_mask: "48"
-                  name: "default_name_104"
+                  name: "default_name_105"
           macos_forticlient_download_url: "<your_own_value>"
-          name: "default_name_106"
+          name: "default_name_107"
           os_check: "enable"
           os_check_list:
               -
                   action: "deny"
                   latest_patch_level: "<your_own_value>"
-                  name: "default_name_111"
+                  name: "default_name_112"
                   tolerance: "0"
           prefer_ipv6_dns: "enable"
           redir_url: "<your_own_value>"
@@ -1180,13 +1188,13 @@ EXAMPLES = """
                   dns_server1: "<your_own_value>"
                   dns_server2: "<your_own_value>"
                   domains: "<your_own_value>"
-                  id: "129"
+                  id: "130"
                   ipv6_dns_server1: "<your_own_value>"
                   ipv6_dns_server2: "<your_own_value>"
           split_tunneling: "enable"
           split_tunneling_routing_address:
               -
-                  name: "default_name_134 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_135 (source firewall.address.name firewall.addrgrp.name)"
           split_tunneling_routing_negate: "enable"
           theme: "jade"
           transform_backward_slashes: "enable"
@@ -1302,6 +1310,7 @@ def filter_vpn_ssl_web_portal_data(json):
         "default_window_width",
         "dhcp_ip_overlap",
         "dhcp_ra_giaddr",
+        "dhcp_reservation",
         "dhcp6_ra_linkaddr",
         "display_bookmark",
         "display_connection_tools",
@@ -1387,11 +1396,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1430,8 +1442,9 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
     state = data["state"]
 
     vpn_ssl_web_portal_data = data["vpn_ssl_web_portal"]
-    vpn_ssl_web_portal_data = flatten_multilists_attributes(vpn_ssl_web_portal_data)
+
     filtered_data = filter_vpn_ssl_web_portal_data(vpn_ssl_web_portal_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -1456,20 +1469,24 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -1494,6 +1511,14 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_ssl_web_portal"] = converted_data
+    fos.do_member_operation(
+        "vpn.ssl.web",
+        "portal",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("vpn.ssl.web", "portal", data=converted_data, vdom=vdom)
@@ -1519,7 +1544,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_ssl_web(data, fos, check_mode):
-    fos.do_member_operation("vpn.ssl.web", "portal")
     if data["vpn_ssl_web_portal"]:
         resp = vpn_ssl_web_portal(data, fos, check_mode)
     else:
@@ -1567,6 +1591,11 @@ versioned_schema = {
         },
         "keep_alive": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "dhcp_reservation": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

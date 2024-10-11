@@ -280,6 +280,7 @@ def spamfilter_iptrust(data, fos, check_mode=False):
     state = data["state"]
 
     spamfilter_iptrust_data = data["spamfilter_iptrust"]
+
     filtered_data = filter_spamfilter_iptrust_data(spamfilter_iptrust_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -305,20 +306,24 @@ def spamfilter_iptrust(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -343,6 +348,14 @@ def spamfilter_iptrust(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["spamfilter_iptrust"] = converted_data
+    fos.do_member_operation(
+        "spamfilter",
+        "iptrust",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("spamfilter", "iptrust", data=converted_data, vdom=vdom)
@@ -366,7 +379,6 @@ def is_successful_status(resp):
 
 
 def fortios_spamfilter(data, fos, check_mode):
-    fos.do_member_operation("spamfilter", "iptrust")
     if data["spamfilter_iptrust"]:
         resp = spamfilter_iptrust(data, fos, check_mode)
     else:

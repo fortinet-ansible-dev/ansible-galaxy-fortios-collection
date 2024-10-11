@@ -325,8 +325,18 @@ def diameter_filter_profile(data, fos):
     state = data["state"]
 
     diameter_filter_profile_data = data["diameter_filter_profile"]
+
     filtered_data = filter_diameter_filter_profile_data(diameter_filter_profile_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["diameter_filter_profile"] = converted_data
+    fos.do_member_operation(
+        "diameter-filter",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("diameter-filter", "profile", data=converted_data, vdom=vdom)
@@ -352,7 +362,6 @@ def is_successful_status(resp):
 
 
 def fortios_diameter_filter(data, fos):
-    fos.do_member_operation("diameter-filter", "profile")
     if data["diameter_filter_profile"]:
         resp = diameter_filter_profile(data, fos)
     else:

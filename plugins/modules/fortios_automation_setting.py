@@ -212,8 +212,18 @@ def automation_setting(data, fos):
     state = None
     vdom = data["vdom"]
     automation_setting_data = data["automation_setting"]
+
     filtered_data = filter_automation_setting_data(automation_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["automation_setting"] = converted_data
+    fos.do_member_operation(
+        "automation",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("automation", "setting", data=converted_data, vdom=vdom)
 
@@ -231,7 +241,6 @@ def is_successful_status(resp):
 
 
 def fortios_automation(data, fos):
-    fos.do_member_operation("automation", "setting")
     if data["automation_setting"]:
         resp = automation_setting(data, fos)
     else:

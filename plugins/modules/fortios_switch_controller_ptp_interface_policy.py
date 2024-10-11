@@ -235,10 +235,20 @@ def switch_controller_ptp_interface_policy(data, fos):
     switch_controller_ptp_interface_policy_data = data[
         "switch_controller_ptp_interface_policy"
     ]
+
     filtered_data = filter_switch_controller_ptp_interface_policy_data(
         switch_controller_ptp_interface_policy_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_ptp_interface_policy"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.ptp",
+        "interface-policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -269,7 +279,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_ptp(data, fos):
-    fos.do_member_operation("switch-controller.ptp", "interface-policy")
     if data["switch_controller_ptp_interface_policy"]:
         resp = switch_controller_ptp_interface_policy(data, fos)
     else:

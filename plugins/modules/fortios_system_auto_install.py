@@ -230,8 +230,18 @@ def system_auto_install(data, fos):
     state = None
     vdom = data["vdom"]
     system_auto_install_data = data["system_auto_install"]
+
     filtered_data = filter_system_auto_install_data(system_auto_install_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_auto_install"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "auto-install",
+        data_copy,
+    )
 
     return fos.set("system", "auto-install", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "auto-install")
     if data["system_auto_install"]:
         resp = system_auto_install(data, fos)
     else:

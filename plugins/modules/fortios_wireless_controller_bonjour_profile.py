@@ -96,6 +96,13 @@ options:
                 description:
                     - Comment.
                 type: str
+            micro_location:
+                description:
+                    - Enable/disable Micro location for Bonjour profile .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             name:
                 description:
                     - Bonjour profile name.
@@ -154,7 +161,8 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       wireless_controller_bonjour_profile:
           comment: "Comment."
-          name: "default_name_4"
+          micro_location: "enable"
+          name: "default_name_5"
           policy_list:
               -
                   description: "<your_own_value>"
@@ -253,7 +261,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_wireless_controller_bonjour_profile_data(json):
-    option_list = ["comment", "name", "policy_list"]
+    option_list = ["comment", "micro_location", "name", "policy_list"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -271,11 +279,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -316,12 +327,11 @@ def wireless_controller_bonjour_profile(data, fos, check_mode=False):
     wireless_controller_bonjour_profile_data = data[
         "wireless_controller_bonjour_profile"
     ]
-    wireless_controller_bonjour_profile_data = flatten_multilists_attributes(
-        wireless_controller_bonjour_profile_data
-    )
+
     filtered_data = filter_wireless_controller_bonjour_profile_data(
         wireless_controller_bonjour_profile_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -350,20 +360,24 @@ def wireless_controller_bonjour_profile(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -388,6 +402,14 @@ def wireless_controller_bonjour_profile(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_bonjour_profile"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "bonjour-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -418,7 +440,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
-    fos.do_member_operation("wireless-controller", "bonjour-profile")
     if data["wireless_controller_bonjour_profile"]:
         resp = wireless_controller_bonjour_profile(data, fos, check_mode)
     else:
@@ -442,6 +463,11 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "micro_location": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "policy_list": {
             "type": "list",
             "elements": "dict",

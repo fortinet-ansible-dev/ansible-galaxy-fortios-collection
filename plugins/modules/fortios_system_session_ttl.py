@@ -247,8 +247,18 @@ def system_session_ttl(data, fos):
     state = None
     vdom = data["vdom"]
     system_session_ttl_data = data["system_session_ttl"]
+
     filtered_data = filter_system_session_ttl_data(system_session_ttl_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_session_ttl"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "session-ttl",
+        data_copy,
+    )
 
     return fos.set("system", "session-ttl", data=converted_data, vdom=vdom)
 
@@ -266,7 +276,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "session-ttl")
     if data["system_session_ttl"]:
         resp = system_session_ttl(data, fos)
     else:

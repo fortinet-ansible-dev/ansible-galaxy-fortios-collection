@@ -230,10 +230,20 @@ def system_affinity_interrupt(data, fos):
     state = data["state"]
 
     system_affinity_interrupt_data = data["system_affinity_interrupt"]
+
     filtered_data = filter_system_affinity_interrupt_data(
         system_affinity_interrupt_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_affinity_interrupt"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "affinity-interrupt",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "affinity-interrupt", data=converted_data, vdom=vdom)
@@ -259,7 +269,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "affinity-interrupt")
     if data["system_affinity_interrupt"]:
         resp = system_affinity_interrupt(data, fos)
     else:

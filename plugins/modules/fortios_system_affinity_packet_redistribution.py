@@ -245,10 +245,20 @@ def system_affinity_packet_redistribution(data, fos):
     system_affinity_packet_redistribution_data = data[
         "system_affinity_packet_redistribution"
     ]
+
     filtered_data = filter_system_affinity_packet_redistribution_data(
         system_affinity_packet_redistribution_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_affinity_packet_redistribution"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "affinity-packet-redistribution",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -279,7 +289,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "affinity-packet-redistribution")
     if data["system_affinity_packet_redistribution"]:
         resp = system_affinity_packet_redistribution(data, fos)
     else:

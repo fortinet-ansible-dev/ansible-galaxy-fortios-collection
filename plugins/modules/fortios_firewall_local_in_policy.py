@@ -189,17 +189,10 @@ options:
             intf:
                 description:
                     - Incoming interface name from available options. Source system.zone.name system.interface.name.
-                type: list
-                elements: dict
-                suboptions:
-                    name:
-                        description:
-                            - Address name. Source system.zone.name system.interface.name.
-                        required: true
-                        type: str
+                type: str
             intf_dict:
                 description:
-                    - Incoming interface name from available options. Use the parameter intf if the fortiOS firmware version <= 7.4.1
+                    - Incoming interface name from available options.
                 type: list
                 elements: dict
                 suboptions:
@@ -208,6 +201,13 @@ options:
                             - Address name. Source system.zone.name system.interface.name.
                         required: true
                         type: str
+            logtraffic:
+                description:
+                    - Enable/disable local-in traffic logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             policyid:
                 description:
                     - User defined local in policy ID. see <a href='#notes'>Notes</a>.
@@ -302,12 +302,11 @@ EXAMPLES = """
               -
                   name: "default_name_17 (source firewall.internet-service-name.name)"
           internet_service_src_negate: "enable"
-          intf:
-              -
-                  name: "default_name_20 (source system.zone.name system.interface.name)"
+          intf: "<your_own_value> (source system.zone.name system.interface.name)"
           intf_dict:
               -
-                  name: "default_name_22 (source system.zone.name system.interface.name)"
+                  name: "default_name_21 (source system.zone.name system.interface.name)"
+          logtraffic: "enable"
           policyid: "<you_own_value>"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           service:
@@ -426,6 +425,7 @@ def filter_firewall_local_in_policy_data(json):
         "internet_service_src_negate",
         "intf",
         "intf_dict",
+        "logtraffic",
         "policyid",
         "schedule",
         "service",
@@ -491,6 +491,7 @@ def firewall_local_in_policy(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_local_in_policy_data = data["firewall_local_in_policy"]
+
     filtered_data = filter_firewall_local_in_policy_data(firewall_local_in_policy_data)
     converted_data = underscore_to_hyphen(filtered_data)
     converted_data = remap_attribute_names(converted_data)
@@ -517,20 +518,24 @@ def firewall_local_in_policy(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -555,6 +560,14 @@ def firewall_local_in_policy(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_local_in_policy"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "local-in-policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "local-in-policy", data=converted_data, vdom=vdom)
@@ -580,7 +593,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "local-in-policy")
     if data["firewall_local_in_policy"]:
         resp = firewall_local_in_policy(data, fos, check_mode)
     else:
@@ -609,17 +621,17 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "intf": {
+        "intf_dict": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.4", ""]],
+                    "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.4", ""]],
+            "v_range": [["v7.4.2", ""]],
         },
         "srcaddr": {
             "type": "list",
@@ -746,19 +758,13 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "intf_dict": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v7.4.2", "v7.4.3"]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v7.4.2", "v7.4.3"]],
+        "logtraffic": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "intf": {"v_range": [["v6.0.0", "v7.4.1"]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

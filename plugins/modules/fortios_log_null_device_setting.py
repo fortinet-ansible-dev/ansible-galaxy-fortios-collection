@@ -207,8 +207,18 @@ def log_null_device_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_null_device_setting_data = data["log_null_device_setting"]
+
     filtered_data = filter_log_null_device_setting_data(log_null_device_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_null_device_setting"] = converted_data
+    fos.do_member_operation(
+        "log.null-device",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("log.null-device", "setting", data=converted_data, vdom=vdom)
 
@@ -226,7 +236,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_null_device(data, fos):
-    fos.do_member_operation("log.null-device", "setting")
     if data["log_null_device_setting"]:
         resp = log_null_device_setting(data, fos)
     else:

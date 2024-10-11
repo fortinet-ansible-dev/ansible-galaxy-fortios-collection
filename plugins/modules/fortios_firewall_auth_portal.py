@@ -242,8 +242,18 @@ def firewall_auth_portal(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_auth_portal_data = data["firewall_auth_portal"]
+
     filtered_data = filter_firewall_auth_portal_data(firewall_auth_portal_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_auth_portal"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "auth-portal",
+        data_copy,
+    )
 
     return fos.set("firewall", "auth-portal", data=converted_data, vdom=vdom)
 
@@ -261,7 +271,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "auth-portal")
     if data["firewall_auth_portal"]:
         resp = firewall_auth_portal(data, fos)
     else:

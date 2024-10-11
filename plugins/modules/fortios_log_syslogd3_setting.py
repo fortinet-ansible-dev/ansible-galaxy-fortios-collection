@@ -195,6 +195,10 @@ options:
                 description:
                     - Source IP address of syslog.
                 type: str
+            source_ip_interface:
+                description:
+                    - Source interface of syslog. Source system.interface.name.
+                type: str
             ssl_min_proto_version:
                 description:
                     - Minimum supported protocol version for SSL/TLS connections .
@@ -241,6 +245,7 @@ EXAMPLES = """
           priority: "default"
           server: "192.168.100.40"
           source_ip: "84.230.14.43"
+          source_ip_interface: "<your_own_value> (source system.interface.name)"
           ssl_min_proto_version: "default"
           status: "enable"
           syslog_type: "2147483647"
@@ -340,6 +345,7 @@ def filter_log_syslogd3_setting_data(json):
         "priority",
         "server",
         "source_ip",
+        "source_ip_interface",
         "ssl_min_proto_version",
         "status",
         "syslog_type",
@@ -372,8 +378,18 @@ def log_syslogd3_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_syslogd3_setting_data = data["log_syslogd3_setting"]
+
     filtered_data = filter_log_syslogd3_setting_data(log_syslogd3_setting_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_syslogd3_setting"] = converted_data
+    fos.do_member_operation(
+        "log.syslogd3",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("log.syslogd3", "setting", data=converted_data, vdom=vdom)
 
@@ -391,7 +407,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_syslogd3(data, fos):
-    fos.do_member_operation("log.syslogd3", "setting")
     if data["log_syslogd3_setting"]:
         resp = log_syslogd3_setting(data, fos)
     else:
@@ -456,6 +471,7 @@ versioned_schema = {
                 {"value": "local7"},
             ],
         },
+        "source_ip_interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "source_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "format": {
             "v_range": [["v6.0.0", ""]],

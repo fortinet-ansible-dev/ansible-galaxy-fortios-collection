@@ -216,10 +216,20 @@ def switch_controller_auto_config_default(data, fos):
     switch_controller_auto_config_default_data = data[
         "switch_controller_auto_config_default"
     ]
+
     filtered_data = filter_switch_controller_auto_config_default_data(
         switch_controller_auto_config_default_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_auto_config_default"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.auto-config",
+        "default",
+        data_copy,
+    )
 
     return fos.set(
         "switch-controller.auto-config", "default", data=converted_data, vdom=vdom
@@ -239,7 +249,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_auto_config(data, fos):
-    fos.do_member_operation("switch-controller.auto-config", "default")
     if data["switch_controller_auto_config_default"]:
         resp = switch_controller_auto_config_default(data, fos)
     else:

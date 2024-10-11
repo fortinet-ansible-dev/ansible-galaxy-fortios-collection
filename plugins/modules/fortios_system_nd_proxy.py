@@ -221,8 +221,18 @@ def system_nd_proxy(data, fos):
     state = None
     vdom = data["vdom"]
     system_nd_proxy_data = data["system_nd_proxy"]
+
     filtered_data = filter_system_nd_proxy_data(system_nd_proxy_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_nd_proxy"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "nd-proxy",
+        data_copy,
+    )
 
     return fos.set("system", "nd-proxy", data=converted_data, vdom=vdom)
 
@@ -240,7 +250,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "nd-proxy")
     if data["system_nd_proxy"]:
         resp = system_nd_proxy(data, fos)
     else:

@@ -279,10 +279,20 @@ def switch_controller_nac_device(data, fos):
     state = data["state"]
 
     switch_controller_nac_device_data = data["switch_controller_nac_device"]
+
     filtered_data = filter_switch_controller_nac_device_data(
         switch_controller_nac_device_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_nac_device"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "nac-device",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -310,7 +320,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "nac-device")
     if data["switch_controller_nac_device"]:
         resp = switch_controller_nac_device(data, fos)
     else:

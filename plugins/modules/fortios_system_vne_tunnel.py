@@ -276,8 +276,18 @@ def system_vne_tunnel(data, fos):
     state = None
     vdom = data["vdom"]
     system_vne_tunnel_data = data["system_vne_tunnel"]
+
     filtered_data = filter_system_vne_tunnel_data(system_vne_tunnel_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_vne_tunnel"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "vne-tunnel",
+        data_copy,
+    )
 
     return fos.set("system", "vne-tunnel", data=converted_data, vdom=vdom)
 
@@ -295,7 +305,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "vne-tunnel")
     if data["system_vne_tunnel"]:
         resp = system_vne_tunnel(data, fos)
     else:
@@ -311,33 +320,33 @@ def fortios_system(data, fos):
 
 
 versioned_schema = {
-    "v_range": [["v6.4.0", ""]],
+    "v_range": [["v6.4.0", "v7.4.4"]],
     "type": "dict",
     "children": {
         "status": {
-            "v_range": [["v6.4.0", ""]],
+            "v_range": [["v6.4.0", "v7.4.4"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "interface": {"v_range": [["v6.4.0", ""]], "type": "string"},
-        "ssl_certificate": {"v_range": [["v6.4.0", ""]], "type": "string"},
-        "bmr_hostname": {"v_range": [["v6.4.0", ""]], "type": "string"},
-        "ipv4_address": {"v_range": [["v6.4.0", ""]], "type": "string"},
-        "br": {"v_range": [["v6.4.0", ""]], "type": "string"},
-        "update_url": {"v_range": [["v6.4.0", ""]], "type": "string"},
+        "interface": {"v_range": [["v6.4.0", "v7.4.4"]], "type": "string"},
+        "ssl_certificate": {"v_range": [["v6.4.0", "v7.4.4"]], "type": "string"},
+        "bmr_hostname": {"v_range": [["v6.4.0", "v7.4.4"]], "type": "string"},
+        "ipv4_address": {"v_range": [["v6.4.0", "v7.4.4"]], "type": "string"},
+        "br": {"v_range": [["v6.4.0", "v7.4.4"]], "type": "string"},
+        "update_url": {"v_range": [["v6.4.0", "v7.4.4"]], "type": "string"},
         "mode": {
-            "v_range": [["v6.4.0", ""]],
+            "v_range": [["v6.4.0", "v7.4.4"]],
             "type": "string",
             "options": [
                 {"value": "map-e"},
                 {"value": "fixed-ip"},
-                {"value": "ds-lite", "v_range": [["v7.2.0", ""]]},
+                {"value": "ds-lite", "v_range": [["v7.2.0", "v7.4.4"]]},
             ],
         },
-        "http_username": {"v_range": [["v7.2.0", ""]], "type": "string"},
-        "http_password": {"v_range": [["v7.2.0", ""]], "type": "string"},
+        "http_username": {"v_range": [["v7.2.0", "v7.4.4"]], "type": "string"},
+        "http_password": {"v_range": [["v7.2.0", "v7.4.4"]], "type": "string"},
         "auto_asic_offload": {
-            "v_range": [["v6.4.0", ""]],
+            "v_range": [["v6.4.0", "v7.4.4"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

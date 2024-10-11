@@ -124,6 +124,10 @@ options:
                         description:
                             - Source IP address for communication with the NetFlow agent.
                         type: str
+                    source_ip_interface:
+                        description:
+                            - Name of the interface used to determine the source IP for exporting packets. Source system.interface.name.
+                        type: str
             interface:
                 description:
                     - Specify outgoing interface to reach server. Source system.interface.name.
@@ -164,6 +168,7 @@ EXAMPLES = """
                   interface: "<your_own_value> (source system.interface.name)"
                   interface_select_method: "auto"
                   source_ip: "84.230.14.43"
+                  source_ip_interface: "<your_own_value> (source system.interface.name)"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
           source_ip: "84.230.14.43"
@@ -287,8 +292,18 @@ def system_vdom_netflow(data, fos):
     state = None
     vdom = data["vdom"]
     system_vdom_netflow_data = data["system_vdom_netflow"]
+
     filtered_data = filter_system_vdom_netflow_data(system_vdom_netflow_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_vdom_netflow"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "vdom-netflow",
+        data_copy,
+    )
 
     return fos.set("system", "vdom-netflow", data=converted_data, vdom=vdom)
 
@@ -306,7 +321,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "vdom-netflow")
     if data["system_vdom_netflow"]:
         resp = system_vdom_netflow(data, fos)
     else:
@@ -342,6 +356,7 @@ versioned_schema = {
                 "collector_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
                 "collector_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
                 "source_ip": {"v_range": [["v7.4.2", ""]], "type": "string"},
+                "source_ip_interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
                 "interface_select_method": {
                     "v_range": [["v7.4.2", ""]],
                     "type": "string",

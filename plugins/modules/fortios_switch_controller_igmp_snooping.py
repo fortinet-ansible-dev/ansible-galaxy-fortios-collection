@@ -217,10 +217,20 @@ def switch_controller_igmp_snooping(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_igmp_snooping_data = data["switch_controller_igmp_snooping"]
+
     filtered_data = filter_switch_controller_igmp_snooping_data(
         switch_controller_igmp_snooping_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_igmp_snooping"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "igmp-snooping",
+        data_copy,
+    )
 
     return fos.set("switch-controller", "igmp-snooping", data=converted_data, vdom=vdom)
 
@@ -238,7 +248,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "igmp-snooping")
     if data["switch_controller_igmp_snooping"]:
         resp = switch_controller_igmp_snooping(data, fos)
     else:

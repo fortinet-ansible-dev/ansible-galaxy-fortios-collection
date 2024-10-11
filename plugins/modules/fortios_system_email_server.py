@@ -310,8 +310,18 @@ def system_email_server(data, fos):
     state = None
     vdom = data["vdom"]
     system_email_server_data = data["system_email_server"]
+
     filtered_data = filter_system_email_server_data(system_email_server_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_email_server"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "email-server",
+        data_copy,
+    )
 
     return fos.set("system", "email-server", data=converted_data, vdom=vdom)
 
@@ -329,7 +339,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "email-server")
     if data["system_email_server"]:
         resp = system_email_server(data, fos)
     else:

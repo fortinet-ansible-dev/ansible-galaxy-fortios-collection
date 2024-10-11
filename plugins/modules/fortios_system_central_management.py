@@ -232,8 +232,9 @@ options:
                         choices:
                             - 'update'
                             - 'rating'
-                            - 'iot-query'
+                            - 'vpatch-query'
                             - 'iot-collect'
+                            - 'iot-query'
             type:
                 description:
                     - Central management type.
@@ -405,11 +406,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -445,13 +449,21 @@ def system_central_management(data, fos):
     state = None
     vdom = data["vdom"]
     system_central_management_data = data["system_central_management"]
-    system_central_management_data = flatten_multilists_attributes(
-        system_central_management_data
-    )
+
     filtered_data = filter_system_central_management_data(
         system_central_management_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_central_management"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "central-management",
+        data_copy,
+    )
 
     return fos.set("system", "central-management", data=converted_data, vdom=vdom)
 
@@ -469,7 +481,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "central-management")
     if data["system_central_management"]:
         resp = system_central_management(data, fos)
     else:
@@ -563,8 +574,9 @@ versioned_schema = {
                     "options": [
                         {"value": "update"},
                         {"value": "rating"},
-                        {"value": "iot-query", "v_range": [["v7.2.1", ""]]},
+                        {"value": "vpatch-query", "v_range": [["v7.6.0", ""]]},
                         {"value": "iot-collect", "v_range": [["v7.2.1", ""]]},
+                        {"value": "iot-query", "v_range": [["v7.2.1", "v7.4.4"]]},
                     ],
                     "multiple_values": True,
                     "elements": "str",

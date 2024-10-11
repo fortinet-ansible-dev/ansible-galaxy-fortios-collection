@@ -230,8 +230,18 @@ def hardware_nic(data, fos):
     state = None
     vdom = data["vdom"]
     hardware_nic_data = data["hardware_nic"]
+
     filtered_data = filter_hardware_nic_data(hardware_nic_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["hardware_nic"] = converted_data
+    fos.do_member_operation(
+        "hardware",
+        "nic",
+        data_copy,
+    )
 
     return fos.set("hardware", "nic", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_hardware(data, fos):
-    fos.do_member_operation("hardware", "nic")
     if data["hardware_nic"]:
         resp = hardware_nic(data, fos)
     else:

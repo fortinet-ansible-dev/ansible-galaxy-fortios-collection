@@ -263,8 +263,18 @@ def antivirus_settings(data, fos):
     state = None
     vdom = data["vdom"]
     antivirus_settings_data = data["antivirus_settings"]
+
     filtered_data = filter_antivirus_settings_data(antivirus_settings_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["antivirus_settings"] = converted_data
+    fos.do_member_operation(
+        "antivirus",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("antivirus", "settings", data=converted_data, vdom=vdom)
 
@@ -282,7 +292,6 @@ def is_successful_status(resp):
 
 
 def fortios_antivirus(data, fos):
-    fos.do_member_operation("antivirus", "settings")
     if data["antivirus_settings"]:
         resp = antivirus_settings(data, fos)
     else:

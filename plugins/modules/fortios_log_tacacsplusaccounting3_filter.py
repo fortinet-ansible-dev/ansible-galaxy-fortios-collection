@@ -223,10 +223,20 @@ def log_tacacsplusaccounting3_filter(data, fos):
     state = None
     vdom = data["vdom"]
     log_tacacsplusaccounting3_filter_data = data["log_tacacsplusaccounting3_filter"]
+
     filtered_data = filter_log_tacacsplusaccounting3_filter_data(
         log_tacacsplusaccounting3_filter_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_tacacsplusaccounting3_filter"] = converted_data
+    fos.do_member_operation(
+        "log.tacacs+accounting3",
+        "filter",
+        data_copy,
+    )
 
     return fos.set("log.tacacs+accounting3", "filter", data=converted_data, vdom=vdom)
 
@@ -244,7 +254,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_tacacsplusaccounting3(data, fos):
-    fos.do_member_operation("log.tacacs+accounting3", "filter")
     if data["log_tacacsplusaccounting3_filter"]:
         resp = log_tacacsplusaccounting3_filter(data, fos)
     else:

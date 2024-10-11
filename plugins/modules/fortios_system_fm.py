@@ -254,8 +254,18 @@ def system_fm(data, fos):
     state = None
     vdom = data["vdom"]
     system_fm_data = data["system_fm"]
+
     filtered_data = filter_system_fm_data(system_fm_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fm"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fm",
+        data_copy,
+    )
 
     return fos.set("system", "fm", data=converted_data, vdom=vdom)
 
@@ -273,7 +283,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fm")
     if data["system_fm"]:
         resp = system_fm(data, fos)
     else:

@@ -235,8 +235,18 @@ def vpn_pptp(data, fos):
     state = None
     vdom = data["vdom"]
     vpn_pptp_data = data["vpn_pptp"]
+
     filtered_data = filter_vpn_pptp_data(vpn_pptp_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_pptp"] = converted_data
+    fos.do_member_operation(
+        "vpn",
+        "pptp",
+        data_copy,
+    )
 
     return fos.set("vpn", "pptp", data=converted_data, vdom=vdom)
 
@@ -254,7 +264,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn(data, fos):
-    fos.do_member_operation("vpn", "pptp")
     if data["vpn_pptp"]:
         resp = vpn_pptp(data, fos)
     else:

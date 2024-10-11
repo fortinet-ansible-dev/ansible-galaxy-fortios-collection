@@ -297,10 +297,20 @@ def videofilter_youtube_channel_filter(data, fos):
     state = data["state"]
 
     videofilter_youtube_channel_filter_data = data["videofilter_youtube_channel_filter"]
+
     filtered_data = filter_videofilter_youtube_channel_filter_data(
         videofilter_youtube_channel_filter_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["videofilter_youtube_channel_filter"] = converted_data
+    fos.do_member_operation(
+        "videofilter",
+        "youtube-channel-filter",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -331,7 +341,6 @@ def is_successful_status(resp):
 
 
 def fortios_videofilter(data, fos):
-    fos.do_member_operation("videofilter", "youtube-channel-filter")
     if data["videofilter_youtube_channel_filter"]:
         resp = videofilter_youtube_channel_filter(data, fos)
     else:

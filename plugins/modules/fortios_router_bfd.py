@@ -270,8 +270,18 @@ def router_bfd(data, fos):
     state = None
     vdom = data["vdom"]
     router_bfd_data = data["router_bfd"]
+
     filtered_data = filter_router_bfd_data(router_bfd_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_bfd"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "bfd",
+        data_copy,
+    )
 
     return fos.set("router", "bfd", data=converted_data, vdom=vdom)
 
@@ -289,7 +299,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "bfd")
     if data["router_bfd"]:
         resp = router_bfd(data, fos)
     else:

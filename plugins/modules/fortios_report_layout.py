@@ -667,11 +667,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -715,8 +718,9 @@ def report_layout(data, fos, check_mode=False):
     state = data["state"]
 
     report_layout_data = data["report_layout"]
-    report_layout_data = flatten_multilists_attributes(report_layout_data)
+
     filtered_data = filter_report_layout_data(report_layout_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -741,20 +745,24 @@ def report_layout(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -779,6 +787,14 @@ def report_layout(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["report_layout"] = converted_data
+    fos.do_member_operation(
+        "report",
+        "layout",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("report", "layout", data=converted_data, vdom=vdom)
@@ -802,7 +818,6 @@ def is_successful_status(resp):
 
 
 def fortios_report(data, fos, check_mode):
-    fos.do_member_operation("report", "layout")
     if data["report_layout"]:
         resp = report_layout(data, fos, check_mode)
     else:

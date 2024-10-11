@@ -231,8 +231,18 @@ def extender_sys_info(data, fos, check_mode=False):
     state = None
     vdom = data["vdom"]
     extender_sys_info_data = data["extender_sys_info"]
+
     filtered_data = filter_extender_sys_info_data(extender_sys_info_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extender_sys_info"] = converted_data
+    fos.do_member_operation(
+        "extender",
+        "sys-info",
+        data_copy,
+    )
 
     return fos.set("extender", "sys-info", data=converted_data, vdom=vdom)
 
@@ -250,7 +260,6 @@ def is_successful_status(resp):
 
 
 def fortios_extender(data, fos, check_mode):
-    fos.do_member_operation("extender", "sys-info")
     if data["extender_sys_info"]:
         resp = extender_sys_info(data, fos, check_mode)
     else:

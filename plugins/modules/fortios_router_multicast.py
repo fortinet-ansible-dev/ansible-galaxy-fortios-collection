@@ -613,8 +613,18 @@ def router_multicast(data, fos):
     state = None
     vdom = data["vdom"]
     router_multicast_data = data["router_multicast"]
+
     filtered_data = filter_router_multicast_data(router_multicast_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_multicast"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "multicast",
+        data_copy,
+    )
 
     return fos.set("router", "multicast", data=converted_data, vdom=vdom)
 
@@ -632,7 +642,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "multicast")
     if data["router_multicast"]:
         resp = router_multicast(data, fos)
     else:

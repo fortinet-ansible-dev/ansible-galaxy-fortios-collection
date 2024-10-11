@@ -457,7 +457,7 @@ options:
                 type: int
             lan_extension:
                 description:
-                    - FortiExtender lan extension configuration.
+                    - FortiExtender LAN extension configuration.
                 type: dict
                 suboptions:
                     backhaul:
@@ -504,6 +504,44 @@ options:
                         description:
                             - IPsec phase1 IPv4/FQDN. Used to specify the external IP/FQDN when the FortiGate unit is behind a NAT device.
                         type: str
+                    downlinks:
+                        description:
+                            - Config FortiExtender downlink interface for LAN extension.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - FortiExtender LAN extension downlink config entry name.
+                                required: true
+                                type: str
+                            port:
+                                description:
+                                    - FortiExtender LAN extension downlink port.
+                                type: str
+                                choices:
+                                    - 'port1'
+                                    - 'port2'
+                                    - 'port3'
+                                    - 'port4'
+                                    - 'port5'
+                                    - 'lan1'
+                                    - 'lan2'
+                            pvid:
+                                description:
+                                    - FortiExtender LAN extension downlink PVID.
+                                type: int
+                            type:
+                                description:
+                                    - FortiExtender LAN extension downlink type [port/vap].
+                                type: str
+                                choices:
+                                    - 'port'
+                                    - 'vap'
+                            vap:
+                                description:
+                                    - FortiExtender LAN extension downlink vap. Source extension-controller.extender-vap.name.
+                                type: str
                     ipsec_tunnel:
                         description:
                             - IPsec tunnel name.
@@ -546,6 +584,8 @@ options:
                     - 'FX312F'
                     - 'FX511F'
                     - 'FXR51G'
+                    - 'FXN51G'
+                    - 'FXW51G'
                     - 'FVG21F'
                     - 'FVA21F'
                     - 'FVG22F'
@@ -562,7 +602,7 @@ options:
                 type: str
             wifi:
                 description:
-                    - FortiExtender wifi configuration.
+                    - FortiExtender Wi-Fi configuration.
                 type: dict
                 suboptions:
                     country:
@@ -1137,12 +1177,19 @@ EXAMPLES = """
                       weight: "1"
               backhaul_interface: "<your_own_value> (source system.interface.name)"
               backhaul_ip: "<your_own_value>"
+              downlinks:
+                  -
+                      name: "default_name_77"
+                      port: "port1"
+                      pvid: "0"
+                      type: "port"
+                      vap: "<your_own_value> (source extension-controller.extender-vap.name)"
               ipsec_tunnel: "<your_own_value>"
               link_loadbalance: "activebackup"
           login_password: "<your_own_value>"
           login_password_change: "yes"
           model: "FX201E"
-          name: "default_name_81"
+          name: "default_name_87"
           wifi:
               country: "--"
               radio_1:
@@ -1157,7 +1204,7 @@ EXAMPLES = """
                   lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
                   local_vaps:
                       -
-                          name: "default_name_95 (source extension-controller.extender-vap.name)"
+                          name: "default_name_101 (source extension-controller.extender-vap.name)"
                   max_clients: "0"
                   mode: "AP"
                   operating_standard: "auto"
@@ -1176,7 +1223,7 @@ EXAMPLES = """
                   lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
                   local_vaps:
                       -
-                          name: "default_name_113 (source extension-controller.extender-vap.name)"
+                          name: "default_name_119 (source extension-controller.extender-vap.name)"
                   max_clients: "0"
                   mode: "AP"
                   operating_standard: "auto"
@@ -1296,11 +1343,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1372,13 +1422,21 @@ def extension_controller_extender_profile(data, fos):
     extension_controller_extender_profile_data = data[
         "extension_controller_extender_profile"
     ]
-    extension_controller_extender_profile_data = flatten_multilists_attributes(
-        extension_controller_extender_profile_data
-    )
+
     filtered_data = filter_extension_controller_extender_profile_data(
         extension_controller_extender_profile_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extension_controller_extender_profile"] = converted_data
+    fos.do_member_operation(
+        "extension-controller",
+        "extender-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -1409,7 +1467,6 @@ def is_successful_status(resp):
 
 
 def fortios_extension_controller(data, fos):
-    fos.do_member_operation("extension-controller", "extender-profile")
     if data["extension_controller_extender_profile"]:
         resp = extension_controller_extender_profile(data, fos)
     else:
@@ -1450,6 +1507,8 @@ versioned_schema = {
                 {"value": "FX312F"},
                 {"value": "FX511F"},
                 {"value": "FXR51G", "v_range": [["v7.4.4", ""]]},
+                {"value": "FXN51G", "v_range": [["v7.6.0", ""]]},
+                {"value": "FXW51G", "v_range": [["v7.6.0", ""]]},
                 {"value": "FVG21F"},
                 {"value": "FVA21F"},
                 {"value": "FVG22F"},
@@ -1817,53 +1876,6 @@ versioned_schema = {
                             },
                         },
                     },
-                },
-            },
-        },
-        "lan_extension": {
-            "v_range": [["v7.2.1", ""]],
-            "type": "dict",
-            "children": {
-                "link_loadbalance": {
-                    "v_range": [["v7.2.1", ""]],
-                    "type": "string",
-                    "options": [{"value": "activebackup"}, {"value": "loadbalance"}],
-                },
-                "ipsec_tunnel": {"v_range": [["v7.2.1", ""]], "type": "string"},
-                "backhaul_interface": {"v_range": [["v7.2.1", ""]], "type": "string"},
-                "backhaul_ip": {"v_range": [["v7.2.1", ""]], "type": "string"},
-                "backhaul": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "name": {
-                            "v_range": [["v7.2.1", ""]],
-                            "type": "string",
-                            "required": True,
-                        },
-                        "port": {
-                            "v_range": [["v7.2.1", ""]],
-                            "type": "string",
-                            "options": [
-                                {"value": "wan"},
-                                {"value": "lte1"},
-                                {"value": "lte2"},
-                                {"value": "port1"},
-                                {"value": "port2"},
-                                {"value": "port3"},
-                                {"value": "port4"},
-                                {"value": "port5"},
-                                {"value": "sfp"},
-                            ],
-                        },
-                        "role": {
-                            "v_range": [["v7.2.1", ""]],
-                            "type": "string",
-                            "options": [{"value": "primary"}, {"value": "secondary"}],
-                        },
-                        "weight": {"v_range": [["v7.2.1", ""]], "type": "integer"},
-                    },
-                    "v_range": [["v7.2.1", ""]],
                 },
             },
         },
@@ -2332,6 +2344,85 @@ versioned_schema = {
                             "options": [{"value": "disable"}, {"value": "enable"}],
                         },
                     },
+                },
+            },
+        },
+        "lan_extension": {
+            "v_range": [["v7.2.1", ""]],
+            "type": "dict",
+            "children": {
+                "link_loadbalance": {
+                    "v_range": [["v7.2.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "activebackup"}, {"value": "loadbalance"}],
+                },
+                "ipsec_tunnel": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "backhaul_interface": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "backhaul_ip": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "backhaul": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.2.1", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "port": {
+                            "v_range": [["v7.2.1", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "wan"},
+                                {"value": "lte1"},
+                                {"value": "lte2"},
+                                {"value": "port1"},
+                                {"value": "port2"},
+                                {"value": "port3"},
+                                {"value": "port4"},
+                                {"value": "port5"},
+                                {"value": "sfp"},
+                            ],
+                        },
+                        "role": {
+                            "v_range": [["v7.2.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "primary"}, {"value": "secondary"}],
+                        },
+                        "weight": {"v_range": [["v7.2.1", ""]], "type": "integer"},
+                    },
+                    "v_range": [["v7.2.1", ""]],
+                },
+                "downlinks": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "type": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "port"}, {"value": "vap"}],
+                        },
+                        "port": {
+                            "v_range": [["v7.6.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "port1"},
+                                {"value": "port2"},
+                                {"value": "port3"},
+                                {"value": "port4"},
+                                {"value": "port5"},
+                                {"value": "lan1"},
+                                {"value": "lan2"},
+                            ],
+                        },
+                        "vap": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                        "pvid": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                    },
+                    "v_range": [["v7.6.0", ""]],
                 },
             },
         },

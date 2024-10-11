@@ -117,6 +117,10 @@ options:
                     - Schedule group name.
                 required: true
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
 
 EXAMPLES = """
@@ -132,6 +136,7 @@ EXAMPLES = """
               -
                   name: "default_name_6 (source firewall.schedule.onetime.name firewall.schedule.recurring.name)"
           name: "default_name_7"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -223,7 +228,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_schedule_group_data(json):
-    option_list = ["color", "fabric_object", "member", "name"]
+    option_list = ["color", "fabric_object", "member", "name", "uuid"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -255,6 +260,7 @@ def firewall_schedule_group(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_schedule_group_data = data["firewall_schedule_group"]
+
     filtered_data = filter_firewall_schedule_group_data(firewall_schedule_group_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -280,20 +286,24 @@ def firewall_schedule_group(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -318,6 +328,14 @@ def firewall_schedule_group(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_schedule_group"] = converted_data
+    fos.do_member_operation(
+        "firewall.schedule",
+        "group",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall.schedule", "group", data=converted_data, vdom=vdom)
@@ -343,7 +361,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall_schedule(data, fos, check_mode):
-    fos.do_member_operation("firewall.schedule", "group")
     if data["firewall_schedule_group"]:
         resp = firewall_schedule_group(data, fos, check_mode)
     else:
@@ -376,6 +393,7 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "uuid": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "fabric_object": {
             "v_range": [["v6.4.4", ""]],

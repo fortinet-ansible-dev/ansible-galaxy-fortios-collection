@@ -280,8 +280,18 @@ def gtp_rat_timeout_profile(data, fos):
     state = data["state"]
 
     gtp_rat_timeout_profile_data = data["gtp_rat_timeout_profile"]
+
     filtered_data = filter_gtp_rat_timeout_profile_data(gtp_rat_timeout_profile_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["gtp_rat_timeout_profile"] = converted_data
+    fos.do_member_operation(
+        "gtp",
+        "rat-timeout-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("gtp", "rat-timeout-profile", data=converted_data, vdom=vdom)
@@ -307,7 +317,6 @@ def is_successful_status(resp):
 
 
 def fortios_gtp(data, fos):
-    fos.do_member_operation("gtp", "rat-timeout-profile")
     if data["gtp_rat_timeout_profile"]:
         resp = gtp_rat_timeout_profile(data, fos)
     else:

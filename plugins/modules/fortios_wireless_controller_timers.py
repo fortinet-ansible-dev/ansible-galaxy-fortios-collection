@@ -375,10 +375,20 @@ def wireless_controller_timers(data, fos):
     state = None
     vdom = data["vdom"]
     wireless_controller_timers_data = data["wireless_controller_timers"]
+
     filtered_data = filter_wireless_controller_timers_data(
         wireless_controller_timers_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_timers"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "timers",
+        data_copy,
+    )
 
     return fos.set("wireless-controller", "timers", data=converted_data, vdom=vdom)
 
@@ -396,7 +406,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos):
-    fos.do_member_operation("wireless-controller", "timers")
     if data["wireless_controller_timers"]:
         resp = wireless_controller_timers(data, fos)
     else:

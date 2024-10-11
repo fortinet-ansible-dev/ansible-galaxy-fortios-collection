@@ -247,8 +247,18 @@ def icap_server_group(data, fos):
     state = data["state"]
 
     icap_server_group_data = data["icap_server_group"]
+
     filtered_data = filter_icap_server_group_data(icap_server_group_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["icap_server_group"] = converted_data
+    fos.do_member_operation(
+        "icap",
+        "server-group",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("icap", "server-group", data=converted_data, vdom=vdom)
@@ -274,7 +284,6 @@ def is_successful_status(resp):
 
 
 def fortios_icap(data, fos):
-    fos.do_member_operation("icap", "server-group")
     if data["icap_server_group"]:
         resp = icap_server_group(data, fos)
     else:

@@ -230,10 +230,20 @@ def extender_lte_carrier_list(data, fos):
     state = None
     vdom = data["vdom"]
     extender_lte_carrier_list_data = data["extender_lte_carrier_list"]
+
     filtered_data = filter_extender_lte_carrier_list_data(
         extender_lte_carrier_list_data
     )
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["extender_lte_carrier_list"] = converted_data
+    fos.do_member_operation(
+        "extender",
+        "lte-carrier-list",
+        data_copy,
+    )
 
     return fos.set("extender", "lte-carrier-list", data=converted_data, vdom=vdom)
 
@@ -251,7 +261,6 @@ def is_successful_status(resp):
 
 
 def fortios_extender(data, fos):
-    fos.do_member_operation("extender", "lte-carrier-list")
     if data["extender_lte_carrier_list"]:
         resp = extender_lte_carrier_list(data, fos)
     else:

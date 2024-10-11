@@ -208,7 +208,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Address name. Source firewall.address.name firewall.addrgrp.name.
+                            - Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
                         required: true
                         type: str
             orig_addr6:
@@ -219,7 +219,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Address name. Source firewall.address6.name firewall.addrgrp6.name.
+                            - Address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
                         required: true
                         type: str
             orig_port:
@@ -303,10 +303,10 @@ EXAMPLES = """
           nat64: "enable"
           orig_addr:
               -
-                  name: "default_name_20 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_20 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           orig_addr6:
               -
-                  name: "default_name_22 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_22 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           orig_port: "<your_own_value>"
           policyid: "<you_own_value>"
           port_preserve: "enable"
@@ -462,6 +462,7 @@ def firewall_central_snat_map(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_central_snat_map_data = data["firewall_central_snat_map"]
+
     filtered_data = filter_firewall_central_snat_map_data(
         firewall_central_snat_map_data
     )
@@ -489,20 +490,24 @@ def firewall_central_snat_map(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -527,6 +532,14 @@ def firewall_central_snat_map(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_central_snat_map"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "central-snat-map",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "central-snat-map", data=converted_data, vdom=vdom)
@@ -572,7 +585,6 @@ def move_fortios_firewall(data, fos):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "central-snat-map")
     if data["action"] == "move":
         resp = move_fortios_firewall(data, fos)
     elif data["firewall_central_snat_map"]:

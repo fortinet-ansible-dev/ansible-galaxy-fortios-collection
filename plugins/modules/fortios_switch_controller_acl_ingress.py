@@ -278,10 +278,20 @@ def switch_controller_acl_ingress(data, fos):
     state = data["state"]
 
     switch_controller_acl_ingress_data = data["switch_controller_acl_ingress"]
+
     filtered_data = filter_switch_controller_acl_ingress_data(
         switch_controller_acl_ingress_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_acl_ingress"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.acl",
+        "ingress",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -309,7 +319,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_acl(data, fos):
-    fos.do_member_operation("switch-controller.acl", "ingress")
     if data["switch_controller_acl_ingress"]:
         resp = switch_controller_acl_ingress(data, fos)
     else:

@@ -244,7 +244,10 @@ def json_generic(data, fos):
     # Give priority to jsonbody
     data = ""
     if json_generic_data['jsonbody']:
-        data = json.loads(json_generic_data['jsonbody'])
+        try:
+            data = json.loads(json_generic_data['jsonbody'])
+        except Exception as e:
+            fos._module.fail_json("invalid json content: %s" % (e))
     else:
         if json_generic_data['dictbody']:
             data = json_generic_data['dictbody']

@@ -248,6 +248,13 @@ options:
                     - AV Content Disarm and Reconstruction settings.
                 type: dict
                 suboptions:
+                    analytics_suspicious:
+                        description:
+                            - Enable/disable using CDR as a secondary method for determining suspicous files for analytics.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     cover_page:
                         description:
                             - Enable/disable inserting a cover page into the disarmed document.
@@ -1601,6 +1608,7 @@ EXAMPLES = """
               quarantine: "disable"
           comment: "Comment."
           content_disarm:
+              analytics_suspicious: "disable"
               cover_page: "disable"
               detect_only: "disable"
               error_action: "block"
@@ -1624,7 +1632,7 @@ EXAMPLES = """
           extended_log: "enable"
           external_blocklist:
               -
-                  name: "default_name_47 (source system.external-resource.name)"
+                  name: "default_name_48 (source system.external-resource.name)"
           external_blocklist_archive_scan: "disable"
           external_blocklist_enable_all: "disable"
           feature_set: "flow"
@@ -1696,7 +1704,7 @@ EXAMPLES = """
               expiry: "<your_own_value>"
               infected: "none"
               log: "enable"
-          name: "default_name_119"
+          name: "default_name_120"
           nntp:
               archive_block: "encrypted"
               archive_log: "encrypted"
@@ -1905,11 +1913,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1974,9 +1985,19 @@ def antivirus_profile(data, fos):
     state = data["state"]
 
     antivirus_profile_data = data["antivirus_profile"]
-    antivirus_profile_data = flatten_multilists_attributes(antivirus_profile_data)
+
     filtered_data = filter_antivirus_profile_data(antivirus_profile_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["antivirus_profile"] = converted_data
+    fos.do_member_operation(
+        "antivirus",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("antivirus", "profile", data=converted_data, vdom=vdom)
@@ -2002,7 +2023,6 @@ def is_successful_status(resp):
 
 
 def fortios_antivirus(data, fos):
-    fos.do_member_operation("antivirus", "profile")
     if data["antivirus_profile"]:
         resp = antivirus_profile(data, fos)
     else:
@@ -3183,6 +3203,11 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "dict",
             "children": {
+                "analytics_suspicious": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
                 "original_file_destination": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",

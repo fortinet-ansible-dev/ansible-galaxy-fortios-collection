@@ -116,6 +116,10 @@ options:
                 description:
                     - Number of addresses in a block (64 - 4096).
                 type: int
+            client_prefix_length:
+                description:
+                    - Subnet length of a single deterministic NAT64 client (1 - 128).
+                type: int
             comments:
                 description:
                     - Comment.
@@ -126,7 +130,11 @@ options:
                 type: str
             endport:
                 description:
-                    - 'Final port number (inclusive) in the range for the address pool .'
+                    - 'Final port number (inclusive) in the range for the address pool (1024 - 65535).'
+                type: int
+            icmp_session_quota:
+                description:
+                    - Maximum number of concurrent ICMP sessions allowed per client (0 - 2097000).
                 type: int
             name:
                 description:
@@ -163,9 +171,20 @@ options:
                 description:
                     - Number of port for each user (32 - 60416).
                 type: int
+            privileged_port_use_pba:
+                description:
+                    - Enable/disable selection of the external port from the port block allocation for NAT"ing privileged ports (deafult = disable).
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             source_endip:
                 description:
                     - 'Final IPv4 address (inclusive) in the range of the source addresses to be translated (format xxx.xxx.xxx.xxx).'
+                type: str
+            source_prefix6:
+                description:
+                    - 'Source IPv6 network to be translated (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx).'
                 type: str
             source_startip:
                 description:
@@ -177,7 +196,7 @@ options:
                 type: str
             startport:
                 description:
-                    - 'First port number (inclusive) in the range for the address pool .'
+                    - 'First port number (inclusive) in the range for the address pool (1024 - 65535).'
                 type: int
             subnet_broadcast_in_ippool:
                 description:
@@ -186,6 +205,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            tcp_session_quota:
+                description:
+                    - Maximum number of concurrent TCP sessions allowed per client (0 - 2097000).
+                type: int
             type:
                 description:
                     - 'IP pool type: overload, one-to-one, fixed-port-range, port-block-allocation, cgn-resource-allocation (hyperscale vdom only)'
@@ -195,6 +218,10 @@ options:
                     - 'one-to-one'
                     - 'fixed-port-range'
                     - 'port-block-allocation'
+            udp_session_quota:
+                description:
+                    - Maximum number of concurrent UDP sessions allowed per client (0 - 2097000).
+                type: int
 """
 
 EXAMPLES = """
@@ -209,22 +236,28 @@ EXAMPLES = """
           arp_reply: "disable"
           associated_interface: "<your_own_value> (source system.interface.name)"
           block_size: "128"
+          client_prefix_length: "64"
           comments: "<your_own_value>"
           endip: "<your_own_value>"
           endport: "65533"
-          name: "default_name_11"
+          icmp_session_quota: "0"
+          name: "default_name_13"
           nat64: "disable"
           num_blocks_per_user: "8"
           pba_interim_log: "0"
           pba_timeout: "30"
           permit_any_host: "disable"
           port_per_user: "0"
+          privileged_port_use_pba: "disable"
           source_endip: "<your_own_value>"
+          source_prefix6: "<your_own_value>"
           source_startip: "<your_own_value>"
           startip: "<your_own_value>"
           startport: "5117"
           subnet_broadcast_in_ippool: "disable"
+          tcp_session_quota: "0"
           type: "overload"
+          udp_session_quota: "0"
 """
 
 RETURN = """
@@ -322,9 +355,11 @@ def filter_firewall_ippool_data(json):
         "arp_reply",
         "associated_interface",
         "block_size",
+        "client_prefix_length",
         "comments",
         "endip",
         "endport",
+        "icmp_session_quota",
         "name",
         "nat64",
         "num_blocks_per_user",
@@ -332,12 +367,16 @@ def filter_firewall_ippool_data(json):
         "pba_timeout",
         "permit_any_host",
         "port_per_user",
+        "privileged_port_use_pba",
         "source_endip",
+        "source_prefix6",
         "source_startip",
         "startip",
         "startport",
         "subnet_broadcast_in_ippool",
+        "tcp_session_quota",
         "type",
+        "udp_session_quota",
     ]
 
     json = remove_invalid_fields(json)
@@ -370,6 +409,7 @@ def firewall_ippool(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_ippool_data = data["firewall_ippool"]
+
     filtered_data = filter_firewall_ippool_data(firewall_ippool_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -395,20 +435,24 @@ def firewall_ippool(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -433,6 +477,14 @@ def firewall_ippool(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_ippool"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "ippool",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "ippool", data=converted_data, vdom=vdom)
@@ -456,7 +508,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "ippool")
     if data["firewall_ippool"]:
         resp = firewall_ippool(data, fos, check_mode)
     else:
@@ -521,10 +572,26 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "source_prefix6": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "client_prefix_length": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "tcp_session_quota": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "udp_session_quota": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "icmp_session_quota": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "privileged_port_use_pba": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "subnet_broadcast_in_ippool": {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
             "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
+            "options": [
+                {"value": "disable"},
+                {
+                    "value": "enable",
+                    "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", "v7.4.4"]],
+                },
+            ],
         },
     },
     "v_range": [["v6.0.0", ""]],

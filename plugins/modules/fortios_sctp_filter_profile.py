@@ -256,8 +256,18 @@ def sctp_filter_profile(data, fos):
     state = data["state"]
 
     sctp_filter_profile_data = data["sctp_filter_profile"]
+
     filtered_data = filter_sctp_filter_profile_data(sctp_filter_profile_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["sctp_filter_profile"] = converted_data
+    fos.do_member_operation(
+        "sctp-filter",
+        "profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("sctp-filter", "profile", data=converted_data, vdom=vdom)
@@ -283,7 +293,6 @@ def is_successful_status(resp):
 
 
 def fortios_sctp_filter(data, fos):
-    fos.do_member_operation("sctp-filter", "profile")
     if data["sctp_filter_profile"]:
         resp = sctp_filter_profile(data, fos)
     else:

@@ -260,8 +260,18 @@ def system_management_tunnel(data, fos):
     state = None
     vdom = data["vdom"]
     system_management_tunnel_data = data["system_management_tunnel"]
+
     filtered_data = filter_system_management_tunnel_data(system_management_tunnel_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_management_tunnel"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "management-tunnel",
+        data_copy,
+    )
 
     return fos.set("system", "management-tunnel", data=converted_data, vdom=vdom)
 
@@ -279,7 +289,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "management-tunnel")
     if data["system_management_tunnel"]:
         resp = system_management_tunnel(data, fos)
     else:

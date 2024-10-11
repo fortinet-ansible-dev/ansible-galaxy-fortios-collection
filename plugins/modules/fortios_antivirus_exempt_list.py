@@ -245,8 +245,18 @@ def antivirus_exempt_list(data, fos):
     state = data["state"]
 
     antivirus_exempt_list_data = data["antivirus_exempt_list"]
+
     filtered_data = filter_antivirus_exempt_list_data(antivirus_exempt_list_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["antivirus_exempt_list"] = converted_data
+    fos.do_member_operation(
+        "antivirus",
+        "exempt-list",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("antivirus", "exempt-list", data=converted_data, vdom=vdom)
@@ -272,7 +282,6 @@ def is_successful_status(resp):
 
 
 def fortios_antivirus(data, fos):
-    fos.do_member_operation("antivirus", "exempt-list")
     if data["antivirus_exempt_list"]:
         resp = antivirus_exempt_list(data, fos)
     else:

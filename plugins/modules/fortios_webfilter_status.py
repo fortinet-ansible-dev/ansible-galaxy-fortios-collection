@@ -230,8 +230,18 @@ def webfilter_status(data, fos):
     state = None
     vdom = data["vdom"]
     webfilter_status_data = data["webfilter_status"]
+
     filtered_data = filter_webfilter_status_data(webfilter_status_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["webfilter_status"] = converted_data
+    fos.do_member_operation(
+        "webfilter",
+        "status",
+        data_copy,
+    )
 
     return fos.set("webfilter", "status", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_webfilter(data, fos):
-    fos.do_member_operation("webfilter", "status")
     if data["webfilter_status"]:
         resp = webfilter_status(data, fos)
     else:

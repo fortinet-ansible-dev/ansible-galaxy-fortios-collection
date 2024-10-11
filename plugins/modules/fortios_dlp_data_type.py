@@ -290,8 +290,18 @@ def dlp_data_type(data, fos):
     state = data["state"]
 
     dlp_data_type_data = data["dlp_data_type"]
+
     filtered_data = filter_dlp_data_type_data(dlp_data_type_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["dlp_data_type"] = converted_data
+    fos.do_member_operation(
+        "dlp",
+        "data-type",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("dlp", "data-type", data=converted_data, vdom=vdom)
@@ -315,7 +325,6 @@ def is_successful_status(resp):
 
 
 def fortios_dlp(data, fos):
-    fos.do_member_operation("dlp", "data-type")
     if data["dlp_data_type"]:
         resp = dlp_data_type(data, fos)
     else:

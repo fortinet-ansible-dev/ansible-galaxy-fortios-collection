@@ -340,10 +340,20 @@ def system_speed_test_schedule(data, fos):
     state = data["state"]
 
     system_speed_test_schedule_data = data["system_speed_test_schedule"]
+
     filtered_data = filter_system_speed_test_schedule_data(
         system_speed_test_schedule_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_speed_test_schedule"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "speed-test-schedule",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "speed-test-schedule", data=converted_data, vdom=vdom)
@@ -369,7 +379,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "speed-test-schedule")
     if data["system_speed_test_schedule"]:
         resp = system_speed_test_schedule(data, fos)
     else:

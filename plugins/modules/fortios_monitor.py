@@ -291,6 +291,7 @@ options:
          - 'set-tier-plus.switch-controller.mclag-icl'
          - 'user.password-policy-conform'
          - 'change-password.user.local'
+         - 'report.sdwan.link-monitor-metrics'
 
     params:
         description:
@@ -504,10 +505,12 @@ module_selectors_defs = {
     "login.registration.forticare": {
         "url": "registration/forticare/login",
         "params": {
+            "serial": {"type": "string", "required": "False"},
             "email": {"type": "string", "required": "True"},
             "password": {"type": "string", "required": "True"},
             "reseller_name": {"type": "string", "required": "True"},
             "reseller_id": {"type": "int", "required": "True"},
+            "agreement_accepted": {"type": "boolean", "required": "False"},
             "is_government": {"type": "boolean", "required": "False"},
         },
     },
@@ -852,17 +855,7 @@ module_selectors_defs = {
             "password": {"type": "string", "required": "False"},
         },
     },
-    "test.user.tacacs-plus": {
-        "url": "user/tacacs-plus/test",
-        "params": {
-            "mkey": {"type": "string", "required": "False"},
-            "ordinal": {"type": "string", "required": "False"},
-            "server": {"type": "string", "required": "False"},
-            "secret": {"type": "string", "required": "False"},
-            "port": {"type": "int", "required": "False"},
-            "source_ip": {"type": "string", "required": "False"},
-        },
-    },
+    "test.user.tacacs-plus": {"url": "user/tacacs-plus/test", "params": {}},
     "delete.webfilter.override": {
         "url": "webfilter/override/delete",
         "params": {"mkey": {"type": "string", "required": "False"}},
@@ -1536,7 +1529,7 @@ module_selectors_defs = {
     },
     "dynamic.system.external-resource": {
         "url": "system/external-resource/dynamic",
-        "params": {"commands": {"type": "array", "required": "True"}},
+        "params": {},
     },
     "pse-config.switch-controller.recommendation": {
         "url": "switch-controller/recommendation/pse-config",
@@ -1669,6 +1662,20 @@ module_selectors_defs = {
         "params": {
             "username": {"type": "string", "required": "True"},
             "new_password": {"type": "string", "required": "True"},
+        },
+    },
+    "report.sdwan.link-monitor-metrics": {
+        "url": "sdwan/link-monitor-metrics/report",
+        "params": {
+            "agent_ip": {"type": "string", "required": "True"},
+            "application_name": {"type": "string", "required": "True"},
+            "application_id": {"type": "int", "required": "True"},
+            "latency": {"type": "double", "required": "True"},
+            "jitter": {"type": "double", "required": "True"},
+            "packet_loss": {"type": "double", "required": "True"},
+            "ntt": {"type": "double", "required": "False"},
+            "srt": {"type": "double", "required": "False"},
+            "application_error": {"type": "double", "required": "False"},
         },
     },
 }
@@ -1980,6 +1987,7 @@ def main():
                 "set-tier-plus.switch-controller.mclag-icl",
                 "user.password-policy-conform",
                 "change-password.user.local",
+                "report.sdwan.link-monitor-metrics",
             ],
         },
     }

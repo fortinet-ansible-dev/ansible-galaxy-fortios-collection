@@ -292,10 +292,20 @@ def user_external_identity_provider(data, fos):
     state = data["state"]
 
     user_external_identity_provider_data = data["user_external_identity_provider"]
+
     filtered_data = filter_user_external_identity_provider_data(
         user_external_identity_provider_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["user_external_identity_provider"] = converted_data
+    fos.do_member_operation(
+        "user",
+        "external-identity-provider",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -323,7 +333,6 @@ def is_successful_status(resp):
 
 
 def fortios_user(data, fos):
-    fos.do_member_operation("user", "external-identity-provider")
     if data["user_external_identity_provider"]:
         resp = user_external_identity_provider(data, fos)
     else:

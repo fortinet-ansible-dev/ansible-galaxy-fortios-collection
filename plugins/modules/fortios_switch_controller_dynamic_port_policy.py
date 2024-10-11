@@ -373,10 +373,20 @@ def switch_controller_dynamic_port_policy(data, fos):
     switch_controller_dynamic_port_policy_data = data[
         "switch_controller_dynamic_port_policy"
     ]
+
     filtered_data = filter_switch_controller_dynamic_port_policy_data(
         switch_controller_dynamic_port_policy_data
     )
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_dynamic_port_policy"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "dynamic-port-policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -407,7 +417,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "dynamic-port-policy")
     if data["switch_controller_dynamic_port_policy"]:
         resp = switch_controller_dynamic_port_policy(data, fos)
     else:

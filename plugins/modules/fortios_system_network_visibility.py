@@ -248,10 +248,20 @@ def system_network_visibility(data, fos):
     state = None
     vdom = data["vdom"]
     system_network_visibility_data = data["system_network_visibility"]
+
     filtered_data = filter_system_network_visibility_data(
         system_network_visibility_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_network_visibility"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "network-visibility",
+        data_copy,
+    )
 
     return fos.set("system", "network-visibility", data=converted_data, vdom=vdom)
 
@@ -269,7 +279,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "network-visibility")
     if data["system_network_visibility"]:
         resp = system_network_visibility(data, fos)
     else:
@@ -305,13 +314,13 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "hostname_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "hostname_limit": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "destination_location": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "hostname_ttl": {"v_range": [["v6.0.0", "v7.4.4"]], "type": "integer"},
+        "hostname_limit": {"v_range": [["v6.0.0", "v7.4.4"]], "type": "integer"},
     },
 }
 

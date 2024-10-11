@@ -302,8 +302,18 @@ def webfilter_fortiguard(data, fos):
     state = None
     vdom = data["vdom"]
     webfilter_fortiguard_data = data["webfilter_fortiguard"]
+
     filtered_data = filter_webfilter_fortiguard_data(webfilter_fortiguard_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["webfilter_fortiguard"] = converted_data
+    fos.do_member_operation(
+        "webfilter",
+        "fortiguard",
+        data_copy,
+    )
 
     return fos.set("webfilter", "fortiguard", data=converted_data, vdom=vdom)
 
@@ -321,7 +331,6 @@ def is_successful_status(resp):
 
 
 def fortios_webfilter(data, fos):
-    fos.do_member_operation("webfilter", "fortiguard")
     if data["webfilter_fortiguard"]:
         resp = webfilter_fortiguard(data, fos)
     else:

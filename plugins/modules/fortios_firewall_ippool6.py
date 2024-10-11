@@ -105,6 +105,14 @@ options:
                 description:
                     - 'Final IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx).'
                 type: str
+            external_prefix:
+                description:
+                    - External NPTv6 prefix length (32 - 64).
+                type: str
+            internal_prefix:
+                description:
+                    - Internal NPTv6 prefix length (32 - 64).
+                type: str
             name:
                 description:
                     - IPv6 IP pool name.
@@ -121,6 +129,13 @@ options:
                 description:
                     - 'First IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx).'
                 type: str
+            type:
+                description:
+                    - Configure IPv6 pool type (overload or NPTv6).
+                type: str
+                choices:
+                    - 'overload'
+                    - 'nptv6'
 """
 
 EXAMPLES = """
@@ -133,9 +148,12 @@ EXAMPLES = """
           add_nat46_route: "disable"
           comments: "<your_own_value>"
           endip: "<your_own_value>"
-          name: "default_name_6"
+          external_prefix: "<your_own_value>"
+          internal_prefix: "<your_own_value>"
+          name: "default_name_8"
           nat46: "disable"
           startip: "<your_own_value>"
+          type: "overload"
 """
 
 RETURN = """
@@ -227,7 +245,17 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_ippool6_data(json):
-    option_list = ["add_nat46_route", "comments", "endip", "name", "nat46", "startip"]
+    option_list = [
+        "add_nat46_route",
+        "comments",
+        "endip",
+        "external_prefix",
+        "internal_prefix",
+        "name",
+        "nat46",
+        "startip",
+        "type",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -259,6 +287,7 @@ def firewall_ippool6(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_ippool6_data = data["firewall_ippool6"]
+
     filtered_data = filter_firewall_ippool6_data(firewall_ippool6_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -284,20 +313,24 @@ def firewall_ippool6(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -322,6 +355,14 @@ def firewall_ippool6(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_ippool6"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "ippool6",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall", "ippool6", data=converted_data, vdom=vdom)
@@ -345,7 +386,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
-    fos.do_member_operation("firewall", "ippool6")
     if data["firewall_ippool6"]:
         resp = firewall_ippool6(data, fos, check_mode)
     else:
@@ -366,8 +406,15 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "type": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "overload"}, {"value": "nptv6"}],
+        },
         "startip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "endip": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "internal_prefix": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "external_prefix": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "nat46": {
             "v_range": [["v7.0.1", ""]],

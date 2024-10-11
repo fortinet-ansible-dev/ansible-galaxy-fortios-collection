@@ -1098,11 +1098,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1138,11 +1141,19 @@ def system_virtual_wan_link(data, fos):
     state = None
     vdom = data["vdom"]
     system_virtual_wan_link_data = data["system_virtual_wan_link"]
-    system_virtual_wan_link_data = flatten_multilists_attributes(
-        system_virtual_wan_link_data
-    )
+
     filtered_data = filter_system_virtual_wan_link_data(system_virtual_wan_link_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_virtual_wan_link"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "virtual-wan-link",
+        data_copy,
+    )
 
     return fos.set("system", "virtual-wan-link", data=converted_data, vdom=vdom)
 
@@ -1160,7 +1171,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "virtual-wan-link")
     if data["system_virtual_wan_link"]:
         resp = system_virtual_wan_link(data, fos)
     else:

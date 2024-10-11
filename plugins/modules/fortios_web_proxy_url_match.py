@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_web_proxy_url_match
-short_description: Exempt URLs from web proxy forwarding and caching in Fortinet's FortiOS and FortiGate.
+short_description: Exempt URLs from web proxy forwarding, caching and fast-fallback in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify web_proxy feature and url_match category.
@@ -86,7 +86,7 @@ options:
             - 'absent'
     web_proxy_url_match:
         description:
-            - Exempt URLs from web proxy forwarding and caching.
+            - Exempt URLs from web proxy forwarding, caching and fast-fallback.
         default: null
         type: dict
         suboptions:
@@ -116,19 +116,19 @@ options:
                 type: str
             status:
                 description:
-                    - Enable/disable exempting the URLs matching the URL pattern from web proxy forwarding and caching.
+                    - Enable/disable exempting the URLs matching the URL pattern from web proxy forwarding, caching and fast-fallback.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             url_pattern:
                 description:
-                    - URL pattern to be exempted from web proxy forwarding and caching.
+                    - URL pattern to be exempted from web proxy forwarding, caching and fast-fallback.
                 type: str
 """
 
 EXAMPLES = """
-- name: Exempt URLs from web proxy forwarding and caching.
+- name: Exempt URLs from web proxy forwarding, caching and fast-fallback.
   fortinet.fortios.fortios_web_proxy_url_match:
       vdom: "{{ vdom }}"
       state: "present"
@@ -272,6 +272,7 @@ def web_proxy_url_match(data, fos, check_mode=False):
     state = data["state"]
 
     web_proxy_url_match_data = data["web_proxy_url_match"]
+
     filtered_data = filter_web_proxy_url_match_data(web_proxy_url_match_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -297,20 +298,24 @@ def web_proxy_url_match(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -335,6 +340,14 @@ def web_proxy_url_match(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["web_proxy_url_match"] = converted_data
+    fos.do_member_operation(
+        "web-proxy",
+        "url-match",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("web-proxy", "url-match", data=converted_data, vdom=vdom)
@@ -360,7 +373,6 @@ def is_successful_status(resp):
 
 
 def fortios_web_proxy(data, fos, check_mode):
-    fos.do_member_operation("web-proxy", "url-match")
     if data["web_proxy_url_match"]:
         resp = web_proxy_url_match(data, fos, check_mode)
     else:

@@ -268,8 +268,18 @@ def gtp_ie_allow_list(data, fos):
     state = data["state"]
 
     gtp_ie_allow_list_data = data["gtp_ie_allow_list"]
+
     filtered_data = filter_gtp_ie_allow_list_data(gtp_ie_allow_list_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["gtp_ie_allow_list"] = converted_data
+    fos.do_member_operation(
+        "gtp",
+        "ie-allow-list",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("gtp", "ie-allow-list", data=converted_data, vdom=vdom)
@@ -295,7 +305,6 @@ def is_successful_status(resp):
 
 
 def fortios_gtp(data, fos):
-    fos.do_member_operation("gtp", "ie-allow-list")
     if data["gtp_ie_allow_list"]:
         resp = gtp_ie_allow_list(data, fos)
     else:

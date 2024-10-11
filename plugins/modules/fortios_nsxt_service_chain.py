@@ -254,8 +254,18 @@ def nsxt_service_chain(data, fos):
     state = data["state"]
 
     nsxt_service_chain_data = data["nsxt_service_chain"]
+
     filtered_data = filter_nsxt_service_chain_data(nsxt_service_chain_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["nsxt_service_chain"] = converted_data
+    fos.do_member_operation(
+        "nsxt",
+        "service-chain",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("nsxt", "service-chain", data=converted_data, vdom=vdom)
@@ -279,7 +289,6 @@ def is_successful_status(resp):
 
 
 def fortios_nsxt(data, fos):
-    fos.do_member_operation("nsxt", "service-chain")
     if data["nsxt_service_chain"]:
         resp = nsxt_service_chain(data, fos)
     else:

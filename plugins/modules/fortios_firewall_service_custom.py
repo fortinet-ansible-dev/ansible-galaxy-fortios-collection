@@ -199,7 +199,7 @@ options:
                     - Protocol type based on IANA numbers.
                 type: str
                 choices:
-                    - 'TCP/UDP/SCTP'
+                    - 'TCP/UDP/UDP-Lite/SCTP'
                     - 'ICMP'
                     - 'ICMP6'
                     - 'IP'
@@ -209,6 +209,7 @@ options:
                     - 'SOCKS-TCP'
                     - 'SOCKS-UDP'
                     - 'ALL'
+                    - 'TCP/UDP/SCTP'
             protocol_number:
                 description:
                     - IP protocol number.
@@ -250,11 +251,15 @@ options:
                 type: int
             udp_idle_timer:
                 description:
-                    - Number of seconds before an idle UDP connection times out (0 - 86400 sec, 0 = default).
+                    - Number of seconds before an idle UDP/UDP-Lite connection times out (0 - 86400 sec, 0 = default).
                 type: int
             udp_portrange:
                 description:
                     - Multiple UDP port ranges.
+                type: str
+            udplite_portrange:
+                description:
+                    - Multiple UDP-Lite port ranges.
                 type: str
             uuid:
                 description:
@@ -294,7 +299,7 @@ EXAMPLES = """
           icmptype: ""
           iprange: "<your_own_value>"
           name: "default_name_18"
-          protocol: "TCP/UDP/SCTP"
+          protocol: "TCP/UDP/UDP-Lite/SCTP"
           protocol_number: "0"
           proxy: "enable"
           sctp_portrange: "<your_own_value>"
@@ -306,6 +311,7 @@ EXAMPLES = """
           tcp_timewait_timer: "0"
           udp_idle_timer: "0"
           udp_portrange: "<your_own_value>"
+          udplite_portrange: "<your_own_value>"
           uuid: "<your_own_value>"
           visibility: "enable"
 """
@@ -426,6 +432,7 @@ def filter_firewall_service_custom_data(json):
         "tcp_timewait_timer",
         "udp_idle_timer",
         "udp_portrange",
+        "udplite_portrange",
         "uuid",
         "visibility",
     ]
@@ -460,6 +467,7 @@ def firewall_service_custom(data, fos, check_mode=False):
     state = data["state"]
 
     firewall_service_custom_data = data["firewall_service_custom"]
+
     filtered_data = filter_firewall_service_custom_data(firewall_service_custom_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -485,20 +493,24 @@ def firewall_service_custom(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -523,6 +535,14 @@ def firewall_service_custom(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_service_custom"] = converted_data
+    fos.do_member_operation(
+        "firewall.service",
+        "custom",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("firewall.service", "custom", data=converted_data, vdom=vdom)
@@ -548,7 +568,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall_service(data, fos, check_mode):
-    fos.do_member_operation("firewall.service", "custom")
     if data["firewall_service_custom"]:
         resp = firewall_service_custom(data, fos, check_mode)
     else:
@@ -580,7 +599,7 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [
-                {"value": "TCP/UDP/SCTP"},
+                {"value": "TCP/UDP/UDP-Lite/SCTP", "v_range": [["v7.6.0", ""]]},
                 {"value": "ICMP"},
                 {"value": "ICMP6"},
                 {"value": "IP"},
@@ -590,6 +609,7 @@ versioned_schema = {
                 {"value": "SOCKS-TCP"},
                 {"value": "SOCKS-UDP"},
                 {"value": "ALL"},
+                {"value": "TCP/UDP/SCTP", "v_range": [["v6.0.0", "v7.4.4"]]},
             ],
         },
         "helper": {
@@ -654,6 +674,7 @@ versioned_schema = {
         "icmpcode": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "tcp_portrange": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "udp_portrange": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "udplite_portrange": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "sctp_portrange": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "tcp_halfclose_timer": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "tcp_halfopen_timer": {"v_range": [["v6.0.0", ""]], "type": "integer"},

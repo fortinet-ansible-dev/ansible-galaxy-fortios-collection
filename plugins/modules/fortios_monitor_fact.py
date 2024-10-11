@@ -454,6 +454,9 @@ options:
                  - 'user_radius_get-test-connect'
                  - 'endpoint-control_ems_malware-hash'
                  - 'switch-controller_managed-switch_health-status'
+                 - 'firewall_local-in6'
+                 - 'firmware_extension-device'
+                 - 'service_ldap_query'
 
     selector:
         description:
@@ -788,6 +791,9 @@ options:
          - 'user_radius_get-test-connect'
          - 'endpoint-control_ems_malware-hash'
          - 'switch-controller_managed-switch_health-status'
+         - 'firewall_local-in6'
+         - 'firmware_extension-device'
+         - 'service_ldap_query'
 
     params:
         description:
@@ -927,7 +933,10 @@ module_selectors_defs = {
         },
     },
     "firewall_health": {"url": "firewall/health", "params": {}},
-    "firewall_local-in": {"url": "firewall/local-in", "params": {}},
+    "firewall_local-in": {
+        "url": "firewall/local-in",
+        "params": {"include_ttl": {"type": "boolean", "required": "False"}},
+    },
     "firewall_acl": {"url": "firewall/acl", "params": {}},
     "firewall_acl6": {"url": "firewall/acl6", "params": {}},
     "firewall_internet-service-match": {
@@ -1505,13 +1514,7 @@ module_selectors_defs = {
     },
     "user_device-type": {"url": "user/device-type", "params": {}},
     "user_device-category": {"url": "user/device-category", "params": {}},
-    "user_fsso": {
-        "url": "user/fsso",
-        "params": {
-            "mkey": {"type": "string", "required": "False"},
-            "type": {"type": "string", "required": "False"},
-        },
-    },
+    "user_fsso": {"url": "user/fsso", "params": {}},
     "utm_rating-lookup": {
         "url": "utm/rating-lookup",
         "params": {"url": {"type": "array", "required": "False"}},
@@ -2169,6 +2172,7 @@ module_selectors_defs = {
         "url": "firewall/sessions",
         "params": {
             "ip_version": {"type": "string", "required": "False"},
+            "count": {"type": "int", "required": "True"},
             "summary": {"type": "boolean", "required": "False"},
             "srcport": {"type": "object", "required": "False"},
             "policyid": {"type": "object", "required": "False"},
@@ -2409,6 +2413,25 @@ module_selectors_defs = {
         "params": {
             "mkey": {"type": "string", "required": "False"},
             "serial": {"type": "string", "required": "False"},
+        },
+    },
+    "firewall_local-in6": {"url": "firewall/local-in6", "params": {}},
+    "firmware_extension-device": {
+        "url": "firmware/extension-device",
+        "params": {
+            "type": {"type": "string", "required": "True"},
+            "timeout": {"type": "int", "required": "False"},
+            "version": {"type": "object", "required": "False"},
+        },
+    },
+    "service_ldap_query": {
+        "url": "service/ldap/query",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "server_info_only": {"type": "boolean", "required": "False"},
+            "skip_schema": {"type": "boolean", "required": "False"},
+            "ldap_filter": {"type": "string", "required": "False"},
+            "ldap": {"type": "object", "required": "False"},
         },
     },
 }
@@ -2851,6 +2874,9 @@ def main():
                 "user_radius_get-test-connect",
                 "endpoint-control_ems_malware-hash",
                 "switch-controller_managed-switch_health-status",
+                "firewall_local-in6",
+                "firmware_extension-device",
+                "service_ldap_query",
             ],
         },
         "selectors": {
@@ -3193,6 +3219,9 @@ def main():
                         "user_radius_get-test-connect",
                         "endpoint-control_ems_malware-hash",
                         "switch-controller_managed-switch_health-status",
+                        "firewall_local-in6",
+                        "firmware_extension-device",
+                        "service_ldap_query",
                     ],
                 },
             },

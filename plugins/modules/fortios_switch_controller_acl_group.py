@@ -232,10 +232,20 @@ def switch_controller_acl_group(data, fos):
     state = data["state"]
 
     switch_controller_acl_group_data = data["switch_controller_acl_group"]
+
     filtered_data = filter_switch_controller_acl_group_data(
         switch_controller_acl_group_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_acl_group"] = converted_data
+    fos.do_member_operation(
+        "switch-controller.acl",
+        "group",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("switch-controller.acl", "group", data=converted_data, vdom=vdom)
@@ -261,7 +271,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller_acl(data, fos):
-    fos.do_member_operation("switch-controller.acl", "group")
     if data["switch_controller_acl_group"]:
         resp = switch_controller_acl_group(data, fos)
     else:

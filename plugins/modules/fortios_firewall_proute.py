@@ -230,8 +230,18 @@ def firewall_proute(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_proute_data = data["firewall_proute"]
+
     filtered_data = filter_firewall_proute_data(firewall_proute_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_proute"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "proute",
+        data_copy,
+    )
 
     return fos.set("firewall", "proute", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "proute")
     if data["firewall_proute"]:
         resp = firewall_proute(data, fos)
     else:

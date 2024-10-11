@@ -226,8 +226,18 @@ def system_fortindr(data, fos):
     state = None
     vdom = data["vdom"]
     system_fortindr_data = data["system_fortindr"]
+
     filtered_data = filter_system_fortindr_data(system_fortindr_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fortindr"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fortindr",
+        data_copy,
+    )
 
     return fos.set("system", "fortindr", data=converted_data, vdom=vdom)
 
@@ -245,7 +255,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fortindr")
     if data["system_fortindr"]:
         resp = system_fortindr(data, fos)
     else:

@@ -241,10 +241,20 @@ def system_replacemsg_automation(data, fos):
     state = data["state"]
 
     system_replacemsg_automation_data = data["system_replacemsg_automation"]
+
     filtered_data = filter_system_replacemsg_automation_data(
         system_replacemsg_automation_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_replacemsg_automation"] = converted_data
+    fos.do_member_operation(
+        "system.replacemsg",
+        "automation",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -275,7 +285,6 @@ def is_successful_status(resp):
 
 
 def fortios_system_replacemsg(data, fos):
-    fos.do_member_operation("system.replacemsg", "automation")
     if data["system_replacemsg_automation"]:
         resp = system_replacemsg_automation(data, fos)
     else:

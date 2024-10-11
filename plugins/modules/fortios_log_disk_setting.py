@@ -435,11 +435,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -476,9 +479,19 @@ def log_disk_setting(data, fos):
     state = None
     vdom = data["vdom"]
     log_disk_setting_data = data["log_disk_setting"]
-    log_disk_setting_data = flatten_multilists_attributes(log_disk_setting_data)
+
     filtered_data = filter_log_disk_setting_data(log_disk_setting_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_disk_setting"] = converted_data
+    fos.do_member_operation(
+        "log.disk",
+        "setting",
+        data_copy,
+    )
 
     return fos.set("log.disk", "setting", data=converted_data, vdom=vdom)
 
@@ -496,7 +509,6 @@ def is_successful_status(resp):
 
 
 def fortios_log_disk(data, fos):
-    fos.do_member_operation("log.disk", "setting")
     if data["log_disk_setting"]:
         resp = log_disk_setting(data, fos)
     else:

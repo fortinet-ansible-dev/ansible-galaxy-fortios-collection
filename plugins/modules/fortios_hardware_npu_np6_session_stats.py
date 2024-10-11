@@ -230,10 +230,20 @@ def hardware_npu_np6_session_stats(data, fos):
     state = None
     vdom = data["vdom"]
     hardware_npu_np6_session_stats_data = data["hardware_npu_np6_session_stats"]
+
     filtered_data = filter_hardware_npu_np6_session_stats_data(
         hardware_npu_np6_session_stats_data
     )
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["hardware_npu_np6_session_stats"] = converted_data
+    fos.do_member_operation(
+        "hardware.npu.np6",
+        "session-stats",
+        data_copy,
+    )
 
     return fos.set("hardware.npu.np6", "session-stats", data=converted_data, vdom=vdom)
 
@@ -251,7 +261,6 @@ def is_successful_status(resp):
 
 
 def fortios_hardware_npu_np6(data, fos):
-    fos.do_member_operation("hardware.npu.np6", "session-stats")
     if data["hardware_npu_np6_session_stats"]:
         resp = hardware_npu_np6_session_stats(data, fos)
     else:

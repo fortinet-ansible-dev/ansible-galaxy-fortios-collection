@@ -246,8 +246,18 @@ def system_sdn_proxy(data, fos):
     state = data["state"]
 
     system_sdn_proxy_data = data["system_sdn_proxy"]
+
     filtered_data = filter_system_sdn_proxy_data(system_sdn_proxy_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_sdn_proxy"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "sdn-proxy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("system", "sdn-proxy", data=converted_data, vdom=vdom)
@@ -271,7 +281,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "sdn-proxy")
     if data["system_sdn_proxy"]:
         resp = system_sdn_proxy(data, fos)
     else:

@@ -201,8 +201,10 @@ options:
                     - Enable/disable local admin authentication restriction when remote authenticator is up and running .
                 type: str
                 choices:
-                    - 'enable'
+                    - 'all'
+                    - 'non-console-only'
                     - 'disable'
+                    - 'enable'
             admin_scp:
                 description:
                     - Enable/disable SCP support for system configuration backup, restore, and firmware file upload.
@@ -308,6 +310,23 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            auth_session_auto_backup:
+                description:
+                    - Enable/disable automatic and periodic backup of authentication sessions . Sessions are restored upon bootup.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            auth_session_auto_backup_interval:
+                description:
+                    - Configure automatic authentication session backup interval in minutes .
+                type: str
+                choices:
+                    - '1min'
+                    - '5min'
+                    - '15min'
+                    - '30min'
+                    - '1hr'
             auth_session_limit:
                 description:
                     - Action to take when the number of allowed user authenticated sessions is reached.
@@ -457,6 +476,13 @@ options:
                 description:
                     - Default service source port range .
                 type: str
+            delay_tcp_npu_session:
+                description:
+                    - Enable TCP NPU session delay to guarantee packet order of 3-way handshake.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             device_identification_active_scan_delay:
                 description:
                     - Number of seconds to passively scan a device before performing an active scan. (20 - 3600 sec, (20 sec to 1 hour)).
@@ -850,6 +876,10 @@ options:
                 description:
                     - FortiGate unit"s hostname. Most models will truncate names longer than 24 characters. Some models support hostnames up to 35 characters.
                 type: str
+            httpd_max_worker_count:
+                description:
+                    - Maximum number of simultaneous HTTP requests that will be served. This number may affect GUI and REST API performance (0 - 128).
+                type: int
             igmp_state_limit:
                 description:
                     - Maximum number of IGMP memberships (96 - 64000).
@@ -885,9 +915,20 @@ options:
                 description:
                     - Dead gateway detection interval.
                 type: int
+            ip_conflict_detection:
+                description:
+                    - Enable/disable logging of IPv4 address conflict detection.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ip_fragment_mem_thresholds:
                 description:
                     - Maximum memory (MB) used to reassemble IPv4/IPv6 fragments.
+                type: int
+            ip_fragment_timeout:
+                description:
+                    - Timeout value in seconds for any fragment not being reassembled
                 type: int
             ip_src_port_range:
                 description:
@@ -977,6 +1018,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ipv6_fragment_timeout:
+                description:
+                    - Timeout value in seconds for any IPv6 fragment not being reassembled
+                type: int
             irq_time_accounting:
                 description:
                     - Configure CPU IRQ time accounting mode.
@@ -1368,6 +1413,18 @@ options:
                 description:
                     - Number of scanunits. The range and the default depend on the number of CPUs. Only available on FortiGate units with multiple CPUs.
                 type: int
+            scim_http_port:
+                description:
+                    - SCIM http port (0 - 65535).
+                type: int
+            scim_https_port:
+                description:
+                    - SCIM port (0 - 65535).
+                type: int
+            scim_server_cert:
+                description:
+                    - Server certificate that the FortiGate uses for SCIM connections. Source certificate.local.name.
+                type: str
             security_rating_result_submission:
                 description:
                     - Enable/disable the submission of Security Rating results to FortiGuard.
@@ -1798,6 +1855,10 @@ options:
                 description:
                     - Maximum number of users allowed in user device store.
                 type: int
+            user_history_password_threshold:
+                description:
+                    - Maximum number of previous passwords saved per admin/user (3 - 15).
+                type: int
             user_server_cert:
                 description:
                     - Certificate to use for https user authentication. Source certificate.local.name.
@@ -1943,7 +2004,7 @@ EXAMPLES = """
           admin_login_max: "100"
           admin_maintainer: "enable"
           admin_port: "80"
-          admin_restrict_local: "enable"
+          admin_restrict_local: "all"
           admin_scp: "enable"
           admin_server_cert: "<your_own_value> (source certificate.local.name)"
           admin_sport: "443"
@@ -1964,6 +2025,8 @@ EXAMPLES = """
           auth_https_port: "1003"
           auth_ike_saml_port: "1001"
           auth_keepalive: "enable"
+          auth_session_auto_backup: "enable"
+          auth_session_auto_backup_interval: "1min"
           auth_session_limit: "block-new"
           auto_auth_extension_device: "enable"
           autorun_log_fsck: "enable"
@@ -1989,6 +2052,7 @@ EXAMPLES = """
           csr_ca_attribute: "enable"
           daily_restart: "enable"
           default_service_source_port: "<your_own_value>"
+          delay_tcp_npu_session: "enable"
           device_identification_active_scan_delay: "1800"
           device_idle_timeout: "300"
           dh_params: "1024"
@@ -2049,14 +2113,17 @@ EXAMPLES = """
           ha_affinity: "<your_own_value>"
           honor_df: "enable"
           hostname: "myhostname"
+          httpd_max_worker_count: "0"
           igmp_state_limit: "3200"
           interface_subnet_usage: "disable"
           internet_service_database: "mini"
           internet_service_download_list:
               -
-                  id: "129 (source firewall.internet-service.id)"
+                  id: "133 (source firewall.internet-service.id)"
           interval: "5"
+          ip_conflict_detection: "enable"
           ip_fragment_mem_thresholds: "32"
+          ip_fragment_timeout: "30"
           ip_src_port_range: "<your_own_value>"
           ips_affinity: "<your_own_value>"
           ipsec_asic_offload: "enable"
@@ -2071,6 +2138,7 @@ EXAMPLES = """
           ipv6_allow_local_in_slient_drop: "enable"
           ipv6_allow_multicast_probe: "enable"
           ipv6_allow_traffic_redirect: "enable"
+          ipv6_fragment_timeout: "60"
           irq_time_accounting: "auto"
           language: "english"
           ldapconntimeout: "500"
@@ -2087,7 +2155,7 @@ EXAMPLES = """
           management_port: "443"
           management_port_use_admin_sport: "enable"
           management_vdom: "<your_own_value> (source system.vdom.name)"
-          max_dlpstat_memory: "162"
+          max_dlpstat_memory: "169"
           max_route_cache_size: "0"
           mc_ttl_notchange: "enable"
           memory_use_threshold_extreme: "95"
@@ -2134,6 +2202,9 @@ EXAMPLES = """
           revision_backup_on_logout: "enable"
           revision_image_auto_backup: "enable"
           scanunit_count: "0"
+          scim_http_port: "44558"
+          scim_https_port: "44559"
+          scim_server_cert: "<your_own_value> (source certificate.local.name)"
           security_rating_result_submission: "enable"
           security_rating_run_on_schedule: "enable"
           send_pmtu_icmp: "enable"
@@ -2196,9 +2267,10 @@ EXAMPLES = """
           udp_idle_timer: "180"
           url_filter_affinity: "<your_own_value>"
           url_filter_count: "1"
-          user_device_store_max_devices: "20903"
-          user_device_store_max_unified_mem: "104519680"
-          user_device_store_max_users: "20903"
+          user_device_store_max_devices: "20920"
+          user_device_store_max_unified_mem: "104604672"
+          user_device_store_max_users: "20920"
+          user_history_password_threshold: "3"
           user_server_cert: "<your_own_value> (source certificate.local.name)"
           vdom_admin: "enable"
           vdom_mode: "no-vdom"
@@ -2341,6 +2413,8 @@ def filter_system_global_data(json):
         "auth_https_port",
         "auth_ike_saml_port",
         "auth_keepalive",
+        "auth_session_auto_backup",
+        "auth_session_auto_backup_interval",
         "auth_session_limit",
         "auto_auth_extension_device",
         "autorun_log_fsck",
@@ -2366,6 +2440,7 @@ def filter_system_global_data(json):
         "csr_ca_attribute",
         "daily_restart",
         "default_service_source_port",
+        "delay_tcp_npu_session",
         "device_identification_active_scan_delay",
         "device_idle_timeout",
         "dh_params",
@@ -2426,12 +2501,15 @@ def filter_system_global_data(json):
         "ha_affinity",
         "honor_df",
         "hostname",
+        "httpd_max_worker_count",
         "igmp_state_limit",
         "interface_subnet_usage",
         "internet_service_database",
         "internet_service_download_list",
         "interval",
+        "ip_conflict_detection",
         "ip_fragment_mem_thresholds",
+        "ip_fragment_timeout",
         "ip_src_port_range",
         "ips_affinity",
         "ipsec_asic_offload",
@@ -2446,6 +2524,7 @@ def filter_system_global_data(json):
         "ipv6_allow_local_in_slient_drop",
         "ipv6_allow_multicast_probe",
         "ipv6_allow_traffic_redirect",
+        "ipv6_fragment_timeout",
         "irq_time_accounting",
         "language",
         "ldapconntimeout",
@@ -2509,6 +2588,9 @@ def filter_system_global_data(json):
         "revision_backup_on_logout",
         "revision_image_auto_backup",
         "scanunit_count",
+        "scim_http_port",
+        "scim_https_port",
+        "scim_server_cert",
         "security_rating_result_submission",
         "security_rating_run_on_schedule",
         "send_pmtu_icmp",
@@ -2571,6 +2653,7 @@ def filter_system_global_data(json):
         "user_device_store_max_devices",
         "user_device_store_max_unified_mem",
         "user_device_store_max_users",
+        "user_history_password_threshold",
         "user_server_cert",
         "vdom_admin",
         "vdom_mode",
@@ -2611,11 +2694,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -2659,9 +2745,19 @@ def system_global(data, fos):
     state = None
     vdom = data["vdom"]
     system_global_data = data["system_global"]
-    system_global_data = flatten_multilists_attributes(system_global_data)
+
     filtered_data = filter_system_global_data(system_global_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_global"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "global",
+        data_copy,
+    )
 
     return fos.set("system", "global", data=converted_data, vdom=vdom)
 
@@ -2679,7 +2775,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "global")
     if data["system_global"]:
         resp = system_global(data, fos)
     else:
@@ -3173,6 +3268,8 @@ versioned_schema = {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
             "type": "integer",
         },
+        "ip_fragment_timeout": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "ipv6_fragment_timeout": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "cpu_use_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "log_single_cpu_high": {
             "v_range": [["v7.2.4", ""]],
@@ -3204,7 +3301,12 @@ versioned_schema = {
         "admin_restrict_local": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "all", "v_range": [["v7.6.0", ""]]},
+                {"value": "non-console-only", "v_range": [["v7.6.0", ""]]},
+                {"value": "disable"},
+                {"value": "enable", "v_range": [["v6.0.0", "v7.4.4"]]},
+            ],
         },
         "admin_ssh_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "admin_ssh_grace_time": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -3326,6 +3428,7 @@ versioned_schema = {
         },
         "dnsproxy_worker_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "url_filter_count": {"v_range": [["v6.2.0", ""]], "type": "integer"},
+        "httpd_max_worker_count": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "proxy_worker_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "scanunit_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "fgd_alert_subscription": {
@@ -3404,6 +3507,11 @@ versioned_schema = {
         },
         "login_timestamp": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ip_conflict_detection": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -3609,6 +3717,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "delay_tcp_npu_session": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "interface_subnet_usage": {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
@@ -3620,6 +3733,29 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "user_history_password_threshold": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "integer",
+        },
+        "auth_session_auto_backup": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "auth_session_auto_backup_interval": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "1min"},
+                {"value": "5min"},
+                {"value": "15min"},
+                {"value": "30min"},
+                {"value": "1hr"},
+            ],
+        },
+        "scim_https_port": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "scim_http_port": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "scim_server_cert": {"v_range": [["v7.6.0", ""]], "type": "string"},
         "split_port": {
             "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
             "type": "list",

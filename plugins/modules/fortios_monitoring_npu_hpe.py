@@ -207,11 +207,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -247,9 +250,19 @@ def monitoring_npu_hpe(data, fos):
     state = None
     vdom = data["vdom"]
     monitoring_npu_hpe_data = data["monitoring_npu_hpe"]
-    monitoring_npu_hpe_data = flatten_multilists_attributes(monitoring_npu_hpe_data)
+
     filtered_data = filter_monitoring_npu_hpe_data(monitoring_npu_hpe_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["monitoring_npu_hpe"] = converted_data
+    fos.do_member_operation(
+        "monitoring",
+        "npu-hpe",
+        data_copy,
+    )
 
     return fos.set("monitoring", "npu-hpe", data=converted_data, vdom=vdom)
 
@@ -267,7 +280,6 @@ def is_successful_status(resp):
 
 
 def fortios_monitoring(data, fos):
-    fos.do_member_operation("monitoring", "npu-hpe")
     if data["monitoring_npu_hpe"]:
         resp = monitoring_npu_hpe(data, fos)
     else:

@@ -210,10 +210,20 @@ def system_speed_test_setting(data, fos):
     state = None
     vdom = data["vdom"]
     system_speed_test_setting_data = data["system_speed_test_setting"]
+
     filtered_data = filter_system_speed_test_setting_data(
         system_speed_test_setting_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_speed_test_setting"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "speed-test-setting",
+        data_copy,
+    )
 
     return fos.set("system", "speed-test-setting", data=converted_data, vdom=vdom)
 
@@ -231,7 +241,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "speed-test-setting")
     if data["system_speed_test_setting"]:
         resp = system_speed_test_setting(data, fos)
     else:

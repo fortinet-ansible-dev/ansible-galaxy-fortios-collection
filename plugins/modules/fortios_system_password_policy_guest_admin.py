@@ -137,6 +137,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            reuse_password_limit:
+                description:
+                    - Number of times passwords can be reused (0 - 20).
+                type: int
             status:
                 description:
                     - Enable/disable setting a password policy for locally defined administrator passwords and IPsec VPN pre-shared keys.
@@ -162,6 +166,7 @@ EXAMPLES = """
           min_upper_case_letter: "0"
           minimum_length: "8"
           reuse_password: "enable"
+          reuse_password_limit: "0"
           status: "enable"
 """
 
@@ -257,6 +262,7 @@ def filter_system_password_policy_guest_admin_data(json):
         "min_upper_case_letter",
         "minimum_length",
         "reuse_password",
+        "reuse_password_limit",
         "status",
     ]
 
@@ -276,11 +282,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -316,13 +325,21 @@ def system_password_policy_guest_admin(data, fos):
     state = None
     vdom = data["vdom"]
     system_password_policy_guest_admin_data = data["system_password_policy_guest_admin"]
-    system_password_policy_guest_admin_data = flatten_multilists_attributes(
-        system_password_policy_guest_admin_data
-    )
+
     filtered_data = filter_system_password_policy_guest_admin_data(
         system_password_policy_guest_admin_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_password_policy_guest_admin"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "password-policy-guest-admin",
+        data_copy,
+    )
 
     return fos.set(
         "system", "password-policy-guest-admin", data=converted_data, vdom=vdom
@@ -342,7 +359,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "password-policy-guest-admin")
     if data["system_password_policy_guest_admin"]:
         resp = system_password_policy_guest_admin(data, fos)
     else:
@@ -392,6 +408,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "reuse_password_limit": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "change_4_characters": {
             "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",

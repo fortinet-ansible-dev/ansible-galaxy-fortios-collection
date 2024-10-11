@@ -96,6 +96,35 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            auto_virtual_mac_interface:
+                description:
+                    - The physical interface that will be assigned an auto-generated virtual MAC address.
+                type: list
+                elements: dict
+                suboptions:
+                    interface_name:
+                        description:
+                            - Interface name. Source system.interface.name.
+                        required: true
+                        type: str
+            backup_hbdev:
+                description:
+                    - Backup heartbeat interfaces. Must be the same for all members.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Interface name. Source system.interface.name.
+                        required: true
+                        type: str
+            check_secondary_dev_health:
+                description:
+                    - Enable/disable secondary dev health check for session load-balance in HA A-A mode.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             cpu_threshold:
                 description:
                     - Dynamic weighted load balancing CPU usage weight and high and low thresholds.
@@ -708,6 +737,13 @@ EXAMPLES = """
           arps: "5"
           arps_interval: "8"
           authentication: "enable"
+          auto_virtual_mac_interface:
+              -
+                  interface_name: "<your_own_value> (source system.interface.name)"
+          backup_hbdev:
+              -
+                  name: "default_name_9 (source system.interface.name)"
+          check_secondary_dev_health: "enable"
           cpu_threshold: "<your_own_value>"
           encryption: "enable"
           evpn_ttl: "60"
@@ -723,7 +759,7 @@ EXAMPLES = """
                   dst: "<your_own_value>"
                   gateway: "<your_own_value>"
                   gateway6: "<your_own_value>"
-                  id: "20"
+                  id: "25"
                   interface: "<your_own_value> (source system.interface.name)"
           ha_mgmt_status: "enable"
           ha_uptime_diff_margin: "300"
@@ -796,7 +832,7 @@ EXAMPLES = """
           unicast_hb_peerip: "<your_own_value>"
           unicast_peers:
               -
-                  id: "92"
+                  id: "97"
                   peer_ip: "<your_own_value>"
           unicast_status: "enable"
           uninterruptible_primary_wait: "30"
@@ -816,7 +852,7 @@ EXAMPLES = """
                   vcluster_id: "<you_own_value>"
                   vdom:
                       -
-                          name: "default_name_110 (source system.vdom.name)"
+                          name: "default_name_115 (source system.vdom.name)"
           vcluster_id: "0"
           vcluster_status: "enable"
           vcluster2: "enable"
@@ -908,6 +944,9 @@ def filter_system_ha_data(json):
         "arps",
         "arps_interval",
         "authentication",
+        "auto_virtual_mac_interface",
+        "backup_hbdev",
+        "check_secondary_dev_health",
         "cpu_threshold",
         "encryption",
         "evpn_ttl",
@@ -1007,11 +1046,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1055,9 +1097,19 @@ def system_ha(data, fos):
     state = None
     vdom = data["vdom"]
     system_ha_data = data["system_ha"]
-    system_ha_data = flatten_multilists_attributes(system_ha_data)
+
     filtered_data = filter_system_ha_data(system_ha_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_ha"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "ha",
+        data_copy,
+    )
 
     return fos.set("system", "ha", data=converted_data, vdom=vdom)
 
@@ -1075,7 +1127,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "ha")
     if data["system_ha"]:
         resp = system_ha(data, fos)
     else:
@@ -1113,6 +1164,30 @@ versioned_schema = {
             "type": "list",
             "multiple_values": True,
             "elements": "str",
+        },
+        "auto_virtual_mac_interface": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "interface_name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.0", ""]],
+        },
+        "backup_hbdev": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.0", ""]],
         },
         "unicast_hb": {
             "v_range": [],
@@ -1467,6 +1542,11 @@ versioned_schema = {
             "type": "integer",
         },
         "failover_hold_time": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "check_secondary_dev_health": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ipsec_phase2_proposal": {
             "v_range": [["v7.4.2", ""]],
             "type": "list",

@@ -235,10 +235,22 @@ def wireless_controller_hotspot20_h2qp_terms_and_conditions(data, fos):
     wireless_controller_hotspot20_h2qp_terms_and_conditions_data = data[
         "wireless_controller_hotspot20_h2qp_terms_and_conditions"
     ]
+
     filtered_data = filter_wireless_controller_hotspot20_h2qp_terms_and_conditions_data(
         wireless_controller_hotspot20_h2qp_terms_and_conditions_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy[
+        "wireless_controller_hotspot20_h2qp_terms_and_conditions"
+    ] = converted_data
+    fos.do_member_operation(
+        "wireless-controller.hotspot20",
+        "h2qp-terms-and-conditions",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -272,9 +284,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller_hotspot20(data, fos):
-    fos.do_member_operation(
-        "wireless-controller.hotspot20", "h2qp-terms-and-conditions"
-    )
     if data["wireless_controller_hotspot20_h2qp_terms_and_conditions"]:
         resp = wireless_controller_hotspot20_h2qp_terms_and_conditions(data, fos)
     else:

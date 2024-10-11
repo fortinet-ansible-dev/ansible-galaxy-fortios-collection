@@ -111,6 +111,76 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            addke1:
+                description:
+                    - ADDKE1 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke2:
+                description:
+                    - ADDKE2 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke3:
+                description:
+                    - ADDKE3 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke4:
+                description:
+                    - ADDKE4 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke5:
+                description:
+                    - ADDKE5 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke6:
+                description:
+                    - ADDKE6 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
+            addke7:
+                description:
+                    - ADDKE7 group.
+                type: list
+                elements: str
+                choices:
+                    - '0'
+                    - '1080'
+                    - '1081'
+                    - '1082'
             aggregate_member:
                 description:
                     - Enable/disable use as an aggregate member.
@@ -217,6 +287,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            auto_transport_threshold:
+                description:
+                    - Timeout in seconds before falling back to next transport protocol.
+                type: int
             azure_ad_autoconnect:
                 description:
                     - Enable/disable Azure AD Auto-Connect for FortiClient.
@@ -737,6 +811,13 @@ options:
                 description:
                     - WINS server 2.
                 type: str
+            ipv6_auto_linklocal:
+                description:
+                    - Enable/disable auto generation of IPv6 link-local address using last 8 bytes of mode-cfg assigned IPv6 address.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ipv6_dns_server1:
                 description:
                     - IPv6 DNS server 1.
@@ -870,17 +951,10 @@ options:
             monitor:
                 description:
                     - IPsec interface as backup for primary interface. Source vpn.ipsec.phase1-interface.name.
-                type: list
-                elements: dict
-                suboptions:
-                    name:
-                        description:
-                            - IPsec interface as backup for primary interface. Source vpn.ipsec.phase1-interface.name.
-                        required: true
-                        type: str
+                type: str
             monitor_dict:
                 description:
-                    - IPsec interface as backup for primary interface.(Use the parameter monitor instead if the fortios firmwear version <= 7.4.0.)
+                    - IPsec interface as backup for primary interface.
                 type: list
                 elements: dict
                 suboptions:
@@ -1139,6 +1213,7 @@ options:
                     - 'ipmask'
                     - 'iprange'
                     - 'geography'
+                    - 'ztna'
             remote_gw_start_ip:
                 description:
                     - First IPv4 address in the range.
@@ -1147,6 +1222,17 @@ options:
                 description:
                     - IPv4 address and subnet mask.
                 type: str
+            remote_gw_ztna_tags:
+                description:
+                    - IPv4 ZTNA posture tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Address name. Source firewall.address.name firewall.addrgrp.name.
+                        required: true
+                        type: str
             remote_gw6:
                 description:
                     - IPv6 address of the remote gateway"s external interface.
@@ -1208,6 +1294,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            shared_idle_timeout:
+                description:
+                    - Enable/disable IPsec tunnel shared idle timeout.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             signature_hash_alg:
                 description:
                     - Digital Signature Authentication hash algorithms.
@@ -1236,8 +1329,9 @@ options:
                 type: str
                 choices:
                     - 'udp'
-                    - 'udp-fallback-tcp'
+                    - 'auto'
                     - 'tcp'
+                    - 'udp-fallback-tcp'
             tunnel_search:
                 description:
                     - Tunnel search method for when the interface is shared.
@@ -1308,6 +1402,13 @@ EXAMPLES = """
           acct_verify: "enable"
           add_gw_route: "enable"
           add_route: "disable"
+          addke1: "0"
+          addke2: "0"
+          addke3: "0"
+          addke4: "0"
+          addke5: "0"
+          addke6: "0"
+          addke7: "0"
           aggregate_member: "enable"
           aggregate_weight: "1"
           assign_ip: "disable"
@@ -1325,6 +1426,7 @@ EXAMPLES = """
           auto_discovery_sender: "enable"
           auto_discovery_shortcuts: "independent"
           auto_negotiate: "enable"
+          auto_transport_threshold: "15"
           azure_ad_autoconnect: "enable"
           backup_gateway:
               -
@@ -1336,12 +1438,12 @@ EXAMPLES = """
           cert_trust_store: "local"
           certificate:
               -
-                  name: "default_name_32 (source vpn.certificate.local.name)"
+                  name: "default_name_40 (source vpn.certificate.local.name)"
           childless_ike: "enable"
           client_auto_negotiate: "disable"
           client_keep_alive: "disable"
           client_resume: "enable"
-          client_resume_interval: "1800"
+          client_resume_interval: "7200"
           comments: "<your_own_value>"
           default_gw: "<your_own_value>"
           default_gw_priority: "0"
@@ -1411,7 +1513,7 @@ EXAMPLES = """
           ipv4_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "105"
+                  id: "113"
                   start_ip: "<your_own_value>"
           ipv4_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
           ipv4_netmask: "<your_own_value>"
@@ -1420,6 +1522,7 @@ EXAMPLES = """
           ipv4_start_ip: "<your_own_value>"
           ipv4_wins_server1: "<your_own_value>"
           ipv4_wins_server2: "<your_own_value>"
+          ipv6_auto_linklocal: "enable"
           ipv6_dns_server1: "<your_own_value>"
           ipv6_dns_server2: "<your_own_value>"
           ipv6_dns_server3: "<your_own_value>"
@@ -1427,7 +1530,7 @@ EXAMPLES = """
           ipv6_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "120"
+                  id: "129"
                   start_ip: "<your_own_value>"
           ipv6_name: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_prefix: "128"
@@ -1447,18 +1550,16 @@ EXAMPLES = """
           mode: "aggressive"
           mode_cfg: "disable"
           mode_cfg_allow_client_selector: "disable"
-          monitor:
-              -
-                  name: "default_name_141 (source vpn.ipsec.phase1-interface.name)"
+          monitor: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
           monitor_dict:
               -
-                  name: "default_name_143 (source vpn.ipsec.phase1-interface.name)"
+                  name: "default_name_151 (source vpn.ipsec.phase1-interface.name)"
           monitor_hold_down_delay: "0"
           monitor_hold_down_time: "<your_own_value>"
           monitor_hold_down_type: "immediate"
           monitor_hold_down_weekday: "everyday"
           monitor_min: "0"
-          name: "default_name_149"
+          name: "default_name_157"
           nattraversal: "enable"
           negotiate_timeout: "30"
           net_device: "enable"
@@ -1488,6 +1589,9 @@ EXAMPLES = """
           remote_gw_match: "any"
           remote_gw_start_ip: "<your_own_value>"
           remote_gw_subnet: "<your_own_value>"
+          remote_gw_ztna_tags:
+              -
+                  name: "default_name_188 (source firewall.address.name firewall.addrgrp.name)"
           remote_gw6: "<your_own_value>"
           remote_gw6_country: "<your_own_value>"
           remote_gw6_end_ip: "<your_own_value>"
@@ -1499,6 +1603,7 @@ EXAMPLES = """
           rsa_signature_hash_override: "enable"
           save_password: "disable"
           send_cert_chain: "enable"
+          shared_idle_timeout: "enable"
           signature_hash_alg: "sha1"
           split_include_service: "<your_own_value> (source firewall.service.group.name firewall.service.custom.name)"
           suite_b: "disable"
@@ -1605,6 +1710,13 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "acct_verify",
         "add_gw_route",
         "add_route",
+        "addke1",
+        "addke2",
+        "addke3",
+        "addke4",
+        "addke5",
+        "addke6",
+        "addke7",
         "aggregate_member",
         "aggregate_weight",
         "assign_ip",
@@ -1622,6 +1734,7 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "auto_discovery_sender",
         "auto_discovery_shortcuts",
         "auto_negotiate",
+        "auto_transport_threshold",
         "azure_ad_autoconnect",
         "backup_gateway",
         "banner",
@@ -1707,6 +1820,7 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "ipv4_start_ip",
         "ipv4_wins_server1",
         "ipv4_wins_server2",
+        "ipv6_auto_linklocal",
         "ipv6_dns_server1",
         "ipv6_dns_server2",
         "ipv6_dns_server3",
@@ -1767,6 +1881,7 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "remote_gw_match",
         "remote_gw_start_ip",
         "remote_gw_subnet",
+        "remote_gw_ztna_tags",
         "remote_gw6",
         "remote_gw6_country",
         "remote_gw6_end_ip",
@@ -1778,6 +1893,7 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "rsa_signature_hash_override",
         "save_password",
         "send_cert_chain",
+        "shared_idle_timeout",
         "signature_hash_alg",
         "split_include_service",
         "suite_b",
@@ -1807,11 +1923,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1823,6 +1942,13 @@ def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["proposal"],
         ["dhgrp"],
+        ["addke1"],
+        ["addke2"],
+        ["addke3"],
+        ["addke4"],
+        ["addke5"],
+        ["addke6"],
+        ["addke7"],
         ["signature_hash_alg"],
     ]
 
@@ -1876,12 +2002,11 @@ def vpn_ipsec_phase1_interface(data, fos, check_mode=False):
     state = data["state"]
 
     vpn_ipsec_phase1_interface_data = data["vpn_ipsec_phase1_interface"]
-    vpn_ipsec_phase1_interface_data = flatten_multilists_attributes(
-        vpn_ipsec_phase1_interface_data
-    )
+
     filtered_data = filter_vpn_ipsec_phase1_interface_data(
         vpn_ipsec_phase1_interface_data
     )
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
     converted_data = remap_attribute_names(converted_data)
 
@@ -1907,20 +2032,24 @@ def vpn_ipsec_phase1_interface(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -1945,6 +2074,14 @@ def vpn_ipsec_phase1_interface(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_ipsec_phase1_interface"] = converted_data
+    fos.do_member_operation(
+        "vpn.ipsec",
+        "phase1-interface",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("vpn.ipsec", "phase1-interface", data=converted_data, vdom=vdom)
@@ -1970,7 +2107,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_ipsec(data, fos, check_mode):
-    fos.do_member_operation("vpn.ipsec", "phase1-interface")
     if data["vpn_ipsec_phase1_interface"]:
         resp = vpn_ipsec_phase1_interface(data, fos, check_mode)
     else:
@@ -2059,17 +2195,17 @@ versioned_schema = {
         "usrgrp": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "peer": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "peergrp": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "monitor": {
+        "monitor_dict": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.4.4", ""]],
+                    "v_range": [["v7.4.1", ""]],
                     "type": "string",
                     "required": True,
                 }
             },
-            "v_range": [["v6.0.0", "v7.4.0"], ["v7.4.4", ""]],
+            "v_range": [["v7.4.1", ""]],
         },
         "monitor_min": {"v_range": [["v7.4.1", ""]], "type": "integer"},
         "monitor_hold_down_type": {
@@ -2422,6 +2558,90 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
+        "addke1": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke2": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke3": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke4": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke5": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke6": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "addke7": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "0"},
+                {"value": "1080"},
+                {"value": "1081"},
+                {"value": "1082"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
         "suite_b": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2513,6 +2733,11 @@ versioned_schema = {
         },
         "idle_timeout": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "shared_idle_timeout": {
+            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2707,6 +2932,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "ipv6_auto_linklocal": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ems_sn_check": {
             "v_range": [["v7.4.1", ""]],
             "type": "string",
@@ -2728,8 +2958,9 @@ versioned_schema = {
             "type": "string",
             "options": [
                 {"value": "udp"},
-                {"value": "udp-fallback-tcp"},
+                {"value": "auto", "v_range": [["v7.6.0", ""]]},
                 {"value": "tcp"},
+                {"value": "udp-fallback-tcp", "v_range": [["v7.4.2", "v7.4.4"]]},
             ],
         },
         "fortinet_esp": {
@@ -2737,7 +2968,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "fallback_tcp_threshold": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "auto_transport_threshold": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "remote_gw_match": {
             "v_range": [["v7.4.4", ""]],
             "type": "string",
@@ -2746,12 +2977,25 @@ versioned_schema = {
                 {"value": "ipmask"},
                 {"value": "iprange"},
                 {"value": "geography"},
+                {"value": "ztna", "v_range": [["v7.6.0", ""]]},
             ],
         },
         "remote_gw_subnet": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "remote_gw_start_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "remote_gw_end_ip": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "remote_gw_country": {"v_range": [["v7.4.4", ""]], "type": "string"},
+        "remote_gw_ztna_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.0", ""]],
+        },
         "remote_gw6_match": {
             "v_range": [["v7.4.4", ""]],
             "type": "string",
@@ -2781,18 +3025,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "monitor_dict": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v7.4.1", "v7.4.3"]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v7.4.1", "v7.4.3"]],
+        "fallback_tcp_threshold": {
+            "v_range": [["v7.4.2", "v7.4.4"]],
+            "type": "integer",
         },
+        "monitor": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "string"},
         "forticlient_enforcement": {
             "v_range": [["v6.0.0", "v7.4.0"]],
             "type": "string",

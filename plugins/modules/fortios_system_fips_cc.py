@@ -234,8 +234,18 @@ def system_fips_cc(data, fos):
     state = None
     vdom = data["vdom"]
     system_fips_cc_data = data["system_fips_cc"]
+
     filtered_data = filter_system_fips_cc_data(system_fips_cc_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fips_cc"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fips-cc",
+        data_copy,
+    )
 
     return fos.set("system", "fips-cc", data=converted_data, vdom=vdom)
 
@@ -253,7 +263,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fips-cc")
     if data["system_fips_cc"]:
         resp = system_fips_cc(data, fos)
     else:

@@ -218,10 +218,20 @@ def firewall_internet_service_append(data, fos):
     state = None
     vdom = data["vdom"]
     firewall_internet_service_append_data = data["firewall_internet_service_append"]
+
     filtered_data = filter_firewall_internet_service_append_data(
         firewall_internet_service_append_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["firewall_internet_service_append"] = converted_data
+    fos.do_member_operation(
+        "firewall",
+        "internet-service-append",
+        data_copy,
+    )
 
     return fos.set(
         "firewall", "internet-service-append", data=converted_data, vdom=vdom
@@ -241,7 +251,6 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos):
-    fos.do_member_operation("firewall", "internet-service-append")
     if data["firewall_internet_service_append"]:
         resp = firewall_internet_service_append(data, fos)
     else:

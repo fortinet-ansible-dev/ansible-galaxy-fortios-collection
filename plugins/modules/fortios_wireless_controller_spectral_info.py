@@ -231,10 +231,20 @@ def wireless_controller_spectral_info(data, fos, check_mode=False):
     state = None
     vdom = data["vdom"]
     wireless_controller_spectral_info_data = data["wireless_controller_spectral_info"]
+
     filtered_data = filter_wireless_controller_spectral_info_data(
         wireless_controller_spectral_info_data
     )
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_spectral_info"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller",
+        "spectral-info",
+        data_copy,
+    )
 
     return fos.set(
         "wireless-controller", "spectral-info", data=converted_data, vdom=vdom
@@ -254,7 +264,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
-    fos.do_member_operation("wireless-controller", "spectral-info")
     if data["wireless_controller_spectral_info"]:
         resp = wireless_controller_spectral_info(data, fos, check_mode)
     else:

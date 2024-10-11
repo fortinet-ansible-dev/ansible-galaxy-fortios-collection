@@ -990,11 +990,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -1031,9 +1034,19 @@ def vpn_ssl_settings(data, fos):
     state = None
     vdom = data["vdom"]
     vpn_ssl_settings_data = data["vpn_ssl_settings"]
-    vpn_ssl_settings_data = flatten_multilists_attributes(vpn_ssl_settings_data)
+
     filtered_data = filter_vpn_ssl_settings_data(vpn_ssl_settings_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["vpn_ssl_settings"] = converted_data
+    fos.do_member_operation(
+        "vpn.ssl",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("vpn.ssl", "settings", data=converted_data, vdom=vdom)
 
@@ -1051,7 +1064,6 @@ def is_successful_status(resp):
 
 
 def fortios_vpn_ssl(data, fos):
-    fos.do_member_operation("vpn.ssl", "settings")
     if data["vpn_ssl_settings"]:
         resp = vpn_ssl_settings(data, fos)
     else:

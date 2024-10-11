@@ -255,8 +255,18 @@ def dlp_exact_data_match(data, fos):
     state = data["state"]
 
     dlp_exact_data_match_data = data["dlp_exact_data_match"]
+
     filtered_data = filter_dlp_exact_data_match_data(dlp_exact_data_match_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["dlp_exact_data_match"] = converted_data
+    fos.do_member_operation(
+        "dlp",
+        "exact-data-match",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("dlp", "exact-data-match", data=converted_data, vdom=vdom)
@@ -282,7 +292,6 @@ def is_successful_status(resp):
 
 
 def fortios_dlp(data, fos):
-    fos.do_member_operation("dlp", "exact-data-match")
     if data["dlp_exact_data_match"]:
         resp = dlp_exact_data_match(data, fos)
     else:

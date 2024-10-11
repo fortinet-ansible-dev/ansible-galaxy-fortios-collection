@@ -351,6 +351,29 @@ options:
                 description:
                     - WAN metric name. Source wireless-controller.hotspot20.h2qp-wan-metric.name.
                 type: str
+            wba_charging_currency:
+                description:
+                    - Three letter currency code.
+                type: str
+            wba_charging_rate:
+                description:
+                    - Number of currency units per kilobyte.
+                type: int
+            wba_data_clearing_provider:
+                description:
+                    - WBA ID of data clearing provider.
+                type: str
+            wba_financial_clearing_provider:
+                description:
+                    - WBA ID of financial clearing provider.
+                type: str
+            wba_open_roaming:
+                description:
+                    - Enable/disable WBA open roaming support.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             wnm_sleep_mode:
                 description:
                     - Enable/disable wireless network management (WNM) sleep mode.
@@ -406,6 +429,11 @@ EXAMPLES = """
           venue_type: "unspecified"
           venue_url: "<your_own_value> (source wireless-controller.hotspot20.anqp-venue-url.name)"
           wan_metrics: "<your_own_value> (source wireless-controller.hotspot20.h2qp-wan-metric.name)"
+          wba_charging_currency: "<your_own_value>"
+          wba_charging_rate: "0"
+          wba_data_clearing_provider: "<your_own_value>"
+          wba_financial_clearing_provider: "<your_own_value>"
+          wba_open_roaming: "disable"
           wnm_sleep_mode: "enable"
 """
 
@@ -536,6 +564,11 @@ def filter_wireless_controller_hotspot20_hs_profile_data(json):
         "venue_type",
         "venue_url",
         "wan_metrics",
+        "wba_charging_currency",
+        "wba_charging_rate",
+        "wba_data_clearing_provider",
+        "wba_financial_clearing_provider",
+        "wba_open_roaming",
         "wnm_sleep_mode",
     ]
 
@@ -597,6 +630,7 @@ def wireless_controller_hotspot20_hs_profile(data, fos, check_mode=False):
     wireless_controller_hotspot20_hs_profile_data = data[
         "wireless_controller_hotspot20_hs_profile"
     ]
+
     filtered_data = filter_wireless_controller_hotspot20_hs_profile_data(
         wireless_controller_hotspot20_hs_profile_data
     )
@@ -628,20 +662,24 @@ def wireless_controller_hotspot20_hs_profile(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -666,6 +704,14 @@ def wireless_controller_hotspot20_hs_profile(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["wireless_controller_hotspot20_hs_profile"] = converted_data
+    fos.do_member_operation(
+        "wireless-controller.hotspot20",
+        "hs-profile",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set(
@@ -699,7 +745,6 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller_hotspot20(data, fos, check_mode):
-    fos.do_member_operation("wireless-controller.hotspot20", "hs-profile")
     if data["wireless_controller_hotspot20_hs_profile"]:
         resp = wireless_controller_hotspot20_hs_profile(data, fos, check_mode)
     else:
@@ -899,6 +944,18 @@ versioned_schema = {
         "conn_cap": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "qos_map": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ip_addr_type": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "wba_open_roaming": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "wba_financial_clearing_provider": {
+            "v_range": [["v7.6.0", ""]],
+            "type": "string",
+        },
+        "wba_data_clearing_provider": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "wba_charging_currency": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "wba_charging_rate": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "plmn_3gpp": {"v_range": [["v6.0.0", ""]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],

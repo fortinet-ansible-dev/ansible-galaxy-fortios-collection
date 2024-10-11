@@ -257,8 +257,18 @@ def system_fortimanager(data, fos):
     state = None
     vdom = data["vdom"]
     system_fortimanager_data = data["system_fortimanager"]
+
     filtered_data = filter_system_fortimanager_data(system_fortimanager_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["system_fortimanager"] = converted_data
+    fos.do_member_operation(
+        "system",
+        "fortimanager",
+        data_copy,
+    )
 
     return fos.set("system", "fortimanager", data=converted_data, vdom=vdom)
 
@@ -276,7 +286,6 @@ def is_successful_status(resp):
 
 
 def fortios_system(data, fos):
-    fos.do_member_operation("system", "fortimanager")
     if data["system_fortimanager"]:
         resp = system_fortimanager(data, fos)
     else:

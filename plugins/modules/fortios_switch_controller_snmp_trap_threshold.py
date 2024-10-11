@@ -220,10 +220,20 @@ def switch_controller_snmp_trap_threshold(data, fos):
     switch_controller_snmp_trap_threshold_data = data[
         "switch_controller_snmp_trap_threshold"
     ]
+
     filtered_data = filter_switch_controller_snmp_trap_threshold_data(
         switch_controller_snmp_trap_threshold_data
     )
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_snmp_trap_threshold"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "snmp-trap-threshold",
+        data_copy,
+    )
 
     return fos.set(
         "switch-controller", "snmp-trap-threshold", data=converted_data, vdom=vdom
@@ -243,7 +253,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "snmp-trap-threshold")
     if data["switch_controller_snmp_trap_threshold"]:
         resp = switch_controller_snmp_trap_threshold(data, fos)
     else:

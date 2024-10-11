@@ -144,6 +144,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            reuse_password_limit:
+                description:
+                    - Number of times passwords can be reused (0 - 20).
+                type: int
             warn_days:
                 description:
                     - Time in days before a password expiration warning message is displayed to the user upon login.
@@ -168,6 +172,7 @@ EXAMPLES = """
           minimum_length: "8"
           name: "default_name_12"
           reuse_password: "enable"
+          reuse_password_limit: "0"
           warn_days: "15"
 """
 
@@ -272,6 +277,7 @@ def filter_user_password_policy_data(json):
         "minimum_length",
         "name",
         "reuse_password",
+        "reuse_password_limit",
         "warn_days",
     ]
 
@@ -305,6 +311,7 @@ def user_password_policy(data, fos, check_mode=False):
     state = data["state"]
 
     user_password_policy_data = data["user_password_policy"]
+
     filtered_data = filter_user_password_policy_data(user_password_policy_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
@@ -330,20 +337,24 @@ def user_password_policy(data, fos, check_mode=False):
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
+            copied_filtered_data = filtered_data.copy()
+            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+
             if is_existed:
                 is_same = is_same_comparison(
-                    serialize(current_data["results"][0]), serialize(filtered_data)
+                    serialize(current_data["results"][0]),
+                    serialize(copied_filtered_data),
                 )
 
                 current_values = find_current_values(
-                    current_data["results"][0], filtered_data
+                    copied_filtered_data, current_data["results"][0]
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": filtered_data},
+                    {"before": current_values, "after": copied_filtered_data},
                 )
 
             # record does not exist
@@ -368,6 +379,14 @@ def user_password_policy(data, fos, check_mode=False):
             return False, False, filtered_data, {}
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["user_password_policy"] = converted_data
+    fos.do_member_operation(
+        "user",
+        "password-policy",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("user", "password-policy", data=converted_data, vdom=vdom)
@@ -393,7 +412,6 @@ def is_successful_status(resp):
 
 
 def fortios_user(data, fos, check_mode):
-    fos.do_member_operation("user", "password-policy")
     if data["user_password_policy"]:
         resp = user_password_policy(data, fos, check_mode)
     else:
@@ -437,6 +455,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "reuse_password_limit": {"v_range": [["v7.6.0", ""]], "type": "integer"},
     },
     "v_range": [["v6.0.0", ""]],
 }

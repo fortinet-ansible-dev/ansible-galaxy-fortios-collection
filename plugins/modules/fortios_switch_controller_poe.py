@@ -230,8 +230,18 @@ def switch_controller_poe(data, fos):
     state = None
     vdom = data["vdom"]
     switch_controller_poe_data = data["switch_controller_poe"]
+
     filtered_data = filter_switch_controller_poe_data(switch_controller_poe_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["switch_controller_poe"] = converted_data
+    fos.do_member_operation(
+        "switch-controller",
+        "poe",
+        data_copy,
+    )
 
     return fos.set("switch-controller", "poe", data=converted_data, vdom=vdom)
 
@@ -249,7 +259,6 @@ def is_successful_status(resp):
 
 
 def fortios_switch_controller(data, fos):
-    fos.do_member_operation("switch-controller", "poe")
     if data["switch_controller_poe"]:
         resp = switch_controller_poe(data, fos)
     else:

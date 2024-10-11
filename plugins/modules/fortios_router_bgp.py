@@ -2344,6 +2344,10 @@ options:
                         description:
                             - Network prefix.
                         type: str
+                    prefix_name:
+                        description:
+                            - Name of firewall address or address group. Source firewall.address.name firewall.addrgrp.name.
+                        type: str
                     route_map:
                         description:
                             - Route map to modify generated route. Source router.route-map.name.
@@ -2470,6 +2474,7 @@ options:
                     - 'disable'
                     - 'preferred'
                     - 'merge'
+                    - 'merge-all'
             vrf:
                 description:
                     - BGP VRF leaking table.
@@ -3086,12 +3091,13 @@ EXAMPLES = """
                   id: "400"
                   network_import_check: "global"
                   prefix: "<your_own_value>"
+                  prefix_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   route_map: "<your_own_value> (source router.route-map.name)"
           network_import_check: "enable"
           network6:
               -
                   backdoor: "enable"
-                  id: "407"
+                  id: "408"
                   network_import_check: "global"
                   prefix6: "<your_own_value>"
                   route_map: "<your_own_value> (source router.route-map.name)"
@@ -3099,12 +3105,12 @@ EXAMPLES = """
           recursive_next_hop: "enable"
           redistribute:
               -
-                  name: "default_name_414"
+                  name: "default_name_415"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           redistribute6:
               -
-                  name: "default_name_418"
+                  name: "default_name_419"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           router_id: "<your_own_value>"
@@ -3330,11 +3336,14 @@ def flatten_single_path(data, path, index):
         or index == len(path)
         or path[index] not in data
         or not data[path[index]]
+        and not isinstance(data[path[index]], list)
     ):
         return
 
     if index == len(path) - 1:
         data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
     elif isinstance(data[path[index]], list):
         for value in data[path[index]]:
             flatten_single_path(value, path, index + 1)
@@ -3377,9 +3386,19 @@ def router_bgp(data, fos):
     state = None
     vdom = data["vdom"]
     router_bgp_data = data["router_bgp"]
-    router_bgp_data = flatten_multilists_attributes(router_bgp_data)
+
     filtered_data = filter_router_bgp_data(router_bgp_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["router_bgp"] = converted_data
+    fos.do_member_operation(
+        "router",
+        "bgp",
+        data_copy,
+    )
 
     return fos.set("router", "bgp", data=converted_data, vdom=vdom)
 
@@ -3397,7 +3416,6 @@ def is_successful_status(resp):
 
 
 def fortios_router(data, fos):
-    fos.do_member_operation("router", "bgp")
     if data["router_bgp"]:
         resp = router_bgp(data, fos)
     else:
@@ -3542,6 +3560,7 @@ versioned_schema = {
                 {"value": "disable"},
                 {"value": "preferred"},
                 {"value": "merge"},
+                {"value": "merge-all", "v_range": [["v7.6.0", ""]]},
             ],
         },
         "cluster_id": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -5028,6 +5047,7 @@ versioned_schema = {
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "route_map": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "prefix_name": {"v_range": [["v7.6.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },

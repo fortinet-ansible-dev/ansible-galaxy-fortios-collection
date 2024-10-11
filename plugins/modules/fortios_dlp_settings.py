@@ -234,8 +234,18 @@ def dlp_settings(data, fos):
     state = None
     vdom = data["vdom"]
     dlp_settings_data = data["dlp_settings"]
+
     filtered_data = filter_dlp_settings_data(dlp_settings_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["dlp_settings"] = converted_data
+    fos.do_member_operation(
+        "dlp",
+        "settings",
+        data_copy,
+    )
 
     return fos.set("dlp", "settings", data=converted_data, vdom=vdom)
 
@@ -253,7 +263,6 @@ def is_successful_status(resp):
 
 
 def fortios_dlp(data, fos):
-    fos.do_member_operation("dlp", "settings")
     if data["dlp_settings"]:
         resp = dlp_settings(data, fos)
     else:

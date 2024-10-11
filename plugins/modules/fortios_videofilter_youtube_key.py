@@ -233,8 +233,18 @@ def videofilter_youtube_key(data, fos):
     state = data["state"]
 
     videofilter_youtube_key_data = data["videofilter_youtube_key"]
+
     filtered_data = filter_videofilter_youtube_key_data(videofilter_youtube_key_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["videofilter_youtube_key"] = converted_data
+    fos.do_member_operation(
+        "videofilter",
+        "youtube-key",
+        data_copy,
+    )
 
     if state == "present" or state is True:
         return fos.set("videofilter", "youtube-key", data=converted_data, vdom=vdom)
@@ -260,7 +270,6 @@ def is_successful_status(resp):
 
 
 def fortios_videofilter(data, fos):
-    fos.do_member_operation("videofilter", "youtube-key")
     if data["videofilter_youtube_key"]:
         resp = videofilter_youtube_key(data, fos)
     else:

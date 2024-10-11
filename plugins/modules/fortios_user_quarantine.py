@@ -273,8 +273,18 @@ def user_quarantine(data, fos):
     state = None
     vdom = data["vdom"]
     user_quarantine_data = data["user_quarantine"]
+
     filtered_data = filter_user_quarantine_data(user_quarantine_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["user_quarantine"] = converted_data
+    fos.do_member_operation(
+        "user",
+        "quarantine",
+        data_copy,
+    )
 
     return fos.set("user", "quarantine", data=converted_data, vdom=vdom)
 
@@ -292,7 +302,6 @@ def is_successful_status(resp):
 
 
 def fortios_user(data, fos):
-    fos.do_member_operation("user", "quarantine")
     if data["user_quarantine"]:
         resp = user_quarantine(data, fos)
     else:

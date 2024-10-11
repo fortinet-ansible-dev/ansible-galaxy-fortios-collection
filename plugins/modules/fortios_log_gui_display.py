@@ -223,8 +223,18 @@ def log_gui_display(data, fos):
     state = None
     vdom = data["vdom"]
     log_gui_display_data = data["log_gui_display"]
+
     filtered_data = filter_log_gui_display_data(log_gui_display_data)
     converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    data_copy = data.copy()
+    data_copy["log_gui_display"] = converted_data
+    fos.do_member_operation(
+        "log",
+        "gui-display",
+        data_copy,
+    )
 
     return fos.set("log", "gui-display", data=converted_data, vdom=vdom)
 
@@ -242,7 +252,6 @@ def is_successful_status(resp):
 
 
 def fortios_log(data, fos):
-    fos.do_member_operation("log", "gui-display")
     if data["log_gui_display"]:
         resp = log_gui_display(data, fos)
     else:
