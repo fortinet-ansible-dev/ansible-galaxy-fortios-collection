@@ -189,16 +189,18 @@ def filter_extender_sys_info_data(json):
 
 
 def underscore_to_hyphen(data):
+    new_data = None
     if isinstance(data, list):
+        new_data = []
         for i, elem in enumerate(data):
-            data[i] = underscore_to_hyphen(elem)
+            new_data.append(underscore_to_hyphen(elem))
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
             new_data[k.replace("_", "-")] = underscore_to_hyphen(v)
-        data = new_data
-
-    return data
+    else:
+        return data
+    return new_data
 
 
 def valid_attr_to_invalid_attr(data):
@@ -228,16 +230,19 @@ def valid_attr_to_invalid_attrs(data):
 
 
 def extender_sys_info(data, fos, check_mode=False):
+
     state = None
     vdom = data["vdom"]
+    state = data.get("state", None)
     extender_sys_info_data = data["extender_sys_info"]
 
     filtered_data = filter_extender_sys_info_data(extender_sys_info_data)
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # pass post processed data to member operations
+    # no need to do underscore_to_hyphen since do_member_operation handles it by itself
     data_copy = data.copy()
-    data_copy["extender_sys_info"] = converted_data
+    data_copy["extender_sys_info"] = filtered_data
     fos.do_member_operation(
         "extender",
         "sys-info",
@@ -260,6 +265,7 @@ def is_successful_status(resp):
 
 
 def fortios_extender(data, fos, check_mode):
+
     if data["extender_sys_info"]:
         resp = extender_sys_info(data, fos, check_mode)
     else:

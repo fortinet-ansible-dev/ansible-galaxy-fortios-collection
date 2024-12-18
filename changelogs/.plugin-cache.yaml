@@ -18,11 +18,11 @@ plugins:
     fortios_json_generic:
       description: Config Fortinet's FortiOS and FortiGate with json generic method.
       name: fortios_json_generic
-      namespace: ''
+      namespace: ""
       version_added: 2.0.0
   netconf: {}
   shell: {}
   strategy: {}
   test: {}
   vars: {}
-version: 2.3.8
+version: 2.3.9

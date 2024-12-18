@@ -6888,11 +6888,9 @@ def main():
                     # **selector_obj,
                 }
                 per_selector.update(selector_obj)
-                (
-                    is_error_local,
-                    has_changed_local,
-                    result_local,
-                ) = fortios_configuration_fact(per_selector, fos)
+                is_error_local, has_changed_local, result_local = (
+                    fortios_configuration_fact(per_selector, fos)
+                )
 
                 is_error = is_error or is_error_local
                 has_changed = has_changed or has_changed_local

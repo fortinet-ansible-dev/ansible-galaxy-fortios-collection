@@ -244,24 +244,25 @@ def filter_firewall_internet_service_name_data(json):
 
 
 def underscore_to_hyphen(data):
+    new_data = None
     if isinstance(data, list):
+        new_data = []
         for i, elem in enumerate(data):
-            data[i] = underscore_to_hyphen(elem)
+            new_data.append(underscore_to_hyphen(elem))
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
             new_data[k.replace("_", "-")] = underscore_to_hyphen(v)
-        data = new_data
-
-    return data
+    else:
+        return data
+    return new_data
 
 
 def firewall_internet_service_name(data, fos, check_mode=False):
+
     state = None
     vdom = data["vdom"]
-
-    state = data["state"]
-
+    state = data.get("state", None)
     firewall_internet_service_name_data = data["firewall_internet_service_name"]
 
     filtered_data = filter_firewall_internet_service_name_data(
@@ -275,6 +276,7 @@ def firewall_internet_service_name(data, fos, check_mode=False):
             "before": "",
             "after": filtered_data,
         }
+        mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey(
             "firewall", "internet-service-name", filtered_data, vdom=vdom
         )
@@ -284,28 +286,41 @@ def firewall_internet_service_name(data, fos, check_mode=False):
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
-            and isinstance(current_data.get("results"), list)
-            and len(current_data["results"]) > 0
+            and (
+                mkeyname
+                and isinstance(current_data.get("results"), list)
+                and len(current_data["results"]) > 0
+                or not mkeyname
+                and current_data["results"]  # global object response
+            )
         )
 
         # 2. if it exists and the state is 'present' then compare current settings with desired
-        if state == "present" or state is True:
-            if mkey is None:
+        if state == "present" or state is True or state is None:
+            # for non global modules, mkeyname must exist and it's a new module when mkey is None
+            if mkeyname is not None and mkey is None:
                 return False, True, filtered_data, diff
 
             # if mkey exists then compare each other
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
-            copied_filtered_data.pop(fos.get_mkeyname(None, None), None)
+            copied_filtered_data.pop(mkeyname, None)
 
+            current_data_results = current_data.get("results", {})
+            current_config = (
+                current_data_results[0]
+                if mkeyname
+                and isinstance(current_data_results, list)
+                and len(current_data_results) > 0
+                else current_data_results
+            )
             if is_existed:
-                is_same = is_same_comparison(
-                    serialize(current_data["results"][0]),
-                    serialize(copied_filtered_data),
+                current_values = find_current_values(
+                    copied_filtered_data, current_config
                 )
 
-                current_values = find_current_values(
-                    copied_filtered_data, current_data["results"][0]
+                is_same = is_same_comparison(
+                    serialize(current_values), serialize(copied_filtered_data)
                 )
 
                 return (
@@ -338,8 +353,9 @@ def firewall_internet_service_name(data, fos, check_mode=False):
 
         return True, False, {"reason: ": "Must provide state parameter"}, {}
     # pass post processed data to member operations
+    # no need to do underscore_to_hyphen since do_member_operation handles it by itself
     data_copy = data.copy()
-    data_copy["firewall_internet_service_name"] = converted_data
+    data_copy["firewall_internet_service_name"] = filtered_data
     fos.do_member_operation(
         "firewall",
         "internet-service-name",
@@ -372,6 +388,7 @@ def is_successful_status(resp):
 
 
 def fortios_firewall(data, fos, check_mode):
+
     if data["firewall_internet_service_name"]:
         resp = firewall_internet_service_name(data, fos, check_mode)
     else:
@@ -430,9 +447,9 @@ def main():
         },
     }
     for attribute_name in module_spec["options"]:
-        fields["firewall_internet_service_name"]["options"][
-            attribute_name
-        ] = module_spec["options"][attribute_name]
+        fields["firewall_internet_service_name"]["options"][attribute_name] = (
+            module_spec["options"][attribute_name]
+        )
         if mkeyname and mkeyname == attribute_name:
             fields["firewall_internet_service_name"]["options"][attribute_name][
                 "required"

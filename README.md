@@ -5,7 +5,7 @@
 ## Description
 
 The collection includes modules that allow users to configure FortiOS and FortiGate, specifically for managing firewall features.
-Please refer to https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/index.html for more information.
+Please refer to [Documentation](https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/index.html) for more information.
 
 ## Requirements
 
@@ -39,16 +39,16 @@ ansible-galaxy collection install fortinet.fortios --upgrade
 You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax to install version 2.3.7:
 
 ```
-ansible-galaxy collection install fortinet.fortios:==2.3.7
+ansible-galaxy collection install fortinet.fortios:==2.3.9
 ```
 
 See [using Ansible collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ## Use Cases
 
-The FortiOS collection supports both username/password and access token authentication, with access tokens being the recommended method for enhanced security. For more infirmation about generating an access_token, please refer to https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/faq.html#what-s-access-token.
+The FortiOS collection supports both username/password and access token authentication, with access tokens being the recommended method for enhanced security. For more infirmation about generating an access_token, please refer to [Generate access_token](https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/faq.html#what-s-access-token).
 
-Follow the example here https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/playbook.html to configure the hosts file and write your first playbook.
+Follow the example here [Examples](https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/playbook.html) to configure the hosts file and write your first playbook.
 
 Change the FortiGate host name:
 ```yaml
@@ -71,11 +71,11 @@ Testing is conducted by the Fortinet team. The new version will be released once
 
 ## Support
 
-Please open a Github issue if your have any questions https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues
+Please open a Github issue if your have any questions [Report issues](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues)
 
 ## Release Notes and Roadmap
 
-Refer to the release notes here https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/release.html
+Refer to the release notes here [Release Notes](https://ansible-galaxy-fortios-docs.readthedocs.io/en/latest/release.html)
 The FortiOS Ansible collection is scheduled to be updated every two months.
 
 ## Related Information
@@ -768,4 +768,4 @@ The collection incluses the following modules:
 
 ## License Information
 
-FortiOS Ansible Collection follows [GNU General Public License v3.0](LICENSE).
+FortiOS Ansible Collection follows [GNU General Public License v3.0](./LICENSE).

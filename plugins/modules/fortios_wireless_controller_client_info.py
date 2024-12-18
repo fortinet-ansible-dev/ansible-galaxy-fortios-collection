@@ -189,16 +189,18 @@ def filter_wireless_controller_client_info_data(json):
 
 
 def underscore_to_hyphen(data):
+    new_data = None
     if isinstance(data, list):
+        new_data = []
         for i, elem in enumerate(data):
-            data[i] = underscore_to_hyphen(elem)
+            new_data.append(underscore_to_hyphen(elem))
     elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
             new_data[k.replace("_", "-")] = underscore_to_hyphen(v)
-        data = new_data
-
-    return data
+    else:
+        return data
+    return new_data
 
 
 def valid_attr_to_invalid_attr(data):
@@ -228,8 +230,10 @@ def valid_attr_to_invalid_attrs(data):
 
 
 def wireless_controller_client_info(data, fos, check_mode=False):
+
     state = None
     vdom = data["vdom"]
+    state = data.get("state", None)
     wireless_controller_client_info_data = data["wireless_controller_client_info"]
 
     filtered_data = filter_wireless_controller_client_info_data(
@@ -238,8 +242,9 @@ def wireless_controller_client_info(data, fos, check_mode=False):
     converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # pass post processed data to member operations
+    # no need to do underscore_to_hyphen since do_member_operation handles it by itself
     data_copy = data.copy()
-    data_copy["wireless_controller_client_info"] = converted_data
+    data_copy["wireless_controller_client_info"] = filtered_data
     fos.do_member_operation(
         "wireless-controller",
         "client-info",
@@ -262,6 +267,7 @@ def is_successful_status(resp):
 
 
 def fortios_wireless_controller(data, fos, check_mode):
+
     if data["wireless_controller_client_info"]:
         resp = wireless_controller_client_info(data, fos, check_mode)
     else:
@@ -316,9 +322,9 @@ def main():
         },
     }
     for attribute_name in module_spec["options"]:
-        fields["wireless_controller_client_info"]["options"][
-            attribute_name
-        ] = module_spec["options"][attribute_name]
+        fields["wireless_controller_client_info"]["options"][attribute_name] = (
+            module_spec["options"][attribute_name]
+        )
         if mkeyname and mkeyname == attribute_name:
             fields["wireless_controller_client_info"]["options"][attribute_name][
                 "required"

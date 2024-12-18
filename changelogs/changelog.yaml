@@ -329,6 +329,7 @@ releases:
   2.3.8:
     changes:
       bugfixes:
+        - Fix the issue using diff feature in check_mode.
         - Github
         - Github
         - Github
@@ -344,8 +345,23 @@ releases:
       major_changes:
         - Improve the logic for SET function to send GET request first then PUT or POST
         - Mantis
+        - Remove Tokens from URLs for Improved Security
         - Support new FOS versions 7.6.0.
       release_summary: patch release of 2.3.8
     fragments:
       - 2.3.8_release.yml
-    release_date: "2024-10-04"
+    release_date: "2024-10-11"
+  2.3.9:
+    changes:
+      bugfixes:
+        - Fix errors in Ansible sanity test with Ansible-core 2.18
+        - Github
+        - Github
+        - Github
+        - Github
+      major_changes:
+        - Support check_mode on all the configuration modules.
+      release_summary: patch release of 2.3.9
+    fragments:
+      - release_2.3.9.yml
+    release_date: "2024-12-17"

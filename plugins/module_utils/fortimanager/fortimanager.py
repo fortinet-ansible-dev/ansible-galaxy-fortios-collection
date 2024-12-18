@@ -299,6 +299,7 @@ class FMGLockContext(object):
     - CONVERT ALL MODULES TO CONNECTION MANAGER METHOD.
     - LEGACY pyFMG HANDLER OBJECT: REQUIRES A CHECK FOR PY FMG AT TOP OF PAGE
     """
+
     def __init__(self, fmg):
         self._fmg = fmg
         self._locked_adom_list = list()

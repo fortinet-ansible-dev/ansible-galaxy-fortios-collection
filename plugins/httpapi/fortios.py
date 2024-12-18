@@ -36,7 +36,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.8'
+        self._ansible_galaxy_version = '2.3.9'
         self._log = None
         self._logged_in = False
         self._session_key = None
@@ -233,18 +233,20 @@ class HttpApi(HttpApiBase):
             self.connection.send("/logincheck", {})
 
         url = message_kwargs.get('url', '/')
-        if self.get_access_token() is not None:
-            url = self._concat_token(message_kwargs.get('url', '/'))
-
         data = message_kwargs.get('data', '')
         method = message_kwargs.get('method', 'GET')
         params = message_kwargs.get('params', {})
+        headers = message_kwargs.get('headers', {})
+
+        if self.get_access_token() is not None:
+            url = self._concat_token(message_kwargs.get('url', '/'))
+            headers['Authorization'] = f"Bearer {self.get_access_token()}"
 
         url = self._concat_params(url, params)
-        self.log('Sending request: METHOD:%s URL:%s DATA:%s' % (method, url, data))
+        self.log('Sending request: METHOD:%s URL:%s DATA:%s HEADERS:%s' % (method, url, data, headers))
 
         try:
-            response, response_data = self.connection.send(url, data, method=method)
+            response, response_data = self.connection.send(url, data, method=method, headers=headers)
 
             json_formatted = to_text(response_data.getvalue())
 

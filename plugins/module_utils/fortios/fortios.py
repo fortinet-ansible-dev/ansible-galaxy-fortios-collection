@@ -608,12 +608,25 @@ class FortiOSHandler(object):
             mkey = self.get_mkey(path, name, data, vdom=vdom)
         url = self.cmdb_url(path, name, vdom, mkey)
 
-        http_get_status, unused_response_data = self._conn.send_request(url=url, params=parameters, method='GET')
+        if parameters and "action" in parameters and parameters["action"] == "move":
+            # Handle the 'move' action logic here, as it is only supported in PUT requests.
+            # Failing to address this will result in an API issue, since action=move will be included
+            # in the parameters for a GET request.
+            http_status, result_data = self._conn.send_request(
+                url=url, params=parameters, data=json.dumps(data), method="PUT"
+            )
+            return self.formatresponse(result_data, http_status, vdom=vdom)
+
+        http_get_status, unused_response_data = self._conn.send_request(
+            url=url, params=parameters, method="GET"
+        )
         if http_get_status != 200:
             return self.post(path, name, data, vdom, mkey)
-        else:
-            http_status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='PUT')
-            return self.formatresponse(result_data, http_status, vdom=vdom)
+        http_status, result_data = self._conn.send_request(
+            url=url, params=parameters, data=json.dumps(data), method="PUT"
+        )
+
+        return self.formatresponse(result_data, http_status, vdom=vdom)
 
     def post(self, path, name, data, vdom=None,
              mkey=None, parameters=None):
