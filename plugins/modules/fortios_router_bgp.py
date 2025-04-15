@@ -1256,6 +1256,41 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    rr_attr_allow_change:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to IPv4 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change_evpn:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to L2VPN EVPN route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change_vpnv4:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to VPNv4 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change_vpnv6:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to VPNv6 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change6:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to IPv6 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     send_community:
                         description:
                             - IPv4 Send community attribute to neighbor.
@@ -2152,6 +2187,41 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    rr_attr_allow_change:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to IPv4 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change_evpn:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to L2VPN EVPN route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change_vpnv4:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to VPNv4 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change_vpnv6:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to VPNv6 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rr_attr_allow_change6:
+                        description:
+                            - Enable/disable allowing change of route attributes when advertising to IPv6 route reflector clients.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     send_community:
                         description:
                             - IPv4 Send community attribute to neighbor.
@@ -2524,7 +2594,7 @@ options:
                                 type: str
                             vrf:
                                 description:
-                                    - Target VRF ID (0 - 251).
+                                    - Target VRF ID <0-511>.
                                 required: true
                                 type: str
                     rd:
@@ -2541,7 +2611,7 @@ options:
                             - 'pe'
                     vrf:
                         description:
-                            - Origin VRF ID (0 - 251).
+                            - Origin VRF ID <0-511>.
                         required: true
                         type: str
             vrf_leak:
@@ -2652,7 +2722,7 @@ options:
                                 type: str
                             vrf:
                                 description:
-                                    - Target VRF ID (0 - 251).
+                                    - Target VRF ID <0-511>.
                                 required: true
                                 type: str
                     rd:
@@ -2669,7 +2739,7 @@ options:
                             - 'pe'
                     vrf:
                         description:
-                            - Origin VRF ID (0 - 251).
+                            - Origin VRF ID <0-511>.
                         required: true
                         type: str
 """
@@ -2899,6 +2969,11 @@ EXAMPLES = """
                   route_server_client_vpnv4: "enable"
                   route_server_client_vpnv6: "enable"
                   route_server_client6: "enable"
+                  rr_attr_allow_change: "enable"
+                  rr_attr_allow_change_evpn: "enable"
+                  rr_attr_allow_change_vpnv4: "enable"
+                  rr_attr_allow_change_vpnv6: "enable"
+                  rr_attr_allow_change6: "enable"
                   send_community: "standard"
                   send_community_evpn: "standard"
                   send_community_vpnv4: "standard"
@@ -3006,7 +3081,7 @@ EXAMPLES = """
                   maximum_prefix_warning_only_vpnv6: "enable"
                   maximum_prefix_warning_only6: "enable"
                   maximum_prefix6: "0"
-                  name: "default_name_320"
+                  name: "default_name_325"
                   next_hop_self: "enable"
                   next_hop_self_rr: "enable"
                   next_hop_self_rr6: "enable"
@@ -3057,6 +3132,11 @@ EXAMPLES = """
                   route_server_client_vpnv4: "enable"
                   route_server_client_vpnv6: "enable"
                   route_server_client6: "enable"
+                  rr_attr_allow_change: "enable"
+                  rr_attr_allow_change_evpn: "enable"
+                  rr_attr_allow_change_vpnv4: "enable"
+                  rr_attr_allow_change_vpnv6: "enable"
+                  rr_attr_allow_change6: "enable"
                   send_community: "standard"
                   send_community_evpn: "standard"
                   send_community_vpnv4: "standard"
@@ -3076,20 +3156,20 @@ EXAMPLES = """
                   weight: "4294967295"
           neighbor_range:
               -
-                  id: "389"
+                  id: "399"
                   max_neighbor_num: "0"
                   neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
                   prefix: "<your_own_value>"
           neighbor_range6:
               -
-                  id: "394"
+                  id: "404"
                   max_neighbor_num: "0"
                   neighbor_group: "<your_own_value> (source router.bgp.neighbor-group.name)"
                   prefix6: "<your_own_value>"
           network:
               -
                   backdoor: "enable"
-                  id: "400"
+                  id: "410"
                   network_import_check: "global"
                   prefix: "<your_own_value>"
                   prefix_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
@@ -3098,7 +3178,7 @@ EXAMPLES = """
           network6:
               -
                   backdoor: "enable"
-                  id: "408"
+                  id: "418"
                   network_import_check: "global"
                   prefix6: "<your_own_value>"
                   route_map: "<your_own_value> (source router.route-map.name)"
@@ -3106,12 +3186,12 @@ EXAMPLES = """
           recursive_next_hop: "enable"
           redistribute:
               -
-                  name: "default_name_415"
+                  name: "default_name_425"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           redistribute6:
               -
-                  name: "default_name_419"
+                  name: "default_name_429"
                   route_map: "<your_own_value> (source router.route-map.name)"
                   status: "enable"
           router_id: "<your_own_value>"
@@ -3255,6 +3335,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -3435,6 +3518,7 @@ def router_bgp(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -3445,19 +3529,20 @@ def router_bgp(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -4077,6 +4162,31 @@ versioned_schema = {
                 },
                 "route_server_client_evpn": {
                     "v_range": [["v7.4.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change6": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change_vpnv4": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change_vpnv6": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change_evpn": {
+                    "v_range": [["v7.6.1", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -4767,6 +4877,31 @@ versioned_schema = {
                 },
                 "route_server_client_evpn": {
                     "v_range": [["v7.4.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change6": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change_vpnv4": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change_vpnv6": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rr_attr_allow_change_evpn": {
+                    "v_range": [["v7.6.1", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },

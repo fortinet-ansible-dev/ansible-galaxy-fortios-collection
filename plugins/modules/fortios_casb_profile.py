@@ -119,6 +119,29 @@ options:
                                     - 'monitor'
                                     - 'bypass'
                                     - 'block'
+                            attribute_filter:
+                                description:
+                                    - CASB profile attribute filter.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    action:
+                                        description:
+                                            - CASB access rule tenant control action.
+                                        type: str
+                                        choices:
+                                            - 'monitor'
+                                            - 'bypass'
+                                            - 'block'
+                                    attribute_match:
+                                        description:
+                                            - CASB access rule tenant match. Source casb.attribute-match.name.
+                                        type: str
+                                    id:
+                                        description:
+                                            - CASB tenant control ID. see <a href='#notes'>Notes</a>.
+                                        required: true
+                                        type: int
                             bypass:
                                 description:
                                     - CASB bypass options.
@@ -135,12 +158,68 @@ options:
                                     - CASB access rule activity name. Source casb.user-activity.name.
                                 required: true
                                 type: str
+                    advanced_tenant_control:
+                        description:
+                            - CASB profile advanced tenant control.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            attribute:
+                                description:
+                                    - CASB advanced tenant control attribute.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    input:
+                                        description:
+                                            - CASB extend user input value.
+                                        type: list
+                                        elements: dict
+                                        suboptions:
+                                            value:
+                                                description:
+                                                    - User input value.
+                                                required: true
+                                                type: str
+                                    name:
+                                        description:
+                                            - CASB extend user input name.
+                                        required: true
+                                        type: str
+                            name:
+                                description:
+                                    - CASB advanced tenant control name. Source casb.user-activity.name.
+                                required: true
+                                type: str
                     custom_control:
                         description:
                             - CASB profile custom control.
                         type: list
                         elements: dict
                         suboptions:
+                            attribute_filter:
+                                description:
+                                    - CASB attribute filter.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    action:
+                                        description:
+                                            - CASB access rule tenant control action.
+                                        type: str
+                                        choices:
+                                            - 'monitor'
+                                            - 'bypass'
+                                            - 'block'
+                                    attribute_match:
+                                        description:
+                                            - CASB access rule tenant match. Source casb.attribute-match.name.
+                                        type: str
+                                    id:
+                                        description:
+                                            - CASB tenant control ID. see <a href='#notes'>Notes</a>.
+                                        required: true
+                                        type: int
                             name:
                                 description:
                                     - CASB custom control user activity name. Source casb.user-activity.name.
@@ -257,32 +336,51 @@ EXAMPLES = """
                   access_rule:
                       -
                           action: "monitor"
+                          attribute_filter:
+                              -
+                                  action: "monitor"
+                                  attribute_match: "<your_own_value> (source casb.attribute-match.name)"
+                                  id: "11"
                           bypass: "av"
-                          name: "default_name_9 (source casb.user-activity.name)"
+                          name: "default_name_13 (source casb.user-activity.name)"
+                  advanced_tenant_control:
+                      -
+                          attribute:
+                              -
+                                  input:
+                                      -
+                                          value: "<your_own_value>"
+                                  name: "default_name_18"
+                          name: "default_name_19 (source casb.user-activity.name)"
                   custom_control:
                       -
-                          name: "default_name_11 (source casb.user-activity.name)"
+                          attribute_filter:
+                              -
+                                  action: "monitor"
+                                  attribute_match: "<your_own_value> (source casb.attribute-match.name)"
+                                  id: "24"
+                          name: "default_name_25 (source casb.user-activity.name)"
                           option:
                               -
-                                  name: "default_name_13"
+                                  name: "default_name_27"
                                   user_input:
                                       -
                                           value: "<your_own_value>"
                   domain_control: "enable"
                   domain_control_domains:
                       -
-                          name: "default_name_18"
+                          name: "default_name_32"
                   log: "enable"
-                  name: "default_name_20 (source casb.saas-application.name)"
+                  name: "default_name_34 (source casb.saas-application.name)"
                   safe_search: "enable"
                   safe_search_control:
                       -
-                          name: "default_name_23"
+                          name: "default_name_37"
                   status: "enable"
                   tenant_control: "enable"
                   tenant_control_tenants:
                       -
-                          name: "default_name_27"
+                          name: "default_name_41"
 """
 
 RETURN = """
@@ -370,6 +468,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -474,6 +575,7 @@ def casb_profile(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -484,19 +586,20 @@ def casb_profile(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -623,6 +726,42 @@ versioned_schema = {
                     },
                     "v_range": [["v7.4.1", ""]],
                 },
+                "advanced_tenant_control": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "attribute": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "name": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                    "required": True,
+                                },
+                                "input": {
+                                    "type": "list",
+                                    "elements": "dict",
+                                    "children": {
+                                        "value": {
+                                            "v_range": [["v7.6.1", ""]],
+                                            "type": "string",
+                                            "required": True,
+                                        }
+                                    },
+                                    "v_range": [["v7.6.1", ""]],
+                                },
+                            },
+                            "v_range": [["v7.6.1", ""]],
+                        },
+                    },
+                    "v_range": [["v7.6.1", ""]],
+                },
                 "domain_control": {
                     "v_range": [["v7.4.1", ""]],
                     "type": "string",
@@ -676,6 +815,31 @@ versioned_schema = {
                             "multiple_values": True,
                             "elements": "str",
                         },
+                        "attribute_filter": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "id": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "integer",
+                                    "required": True,
+                                },
+                                "attribute_match": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                },
+                                "action": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                    "options": [
+                                        {"value": "monitor"},
+                                        {"value": "bypass"},
+                                        {"value": "block"},
+                                    ],
+                                },
+                            },
+                            "v_range": [["v7.6.1", ""]],
+                        },
                     },
                     "v_range": [["v7.4.1", ""]],
                 },
@@ -711,6 +875,31 @@ versioned_schema = {
                                 },
                             },
                             "v_range": [["v7.4.1", ""]],
+                        },
+                        "attribute_filter": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "id": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "integer",
+                                    "required": True,
+                                },
+                                "attribute_match": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                },
+                                "action": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                    "options": [
+                                        {"value": "monitor"},
+                                        {"value": "bypass"},
+                                        {"value": "block"},
+                                    ],
+                                },
+                            },
+                            "v_range": [["v7.6.1", ""]],
                         },
                     },
                     "v_range": [["v7.4.1", ""]],

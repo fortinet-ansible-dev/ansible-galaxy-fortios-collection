@@ -101,6 +101,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            external_idp:
+                description:
+                    - External identity provider configuration. Source user.external-identity-provider.name.
+                type: str
             fsso_agent_for_ntlm:
                 description:
                     - FSSO agent to use for NTLM authentication. Source user.fsso.name.
@@ -132,6 +136,7 @@ options:
                     - 'ssh-publickey'
                     - 'cert'
                     - 'saml'
+                    - 'entra-sso'
             name:
                 description:
                     - Authentication scheme name.
@@ -192,11 +197,12 @@ EXAMPLES = """
       authentication_scheme:
           domain_controller: "<your_own_value> (source user.domain-controller.name)"
           ems_device_owner: "enable"
+          external_idp: "<your_own_value> (source user.external-identity-provider.name)"
           fsso_agent_for_ntlm: "<your_own_value> (source user.fsso.name)"
           fsso_guest: "enable"
           kerberos_keytab: "<your_own_value> (source user.krb-keytab.name)"
           method: "ntlm"
-          name: "default_name_9"
+          name: "default_name_10"
           negotiate_ntlm: "enable"
           require_tfa: "enable"
           saml_server: "<your_own_value> (source user.saml.name)"
@@ -205,7 +211,7 @@ EXAMPLES = """
           user_cert: "enable"
           user_database:
               -
-                  name: "default_name_17 (source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name)"
+                  name: "default_name_18 (source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name)"
 """
 
 RETURN = """
@@ -294,12 +300,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_authentication_scheme_data(json):
     option_list = [
         "domain_controller",
         "ems_device_owner",
+        "external_idp",
         "fsso_agent_for_ntlm",
         "fsso_guest",
         "kerberos_keytab",
@@ -412,6 +422,7 @@ def authentication_scheme(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -422,19 +433,20 @@ def authentication_scheme(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -528,6 +540,7 @@ versioned_schema = {
                 {"value": "ssh-publickey"},
                 {"value": "cert", "v_range": [["v7.0.0", ""]]},
                 {"value": "saml", "v_range": [["v7.0.0", ""]]},
+                {"value": "entra-sso", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -570,6 +583,7 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
         },
         "ssh_ca": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "external_idp": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "ems_device_owner": {
             "v_range": [["v7.0.0", "v7.0.0"]],
             "type": "string",

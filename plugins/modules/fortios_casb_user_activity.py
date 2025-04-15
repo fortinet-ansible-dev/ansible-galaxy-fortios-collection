@@ -149,6 +149,7 @@ options:
                                 type: str
                                 choices:
                                     - 'request'
+                                    - 'response'
                             header_name:
                                 description:
                                     - CASB operation header name to search.
@@ -177,6 +178,7 @@ options:
                                 choices:
                                     - 'header'
                                     - 'path'
+                                    - 'body'
                             value_from_input:
                                 description:
                                     - Enable/disable value from user input.
@@ -223,6 +225,12 @@ options:
                         type: list
                         elements: dict
                         suboptions:
+                            body_type:
+                                description:
+                                    - CASB user activity match rule body type.
+                                type: str
+                                choices:
+                                    - 'json'
                             case_sensitive:
                                 description:
                                     - CASB user activity match case sensitive.
@@ -250,6 +258,10 @@ options:
                                     - CASB user activity rule ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
+                            jq:
+                                description:
+                                    - CASB user activity rule match jq script.
+                                type: str
                             match_pattern:
                                 description:
                                     - CASB user activity rule match pattern.
@@ -291,6 +303,7 @@ options:
                                     - 'header'
                                     - 'header-value'
                                     - 'method'
+                                    - 'body'
                     strategy:
                         description:
                             - CASB user activity rules strategy.
@@ -298,6 +311,64 @@ options:
                         choices:
                             - 'and'
                             - 'or'
+                    tenant_extraction:
+                        description:
+                            - CASB user activity tenant extraction.
+                        type: dict
+                        suboptions:
+                            filters:
+                                description:
+                                    - CASB user activity tenant extraction filters.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    body_type:
+                                        description:
+                                            - CASB tenant extraction filter body type.
+                                        type: str
+                                        choices:
+                                            - 'json'
+                                    direction:
+                                        description:
+                                            - CASB tenant extraction filter direction.
+                                        type: str
+                                        choices:
+                                            - 'request'
+                                            - 'response'
+                                    header_name:
+                                        description:
+                                            - CASB tenant extraction filter header name.
+                                        type: str
+                                    id:
+                                        description:
+                                            - CASB tenant extraction filter ID. see <a href='#notes'>Notes</a>.
+                                        required: true
+                                        type: int
+                                    place:
+                                        description:
+                                            - CASB tenant extraction filter place type.
+                                        type: str
+                                        choices:
+                                            - 'path'
+                                            - 'header'
+                                            - 'body'
+                            jq:
+                                description:
+                                    - CASB user activity tenant extraction jq script.
+                                type: str
+                            status:
+                                description:
+                                    - Enable/disable CASB tenant extraction.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                            type:
+                                description:
+                                    - CASB user activity tenant extraction type.
+                                type: str
+                                choices:
+                                    - 'json-query'
             match_strategy:
                 description:
                     - CASB user activity match strategy.
@@ -364,12 +435,14 @@ EXAMPLES = """
                   id: "23"
                   rules:
                       -
+                          body_type: "json"
                           case_sensitive: "enable"
                           domains:
                               -
                                   domain: "<your_own_value>"
                           header_name: "<your_own_value>"
-                          id: "29"
+                          id: "30"
+                          jq: "<your_own_value>"
                           match_pattern: "simple"
                           match_value: "<your_own_value>"
                           methods:
@@ -378,8 +451,19 @@ EXAMPLES = """
                           negate: "enable"
                           type: "domains"
                   strategy: "and"
+                  tenant_extraction:
+                      filters:
+                          -
+                              body_type: "json"
+                              direction: "request"
+                              header_name: "<your_own_value>"
+                              id: "44"
+                              place: "path"
+                      jq: "<your_own_value>"
+                      status: "disable"
+                      type: "json-query"
           match_strategy: "and"
-          name: "default_name_38"
+          name: "default_name_50"
           status: "enable"
           type: "built-in"
           uuid: "<your_own_value>"
@@ -471,6 +555,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_casb_user_activity_data(json):
@@ -554,6 +641,7 @@ def casb_user_activity(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -564,19 +652,20 @@ def casb_user_activity(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -719,6 +808,7 @@ versioned_schema = {
                                 {"value": "header"},
                                 {"value": "header-value"},
                                 {"value": "method"},
+                                {"value": "body", "v_range": [["v7.6.1", ""]]},
                             ],
                         },
                         "domains": {
@@ -756,6 +846,12 @@ versioned_schema = {
                         },
                         "match_value": {"v_range": [["v7.4.1", ""]], "type": "string"},
                         "header_name": {"v_range": [["v7.4.1", ""]], "type": "string"},
+                        "body_type": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "json"}],
+                        },
+                        "jq": {"v_range": [["v7.6.1", ""]], "type": "string"},
                         "case_sensitive": {
                             "v_range": [["v7.4.1", ""]],
                             "type": "string",
@@ -768,6 +864,61 @@ versioned_schema = {
                         },
                     },
                     "v_range": [["v7.4.1", ""]],
+                },
+                "tenant_extraction": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "dict",
+                    "children": {
+                        "status": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "type": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "json-query"}],
+                        },
+                        "jq": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                        "filters": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "id": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "integer",
+                                    "required": True,
+                                },
+                                "direction": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                    "options": [
+                                        {"value": "request"},
+                                        {"value": "response"},
+                                    ],
+                                },
+                                "place": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                    "options": [
+                                        {"value": "path"},
+                                        {"value": "header"},
+                                        {"value": "body"},
+                                    ],
+                                },
+                                "header_name": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                },
+                                "body_type": {
+                                    "v_range": [["v7.6.1", ""]],
+                                    "type": "string",
+                                    "options": [{"value": "json"}],
+                                },
+                            },
+                            "v_range": [["v7.6.1", ""]],
+                        },
+                    },
                 },
             },
             "v_range": [["v7.4.1", ""]],
@@ -798,7 +949,11 @@ versioned_schema = {
                         "target": {
                             "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [{"value": "header"}, {"value": "path"}],
+                            "options": [
+                                {"value": "header"},
+                                {"value": "path"},
+                                {"value": "body", "v_range": [["v7.6.1", ""]]},
+                            ],
                         },
                         "action": {
                             "v_range": [["v7.4.1", ""]],
@@ -815,7 +970,10 @@ versioned_schema = {
                         "direction": {
                             "v_range": [["v7.4.1", ""]],
                             "type": "string",
-                            "options": [{"value": "request"}],
+                            "options": [
+                                {"value": "request"},
+                                {"value": "response", "v_range": [["v7.6.1", ""]]},
+                            ],
                         },
                         "header_name": {"v_range": [["v7.4.1", ""]], "type": "string"},
                         "search_pattern": {

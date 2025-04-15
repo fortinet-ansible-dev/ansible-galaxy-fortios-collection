@@ -103,6 +103,7 @@ The collection incluses the following modules:
 * `fortios_authentication_scheme` Configure Authentication Schemes in Fortinet's FortiOS and FortiGate.
 * `fortios_authentication_setting` Configure authentication setting in Fortinet's FortiOS and FortiGate.
 * `fortios_automation_setting` Automation setting configuration in Fortinet's FortiOS and FortiGate.
+* `fortios_casb_attribute_match` Configure CASB SaaS application in Fortinet's FortiOS and FortiGate.
 * `fortios_casb_profile` Configure CASB profile in Fortinet's FortiOS and FortiGate.
 * `fortios_casb_saas_application` Configure CASB SaaS application in Fortinet's FortiOS and FortiGate.
 * `fortios_casb_user_activity` Configure CASB user activity in Fortinet's FortiOS and FortiGate.
@@ -124,7 +125,7 @@ The collection incluses the following modules:
 * `fortios_dlp_profile` Configure DLP profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_sensitivity` Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_sensor` Configure sensors used by DLP blocking in Fortinet's FortiOS and FortiGate.
-* `fortios_dlp_settings` Designate logical storage for DLP fingerprint database in Fortinet's FortiOS and FortiGate.
+* `fortios_dlp_settings` Configure settings for DLP in Fortinet's FortiOS and FortiGate.
 * `fortios_dnsfilter_domain_filter` Configure DNS domain filters in Fortinet's FortiOS and FortiGate.
 * `fortios_dnsfilter_profile` Configure DNS domain filter profile in Fortinet's FortiOS and FortiGate.
 * `fortios_dpdk_cpus` Configure CPUs enabled to run engines in each DPDK stage in Fortinet's FortiOS and FortiGate.
@@ -466,6 +467,7 @@ The collection incluses the following modules:
 * `fortios_system_auto_install` Configure USB auto installation in Fortinet's FortiOS and FortiGate.
 * `fortios_system_auto_script` Configure auto script in Fortinet's FortiOS and FortiGate.
 * `fortios_system_automation_action` Action for automation stitches in Fortinet's FortiOS and FortiGate.
+* `fortios_system_automation_condition` Condition for automation stitches in Fortinet's FortiOS and FortiGate.
 * `fortios_system_automation_destination` Automation destinations in Fortinet's FortiOS and FortiGate.
 * `fortios_system_automation_stitch` Automation stitches in Fortinet's FortiOS and FortiGate.
 * `fortios_system_automation_trigger` Trigger for automation stitches in Fortinet's FortiOS and FortiGate.
@@ -509,6 +511,7 @@ The collection incluses the following modules:
 * `fortios_system_gre_tunnel` Configure GRE tunnel in Fortinet's FortiOS and FortiGate.
 * `fortios_system_ha_monitor` Configure HA monitor in Fortinet's FortiOS and FortiGate.
 * `fortios_system_ha` Configure HA in Fortinet's FortiOS and FortiGate.
+* `fortios_system_health_check_fortiguard` SD-WAN status checking or health checking. Identify a server predefine by FortiGuard and determine how SD-WAN verifies that FGT can communicate with it in Fortinet's FortiOS and FortiGate.
 * `fortios_system_ike` Configure IKE global attributes in Fortinet's FortiOS and FortiGate.
 * `fortios_system_interface` Configure interfaces in Fortinet's FortiOS and FortiGate.
 * `fortios_system_ipam` Configure IP address management services in Fortinet's FortiOS and FortiGate.
@@ -532,6 +535,7 @@ The collection incluses the following modules:
 * `fortios_system_nd_proxy` Configure IPv6 neighbor discovery proxy (RFC4389) in Fortinet's FortiOS and FortiGate.
 * `fortios_system_netflow` Configure NetFlow in Fortinet's FortiOS and FortiGate.
 * `fortios_system_network_visibility` Configure network visibility settings in Fortinet's FortiOS and FortiGate.
+* `fortios_system_ngfw_settings` Configure IPS NGFW policy-mode VDOM settings in Fortinet's FortiOS and FortiGate.
 * `fortios_system_np6` Configure NP6 attributes in Fortinet's FortiOS and FortiGate.
 * `fortios_system_npu_vlink` Configure NPU VDOM link in Fortinet's FortiOS and FortiGate.
 * `fortios_system_npu` Configure NPU attributes in Fortinet's FortiOS and FortiGate.
@@ -575,7 +579,10 @@ The collection incluses the following modules:
 * `fortios_system_saml` Global settings for SAML authentication in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sdn_connector` Configure connection to SDN Connector in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sdn_proxy` Configure SDN proxy in Fortinet's FortiOS and FortiGate.
+* `fortios_system_sdn_vpn` Configure public cloud VPN service in Fortinet's FortiOS and FortiGate.
 * `fortios_system_sdwan` Configure redundant Internet connections with multiple outbound links and health-check profiles in Fortinet's FortiOS and FortiGate.
+* `fortios_system_security_rating_controls` Settings for individual Security Rating controls in Fortinet's FortiOS and FortiGate.
+* `fortios_system_security_rating_settings` Settings for Security Rating in Fortinet's FortiOS and FortiGate.
 * `fortios_system_session_helper` Configure session helper in Fortinet's FortiOS and FortiGate.
 * `fortios_system_session_ttl` Configure global session TTL timers for this FortiGate in Fortinet's FortiOS and FortiGate.
 * `fortios_system_settings` Configure VDOM settings in Fortinet's FortiOS and FortiGate.
@@ -696,6 +703,7 @@ The collection incluses the following modules:
 * `fortios_web_proxy_forward_server_group` Configure a forward server group consisting or multiple forward servers. Supports failover and load balancing in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_forward_server` Configure forward-server addresses in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_global` Configure Web proxy global settings in Fortinet's FortiOS and FortiGate.
+* `fortios_web_proxy_isolator_server` Configure forward-server addresses in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_profile` Configure web proxy profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_url_match` Exempt URLs from web proxy forwarding, caching and fast-fallback in Fortinet's FortiOS and FortiGate.
 * `fortios_web_proxy_wisp` Configure Websense Integrated Services Protocol (WISP) servers in Fortinet's FortiOS and FortiGate.
@@ -704,6 +712,8 @@ The collection incluses the following modules:
 * `fortios_webfilter_fortiguard` Configure FortiGuard Web Filter service in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_ftgd_local_cat` Configure FortiGuard Web Filter local categories in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_ftgd_local_rating` Configure local FortiGuard Web Filter local ratings in Fortinet's FortiOS and FortiGate.
+* `fortios_webfilter_ftgd_local_risk` Configure FortiGuard Web Filter local risk score in Fortinet's FortiOS and FortiGate.
+* `fortios_webfilter_ftgd_risk_level` Configure FortiGuard Web Filter risk level in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_ips_urlfilter_cache_setting` Configure IPS URL filter cache settings in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_ips_urlfilter_setting6` Configure IPS URL filter settings for IPv6 in Fortinet's FortiOS and FortiGate.
 * `fortios_webfilter_ips_urlfilter_setting` Configure IPS URL filter settings in Fortinet's FortiOS and FortiGate.
@@ -763,8 +773,12 @@ The collection incluses the following modules:
 * `fortios_wireless_controller_wtp_profile` Configure WTP profiles or FortiAP profiles that define radio settings for manageable FortiAP platforms in Fortinet's FortiOS and FortiGate.
 * `fortios_wireless_controller_wtp_status` Wireless controller WTP-status in Fortinet's FortiOS and FortiGate.
 * `fortios_wireless_controller_wtp` Configure Wireless Termination Points (WTPs), that is, FortiAPs or APs to be managed by FortiGate in Fortinet's FortiOS and FortiGate.
+* `fortios_ztna_reverse_connector` Configure ZTNA Reverse-Connector in Fortinet's FortiOS and FortiGate.
 * `fortios_ztna_traffic_forward_proxy_reverse_service` Configure ZTNA traffic forward proxy reverse service in Fortinet's FortiOS and FortiGate.
 * `fortios_ztna_traffic_forward_proxy` Configure ZTNA traffic forward proxy in Fortinet's FortiOS and FortiGate.
+* `fortios_ztna_web_portal_bookmark` Configure ztna web-portal bookmark in Fortinet's FortiOS and FortiGate.
+* `fortios_ztna_web_portal` Configure ztna web-portal in Fortinet's FortiOS and FortiGate.
+* `fortios_ztna_web_proxy` Configure ZTNA web-proxy in Fortinet's FortiOS and FortiGate.
 
 ## License Information
 

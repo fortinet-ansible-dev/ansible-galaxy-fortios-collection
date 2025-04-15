@@ -427,6 +427,10 @@ options:
                 choices:
                     - 'regular'
                     - 'ipsec'
+            dhcp_relay_vrf_select:
+                description:
+                    - VRF ID used for connection to server.
+                type: int
             dhcp_renew_time:
                 description:
                     - DHCP renew time in seconds (300-604800), 0 means use the renew time provided by the server.
@@ -595,6 +599,14 @@ options:
                 description:
                     - Estimated maximum upstream bandwidth (kbps). Used to estimate link utilization.
                 type: int
+            exclude_signatures:
+                description:
+                    - Exclude IOT or OT application signatures.
+                type: list
+                elements: str
+                choices:
+                    - 'iot'
+                    - 'ot'
             explicit_ftp_proxy:
                 description:
                     - Enable/disable the explicit FTP proxy on this interface.
@@ -984,6 +996,13 @@ options:
                         description:
                             - 'Primary IPv6 address prefix. Syntax: xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx.'
                         type: str
+                    ip6_adv_rio:
+                        description:
+                            - Enable/disable sending advertisements with route information option.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     ip6_allowaccess:
                         description:
                             - Allow management access to the interface.
@@ -1064,6 +1083,21 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    ip6_dnssl_list:
+                        description:
+                            - Advertised IPv6 DNSS list.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            dnssl_life_time:
+                                description:
+                                    - DNS search list time in seconds (0 - 4294967295).
+                                type: int
+                            domain:
+                                description:
+                                    - Domain name.
+                                required: true
+                                type: str
                     ip6_extra_addr:
                         description:
                             - Extra IPv6 address prefixes of interface.
@@ -1170,6 +1204,21 @@ options:
                         choices:
                             - 'dhcp6'
                             - 'ra'
+                    ip6_rdnss_list:
+                        description:
+                            - Advertised IPv6 RDNSS list.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            rdnss:
+                                description:
+                                    - Recursive DNS server option.
+                                required: true
+                                type: str
+                            rdnss_life_time:
+                                description:
+                                    - Recursive DNS server life time in seconds (0 - 4294967295).
+                                type: int
                     ip6_reachable_time:
                         description:
                             - IPv6 reachable time (milliseconds; 0 means unspecified).
@@ -1178,6 +1227,37 @@ options:
                         description:
                             - IPv6 retransmit time (milliseconds; 0 means unspecified).
                         type: int
+                    ip6_route_list:
+                        description:
+                            - Advertised route list.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            route:
+                                description:
+                                    - IPv6 route.
+                                required: true
+                                type: str
+                            route_life_time:
+                                description:
+                                    - Route life time in seconds (0 - 65535).
+                                type: int
+                            route_pref:
+                                description:
+                                    - Set route preference to the interface .
+                                type: str
+                                choices:
+                                    - 'medium'
+                                    - 'high'
+                                    - 'low'
+                    ip6_route_pref:
+                        description:
+                            - Set route preference to the interface .
+                        type: str
+                        choices:
+                            - 'medium'
+                            - 'high'
+                            - 'low'
                     ip6_send_adv:
                         description:
                             - Enable/disable sending advertisements about the interface.
@@ -2465,11 +2545,12 @@ EXAMPLES = """
           dhcp_relay_service: "disable"
           dhcp_relay_source_ip: "<your_own_value>"
           dhcp_relay_type: "regular"
+          dhcp_relay_vrf_select: "4294967295"
           dhcp_renew_time: "0"
           dhcp_smart_relay: "disable"
           dhcp_snooping_server_list:
               -
-                  name: "default_name_61"
+                  name: "default_name_62"
                   server_ip: "<your_own_value>"
           disc_retry_timeout: "1"
           disconnect_threshold: "0"
@@ -2498,13 +2579,14 @@ EXAMPLES = """
           endpoint_compliance: "enable"
           estimated_downstream_bandwidth: "0"
           estimated_upstream_bandwidth: "0"
+          exclude_signatures: "iot"
           explicit_ftp_proxy: "enable"
           explicit_web_proxy: "enable"
           external: "enable"
           fail_action_on_extender: "soft-restart"
           fail_alert_interfaces:
               -
-                  name: "default_name_95 (source system.interface.name)"
+                  name: "default_name_97 (source system.interface.name)"
           fail_alert_method: "link-failed-signal"
           fail_detect: "enable"
           fail_detect_option: "detectserver"
@@ -2542,7 +2624,7 @@ EXAMPLES = """
               client_options:
                   -
                       code: "0"
-                      id: "132"
+                      id: "134"
                       ip6: "<your_own_value>"
                       type: "hex"
                       value: "<your_own_value>"
@@ -2565,8 +2647,9 @@ EXAMPLES = """
               dhcp6_relay_source_ip: "<your_own_value>"
               dhcp6_relay_type: "regular"
               icmp6_send_redirect: "enable"
-              interface_identifier: "myId_154"
+              interface_identifier: "myId_156"
               ip6_address: "<your_own_value>"
+              ip6_adv_rio: "enable"
               ip6_allowaccess: "ping"
               ip6_default_life: "1800"
               ip6_delegated_prefix_iaid: "0"
@@ -2581,6 +2664,10 @@ EXAMPLES = """
                       subnet: "<your_own_value>"
                       upstream_interface: "<your_own_value> (source system.interface.name)"
               ip6_dns_server_override: "enable"
+              ip6_dnssl_list:
+                  -
+                      dnssl_life_time: "1800"
+                      domain: "<your_own_value>"
               ip6_extra_addr:
                   -
                       prefix: "<your_own_value>"
@@ -2603,8 +2690,18 @@ EXAMPLES = """
                       rdnss: "<your_own_value>"
                       valid_life_time: "2592000"
               ip6_prefix_mode: "dhcp6"
+              ip6_rdnss_list:
+                  -
+                      rdnss: "<your_own_value>"
+                      rdnss_life_time: "1800"
               ip6_reachable_time: "0"
               ip6_retrans_time: "0"
+              ip6_route_list:
+                  -
+                      route: "<your_own_value>"
+                      route_life_time: "1800"
+                      route_pref: "medium"
+              ip6_route_pref: "medium"
               ip6_send_adv: "enable"
               ip6_subnet: "<your_own_value>"
               ip6_upstream_interface: "<your_own_value> (source system.interface.name)"
@@ -2646,7 +2743,7 @@ EXAMPLES = """
           macaddr: "<your_own_value>"
           managed_device:
               -
-                  name: "default_name_229"
+                  name: "default_name_243"
           managed_subnetwork_size: "32"
           management_ip: "<your_own_value>"
           measured_downstream_bandwidth: "0"
@@ -2669,7 +2766,7 @@ EXAMPLES = """
           monitor_bandwidth: "enable"
           mtu: "1500"
           mtu_override: "enable"
-          name: "default_name_251"
+          name: "default_name_265"
           ndiscforward: "enable"
           netbios_forward: "disable"
           netflow_sample_rate: "1"
@@ -2712,7 +2809,7 @@ EXAMPLES = """
                   detectserver: "<your_own_value>"
                   gwdetect: "enable"
                   ha_priority: "1"
-                  id: "293"
+                  id: "307"
                   ip: "<your_own_value>"
                   ping_serv_status: "0"
                   secip_relay_ip: "<your_own_value>"
@@ -2725,7 +2822,7 @@ EXAMPLES = """
           security_external_web: "<your_own_value>"
           security_groups:
               -
-                  name: "default_name_305 (source user.group.name)"
+                  name: "default_name_319 (source user.group.name)"
           security_ip_auth_bypass: "enable"
           security_mac_auth_bypass: "mac-auth-only"
           security_mode: "none"
@@ -2775,10 +2872,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_354"
+                  name: "default_name_368"
                   tags:
                       -
-                          name: "default_name_356 (source system.object-tagging.tags.name)"
+                          name: "default_name_370 (source system.object-tagging.tags.name)"
           tcp_mss: "0"
           trunk: "enable"
           trust_ip_1: "<your_own_value>"
@@ -2805,7 +2902,7 @@ EXAMPLES = """
                   priority: "100"
                   proxy_arp:
                       -
-                          id: "381"
+                          id: "395"
                           ip: "<your_own_value>"
                   start_time: "3"
                   status: "enable"
@@ -2907,6 +3004,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_interface_data(json):
@@ -2961,6 +3061,7 @@ def filter_system_interface_data(json):
         "dhcp_relay_service",
         "dhcp_relay_source_ip",
         "dhcp_relay_type",
+        "dhcp_relay_vrf_select",
         "dhcp_renew_time",
         "dhcp_smart_relay",
         "dhcp_snooping_server_list",
@@ -2983,6 +3084,7 @@ def filter_system_interface_data(json):
         "endpoint_compliance",
         "estimated_downstream_bandwidth",
         "estimated_upstream_bandwidth",
+        "exclude_signatures",
         "explicit_ftp_proxy",
         "explicit_web_proxy",
         "external",
@@ -3202,6 +3304,7 @@ def flatten_multilists_attributes(data):
         ["detectprotocol"],
         ["fail_detect_option"],
         ["dns_server_protocol"],
+        ["exclude_signatures"],
         ["vrrp", "vrdst"],
         ["secondaryip", "secip_relay_ip"],
         ["secondaryip", "allowaccess"],
@@ -3278,6 +3381,7 @@ def system_interface(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -3288,19 +3392,20 @@ def system_interface(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -3436,6 +3541,7 @@ versioned_schema = {
             "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v6.4.0"], ["v6.4.4", ""]],
             "type": "string",
         },
+        "dhcp_relay_vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
         "dhcp_broadcast_flag": {
             "v_range": [["v7.4.0", ""]],
             "type": "string",
@@ -3819,8 +3925,6 @@ versioned_schema = {
         "trust_ip6_1": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "trust_ip6_2": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "trust_ip6_3": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ring_rx": {"v_range": [], "type": "integer"},
-        "ring_tx": {"v_range": [], "type": "integer"},
         "wccp": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3906,6 +4010,11 @@ versioned_schema = {
             "options": [{"value": "8021q"}, {"value": "8021ad"}],
         },
         "vlanid": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "gi_gk": {
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "forward_domain": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "remote_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "member": {
@@ -3968,6 +4077,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "sw_algorithm": {
+            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "l2"}, {"value": "l3"}, {"value": "eh"}],
+        },
         "description": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "alias": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "security_mode": {
@@ -4017,6 +4131,13 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "exclude_signatures": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "list",
+            "options": [{"value": "iot"}, {"value": "ot"}],
+            "multiple_values": True,
+            "elements": "str",
         },
         "device_user_identification": {
             "v_range": [["v6.0.0", ""]],
@@ -4360,7 +4481,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "swc_first_create": {"v_range": [["v6.4.4", ""]], "type": "integer"},
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "tagging": {
             "type": "list",
@@ -4386,6 +4506,129 @@ versioned_schema = {
                 },
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "egress_queues": {
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
+            "type": "dict",
+            "children": {
+                "cos0": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos1": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos2": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos3": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos4": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos5": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos6": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "cos7": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+            },
+        },
+        "ingress_cos": {
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
+        "egress_cos": {
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", ""],
+            ],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
         },
         "eap_supplicant": {
             "v_range": [["v7.2.0", ""]],
@@ -4537,6 +4780,45 @@ versioned_schema = {
                 "ip6_retrans_time": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ip6_default_life": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ip6_hop_limit": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "ip6_adv_rio": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "ip6_route_pref": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "medium"},
+                        {"value": "high"},
+                        {"value": "low"},
+                    ],
+                },
+                "ip6_route_list": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "route": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "route_pref": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "medium"},
+                                {"value": "high"},
+                                {"value": "low"},
+                            ],
+                        },
+                        "route_life_time": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.6.1", ""]],
+                },
                 "autoconf": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -4590,7 +4872,7 @@ versioned_schema = {
                             "type": "integer",
                         },
                         "rdnss": {
-                            "v_range": [["v6.0.0", ""]],
+                            "v_range": [["v6.0.0", "v7.6.0"]],
                             "type": "list",
                             "multiple_values": True,
                             "elements": "str",
@@ -4600,15 +4882,47 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "domain": {
-                                    "v_range": [["v6.0.0", ""]],
+                                    "v_range": [["v6.0.0", "v7.6.0"]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "v_range": [["v6.0.0", ""]],
+                            "v_range": [["v6.0.0", "v7.6.0"]],
                         },
                     },
                     "v_range": [["v6.0.0", ""]],
+                },
+                "ip6_rdnss_list": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "rdnss": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "rdnss_life_time": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.6.1", ""]],
+                },
+                "ip6_dnssl_list": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "domain": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "dnssl_life_time": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.6.1", ""]],
                 },
                 "ip6_delegated_prefix_list": {
                     "type": "list",
@@ -4801,139 +5115,9 @@ versioned_schema = {
                 },
             },
         },
-        "gi_gk": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "sw_algorithm": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "l2"}, {"value": "l3"}, {"value": "eh"}],
-        },
-        "egress_queues": {
-            "v_range": [
-                ["v6.4.0", "v6.4.0"],
-                ["v7.2.0", "v7.2.0"],
-                ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
-            ],
-            "type": "dict",
-            "children": {
-                "cos0": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos1": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos2": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos3": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos4": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos5": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos6": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos7": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-            },
-        },
-        "ingress_cos": {
-            "v_range": [
-                ["v6.4.0", "v6.4.0"],
-                ["v7.2.0", "v7.2.0"],
-                ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
-            ],
-            "type": "string",
-            "options": [
-                {"value": "disable"},
-                {"value": "cos0"},
-                {"value": "cos1"},
-                {"value": "cos2"},
-                {"value": "cos3"},
-                {"value": "cos4"},
-                {"value": "cos5"},
-                {"value": "cos6"},
-                {"value": "cos7"},
-            ],
-        },
-        "egress_cos": {
-            "v_range": [
-                ["v6.4.0", "v6.4.0"],
-                ["v7.2.0", "v7.2.0"],
-                ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
-            ],
-            "type": "string",
-            "options": [
-                {"value": "disable"},
-                {"value": "cos0"},
-                {"value": "cos1"},
-                {"value": "cos2"},
-                {"value": "cos3"},
-                {"value": "cos4"},
-                {"value": "cos5"},
-                {"value": "cos6"},
-                {"value": "cos7"},
-            ],
-        },
+        "ring_rx": {"v_range": [], "type": "integer"},
+        "ring_tx": {"v_range": [], "type": "integer"},
+        "swc_first_create": {"v_range": [["v6.4.4", "v7.6.0"]], "type": "integer"},
         "mediatype": {
             "v_range": [
                 ["v6.0.0", "v6.2.7"],

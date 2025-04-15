@@ -277,6 +277,13 @@ options:
                     - 'disable'
                     - 'loose'
                     - 'strict'
+            application_bandwidth_tracking:
+                description:
+                    - Enable/disable application bandwidth tracking.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             arp_max_entry:
                 description:
                     - Maximum number of dynamically learned MAC addresses that can be added to the ARP table (131072 - 2147483647).
@@ -320,7 +327,7 @@ options:
                     - 'disable'
             auth_session_auto_backup_interval:
                 description:
-                    - Configure automatic authentication session backup interval in minutes .
+                    - Configure automatic authentication session backup interval .
                 type: str
                 choices:
                     - '1min'
@@ -1392,6 +1399,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            rest_api_key_url_query:
+                description:
+                    - Enable/disable support for passing REST API keys through URL query parameters.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             restart_time:
                 description:
                     - 'Daily restart time (hh:mm).'
@@ -1452,6 +1466,13 @@ options:
                 description:
                     - Maximum number of sflowd child processes allowed to run.
                 type: int
+            single_vdom_npuvlink:
+                description:
+                    - Enable/disable NPU VDOMs links for single VDOM.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             snat_route_change:
                 description:
                     - Enable/disable the ability to change the source NAT route.
@@ -1836,6 +1857,13 @@ options:
                 description:
                     - UDP connection session timeout. This command can be useful in managing CPU and memory resources (1 - 86400 seconds (1 day)).
                 type: int
+            upgrade_report:
+                description:
+                    - Enable/disable the generation of an upgrade report when upgrading the firmware.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             url_filter_affinity:
                 description:
                     - URL filter CPU affinity.
@@ -2019,6 +2047,7 @@ EXAMPLES = """
           alias: "<your_own_value>"
           allow_traffic_redirect: "enable"
           anti_replay: "disable"
+          application_bandwidth_tracking: "disable"
           arp_max_entry: "131072"
           asymroute: "enable"
           auth_cert: "<your_own_value> (source certificate.local.name)"
@@ -2120,7 +2149,7 @@ EXAMPLES = """
           internet_service_database: "mini"
           internet_service_download_list:
               -
-                  id: "133 (source firewall.internet-service.id)"
+                  id: "134 (source firewall.internet-service.id)"
           interval: "5"
           ip_conflict_detection: "enable"
           ip_fragment_mem_thresholds: "32"
@@ -2156,7 +2185,7 @@ EXAMPLES = """
           management_port: "443"
           management_port_use_admin_sport: "enable"
           management_vdom: "<your_own_value> (source system.vdom.name)"
-          max_dlpstat_memory: "169"
+          max_dlpstat_memory: "170"
           max_route_cache_size: "0"
           mc_ttl_notchange: "enable"
           memory_use_threshold_extreme: "95"
@@ -2199,6 +2228,7 @@ EXAMPLES = """
           refresh: "0"
           remoteauthtimeout: "5"
           reset_sessionless_tcp: "enable"
+          rest_api_key_url_query: "enable"
           restart_time: "<your_own_value>"
           revision_backup_on_logout: "enable"
           revision_image_auto_backup: "enable"
@@ -2210,6 +2240,7 @@ EXAMPLES = """
           security_rating_run_on_schedule: "enable"
           send_pmtu_icmp: "enable"
           sflowd_max_children_num: "6"
+          single_vdom_npuvlink: "enable"
           snat_route_change: "enable"
           special_file_23_support: "disable"
           speedtest_server: "enable"
@@ -2266,11 +2297,12 @@ EXAMPLES = """
           two_factor_ftm_expiry: "72"
           two_factor_sms_expiry: "60"
           udp_idle_timer: "180"
+          upgrade_report: "enable"
           url_filter_affinity: "<your_own_value>"
           url_filter_count: "1"
-          user_device_store_max_devices: "20920"
-          user_device_store_max_unified_mem: "104604672"
-          user_device_store_max_users: "20920"
+          user_device_store_max_devices: "676985"
+          user_device_store_max_unified_mem: "3384926003"
+          user_device_store_max_users: "676985"
           user_history_password_threshold: "3"
           user_server_cert: "<your_own_value> (source certificate.local.name)"
           vdom_admin: "enable"
@@ -2382,6 +2414,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_global_data(json):
@@ -2416,6 +2451,7 @@ def filter_system_global_data(json):
         "alias",
         "allow_traffic_redirect",
         "anti_replay",
+        "application_bandwidth_tracking",
         "arp_max_entry",
         "asymroute",
         "auth_cert",
@@ -2594,6 +2630,7 @@ def filter_system_global_data(json):
         "refresh",
         "remoteauthtimeout",
         "reset_sessionless_tcp",
+        "rest_api_key_url_query",
         "restart_time",
         "revision_backup_on_logout",
         "revision_image_auto_backup",
@@ -2605,6 +2642,7 @@ def filter_system_global_data(json):
         "security_rating_run_on_schedule",
         "send_pmtu_icmp",
         "sflowd_max_children_num",
+        "single_vdom_npuvlink",
         "snat_route_change",
         "special_file_23_support",
         "speedtest_server",
@@ -2658,6 +2696,7 @@ def filter_system_global_data(json):
         "two_factor_ftm_expiry",
         "two_factor_sms_expiry",
         "udp_idle_timer",
+        "upgrade_report",
         "url_filter_affinity",
         "url_filter_count",
         "user_device_store_max_devices",
@@ -2723,8 +2762,8 @@ def flatten_multilists_attributes(data):
         ["admin_https_ssl_versions"],
         ["admin_https_ssl_ciphersuites"],
         ["admin_https_ssl_banned_ciphers"],
-        ["fgd_alert_subscription"],
         ["split_port"],
+        ["fgd_alert_subscription"],
         ["ssh_kex_algo"],
         ["ssh_enc_algo"],
         ["ssh_mac_algo"],
@@ -2794,6 +2833,7 @@ def system_global(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -2804,19 +2844,20 @@ def system_global(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -3187,6 +3228,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "split_port": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "list",
+            "multiple_values": True,
+            "elements": "str",
+        },
         "revision_image_auto_backup": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3375,6 +3422,35 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "strict"}, {"value": "disable"}],
         },
+        "single_vdom_npuvlink": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "vdom_mode": {
+            "v_range": [["v6.2.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "no-vdom"},
+                {"value": "multi-vdom"},
+                {"value": "split-vdom", "v_range": [["v6.2.0", "v7.0.12"]]},
+            ],
+        },
+        "long_vdom_name": {
+            "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "upgrade_report": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "edit_vdom_prompt": {
+            "v_range": [["v6.4.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "admin_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "admin_sport": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "admin_host": {
@@ -3475,11 +3551,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "security_rating_run_on_schedule": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "wireless_controller": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3525,6 +3596,11 @@ versioned_schema = {
         "httpd_max_worker_count": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "proxy_worker_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "scanunit_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "proxy_hardware_acceleration": {
+            "v_range": [["v6.4.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "fgd_alert_subscription": {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
@@ -3538,6 +3614,11 @@ versioned_schema = {
             ],
             "multiple_values": True,
             "elements": "str",
+        },
+        "ipsec_hmac_offload": {
+            "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ipv6_accept_dad": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ipv6_allow_anycast_probe": {
@@ -3630,6 +3711,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "rest_api_key_url_query": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "gui_cdn_domain_override": {
             "v_range": [["v7.0.12", "v7.0.12"], ["v7.2.1", ""]],
             "type": "string",
@@ -3650,35 +3736,10 @@ versioned_schema = {
         "ndp_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "br_fdb_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "max_route_cache_size": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "ipsec_qat_offload": {
-            "v_range": [],
+        "ipsec_asic_offload": {
+            "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [
-                {"value": "enable", "v_range": [["v7.4.4", ""]]},
-                {"value": "disable", "v_range": [["v7.4.4", ""]]},
-            ],
-        },
-        "ipsec_round_robin": {
-            "v_range": [["v7.4.0", ""]],
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "v_range": [
-                        ["v7.0.6", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                },
-                {
-                    "value": "disable",
-                    "v_range": [
-                        ["v7.0.6", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                },
-            ],
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "device_idle_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "user_device_store_max_devices": {
@@ -3850,45 +3911,45 @@ versioned_schema = {
         "scim_https_port": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "scim_http_port": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "scim_server_cert": {"v_range": [["v7.6.0", ""]], "type": "string"},
-        "split_port": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "list",
-            "multiple_values": True,
-            "elements": "str",
-        },
-        "vdom_mode": {
-            "v_range": [["v6.2.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "no-vdom"},
-                {"value": "multi-vdom"},
-                {"value": "split-vdom", "v_range": [["v6.2.0", "v7.0.12"]]},
-            ],
-        },
-        "long_vdom_name": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "edit_vdom_prompt": {
-            "v_range": [["v6.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "proxy_hardware_acceleration": {
-            "v_range": [["v6.4.0", ""]],
+        "application_bandwidth_tracking": {
+            "v_range": [["v7.6.1", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "ipsec_hmac_offload": {
-            "v_range": [["v6.0.0", ""]],
+        "ipsec_qat_offload": {
+            "v_range": [],
+            "type": "string",
+            "options": [
+                {"value": "enable", "v_range": [["v7.4.4", "v7.6.1"]]},
+                {"value": "disable", "v_range": [["v7.4.4", "v7.6.1"]]},
+            ],
+        },
+        "security_rating_run_on_schedule": {
+            "v_range": [["v6.0.0", "v7.6.0"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ipsec_asic_offload": {
-            "v_range": [["v6.0.0", ""]],
+        "ipsec_round_robin": {
+            "v_range": [["v7.4.0", "v7.6.0"]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {
+                    "value": "enable",
+                    "v_range": [
+                        ["v7.0.6", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.0"],
+                    ],
+                },
+                {
+                    "value": "disable",
+                    "v_range": [
+                        ["v7.0.6", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.0"],
+                    ],
+                },
+            ],
         },
         "ssh_kex_algo": {
             "v_range": [["v7.0.2", "v7.4.3"]],

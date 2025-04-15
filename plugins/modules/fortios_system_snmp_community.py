@@ -125,8 +125,12 @@ options:
                     - 'av-oversize-blocked'
                     - 'ips-pkg-update'
                     - 'ips-fail-open'
+                    - 'temperature-high'
+                    - 'voltage-alert'
+                    - 'power-supply'
                     - 'faz-disconnect'
                     - 'faz'
+                    - 'fan-failure'
                     - 'wc-ap-up'
                     - 'wc-ap-down'
                     - 'fswctl-session-up'
@@ -140,10 +144,6 @@ options:
                     - 'interface'
                     - 'ospf-nbr-state-change'
                     - 'ospf-virtnbr-state-change'
-                    - 'temperature-high'
-                    - 'voltage-alert'
-                    - 'power-supply'
-                    - 'fan-failure'
                     - 'power-supply-failure'
             hosts:
                 description:
@@ -191,6 +191,10 @@ options:
                         description:
                             - Source IPv4 address for SNMP traps.
                         type: str
+                    vrf_select:
+                        description:
+                            - VRF ID used for connection to server.
+                        type: int
             hosts6:
                 description:
                     - Configure IPv6 SNMP managers.
@@ -237,6 +241,10 @@ options:
                         description:
                             - Source IPv6 address for SNMP traps.
                         type: str
+                    vrf_select:
+                        description:
+                            - VRF ID used for connection to server.
+                        type: int
             id:
                 description:
                     - Community ID. see <a href='#notes'>Notes</a>.
@@ -339,18 +347,20 @@ EXAMPLES = """
                   interface_select_method: "auto"
                   ip: "<your_own_value>"
                   source_ip: "84.230.14.43"
+                  vrf_select: "0"
           hosts6:
               -
                   ha_direct: "enable"
                   host_type: "any"
-                  id: "15"
+                  id: "16"
                   interface: "<your_own_value> (source system.interface.name)"
                   interface_select_method: "auto"
                   ipv6: "<your_own_value>"
                   source_ipv6: "<your_own_value>"
-          id: "20"
+                  vrf_select: "0"
+          id: "22"
           mib_view: "<your_own_value> (source system.snmp.mib-view.name)"
-          name: "default_name_22"
+          name: "default_name_24"
           query_v1_port: "161"
           query_v1_status: "enable"
           query_v2c_port: "161"
@@ -364,7 +374,7 @@ EXAMPLES = """
           trap_v2c_status: "enable"
           vdoms:
               -
-                  name: "default_name_35 (source system.vdom.name)"
+                  name: "default_name_37 (source system.vdom.name)"
 """
 
 RETURN = """
@@ -452,6 +462,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -575,6 +588,7 @@ def system_snmp_community(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -585,19 +599,20 @@ def system_snmp_community(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -718,6 +733,7 @@ versioned_schema = {
                     ],
                 },
                 "interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -756,6 +772,7 @@ versioned_schema = {
                     ],
                 },
                 "interface": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -816,8 +833,12 @@ versioned_schema = {
                 {"value": "av-oversize-blocked"},
                 {"value": "ips-pkg-update"},
                 {"value": "ips-fail-open"},
+                {"value": "temperature-high"},
+                {"value": "voltage-alert"},
+                {"value": "power-supply", "v_range": [["v7.4.2", ""]]},
                 {"value": "faz-disconnect"},
                 {"value": "faz", "v_range": [["v7.4.1", ""]]},
+                {"value": "fan-failure"},
                 {"value": "wc-ap-up"},
                 {"value": "wc-ap-down"},
                 {"value": "fswctl-session-up"},
@@ -834,10 +855,6 @@ versioned_schema = {
                 {"value": "interface", "v_range": [["v7.6.0", ""]]},
                 {"value": "ospf-nbr-state-change", "v_range": [["v7.0.0", ""]]},
                 {"value": "ospf-virtnbr-state-change", "v_range": [["v7.0.0", ""]]},
-                {"value": "temperature-high"},
-                {"value": "voltage-alert"},
-                {"value": "power-supply", "v_range": [["v7.4.2", ""]]},
-                {"value": "fan-failure"},
                 {"value": "power-supply-failure", "v_range": [["v6.0.0", "v7.4.1"]]},
             ],
             "multiple_values": True,

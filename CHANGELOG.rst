@@ -4,6 +4,32 @@ Fortinet.Fortios Release Notes
 
 .. contents:: Topics
 
+v2.4.0
+======
+
+Release Summary
+---------------
+
+minor release of 2.4.0
+
+Major Changes
+-------------
+
+- Supported new versions 7.2.11, 7.6.1 and 7.6.2.
+- Updated the examples with correct values that have minimum or maximum values.
+
+Bugfixes
+--------
+
+- Github Issue
+- Github Issue
+- Github Issue
+- Github Issue
+- Github Issue
+- Github Issue
+- Github Issue
+- Mantis Issue
+
 v2.3.9
 ======
 

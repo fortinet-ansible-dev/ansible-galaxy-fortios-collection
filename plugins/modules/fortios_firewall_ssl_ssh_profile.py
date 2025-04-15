@@ -196,6 +196,13 @@ options:
                         choices:
                             - 'disable'
                             - 'deep-inspection'
+                    udp_not_quic:
+                        description:
+                            - Action to be taken when matched UDP packet is not QUIC.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'block'
                     unsupported_ssl_cipher:
                         description:
                             - Action based on the SSL cipher used being unsupported.
@@ -513,6 +520,13 @@ options:
                             - 'disable'
                             - 'certificate-inspection'
                             - 'deep-inspection'
+                    udp_not_quic:
+                        description:
+                            - Action to be taken when matched UDP packet is not QUIC.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'block'
                     unsupported_ssl:
                         description:
                             - Action based on the SSL encryption used being unsupported.
@@ -1487,13 +1501,14 @@ EXAMPLES = """
               revoked_server_cert: "allow"
               sni_server_cert_check: "enable"
               status: "disable"
+              udp_not_quic: "allow"
               unsupported_ssl_cipher: "allow"
               unsupported_ssl_negotiation: "allow"
               unsupported_ssl_version: "allow"
               untrusted_server_cert: "allow"
           ech_outer_sni:
               -
-                  name: "default_name_23"
+                  name: "default_name_24"
                   sni: "<your_own_value>"
           ftps:
               allow_invalid_server_cert: "enable"
@@ -1531,6 +1546,7 @@ EXAMPLES = """
               revoked_server_cert: "allow"
               sni_server_cert_check: "enable"
               status: "disable"
+              udp_not_quic: "allow"
               unsupported_ssl: "bypass"
               unsupported_ssl_cipher: "allow"
               unsupported_ssl_negotiation: "allow"
@@ -1557,7 +1573,7 @@ EXAMPLES = """
               untrusted_cert: "allow"
               untrusted_server_cert: "allow"
           mapi_over_https: "enable"
-          name: "default_name_87"
+          name: "default_name_89"
           pop3s:
               allow_invalid_server_cert: "enable"
               cert_validation_failure: "allow"
@@ -1580,7 +1596,7 @@ EXAMPLES = """
           rpc_over_https: "enable"
           server_cert:
               -
-                  name: "default_name_109 (source vpn.certificate.local.name)"
+                  name: "default_name_111 (source vpn.certificate.local.name)"
           server_cert_mode: "re-sign"
           smtps:
               allow_invalid_server_cert: "enable"
@@ -1637,7 +1653,7 @@ EXAMPLES = """
                   address: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   address6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
                   fortiguard_category: "0"
-                  id: "165"
+                  id: "167"
                   regex: "<your_own_value>"
                   type: "fortiguard-category"
                   wildcard_fqdn: "<your_own_value> (source firewall.wildcard-fqdn.custom.name firewall.wildcard-fqdn.group.name)"
@@ -1652,7 +1668,7 @@ EXAMPLES = """
                   ftps_client_certificate: "bypass"
                   https_client_cert_request: "bypass"
                   https_client_certificate: "bypass"
-                  id: "179"
+                  id: "181"
                   imaps_client_cert_request: "bypass"
                   imaps_client_certificate: "bypass"
                   ip: "<your_own_value>"
@@ -1754,6 +1770,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -1897,6 +1916,7 @@ def firewall_ssl_ssh_profile(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1907,19 +1927,20 @@ def firewall_ssl_ssh_profile(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -2186,6 +2207,11 @@ versioned_schema = {
                         {"value": "disable", "v_range": [["v7.4.1", "v7.4.1"]]},
                         {"value": "enable", "v_range": [["v7.4.1", "v7.4.1"]]},
                     ],
+                },
+                "udp_not_quic": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "allow"}, {"value": "block"}],
                 },
                 "proxy_after_tcp_handshake": {
                     "v_range": [["v6.4.0", ""]],
@@ -2970,6 +2996,11 @@ versioned_schema = {
                         {"value": "disable", "v_range": [["v7.4.1", "v7.4.1"]]},
                         {"value": "enable", "v_range": [["v7.4.1", "v7.4.1"]]},
                     ],
+                },
+                "udp_not_quic": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "allow"}, {"value": "block"}],
                 },
                 "proxy_after_tcp_handshake": {
                     "v_range": [["v7.0.0", ""]],

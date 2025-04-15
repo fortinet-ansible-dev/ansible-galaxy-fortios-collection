@@ -90,6 +90,17 @@ options:
         default: null
         type: dict
         suboptions:
+            admin_auth_tacacs_plus:
+                description:
+                    - Remote authentication server for admin user. Source user.tacacs+.name.
+                type: str
+            admin_restrict_local:
+                description:
+                    - Enable/disable local admin authentication restriction when remote authenticator is up and running .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             allowaccess:
                 description:
                     - Control management access to the managed WTP, FortiAP, or AP. Separate entries with a space.
@@ -708,6 +719,64 @@ options:
                         description:
                             - AeroScout server UDP listening port.
                         type: int
+                    ble_rtls:
+                        description:
+                            - Set BLE Real Time Location Service (RTLS) support .
+                        type: str
+                        choices:
+                            - 'none'
+                            - 'polestar'
+                            - 'evresys'
+                    ble_rtls_accumulation_interval:
+                        description:
+                            - Time that measurements should be accumulated in seconds .
+                        type: int
+                    ble_rtls_asset_addrgrp_list:
+                        description:
+                            - Tags and asset addrgrp list to be reported. Source firewall.addrgrp.name.
+                        type: str
+                    ble_rtls_asset_uuid_list1:
+                        description:
+                            - Tags and asset UUID list 1 to be reported (string in the format of "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
+                        type: str
+                    ble_rtls_asset_uuid_list2:
+                        description:
+                            - Tags and asset UUID list 2 to be reported (string in the format of "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
+                        type: str
+                    ble_rtls_asset_uuid_list3:
+                        description:
+                            - Tags and asset UUID list 3 to be reported (string in the format of "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
+                        type: str
+                    ble_rtls_asset_uuid_list4:
+                        description:
+                            - Tags and asset UUID list 4 to be reported (string in the format of "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX").
+                        type: str
+                    ble_rtls_protocol:
+                        description:
+                            - Select the protocol to report Measurements, Advertising Data, or Location Data to Cloud Server .
+                        type: str
+                        choices:
+                            - 'WSS'
+                    ble_rtls_reporting_interval:
+                        description:
+                            - Time between reporting accumulated measurements in seconds .
+                        type: int
+                    ble_rtls_server_fqdn:
+                        description:
+                            - FQDN of BLE Real Time Location Service (RTLS) Server.
+                        type: str
+                    ble_rtls_server_path:
+                        description:
+                            - Path of BLE Real Time Location Service (RTLS) Server.
+                        type: str
+                    ble_rtls_server_port:
+                        description:
+                            - Port of BLE Real Time Location Service (RTLS) Server .
+                        type: int
+                    ble_rtls_server_token:
+                        description:
+                            - Access Token of BLE Real Time Location Service (RTLS) Server.
+                        type: str
                     ekahau_blink_mode:
                         description:
                             - Enable/disable Ekahau blink mode (now known as AiRISTA Flow) to track and locate WiFi tags .
@@ -951,6 +1020,8 @@ options:
                             - '431G'
                             - '432G'
                             - '433G'
+                            - '231K'
+                            - '23JK'
                             - '241K'
                             - '243K'
                             - '441K'
@@ -3352,6 +3423,8 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       wireless_controller_wtp_profile:
+          admin_auth_tacacs_plus: "<your_own_value> (source user.tacacs+.name)"
+          admin_restrict_local: "enable"
           allowaccess: "https"
           ap_country: "--"
           ap_handoff: "enable"
@@ -3363,7 +3436,7 @@ EXAMPLES = """
           control_message_offload: "ebp-frame"
           deny_mac_list:
               -
-                  id: "13"
+                  id: "15"
                   mac: "<your_own_value>"
           dtls_in_kernel: "enable"
           dtls_policy: "clear-text"
@@ -3417,6 +3490,19 @@ EXAMPLES = """
               aeroscout_mu_timeout: "5"
               aeroscout_server_ip: "<your_own_value>"
               aeroscout_server_port: "0"
+              ble_rtls: "none"
+              ble_rtls_accumulation_interval: "2"
+              ble_rtls_asset_addrgrp_list: "<your_own_value> (source firewall.addrgrp.name)"
+              ble_rtls_asset_uuid_list1: "<your_own_value>"
+              ble_rtls_asset_uuid_list2: "<your_own_value>"
+              ble_rtls_asset_uuid_list3: "<your_own_value>"
+              ble_rtls_asset_uuid_list4: "<your_own_value>"
+              ble_rtls_protocol: "WSS"
+              ble_rtls_reporting_interval: "2"
+              ble_rtls_server_fqdn: "<your_own_value>"
+              ble_rtls_server_path: "<your_own_value>"
+              ble_rtls_server_port: "443"
+              ble_rtls_server_token: "<your_own_value>"
               ekahau_blink_mode: "enable"
               ekahau_tag: "<your_own_value>"
               erc_server_ip: "<your_own_value>"
@@ -3448,13 +3534,13 @@ EXAMPLES = """
               station_locate: "enable"
           led_schedules:
               -
-                  name: "default_name_97 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_112 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           led_state: "enable"
           lldp: "enable"
           login_passwd: "<your_own_value>"
           login_passwd_change: "yes"
           max_clients: "0"
-          name: "default_name_103"
+          name: "default_name_118"
           platform:
               ddscan: "enable"
               mode: "single-5G"
@@ -3546,7 +3632,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_193 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_208 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_2:
@@ -3635,7 +3721,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_280 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_295 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_3:
@@ -3724,7 +3810,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_367 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_382 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_4:
@@ -3812,13 +3898,13 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_453 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_468 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "458"
+                  id: "473"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           syslog_profile: "<your_own_value> (source wireless-controller.syslog-profile.name)"
@@ -3920,10 +4006,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_wireless_controller_wtp_profile_data(json):
     option_list = [
+        "admin_auth_tacacs_plus",
+        "admin_restrict_local",
         "allowaccess",
         "ap_country",
         "ap_handoff",
@@ -4048,7 +4139,11 @@ def underscore_to_hyphen(data):
 
 
 def valid_attr_to_invalid_attr(data):
-    speciallist = {"80211d": "set_80211d", "80211mc": "set_80211mc"}
+    speciallist = {
+        "80211d": "set_80211d",
+        "80211mc": "set_80211mc",
+        "admin_auth_tacacs+": "admin_auth_tacacs_plus",
+    }
 
     for k, v in speciallist.items():
         if v == data:
@@ -4121,6 +4216,7 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -4131,19 +4227,20 @@ def wireless_controller_wtp_profile(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -4324,6 +4421,8 @@ versioned_schema = {
                             "value": "433G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
+                        {"value": "231K", "v_range": [["v7.6.1", ""]]},
+                        {"value": "23JK", "v_range": [["v7.6.1", ""]]},
                         {"value": "241K", "v_range": [["v7.4.2", ""]]},
                         {"value": "243K", "v_range": [["v7.4.2", ""]]},
                         {"value": "441K", "v_range": [["v7.4.2", ""]]},
@@ -6779,52 +6878,110 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "ble_rtls": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "none"},
+                        {"value": "polestar"},
+                        {"value": "evresys"},
+                    ],
+                },
+                "ble_rtls_protocol": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "WSS"}],
+                },
+                "ble_rtls_server_fqdn": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "ble_rtls_server_path": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "ble_rtls_server_token": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "ble_rtls_server_port": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "integer",
+                },
+                "ble_rtls_accumulation_interval": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "integer",
+                },
+                "ble_rtls_reporting_interval": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "integer",
+                },
+                "ble_rtls_asset_uuid_list1": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "ble_rtls_asset_uuid_list2": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "ble_rtls_asset_uuid_list3": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "ble_rtls_asset_uuid_list4": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "ble_rtls_asset_addrgrp_list": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
                 "polestar": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "polestar_protocol": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                     "options": [{"value": "WSS"}],
                 },
-                "polestar_server_fqdn": {"v_range": [["v7.4.1", ""]], "type": "string"},
-                "polestar_server_path": {"v_range": [["v7.4.1", ""]], "type": "string"},
+                "polestar_server_fqdn": {
+                    "v_range": [["v7.4.1", "v7.6.0"]],
+                    "type": "string",
+                },
+                "polestar_server_path": {
+                    "v_range": [["v7.4.1", "v7.6.0"]],
+                    "type": "string",
+                },
                 "polestar_server_token": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                 },
                 "polestar_server_port": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "integer",
                 },
                 "polestar_accumulation_interval": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "integer",
                 },
                 "polestar_reporting_interval": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "integer",
                 },
                 "polestar_asset_uuid_list1": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                 },
                 "polestar_asset_uuid_list2": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                 },
                 "polestar_asset_uuid_list3": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                 },
                 "polestar_asset_uuid_list4": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                 },
                 "polestar_asset_addrgrp_list": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.0"]],
                     "type": "string",
                 },
             },
@@ -6947,6 +7104,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "admin_restrict_local": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "admin_auth_tacacs_plus": {"v_range": [["v7.6.1", ""]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

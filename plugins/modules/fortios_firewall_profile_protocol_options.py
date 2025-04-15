@@ -354,6 +354,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    set_http_0dot9:
+                        description:
+                            - Configure action to take upon receipt of HTTP 0.9 request.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'block'
                     http_policy:
                         description:
                             - Enable/disable HTTP policy check.
@@ -1022,6 +1029,7 @@ EXAMPLES = """
               fortinet_bar: "enable"
               fortinet_bar_port: "32767"
               h2c: "enable"
+              set_http_0dot9: "allow"
               http_policy: "disable"
               inspect_all: "enable"
               options: "clientcomfort"
@@ -1070,7 +1078,7 @@ EXAMPLES = """
               status: "enable"
               uncompressed_nest_limit: "12"
               uncompressed_oversize_limit: "10"
-          name: "default_name_99"
+          name: "default_name_100"
           nntp:
               inspect_all: "enable"
               options: "oversize"
@@ -1210,6 +1218,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_profile_protocol_options_data(json):
@@ -1307,6 +1318,32 @@ def underscore_to_hyphen(data):
     return new_data
 
 
+def valid_attr_to_invalid_attr(data):
+    speciallist = {"http_0.9": "set_http_0dot9"}
+
+    for k, v in speciallist.items():
+        if v == data:
+            return k
+
+    return data
+
+
+def valid_attr_to_invalid_attrs(data):
+    if isinstance(data, list):
+        new_data = []
+        for elem in data:
+            elem = valid_attr_to_invalid_attrs(elem)
+            new_data.append(elem)
+        data = new_data
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[valid_attr_to_invalid_attr(k)] = valid_attr_to_invalid_attrs(v)
+        data = new_data
+
+    return valid_attr_to_invalid_attr(data)
+
+
 def firewall_profile_protocol_options(data, fos, check_mode=False):
 
     state = None
@@ -1318,7 +1355,7 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
         firewall_profile_protocol_options_data
     )
     filtered_data = flatten_multilists_attributes(filtered_data)
-    converted_data = underscore_to_hyphen(filtered_data)
+    converted_data = underscore_to_hyphen(valid_attr_to_invalid_attrs(filtered_data))
 
     # check_mode starts from here
     if check_mode:
@@ -1355,6 +1392,7 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1365,19 +1403,20 @@ def firewall_profile_protocol_options(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1665,6 +1704,11 @@ versioned_schema = {
                     "v_range": [["v6.0.0", "v6.0.11"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "set_http_0dot9": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "allow"}, {"value": "block"}],
                 },
             },
         },

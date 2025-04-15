@@ -233,6 +233,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_ztna_traffic_forward_proxy_reverse_service_data(json):
@@ -312,6 +315,7 @@ def ztna_traffic_forward_proxy_reverse_service(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -322,19 +326,20 @@ def ztna_traffic_forward_proxy_reverse_service(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -406,7 +411,7 @@ def fortios_ztna(data, fos, check_mode):
 
 
 versioned_schema = {
-    "v_range": [["v7.6.0", ""]],
+    "v_range": [["v7.6.0", "v7.6.0"]],
     "type": "dict",
     "children": {
         "remote_servers": {
@@ -414,22 +419,22 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.6.0", ""]],
+                    "v_range": [["v7.6.0", "v7.6.0"]],
                     "type": "string",
                     "required": True,
                 },
                 "status": {
-                    "v_range": [["v7.6.0", ""]],
+                    "v_range": [["v7.6.0", "v7.6.0"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "address": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "address": {"v_range": [["v7.6.0", "v7.6.0"]], "type": "string"},
                 "health_check_interval": {
-                    "v_range": [["v7.6.0", ""]],
+                    "v_range": [["v7.6.0", "v7.6.0"]],
                     "type": "integer",
                 },
                 "ssl_max_version": {
-                    "v_range": [["v7.6.0", ""]],
+                    "v_range": [["v7.6.0", "v7.6.0"]],
                     "type": "string",
                     "options": [
                         {"value": "tls-1.1"},
@@ -437,11 +442,14 @@ versioned_schema = {
                         {"value": "tls-1.3"},
                     ],
                 },
-                "port": {"v_range": [["v7.6.0", ""]], "type": "integer"},
-                "certificate": {"v_range": [["v7.6.0", ""]], "type": "string"},
-                "trusted_server_ca": {"v_range": [["v7.6.0", ""]], "type": "string"},
+                "port": {"v_range": [["v7.6.0", "v7.6.0"]], "type": "integer"},
+                "certificate": {"v_range": [["v7.6.0", "v7.6.0"]], "type": "string"},
+                "trusted_server_ca": {
+                    "v_range": [["v7.6.0", "v7.6.0"]],
+                    "type": "string",
+                },
             },
-            "v_range": [["v7.6.0", ""]],
+            "v_range": [["v7.6.0", "v7.6.0"]],
         }
     },
 }

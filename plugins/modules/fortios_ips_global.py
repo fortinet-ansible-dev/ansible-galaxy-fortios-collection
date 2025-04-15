@@ -249,7 +249,7 @@ EXAMPLES = """
           packet_log_queue_depth: "128"
           session_limit_mode: "accurate"
           skype_client_public_ipaddr: "<your_own_value>"
-          socket_size: "256"
+          socket_size: "128"
           sync_session_ttl: "enable"
           tls_active_probe:
               interface: "<your_own_value> (source system.interface.name)"
@@ -346,6 +346,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_ips_global_data(json):
@@ -438,6 +441,7 @@ def ips_global(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -448,19 +452,20 @@ def ips_global(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -563,6 +568,21 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "np_accel_mode": {
+            "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "none"}, {"value": "basic"}],
+        },
+        "ips_reserve_cpu": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "cp_accel_mode": {
+            "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "none"}, {"value": "basic"}, {"value": "advanced"}],
+        },
         "deep_app_insp_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "deep_app_insp_db_limit": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "exclude_signatures": {
@@ -607,21 +627,6 @@ versioned_schema = {
                     "type": "string",
                 },
             },
-        },
-        "np_accel_mode": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "none"}, {"value": "basic"}],
-        },
-        "ips_reserve_cpu": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "cp_accel_mode": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "none"}, {"value": "basic"}, {"value": "advanced"}],
         },
         "intelligent_mode": {
             "v_range": [["v6.0.0", "v6.4.1"]],

@@ -115,6 +115,8 @@ options:
                     - 'alicloud-function'
                     - 'webhook'
                     - 'cli-script'
+                    - 'diagnose-script'
+                    - 'regular-expression'
                     - 'slack-notification'
                     - 'microsoft-teams-notification'
                     - 'ios-notification'
@@ -213,6 +215,10 @@ options:
                 description:
                     - Description.
                 type: str
+            duration:
+                description:
+                    - Maximum running time for this script in seconds.
+                type: int
             email_body:
                 description:
                     - Email body.
@@ -345,6 +351,10 @@ options:
                 choices:
                     - 'http'
                     - 'https'
+            regular_expression:
+                description:
+                    - Regular expression string.
+                type: str
             replacement_message:
                 description:
                     - Enable/disable replacement message.
@@ -442,12 +452,13 @@ EXAMPLES = """
           azure_function_authorization: "anonymous"
           delay: "0"
           description: "<your_own_value>"
+          duration: "5"
           email_body: "<your_own_value>"
           email_from: "<your_own_value>"
           email_subject: "<your_own_value>"
           email_to:
               -
-                  name: "default_name_31"
+                  name: "default_name_32"
           execute_security_fabric: "enable"
           forticare_email: "enable"
           fos_message: "<your_own_value>"
@@ -461,23 +472,24 @@ EXAMPLES = """
           http_body: "<your_own_value>"
           http_headers:
               -
-                  id: "43"
+                  id: "44"
                   key: "<your_own_value>"
                   value: "<your_own_value>"
           message_type: "text"
           method: "post"
           minimum_interval: "0"
-          name: "default_name_49"
+          name: "default_name_50"
           output_size: "10"
           port: "0"
           protocol: "http"
+          regular_expression: "<your_own_value>"
           replacement_message: "enable"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           required: "enable"
           script: "<your_own_value>"
           sdn_connector:
               -
-                  name: "default_name_58 (source system.sdn-connector.name)"
+                  name: "default_name_60 (source system.sdn-connector.name)"
           security_tag: "<your_own_value>"
           system_action: "reboot"
           timeout: "0"
@@ -572,6 +584,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_automation_action_data(json):
@@ -600,6 +615,7 @@ def filter_system_automation_action_data(json):
         "azure_function_authorization",
         "delay",
         "description",
+        "duration",
         "email_body",
         "email_from",
         "email_subject",
@@ -621,6 +637,7 @@ def filter_system_automation_action_data(json):
         "output_size",
         "port",
         "protocol",
+        "regular_expression",
         "replacement_message",
         "replacemsg_group",
         "required",
@@ -726,6 +743,7 @@ def system_automation_action(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -736,19 +754,20 @@ def system_automation_action(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -854,6 +873,8 @@ versioned_schema = {
                 {"value": "alicloud-function", "v_range": [["v6.2.0", ""]]},
                 {"value": "webhook"},
                 {"value": "cli-script", "v_range": [["v6.2.0", ""]]},
+                {"value": "diagnose-script", "v_range": [["v7.6.1", ""]]},
+                {"value": "regular-expression", "v_range": [["v7.6.1", ""]]},
                 {"value": "slack-notification", "v_range": [["v6.4.0", ""]]},
                 {"value": "microsoft-teams-notification", "v_range": [["v7.0.0", ""]]},
                 {"value": "ios-notification", "v_range": [["v6.0.0", "v6.4.4"]]},
@@ -965,6 +986,7 @@ versioned_schema = {
         "script": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "output_size": {"v_range": [["v7.2.0", ""]], "type": "integer"},
         "timeout": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+        "duration": {"v_range": [["v7.6.1", ""]], "type": "integer"},
         "execute_security_fabric": {
             "v_range": [["v7.0.2", ""]],
             "type": "string",
@@ -984,6 +1006,7 @@ versioned_schema = {
             },
             "v_range": [["v6.2.0", ""]],
         },
+        "regular_expression": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "headers": {
             "type": "list",
             "elements": "dict",

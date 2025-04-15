@@ -90,10 +90,33 @@ options:
         default: null
         type: dict
         suboptions:
+            address_comment_field:
+                description:
+                    - JSON Path to address description in generic address entry.
+                type: str
+            address_data_field:
+                description:
+                    - JSON Path to address data in generic address entry.
+                type: str
+            address_name_field:
+                description:
+                    - JSON Path to address name in generic address entry.
+                type: str
             category:
                 description:
                     - User resource category.
                 type: int
+            client_cert:
+                description:
+                    - Client certificate name. Source vpn.certificate.local.name.
+                type: str
+            client_cert_auth:
+                description:
+                    - Enable/disable using client certificate for TLS authentication.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             comments:
                 description:
                     - Comment.
@@ -114,6 +137,14 @@ options:
                 description:
                     - External resource name.
                 required: true
+                type: str
+            namespace:
+                description:
+                    - Generic external connector address namespace.
+                type: str
+            object_array_path:
+                description:
+                    - JSON Path to array of generic addresses in resource.
                 type: str
             password:
                 description:
@@ -152,11 +183,12 @@ options:
                 type: str
                 choices:
                     - 'category'
-                    - 'address'
                     - 'domain'
                     - 'malware'
+                    - 'address'
                     - 'mac-address'
                     - 'data'
+                    - 'generic-address'
             update_method:
                 description:
                     - External resource update method.
@@ -176,6 +208,10 @@ options:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
+            vrf_select:
+                description:
+                    - VRF ID used for connection to server.
+                type: int
 """
 
 EXAMPLES = """
@@ -185,11 +221,18 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_external_resource:
+          address_comment_field: "<your_own_value>"
+          address_data_field: "<your_own_value>"
+          address_name_field: "<your_own_value>"
           category: "0"
+          client_cert: "<your_own_value> (source vpn.certificate.local.name)"
+          client_cert_auth: "enable"
           comments: "<your_own_value>"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
-          name: "default_name_7"
+          name: "default_name_12"
+          namespace: "<your_own_value>"
+          object_array_path: "<your_own_value>"
           password: "<your_own_value>"
           refresh_rate: "5"
           resource: "<your_own_value>"
@@ -201,6 +244,7 @@ EXAMPLES = """
           user_agent: "<your_own_value>"
           username: "<your_own_value>"
           uuid: "<your_own_value>"
+          vrf_select: "0"
 """
 
 RETURN = """
@@ -289,15 +333,25 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_external_resource_data(json):
     option_list = [
+        "address_comment_field",
+        "address_data_field",
+        "address_name_field",
         "category",
+        "client_cert",
+        "client_cert_auth",
         "comments",
         "interface",
         "interface_select_method",
         "name",
+        "namespace",
+        "object_array_path",
         "password",
         "refresh_rate",
         "resource",
@@ -309,6 +363,7 @@ def filter_system_external_resource_data(json):
         "user_agent",
         "username",
         "uuid",
+        "vrf_select",
     ]
 
     json = remove_invalid_fields(json)
@@ -377,6 +432,7 @@ def system_external_resource(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -387,19 +443,20 @@ def system_external_resource(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -492,13 +549,19 @@ versioned_schema = {
             "type": "string",
             "options": [
                 {"value": "category"},
-                {"value": "address"},
                 {"value": "domain"},
                 {"value": "malware", "v_range": [["v6.2.0", ""]]},
+                {"value": "address"},
                 {"value": "mac-address", "v_range": [["v7.4.0", ""]]},
                 {"value": "data", "v_range": [["v7.4.2", ""]]},
+                {"value": "generic-address", "v_range": [["v7.6.1", ""]]},
             ],
         },
+        "namespace": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "object_array_path": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "address_name_field": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "address_data_field": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "address_comment_field": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "update_method": {
             "v_range": [["v7.2.1", ""]],
             "type": "string",
@@ -507,6 +570,12 @@ versioned_schema = {
         "category": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "username": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "password": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "client_cert_auth": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "client_cert": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "resource": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "user_agent": {
@@ -529,6 +598,7 @@ versioned_schema = {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
             "type": "string",
         },
+        "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
     },
     "v_range": [["v6.0.0", ""]],
 }

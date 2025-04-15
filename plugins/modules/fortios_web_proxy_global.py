@@ -183,7 +183,7 @@ options:
                 type: int
             max_waf_body_cache_length:
                 description:
-                    - Maximum length of HTTP messages processed by Web Application Firewall (WAF) (10 - 1024 Kbytes).
+                    - Maximum length of HTTP messages processed by Web Application Firewall (WAF) (1 - 1024 Kbytes).
                 type: int
             policy_category_deep_inspect:
                 description:
@@ -203,6 +203,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            request_obs_fold:
+                description:
+                    - Action when HTTP/1.x request header contains obs-fold.
+                type: str
+                choices:
+                    - 'replace-with-sp'
+                    - 'block'
+                    - 'keep'
             src_affinity_exempt_addr:
                 description:
                     - IPv4 source addresses to exempt proxy affinity.
@@ -223,7 +231,7 @@ options:
                 type: str
             strict_web_check:
                 description:
-                    - Enable/disable strict web checking to block web sites that send incorrect headers that don"t conform to HTTP 1.1.
+                    - Enable/disable strict web checking to block web sites that send incorrect headers that don"t conform to HTTP.
                 type: str
                 choices:
                     - 'enable'
@@ -273,10 +281,11 @@ EXAMPLES = """
           log_policy_pending: "enable"
           max_message_length: "32"
           max_request_length: "8"
-          max_waf_body_cache_length: "32"
+          max_waf_body_cache_length: "1"
           policy_category_deep_inspect: "enable"
           proxy_fqdn: "<your_own_value>"
           proxy_transparent_cert_inspection: "enable"
+          request_obs_fold: "replace-with-sp"
           src_affinity_exempt_addr: "<your_own_value>"
           src_affinity_exempt_addr6: "<your_own_value>"
           ssl_ca_cert: "<your_own_value> (source vpn.certificate.local.name)"
@@ -373,6 +382,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_web_proxy_global_data(json):
@@ -395,6 +407,7 @@ def filter_web_proxy_global_data(json):
         "policy_category_deep_inspect",
         "proxy_fqdn",
         "proxy_transparent_cert_inspection",
+        "request_obs_fold",
         "src_affinity_exempt_addr",
         "src_affinity_exempt_addr6",
         "ssl_ca_cert",
@@ -505,6 +518,7 @@ def web_proxy_global(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -515,19 +529,20 @@ def web_proxy_global(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -710,6 +725,15 @@ versioned_schema = {
             "v_range": [["v7.4.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "request_obs_fold": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [
+                {"value": "replace-with-sp"},
+                {"value": "block"},
+                {"value": "keep"},
+            ],
         },
         "tunnel_non_http": {
             "v_range": [["v6.0.0", "v6.2.7"]],

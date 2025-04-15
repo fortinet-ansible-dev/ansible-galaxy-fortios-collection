@@ -105,9 +105,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             addke2:
                 description:
                     - phase2 ADDKE2 group.
@@ -115,9 +127,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             addke3:
                 description:
                     - phase2 ADDKE3 group.
@@ -125,9 +149,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             addke4:
                 description:
                     - phase2 ADDKE4 group.
@@ -135,9 +171,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             addke5:
                 description:
                     - phase2 ADDKE5 group.
@@ -145,9 +193,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             addke6:
                 description:
                     - phase2 ADDKE6 group.
@@ -155,9 +215,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             addke7:
                 description:
                     - phase2 ADDKE7 group.
@@ -165,9 +237,21 @@ options:
                 elements: str
                 choices:
                     - '0'
+                    - '35'
+                    - '36'
+                    - '37'
                     - '1080'
                     - '1081'
                     - '1082'
+                    - '1083'
+                    - '1084'
+                    - '1085'
+                    - '1089'
+                    - '1090'
+                    - '1091'
+                    - '1092'
+                    - '1093'
+                    - '1094'
             auto_discovery_forwarder:
                 description:
                     - Enable/disable forwarding short-cut messages.
@@ -653,6 +737,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_vpn_ipsec_phase2_interface_data(json):
@@ -820,6 +907,7 @@ def vpn_ipsec_phase2_interface(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -830,19 +918,20 @@ def vpn_ipsec_phase2_interface(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1005,11 +1094,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "ipv4_df": {
-            "v_range": [["v6.2.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "dhgrp": {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
@@ -1040,9 +1124,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1052,9 +1148,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1064,9 +1172,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1076,9 +1196,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1088,9 +1220,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1100,9 +1244,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1112,9 +1268,21 @@ versioned_schema = {
             "type": "list",
             "options": [
                 {"value": "0"},
+                {"value": "35", "v_range": [["v7.6.1", ""]]},
+                {"value": "36", "v_range": [["v7.6.1", ""]]},
+                {"value": "37", "v_range": [["v7.6.1", ""]]},
                 {"value": "1080"},
                 {"value": "1081"},
                 {"value": "1082"},
+                {"value": "1083", "v_range": [["v7.6.1", ""]]},
+                {"value": "1084", "v_range": [["v7.6.1", ""]]},
+                {"value": "1085", "v_range": [["v7.6.1", ""]]},
+                {"value": "1089", "v_range": [["v7.6.1", ""]]},
+                {"value": "1090", "v_range": [["v7.6.1", ""]]},
+                {"value": "1091", "v_range": [["v7.6.1", ""]]},
+                {"value": "1092", "v_range": [["v7.6.1", ""]]},
+                {"value": "1093", "v_range": [["v7.6.1", ""]]},
+                {"value": "1094", "v_range": [["v7.6.1", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1240,6 +1408,11 @@ versioned_schema = {
         "dst_subnet": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dst_subnet6": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dst_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "ipv4_df": {
+            "v_range": [["v6.2.0", "v7.6.0"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
     },
     "v_range": [["v6.0.0", ""]],
 }

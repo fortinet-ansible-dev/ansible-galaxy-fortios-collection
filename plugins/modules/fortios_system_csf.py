@@ -232,8 +232,15 @@ options:
                 type: str
             group_password:
                 description:
-                    - Security Fabric group password. All FortiGates in a Security Fabric must have the same group password.
+                    - Security Fabric group password. For legacy authentication, fabric members must have the same group password.
                 type: str
+            legacy_authentication:
+                description:
+                    - Enable/disable legacy authentication.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             log_unification:
                 description:
                     - Enable/disable broadcast of discovery messages for log unification.
@@ -383,6 +390,7 @@ EXAMPLES = """
           forticloud_account_enforcement: "enable"
           group_name: "<your_own_value>"
           group_password: "<your_own_value>"
+          legacy_authentication: "disable"
           log_unification: "disable"
           management_ip: "<your_own_value>"
           management_port: "32767"
@@ -397,7 +405,7 @@ EXAMPLES = """
                   downstream_authorization: "enable"
                   ha_members: "<your_own_value>"
                   index: "0"
-                  name: "default_name_45"
+                  name: "default_name_46"
                   serial: "<your_own_value>"
           uid: "<your_own_value>"
           upstream: "<your_own_value>"
@@ -493,6 +501,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_csf_data(json):
@@ -514,6 +525,7 @@ def filter_system_csf_data(json):
         "forticloud_account_enforcement",
         "group_name",
         "group_password",
+        "legacy_authentication",
         "log_unification",
         "management_ip",
         "management_port",
@@ -627,6 +639,7 @@ def system_csf(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -637,19 +650,20 @@ def system_csf(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -761,6 +775,11 @@ versioned_schema = {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "legacy_authentication": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "downstream_accprofile": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "configuration_sync": {

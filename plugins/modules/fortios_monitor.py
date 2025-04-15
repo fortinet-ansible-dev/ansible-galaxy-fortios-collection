@@ -292,6 +292,7 @@ options:
          - 'user.password-policy-conform'
          - 'change-password.user.local'
          - 'report.sdwan.link-monitor-metrics'
+         - 'generic-address.system.external-resource'
 
     params:
         description:
@@ -608,6 +609,9 @@ module_selectors_defs = {
         "url": "system/firmware/upgrade",
         "params": {
             "source": {"type": "string", "required": "True"},
+            "url": {"type": "string", "required": "False"},
+            "passphrase": {"type": "string", "required": "False"},
+            "force": {"type": "boolean", "required": "False"},
             "filename": {"type": "string", "required": "False"},
             "format_partition": {"type": "boolean", "required": "False"},
             "ignore_invalid_signature": {"type": "boolean", "required": "False"},
@@ -1160,7 +1164,7 @@ module_selectors_defs = {
     "register-device.registration.forticloud": {
         "url": "registration/forticloud/register-device",
         "params": {
-            "serial": {"type": "string", "required": "True"},
+            "serial": {"type": "string", "required": "False"},
             "email": {"type": "string", "required": "True"},
             "password": {"type": "string", "required": "True"},
             "reseller": {"type": "string", "required": "True"},
@@ -1188,7 +1192,10 @@ module_selectors_defs = {
         "url": "system/automation-stitch/webhook",
         "params": {"mkey": {"type": "string", "required": "True"}},
     },
-    "format.system.logdisk": {"url": "system/logdisk/format", "params": {}},
+    "format.system.logdisk": {
+        "url": "system/logdisk/format",
+        "params": {"raid": {"type": "string", "required": "True"}},
+    },
     "speed-test-trigger.system.interface": {
         "url": "system/interface/speed-test-trigger",
         "params": {"mkey": {"type": "string", "required": "True"}},
@@ -1270,6 +1277,7 @@ module_selectors_defs = {
             "mpsk_profile": {"type": "string", "required": "True"},
             "group": {"type": "string", "required": "True"},
             "prefix": {"type": "string", "required": "True"},
+            "count": {"type": "int", "required": "True"},
             "key_length": {"type": "int", "required": "True"},
         },
     },
@@ -1529,7 +1537,7 @@ module_selectors_defs = {
     },
     "dynamic.system.external-resource": {
         "url": "system/external-resource/dynamic",
-        "params": {},
+        "params": {"commands": {"type": "array", "required": "True"}},
     },
     "pse-config.switch-controller.recommendation": {
         "url": "switch-controller/recommendation/pse-config",
@@ -1676,6 +1684,13 @@ module_selectors_defs = {
             "ntt": {"type": "double", "required": "False"},
             "srt": {"type": "double", "required": "False"},
             "application_error": {"type": "double", "required": "False"},
+        },
+    },
+    "generic-address.system.external-resource": {
+        "url": "system/external-resource/generic-address",
+        "params": {
+            "mkey": {"type": "string", "required": "True"},
+            "data": {"type": "object", "required": "True"},
         },
     },
 }
@@ -1988,6 +2003,7 @@ def main():
                 "user.password-policy-conform",
                 "change-password.user.local",
                 "report.sdwan.link-monitor-metrics",
+                "generic-address.system.external-resource",
             ],
         },
     }

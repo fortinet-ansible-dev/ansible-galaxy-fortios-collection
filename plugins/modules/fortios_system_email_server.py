@@ -163,6 +163,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            vrf_select:
+                description:
+                    - VRF ID used for connection to server.
+                type: int
 """
 
 EXAMPLES = """
@@ -185,6 +189,7 @@ EXAMPLES = """
           type: "custom"
           username: "<your_own_value>"
           validate_server: "enable"
+          vrf_select: "0"
 """
 
 RETURN = """
@@ -273,6 +278,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_email_server_data(json):
@@ -291,6 +299,7 @@ def filter_system_email_server_data(json):
         "type",
         "username",
         "validate_server",
+        "vrf_select",
     ]
 
     json = remove_invalid_fields(json)
@@ -359,6 +368,7 @@ def system_email_server(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -369,19 +379,20 @@ def system_email_server(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -496,6 +507,7 @@ versioned_schema = {
             "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
         },
         "interface": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
         "reply_to": {"v_range": [["v6.0.0", "v7.4.3"]], "type": "string"},
     },
 }

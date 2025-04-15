@@ -108,6 +108,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            login_lockout_upon_downgrade:
+                description:
+                    - Enable/disable administrative user login lockout upon downgrade (defaut = disable). If enabled, downgrading the FortiOS firmware to a
+                       lower version where safer passwords are unsupported will lock out administrative users.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             min_change_characters:
                 description:
                     - Minimum number of unique characters in new password which do not exist in old password (0 - 128).
@@ -161,6 +169,7 @@ EXAMPLES = """
           change_4_characters: "enable"
           expire_day: "90"
           expire_status: "enable"
+          login_lockout_upon_downgrade: "enable"
           min_change_characters: "0"
           min_lower_case_letter: "0"
           min_non_alphanumeric: "0"
@@ -258,6 +267,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_password_policy_data(json):
@@ -266,6 +278,7 @@ def filter_system_password_policy_data(json):
         "change_4_characters",
         "expire_day",
         "expire_status",
+        "login_lockout_upon_downgrade",
         "min_change_characters",
         "min_lower_case_letter",
         "min_non_alphanumeric",
@@ -375,6 +388,7 @@ def system_password_policy(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -385,19 +399,20 @@ def system_password_policy(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -498,6 +513,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "reuse_password_limit": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "login_lockout_upon_downgrade": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "change_4_characters": {
             "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",

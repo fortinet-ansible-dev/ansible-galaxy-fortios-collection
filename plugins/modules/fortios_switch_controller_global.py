@@ -237,6 +237,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            switch_on_deauth:
+                description:
+                    - No-operation/Factory-reset the managed FortiSwitch on deauthorization.
+                type: str
+                choices:
+                    - 'no-op'
+                    - 'factory-reset'
             update_user_device:
                 description:
                     - Control which sources update the device user list.
@@ -267,6 +274,9 @@ options:
                     - FortiLink VLAN optimization.
                 type: str
                 choices:
+                    - 'prune'
+                    - 'configured'
+                    - 'none'
                     - 'enable'
                     - 'disable'
 """
@@ -303,10 +313,11 @@ EXAMPLES = """
           mac_violation_timer: "0"
           quarantine_mode: "by-vlan"
           sn_dns_resolution: "enable"
+          switch_on_deauth: "no-op"
           update_user_device: "mac-cache"
           vlan_all_mode: "all"
           vlan_identity: "description"
-          vlan_optimization: "enable"
+          vlan_optimization: "prune"
 """
 
 RETURN = """
@@ -395,6 +406,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_switch_controller_global_data(json):
@@ -421,6 +435,7 @@ def filter_switch_controller_global_data(json):
         "mac_violation_timer",
         "quarantine_mode",
         "sn_dns_resolution",
+        "switch_on_deauth",
         "update_user_device",
         "vlan_all_mode",
         "vlan_identity",
@@ -527,6 +542,7 @@ def switch_controller_global(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -537,19 +553,20 @@ def switch_controller_global(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -636,7 +653,13 @@ versioned_schema = {
         "vlan_optimization": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "prune", "v_range": [["v7.6.1", ""]]},
+                {"value": "configured", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.1", ""]]},
+                {"value": "enable", "v_range": [["v6.2.0", "v7.6.0"]]},
+                {"value": "disable", "v_range": [["v6.2.0", "v7.6.0"]]},
+            ],
         },
         "vlan_identity": {
             "v_range": [["v7.4.1", ""]],
@@ -758,6 +781,11 @@ versioned_schema = {
             "v_range": [["v7.0.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "switch_on_deauth": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "no-op"}, {"value": "factory-reset"}],
         },
         "allow_multiple_interfaces": {
             "v_range": [["v6.0.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],

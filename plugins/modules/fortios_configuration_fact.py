@@ -131,6 +131,9 @@ options:
                  - 'system_vdom'
                  - 'system_global'
                  - 'system_accprofile'
+                 - 'system_isf-queue-profile'
+                 - 'system_npu'
+                 - 'system_np6'
                  - 'system_vdom-link'
                  - 'system_switch-interface'
                  - 'system_object-tagging'
@@ -151,6 +154,7 @@ options:
                  - 'system_ha-monitor'
                  - 'system_storage'
                  - 'system_dedicated-mgmt'
+                 - 'system_gi-gk'
                  - 'system_arp-table'
                  - 'system_ipv6-neighbor-cache'
                  - 'system_dns'
@@ -172,6 +176,8 @@ options:
                  - 'system_session-ttl'
                  - 'system.dhcp_server'
                  - 'system.dhcp6_server'
+                 - 'system_modem'
+                 - 'system.3g-modem_custom'
                  - 'system_alias'
                  - 'system_auto-script'
                  - 'system_management-tunnel'
@@ -179,11 +185,13 @@ options:
                  - 'system_zone'
                  - 'system_sdn-proxy'
                  - 'system_sdn-connector'
+                 - 'system_sdn-vpn'
                  - 'system_ipv6-tunnel'
                  - 'system_external-resource'
                  - 'system_ips-urlfilter-dns'
                  - 'system_ips-urlfilter-dns6'
                  - 'system_network-visibility'
+                 - 'system_health-check-fortiguard'
                  - 'system_sdwan'
                  - 'system_evpn'
                  - 'system_gre-tunnel'
@@ -216,6 +224,7 @@ options:
                  - 'system_dscp-based-priority'
                  - 'system_probe-response'
                  - 'system_link-monitor'
+                 - 'system_lte-modem'
                  - 'system_auto-install'
                  - 'system_console'
                  - 'system_ntp'
@@ -227,11 +236,10 @@ options:
                  - 'system_geoip-override'
                  - 'system_fortisandbox'
                  - 'system_fortindr'
-                 - 'system_affinity-interrupt'
-                 - 'system_affinity-packet-redistribution'
                  - 'system_vdom-exception'
                  - 'system_csf'
                  - 'system_automation-trigger'
+                 - 'system_automation-condition'
                  - 'system_automation-action'
                  - 'system_automation-destination'
                  - 'system_automation-stitch'
@@ -244,6 +252,9 @@ options:
                  - 'system_acme'
                  - 'system_ipam'
                  - 'system_fabric-vpn'
+                 - 'system_ngfw-settings'
+                 - 'system.security-rating_settings'
+                 - 'system.security-rating_controls'
                  - 'system_ssh-config'
                  - 'wireless-controller_inter-controller'
                  - 'wireless-controller_global'
@@ -377,18 +388,20 @@ options:
                  - 'firewall.ssh_setting'
                  - 'firewall.ssh_host-key'
                  - 'firewall_decrypted-traffic-mirror'
-                 - 'firewall_access-proxy-virtual-host'
-                 - 'firewall_access-proxy-ssh-client-cert'
-                 - 'firewall_access-proxy'
-                 - 'firewall_access-proxy6'
                  - 'firewall.ipmacbinding_setting'
                  - 'firewall.ipmacbinding_table'
+                 - 'firewall_gtp'
+                 - 'firewall_pfcp'
                  - 'firewall_profile-protocol-options'
                  - 'firewall_ssl-ssh-profile'
                  - 'firewall_ssl-server'
                  - 'firewall_profile-group'
                  - 'firewall_identity-based-route'
                  - 'firewall_auth-portal'
+                 - 'firewall_access-proxy-virtual-host'
+                 - 'firewall_access-proxy-ssh-client-cert'
+                 - 'firewall_access-proxy'
+                 - 'firewall_access-proxy6'
                  - 'firewall_security-policy'
                  - 'firewall_policy'
                  - 'firewall_shaping-policy'
@@ -406,6 +419,8 @@ options:
                  - 'firewall_DoS-policy6'
                  - 'firewall_sniffer'
                  - 'firewall_on-demand-sniffer'
+                 - 'firewall_acl'
+                 - 'firewall_acl6'
                  - 'firewall_central-snat-map'
                  - 'firewall.ssl_setting'
                  - 'firewall_ip-translation'
@@ -433,7 +448,6 @@ options:
                  - 'vpn.ipsec_phase1-interface'
                  - 'vpn.ipsec_phase2-interface'
                  - 'vpn.ipsec_manualkey-interface'
-                 - 'vpn.ipsec_forticlient'
                  - 'vpn_kmip-server'
                  - 'vpn_pptp'
                  - 'vpn_l2tp'
@@ -448,10 +462,12 @@ options:
                  - 'webfilter_ips-urlfilter-setting'
                  - 'webfilter_ips-urlfilter-setting6'
                  - 'webfilter_ips-urlfilter-cache-setting'
+                 - 'webfilter_ftgd-risk-level'
                  - 'webfilter_profile'
                  - 'webfilter_fortiguard'
                  - 'webfilter_override'
                  - 'webfilter_ftgd-local-rating'
+                 - 'webfilter_ftgd-local-risk'
                  - 'webfilter_search-engine'
                  - 'ips_sensor'
                  - 'ips_custom'
@@ -463,6 +479,7 @@ options:
                  - 'web-proxy_global'
                  - 'web-proxy_explicit'
                  - 'web-proxy_forward-server'
+                 - 'web-proxy_isolator-server'
                  - 'web-proxy_forward-server-group'
                  - 'web-proxy_debug-url'
                  - 'web-proxy_wisp'
@@ -586,8 +603,6 @@ options:
                  - 'voip_profile'
                  - 'dnsfilter_domain-filter'
                  - 'dnsfilter_profile'
-                 - 'nsxt_setting'
-                 - 'nsxt_service-chain'
                  - 'antivirus_settings'
                  - 'antivirus_quarantine'
                  - 'antivirus_exempt-list'
@@ -597,18 +612,31 @@ options:
                  - 'virtual-patch_profile'
                  - 'report_layout'
                  - 'report_setting'
-                 - 'ztna_traffic-forward-proxy'
-                 - 'ztna_traffic-forward-proxy-reverse-service'
+                 - 'gtp_apn'
+                 - 'gtp_apngrp'
+                 - 'gtp_message-filter-v0v1'
+                 - 'gtp_message-filter-v2'
+                 - 'gtp_rat-timeout-profile'
+                 - 'gtp_ie-allow-list'
+                 - 'gtp_tunnel-limit'
+                 - 'gtp_apn-shaper'
+                 - 'pfcp_message-filter'
                  - 'waf_main-class'
                  - 'waf_sub-class'
                  - 'waf_signature'
                  - 'waf_profile'
                  - 'casb_saas-application'
                  - 'casb_user-activity'
+                 - 'casb_attribute-match'
                  - 'casb_profile'
                  - 'authentication_scheme'
                  - 'authentication_rule'
                  - 'authentication_setting'
+                 - 'ztna_traffic-forward-proxy'
+                 - 'ztna_reverse-connector'
+                 - 'ztna_web-proxy'
+                 - 'ztna_web-portal'
+                 - 'ztna_web-portal-bookmark'
                  - 'extension-controller_dataplan'
                  - 'extension-controller_extender-vap'
                  - 'extension-controller_extender-profile'
@@ -646,30 +674,16 @@ options:
                  - 'router_bfd'
                  - 'router_bfd6'
                  - 'automation_setting'
-                 - 'dpdk_global'
-                 - 'dpdk_cpus'
-                 - 'system_isf-queue-profile'
-                 - 'system_npu'
-                 - 'system_np6'
-                 - 'system_gi-gk'
-                 - 'system_modem'
-                 - 'system.3g-modem_custom'
-                 - 'system_lte-modem'
-                 - 'firewall_gtp'
-                 - 'firewall_pfcp'
-                 - 'firewall_acl'
-                 - 'firewall_acl6'
-                 - 'gtp_apn'
-                 - 'gtp_apngrp'
-                 - 'gtp_message-filter-v0v1'
-                 - 'gtp_message-filter-v2'
-                 - 'gtp_rat-timeout-profile'
-                 - 'gtp_ie-allow-list'
-                 - 'gtp_tunnel-limit'
-                 - 'gtp_apn-shaper'
-                 - 'pfcp_message-filter'
                  - 'monitoring_np6-ipsec-engine'
                  - 'monitoring_npu-hpe'
+                 - 'system_affinity-interrupt'
+                 - 'system_affinity-packet-redistribution'
+                 - 'nsxt_setting'
+                 - 'nsxt_service-chain'
+                 - 'dpdk_global'
+                 - 'dpdk_cpus'
+                 - 'vpn.ipsec_forticlient'
+                 - 'ztna_traffic-forward-proxy-reverse-service'
                  - 'system_vne-tunnel'
                  - 'system_npu-vlink'
                  - 'system_physical-switch'
@@ -876,6 +890,9 @@ options:
          - 'system_vdom'
          - 'system_global'
          - 'system_accprofile'
+         - 'system_isf-queue-profile'
+         - 'system_npu'
+         - 'system_np6'
          - 'system_vdom-link'
          - 'system_switch-interface'
          - 'system_object-tagging'
@@ -896,6 +913,7 @@ options:
          - 'system_ha-monitor'
          - 'system_storage'
          - 'system_dedicated-mgmt'
+         - 'system_gi-gk'
          - 'system_arp-table'
          - 'system_ipv6-neighbor-cache'
          - 'system_dns'
@@ -917,6 +935,8 @@ options:
          - 'system_session-ttl'
          - 'system.dhcp_server'
          - 'system.dhcp6_server'
+         - 'system_modem'
+         - 'system.3g-modem_custom'
          - 'system_alias'
          - 'system_auto-script'
          - 'system_management-tunnel'
@@ -924,11 +944,13 @@ options:
          - 'system_zone'
          - 'system_sdn-proxy'
          - 'system_sdn-connector'
+         - 'system_sdn-vpn'
          - 'system_ipv6-tunnel'
          - 'system_external-resource'
          - 'system_ips-urlfilter-dns'
          - 'system_ips-urlfilter-dns6'
          - 'system_network-visibility'
+         - 'system_health-check-fortiguard'
          - 'system_sdwan'
          - 'system_evpn'
          - 'system_gre-tunnel'
@@ -961,6 +983,7 @@ options:
          - 'system_dscp-based-priority'
          - 'system_probe-response'
          - 'system_link-monitor'
+         - 'system_lte-modem'
          - 'system_auto-install'
          - 'system_console'
          - 'system_ntp'
@@ -972,11 +995,10 @@ options:
          - 'system_geoip-override'
          - 'system_fortisandbox'
          - 'system_fortindr'
-         - 'system_affinity-interrupt'
-         - 'system_affinity-packet-redistribution'
          - 'system_vdom-exception'
          - 'system_csf'
          - 'system_automation-trigger'
+         - 'system_automation-condition'
          - 'system_automation-action'
          - 'system_automation-destination'
          - 'system_automation-stitch'
@@ -989,6 +1011,9 @@ options:
          - 'system_acme'
          - 'system_ipam'
          - 'system_fabric-vpn'
+         - 'system_ngfw-settings'
+         - 'system.security-rating_settings'
+         - 'system.security-rating_controls'
          - 'system_ssh-config'
          - 'wireless-controller_inter-controller'
          - 'wireless-controller_global'
@@ -1122,18 +1147,20 @@ options:
          - 'firewall.ssh_setting'
          - 'firewall.ssh_host-key'
          - 'firewall_decrypted-traffic-mirror'
-         - 'firewall_access-proxy-virtual-host'
-         - 'firewall_access-proxy-ssh-client-cert'
-         - 'firewall_access-proxy'
-         - 'firewall_access-proxy6'
          - 'firewall.ipmacbinding_setting'
          - 'firewall.ipmacbinding_table'
+         - 'firewall_gtp'
+         - 'firewall_pfcp'
          - 'firewall_profile-protocol-options'
          - 'firewall_ssl-ssh-profile'
          - 'firewall_ssl-server'
          - 'firewall_profile-group'
          - 'firewall_identity-based-route'
          - 'firewall_auth-portal'
+         - 'firewall_access-proxy-virtual-host'
+         - 'firewall_access-proxy-ssh-client-cert'
+         - 'firewall_access-proxy'
+         - 'firewall_access-proxy6'
          - 'firewall_security-policy'
          - 'firewall_policy'
          - 'firewall_shaping-policy'
@@ -1151,6 +1178,8 @@ options:
          - 'firewall_DoS-policy6'
          - 'firewall_sniffer'
          - 'firewall_on-demand-sniffer'
+         - 'firewall_acl'
+         - 'firewall_acl6'
          - 'firewall_central-snat-map'
          - 'firewall.ssl_setting'
          - 'firewall_ip-translation'
@@ -1178,7 +1207,6 @@ options:
          - 'vpn.ipsec_phase1-interface'
          - 'vpn.ipsec_phase2-interface'
          - 'vpn.ipsec_manualkey-interface'
-         - 'vpn.ipsec_forticlient'
          - 'vpn_kmip-server'
          - 'vpn_pptp'
          - 'vpn_l2tp'
@@ -1193,10 +1221,12 @@ options:
          - 'webfilter_ips-urlfilter-setting'
          - 'webfilter_ips-urlfilter-setting6'
          - 'webfilter_ips-urlfilter-cache-setting'
+         - 'webfilter_ftgd-risk-level'
          - 'webfilter_profile'
          - 'webfilter_fortiguard'
          - 'webfilter_override'
          - 'webfilter_ftgd-local-rating'
+         - 'webfilter_ftgd-local-risk'
          - 'webfilter_search-engine'
          - 'ips_sensor'
          - 'ips_custom'
@@ -1208,6 +1238,7 @@ options:
          - 'web-proxy_global'
          - 'web-proxy_explicit'
          - 'web-proxy_forward-server'
+         - 'web-proxy_isolator-server'
          - 'web-proxy_forward-server-group'
          - 'web-proxy_debug-url'
          - 'web-proxy_wisp'
@@ -1331,8 +1362,6 @@ options:
          - 'voip_profile'
          - 'dnsfilter_domain-filter'
          - 'dnsfilter_profile'
-         - 'nsxt_setting'
-         - 'nsxt_service-chain'
          - 'antivirus_settings'
          - 'antivirus_quarantine'
          - 'antivirus_exempt-list'
@@ -1342,18 +1371,31 @@ options:
          - 'virtual-patch_profile'
          - 'report_layout'
          - 'report_setting'
-         - 'ztna_traffic-forward-proxy'
-         - 'ztna_traffic-forward-proxy-reverse-service'
+         - 'gtp_apn'
+         - 'gtp_apngrp'
+         - 'gtp_message-filter-v0v1'
+         - 'gtp_message-filter-v2'
+         - 'gtp_rat-timeout-profile'
+         - 'gtp_ie-allow-list'
+         - 'gtp_tunnel-limit'
+         - 'gtp_apn-shaper'
+         - 'pfcp_message-filter'
          - 'waf_main-class'
          - 'waf_sub-class'
          - 'waf_signature'
          - 'waf_profile'
          - 'casb_saas-application'
          - 'casb_user-activity'
+         - 'casb_attribute-match'
          - 'casb_profile'
          - 'authentication_scheme'
          - 'authentication_rule'
          - 'authentication_setting'
+         - 'ztna_traffic-forward-proxy'
+         - 'ztna_reverse-connector'
+         - 'ztna_web-proxy'
+         - 'ztna_web-portal'
+         - 'ztna_web-portal-bookmark'
          - 'extension-controller_dataplan'
          - 'extension-controller_extender-vap'
          - 'extension-controller_extender-profile'
@@ -1391,30 +1433,16 @@ options:
          - 'router_bfd'
          - 'router_bfd6'
          - 'automation_setting'
-         - 'dpdk_global'
-         - 'dpdk_cpus'
-         - 'system_isf-queue-profile'
-         - 'system_npu'
-         - 'system_np6'
-         - 'system_gi-gk'
-         - 'system_modem'
-         - 'system.3g-modem_custom'
-         - 'system_lte-modem'
-         - 'firewall_gtp'
-         - 'firewall_pfcp'
-         - 'firewall_acl'
-         - 'firewall_acl6'
-         - 'gtp_apn'
-         - 'gtp_apngrp'
-         - 'gtp_message-filter-v0v1'
-         - 'gtp_message-filter-v2'
-         - 'gtp_rat-timeout-profile'
-         - 'gtp_ie-allow-list'
-         - 'gtp_tunnel-limit'
-         - 'gtp_apn-shaper'
-         - 'pfcp_message-filter'
          - 'monitoring_np6-ipsec-engine'
          - 'monitoring_npu-hpe'
+         - 'system_affinity-interrupt'
+         - 'system_affinity-packet-redistribution'
+         - 'nsxt_setting'
+         - 'nsxt_service-chain'
+         - 'dpdk_global'
+         - 'dpdk_cpus'
+         - 'vpn.ipsec_forticlient'
+         - 'ztna_traffic-forward-proxy-reverse-service'
          - 'system_vne-tunnel'
          - 'system_npu-vlink'
          - 'system_physical-switch'
@@ -1756,6 +1784,18 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_isf-queue-profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_npu": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_np6": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "system_vdom-link": {
         "mkey": "name",
         "mkey_type": str,
@@ -1833,6 +1873,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "system_dedicated-mgmt": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_gi-gk": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -1920,6 +1964,14 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "id",
         "mkey_type": int,
     },
+    "system_modem": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system.3g-modem_custom": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
     "system_alias": {
         "mkey": "name",
         "mkey_type": str,
@@ -1948,6 +2000,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_sdn-vpn": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "system_ipv6-tunnel": {
         "mkey": "name",
         "mkey_type": str,
@@ -1967,6 +2023,10 @@ MODULE_MKEY_DEFINITONS = {
     "system_network-visibility": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "system_health-check-fortiguard": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "system_sdwan": {
         "mkey": "None",
@@ -2096,6 +2156,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "system_lte-modem": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
     "system_auto-install": {
         "mkey": "None",
         "mkey_type": None,
@@ -2140,14 +2204,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "system_affinity-interrupt": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
-    "system_affinity-packet-redistribution": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
     "system_vdom-exception": {
         "mkey": "id",
         "mkey_type": int,
@@ -2157,6 +2213,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "system_automation-trigger": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_automation-condition": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -2207,6 +2267,18 @@ MODULE_MKEY_DEFINITONS = {
     "system_fabric-vpn": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "system_ngfw-settings": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system.security-rating_settings": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system.security-rating_controls": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "system_ssh-config": {
         "mkey": "None",
@@ -2740,22 +2812,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "firewall_access-proxy-virtual-host": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_access-proxy-ssh-client-cert": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_access-proxy": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_access-proxy6": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
     "firewall.ipmacbinding_setting": {
         "mkey": "None",
         "mkey_type": None,
@@ -2763,6 +2819,14 @@ MODULE_MKEY_DEFINITONS = {
     "firewall.ipmacbinding_table": {
         "mkey": "seq_num",
         "mkey_type": int,
+    },
+    "firewall_gtp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "firewall_pfcp": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "firewall_profile-protocol-options": {
         "mkey": "name",
@@ -2787,6 +2851,22 @@ MODULE_MKEY_DEFINITONS = {
     "firewall_auth-portal": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "firewall_access-proxy-virtual-host": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "firewall_access-proxy-ssh-client-cert": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "firewall_access-proxy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "firewall_access-proxy6": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "firewall_security-policy": {
         "mkey": "policyid",
@@ -2855,6 +2935,14 @@ MODULE_MKEY_DEFINITONS = {
     "firewall_on-demand-sniffer": {
         "mkey": "name",
         "mkey_type": str,
+    },
+    "firewall_acl": {
+        "mkey": "policyid",
+        "mkey_type": int,
+    },
+    "firewall_acl6": {
+        "mkey": "policyid",
+        "mkey_type": int,
     },
     "firewall_central-snat-map": {
         "mkey": "policyid",
@@ -2964,10 +3052,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "vpn.ipsec_forticlient": {
-        "mkey": "realm",
-        "mkey_type": str,
-    },
     "vpn_kmip-server": {
         "mkey": "name",
         "mkey_type": str,
@@ -3024,6 +3108,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "webfilter_ftgd-risk-level": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "webfilter_profile": {
         "mkey": "name",
         "mkey_type": str,
@@ -3037,6 +3125,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": int,
     },
     "webfilter_ftgd-local-rating": {
+        "mkey": "url",
+        "mkey_type": str,
+    },
+    "webfilter_ftgd-local-risk": {
         "mkey": "url",
         "mkey_type": str,
     },
@@ -3081,6 +3173,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": None,
     },
     "web-proxy_forward-server": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "web-proxy_isolator-server": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3576,14 +3672,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
-    "nsxt_setting": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "nsxt_service-chain": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
     "antivirus_settings": {
         "mkey": "None",
         "mkey_type": None,
@@ -3620,13 +3708,41 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "ztna_traffic-forward-proxy": {
+    "gtp_apn": {
         "mkey": "name",
         "mkey_type": str,
     },
-    "ztna_traffic-forward-proxy-reverse-service": {
-        "mkey": "None",
-        "mkey_type": None,
+    "gtp_apngrp": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_message-filter-v0v1": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_message-filter-v2": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_rat-timeout-profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_ie-allow-list": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_tunnel-limit": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "gtp_apn-shaper": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "pfcp_message-filter": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "waf_main-class": {
         "mkey": "id",
@@ -3652,6 +3768,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "casb_attribute-match": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "casb_profile": {
         "mkey": "name",
         "mkey_type": str,
@@ -3667,6 +3787,26 @@ MODULE_MKEY_DEFINITONS = {
     "authentication_setting": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "ztna_traffic-forward-proxy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "ztna_reverse-connector": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "ztna_web-proxy": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "ztna_web-portal": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "ztna_web-portal-bookmark": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "extension-controller_dataplan": {
         "mkey": "name",
@@ -3816,6 +3956,30 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "monitoring_np6-ipsec-engine": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "monitoring_npu-hpe": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "system_affinity-interrupt": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "system_affinity-packet-redistribution": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
+    "nsxt_setting": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "nsxt_service-chain": {
+        "mkey": "id",
+        "mkey_type": int,
+    },
     "dpdk_global": {
         "mkey": "None",
         "mkey_type": None,
@@ -3824,91 +3988,11 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "system_isf-queue-profile": {
-        "mkey": "name",
+    "vpn.ipsec_forticlient": {
+        "mkey": "realm",
         "mkey_type": str,
     },
-    "system_npu": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system_np6": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "system_gi-gk": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system_modem": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "system.3g-modem_custom": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
-    "system_lte-modem": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "firewall_gtp": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_pfcp": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "firewall_acl": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
-    "firewall_acl6": {
-        "mkey": "policyid",
-        "mkey_type": int,
-    },
-    "gtp_apn": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_apngrp": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_message-filter-v0v1": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_message-filter-v2": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_rat-timeout-profile": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_ie-allow-list": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_tunnel-limit": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "gtp_apn-shaper": {
-        "mkey": "id",
-        "mkey_type": int,
-    },
-    "pfcp_message-filter": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
-    "monitoring_np6-ipsec-engine": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
-    "monitoring_npu-hpe": {
+    "ztna_traffic-forward-proxy-reverse-service": {
         "mkey": "None",
         "mkey_type": None,
     },
@@ -4801,6 +4885,9 @@ def main():
                 "system_vdom",
                 "system_global",
                 "system_accprofile",
+                "system_isf-queue-profile",
+                "system_npu",
+                "system_np6",
                 "system_vdom-link",
                 "system_switch-interface",
                 "system_object-tagging",
@@ -4821,6 +4908,7 @@ def main():
                 "system_ha-monitor",
                 "system_storage",
                 "system_dedicated-mgmt",
+                "system_gi-gk",
                 "system_arp-table",
                 "system_ipv6-neighbor-cache",
                 "system_dns",
@@ -4842,6 +4930,8 @@ def main():
                 "system_session-ttl",
                 "system.dhcp_server",
                 "system.dhcp6_server",
+                "system_modem",
+                "system.3g-modem_custom",
                 "system_alias",
                 "system_auto-script",
                 "system_management-tunnel",
@@ -4849,11 +4939,13 @@ def main():
                 "system_zone",
                 "system_sdn-proxy",
                 "system_sdn-connector",
+                "system_sdn-vpn",
                 "system_ipv6-tunnel",
                 "system_external-resource",
                 "system_ips-urlfilter-dns",
                 "system_ips-urlfilter-dns6",
                 "system_network-visibility",
+                "system_health-check-fortiguard",
                 "system_sdwan",
                 "system_evpn",
                 "system_gre-tunnel",
@@ -4886,6 +4978,7 @@ def main():
                 "system_dscp-based-priority",
                 "system_probe-response",
                 "system_link-monitor",
+                "system_lte-modem",
                 "system_auto-install",
                 "system_console",
                 "system_ntp",
@@ -4897,11 +4990,10 @@ def main():
                 "system_geoip-override",
                 "system_fortisandbox",
                 "system_fortindr",
-                "system_affinity-interrupt",
-                "system_affinity-packet-redistribution",
                 "system_vdom-exception",
                 "system_csf",
                 "system_automation-trigger",
+                "system_automation-condition",
                 "system_automation-action",
                 "system_automation-destination",
                 "system_automation-stitch",
@@ -4914,6 +5006,9 @@ def main():
                 "system_acme",
                 "system_ipam",
                 "system_fabric-vpn",
+                "system_ngfw-settings",
+                "system.security-rating_settings",
+                "system.security-rating_controls",
                 "system_ssh-config",
                 "wireless-controller_inter-controller",
                 "wireless-controller_global",
@@ -5047,18 +5142,20 @@ def main():
                 "firewall.ssh_setting",
                 "firewall.ssh_host-key",
                 "firewall_decrypted-traffic-mirror",
-                "firewall_access-proxy-virtual-host",
-                "firewall_access-proxy-ssh-client-cert",
-                "firewall_access-proxy",
-                "firewall_access-proxy6",
                 "firewall.ipmacbinding_setting",
                 "firewall.ipmacbinding_table",
+                "firewall_gtp",
+                "firewall_pfcp",
                 "firewall_profile-protocol-options",
                 "firewall_ssl-ssh-profile",
                 "firewall_ssl-server",
                 "firewall_profile-group",
                 "firewall_identity-based-route",
                 "firewall_auth-portal",
+                "firewall_access-proxy-virtual-host",
+                "firewall_access-proxy-ssh-client-cert",
+                "firewall_access-proxy",
+                "firewall_access-proxy6",
                 "firewall_security-policy",
                 "firewall_policy",
                 "firewall_shaping-policy",
@@ -5076,6 +5173,8 @@ def main():
                 "firewall_DoS-policy6",
                 "firewall_sniffer",
                 "firewall_on-demand-sniffer",
+                "firewall_acl",
+                "firewall_acl6",
                 "firewall_central-snat-map",
                 "firewall.ssl_setting",
                 "firewall_ip-translation",
@@ -5103,7 +5202,6 @@ def main():
                 "vpn.ipsec_phase1-interface",
                 "vpn.ipsec_phase2-interface",
                 "vpn.ipsec_manualkey-interface",
-                "vpn.ipsec_forticlient",
                 "vpn_kmip-server",
                 "vpn_pptp",
                 "vpn_l2tp",
@@ -5118,10 +5216,12 @@ def main():
                 "webfilter_ips-urlfilter-setting",
                 "webfilter_ips-urlfilter-setting6",
                 "webfilter_ips-urlfilter-cache-setting",
+                "webfilter_ftgd-risk-level",
                 "webfilter_profile",
                 "webfilter_fortiguard",
                 "webfilter_override",
                 "webfilter_ftgd-local-rating",
+                "webfilter_ftgd-local-risk",
                 "webfilter_search-engine",
                 "ips_sensor",
                 "ips_custom",
@@ -5133,6 +5233,7 @@ def main():
                 "web-proxy_global",
                 "web-proxy_explicit",
                 "web-proxy_forward-server",
+                "web-proxy_isolator-server",
                 "web-proxy_forward-server-group",
                 "web-proxy_debug-url",
                 "web-proxy_wisp",
@@ -5256,8 +5357,6 @@ def main():
                 "voip_profile",
                 "dnsfilter_domain-filter",
                 "dnsfilter_profile",
-                "nsxt_setting",
-                "nsxt_service-chain",
                 "antivirus_settings",
                 "antivirus_quarantine",
                 "antivirus_exempt-list",
@@ -5267,18 +5366,31 @@ def main():
                 "virtual-patch_profile",
                 "report_layout",
                 "report_setting",
-                "ztna_traffic-forward-proxy",
-                "ztna_traffic-forward-proxy-reverse-service",
+                "gtp_apn",
+                "gtp_apngrp",
+                "gtp_message-filter-v0v1",
+                "gtp_message-filter-v2",
+                "gtp_rat-timeout-profile",
+                "gtp_ie-allow-list",
+                "gtp_tunnel-limit",
+                "gtp_apn-shaper",
+                "pfcp_message-filter",
                 "waf_main-class",
                 "waf_sub-class",
                 "waf_signature",
                 "waf_profile",
                 "casb_saas-application",
                 "casb_user-activity",
+                "casb_attribute-match",
                 "casb_profile",
                 "authentication_scheme",
                 "authentication_rule",
                 "authentication_setting",
+                "ztna_traffic-forward-proxy",
+                "ztna_reverse-connector",
+                "ztna_web-proxy",
+                "ztna_web-portal",
+                "ztna_web-portal-bookmark",
                 "extension-controller_dataplan",
                 "extension-controller_extender-vap",
                 "extension-controller_extender-profile",
@@ -5316,30 +5428,16 @@ def main():
                 "router_bfd",
                 "router_bfd6",
                 "automation_setting",
-                "dpdk_global",
-                "dpdk_cpus",
-                "system_isf-queue-profile",
-                "system_npu",
-                "system_np6",
-                "system_gi-gk",
-                "system_modem",
-                "system.3g-modem_custom",
-                "system_lte-modem",
-                "firewall_gtp",
-                "firewall_pfcp",
-                "firewall_acl",
-                "firewall_acl6",
-                "gtp_apn",
-                "gtp_apngrp",
-                "gtp_message-filter-v0v1",
-                "gtp_message-filter-v2",
-                "gtp_rat-timeout-profile",
-                "gtp_ie-allow-list",
-                "gtp_tunnel-limit",
-                "gtp_apn-shaper",
-                "pfcp_message-filter",
                 "monitoring_np6-ipsec-engine",
                 "monitoring_npu-hpe",
+                "system_affinity-interrupt",
+                "system_affinity-packet-redistribution",
+                "nsxt_setting",
+                "nsxt_service-chain",
+                "dpdk_global",
+                "dpdk_cpus",
+                "vpn.ipsec_forticlient",
+                "ztna_traffic-forward-proxy-reverse-service",
                 "system_vne-tunnel",
                 "system_npu-vlink",
                 "system_physical-switch",
@@ -5554,6 +5652,9 @@ def main():
                         "system_vdom",
                         "system_global",
                         "system_accprofile",
+                        "system_isf-queue-profile",
+                        "system_npu",
+                        "system_np6",
                         "system_vdom-link",
                         "system_switch-interface",
                         "system_object-tagging",
@@ -5574,6 +5675,7 @@ def main():
                         "system_ha-monitor",
                         "system_storage",
                         "system_dedicated-mgmt",
+                        "system_gi-gk",
                         "system_arp-table",
                         "system_ipv6-neighbor-cache",
                         "system_dns",
@@ -5595,6 +5697,8 @@ def main():
                         "system_session-ttl",
                         "system.dhcp_server",
                         "system.dhcp6_server",
+                        "system_modem",
+                        "system.3g-modem_custom",
                         "system_alias",
                         "system_auto-script",
                         "system_management-tunnel",
@@ -5602,11 +5706,13 @@ def main():
                         "system_zone",
                         "system_sdn-proxy",
                         "system_sdn-connector",
+                        "system_sdn-vpn",
                         "system_ipv6-tunnel",
                         "system_external-resource",
                         "system_ips-urlfilter-dns",
                         "system_ips-urlfilter-dns6",
                         "system_network-visibility",
+                        "system_health-check-fortiguard",
                         "system_sdwan",
                         "system_evpn",
                         "system_gre-tunnel",
@@ -5639,6 +5745,7 @@ def main():
                         "system_dscp-based-priority",
                         "system_probe-response",
                         "system_link-monitor",
+                        "system_lte-modem",
                         "system_auto-install",
                         "system_console",
                         "system_ntp",
@@ -5650,11 +5757,10 @@ def main():
                         "system_geoip-override",
                         "system_fortisandbox",
                         "system_fortindr",
-                        "system_affinity-interrupt",
-                        "system_affinity-packet-redistribution",
                         "system_vdom-exception",
                         "system_csf",
                         "system_automation-trigger",
+                        "system_automation-condition",
                         "system_automation-action",
                         "system_automation-destination",
                         "system_automation-stitch",
@@ -5667,6 +5773,9 @@ def main():
                         "system_acme",
                         "system_ipam",
                         "system_fabric-vpn",
+                        "system_ngfw-settings",
+                        "system.security-rating_settings",
+                        "system.security-rating_controls",
                         "system_ssh-config",
                         "wireless-controller_inter-controller",
                         "wireless-controller_global",
@@ -5800,18 +5909,20 @@ def main():
                         "firewall.ssh_setting",
                         "firewall.ssh_host-key",
                         "firewall_decrypted-traffic-mirror",
-                        "firewall_access-proxy-virtual-host",
-                        "firewall_access-proxy-ssh-client-cert",
-                        "firewall_access-proxy",
-                        "firewall_access-proxy6",
                         "firewall.ipmacbinding_setting",
                         "firewall.ipmacbinding_table",
+                        "firewall_gtp",
+                        "firewall_pfcp",
                         "firewall_profile-protocol-options",
                         "firewall_ssl-ssh-profile",
                         "firewall_ssl-server",
                         "firewall_profile-group",
                         "firewall_identity-based-route",
                         "firewall_auth-portal",
+                        "firewall_access-proxy-virtual-host",
+                        "firewall_access-proxy-ssh-client-cert",
+                        "firewall_access-proxy",
+                        "firewall_access-proxy6",
                         "firewall_security-policy",
                         "firewall_policy",
                         "firewall_shaping-policy",
@@ -5829,6 +5940,8 @@ def main():
                         "firewall_DoS-policy6",
                         "firewall_sniffer",
                         "firewall_on-demand-sniffer",
+                        "firewall_acl",
+                        "firewall_acl6",
                         "firewall_central-snat-map",
                         "firewall.ssl_setting",
                         "firewall_ip-translation",
@@ -5856,7 +5969,6 @@ def main():
                         "vpn.ipsec_phase1-interface",
                         "vpn.ipsec_phase2-interface",
                         "vpn.ipsec_manualkey-interface",
-                        "vpn.ipsec_forticlient",
                         "vpn_kmip-server",
                         "vpn_pptp",
                         "vpn_l2tp",
@@ -5871,10 +5983,12 @@ def main():
                         "webfilter_ips-urlfilter-setting",
                         "webfilter_ips-urlfilter-setting6",
                         "webfilter_ips-urlfilter-cache-setting",
+                        "webfilter_ftgd-risk-level",
                         "webfilter_profile",
                         "webfilter_fortiguard",
                         "webfilter_override",
                         "webfilter_ftgd-local-rating",
+                        "webfilter_ftgd-local-risk",
                         "webfilter_search-engine",
                         "ips_sensor",
                         "ips_custom",
@@ -5886,6 +6000,7 @@ def main():
                         "web-proxy_global",
                         "web-proxy_explicit",
                         "web-proxy_forward-server",
+                        "web-proxy_isolator-server",
                         "web-proxy_forward-server-group",
                         "web-proxy_debug-url",
                         "web-proxy_wisp",
@@ -6009,8 +6124,6 @@ def main():
                         "voip_profile",
                         "dnsfilter_domain-filter",
                         "dnsfilter_profile",
-                        "nsxt_setting",
-                        "nsxt_service-chain",
                         "antivirus_settings",
                         "antivirus_quarantine",
                         "antivirus_exempt-list",
@@ -6020,18 +6133,31 @@ def main():
                         "virtual-patch_profile",
                         "report_layout",
                         "report_setting",
-                        "ztna_traffic-forward-proxy",
-                        "ztna_traffic-forward-proxy-reverse-service",
+                        "gtp_apn",
+                        "gtp_apngrp",
+                        "gtp_message-filter-v0v1",
+                        "gtp_message-filter-v2",
+                        "gtp_rat-timeout-profile",
+                        "gtp_ie-allow-list",
+                        "gtp_tunnel-limit",
+                        "gtp_apn-shaper",
+                        "pfcp_message-filter",
                         "waf_main-class",
                         "waf_sub-class",
                         "waf_signature",
                         "waf_profile",
                         "casb_saas-application",
                         "casb_user-activity",
+                        "casb_attribute-match",
                         "casb_profile",
                         "authentication_scheme",
                         "authentication_rule",
                         "authentication_setting",
+                        "ztna_traffic-forward-proxy",
+                        "ztna_reverse-connector",
+                        "ztna_web-proxy",
+                        "ztna_web-portal",
+                        "ztna_web-portal-bookmark",
                         "extension-controller_dataplan",
                         "extension-controller_extender-vap",
                         "extension-controller_extender-profile",
@@ -6069,30 +6195,16 @@ def main():
                         "router_bfd",
                         "router_bfd6",
                         "automation_setting",
-                        "dpdk_global",
-                        "dpdk_cpus",
-                        "system_isf-queue-profile",
-                        "system_npu",
-                        "system_np6",
-                        "system_gi-gk",
-                        "system_modem",
-                        "system.3g-modem_custom",
-                        "system_lte-modem",
-                        "firewall_gtp",
-                        "firewall_pfcp",
-                        "firewall_acl",
-                        "firewall_acl6",
-                        "gtp_apn",
-                        "gtp_apngrp",
-                        "gtp_message-filter-v0v1",
-                        "gtp_message-filter-v2",
-                        "gtp_rat-timeout-profile",
-                        "gtp_ie-allow-list",
-                        "gtp_tunnel-limit",
-                        "gtp_apn-shaper",
-                        "pfcp_message-filter",
                         "monitoring_np6-ipsec-engine",
                         "monitoring_npu-hpe",
+                        "system_affinity-interrupt",
+                        "system_affinity-packet-redistribution",
+                        "nsxt_setting",
+                        "nsxt_service-chain",
+                        "dpdk_global",
+                        "dpdk_cpus",
+                        "vpn.ipsec_forticlient",
+                        "ztna_traffic-forward-proxy-reverse-service",
                         "system_vne-tunnel",
                         "system_npu-vlink",
                         "system_physical-switch",

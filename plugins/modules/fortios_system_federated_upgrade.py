@@ -106,6 +106,7 @@ options:
                     - 'no-confirmation-query'
                     - 'config-error-log-nonempty'
                     - 'csf-tree-not-supported'
+                    - 'firmware-changed'
                     - 'node-failed'
             ha_reboot_controller:
                 description:
@@ -118,6 +119,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            initial_version:
+                description:
+                    - Firmware version when the upgrade was set up.
+                type: str
             known_ha_members:
                 description:
                     - Known members of the HA cluster. If a member is missing at upgrade time, the upgrade will be cancelled.
@@ -187,6 +192,10 @@ options:
                 choices:
                     - 'user'
                     - 'auto-firmware-upgrade'
+            starter_admin:
+                description:
+                    - Admin that started the upgrade.
+                type: str
             status:
                 description:
                     - Current status of the upgrade.
@@ -222,6 +231,7 @@ EXAMPLES = """
           failure_reason: "none"
           ha_reboot_controller: "<your_own_value>"
           ignore_signing_errors: "enable"
+          initial_version: "<your_own_value>"
           known_ha_members:
               -
                   serial: "<your_own_value>"
@@ -237,6 +247,7 @@ EXAMPLES = """
                   timing: "immediate"
                   upgrade_path: "<your_own_value>"
           source: "user"
+          starter_admin: "<your_own_value>"
           status: "disabled"
           upgrade_id: "0"
 """
@@ -327,6 +338,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_federated_upgrade_data(json):
@@ -335,10 +349,12 @@ def filter_system_federated_upgrade_data(json):
         "failure_reason",
         "ha_reboot_controller",
         "ignore_signing_errors",
+        "initial_version",
         "known_ha_members",
         "next_path_index",
         "node_list",
         "source",
+        "starter_admin",
         "status",
         "upgrade_id",
     ]
@@ -409,6 +425,7 @@ def system_federated_upgrade(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -419,19 +436,20 @@ def system_federated_upgrade(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -549,6 +567,7 @@ versioned_schema = {
                 {"value": "no-confirmation-query"},
                 {"value": "config-error-log-nonempty", "v_range": [["v7.2.4", ""]]},
                 {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
+                {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
                 {"value": "node-failed", "v_range": [["v7.2.4", ""]]},
             ],
         },
@@ -573,6 +592,8 @@ versioned_schema = {
             },
             "v_range": [["v7.4.2", ""]],
         },
+        "initial_version": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "starter_admin": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "node_list": {
             "type": "list",
             "elements": "dict",

@@ -123,6 +123,9 @@ options:
                     - 'system.central-management'
                     - 'system.csf'
                     - 'user.radius'
+                    - 'log.syslogd.setting'
+                    - 'log.syslogd.override-setting'
+                    - 'firewall.address'
                     - 'system.interface'
                     - 'vpn.ipsec.phase1-interface'
                     - 'vpn.ipsec.phase2-interface'
@@ -139,9 +142,6 @@ options:
                     - 'system.saml'
                     - 'router.policy'
                     - 'router.policy6'
-                    - 'log.syslogd.setting'
-                    - 'log.syslogd.override-setting'
-                    - 'firewall.address'
                     - 'firewall.vip46'
                     - 'firewall.vip64'
             oid:
@@ -271,6 +271,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_vdom_exception_data(json):
@@ -342,6 +345,7 @@ def system_vdom_exception(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -352,19 +356,20 @@ def system_vdom_exception(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -495,6 +500,9 @@ versioned_schema = {
                     "value": "user.radius",
                     "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", ""]],
                 },
+                {"value": "log.syslogd.setting", "v_range": [["v7.6.2", ""]]},
+                {"value": "log.syslogd.override-setting", "v_range": [["v7.6.2", ""]]},
+                {"value": "firewall.address", "v_range": [["v7.4.2", ""]]},
                 {"value": "system.interface", "v_range": []},
                 {"value": "vpn.ipsec.phase1-interface", "v_range": []},
                 {"value": "vpn.ipsec.phase2-interface", "v_range": []},
@@ -511,9 +519,6 @@ versioned_schema = {
                 {"value": "system.saml", "v_range": []},
                 {"value": "router.policy", "v_range": []},
                 {"value": "router.policy6", "v_range": []},
-                {"value": "log.syslogd.setting", "v_range": [["v7.6.0", ""]]},
-                {"value": "log.syslogd.override-setting", "v_range": [["v7.6.0", ""]]},
-                {"value": "firewall.address", "v_range": [["v7.4.2", ""]]},
                 {"value": "firewall.vip46", "v_range": []},
                 {"value": "firewall.vip64", "v_range": []},
             ],

@@ -36,7 +36,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.3.9'
+        self._ansible_galaxy_version = '2.4.0'
         self._log = None
         self._logged_in = False
         self._session_key = None

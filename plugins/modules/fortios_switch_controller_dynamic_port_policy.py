@@ -114,6 +114,10 @@ options:
                             - 802.1x security policy to be applied when using this policy. Source switch-controller.security-policy.802-1X.name
                                switch-controller.security-policy.captive-portal.name.
                         type: str
+                    bounce_port_duration:
+                        description:
+                            - Bounce duration in seconds of a switch port where this policy is applied.
+                        type: int
                     bounce_port_link:
                         description:
                             - Enable/disable bouncing (administratively bring the link down, up) of a switch port where this policy is applied. Helps to clear
@@ -180,6 +184,13 @@ options:
                             - Policy name.
                         required: true
                         type: str
+                    poe_reset:
+                        description:
+                            - Enable/disable POE reset of a switch port where this policy is applied.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     qos_policy:
                         description:
                             - QoS policy to be applied when using this policy. Source switch-controller.qos.qos-policy.name.
@@ -214,6 +225,7 @@ EXAMPLES = """
           policy:
               -
                   set_802_1x: "<your_own_value> (source switch-controller.security-policy.802-1X.name switch-controller.security-policy.captive-portal.name)"
+                  bounce_port_duration: "5"
                   bounce_port_link: "disable"
                   category: "device"
                   description: "<your_own_value>"
@@ -227,7 +239,8 @@ EXAMPLES = """
                   mac: "<your_own_value>"
                   match_period: "0"
                   match_type: "dynamic"
-                  name: "default_name_20"
+                  name: "default_name_21"
+                  poe_reset: "disable"
                   qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
                   status: "enable"
                   type: "<your_own_value>"
@@ -319,6 +332,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -425,6 +441,7 @@ def switch_controller_dynamic_port_policy(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -435,19 +452,20 @@ def switch_controller_dynamic_port_policy(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -584,6 +602,15 @@ versioned_schema = {
                 "vlan_policy": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "bounce_port_link": {
                     "v_range": [["v7.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "bounce_port_duration": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "integer",
+                },
+                "poe_reset": {
+                    "v_range": [["v7.6.1", ""]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },

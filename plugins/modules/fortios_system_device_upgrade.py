@@ -119,10 +119,15 @@ options:
                     - 'no-confirmation-query'
                     - 'config-error-log-nonempty'
                     - 'csf-tree-not-supported'
+                    - 'firmware-changed'
                     - 'node-failed'
             ha_reboot_controller:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
+                type: str
+            initial_version:
+                description:
+                    - Firmware version when the upgrade was set up.
                 type: str
             known_ha_members:
                 description:
@@ -151,6 +156,10 @@ options:
             setup_time:
                 description:
                     - 'Upgrade preparation start time in UTC (hh:mm yyyy/mm/dd UTC).'
+                type: str
+            starter_admin:
+                description:
+                    - Admin that started the upgrade.
                 type: str
             status:
                 description:
@@ -186,6 +195,10 @@ options:
                 description:
                     - Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.
                 type: str
+            vdom:
+                description:
+                    - Limit upgrade to this virtual domain (VDOM). Source system.vdom.name.
+                type: str
 """
 
 EXAMPLES = """
@@ -198,6 +211,7 @@ EXAMPLES = """
           device_type: "fortigate"
           failure_reason: "none"
           ha_reboot_controller: "<your_own_value>"
+          initial_version: "<your_own_value>"
           known_ha_members:
               -
                   serial: "<your_own_value>"
@@ -205,10 +219,12 @@ EXAMPLES = """
           next_path_index: "0"
           serial: "<your_own_value>"
           setup_time: "<your_own_value>"
+          starter_admin: "<your_own_value>"
           status: "disabled"
           time: "<your_own_value>"
           timing: "immediate"
           upgrade_path: "<your_own_value>"
+          vdom: "<your_own_value> (source system.vdom.name)"
 """
 
 RETURN = """
@@ -297,6 +313,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_device_upgrade_data(json):
@@ -304,15 +323,18 @@ def filter_system_device_upgrade_data(json):
         "device_type",
         "failure_reason",
         "ha_reboot_controller",
+        "initial_version",
         "known_ha_members",
         "maximum_minutes",
         "next_path_index",
         "serial",
         "setup_time",
+        "starter_admin",
         "status",
         "time",
         "timing",
         "upgrade_path",
+        "vdom",
     ]
 
     json = remove_invalid_fields(json)
@@ -381,6 +403,7 @@ def system_device_upgrade(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -391,19 +414,20 @@ def system_device_upgrade(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -482,26 +506,7 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "serial": {"v_range": [["v7.2.4", ""]], "type": "string", "required": True},
-        "timing": {
-            "v_range": [["v7.2.4", ""]],
-            "type": "string",
-            "options": [{"value": "immediate"}, {"value": "scheduled"}],
-        },
-        "maximum_minutes": {"v_range": [["v7.4.0", ""]], "type": "integer"},
-        "time": {"v_range": [["v7.2.4", ""]], "type": "string"},
-        "setup_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
-        "upgrade_path": {"v_range": [["v7.2.4", ""]], "type": "string"},
-        "device_type": {
-            "v_range": [["v7.2.4", ""]],
-            "type": "string",
-            "options": [
-                {"value": "fortigate", "v_range": [["v7.4.2", ""]]},
-                {"value": "fortiswitch"},
-                {"value": "fortiap"},
-                {"value": "fortiextender"},
-            ],
-        },
+        "vdom": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "status": {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
@@ -541,6 +546,7 @@ versioned_schema = {
                 {"value": "no-confirmation-query"},
                 {"value": "config-error-log-nonempty"},
                 {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
+                {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
                 {"value": "node-failed"},
             ],
         },
@@ -557,6 +563,28 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.2", ""]],
+        },
+        "initial_version": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "starter_admin": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "serial": {"v_range": [["v7.2.4", ""]], "type": "string", "required": True},
+        "timing": {
+            "v_range": [["v7.2.4", ""]],
+            "type": "string",
+            "options": [{"value": "immediate"}, {"value": "scheduled"}],
+        },
+        "maximum_minutes": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "time": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "setup_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "upgrade_path": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "device_type": {
+            "v_range": [["v7.2.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "fortigate", "v_range": [["v7.4.2", ""]]},
+                {"value": "fortiswitch"},
+                {"value": "fortiap"},
+                {"value": "fortiextender"},
+            ],
         },
     },
     "v_range": [["v7.2.4", ""]],

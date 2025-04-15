@@ -202,7 +202,39 @@ options:
                         description:
                             - FortiExtender interface name. Source system.interface.name.
                         type: str
+                    modem1_pdn1_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem1_pdn2_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem1_pdn3_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem1_pdn4_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
                     modem2_extension:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem2_pdn1_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem2_pdn2_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem2_pdn3_interface:
+                        description:
+                            - FortiExtender interface name. Source system.interface.name.
+                        type: str
+                    modem2_pdn4_interface:
                         description:
                             - FortiExtender interface name. Source system.interface.name.
                         type: str
@@ -234,7 +266,15 @@ EXAMPLES = """
           profile: "<your_own_value> (source extension-controller.extender-profile.name)"
           wan_extension:
               modem1_extension: "<your_own_value> (source system.interface.name)"
+              modem1_pdn1_interface: "<your_own_value> (source system.interface.name)"
+              modem1_pdn2_interface: "<your_own_value> (source system.interface.name)"
+              modem1_pdn3_interface: "<your_own_value> (source system.interface.name)"
+              modem1_pdn4_interface: "<your_own_value> (source system.interface.name)"
               modem2_extension: "<your_own_value> (source system.interface.name)"
+              modem2_pdn1_interface: "<your_own_value> (source system.interface.name)"
+              modem2_pdn2_interface: "<your_own_value> (source system.interface.name)"
+              modem2_pdn3_interface: "<your_own_value> (source system.interface.name)"
+              modem2_pdn4_interface: "<your_own_value> (source system.interface.name)"
 """
 
 RETURN = """
@@ -322,6 +362,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -449,6 +492,7 @@ def extension_controller_extender(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -459,19 +503,20 @@ def extension_controller_extender(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -621,6 +666,38 @@ versioned_schema = {
             "children": {
                 "modem1_extension": {"v_range": [["v7.2.1", ""]], "type": "string"},
                 "modem2_extension": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "modem1_pdn1_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem1_pdn2_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem1_pdn3_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem1_pdn4_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem2_pdn1_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem2_pdn2_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem2_pdn3_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
+                "modem2_pdn4_interface": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                },
             },
         },
         "firmware_provision_latest": {

@@ -1472,6 +1472,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_access_proxy_data(json):
@@ -1598,6 +1601,7 @@ def firewall_access_proxy(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1608,19 +1612,20 @@ def firewall_access_proxy(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1701,31 +1706,12 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v7.0.0", ""]], "type": "string", "required": True},
         "vip": {"v_range": [["v7.0.0", ""]], "type": "string"},
-        "client_cert": {
-            "v_range": [["v7.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "user_agent_detect": {
-            "v_range": [["v7.2.1", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
         "auth_portal": {
             "v_range": [["v7.0.4", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "auth_virtual_host": {"v_range": [["v7.0.4", ""]], "type": "string"},
-        "empty_cert_action": {
-            "v_range": [["v7.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "accept"},
-                {"value": "block"},
-                {"value": "accept-unmanageable", "v_range": [["v7.2.1", ""]]},
-            ],
-        },
         "log_blocked_traffic": {
             "v_range": [["v7.0.2", ""]],
             "type": "string",
@@ -2525,6 +2511,25 @@ versioned_schema = {
                 "ssl_vpn_web_portal": {"v_range": [["v7.0.4", ""]], "type": "string"},
             },
             "v_range": [["v7.0.1", ""]],
+        },
+        "client_cert": {
+            "v_range": [["v7.0.0", "v7.6.0"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "user_agent_detect": {
+            "v_range": [["v7.2.1", "v7.6.0"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "empty_cert_action": {
+            "v_range": [["v7.0.0", "v7.6.0"]],
+            "type": "string",
+            "options": [
+                {"value": "accept"},
+                {"value": "block"},
+                {"value": "accept-unmanageable", "v_range": [["v7.2.1", "v7.6.0"]]},
+            ],
         },
         "http_supported_max_version": {
             "v_range": [["v7.2.4", "v7.4.0"]],

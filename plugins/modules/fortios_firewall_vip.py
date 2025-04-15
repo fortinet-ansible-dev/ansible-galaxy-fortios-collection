@@ -104,6 +104,13 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            client_cert:
+                description:
+                    - Enable/disable requesting client certificate.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             color:
                 description:
                     - Color of icon on the GUI.
@@ -116,6 +123,14 @@ options:
                 description:
                     - DNS mapping TTL (Set to zero to use TTL in DNS response).
                 type: int
+            empty_cert_action:
+                description:
+                    - Action for an empty client certificate.
+                type: str
+                choices:
+                    - 'accept'
+                    - 'block'
+                    - 'accept-unmanageable'
             extaddr:
                 description:
                     - External FQDN address name.
@@ -1032,6 +1047,13 @@ options:
                     - 'dns-translation'
                     - 'fqdn'
                     - 'access-proxy'
+            user_agent_detect:
+                description:
+                    - Enable/disable detecting device type by HTTP user-agent if no client certificate is provided.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             uuid:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
@@ -1061,12 +1083,14 @@ EXAMPLES = """
       firewall_vip:
           add_nat46_route: "disable"
           arp_reply: "disable"
+          client_cert: "disable"
           color: "0"
           comment: "Comment."
           dns_mapping_ttl: "0"
+          empty_cert_action: "accept"
           extaddr:
               -
-                  name: "default_name_9 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_11 (source firewall.address.name firewall.addrgrp.name)"
           extintf: "<your_own_value> (source system.interface.name)"
           extip: "<your_own_value>"
           extport: "<your_own_value>"
@@ -1094,7 +1118,7 @@ EXAMPLES = """
           http_redirect: "enable"
           http_supported_max_version: "http1"
           https_cookie_secure: "disable"
-          id: "36"
+          id: "38"
           ipv6_mappedip: "<your_own_value>"
           ipv6_mappedport: "<your_own_value>"
           ldb_method: "static"
@@ -1106,8 +1130,8 @@ EXAMPLES = """
           max_embryonic_connections: "1000"
           monitor:
               -
-                  name: "default_name_46 (source firewall.ldb-monitor.name)"
-          name: "default_name_47"
+                  name: "default_name_48 (source firewall.ldb-monitor.name)"
+          name: "default_name_49"
           nat_source_vip: "disable"
           nat44: "disable"
           nat46: "disable"
@@ -1133,12 +1157,12 @@ EXAMPLES = """
                   healthcheck: "disable"
                   holddown_interval: "300"
                   http_host: "myhostname"
-                  id: "72"
+                  id: "74"
                   ip: "<your_own_value>"
                   max_connections: "0"
                   monitor:
                       -
-                          name: "default_name_76 (source firewall.ldb-monitor.name)"
+                          name: "default_name_78 (source firewall.ldb-monitor.name)"
                   port: "0"
                   status: "active"
                   translate_host: "enable"
@@ -1147,7 +1171,7 @@ EXAMPLES = """
           server_type: "http"
           service:
               -
-                  name: "default_name_84 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_86 (source firewall.service.custom.name firewall.service.group.name)"
           src_filter:
               -
                   range: "<your_own_value>"
@@ -1160,7 +1184,7 @@ EXAMPLES = """
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
           ssl_certificate_dict:
               -
-                  name: "default_name_94 (source vpn.certificate.local.name)"
+                  name: "default_name_96 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1203,6 +1227,7 @@ EXAMPLES = """
           ssl_server_session_state_type: "disable"
           status: "disable"
           type: "static-nat"
+          user_agent_detect: "disable"
           uuid: "<your_own_value>"
           weblogic_server: "disable"
           websphere_server: "disable"
@@ -1294,15 +1319,20 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_vip_data(json):
     option_list = [
         "add_nat46_route",
         "arp_reply",
+        "client_cert",
         "color",
         "comment",
         "dns_mapping_ttl",
+        "empty_cert_action",
         "extaddr",
         "extintf",
         "extip",
@@ -1392,6 +1422,7 @@ def filter_firewall_vip_data(json):
         "ssl_server_session_state_type",
         "status",
         "type",
+        "user_agent_detect",
         "uuid",
         "weblogic_server",
         "websphere_server",
@@ -1521,6 +1552,7 @@ def firewall_vip(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1531,19 +1563,20 @@ def firewall_vip(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1841,6 +1874,25 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "1-to-1"}, {"value": "m-to-n"}],
+        },
+        "empty_cert_action": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [
+                {"value": "accept"},
+                {"value": "block"},
+                {"value": "accept-unmanageable"},
+            ],
+        },
+        "user_agent_detect": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "client_cert": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "realservers": {
             "type": "list",

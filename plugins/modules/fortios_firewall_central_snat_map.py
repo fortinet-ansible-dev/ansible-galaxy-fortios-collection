@@ -150,7 +150,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Interface name. Source system.interface.name system.zone.name.
+                            - Interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
                         required: true
                         type: str
             nat:
@@ -238,6 +238,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            port_random:
+                description:
+                    - Enable/disable random source port selection for source NAT.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             protocol:
                 description:
                     - Integer value for the protocol type (0 - 255).
@@ -250,7 +257,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Interface name. Source system.interface.name system.zone.name.
+                            - Interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
                         required: true
                         type: str
             status:
@@ -290,7 +297,7 @@ EXAMPLES = """
           dst_port: "<your_own_value>"
           dstintf:
               -
-                  name: "default_name_10 (source system.interface.name system.zone.name)"
+                  name: "default_name_10 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           nat: "disable"
           nat_ippool:
               -
@@ -310,10 +317,11 @@ EXAMPLES = """
           orig_port: "<your_own_value>"
           policyid: "<you_own_value>"
           port_preserve: "enable"
+          port_random: "enable"
           protocol: "0"
           srcintf:
               -
-                  name: "default_name_28 (source system.interface.name system.zone.name)"
+                  name: "default_name_29 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           status: "enable"
           type: "ipv4"
           uuid: "<your_own_value>"
@@ -405,6 +413,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_central_snat_map_data(json):
@@ -425,6 +436,7 @@ def filter_firewall_central_snat_map_data(json):
         "orig_port",
         "policyid",
         "port_preserve",
+        "port_random",
         "protocol",
         "srcintf",
         "status",
@@ -500,6 +512,7 @@ def firewall_central_snat_map(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -510,19 +523,20 @@ def firewall_central_snat_map(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -752,6 +766,11 @@ versioned_schema = {
         },
         "port_preserve": {
             "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "port_random": {
+            "v_range": [["v7.6.1", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

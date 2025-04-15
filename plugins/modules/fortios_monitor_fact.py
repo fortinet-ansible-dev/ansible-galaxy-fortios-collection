@@ -457,6 +457,17 @@ options:
                  - 'firewall_local-in6'
                  - 'firmware_extension-device'
                  - 'service_ldap_query'
+                 - 'router_bgp_neighbors-statistics'
+                 - 'router_lookup_ha-peer'
+                 - 'system_cluster_state'
+                 - 'system_upgrade-report_exists'
+                 - 'system_upgrade-report_saved'
+                 - 'system_upgrade-report_current'
+                 - 'system_ha-backup-hb-used'
+                 - 'system_external-resource_validate-jsonpath'
+                 - 'user_scim_groups'
+                 - 'virtual-wan_sladb'
+                 - 'wifi_statistics'
 
     selector:
         description:
@@ -794,6 +805,17 @@ options:
          - 'firewall_local-in6'
          - 'firmware_extension-device'
          - 'service_ldap_query'
+         - 'router_bgp_neighbors-statistics'
+         - 'router_lookup_ha-peer'
+         - 'system_cluster_state'
+         - 'system_upgrade-report_exists'
+         - 'system_upgrade-report_saved'
+         - 'system_upgrade-report_current'
+         - 'system_ha-backup-hb-used'
+         - 'system_external-resource_validate-jsonpath'
+         - 'user_scim_groups'
+         - 'virtual-wan_sladb'
+         - 'wifi_statistics'
 
     params:
         description:
@@ -1525,8 +1547,17 @@ module_selectors_defs = {
     },
     "utm_application-categories": {"url": "utm/application-categories", "params": {}},
     "utm_antivirus_stats": {"url": "utm/antivirus/stats", "params": {}},
-    "virtual-wan_health-check": {"url": "virtual-wan/health-check", "params": {}},
-    "virtual-wan_members": {"url": "virtual-wan/members", "params": {}},
+    "virtual-wan_health-check": {
+        "url": "virtual-wan/health-check",
+        "params": {"health_check_name": {"type": "string", "required": "False"}},
+    },
+    "virtual-wan_members": {
+        "url": "virtual-wan/members",
+        "params": {
+            "zone": {"type": "string", "required": "False"},
+            "skip_vpn_child": {"type": "boolean", "required": "False"},
+        },
+    },
     "webfilter_override": {"url": "webfilter/override", "params": {}},
     "webfilter_malicious-urls": {"url": "webfilter/malicious-urls", "params": {}},
     "webfilter_malicious-urls_stat": {
@@ -1576,6 +1607,7 @@ module_selectors_defs = {
             "type": {"type": "string", "required": "False"},
             "with_triangulation": {"type": "boolean", "required": "False"},
             "with_stats": {"type": "boolean", "required": "False"},
+            "mac": {"type": "string", "required": "False"},
         },
     },
     "wifi_managed_ap": {
@@ -1786,6 +1818,7 @@ module_selectors_defs = {
             "since": {"type": "int", "required": "False"},
             "seconds": {"type": "int", "required": "False"},
             "sampling_interval": {"type": "int", "required": "False"},
+            "skip_vpn_child": {"type": "boolean", "required": "False"},
         },
     },
     "vpn_ocvpn_members": {"url": "vpn/ocvpn/members", "params": {}},
@@ -1919,6 +1952,7 @@ module_selectors_defs = {
         "params": {
             "mkey": {"type": "string", "required": "False"},
             "include_dynamic": {"type": "boolean", "required": "False"},
+            "mac": {"type": "string", "required": "False"},
         },
     },
     "system_ha-table-checksums": {
@@ -2052,7 +2086,10 @@ module_selectors_defs = {
         "url": "wifi/unassociated-devices",
         "params": {"with_triangulation": {"type": "boolean", "required": "False"}},
     },
-    "wifi_matched-devices": {"url": "wifi/matched-devices", "params": {}},
+    "wifi_matched-devices": {
+        "url": "wifi/matched-devices",
+        "params": {"mac": {"type": "string", "required": "False"}},
+    },
     "firewall_proxy_sessions": {
         "url": "firewall/proxy/sessions",
         "params": {
@@ -2199,6 +2236,7 @@ module_selectors_defs = {
             "since": {"type": "object", "required": "False"},
             "seconds": {"type": "object", "required": "False"},
             "fortiasic": {"type": "object", "required": "False"},
+            "nturbo": {"type": "object", "required": "False"},
         },
     },
     "fortiview_realtime-statistics": {
@@ -2434,6 +2472,39 @@ module_selectors_defs = {
             "ldap": {"type": "object", "required": "False"},
         },
     },
+    "router_bgp_neighbors-statistics": {
+        "url": "router/bgp/neighbors-statistics",
+        "params": {"ip_version": {"type": "string", "required": "False"}},
+    },
+    "router_lookup_ha-peer": {
+        "url": "router/lookup/ha-peer",
+        "params": {
+            "serial": {"type": "string", "required": "True"},
+            "ipv6": {"type": "boolean", "required": "False"},
+            "destination": {"type": "string", "required": "True"},
+        },
+    },
+    "system_cluster_state": {"url": "system/cluster/state", "params": {}},
+    "system_upgrade-report_exists": {
+        "url": "system/upgrade-report/exists",
+        "params": {},
+    },
+    "system_upgrade-report_saved": {"url": "system/upgrade-report/saved", "params": {}},
+    "system_upgrade-report_current": {
+        "url": "system/upgrade-report/current",
+        "params": {},
+    },
+    "system_ha-backup-hb-used": {"url": "system/ha-backup-hb-used", "params": {}},
+    "system_external-resource_validate-jsonpath": {
+        "url": "system/external-resource/validate-jsonpath",
+        "params": {"path_name": {"type": "string", "required": "True"}},
+    },
+    "user_scim_groups": {
+        "url": "user/scim/groups",
+        "params": {"scim-client-name": {"type": "string", "required": "True"}},
+    },
+    "virtual-wan_sladb": {"url": "virtual-wan/sladb", "params": {}},
+    "wifi_statistics": {"url": "wifi/statistics", "params": {}},
 }
 
 
@@ -2877,6 +2948,17 @@ def main():
                 "firewall_local-in6",
                 "firmware_extension-device",
                 "service_ldap_query",
+                "router_bgp_neighbors-statistics",
+                "router_lookup_ha-peer",
+                "system_cluster_state",
+                "system_upgrade-report_exists",
+                "system_upgrade-report_saved",
+                "system_upgrade-report_current",
+                "system_ha-backup-hb-used",
+                "system_external-resource_validate-jsonpath",
+                "user_scim_groups",
+                "virtual-wan_sladb",
+                "wifi_statistics",
             ],
         },
         "selectors": {
@@ -3222,6 +3304,17 @@ def main():
                         "firewall_local-in6",
                         "firmware_extension-device",
                         "service_ldap_query",
+                        "router_bgp_neighbors-statistics",
+                        "router_lookup_ha-peer",
+                        "system_cluster_state",
+                        "system_upgrade-report_exists",
+                        "system_upgrade-report_saved",
+                        "system_upgrade-report_current",
+                        "system_ha-backup-hb-used",
+                        "system_external-resource_validate-jsonpath",
+                        "user_scim_groups",
+                        "virtual-wan_sladb",
+                        "wifi_statistics",
                     ],
                 },
             },

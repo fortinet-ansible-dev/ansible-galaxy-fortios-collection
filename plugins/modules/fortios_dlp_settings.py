@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_dlp_settings
-short_description: Designate logical storage for DLP fingerprint database in Fortinet's FortiOS and FortiGate.
+short_description: Configure settings for DLP in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify dlp feature and settings category.
@@ -78,21 +78,25 @@ options:
 
     dlp_settings:
         description:
-            - Designate logical storage for DLP fingerprint database.
+            - Configure settings for DLP.
         default: null
         type: dict
         suboptions:
             cache_mem_percent:
                 description:
-                    - Maximum percentage of available memory allocated to caching (1 - 15).
+                    - Maximum percentage of available memory allocated to caching DLP fingerprints (1 - 15).
                 type: int
             chunk_size:
                 description:
                     - Maximum fingerprint chunk size. Caution, changing this setting will flush the entire database.
                 type: int
+            config_builder_timeout:
+                description:
+                    - Maximum time allowed for building a single DLP profile .
+                type: int
             db_mode:
                 description:
-                    - Behavior when the maximum size is reached.
+                    - Behavior when the maximum size is reached in the DLP fingerprint database.
                 type: str
                 choices:
                     - 'stop-adding'
@@ -100,7 +104,7 @@ options:
                     - 'remove-oldest'
             size:
                 description:
-                    - Maximum total size of files within the storage (MB).
+                    - Maximum total size of files within the DLP fingerprint database (MB).
                 type: int
             storage_device:
                 description:
@@ -109,12 +113,13 @@ options:
 """
 
 EXAMPLES = """
-- name: Designate logical storage for DLP fingerprint database.
+- name: Configure settings for DLP.
   fortinet.fortios.fortios_dlp_settings:
       vdom: "{{ vdom }}"
       dlp_settings:
           cache_mem_percent: "2"
           chunk_size: "2800"
+          config_builder_timeout: "60"
           db_mode: "stop-adding"
           size: "16"
           storage_device: "<your_own_value> (source system.storage.name)"
@@ -206,12 +211,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_dlp_settings_data(json):
     option_list = [
         "cache_mem_percent",
         "chunk_size",
+        "config_builder_timeout",
         "db_mode",
         "size",
         "storage_device",
@@ -283,6 +292,7 @@ def dlp_settings(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -293,19 +303,20 @@ def dlp_settings(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -389,6 +400,7 @@ versioned_schema = {
         },
         "cache_mem_percent": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "chunk_size": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "config_builder_timeout": {"v_range": [["v7.6.1", ""]], "type": "integer"},
     },
 }
 

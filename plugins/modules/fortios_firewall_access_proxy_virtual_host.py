@@ -90,6 +90,21 @@ options:
         default: null
         type: dict
         suboptions:
+            client_cert:
+                description:
+                    - Enable/disable requesting client certificate.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            empty_cert_action:
+                description:
+                    - Action for an empty client certificate.
+                type: str
+                choices:
+                    - 'accept'
+                    - 'block'
+                    - 'accept-unmanageable'
             host:
                 description:
                     - The host name.
@@ -125,6 +140,13 @@ options:
                             - Certificate list. Source vpn.certificate.local.name.
                         required: true
                         type: str
+            user_agent_detect:
+                description:
+                    - Enable/disable detecting device type by HTTP user-agent if no client certificate is provided.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
 """
 
 EXAMPLES = """
@@ -134,14 +156,17 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       firewall_access_proxy_virtual_host:
+          client_cert: "disable"
+          empty_cert_action: "accept"
           host: "myhostname"
           host_type: "sub-string"
-          name: "default_name_5"
+          name: "default_name_7"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
           ssl_certificate_dict:
               -
-                  name: "default_name_9 (source vpn.certificate.local.name)"
+                  name: "default_name_11 (source vpn.certificate.local.name)"
+          user_agent_detect: "disable"
 """
 
 RETURN = """
@@ -230,16 +255,22 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_access_proxy_virtual_host_data(json):
     option_list = [
+        "client_cert",
+        "empty_cert_action",
         "host",
         "host_type",
         "name",
         "replacemsg_group",
         "ssl_certificate",
         "ssl_certificate_dict",
+        "user_agent_detect",
     ]
 
     json = remove_invalid_fields(json)
@@ -339,6 +370,7 @@ def firewall_access_proxy_virtual_host(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -349,19 +381,20 @@ def firewall_access_proxy_virtual_host(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -469,6 +502,25 @@ versioned_schema = {
         "replacemsg_group": {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
             "type": "string",
+        },
+        "empty_cert_action": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [
+                {"value": "accept"},
+                {"value": "block"},
+                {"value": "accept-unmanageable"},
+            ],
+        },
+        "user_agent_detect": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "client_cert": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "ssl_certificate": {"v_range": [["v7.0.0", "v7.4.1"]], "type": "string"},
     },

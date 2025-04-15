@@ -213,6 +213,29 @@ options:
                                 choices:
                                     - 'disable'
                                     - 'enable'
+                            multiple_PDN:
+                                description:
+                                    - Multiple-PDN enable/disable.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                            pdn1_dataplan:
+                                description:
+                                    - PDN1-dataplan. Source extension-controller.dataplan.name.
+                                type: str
+                            pdn2_dataplan:
+                                description:
+                                    - PDN2-dataplan. Source extension-controller.dataplan.name.
+                                type: str
+                            pdn3_dataplan:
+                                description:
+                                    - PDN3-dataplan. Source extension-controller.dataplan.name.
+                                type: str
+                            pdn4_dataplan:
+                                description:
+                                    - PDN4-dataplan. Source extension-controller.dataplan.name.
+                                type: str
                             preferred_carrier:
                                 description:
                                     - Preferred carrier.
@@ -321,6 +344,29 @@ options:
                                 choices:
                                     - 'disable'
                                     - 'enable'
+                            multiple_PDN:
+                                description:
+                                    - Multiple-PDN enable/disable.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                            pdn1_dataplan:
+                                description:
+                                    - PDN1-dataplan. Source extension-controller.dataplan.name.
+                                type: str
+                            pdn2_dataplan:
+                                description:
+                                    - PDN2-dataplan. Source extension-controller.dataplan.name.
+                                type: str
+                            pdn3_dataplan:
+                                description:
+                                    - PDN3-dataplan. Source extension-controller.dataplan.name.
+                                type: str
+                            pdn4_dataplan:
+                                description:
+                                    - PDN4-dataplan. Source extension-controller.dataplan.name.
+                                type: str
                             preferred_carrier:
                                 description:
                                     - Preferred carrier.
@@ -554,6 +600,32 @@ options:
                         choices:
                             - 'activebackup'
                             - 'loadbalance'
+                    traffic_split_services:
+                        description:
+                            - Config FortiExtender traffic split interface for LAN extension.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            address:
+                                description:
+                                    - Address selection. Source firewall.address.name.
+                                type: str
+                            name:
+                                description:
+                                    - FortiExtender LAN extension tunnel split entry name.
+                                required: true
+                                type: str
+                            service:
+                                description:
+                                    - Service selection. Source firewall.service.custom.name.
+                                type: str
+                            vsdb:
+                                description:
+                                    - Select vsdb [enable/disable].
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
             login_password:
                 description:
                     - Set the managed extender"s administrator password.
@@ -596,6 +668,7 @@ options:
                     - 'BS10FW'
                     - 'BS20GW'
                     - 'BS20GN'
+                    - 'FVG51G'
             name:
                 description:
                     - FortiExtender profile name.
@@ -1124,6 +1197,11 @@ EXAMPLES = """
                       switch_back_timer: "86400"
                   default_sim: "sim1"
                   gps: "disable"
+                  multiple_PDN: "disable"
+                  pdn1_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
+                  pdn2_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
+                  pdn3_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
+                  pdn4_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
                   preferred_carrier: "<your_own_value>"
                   redundant_intf: "<your_own_value>"
                   redundant_mode: "disable"
@@ -1143,6 +1221,11 @@ EXAMPLES = """
                       switch_back_timer: "86400"
                   default_sim: "sim1"
                   gps: "disable"
+                  multiple_PDN: "disable"
+                  pdn1_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
+                  pdn2_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
+                  pdn3_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
+                  pdn4_dataplan: "<your_own_value> (source extension-controller.dataplan.name)"
                   preferred_carrier: "<your_own_value>"
                   redundant_intf: "<your_own_value>"
                   redundant_mode: "disable"
@@ -1162,17 +1245,17 @@ EXAMPLES = """
                   receiver:
                       -
                           alert: "system-reboot"
-                          name: "default_name_61"
+                          name: "default_name_71"
                           phone_number: "<your_own_value>"
                           status: "disable"
                   status: "disable"
           enforce_bandwidth: "enable"
           extension: "wan-extension"
-          id: "67"
+          id: "77"
           lan_extension:
               backhaul:
                   -
-                      name: "default_name_70"
+                      name: "default_name_80"
                       port: "wan"
                       role: "primary"
                       weight: "1"
@@ -1180,17 +1263,23 @@ EXAMPLES = """
               backhaul_ip: "<your_own_value>"
               downlinks:
                   -
-                      name: "default_name_77"
+                      name: "default_name_87"
                       port: "port1"
                       pvid: "0"
                       type: "port"
                       vap: "<your_own_value> (source extension-controller.extender-vap.name)"
               ipsec_tunnel: "<your_own_value>"
               link_loadbalance: "activebackup"
+              traffic_split_services:
+                  -
+                      address: "<your_own_value> (source firewall.address.name)"
+                      name: "default_name_96"
+                      service: "<your_own_value> (source firewall.service.custom.name)"
+                      vsdb: "disable"
           login_password: "<your_own_value>"
           login_password_change: "yes"
           model: "FX201E"
-          name: "default_name_87"
+          name: "default_name_102"
           wifi:
               country: "--"
               radio_1:
@@ -1205,7 +1294,7 @@ EXAMPLES = """
                   lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
                   local_vaps:
                       -
-                          name: "default_name_101 (source extension-controller.extender-vap.name)"
+                          name: "default_name_116 (source extension-controller.extender-vap.name)"
                   max_clients: "0"
                   mode: "AP"
                   operating_standard: "auto"
@@ -1224,7 +1313,7 @@ EXAMPLES = """
                   lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
                   local_vaps:
                       -
-                          name: "default_name_119 (source extension-controller.extender-vap.name)"
+                          name: "default_name_134 (source extension-controller.extender-vap.name)"
                   max_clients: "0"
                   mode: "AP"
                   operating_standard: "auto"
@@ -1318,6 +1407,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -1474,6 +1566,7 @@ def extension_controller_extender_profile(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1484,19 +1577,20 @@ def extension_controller_extender_profile(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1613,6 +1707,7 @@ versioned_schema = {
                 {"value": "BS10FW", "v_range": [["v7.4.4", ""]]},
                 {"value": "BS20GW", "v_range": [["v7.4.4", ""]]},
                 {"value": "BS20GN", "v_range": [["v7.4.4", ""]]},
+                {"value": "FVG51G", "v_range": [["v7.6.1", ""]]},
             ],
         },
         "extension": {
@@ -1865,6 +1960,27 @@ versioned_schema = {
                                 },
                             },
                         },
+                        "multiple_PDN": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "pdn1_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
+                        "pdn2_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
+                        "pdn3_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
+                        "pdn4_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
                     },
                 },
                 "modem2": {
@@ -1969,6 +2085,27 @@ versioned_schema = {
                                     "type": "integer",
                                 },
                             },
+                        },
+                        "multiple_PDN": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "pdn1_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
+                        "pdn2_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
+                        "pdn3_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                        },
+                        "pdn4_dataplan": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
                         },
                     },
                 },
@@ -2518,6 +2655,25 @@ versioned_schema = {
                         "pvid": {"v_range": [["v7.6.0", ""]], "type": "integer"},
                     },
                     "v_range": [["v7.6.0", ""]],
+                },
+                "traffic_split_services": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "vsdb": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "address": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                        "service": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                    },
+                    "v_range": [["v7.6.1", ""]],
                 },
             },
         },

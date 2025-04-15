@@ -139,6 +139,17 @@ options:
                 description:
                     - Restrict the explicit web proxy to only accept sessions from this IPv6 address. An interface must have this IPv6 address.
                 type: str
+            interface:
+                description:
+                    - Specify outgoing interface to reach server. Source system.interface.name.
+                type: str
+            interface_select_method:
+                description:
+                    - Specify how to select outgoing interface to reach server.
+                type: str
+                choices:
+                    - 'sdwan'
+                    - 'specify'
             ipv6_status:
                 description:
                     - Enable/disable allowing an IPv6 web proxy destination in policies and all IPv6 related entries in this command.
@@ -359,6 +370,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            vrf_select:
+                description:
+                    - VRF ID used for connection to server.
+                type: int
 """
 
 EXAMPLES = """
@@ -376,6 +391,8 @@ EXAMPLES = """
           https_replacement_message: "enable"
           incoming_ip: "<your_own_value>"
           incoming_ip6: "<your_own_value>"
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "sdwan"
           ipv6_status: "enable"
           message_upon_server_error: "enable"
           outgoing_ip: "<your_own_value>"
@@ -391,16 +408,16 @@ EXAMPLES = """
                   comments: "<your_own_value>"
                   dstaddr:
                       -
-                          name: "default_name_26 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_28 (source firewall.address.name firewall.addrgrp.name)"
                   pac_file_data: "<your_own_value>"
                   pac_file_name: "<your_own_value>"
                   policyid: "<you_own_value>"
                   srcaddr:
                       -
-                          name: "default_name_31 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
+                          name: "default_name_33 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
                   srcaddr6:
                       -
-                          name: "default_name_33 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_35 (source firewall.address6.name firewall.addrgrp6.name)"
                   status: "enable"
           pref_dns_result: "ipv4"
           realm: "<your_own_value>"
@@ -408,7 +425,7 @@ EXAMPLES = """
           secure_web_proxy: "disable"
           secure_web_proxy_cert:
               -
-                  name: "default_name_40 (source vpn.certificate.local.name)"
+                  name: "default_name_42 (source vpn.certificate.local.name)"
           socks: "enable"
           socks_incoming_port: "<your_own_value>"
           ssl_algorithm: "high"
@@ -418,6 +435,7 @@ EXAMPLES = """
           trace_auth_no_rsp: "enable"
           unknown_http_version: "reject"
           user_agent_detect: "disable"
+          vrf_select: "-1"
 """
 
 RETURN = """
@@ -506,6 +524,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_web_proxy_explicit_data(json):
@@ -520,6 +541,8 @@ def filter_web_proxy_explicit_data(json):
         "https_replacement_message",
         "incoming_ip",
         "incoming_ip6",
+        "interface",
+        "interface_select_method",
         "ipv6_status",
         "message_upon_server_error",
         "outgoing_ip",
@@ -545,6 +568,7 @@ def filter_web_proxy_explicit_data(json):
         "trace_auth_no_rsp",
         "unknown_http_version",
         "user_agent_detect",
+        "vrf_select",
     ]
 
     json = remove_invalid_fields(json)
@@ -646,6 +670,7 @@ def web_proxy_explicit(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -656,19 +681,20 @@ def web_proxy_explicit(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -820,6 +846,13 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
+        "interface_select_method": {
+            "v_range": [["v7.6.1", ""]],
+            "type": "string",
+            "options": [{"value": "sdwan"}, {"value": "specify"}],
+        },
+        "interface": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
         "ipv6_status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

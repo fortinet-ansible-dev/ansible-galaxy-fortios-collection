@@ -232,6 +232,29 @@ options:
                             - Interface name. Source system.interface.name.
                         required: true
                         type: str
+            monitor_prefix:
+                description:
+                    - Configure a list of routing prefixes to monitor.
+                type: list
+                elements: dict
+                suboptions:
+                    id:
+                        description:
+                            - ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    prefix:
+                        description:
+                            - Prefix.
+                        type: str
+                    vdom:
+                        description:
+                            - VDOM name. Source system.vdom.name.
+                        type: str
+                    vrf:
+                        description:
+                            - VRF ID.
+                        type: int
             pingsvr_monitor_interface:
                 description:
                     - List of pingsvr monitor interface to check for remote IP monitoring.
@@ -297,9 +320,15 @@ EXAMPLES = """
           monitor_interface:
               -
                   name: "default_name_31 (source system.interface.name)"
+          monitor_prefix:
+              -
+                  id: "33"
+                  prefix: "<your_own_value>"
+                  vdom: "<your_own_value> (source system.vdom.name)"
+                  vrf: "0"
           pingsvr_monitor_interface:
               -
-                  name: "default_name_33 (source system.interface.name)"
+                  name: "default_name_38 (source system.interface.name)"
           psksecret: "<your_own_value>"
           session_sync_dev: "<your_own_value> (source system.interface.name)"
           standalone_group_id: "0"
@@ -391,6 +420,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_system_standalone_cluster_data(json):
@@ -401,6 +433,7 @@ def filter_system_standalone_cluster_data(json):
         "group_member_id",
         "layer2_connection",
         "monitor_interface",
+        "monitor_prefix",
         "pingsvr_monitor_interface",
         "psksecret",
         "session_sync_dev",
@@ -507,6 +540,7 @@ def system_standalone_cluster(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -517,19 +551,20 @@ def system_standalone_cluster(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -731,6 +766,21 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.6.0", ""]],
+        },
+        "monitor_prefix": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "vdom": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "vrf": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+                "prefix": {"v_range": [["v7.6.1", ""]], "type": "string"},
+            },
+            "v_range": [["v7.6.1", ""]],
         },
     },
 }

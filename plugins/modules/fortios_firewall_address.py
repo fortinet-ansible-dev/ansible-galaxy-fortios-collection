@@ -267,6 +267,17 @@ options:
                 description:
                     - SDN Tag.
                 type: str
+            sso_attribute_value:
+                description:
+                    - Name(s) of the RADIUS user groups that this address includes.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - RADIUS user group name.
+                        required: true
+                        type: str
             start_ip:
                 description:
                     - First IP address (inclusive) in the range for the address.
@@ -283,12 +294,14 @@ options:
                     - 'sdn'
                     - 'clearpass-spt'
                     - 'fsso'
+                    - 'rsso'
                     - 'ems-tag'
                     - 'fortivoice-tag'
                     - 'fortinac-tag'
                     - 'fortipolicy-tag'
                     - 'swc-tag'
                     - 'device-identification'
+                    - 'external-resource'
             subnet:
                 description:
                     - IP address and subnet mask of address.
@@ -421,6 +434,9 @@ EXAMPLES = """
           sdn: "<your_own_value> (source system.sdn-connector.name)"
           sdn_addr_type: "private"
           sdn_tag: "<your_own_value>"
+          sso_attribute_value:
+              -
+                  name: "default_name_40"
           start_ip: "<your_own_value>"
           start_mac: "<your_own_value>"
           sub_type: "sdn"
@@ -432,10 +448,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_49"
+                  name: "default_name_51"
                   tags:
                       -
-                          name: "default_name_51 (source system.object-tagging.tags.name)"
+                          name: "default_name_53 (source system.object-tagging.tags.name)"
           tenant: "<your_own_value>"
           type: "ipmask"
           uuid: "<your_own_value>"
@@ -530,6 +546,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_address_data(json):
@@ -565,6 +584,7 @@ def filter_firewall_address_data(json):
         "sdn",
         "sdn_addr_type",
         "sdn_tag",
+        "sso_attribute_value",
         "start_ip",
         "start_mac",
         "sub_type",
@@ -648,6 +668,7 @@ def firewall_address(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -658,19 +679,20 @@ def firewall_address(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -774,12 +796,14 @@ versioned_schema = {
                 {"value": "sdn"},
                 {"value": "clearpass-spt"},
                 {"value": "fsso"},
+                {"value": "rsso", "v_range": [["v7.6.1", ""]]},
                 {"value": "ems-tag", "v_range": [["v6.4.0", ""]]},
                 {"value": "fortivoice-tag", "v_range": [["v7.0.4", ""]]},
                 {"value": "fortinac-tag", "v_range": [["v7.0.4", ""]]},
                 {"value": "fortipolicy-tag", "v_range": [["v7.2.4", ""]]},
                 {"value": "swc-tag", "v_range": [["v7.0.1", ""]]},
                 {"value": "device-identification", "v_range": [["v7.4.0", ""]]},
+                {"value": "external-resource", "v_range": [["v7.6.1", ""]]},
             ],
         },
         "clearpass_spt": {
@@ -825,6 +849,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v6.2.0", ""]],
+        },
+        "sso_attribute_value": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.1", ""]],
         },
         "interface": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "tenant": {"v_range": [["v6.0.0", ""]], "type": "string"},

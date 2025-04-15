@@ -465,6 +465,35 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+                    risk:
+                        description:
+                            - FortiGuard risk level settings.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            action:
+                                description:
+                                    - Action to take for matches.
+                                type: str
+                                choices:
+                                    - 'block'
+                                    - 'monitor'
+                            id:
+                                description:
+                                    - ID number. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            log:
+                                description:
+                                    - Enable/disable logging.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
+                            risk_level:
+                                description:
+                                    - Risk level to be examined. Source webfilter.ftgd-risk-level.name.
+                                type: str
             https_replacemsg:
                 description:
                     - Enable replacement messages for HTTPS.
@@ -955,7 +984,7 @@ EXAMPLES = """
                       fortiguard_category: "<your_own_value>"
                       name: "default_name_17"
               ldap: "<your_own_value> (source user.ldap.name)"
-              max_body_len: "65536"
+              max_body_len: "1024"
               status: "enable"
           comment: "Optional comments."
           extended_log: "enable"
@@ -1006,10 +1035,16 @@ EXAMPLES = """
               rate_css_urls: "disable"
               rate_image_urls: "disable"
               rate_javascript_urls: "disable"
+              risk:
+                  -
+                      action: "block"
+                      id: "67"
+                      log: "enable"
+                      risk_level: "<your_own_value> (source webfilter.ftgd-risk-level.name)"
           https_replacemsg: "enable"
           inspection_mode: "proxy"
           log_all_url: "enable"
-          name: "default_name_68"
+          name: "default_name_73"
           options: "activexfilter"
           override:
               ovrd_cookie: "allow"
@@ -1018,10 +1053,10 @@ EXAMPLES = """
               ovrd_scope: "user"
               ovrd_user_group:
                   -
-                      name: "default_name_76 (source user.group.name)"
+                      name: "default_name_81 (source user.group.name)"
               profile:
                   -
-                      name: "default_name_78 (source webfilter.profile.name)"
+                      name: "default_name_83 (source webfilter.profile.name)"
               profile_attribute: "User-Name"
               profile_type: "list"
           ovrd_perm: "bannedword-override"
@@ -1071,12 +1106,12 @@ EXAMPLES = """
           wisp_algorithm: "primary-secondary"
           wisp_servers:
               -
-                  name: "default_name_126 (source web-proxy.wisp.name)"
+                  name: "default_name_131 (source web-proxy.wisp.name)"
           youtube_channel_filter:
               -
                   channel_id: "<your_own_value>"
                   comment: "Comment."
-                  id: "130"
+                  id: "135"
           youtube_channel_status: "disable"
 """
 
@@ -1165,6 +1200,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -1320,6 +1358,7 @@ def webfilter_profile(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1330,19 +1369,20 @@ def webfilter_profile(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1733,6 +1773,29 @@ versioned_schema = {
                     },
                     "v_range": [["v6.0.0", ""]],
                 },
+                "risk": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "risk_level": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                        "action": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "block"}, {"value": "monitor"}],
+                        },
+                        "log": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                    },
+                    "v_range": [["v7.6.1", ""]],
+                },
                 "quota": {
                     "type": "list",
                     "elements": "dict",
@@ -1887,6 +1950,54 @@ versioned_schema = {
                 "ldap": {"v_range": [["v7.0.0", ""]], "type": "string"},
             },
         },
+        "url_extraction": {
+            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "dict",
+            "children": {
+                "status": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "server_fqdn": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "redirect_header": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "redirect_url": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                },
+                "redirect_no_content": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", ""],
+                    ],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+        },
         "wisp": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2007,54 +2118,6 @@ versioned_schema = {
             "v_range": [["v6.4.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "url_extraction": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "dict",
-            "children": {
-                "status": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                    "options": [{"value": "enable"}, {"value": "disable"}],
-                },
-                "server_fqdn": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "redirect_header": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "redirect_url": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "redirect_no_content": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                    "options": [{"value": "enable"}, {"value": "disable"}],
-                },
-            },
         },
         "youtube_channel_status": {
             "v_range": [["v6.0.0", "v6.4.4"]],

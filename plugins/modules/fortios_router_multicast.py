@@ -412,6 +412,69 @@ options:
                         description:
                             - Groups allowed to source specific multicast. Source router.access-list.name.
                         type: str
+            pim_sm_global_vrf:
+                description:
+                    - per-VRF PIM sparse-mode global settings.
+                type: list
+                elements: dict
+                suboptions:
+                    bsr_allow_quick_refresh:
+                        description:
+                            - Enable/disable accept BSR quick refresh packets from neighbors.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    bsr_candidate:
+                        description:
+                            - Enable/disable allowing this router to become a bootstrap router (BSR).
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    bsr_hash:
+                        description:
+                            - BSR hash length (0 - 32).
+                        type: int
+                    bsr_interface:
+                        description:
+                            - Interface to advertise as candidate BSR. Source system.interface.name.
+                        type: str
+                    bsr_priority:
+                        description:
+                            - BSR priority (0 - 255).
+                        type: int
+                    cisco_crp_prefix:
+                        description:
+                            - Enable/disable making candidate RP compatible with old Cisco IOS.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rp_address:
+                        description:
+                            - Statically configure RP addresses.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            group:
+                                description:
+                                    - Groups to use this RP. Source router.access-list.name.
+                                type: str
+                            id:
+                                description:
+                                    - ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            ip_address:
+                                description:
+                                    - RP router address.
+                                type: str
+                    vrf:
+                        description:
+                            - VRF ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
             route_limit:
                 description:
                     - Maximum number of multicast routes.
@@ -495,6 +558,20 @@ EXAMPLES = """
               spt_threshold_group: "<your_own_value> (source router.access-list.name)"
               ssm: "enable"
               ssm_range: "<your_own_value> (source router.access-list.name)"
+          pim_sm_global_vrf:
+              -
+                  bsr_allow_quick_refresh: "enable"
+                  bsr_candidate: "enable"
+                  bsr_hash: "10"
+                  bsr_interface: "<your_own_value> (source system.interface.name)"
+                  bsr_priority: "0"
+                  cisco_crp_prefix: "enable"
+                  rp_address:
+                      -
+                          group: "<your_own_value> (source router.access-list.name)"
+                          id: "77"
+                          ip_address: "<your_own_value>"
+                  vrf: "<you_own_value>"
           route_limit: "2147483647"
           route_threshold: ""
 """
@@ -585,6 +662,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_router_multicast_data(json):
@@ -592,6 +672,7 @@ def filter_router_multicast_data(json):
         "interface",
         "multicast_routing",
         "pim_sm_global",
+        "pim_sm_global_vrf",
         "route_limit",
         "route_threshold",
     ]
@@ -662,6 +743,7 @@ def router_multicast(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -672,19 +754,20 @@ def router_multicast(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -783,6 +866,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "cisco_crp_prefix": {
+                    "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "cisco_register_checksum": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -791,11 +879,6 @@ versioned_schema = {
                 "cisco_register_checksum_group": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
-                },
-                "cisco_crp_prefix": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "cisco_ignore_rp_set_priority": {
                     "v_range": [["v6.0.0", ""]],
@@ -863,6 +946,50 @@ versioned_schema = {
                     "v_range": [["v6.0.0", ""]],
                 },
             },
+        },
+        "pim_sm_global_vrf": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "vrf": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "bsr_candidate": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "bsr_interface": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "bsr_priority": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+                "bsr_hash": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+                "bsr_allow_quick_refresh": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cisco_crp_prefix": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rp_address": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.1", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "ip_address": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                        "group": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                    },
+                    "v_range": [["v7.6.1", ""]],
+                },
+            },
+            "v_range": [["v7.6.1", ""]],
         },
         "interface": {
             "type": "list",

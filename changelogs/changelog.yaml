@@ -365,3 +365,21 @@ releases:
     fragments:
       - release_2.3.9.yml
     release_date: "2024-12-17"
+  2.4.0:
+    changes:
+      bugfixes:
+        - Github Issue
+        - Github Issue
+        - Github Issue
+        - Github Issue
+        - Github Issue
+        - Github Issue
+        - Github Issue
+        - Mantis Issue
+      major_changes:
+        - Supported new versions 7.6.1 and 7.6.2.
+        - Updated the examples with correct values that have minimum or maximum values.
+      release_summary: minor release of 2.4.0
+    fragments:
+      - 2.4.0_release.yml
+    release_date: "2025-04-14"

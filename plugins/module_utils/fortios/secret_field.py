@@ -28,7 +28,8 @@ secret_fields = [
     "fortitoken_cloud_sync_interval", "mfa_password", "default_user_password_policy", "polestar_server_token",
     "ssh_hostkey", "ssh_hostkey_password", "keyword", "sam_private_key", "sam_private_key_password",
     "videofilter_keyword", "cloud_authentication_access_key", "cloud_authentication_access_key", "auth_server_secret",
-    "ssh_hsk_password", "user_history_password_threshold", "reuse_password_limit", "client_secret_token"
+    "ssh_hsk_password", "user_history_password_threshold", "reuse_password_limit", "client_secret_token",
+    "token_certificate", "ble_rtls_server_token", "admin_auth_tacacs+"
 ]
 
 

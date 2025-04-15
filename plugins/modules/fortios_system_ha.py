@@ -766,7 +766,7 @@ EXAMPLES = """
           ha_uptime_diff_margin: "300"
           hb_interval: "2"
           hb_interval_in_milliseconds: "100ms"
-          hb_lost_threshold: "20"
+          hb_lost_threshold: "6"
           hbdev: "<your_own_value>"
           hc_eth_type: "<your_own_value>"
           hello_holddown: "20"
@@ -946,6 +946,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 )
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
 )
 
 
@@ -1146,6 +1149,7 @@ def system_ha(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -1156,19 +1160,20 @@ def system_ha(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -1283,30 +1288,6 @@ versioned_schema = {
             },
             "v_range": [["v7.6.0", ""]],
         },
-        "unicast_hb": {
-            "v_range": [],
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "v_range": [
-                        ["v7.0.0", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                },
-                {
-                    "value": "disable",
-                    "v_range": [
-                        ["v7.0.0", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                },
-            ],
-        },
-        "unicast_hb_peerip": {"v_range": [], "type": "string"},
-        "unicast_hb_netmask": {"v_range": [], "type": "string"},
         "session_sync_dev": {
             "v_range": [["v6.0.0", ""]],
             "type": "list",
@@ -1429,58 +1410,6 @@ versioned_schema = {
         "ha_uptime_diff_margin": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "standalone_config_sync": {
             "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "unicast_status": {
-            "v_range": [],
-            "type": "string",
-            "options": [
-                {
-                    "value": "enable",
-                    "v_range": [
-                        ["v7.0.0", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                },
-                {
-                    "value": "disable",
-                    "v_range": [
-                        ["v7.0.0", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                },
-            ],
-        },
-        "unicast_gateway": {"v_range": [], "type": "string"},
-        "unicast_peers": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "id": {
-                    "v_range": [
-                        ["v7.0.0", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                    "type": "integer",
-                    "required": True,
-                },
-                "peer_ip": {
-                    "v_range": [
-                        ["v7.0.0", "v7.0.12"],
-                        ["v7.2.1", "v7.2.2"],
-                        ["v7.4.0", ""],
-                    ],
-                    "type": "string",
-                },
-            },
-            "v_range": [],
-        },
-        "logical_sn": {
-            "v_range": [["v6.2.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -1663,6 +1592,82 @@ versioned_schema = {
             ],
             "multiple_values": True,
             "elements": "str",
+        },
+        "unicast_hb": {
+            "v_range": [],
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "v_range": [
+                        ["v7.0.0", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.1"],
+                    ],
+                },
+                {
+                    "value": "disable",
+                    "v_range": [
+                        ["v7.0.0", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.1"],
+                    ],
+                },
+            ],
+        },
+        "unicast_hb_peerip": {"v_range": [], "type": "string"},
+        "unicast_hb_netmask": {"v_range": [], "type": "string"},
+        "unicast_status": {
+            "v_range": [],
+            "type": "string",
+            "options": [
+                {
+                    "value": "enable",
+                    "v_range": [
+                        ["v7.0.0", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.1"],
+                    ],
+                },
+                {
+                    "value": "disable",
+                    "v_range": [
+                        ["v7.0.0", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.1"],
+                    ],
+                },
+            ],
+        },
+        "unicast_gateway": {"v_range": [], "type": "string"},
+        "unicast_peers": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [
+                        ["v7.0.0", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.1"],
+                    ],
+                    "type": "integer",
+                    "required": True,
+                },
+                "peer_ip": {
+                    "v_range": [
+                        ["v7.0.0", "v7.0.12"],
+                        ["v7.2.1", "v7.2.2"],
+                        ["v7.4.0", "v7.6.1"],
+                    ],
+                    "type": "string",
+                },
+            },
+            "v_range": [],
+        },
+        "logical_sn": {
+            "v_range": [["v6.2.0", "v7.6.0"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "uninterruptible_upgrade": {
             "v_range": [["v6.0.0", "v7.4.0"]],

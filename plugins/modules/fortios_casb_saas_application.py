@@ -109,11 +109,101 @@ options:
                             - Domain list separated by space.
                         required: true
                         type: str
+            input_attributes:
+                description:
+                    - SaaS application input attributes.
+                type: list
+                elements: dict
+                suboptions:
+                    attr_type:
+                        description:
+                            - CASB attribute type.
+                        type: str
+                        choices:
+                            - 'tenant'
+                    default:
+                        description:
+                            - CASB attribute default value.
+                        type: str
+                        choices:
+                            - 'string'
+                            - 'string-list'
+                    description:
+                        description:
+                            - CASB attribute description.
+                        type: str
+                    fallback_input:
+                        description:
+                            - CASB attribute legacy input.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    name:
+                        description:
+                            - CASB attribute name.
+                        required: true
+                        type: str
+                    required:
+                        description:
+                            - CASB attribute required.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    type:
+                        description:
+                            - CASB attribute format type.
+                        type: str
+                        choices:
+                            - 'string'
+                            - 'string-list'
+                            - 'integer'
+                            - 'integer-list'
+                            - 'boolean'
             name:
                 description:
                     - SaaS application name.
                 required: true
                 type: str
+            output_attributes:
+                description:
+                    - SaaS application output attributes.
+                type: list
+                elements: dict
+                suboptions:
+                    attr_type:
+                        description:
+                            - CASB attribute type.
+                        type: str
+                        choices:
+                            - 'tenant'
+                    description:
+                        description:
+                            - CASB attribute description.
+                        type: str
+                    name:
+                        description:
+                            - CASB attribute name.
+                        required: true
+                        type: str
+                    required:
+                        description:
+                            - CASB attribute required.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    type:
+                        description:
+                            - CASB attribute format type.
+                        type: str
+                        choices:
+                            - 'string'
+                            - 'string-list'
+                            - 'integer'
+                            - 'integer-list'
+                            - 'boolean'
             status:
                 description:
                     - Enable/disable setting.
@@ -146,7 +236,23 @@ EXAMPLES = """
           domains:
               -
                   domain: "<your_own_value>"
-          name: "default_name_7"
+          input_attributes:
+              -
+                  attr_type: "tenant"
+                  default: "string"
+                  description: "<your_own_value>"
+                  fallback_input: "enable"
+                  name: "default_name_12"
+                  required: "enable"
+                  type: "string"
+          name: "default_name_15"
+          output_attributes:
+              -
+                  attr_type: "tenant"
+                  description: "<your_own_value>"
+                  name: "default_name_19"
+                  required: "enable"
+                  type: "string"
           status: "enable"
           type: "built-in"
           uuid: "<your_own_value>"
@@ -238,6 +344,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_casb_saas_application_data(json):
@@ -245,7 +354,9 @@ def filter_casb_saas_application_data(json):
         "casb_name",
         "description",
         "domains",
+        "input_attributes",
         "name",
+        "output_attributes",
         "status",
         "type",
         "uuid",
@@ -317,6 +428,7 @@ def casb_saas_application(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -327,19 +439,20 @@ def casb_saas_application(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -443,6 +556,84 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.1", ""]],
+        },
+        "output_attributes": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "attr_type": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "tenant"}],
+                },
+                "description": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "type": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "string"},
+                        {"value": "string-list"},
+                        {"value": "integer"},
+                        {"value": "integer-list"},
+                        {"value": "boolean"},
+                    ],
+                },
+                "required": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+            "v_range": [["v7.6.1", ""]],
+        },
+        "input_attributes": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "attr_type": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "tenant"}],
+                },
+                "description": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "type": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "string"},
+                        {"value": "string-list"},
+                        {"value": "integer"},
+                        {"value": "integer-list"},
+                        {"value": "boolean"},
+                    ],
+                },
+                "required": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "default": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "string"}, {"value": "string-list"}],
+                },
+                "fallback_input": {
+                    "v_range": [["v7.6.1", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+            "v_range": [["v7.6.1", ""]],
         },
     },
     "v_range": [["v7.4.1", ""]],

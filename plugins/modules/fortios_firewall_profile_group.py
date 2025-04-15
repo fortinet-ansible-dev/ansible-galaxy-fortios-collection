@@ -313,6 +313,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
     find_current_values,
 )
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.comparison import (
+    unify_data_format,
+)
 
 
 def filter_firewall_profile_group_data(json):
@@ -410,6 +413,7 @@ def firewall_profile_group(data, fos, check_mode=False):
             # record exits and they're matched or not
             copied_filtered_data = filtered_data.copy()
             copied_filtered_data.pop(mkeyname, None)
+            unified_filtered_data = unify_data_format(copied_filtered_data)
 
             current_data_results = current_data.get("results", {})
             current_config = (
@@ -420,19 +424,20 @@ def firewall_profile_group(data, fos, check_mode=False):
                 else current_data_results
             )
             if is_existed:
-                current_values = find_current_values(
-                    copied_filtered_data, current_config
+                unified_current_values = find_current_values(
+                    unified_filtered_data,
+                    unify_data_format(current_config),
                 )
 
                 is_same = is_same_comparison(
-                    serialize(current_values), serialize(copied_filtered_data)
+                    serialize(unified_current_values), serialize(unified_filtered_data)
                 )
 
                 return (
                     False,
                     not is_same,
                     filtered_data,
-                    {"before": current_values, "after": copied_filtered_data},
+                    {"before": unified_current_values, "after": unified_filtered_data},
                 )
 
             # record does not exist
@@ -528,11 +533,11 @@ versioned_schema = {
         "diameter_filter_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "virtual_patch_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "icap_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "cifs_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "videofilter_profile": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "waf_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ssh_filter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "cifs_profile": {"v_range": [["v6.2.0", "v7.6.0"]], "type": "string"},
         "dlp_sensor": {"v_range": [["v6.0.0", "v7.0.12"]], "type": "string"},
         "mms_profile": {"v_range": [["v6.0.0", "v6.2.7"]], "type": "string"},
         "spamfilter_profile": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
