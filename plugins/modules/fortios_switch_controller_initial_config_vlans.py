@@ -94,6 +94,13 @@ options:
                 description:
                     - VLAN for NAC segment primary interface. Source switch-controller.initial-config.template.name.
                 type: str
+            optional_vlans:
+                description:
+                    - Auto-generate pre-configured VLANs upon switch discovery.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             quarantine:
                 description:
                     - VLAN for quarantined traffic. Source switch-controller.initial-config.template.name.
@@ -120,6 +127,7 @@ EXAMPLES = """
           default_vlan: "<your_own_value> (source switch-controller.initial-config.template.name)"
           nac: "<your_own_value> (source switch-controller.initial-config.template.name)"
           nac_segment: "<your_own_value> (source switch-controller.initial-config.template.name)"
+          optional_vlans: "enable"
           quarantine: "<your_own_value> (source switch-controller.initial-config.template.name)"
           rspan: "<your_own_value> (source switch-controller.initial-config.template.name)"
           video: "<your_own_value> (source switch-controller.initial-config.template.name)"
@@ -222,6 +230,7 @@ def filter_switch_controller_initial_config_vlans_data(json):
         "default_vlan",
         "nac",
         "nac_segment",
+        "optional_vlans",
         "quarantine",
         "rspan",
         "video",
@@ -401,6 +410,11 @@ versioned_schema = {
     "v_range": [["v6.4.0", ""]],
     "type": "dict",
     "children": {
+        "optional_vlans": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "default_vlan": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "quarantine": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "rspan": {"v_range": [["v6.4.0", ""]], "type": "string"},

@@ -116,6 +116,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            login_lockout_upon_weaker_encryption:
+                description:
+                    - Enable/disable administrative user login lockout upon downgrade (defaut = disable). If enabled, changing the FortiOS firmware to a
+                       version where safer passwords are unsupported will lock out administrative users.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             min_change_characters:
                 description:
                     - Minimum number of unique characters in new password which do not exist in old password (0 - 128).
@@ -142,7 +150,7 @@ options:
                 type: int
             reuse_password:
                 description:
-                    - Enable/disable reuse of password. If both reuse-password and min-change-characters are enabled, min-change-characters overrides.
+                    - Enable/disable reuse of password.
                 type: str
                 choices:
                     - 'enable'
@@ -170,6 +178,7 @@ EXAMPLES = """
           expire_day: "90"
           expire_status: "enable"
           login_lockout_upon_downgrade: "enable"
+          login_lockout_upon_weaker_encryption: "enable"
           min_change_characters: "0"
           min_lower_case_letter: "0"
           min_non_alphanumeric: "0"
@@ -279,6 +288,7 @@ def filter_system_password_policy_data(json):
         "expire_day",
         "expire_status",
         "login_lockout_upon_downgrade",
+        "login_lockout_upon_weaker_encryption",
         "min_change_characters",
         "min_lower_case_letter",
         "min_non_alphanumeric",
@@ -500,7 +510,6 @@ versioned_schema = {
         "min_upper_case_letter": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "min_non_alphanumeric": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "min_number": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "min_change_characters": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "expire_status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -513,8 +522,14 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "reuse_password_limit": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "login_lockout_upon_weaker_encryption": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "min_change_characters": {"v_range": [["v7.0.0", "v7.6.2"]], "type": "integer"},
         "login_lockout_upon_downgrade": {
-            "v_range": [["v7.6.1", ""]],
+            "v_range": [["v7.6.1", "v7.6.2"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

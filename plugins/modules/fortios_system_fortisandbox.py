@@ -86,6 +86,13 @@ options:
                 description:
                     - The CA that signs remote FortiSandbox certificate, empty for no check. Source vpn.certificate.ca.name.
                 type: str
+            certificate_verification:
+                description:
+                    - Enable/disable identity verification of FortiSandbox by use of certificate.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             cn:
                 description:
                     - The CN of remote server certificate, case sensitive, empty for no check.
@@ -166,6 +173,7 @@ EXAMPLES = """
       vdom: "{{ vdom }}"
       system_fortisandbox:
           ca: "<your_own_value> (source vpn.certificate.ca.name)"
+          certificate_verification: "enable"
           cn: "<your_own_value>"
           email: "<your_own_value>"
           enc_algorithm: "default"
@@ -274,6 +282,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_system_fortisandbox_data(json):
     option_list = [
         "ca",
+        "certificate_verification",
         "cn",
         "email",
         "enc_algorithm",
@@ -496,6 +505,11 @@ versioned_schema = {
         "email": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ca": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "cn": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "certificate_verification": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
     },
 }
 

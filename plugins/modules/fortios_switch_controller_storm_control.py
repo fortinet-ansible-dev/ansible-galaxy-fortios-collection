@@ -89,6 +89,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            burst_size_level:
+                description:
+                    - Increase level to handle bursty traffic (0 - 4).
+                type: int
             rate:
                 description:
                     - Rate in packets per second at which storm control drops excess traffic(0-10000000).
@@ -115,6 +119,7 @@ EXAMPLES = """
       vdom: "{{ vdom }}"
       switch_controller_storm_control:
           broadcast: "enable"
+          burst_size_level: "0"
           rate: "500"
           unknown_multicast: "enable"
           unknown_unicast: "enable"
@@ -212,7 +217,13 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_switch_controller_storm_control_data(json):
-    option_list = ["broadcast", "rate", "unknown_multicast", "unknown_unicast"]
+    option_list = [
+        "broadcast",
+        "burst_size_level",
+        "rate",
+        "unknown_multicast",
+        "unknown_unicast",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -384,6 +395,7 @@ versioned_schema = {
     "type": "dict",
     "children": {
         "rate": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "burst_size_level": {"v_range": [["v7.6.4", ""]], "type": "integer"},
         "unknown_unicast": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

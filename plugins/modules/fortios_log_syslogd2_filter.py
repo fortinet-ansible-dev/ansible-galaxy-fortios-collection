@@ -89,6 +89,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            debug:
+                description:
+                    - Enable/disable debug logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             dns:
                 description:
                     - Enable/disable detailed DNS event logging.
@@ -150,6 +157,7 @@ options:
                             - 'file-filter'
                             - 'icap'
                             - 'virtual-patch'
+                            - 'debug'
                             - 'ztna'
                     filter:
                         description:
@@ -252,6 +260,7 @@ EXAMPLES = """
       vdom: "{{ vdom }}"
       log_syslogd2_filter:
           anomaly: "enable"
+          debug: "enable"
           dns: "enable"
           filter: "<your_own_value>"
           filter_type: "include"
@@ -262,7 +271,7 @@ EXAMPLES = """
                   category: "traffic"
                   filter: "<your_own_value>"
                   filter_type: "include"
-                  id: "13"
+                  id: "14"
           gtp: "enable"
           http_transaction: "enable"
           local_traffic: "enable"
@@ -370,6 +379,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_log_syslogd2_filter_data(json):
     option_list = [
         "anomaly",
+        "debug",
         "dns",
         "filter",
         "filter_type",
@@ -614,6 +624,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "debug": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "free_style": {
             "type": "list",
             "elements": "dict",
@@ -645,6 +660,7 @@ versioned_schema = {
                         {"value": "file-filter"},
                         {"value": "icap"},
                         {"value": "virtual-patch", "v_range": [["v7.4.1", ""]]},
+                        {"value": "debug", "v_range": [["v7.6.3", ""]]},
                         {"value": "ztna", "v_range": [["v7.0.1", "v7.0.3"]]},
                     ],
                 },

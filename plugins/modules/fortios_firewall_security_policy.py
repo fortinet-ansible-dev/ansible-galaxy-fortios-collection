@@ -707,6 +707,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            telemetry_profile:
+                description:
+                    - Name of an existing telemetry profile. Source telemetry-controller.profile.name.
+                type: str
             url_category:
                 description:
                     - URL categories or groups.
@@ -908,10 +912,11 @@ EXAMPLES = """
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
+          telemetry_profile: "<your_own_value> (source telemetry-controller.profile.name)"
           url_category: "<your_own_value>"
           users:
               -
-                  name: "default_name_116 (source user.local.name)"
+                  name: "default_name_117 (source user.local.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           uuid_idx: "2147483647"
@@ -1093,6 +1098,7 @@ def filter_firewall_security_policy_data(json):
         "ssh_filter_profile",
         "ssl_ssh_profile",
         "status",
+        "telemetry_profile",
         "url_category",
         "users",
         "utm_status",
@@ -1718,6 +1724,7 @@ versioned_schema = {
         "videofilter_profile": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "ssh_filter_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "telemetry_profile": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "application": {
             "type": "list",
             "elements": "dict",

@@ -507,6 +507,14 @@ options:
                             - 'none'
                             - 'read'
                             - 'read-write'
+                    telemetry:
+                        description:
+                            - Telemetry profile and settings.
+                        type: str
+                        choices:
+                            - 'none'
+                            - 'read'
+                            - 'read-write'
                     videofilter:
                         description:
                             - Video filter profiles and settings.
@@ -636,6 +644,7 @@ EXAMPLES = """
               ips: "none"
               mmsgtp: "none"
               spamfilter: "none"
+              telemetry: "none"
               videofilter: "none"
               virtual_patch: "none"
               voip: "none"
@@ -1330,6 +1339,15 @@ versioned_schema = {
                 },
                 "casb": {
                     "v_range": [["v7.4.1", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "none"},
+                        {"value": "read"},
+                        {"value": "read-write"},
+                    ],
+                },
+                "telemetry": {
+                    "v_range": [["v7.6.4", ""]],
                     "type": "string",
                     "options": [
                         {"value": "none"},

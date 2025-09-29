@@ -108,7 +108,7 @@ EXAMPLES = """
           full_final_warning_threshold: "95"
           full_first_warning_threshold: "75"
           full_second_warning_threshold: "90"
-          max_size: "676985200"
+          max_size: "676985610"
 """
 
 RETURN = """

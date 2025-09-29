@@ -82,6 +82,10 @@ options:
         default: null
         type: dict
         suboptions:
+            interface:
+                description:
+                    - Interface of FortiToken Mobile push services server. Source system.interface.name.
+                type: str
             proxy:
                 description:
                     - Enable/disable communication to the proxy server in FortiGuard configuration.
@@ -119,6 +123,7 @@ EXAMPLES = """
   fortinet.fortios.fortios_system_ftm_push:
       vdom: "{{ vdom }}"
       system_ftm_push:
+          interface: "<your_own_value> (source system.interface.name)"
           proxy: "enable"
           server: "192.168.100.40"
           server_cert: "<your_own_value> (source certificate.local.name)"
@@ -220,6 +225,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_system_ftm_push_data(json):
     option_list = [
+        "interface",
         "proxy",
         "server",
         "server_cert",
@@ -394,10 +400,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "interface": {"v_range": [["v7.6.4", ""]], "type": "string"},
+        "server": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "server_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "server_cert": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "server_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "server": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

@@ -123,10 +123,10 @@ options:
                     - 'system.central-management'
                     - 'system.csf'
                     - 'user.radius'
+                    - 'system.interface'
                     - 'log.syslogd.setting'
                     - 'log.syslogd.override-setting'
                     - 'firewall.address'
-                    - 'system.interface'
                     - 'vpn.ipsec.phase1-interface'
                     - 'vpn.ipsec.phase2-interface'
                     - 'router.bgp'
@@ -500,10 +500,10 @@ versioned_schema = {
                     "value": "user.radius",
                     "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", ""]],
                 },
-                {"value": "log.syslogd.setting", "v_range": [["v7.6.2", ""]]},
-                {"value": "log.syslogd.override-setting", "v_range": [["v7.6.2", ""]]},
+                {"value": "system.interface", "v_range": [["v7.6.3", ""]]},
+                {"value": "log.syslogd.setting", "v_range": [["v7.6.4", ""]]},
+                {"value": "log.syslogd.override-setting", "v_range": [["v7.6.4", ""]]},
                 {"value": "firewall.address", "v_range": [["v7.4.2", ""]]},
-                {"value": "system.interface", "v_range": []},
                 {"value": "vpn.ipsec.phase1-interface", "v_range": []},
                 {"value": "vpn.ipsec.phase2-interface", "v_range": []},
                 {"value": "router.bgp", "v_range": []},

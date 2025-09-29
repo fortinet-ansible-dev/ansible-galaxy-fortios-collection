@@ -192,6 +192,14 @@ options:
                 description:
                     - Maximum number of station cap"s wtp info stored on the controller (1 - 16).
                 type: int
+            max_sta_offline:
+                description:
+                    - Maximum number of station offline stored on the controller .
+                type: int
+            max_sta_offline_ip2mac:
+                description:
+                    - Maximum number of station offline ip2mac stored on the controller .
+                type: int
             max_wids_entry:
                 description:
                     - Maximum number of wids entries stored on the controller .
@@ -269,10 +277,12 @@ EXAMPLES = """
           max_rogue_sta: "0"
           max_sta_cap: "0"
           max_sta_cap_wtp: "8"
+          max_sta_offline: "0"
+          max_sta_offline_ip2mac: "0"
           max_wids_entry: "0"
           mesh_eth_type: "8755"
           nac_interval: "120"
-          name: "default_name_27"
+          name: "default_name_29"
           rogue_scan_mac_adjacency: "7"
           rolling_wtp_upgrade: "enable"
           rolling_wtp_upgrade_threshold: "<your_own_value>"
@@ -395,6 +405,8 @@ def filter_wireless_controller_global_data(json):
         "max_rogue_sta",
         "max_sta_cap",
         "max_sta_cap_wtp",
+        "max_sta_offline",
+        "max_sta_offline_ip2mac",
         "max_wids_entry",
         "mesh_eth_type",
         "nac_interval",
@@ -674,6 +686,8 @@ versioned_schema = {
         },
         "ap_log_server_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ap_log_server_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "max_sta_offline": {"v_range": [["v7.6.3", ""]], "type": "integer"},
+        "max_sta_offline_ip2mac": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "max_sta_cap": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "max_sta_cap_wtp": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "max_rogue_ap": {"v_range": [["v7.4.4", ""]], "type": "integer"},

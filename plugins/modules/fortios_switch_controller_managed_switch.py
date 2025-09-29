@@ -1350,6 +1350,85 @@ options:
                             - VLAN name. Source system.interface.name.
                         required: true
                         type: str
+            router_static:
+                description:
+                    - Configure static routes.
+                type: list
+                elements: dict
+                suboptions:
+                    blackhole:
+                        description:
+                            - Enable/disable blackhole on this route.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    comment:
+                        description:
+                            - Comment.
+                        type: str
+                    device:
+                        description:
+                            - Gateway out interface. Source switch-controller.managed-switch.system-interface.name.
+                        type: str
+                    distance:
+                        description:
+                            - Administrative distance for the route (1 - 255).
+                        type: int
+                    dst:
+                        description:
+                            - Destination ip and mask for this route.
+                        type: str
+                    dynamic_gateway:
+                        description:
+                            - Enable/disable dynamic gateway.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    gateway:
+                        description:
+                            - Gateway ip for this route.
+                        type: str
+                    id:
+                        description:
+                            - Entry sequence number. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    status:
+                        description:
+                            - Enable/disable route status.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    switch_id:
+                        description:
+                            - Switch ID. Source switch-controller.managed-switch.switch-id.
+                        type: str
+                    vrf:
+                        description:
+                            - VRF for this route. Source switch-controller.managed-switch.router-vrf.name.
+                        type: str
+            router_vrf:
+                description:
+                    - Configure VRF.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - VRF entry name.
+                        required: true
+                        type: str
+                    switch_id:
+                        description:
+                            - Switch ID. Source switch-controller.managed-switch.switch-id.
+                        type: str
+                    vrfid:
+                        description:
+                            - VRF ID.
+                        type: int
             sn:
                 description:
                     - Managed-switch serial number.
@@ -1612,6 +1691,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    burst_size_level:
+                        description:
+                            - Increase level to handle bursty traffic (0 - 4).
+                        type: int
                     local_override:
                         description:
                             - Enable to override global FortiSwitch storm control settings for this FortiSwitch.
@@ -1777,6 +1860,202 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+            system_dhcp_server:
+                description:
+                    - Configure DHCP servers.
+                type: list
+                elements: dict
+                suboptions:
+                    default_gateway:
+                        description:
+                            - Default gateway IP address assigned by the DHCP server.
+                        type: str
+                    dns_server1:
+                        description:
+                            - DNS server 1.
+                        type: str
+                    dns_server2:
+                        description:
+                            - DNS server 2.
+                        type: str
+                    dns_server3:
+                        description:
+                            - DNS server 3.
+                        type: str
+                    dns_service:
+                        description:
+                            - Options for assigning DNS servers to DHCP clients.
+                        type: str
+                        choices:
+                            - 'local'
+                            - 'default'
+                            - 'specify'
+                    id:
+                        description:
+                            - ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    interface:
+                        description:
+                            - DHCP server can assign IP configurations to clients connected to this interface. Source switch-controller.managed-switch
+                              .system-interface.name.
+                        type: str
+                    ip_range:
+                        description:
+                            - DHCP IP range configuration.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            end_ip:
+                                description:
+                                    - End of IP range.
+                                type: str
+                            id:
+                                description:
+                                    - ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            start_ip:
+                                description:
+                                    - Start of IP range.
+                                type: str
+                    lease_time:
+                        description:
+                            - Lease time in seconds, 0 means unlimited.
+                        type: int
+                    netmask:
+                        description:
+                            - Netmask assigned by the DHCP server.
+                        type: str
+                    ntp_server1:
+                        description:
+                            - NTP server 1.
+                        type: str
+                    ntp_server2:
+                        description:
+                            - NTP server 2.
+                        type: str
+                    ntp_server3:
+                        description:
+                            - NTP server 3.
+                        type: str
+                    ntp_service:
+                        description:
+                            - Options for assigning Network Time Protocol (NTP) servers to DHCP clients.
+                        type: str
+                        choices:
+                            - 'local'
+                            - 'default'
+                            - 'specify'
+                    options:
+                        description:
+                            - DHCP options.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            code:
+                                description:
+                                    - DHCP option code.
+                                type: int
+                            id:
+                                description:
+                                    - ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            ip:
+                                description:
+                                    - DHCP option IPs.
+                                type: list
+                                elements: str
+                            type:
+                                description:
+                                    - DHCP option type.
+                                type: str
+                                choices:
+                                    - 'hex'
+                                    - 'string'
+                                    - 'ip'
+                                    - 'fqdn'
+                            value:
+                                description:
+                                    - DHCP option value.
+                                type: str
+                    status:
+                        description:
+                            - Enable/disable this DHCP configuration.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    switch_id:
+                        description:
+                            - Switch ID. Source switch-controller.managed-switch.switch-id.
+                        type: str
+            system_interface:
+                description:
+                    - Configure system interface on FortiSwitch.
+                type: list
+                elements: dict
+                suboptions:
+                    allowaccess:
+                        description:
+                            - Permitted types of management access to this interface.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'ping'
+                            - 'https'
+                            - 'http'
+                            - 'ssh'
+                            - 'snmp'
+                            - 'telnet'
+                            - 'radius-acct'
+                    interface:
+                        description:
+                            - Interface name. Source switch-controller.managed-switch.ports.port-name.
+                        type: str
+                    ip:
+                        description:
+                            - IP and mask for this interface.
+                        type: str
+                    mode:
+                        description:
+                            - Interface addressing mode.
+                        type: str
+                        choices:
+                            - 'static'
+                            - 'dhcp'
+                    name:
+                        description:
+                            - Interface name.
+                        required: true
+                        type: str
+                    status:
+                        description:
+                            - Enable/disable interface status.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    switch_id:
+                        description:
+                            - Switch ID. Source switch-controller.managed-switch.switch-id.
+                        type: str
+                    type:
+                        description:
+                            - Interface type.
+                        type: str
+                        choices:
+                            - 'vlan'
+                            - 'physical'
+                    vlan:
+                        description:
+                            - VLAN name. Source system.interface.name.
+                        type: str
+                    vrf:
+                        description:
+                            - VRF for this route. Source switch-controller.managed-switch.router-vrf.name.
+                        type: str
             tdr_supported:
                 description:
                     - TDR supported.
@@ -2048,16 +2327,34 @@ EXAMPLES = """
               -
                   router_ip: "<your_own_value>"
                   vlan_name: "<your_own_value> (source system.interface.name)"
+          router_static:
+              -
+                  blackhole: "disable"
+                  comment: "Comment."
+                  device: "<your_own_value> (source switch-controller.managed-switch.system-interface.name)"
+                  distance: "10"
+                  dst: "<your_own_value>"
+                  dynamic_gateway: "disable"
+                  gateway: "<your_own_value>"
+                  id: "224"
+                  status: "disable"
+                  switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
+                  vrf: "<your_own_value> (source switch-controller.managed-switch.router-vrf.name)"
+          router_vrf:
+              -
+                  name: "default_name_229"
+                  switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
+                  vrfid: "0"
           sn: "<your_own_value>"
           snmp_community:
               -
                   events: "cpu-high"
                   hosts:
                       -
-                          id: "220"
+                          id: "236"
                           ip: "<your_own_value>"
-                  id: "222"
-                  name: "default_name_223"
+                  id: "238"
+                  name: "default_name_239"
                   query_v1_port: "161"
                   query_v1_status: "disable"
                   query_v2c_port: "161"
@@ -2083,7 +2380,7 @@ EXAMPLES = """
               -
                   auth_proto: "md5"
                   auth_pwd: "<your_own_value>"
-                  name: "default_name_248"
+                  name: "default_name_264"
                   priv_proto: "aes128"
                   priv_pwd: "<your_own_value>"
                   queries: "disable"
@@ -2093,20 +2390,21 @@ EXAMPLES = """
           static_mac:
               -
                   description: "<your_own_value>"
-                  id: "257"
+                  id: "273"
                   interface: "<your_own_value>"
                   mac: "<your_own_value>"
                   type: "static"
                   vlan: "<your_own_value> (source system.interface.name)"
           storm_control:
               broadcast: "enable"
+              burst_size_level: "0"
               local_override: "enable"
               rate: "500"
               unknown_multicast: "enable"
               unknown_unicast: "enable"
           stp_instance:
               -
-                  id: "269"
+                  id: "286"
                   priority: "0"
           stp_settings:
               forward_time: "15"
@@ -2114,7 +2412,7 @@ EXAMPLES = """
               local_override: "enable"
               max_age: "20"
               max_hops: "20"
-              name: "default_name_277"
+              name: "default_name_294"
               pending_timer: "4"
               revision: "0"
               status: "enable"
@@ -2128,6 +2426,47 @@ EXAMPLES = """
           switch_profile: "<your_own_value> (source switch-controller.switch-profile.name)"
           switch_stp_settings:
               status: "enable"
+          system_dhcp_server:
+              -
+                  default_gateway: "<your_own_value>"
+                  dns_server1: "<your_own_value>"
+                  dns_server2: "<your_own_value>"
+                  dns_server3: "<your_own_value>"
+                  dns_service: "local"
+                  id: "314"
+                  interface: "<your_own_value> (source switch-controller.managed-switch.system-interface.name)"
+                  ip_range:
+                      -
+                          end_ip: "<your_own_value>"
+                          id: "318"
+                          start_ip: "<your_own_value>"
+                  lease_time: "604800"
+                  netmask: "<your_own_value>"
+                  ntp_server1: "<your_own_value>"
+                  ntp_server2: "<your_own_value>"
+                  ntp_server3: "<your_own_value>"
+                  ntp_service: "local"
+                  options:
+                      -
+                          code: "0"
+                          id: "328"
+                          ip: "<your_own_value>"
+                          type: "hex"
+                          value: "<your_own_value>"
+                  status: "disable"
+                  switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
+          system_interface:
+              -
+                  allowaccess: "ping"
+                  interface: "<your_own_value> (source switch-controller.managed-switch.ports.port-name)"
+                  ip: "<your_own_value>"
+                  mode: "static"
+                  name: "default_name_339"
+                  status: "disable"
+                  switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
+                  type: "vlan"
+                  vlan: "<your_own_value> (source system.interface.name)"
+                  vrf: "<your_own_value> (source switch-controller.managed-switch.router-vrf.name)"
           tdr_supported: "<your_own_value>"
           type: "virtual"
           version: "0"
@@ -2277,6 +2616,8 @@ def filter_switch_controller_managed_switch_data(json):
         "route_offload",
         "route_offload_mclag",
         "route_offload_router",
+        "router_static",
+        "router_vrf",
         "sn",
         "snmp_community",
         "snmp_sysinfo",
@@ -2293,6 +2634,8 @@ def filter_switch_controller_managed_switch_data(json):
         "switch_log",
         "switch_profile",
         "switch_stp_settings",
+        "system_dhcp_server",
+        "system_interface",
         "tdr_supported",
         "type",
         "version",
@@ -2332,6 +2675,8 @@ def flatten_single_path(data, path, index):
 def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["snmp_community", "events"],
+        ["system_interface", "allowaccess"],
+        ["system_dhcp_server", "options", "ip"],
     ]
 
     for attr in multilist_attrs:
@@ -3670,6 +4015,7 @@ versioned_schema = {
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "rate": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "burst_size_level": {"v_range": [["v7.6.4", ""]], "type": "integer"},
                 "unknown_unicast": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -3828,6 +4174,191 @@ versioned_schema = {
                     "v_range": [["v7.0.2", ""]],
                 },
             },
+        },
+        "router_vrf": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "switch_id": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "vrfid": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "system_interface": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "switch_id": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "mode": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "static"}, {"value": "dhcp"}],
+                },
+                "ip": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "status": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "allowaccess": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "ping"},
+                        {"value": "https"},
+                        {"value": "http"},
+                        {"value": "ssh"},
+                        {"value": "snmp"},
+                        {"value": "telnet"},
+                        {"value": "radius-acct"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "vlan": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "type": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "vlan"}, {"value": "physical"}],
+                },
+                "interface": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "vrf": {"v_range": [["v7.6.4", ""]], "type": "string"},
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "router_static": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "switch_id": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "blackhole": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "comment": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "device": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "distance": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+                "dst": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "dynamic_gateway": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "gateway": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "status": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "vrf": {"v_range": [["v7.6.4", ""]], "type": "string"},
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "system_dhcp_server": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "switch_id": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "status": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "lease_time": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+                "dns_service": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "local"},
+                        {"value": "default"},
+                        {"value": "specify"},
+                    ],
+                },
+                "dns_server1": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "dns_server2": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "dns_server3": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "ntp_service": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "local"},
+                        {"value": "default"},
+                        {"value": "specify"},
+                    ],
+                },
+                "ntp_server1": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "ntp_server2": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "ntp_server3": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "default_gateway": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "netmask": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "interface": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "ip_range": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "start_ip": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                        "end_ip": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                    },
+                    "v_range": [["v7.6.4", ""]],
+                },
+                "options": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "code": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+                        "type": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "hex"},
+                                {"value": "string"},
+                                {"value": "ip"},
+                                {"value": "fqdn"},
+                            ],
+                        },
+                        "value": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                        "ip": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "list",
+                            "multiple_values": True,
+                            "elements": "str",
+                        },
+                    },
+                    "v_range": [["v7.6.4", ""]],
+                },
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "name": {"v_range": [["v6.0.0", "v7.2.4"]], "type": "string"},
         "directly_connected": {

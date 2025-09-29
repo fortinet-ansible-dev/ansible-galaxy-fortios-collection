@@ -338,6 +338,13 @@ options:
                 description:
                     - Source IPv6 address used to communicate with FortiGuard.
                 type: str
+            subscribe_update_notification:
+                description:
+                    - Enable/disable subscription to receive update notification from FortiGuard.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             update_build_proxy:
                 description:
                     - Enable/disable proxy dictionary rebuild.
@@ -483,6 +490,7 @@ EXAMPLES = """
           service_account_id: "<your_own_value>"
           source_ip: "84.230.14.43"
           source_ip6: "<your_own_value>"
+          subscribe_update_notification: "enable"
           update_build_proxy: "enable"
           update_dldb: "enable"
           update_extdb: "enable"
@@ -642,6 +650,7 @@ def filter_system_fortiguard_data(json):
         "service_account_id",
         "source_ip",
         "source_ip6",
+        "subscribe_update_notification",
         "update_build_proxy",
         "update_dldb",
         "update_extdb",
@@ -967,6 +976,11 @@ versioned_schema = {
             "type": "integer",
         },
         "FDS_license_expiring_days": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "subscribe_update_notification": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "antispam_force_off": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

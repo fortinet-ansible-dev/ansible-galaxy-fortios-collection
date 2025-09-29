@@ -651,7 +651,10 @@ class FortiOSHandler(object):
             if vdom == "global":
                 url += "?global=1"
             else:
-                url += "?vdom=" + vdom
+                if vdom == "":
+                    url += "?vdom=root"
+                else:
+                    url += "?vdom=" + vdom
         return url
 
     def mon_url(self, path, name, vdom=None, mkey=None):
@@ -662,7 +665,10 @@ class FortiOSHandler(object):
             if vdom == "global":
                 url += "?global=1"
             else:
-                url += "?vdom=" + vdom
+                if vdom == "":
+                    url += "?vdom=root"
+                else:
+                    url += "?vdom=" + vdom
         return url
 
     def log_url(self, path, name, mkey=None):

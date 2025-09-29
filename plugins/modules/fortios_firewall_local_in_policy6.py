@@ -150,6 +150,17 @@ options:
                             - Custom Internet Service6 group name. Source firewall.internet-service-custom-group.name.
                         required: true
                         type: str
+            internet_service6_src_fortiguard:
+                description:
+                    - FortiGuard IPv6 Internet Service source name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
+                        required: true
+                        type: str
             internet_service6_src_group:
                 description:
                     - Internet Service6 source group name.
@@ -287,27 +298,30 @@ EXAMPLES = """
           internet_service6_src_custom_group:
               -
                   name: "default_name_12 (source firewall.internet-service-custom-group.name)"
+          internet_service6_src_fortiguard:
+              -
+                  name: "default_name_14 (source firewall.internet-service-fortiguard.name)"
           internet_service6_src_group:
               -
-                  name: "default_name_14 (source firewall.internet-service-group.name)"
+                  name: "default_name_16 (source firewall.internet-service-group.name)"
           internet_service6_src_name:
               -
-                  name: "default_name_16 (source firewall.internet-service-name.name)"
+                  name: "default_name_18 (source firewall.internet-service-name.name)"
           internet_service6_src_negate: "enable"
           intf: "<your_own_value> (source system.zone.name system.interface.name)"
           intf_dict:
               -
-                  name: "default_name_20 (source system.zone.name system.sdwan.zone.name system.interface.name)"
+                  name: "default_name_22 (source system.zone.name system.sdwan.zone.name system.interface.name)"
           logtraffic: "enable"
           policyid: "<you_own_value>"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           service:
               -
-                  name: "default_name_25 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_27 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           srcaddr:
               -
-                  name: "default_name_28 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_30 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           srcaddr_negate: "enable"
           status: "enable"
           uuid: "<your_own_value>"
@@ -414,6 +428,7 @@ def filter_firewall_local_in_policy6_data(json):
         "internet_service6_src",
         "internet_service6_src_custom",
         "internet_service6_src_custom_group",
+        "internet_service6_src_fortiguard",
         "internet_service6_src_group",
         "internet_service6_src_name",
         "internet_service6_src_negate",
@@ -724,6 +739,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.4", ""]],
+        },
+        "internet_service6_src_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "dstaddr_negate": {
             "v_range": [["v7.0.0", ""]],

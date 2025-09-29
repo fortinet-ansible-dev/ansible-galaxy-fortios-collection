@@ -176,6 +176,10 @@ options:
                         choices:
                             - 'md5'
                             - 'sha'
+                            - 'sha224'
+                            - 'sha256'
+                            - 'sha384'
+                            - 'sha512'
                     auth_pwd:
                         description:
                             - Password for authentication protocol.
@@ -657,7 +661,14 @@ versioned_schema = {
                 "auth_proto": {
                     "v_range": [["v6.2.0", ""]],
                     "type": "string",
-                    "options": [{"value": "md5"}, {"value": "sha"}],
+                    "options": [
+                        {"value": "md5"},
+                        {"value": "sha"},
+                        {"value": "sha224", "v_range": [["v7.6.3", ""]]},
+                        {"value": "sha256", "v_range": [["v7.6.3", ""]]},
+                        {"value": "sha384", "v_range": [["v7.6.3", ""]]},
+                        {"value": "sha512", "v_range": [["v7.6.3", ""]]},
+                    ],
                 },
                 "auth_pwd": {"v_range": [["v6.2.0", ""]], "type": "string"},
                 "priv_proto": {

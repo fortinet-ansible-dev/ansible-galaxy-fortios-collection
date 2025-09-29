@@ -101,6 +101,13 @@ options:
                 description:
                     - Server URL to receive SCIM create, read, update, delete (CRUD) requests.
                 type: str
+            cascade:
+                description:
+                    - Enable/disable to follow SCIM users/groups changes in IDP.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             certificate:
                 description:
                     - Certificate for client verification during TLS handshake. Source vpn.certificate.ca.name vpn.certificate.remote.name certificate.ca.name
@@ -159,12 +166,13 @@ EXAMPLES = """
       user_scim:
           auth_method: "token"
           base_url: "<your_own_value>"
+          cascade: "disable"
           certificate: "<your_own_value> (source vpn.certificate.ca.name vpn.certificate.remote.name certificate.ca.name certificate.remote.name)"
           client_authentication_method: "token"
           client_identity_check: "enable"
           client_secret_token: "<your_own_value>"
-          id: "9"
-          name: "default_name_10"
+          id: "10"
+          name: "default_name_11"
           secret: "<your_own_value>"
           status: "enable"
           token_certificate: "<your_own_value> (source vpn.certificate.remote.name vpn.certificate.local.name)"
@@ -265,6 +273,7 @@ def filter_user_scim_data(json):
     option_list = [
         "auth_method",
         "base_url",
+        "cascade",
         "certificate",
         "client_authentication_method",
         "client_identity_check",
@@ -463,6 +472,11 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cascade": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "client_authentication_method": {
             "v_range": [["v7.6.0", "v7.6.0"]],

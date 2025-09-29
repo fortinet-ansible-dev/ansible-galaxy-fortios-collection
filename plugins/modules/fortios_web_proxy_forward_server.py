@@ -504,6 +504,11 @@ versioned_schema = {
         "interface": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "masquerade": {
+            "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "healthcheck": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -517,11 +522,6 @@ versioned_schema = {
         },
         "username": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "password": {"v_range": [["v6.4.0", ""]], "type": "string"},
-        "masquerade": {
-            "v_range": [["v7.4.2", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
     },
     "v_range": [["v6.0.0", ""]],
 }

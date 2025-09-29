@@ -265,6 +265,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            https_sub_category:
+                description:
+                    - Enable/disable HTTPS sub-category policy matching.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             icap_profile:
                 description:
                     - Name of an existing ICAP profile. Source icap.profile.name.
@@ -296,6 +303,17 @@ options:
                     name:
                         description:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                        required: true
+                        type: str
+            internet_service_fortiguard:
+                description:
+                    - FortiGuard Internet Service name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
                         required: true
                         type: str
             internet_service_group:
@@ -365,6 +383,17 @@ options:
                     name:
                         description:
                             - Custom Internet Service IPv6 group name. Source firewall.internet-service-custom-group.name.
+                        required: true
+                        type: str
+            internet_service6_fortiguard:
+                description:
+                    - FortiGuard Internet Service IPv6 name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service IPv6 name. Source firewall.internet-service-fortiguard.name.
                         required: true
                         type: str
             internet_service6_group:
@@ -599,6 +628,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            telemetry_profile:
+                description:
+                    - Name of an existing telemetry profile. Source telemetry-controller.profile.name.
+                type: str
             transparent:
                 description:
                     - Enable to use the IP address of the client to connect to the server.
@@ -766,37 +799,44 @@ EXAMPLES = """
               -
                   name: "default_name_33 (source user.group.name)"
           http_tunnel_auth: "enable"
+          https_sub_category: "enable"
           icap_profile: "<your_own_value> (source icap.profile.name)"
           internet_service: "enable"
           internet_service_custom:
               -
-                  name: "default_name_38 (source firewall.internet-service-custom.name)"
+                  name: "default_name_39 (source firewall.internet-service-custom.name)"
           internet_service_custom_group:
               -
-                  name: "default_name_40 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_41 (source firewall.internet-service-custom-group.name)"
+          internet_service_fortiguard:
+              -
+                  name: "default_name_43 (source firewall.internet-service-fortiguard.name)"
           internet_service_group:
               -
-                  name: "default_name_42 (source firewall.internet-service-group.name)"
+                  name: "default_name_45 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "44 (source firewall.internet-service.id)"
+                  id: "47 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_46 (source firewall.internet-service-name.name)"
+                  name: "default_name_49 (source firewall.internet-service-name.name)"
           internet_service_negate: "enable"
           internet_service6: "enable"
           internet_service6_custom:
               -
-                  name: "default_name_50 (source firewall.internet-service-custom.name)"
+                  name: "default_name_53 (source firewall.internet-service-custom.name)"
           internet_service6_custom_group:
               -
-                  name: "default_name_52 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_55 (source firewall.internet-service-custom-group.name)"
+          internet_service6_fortiguard:
+              -
+                  name: "default_name_57 (source firewall.internet-service-fortiguard.name)"
           internet_service6_group:
               -
-                  name: "default_name_54 (source firewall.internet-service-group.name)"
+                  name: "default_name_59 (source firewall.internet-service-group.name)"
           internet_service6_name:
               -
-                  name: "default_name_56 (source firewall.internet-service-name.name)"
+                  name: "default_name_61 (source firewall.internet-service-name.name)"
           internet_service6_negate: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
@@ -806,11 +846,11 @@ EXAMPLES = """
           logtraffic: "all"
           logtraffic_start: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_66"
+          name: "default_name_71"
           policyid: "<you_own_value>"
           poolname:
               -
-                  name: "default_name_69 (source firewall.ippool.name)"
+                  name: "default_name_74 (source firewall.ippool.name)"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           profile_type: "single"
@@ -822,32 +862,33 @@ EXAMPLES = """
           sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
           service:
               -
-                  name: "default_name_80 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_85 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "0"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           srcaddr:
               -
-                  name: "default_name_85 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
+                  name: "default_name_90 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name system
                     .external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_88 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_93 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           srcintf:
               -
-                  name: "default_name_90 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_95 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
+          telemetry_profile: "<your_own_value> (source telemetry-controller.profile.name)"
           transparent: "enable"
           url_risk:
               -
-                  name: "default_name_97 (source webfilter.ftgd-risk-level.name)"
+                  name: "default_name_103 (source webfilter.ftgd-risk-level.name)"
           users:
               -
-                  name: "default_name_99 (source user.local.name user.certificate.name)"
+                  name: "default_name_105 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -861,11 +902,11 @@ EXAMPLES = """
           webproxy_profile: "<your_own_value> (source web-proxy.profile.name)"
           ztna_ems_tag:
               -
-                  name: "default_name_112 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_118 (source firewall.address.name firewall.addrgrp.name)"
           ztna_ems_tag_negate: "enable"
           ztna_proxy:
               -
-                  name: "default_name_115 (source ztna.traffic-forward-proxy.name ztna.web-proxy.name ztna.web-portal.name)"
+                  name: "default_name_121 (source ztna.traffic-forward-proxy.name ztna.web-proxy.name ztna.web-portal.name)"
           ztna_tags_match_logic: "or"
 """
 
@@ -988,10 +1029,12 @@ def filter_firewall_proxy_policy_data(json):
         "global_label",
         "groups",
         "http_tunnel_auth",
+        "https_sub_category",
         "icap_profile",
         "internet_service",
         "internet_service_custom",
         "internet_service_custom_group",
+        "internet_service_fortiguard",
         "internet_service_group",
         "internet_service_id",
         "internet_service_name",
@@ -999,6 +1042,7 @@ def filter_firewall_proxy_policy_data(json):
         "internet_service6",
         "internet_service6_custom",
         "internet_service6_custom_group",
+        "internet_service6_fortiguard",
         "internet_service6_group",
         "internet_service6_name",
         "internet_service6_negate",
@@ -1034,6 +1078,7 @@ def filter_firewall_proxy_policy_data(json):
         "ssh_policy_redirect",
         "ssl_ssh_profile",
         "status",
+        "telemetry_profile",
         "transparent",
         "url_risk",
         "users",
@@ -1428,6 +1473,18 @@ versioned_schema = {
             },
             "v_range": [["v6.2.0", ""]],
         },
+        "internet_service_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
         "internet_service6": {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
@@ -1485,6 +1542,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.2.4", ""]],
+        },
+        "internet_service6_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "service": {
             "type": "list",
@@ -1660,6 +1729,7 @@ versioned_schema = {
         "waf_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ssh_filter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "telemetry_profile": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "replacemsg_override_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "logtraffic_start": {
             "v_range": [["v6.0.0", ""]],
@@ -1678,6 +1748,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "redirect_url": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "https_sub_category": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "decrypted_traffic_mirror": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "detect_https_in_http_request": {
             "v_range": [["v7.4.1", ""]],

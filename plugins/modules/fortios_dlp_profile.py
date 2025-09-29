@@ -115,6 +115,14 @@ options:
                 choices:
                     - 'flow'
                     - 'proxy'
+            fortidata_error_action:
+                description:
+                    - Action to take if FortiData query fails.
+                type: str
+                choices:
+                    - 'log-only'
+                    - 'block'
+                    - 'ignore'
             full_archive_proto:
                 description:
                     - Protocols to always content archive.
@@ -187,10 +195,11 @@ options:
                         type: str
                         choices:
                             - 'sensor'
-                            - 'mip'
+                            - 'label'
                             - 'fingerprint'
                             - 'encrypted'
                             - 'none'
+                            - 'mip'
                     id:
                         description:
                             - ID. see <a href='#notes'>Notes</a>.
@@ -198,7 +207,7 @@ options:
                         type: int
                     label:
                         description:
-                            - MIP label dictionary. Source dlp.dictionary.name.
+                            - Select DLP label. Source dlp.label.name.
                         type: str
                     match_percentage:
                         description:
@@ -292,9 +301,10 @@ EXAMPLES = """
           dlp_log: "enable"
           extended_log: "enable"
           feature_set: "flow"
+          fortidata_error_action: "log-only"
           full_archive_proto: "smtp"
           nac_quar_log: "enable"
-          name: "default_name_9"
+          name: "default_name_10"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           rule:
               -
@@ -304,17 +314,17 @@ EXAMPLES = """
                   file_size: "0"
                   file_type: "0"
                   filter_by: "sensor"
-                  id: "18"
-                  label: "<your_own_value> (source dlp.dictionary.name)"
+                  id: "19"
+                  label: "<your_own_value> (source dlp.label.name)"
                   match_percentage: "10"
-                  name: "default_name_21"
+                  name: "default_name_22"
                   proto: "smtp"
                   sensitivity:
                       -
-                          name: "default_name_24 (source dlp.sensitivity.name)"
+                          name: "default_name_25 (source dlp.sensitivity.name)"
                   sensor:
                       -
-                          name: "default_name_26 (source dlp.sensor.name)"
+                          name: "default_name_27 (source dlp.sensor.name)"
                   severity: "info"
                   type: "file"
           summary_proto: "smtp"
@@ -417,6 +427,7 @@ def filter_dlp_profile_data(json):
         "dlp_log",
         "extended_log",
         "feature_set",
+        "fortidata_error_action",
         "full_archive_proto",
         "nac_quar_log",
         "name",
@@ -709,13 +720,14 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "sensor"},
-                        {"value": "mip"},
+                        {"value": "label", "v_range": [["v7.6.3", ""]]},
                         {
                             "value": "fingerprint",
                             "v_range": [["v7.2.0", "v7.4.1"], ["v7.4.3", ""]],
                         },
                         {"value": "encrypted"},
                         {"value": "none"},
+                        {"value": "mip", "v_range": [["v7.2.0", "v7.6.2"]]},
                     ],
                 },
                 "file_size": {"v_range": [["v7.2.0", ""]], "type": "integer"},
@@ -818,6 +830,11 @@ versioned_schema = {
             ],
             "multiple_values": True,
             "elements": "str",
+        },
+        "fortidata_error_action": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "log-only"}, {"value": "block"}, {"value": "ignore"}],
         },
     },
     "v_range": [["v7.2.0", ""]],

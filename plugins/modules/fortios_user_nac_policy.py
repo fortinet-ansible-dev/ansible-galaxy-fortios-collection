@@ -140,6 +140,13 @@ options:
                 description:
                     - Number of days the matched devices will be retained (0 - always retain)
                 type: int
+            match_remove:
+                description:
+                    - Options to remove the matched override devices.
+                type: str
+                choices:
+                    - 'default'
+                    - 'link-down'
             match_type:
                 description:
                     - Match and retain the devices based on the type.
@@ -260,8 +267,9 @@ EXAMPLES = """
           hw_version: "<your_own_value>"
           mac: "<your_own_value>"
           match_period: "0"
+          match_remove: "default"
           match_type: "dynamic"
-          name: "default_name_15"
+          name: "default_name_16"
           os: "<your_own_value>"
           severity:
               -
@@ -274,7 +282,7 @@ EXAMPLES = """
           switch_fortilink: "<your_own_value> (source system.interface.name)"
           switch_group:
               -
-                  name: "default_name_26 (source switch-controller.switch-group.name)"
+                  name: "default_name_27 (source switch-controller.switch-group.name)"
           switch_mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
           switch_port_policy: "<your_own_value> (source switch-controller.port-policy.name)"
           switch_scope:
@@ -389,6 +397,7 @@ def filter_user_nac_policy_data(json):
         "hw_version",
         "mac",
         "match_period",
+        "match_remove",
         "match_type",
         "name",
         "os",
@@ -599,6 +608,11 @@ versioned_schema = {
             "options": [{"value": "dynamic"}, {"value": "override"}],
         },
         "match_period": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+        "match_remove": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "default"}, {"value": "link-down"}],
+        },
         "mac": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "hw_vendor": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "type": {"v_range": [["v6.4.0", ""]], "type": "string"},

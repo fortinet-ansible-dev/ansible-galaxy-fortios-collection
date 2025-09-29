@@ -96,6 +96,13 @@ options:
                 description:
                     - IAID of obtained delegated-prefix from the upstream interface.
                 type: int
+            delegated_prefix_route:
+                description:
+                    - Enable/disable automatically adding of routing for delegated prefix.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             dns_search_list:
                 description:
                     - DNS search list options.
@@ -313,6 +320,7 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       system_dhcp6_server:
           delegated_prefix_iaid: "0"
+          delegated_prefix_route: "disable"
           dns_search_list: "delegated"
           dns_server1: "<your_own_value>"
           dns_server2: "<your_own_value>"
@@ -320,13 +328,13 @@ EXAMPLES = """
           dns_server4: "<your_own_value>"
           dns_service: "delegated"
           domain: "<your_own_value>"
-          id: "11"
+          id: "12"
           interface: "<your_own_value> (source system.interface.name)"
           ip_mode: "range"
           ip_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "16"
+                  id: "17"
                   start_ip: "<your_own_value>"
                   vci_match: "disable"
                   vci_string:
@@ -339,7 +347,7 @@ EXAMPLES = """
           options:
               -
                   code: "0"
-                  id: "27"
+                  id: "28"
                   ip6: "<your_own_value>"
                   type: "hex"
                   value: "<your_own_value>"
@@ -351,7 +359,7 @@ EXAMPLES = """
           prefix_range:
               -
                   end_prefix: "<your_own_value>"
-                  id: "37"
+                  id: "38"
                   prefix_length: "0"
                   start_prefix: "<your_own_value>"
           rapid_commit: "disable"
@@ -454,6 +462,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_system_dhcp6_server_data(json):
     option_list = [
         "delegated_prefix_iaid",
+        "delegated_prefix_route",
         "dns_search_list",
         "dns_server1",
         "dns_server2",
@@ -712,6 +721,11 @@ versioned_schema = {
         "domain": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "subnet": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "delegated_prefix_route": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "options": {
             "type": "list",
             "elements": "dict",

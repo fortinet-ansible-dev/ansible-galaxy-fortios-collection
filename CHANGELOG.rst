@@ -4,6 +4,26 @@ Fortinet.Fortios Release Notes
 
 .. contents:: Topics
 
+v2.4.1
+======
+
+Release Summary
+---------------
+
+patch release of 2.4.1
+
+Major Changes
+-------------
+
+- Supported new versions 7.6.3 and 7.6.4.
+- Supported the authentication method when using username and password in v7.6.4.
+
+Bugfixes
+--------
+
+- Fix the issue in check_modu when backend returns invallid IP address.
+- Fix the issue in configuration_fact and monitor_fact when omitting vdom or assigning vdom to "".
+
 v2.4.0
 ======
 
@@ -15,7 +35,7 @@ minor release of 2.4.0
 Major Changes
 -------------
 
-- Supported new versions 7.2.11, 7.6.1 and 7.6.2.
+- Supported new versions 7.6.1 and 7.6.2.
 - Updated the examples with correct values that have minimum or maximum values.
 
 Bugfixes

@@ -184,6 +184,14 @@ options:
                     - 'auto'
                     - 'sdwan'
                     - 'specify'
+            session_cache_size:
+                description:
+                    - Maximum RAM usage allowed for Netflow session cache.
+                type: str
+                choices:
+                    - 'min'
+                    - 'default'
+                    - 'max'
             source_ip:
                 description:
                     - Source IP address for communication with the NetFlow agent.
@@ -227,6 +235,7 @@ EXAMPLES = """
           inactive_flow_timeout: "15"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
+          session_cache_size: "min"
           source_ip: "84.230.14.43"
           template_tx_counter: "20"
           template_tx_timeout: "1800"
@@ -333,6 +342,7 @@ def filter_system_netflow_data(json):
         "inactive_flow_timeout",
         "interface",
         "interface_select_method",
+        "session_cache_size",
         "source_ip",
         "template_tx_counter",
         "template_tx_timeout",
@@ -503,6 +513,11 @@ versioned_schema = {
         "inactive_flow_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "template_tx_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "template_tx_counter": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "session_cache_size": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "min"}, {"value": "default"}, {"value": "max"}],
+        },
         "exclusion_filters": {
             "type": "list",
             "elements": "dict",

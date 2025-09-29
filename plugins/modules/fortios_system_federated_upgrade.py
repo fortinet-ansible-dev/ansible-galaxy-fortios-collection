@@ -108,6 +108,7 @@ options:
                     - 'csf-tree-not-supported'
                     - 'firmware-changed'
                     - 'node-failed'
+                    - 'image-missing'
             ha_reboot_controller:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
@@ -144,6 +145,13 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    allow_download:
+                        description:
+                            - Enable/disable download firmware images.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     coordinating_fortigate:
                         description:
                             - Serial number of the FortiGate unit that controls this device.
@@ -157,6 +165,29 @@ options:
                             - 'fortiswitch'
                             - 'fortiap'
                             - 'fortiextender'
+                    failure_reason:
+                        description:
+                            - Upgrade failure reason.
+                        type: str
+                        choices:
+                            - 'none'
+                            - 'internal'
+                            - 'timeout'
+                            - 'device-type-unsupported'
+                            - 'download-failed'
+                            - 'device-missing'
+                            - 'version-unavailable'
+                            - 'staging-failed'
+                            - 'reboot-failed'
+                            - 'device-not-reconnected'
+                            - 'node-not-ready'
+                            - 'no-final-confirmation'
+                            - 'no-confirmation-query'
+                            - 'config-error-log-nonempty'
+                            - 'csf-tree-not-supported'
+                            - 'firmware-changed'
+                            - 'node-failed'
+                            - 'image-missing'
                     maximum_minutes:
                         description:
                             - Maximum number of minutes to allow for immediate upgrade preparation.
@@ -192,6 +223,7 @@ options:
                 choices:
                     - 'user'
                     - 'auto-firmware-upgrade'
+                    - 'forced-upgrade'
             starter_admin:
                 description:
                     - Admin that started the upgrade.
@@ -238,8 +270,10 @@ EXAMPLES = """
           next_path_index: "0"
           node_list:
               -
+                  allow_download: "enable"
                   coordinating_fortigate: "<your_own_value>"
                   device_type: "fortigate"
+                  failure_reason: "none"
                   maximum_minutes: "15"
                   serial: "<your_own_value>"
                   setup_time: "<your_own_value>"
@@ -546,7 +580,11 @@ versioned_schema = {
         "source": {
             "v_range": [["v7.6.0", ""]],
             "type": "string",
-            "options": [{"value": "user"}, {"value": "auto-firmware-upgrade"}],
+            "options": [
+                {"value": "user"},
+                {"value": "auto-firmware-upgrade"},
+                {"value": "forced-upgrade", "v_range": [["v7.6.4", ""]]},
+            ],
         },
         "failure_reason": {
             "v_range": [["v7.0.2", ""]],
@@ -569,6 +607,7 @@ versioned_schema = {
                 {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
                 {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
                 {"value": "node-failed", "v_range": [["v7.2.4", ""]]},
+                {"value": "image-missing", "v_range": [["v7.6.4", ""]]},
             ],
         },
         "failure_device": {"v_range": [["v7.0.2", ""]], "type": "string"},
@@ -622,9 +661,38 @@ versioned_schema = {
                         {"value": "fortiextender", "v_range": [["v7.2.1", ""]]},
                     ],
                 },
+                "allow_download": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "coordinating_fortigate": {
                     "v_range": [["v7.0.0", ""]],
                     "type": "string",
+                },
+                "failure_reason": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "none"},
+                        {"value": "internal"},
+                        {"value": "timeout"},
+                        {"value": "device-type-unsupported"},
+                        {"value": "download-failed"},
+                        {"value": "device-missing"},
+                        {"value": "version-unavailable"},
+                        {"value": "staging-failed"},
+                        {"value": "reboot-failed"},
+                        {"value": "device-not-reconnected"},
+                        {"value": "node-not-ready"},
+                        {"value": "no-final-confirmation"},
+                        {"value": "no-confirmation-query"},
+                        {"value": "config-error-log-nonempty"},
+                        {"value": "csf-tree-not-supported"},
+                        {"value": "firmware-changed"},
+                        {"value": "node-failed"},
+                        {"value": "image-missing", "v_range": [["v7.6.4", ""]]},
+                    ],
                 },
             },
             "v_range": [["v7.0.0", ""]],

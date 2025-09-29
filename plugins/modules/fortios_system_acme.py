@@ -92,6 +92,14 @@ options:
                         description:
                             - Account ca_url.
                         type: str
+                    eab_key_hmac:
+                        description:
+                            - External Acccount Binding Key HMAC.
+                        type: str
+                    eab_key_id:
+                        description:
+                            - External Acccount Binding Key ID.
+                        type: str
                     email:
                         description:
                             - Account email.
@@ -149,8 +157,10 @@ EXAMPLES = """
           accounts:
               -
                   ca_url: "<your_own_value>"
+                  eab_key_hmac: "<your_own_value>"
+                  eab_key_id: "<your_own_value>"
                   email: "<your_own_value>"
-                  id: "6"
+                  id: "8"
                   privatekey: "<your_own_value>"
                   status: "<your_own_value>"
                   url: "myurl.com"
@@ -445,6 +455,8 @@ versioned_schema = {
                 "url": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "ca_url": {"v_range": [["v7.0.0", ""]], "type": "string"},
                 "email": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "eab_key_id": {"v_range": [["v7.6.3", ""]], "type": "string"},
+                "eab_key_hmac": {"v_range": [["v7.6.3", ""]], "type": "string"},
                 "privatekey": {"v_range": [["v7.0.0", ""]], "type": "string"},
             },
             "v_range": [["v7.0.0", ""]],

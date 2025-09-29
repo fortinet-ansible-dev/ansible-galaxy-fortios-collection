@@ -137,7 +137,7 @@ options:
                     - 'disable'
             scan_on_creation:
                 description:
-                    - Enable to keep the fingerprint database up to date when a file is added or changed on the server.
+                    - Initiate an immediate update of the fingerprint database after creating this fp-doc-source entry.
                 type: str
                 choices:
                     - 'enable'

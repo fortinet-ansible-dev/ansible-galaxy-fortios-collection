@@ -103,12 +103,13 @@ The collection incluses the following modules:
 * `fortios_authentication_scheme` Configure Authentication Schemes in Fortinet's FortiOS and FortiGate.
 * `fortios_authentication_setting` Configure authentication setting in Fortinet's FortiOS and FortiGate.
 * `fortios_automation_setting` Automation setting configuration in Fortinet's FortiOS and FortiGate.
-* `fortios_casb_attribute_match` Configure CASB SaaS application in Fortinet's FortiOS and FortiGate.
+* `fortios_casb_attribute_match` Configure CASB attribute match rule in Fortinet's FortiOS and FortiGate.
 * `fortios_casb_profile` Configure CASB profile in Fortinet's FortiOS and FortiGate.
 * `fortios_casb_saas_application` Configure CASB SaaS application in Fortinet's FortiOS and FortiGate.
 * `fortios_casb_user_activity` Configure CASB user activity in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_ca` CA certificate in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_crl` Certificate Revocation List as a PEM file in Fortinet's FortiOS and FortiGate.
+* `fortios_certificate_hsm_local` Local certificates whose keys are stored on HSM in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_local` Local keys and certificates in Fortinet's FortiOS and FortiGate.
 * `fortios_certificate_remote` Remote certificate as a PEM file in Fortinet's FortiOS and FortiGate.
 * `fortios_cifs_domain_controller` Define known domain controller servers in Fortinet's FortiOS and FortiGate.
@@ -122,6 +123,7 @@ The collection incluses the following modules:
 * `fortios_dlp_filepattern` Configure file patterns used by DLP blocking in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_fp_doc_source` Create a DLP fingerprint database by allowing the FortiGate to access a file server containing files from which to create fingerprints in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_fp_sensitivity` Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source in Fortinet's FortiOS and FortiGate.
+* `fortios_dlp_label` Configure labels used by DLP blocking in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_profile` Configure DLP profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_sensitivity` Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source in Fortinet's FortiOS and FortiGate.
 * `fortios_dlp_sensor` Configure sensors used by DLP blocking in Fortinet's FortiOS and FortiGate.
@@ -196,6 +198,7 @@ The collection incluses the following modules:
 * `fortios_firewall_internet_service_custom` Configure custom Internet Services in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_internet_service_definition` Configure Internet Service definition in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_internet_service_extension` Configure Internet Services Extension in Fortinet's FortiOS and FortiGate.
+* `fortios_firewall_internet_service_fortiguard` Configure FortiGuard Internet Services in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_internet_service_group` Configure group of Internet Service in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_internet_service_ipbl_reason` IP block list reason in Fortinet's FortiOS and FortiGate.
 * `fortios_firewall_internet_service_ipbl_vendor` IP block list vendor in Fortinet's FortiOS and FortiGate.
@@ -411,6 +414,7 @@ The collection incluses the following modules:
 * `fortios_switch_controller_igmp_snooping` Configure FortiSwitch IGMP snooping global settings in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_initial_config_template` Configure template for auto-generated VLANs in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_initial_config_vlans` Configure initial template for auto-generated VLAN interfaces in Fortinet's FortiOS and FortiGate.
+* `fortios_switch_controller_ip_source_guard_log` Configure FortiSwitch ip source guard log in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_lldp_profile` Configure FortiSwitch LLDP profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_lldp_settings` Configure FortiSwitch LLDP settings in Fortinet's FortiOS and FortiGate.
 * `fortios_switch_controller_location` Configure FortiSwitch location services in Fortinet's FortiOS and FortiGate.
@@ -475,12 +479,14 @@ The collection incluses the following modules:
 * `fortios_system_autoupdate_schedule` Configure update schedule in Fortinet's FortiOS and FortiGate.
 * `fortios_system_autoupdate_tunneling` Configure web proxy tunneling for the FDN in Fortinet's FortiOS and FortiGate.
 * `fortios_system_central_management` Configure central management in Fortinet's FortiOS and FortiGate.
+* `fortios_system_cloud_service` Configure system cloud service in Fortinet's FortiOS and FortiGate.
 * `fortios_system_cluster_sync` Configure FortiGate Session Life Support Protocol (FGSP) session synchronization in Fortinet's FortiOS and FortiGate.
 * `fortios_system_console` Configure console in Fortinet's FortiOS and FortiGate.
 * `fortios_system_csf` Add this FortiGate to a Security Fabric or set up a new Security Fabric on this FortiGate in Fortinet's FortiOS and FortiGate.
 * `fortios_system_custom_language` Configure custom languages in Fortinet's FortiOS and FortiGate.
 * `fortios_system_ddns` Configure DDNS in Fortinet's FortiOS and FortiGate.
 * `fortios_system_dedicated_mgmt` Configure dedicated management in Fortinet's FortiOS and FortiGate.
+* `fortios_system_device_upgrade_exemptions` Configure device upgrade exemptions. Device will stop receiving upgrade notifications on the GUI in Fortinet's FortiOS and FortiGate.
 * `fortios_system_device_upgrade` Independent upgrades for managed devices in Fortinet's FortiOS and FortiGate.
 * `fortios_system_dhcp6_server` Configure DHCPv6 servers in Fortinet's FortiOS and FortiGate.
 * `fortios_system_dhcp_server` Configure DHCP servers in Fortinet's FortiOS and FortiGate.
@@ -497,6 +503,7 @@ The collection incluses the following modules:
 * `fortios_system_fips_cc` Configure FIPS-CC mode in Fortinet's FortiOS and FortiGate.
 * `fortios_system_fm` Configure FM in Fortinet's FortiOS and FortiGate.
 * `fortios_system_fortiai` Configure FortiAI in Fortinet's FortiOS and FortiGate.
+* `fortios_system_fortidata` Configure FortiData in Fortinet's FortiOS and FortiGate.
 * `fortios_system_fortiguard` Configure FortiGuard services in Fortinet's FortiOS and FortiGate.
 * `fortios_system_fortimanager` Configure FortiManager in Fortinet's FortiOS and FortiGate.
 * `fortios_system_fortindr` Configure FortiNDR in Fortinet's FortiOS and FortiGate.
@@ -623,6 +630,11 @@ The collection incluses the following modules:
 * `fortios_system_vxlan` Configure VXLAN devices in Fortinet's FortiOS and FortiGate.
 * `fortios_system_wccp` Configure WCCP in Fortinet's FortiOS and FortiGate.
 * `fortios_system_zone` Configure zones to group two or more interfaces. When a zone is created you can configure policies for the zone instead of individual interfaces in the zone in Fortinet's FortiOS and FortiGate.
+* `fortios_telemetry_controller_agent_profile` Configure FortiTelemetry agent profiles in Fortinet's FortiOS and FortiGate.
+* `fortios_telemetry_controller_agent` Configure FortiTelemetry agents managed by a FortiGate unit in Fortinet's FortiOS and FortiGate.
+* `fortios_telemetry_controller_application_predefine` Configure FortiTelemetry predefined applications in Fortinet's FortiOS and FortiGate.
+* `fortios_telemetry_controller_global` Configure FortiTelemetry global settings in Fortinet's FortiOS and FortiGate.
+* `fortios_telemetry_controller_profile` Configure FortiTelemetry profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_user_adgrp` Configure FSSO groups in Fortinet's FortiOS and FortiGate.
 * `fortios_user_certificate` Configure certificate users in Fortinet's FortiOS and FortiGate.
 * `fortios_user_device_access_list` Configure device access control lists in Fortinet's FortiOS and FortiGate.
@@ -659,6 +671,7 @@ The collection incluses the following modules:
 * `fortios_voip_profile` Configure VoIP profiles in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_ca` CA certificate in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_crl` Certificate Revocation List as a PEM file in Fortinet's FortiOS and FortiGate.
+* `fortios_vpn_certificate_hsm_local` Local certificates whose keys are stored on HSM in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_local` Local keys and certificates in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_ocsp_server` OCSP server configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_certificate_remote` Remote certificate as a PEM file in Fortinet's FortiOS and FortiGate.
@@ -679,12 +692,12 @@ The collection incluses the following modules:
 * `fortios_vpn_pptp` Configure PPTP in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_qkd` Configure Quantum Key Distribution server in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_client` Client in Fortinet's FortiOS and FortiGate.
-* `fortios_vpn_ssl_settings` Configure SSL-VPN in Fortinet's FortiOS and FortiGate.
+* `fortios_vpn_ssl_settings` Configure Agentless VPN in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_web_host_check_software` SSL-VPN host check software in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_web_portal` Portal in Fortinet's FortiOS and FortiGate.
 * `fortios_vpn_ssl_web_realm` Realm in Fortinet's FortiOS and FortiGate.
-* `fortios_vpn_ssl_web_user_bookmark` Configure SSL-VPN user bookmark in Fortinet's FortiOS and FortiGate.
-* `fortios_vpn_ssl_web_user_group_bookmark` Configure SSL-VPN user group bookmark in Fortinet's FortiOS and FortiGate.
+* `fortios_vpn_ssl_web_user_bookmark` Configure Agentless VPN user bookmark in Fortinet's FortiOS and FortiGate.
+* `fortios_vpn_ssl_web_user_group_bookmark` Configure Agentless VPN user group bookmark in Fortinet's FortiOS and FortiGate.
 * `fortios_waf_main_class` Hidden table for datasource in Fortinet's FortiOS and FortiGate.
 * `fortios_waf_profile` Configure Web application firewall configuration in Fortinet's FortiOS and FortiGate.
 * `fortios_waf_signature` Hidden table for datasource in Fortinet's FortiOS and FortiGate.

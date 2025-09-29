@@ -118,6 +118,10 @@ options:
                         choices:
                             - 'block'
                             - 'log'
+                    comment:
+                        description:
+                            - Comment.
+                        type: str
                     dns_address_family:
                         description:
                             - Resolve IPv4 address, IPv6 address, or both from DNS server.
@@ -178,6 +182,13 @@ options:
                     - ID. see <a href='#notes'>Notes</a>.
                 required: true
                 type: int
+            include_subdomains:
+                description:
+                    - Enable/disable matching subdomains. Applies only to simple type .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ip_addr_block:
                 description:
                     - Enable/disable blocking URLs when the hostname appears as an IP address.
@@ -217,18 +228,20 @@ EXAMPLES = """
               -
                   action: "exempt"
                   antiphish_action: "block"
+                  comment: "Comment."
                   dns_address_family: "ipv4"
                   exempt: "av"
-                  id: "9"
+                  id: "10"
                   referrer_host: "myhostname"
                   status: "enable"
                   type: "simple"
                   url: "myurl.com"
                   web_proxy_profile: "<your_own_value> (source web-proxy.profile.name)"
-          id: "15"
+          id: "16"
+          include_subdomains: "enable"
           ip_addr_block: "enable"
           ip4_mapped_ip6: "enable"
-          name: "default_name_18"
+          name: "default_name_20"
           one_arm_ips_urlfilter: "enable"
 """
 
@@ -328,6 +341,7 @@ def filter_webfilter_urlfilter_data(json):
         "comment",
         "entries",
         "id",
+        "include_subdomains",
         "ip_addr_block",
         "ip4_mapped_ip6",
         "name",
@@ -553,6 +567,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "include_subdomains": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "entries": {
             "type": "list",
             "elements": "dict",
@@ -620,6 +639,7 @@ versioned_schema = {
                         {"value": "both"},
                     ],
                 },
+                "comment": {"v_range": [["v7.6.4", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },

@@ -97,6 +97,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            burst_size_level:
+                description:
+                    - Increase level to handle bursty traffic (0 - 4).
+                type: int
             description:
                 description:
                     - Description of the storm control policy.
@@ -142,8 +146,9 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       switch_controller_storm_control_policy:
           broadcast: "enable"
+          burst_size_level: "0"
           description: "<your_own_value>"
-          name: "default_name_5"
+          name: "default_name_6"
           rate: "500"
           storm_control_mode: "global"
           unknown_multicast: "enable"
@@ -244,6 +249,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_switch_controller_storm_control_policy_data(json):
     option_list = [
         "broadcast",
+        "burst_size_level",
         "description",
         "name",
         "rate",
@@ -448,6 +454,7 @@ versioned_schema = {
             ],
         },
         "rate": {"v_range": [["v6.2.0", ""]], "type": "integer"},
+        "burst_size_level": {"v_range": [["v7.6.4", ""]], "type": "integer"},
         "unknown_unicast": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",

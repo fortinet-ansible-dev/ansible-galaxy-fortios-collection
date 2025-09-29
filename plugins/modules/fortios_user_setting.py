@@ -219,6 +219,24 @@ options:
                     - 'https'
                     - 'ftp'
                     - 'telnet'
+            cors:
+                description:
+                    - Enable/disable allowed origins white list for CORS.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            cors_allowed_origins:
+                description:
+                    - Allowed origins white list for CORS.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Allowed origin for CORS.
+                        required: true
+                        type: str
             default_user_password_policy:
                 description:
                     - Default password policy to apply to all local users unless otherwise specified, as defined in config user password-policy. Source user
@@ -268,6 +286,10 @@ EXAMPLES = """
           auth_timeout: "5"
           auth_timeout_type: "idle-timeout"
           auth_type: "http"
+          cors: "disable"
+          cors_allowed_origins:
+              -
+                  name: "default_name_27"
           default_user_password_policy: "<your_own_value> (source user.password-policy.name)"
           per_policy_disclaimer: "enable"
           radius_ses_timeout_act: "hard-timeout"
@@ -385,6 +407,8 @@ def filter_user_setting_data(json):
         "auth_timeout",
         "auth_timeout_type",
         "auth_type",
+        "cors",
+        "cors_allowed_origins",
         "default_user_password_policy",
         "per_policy_disclaimer",
         "radius_ses_timeout_act",
@@ -699,6 +723,23 @@ versioned_schema = {
             "options": [{"value": "no-rsa-pss"}, {"value": "all"}],
         },
         "default_user_password_policy": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "cors": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "cors_allowed_origins": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.3", ""]],
+        },
     },
 }
 

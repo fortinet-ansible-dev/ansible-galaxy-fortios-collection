@@ -168,6 +168,10 @@ options:
                         description:
                             - Underlying interface name. Source system.interface.name.
                         type: str
+                    ipsec_network_id:
+                        description:
+                            - VPN gateway network ID.
+                        type: int
                     ipsec_phase1:
                         description:
                             - IPsec interface. Source vpn.ipsec.phase1-interface.name.
@@ -262,8 +266,9 @@ EXAMPLES = """
                   bgp_neighbor_range: "0"
                   bgp_network: "0"
                   interface: "<your_own_value> (source system.interface.name)"
+                  ipsec_network_id: "0"
                   ipsec_phase1: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
-                  name: "default_name_23"
+                  name: "default_name_24"
                   overlay_policy: "0"
                   overlay_tunnel_block: "<your_own_value>"
                   remote_gw: "<your_own_value>"
@@ -614,6 +619,7 @@ versioned_schema = {
                     "type": "string",
                     "required": True,
                 },
+                "ipsec_network_id": {"v_range": [["v7.6.3", ""]], "type": "integer"},
                 "overlay_tunnel_block": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "remote_gw": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "interface": {"v_range": [["v7.2.4", ""]], "type": "string"},

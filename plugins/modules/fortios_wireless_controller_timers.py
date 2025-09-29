@@ -149,7 +149,7 @@ options:
                 type: int
             drma_interval:
                 description:
-                    - Dynamic radio mode assignment (DRMA) schedule interval in minutes (10 - 1440).
+                    - Dynamic radio mode assignment (DRMA) schedule interval in minutes (1 - 1440).
                 type: int
             echo_interval:
                 description:
@@ -157,7 +157,7 @@ options:
                 type: int
             fake_ap_log:
                 description:
-                    - Time between recording logs about fake APs if periodic fake AP logging is configured (0 - 1440 min).
+                    - Time between recording logs about fake APs if periodic fake AP logging is configured (1 - 1440 min).
                 type: int
             ipsec_intf_cleanup:
                 description:
@@ -194,6 +194,14 @@ options:
             sta_locate_timer:
                 description:
                     - Time between running client presence flushes to remove clients that are listed but no longer present (0 - 86400 sec).
+                type: int
+            sta_offline_cleanup:
+                description:
+                    - Time period in seconds to keep station offline data after it is gone .
+                type: int
+            sta_offline_ip2mac_cleanup:
+                description:
+                    - Time period in seconds to keep station offline Ip2mac data after it is gone .
                 type: int
             sta_stats_interval:
                 description:
@@ -240,6 +248,8 @@ EXAMPLES = """
           sta_cap_cleanup: "0"
           sta_capability_interval: "30"
           sta_locate_timer: "1800"
+          sta_offline_cleanup: "300"
+          sta_offline_ip2mac_cleanup: "300"
           sta_stats_interval: "10"
           vap_stats_interval: "15"
           wids_entry_cleanup: "0"
@@ -362,6 +372,8 @@ def filter_wireless_controller_timers_data(json):
         "sta_cap_cleanup",
         "sta_capability_interval",
         "sta_locate_timer",
+        "sta_offline_cleanup",
+        "sta_offline_ip2mac_cleanup",
         "sta_stats_interval",
         "vap_stats_interval",
         "wids_entry_cleanup",
@@ -540,6 +552,8 @@ versioned_schema = {
         "auth_timeout": {"v_range": [["v7.0.6", ""]], "type": "integer"},
         "rogue_ap_log": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "fake_ap_log": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "sta_offline_cleanup": {"v_range": [["v7.6.3", ""]], "type": "integer"},
+        "sta_offline_ip2mac_cleanup": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "sta_cap_cleanup": {"v_range": [["v7.4.4", ""]], "type": "integer"},
         "rogue_ap_cleanup": {"v_range": [["v7.0.6", ""]], "type": "integer"},
         "rogue_sta_cleanup": {"v_range": [["v7.4.4", ""]], "type": "integer"},

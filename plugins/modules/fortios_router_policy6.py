@@ -144,6 +144,17 @@ options:
                 description:
                     - IPv6 address of the gateway.
                 type: str
+            groups:
+                description:
+                    - List of user groups.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Group name. Source user.group.name.
+                        required: true
+                        type: str
             input_device:
                 description:
                     - Incoming interface name. Source system.interface.name.
@@ -171,6 +182,17 @@ options:
                     name:
                         description:
                             - Custom Destination Internet Service name. Source firewall.internet-service-custom.name.
+                        required: true
+                        type: str
+            internet_service_fortiguard:
+                description:
+                    - FortiGuard Destination Internet Service name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Destination Internet Service name. Source firewall.internet-service-fortiguard.name.
                         required: true
                         type: str
             internet_service_id:
@@ -249,6 +271,17 @@ options:
                 description:
                     - Type of service evaluated bits.
                 type: str
+            users:
+                description:
+                    - List of users.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - User name. Source user.local.name.
+                        required: true
+                        type: str
 """
 
 EXAMPLES = """
@@ -270,16 +303,22 @@ EXAMPLES = """
           end_port: "65535"
           end_source_port: "65535"
           gateway: "<your_own_value>"
+          groups:
+              -
+                  name: "default_name_14 (source user.group.name)"
           input_device:
               -
-                  name: "default_name_14 (source system.interface.name)"
+                  name: "default_name_16 (source system.interface.name)"
           input_device_negate: "enable"
           internet_service_custom:
               -
-                  name: "default_name_17 (source firewall.internet-service-custom.name)"
+                  name: "default_name_19 (source firewall.internet-service-custom.name)"
+          internet_service_fortiguard:
+              -
+                  name: "default_name_21 (source firewall.internet-service-fortiguard.name)"
           internet_service_id:
               -
-                  id: "19 (source firewall.internet-service.id)"
+                  id: "23 (source firewall.internet-service.id)"
           output_device: "<your_own_value> (source system.interface.name system.interface.name)"
           protocol: "0"
           seq_num: "<you_own_value>"
@@ -289,12 +328,15 @@ EXAMPLES = """
           src_negate: "enable"
           srcaddr:
               -
-                  name: "default_name_27 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_31 (source firewall.address6.name firewall.addrgrp6.name)"
           start_port: "1"
           start_source_port: "1"
           status: "enable"
           tos: "<your_own_value>"
           tos_mask: "<your_own_value>"
+          users:
+              -
+                  name: "default_name_38 (source user.local.name)"
 """
 
 RETURN = """
@@ -398,9 +440,11 @@ def filter_router_policy6_data(json):
         "end_port",
         "end_source_port",
         "gateway",
+        "groups",
         "input_device",
         "input_device_negate",
         "internet_service_custom",
+        "internet_service_fortiguard",
         "internet_service_id",
         "output_device",
         "protocol",
@@ -413,6 +457,7 @@ def filter_router_policy6_data(json):
         "status",
         "tos",
         "tos_mask",
+        "users",
     ]
 
     json = remove_invalid_fields(json)
@@ -699,6 +744,42 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.2.1", ""]],
+        },
+        "internet_service_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "users": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.3", ""]],
+        },
+        "groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.3", ""]],
         },
     },
     "v_range": [["v6.0.0", ""]],

@@ -535,11 +535,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "forticlient_download_method": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "string",
-            "options": [{"value": "direct"}, {"value": "ssl-vpn"}],
-        },
         "customize_forticlient_download_url": {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
@@ -552,6 +547,11 @@ versioned_schema = {
         "macos_forticlient_download_url": {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
+        },
+        "forticlient_download_method": {
+            "v_range": [["v7.6.1", "v7.6.3"]],
+            "type": "string",
+            "options": [{"value": "direct"}, {"value": "ssl-vpn"}],
         },
     },
     "v_range": [["v7.6.1", ""]],

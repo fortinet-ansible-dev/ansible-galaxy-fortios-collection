@@ -110,6 +110,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            debug:
+                description:
+                    - Enable/disable debug logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             dhcp:
                 description:
                     - Enable/disable DHCP service messages logging.
@@ -185,6 +192,7 @@ options:
                             - 'file-filter'
                             - 'icap'
                             - 'virtual-patch'
+                            - 'debug'
                             - 'ztna'
                     filter:
                         description:
@@ -388,6 +396,7 @@ EXAMPLES = """
           anomaly: "enable"
           auth: "enable"
           cpu_memory_usage: "enable"
+          debug: "enable"
           dhcp: "enable"
           dns: "enable"
           event: "enable"
@@ -400,7 +409,7 @@ EXAMPLES = """
                   category: "traffic"
                   filter: "<your_own_value>"
                   filter_type: "include"
-                  id: "18"
+                  id: "19"
           gtp: "enable"
           ha: "enable"
           http_transaction: "enable"
@@ -525,6 +534,7 @@ def filter_log_memory_filter_data(json):
         "anomaly",
         "auth",
         "cpu_memory_usage",
+        "debug",
         "dhcp",
         "dns",
         "event",
@@ -785,6 +795,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "debug": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "free_style": {
             "type": "list",
             "elements": "dict",
@@ -816,6 +831,7 @@ versioned_schema = {
                         {"value": "file-filter"},
                         {"value": "icap"},
                         {"value": "virtual-patch", "v_range": [["v7.4.1", ""]]},
+                        {"value": "debug", "v_range": [["v7.6.3", ""]]},
                         {"value": "ztna", "v_range": [["v7.0.1", "v7.0.3"]]},
                     ],
                 },

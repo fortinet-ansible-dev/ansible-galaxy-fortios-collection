@@ -154,6 +154,10 @@ options:
                 description:
                     - Name of RADIUS server with which the user must authenticate. Source user.radius.name.
                 type: str
+            saml_server:
+                description:
+                    - Name of SAML server with which the user must authenticate. Source user.saml.name.
+                type: str
             sms_custom_server:
                 description:
                     - Two-factor recipient"s SMS server. Source system.sms-server.name.
@@ -214,6 +218,7 @@ options:
                     - 'radius'
                     - 'tacacs+'
                     - 'ldap'
+                    - 'saml'
             username_case_sensitivity:
                 description:
                     - Enable/disable case sensitivity when performing username matching (uppercase and lowercase letters are treated either as distinct or
@@ -257,6 +262,7 @@ EXAMPLES = """
           ppk_secret: "<your_own_value>"
           qkd_profile: "<your_own_value> (source vpn.qkd.name)"
           radius_server: "<your_own_value> (source user.radius.name)"
+          saml_server: "<your_own_value> (source user.saml.name)"
           sms_custom_server: "<your_own_value> (source system.sms-server.name)"
           sms_phone: "<your_own_value>"
           sms_server: "fortiguard"
@@ -379,6 +385,7 @@ def filter_user_local_data(json):
         "ppk_secret",
         "qkd_profile",
         "radius_server",
+        "saml_server",
         "sms_custom_server",
         "sms_phone",
         "sms_server",
@@ -600,11 +607,13 @@ versioned_schema = {
                 {"value": "radius"},
                 {"value": "tacacs+"},
                 {"value": "ldap"},
+                {"value": "saml", "v_range": [["v7.6.3", ""]]},
             ],
         },
         "passwd": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ldap_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "radius_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "saml_server": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "two_factor": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

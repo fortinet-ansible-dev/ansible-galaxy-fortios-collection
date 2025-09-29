@@ -146,7 +146,7 @@ options:
                         type: str
                     required:
                         description:
-                            - CASB attribute required.
+                            - CASB input attribute required.
                         type: str
                         choices:
                             - 'enable'
@@ -187,6 +187,13 @@ options:
                             - CASB attribute name.
                         required: true
                         type: str
+                    optional:
+                        description:
+                            - CASB output attribute optional.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     required:
                         description:
                             - CASB attribute required.
@@ -251,6 +258,7 @@ EXAMPLES = """
                   attr_type: "tenant"
                   description: "<your_own_value>"
                   name: "default_name_19"
+                  optional: "enable"
                   required: "enable"
                   type: "string"
           status: "enable"
@@ -566,11 +574,6 @@ versioned_schema = {
                     "type": "string",
                     "required": True,
                 },
-                "attr_type": {
-                    "v_range": [["v7.6.1", ""]],
-                    "type": "string",
-                    "options": [{"value": "tenant"}],
-                },
                 "description": {"v_range": [["v7.6.1", ""]], "type": "string"},
                 "type": {
                     "v_range": [["v7.6.1", ""]],
@@ -583,8 +586,18 @@ versioned_schema = {
                         {"value": "boolean"},
                     ],
                 },
+                "optional": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "attr_type": {
+                    "v_range": [["v7.6.1", "v7.6.2"]],
+                    "type": "string",
+                    "options": [{"value": "tenant"}],
+                },
                 "required": {
-                    "v_range": [["v7.6.1", ""]],
+                    "v_range": [["v7.6.1", "v7.6.2"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
@@ -600,21 +613,16 @@ versioned_schema = {
                     "type": "string",
                     "required": True,
                 },
-                "attr_type": {
-                    "v_range": [["v7.6.1", ""]],
-                    "type": "string",
-                    "options": [{"value": "tenant"}],
-                },
                 "description": {"v_range": [["v7.6.1", ""]], "type": "string"},
                 "type": {
                     "v_range": [["v7.6.1", ""]],
                     "type": "string",
                     "options": [
                         {"value": "string"},
-                        {"value": "string-list"},
-                        {"value": "integer"},
-                        {"value": "integer-list"},
-                        {"value": "boolean"},
+                        {"value": "string-list", "v_range": [["v7.6.1", "v7.6.2"]]},
+                        {"value": "integer", "v_range": [["v7.6.1", "v7.6.2"]]},
+                        {"value": "integer-list", "v_range": [["v7.6.1", "v7.6.2"]]},
+                        {"value": "boolean", "v_range": [["v7.6.1", "v7.6.2"]]},
                     ],
                 },
                 "required": {
@@ -631,6 +639,11 @@ versioned_schema = {
                     "v_range": [["v7.6.1", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "attr_type": {
+                    "v_range": [["v7.6.1", "v7.6.2"]],
+                    "type": "string",
+                    "options": [{"value": "tenant"}],
                 },
             },
             "v_range": [["v7.6.1", ""]],

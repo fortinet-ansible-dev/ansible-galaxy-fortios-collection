@@ -113,7 +113,7 @@ options:
                     - 'disable'
             expolicy_implicit_log:
                 description:
-                    - Enable/disable explicit proxy firewall implicit policy logging.
+                    - Enable/disable proxy firewall implicit policy logging.
                 type: str
                 choices:
                     - 'enable'
@@ -286,6 +286,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            zone_name:
+                description:
+                    - Enable/disable zone name logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -324,6 +331,7 @@ EXAMPLES = """
           rest_api_set: "enable"
           syslog_override: "enable"
           user_anonymize: "enable"
+          zone_name: "enable"
 """
 
 RETURN = """
@@ -448,6 +456,7 @@ def filter_log_setting_data(json):
         "rest_api_set",
         "syslog_override",
         "user_anonymize",
+        "zone_name",
     ]
 
     json = remove_invalid_fields(json)
@@ -733,6 +742,11 @@ versioned_schema = {
         },
         "extended_utm_log": {
             "v_range": [["v7.6.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "zone_name": {
+            "v_range": [["v7.6.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

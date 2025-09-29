@@ -247,6 +247,14 @@ options:
                         choices:
                             - 'ipv4'
                             - 'ipv6'
+                    agent_probe_timeout:
+                        description:
+                            - Time to wait before a probe packet is considered lost when detect-mode is agent (5000 - 3600*1000 msec).
+                        type: int
+                    bandwidth_weight:
+                        description:
+                            - Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
+                        type: int
                     class_id:
                         description:
                             - Traffic class ID. Source firewall.traffic-class.class-id.
@@ -326,6 +334,14 @@ options:
                         description:
                             - Status check interval in milliseconds, or the time between attempting to connect to the server (20 - 3600*1000 msec).
                         type: int
+                    jitter_weight:
+                        description:
+                            - Coefficient of jitter in the formula of custom-profile-1.
+                        type: int
+                    latency_weight:
+                        description:
+                            - Coefficient of latency in the formula of custom-profile-1.
+                        type: int
                     members:
                         description:
                             - Member sequence number list.
@@ -350,6 +366,10 @@ options:
                             - Status check or health check name.
                         required: true
                         type: str
+                    packet_loss_weight:
+                        description:
+                            - Coefficient of packet-loss in the formula of custom-profile-1.
+                        type: int
                     packet_size:
                         description:
                             - Packet size of a TWAMP test session. (124/158 - 1024)
@@ -403,6 +423,10 @@ options:
                         description:
                             - Number of successful responses received before server is considered recovered (1 - 3600).
                         type: int
+                    remote_probe_timeout:
+                        description:
+                            - Time to wait before a probe packet is considered lost when detect-mode is remote (20 - 3600*1000 msec).
+                        type: int
                     security_mode:
                         description:
                             - Twamp controller security mode.
@@ -421,6 +445,10 @@ options:
                         type: list
                         elements: dict
                         suboptions:
+                            custom_profile_threshold:
+                                description:
+                                    - Custom profile threshold for SLA to be marked as pass(0 - 10000000).
+                                type: int
                             id:
                                 description:
                                     - SLA ID. see <a href='#notes'>Notes</a>.
@@ -443,11 +471,12 @@ options:
                                     - 'latency'
                                     - 'jitter'
                                     - 'packet-loss'
+                                    - 'custom-profile-1'
                                     - 'mos'
                                     - 'remote'
                             mos_threshold:
                                 description:
-                                    - Minimum Mean Opinion Score for SLA to be marked as pass. (1.0 - 5.0).
+                                    - Minimum mean opinion score for SLA to be marked as pass(1.0 - 5.0).
                                 type: str
                             packetloss_threshold:
                                 description:
@@ -1095,6 +1124,13 @@ options:
                         description:
                             - End source port number.
                         type: int
+                    fib_best_match_force:
+                        description:
+                            - Enable/disable force using fib-best-match oif as outgoing interface.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     gateway:
                         description:
                             - Enable/disable SD-WAN service gateway.
@@ -1233,6 +1269,17 @@ options:
                             name:
                                 description:
                                     - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                                required: true
+                                type: str
+                    internet_service_fortiguard:
+                        description:
+                            - FortiGuard Internet service name list.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - FortiGuard Internet service name. Source firewall.internet-service-fortiguard.name.
                                 required: true
                                 type: str
                     internet_service_group:
@@ -1469,6 +1516,7 @@ options:
                             - 'zone'
                             - 'cfg-order'
                             - 'fib-best-match'
+                            - 'priority'
                             - 'input-device'
                     tos:
                         description:
@@ -1550,6 +1598,7 @@ options:
                         choices:
                             - 'cfg-order'
                             - 'fib-best-match'
+                            - 'priority'
                             - 'input-device'
 """
 
@@ -1598,6 +1647,8 @@ EXAMPLES = """
           health_check:
               -
                   addr_mode: "ipv4"
+                  agent_probe_timeout: "60000"
+                  bandwidth_weight: "0"
                   class_id: "0"
                   detect_mode: "active"
                   diffservcode: "<your_own_value>"
@@ -1614,11 +1665,14 @@ EXAMPLES = """
                   http_get: "<your_own_value>"
                   http_match: "<your_own_value>"
                   interval: "500"
+                  jitter_weight: "0"
+                  latency_weight: "0"
                   members:
                       -
                           seq_num: "<you_own_value>"
                   mos_codec: "g711"
-                  name: "default_name_51"
+                  name: "default_name_55"
+                  packet_loss_weight: "0"
                   packet_size: "124"
                   password: "<your_own_value>"
                   port: "0"
@@ -1628,11 +1682,13 @@ EXAMPLES = """
                   protocol: "ping"
                   quality_measured_method: "half-open"
                   recoverytime: "5"
+                  remote_probe_timeout: "5000"
                   security_mode: "none"
                   server: "192.168.100.40"
                   sla:
                       -
-                          id: "64"
+                          custom_profile_threshold: "0"
+                          id: "71"
                           jitter_threshold: "5"
                           latency_threshold: "5"
                           link_cost_factor: "latency"
@@ -1690,7 +1746,7 @@ EXAMPLES = """
                   server: "192.168.100.40"
                   sla:
                       -
-                          id: "119"
+                          id: "126"
                           jitter_threshold: "5"
                           latency_threshold: "5"
                           link_cost_factor: "latency"
@@ -1767,52 +1823,56 @@ EXAMPLES = """
                   dscp_reverse_tag: "<your_own_value>"
                   dst:
                       -
-                          name: "default_name_191 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_198 (source firewall.address.name firewall.addrgrp.name)"
                   dst_negate: "enable"
                   dst6:
                       -
-                          name: "default_name_194 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_201 (source firewall.address6.name firewall.addrgrp6.name)"
                   end_port: "65535"
                   end_src_port: "65535"
+                  fib_best_match_force: "disable"
                   gateway: "enable"
                   groups:
                       -
-                          name: "default_name_199 (source user.group.name)"
+                          name: "default_name_207 (source user.group.name)"
                   hash_mode: "round-robin"
                   health_check:
                       -
-                          name: "default_name_202 (source system.sdwan.health-check.name)"
+                          name: "default_name_210 (source system.sdwan.health-check.name)"
                   hold_down_time: "0"
-                  id: "204"
+                  id: "212"
                   input_device:
                       -
-                          name: "default_name_206 (source system.interface.name)"
+                          name: "default_name_214 (source system.interface.name)"
                   input_device_negate: "enable"
                   input_zone:
                       -
-                          name: "default_name_209 (source system.sdwan.zone.name)"
+                          name: "default_name_217 (source system.sdwan.zone.name)"
                   internet_service: "enable"
                   internet_service_app_ctrl:
                       -
-                          id: "212"
+                          id: "220"
                   internet_service_app_ctrl_category:
                       -
-                          id: "214"
+                          id: "222"
                   internet_service_app_ctrl_group:
                       -
-                          name: "default_name_216 (source application.group.name)"
+                          name: "default_name_224 (source application.group.name)"
                   internet_service_custom:
                       -
-                          name: "default_name_218 (source firewall.internet-service-custom.name)"
+                          name: "default_name_226 (source firewall.internet-service-custom.name)"
                   internet_service_custom_group:
                       -
-                          name: "default_name_220 (source firewall.internet-service-custom-group.name)"
+                          name: "default_name_228 (source firewall.internet-service-custom-group.name)"
+                  internet_service_fortiguard:
+                      -
+                          name: "default_name_230 (source firewall.internet-service-fortiguard.name)"
                   internet_service_group:
                       -
-                          name: "default_name_222 (source firewall.internet-service-group.name)"
+                          name: "default_name_232 (source firewall.internet-service-group.name)"
                   internet_service_name:
                       -
-                          name: "default_name_224 (source firewall.internet-service-name.name)"
+                          name: "default_name_234 (source firewall.internet-service-name.name)"
                   jitter_weight: "0"
                   latency_weight: "0"
                   link_cost_factor: "latency"
@@ -1820,7 +1880,7 @@ EXAMPLES = """
                   load_balance: "enable"
                   minimum_sla_meet_members: "0"
                   mode: "auto"
-                  name: "default_name_232"
+                  name: "default_name_242"
                   packet_loss_weight: "0"
                   passive_measurement: "enable"
                   priority_members:
@@ -1828,7 +1888,7 @@ EXAMPLES = """
                           seq_num: "<you_own_value>"
                   priority_zone:
                       -
-                          name: "default_name_238 (source system.sdwan.zone.name)"
+                          name: "default_name_248 (source system.sdwan.zone.name)"
                   protocol: "0"
                   quality_link: "0"
                   role: "standalone"
@@ -1839,16 +1899,16 @@ EXAMPLES = """
                   sla:
                       -
                           health_check: "<your_own_value> (source system.sdwan.health-check.name)"
-                          id: "248"
+                          id: "258"
                   sla_compare_method: "order"
                   sla_stickiness: "enable"
                   src:
                       -
-                          name: "default_name_252 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_262 (source firewall.address.name firewall.addrgrp.name)"
                   src_negate: "enable"
                   src6:
                       -
-                          name: "default_name_255 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_265 (source firewall.address6.name firewall.addrgrp6.name)"
                   standalone_action: "enable"
                   start_port: "1"
                   start_src_port: "1"
@@ -1859,7 +1919,7 @@ EXAMPLES = """
                   use_shortcut_sla: "enable"
                   users:
                       -
-                          name: "default_name_265 (source user.local.name)"
+                          name: "default_name_275 (source user.local.name)"
                   zone_mode: "enable"
           speedtest_bypass_routing: "disable"
           status: "disable"
@@ -1868,7 +1928,7 @@ EXAMPLES = """
                   advpn_health_check: "<your_own_value> (source system.sdwan.health-check.name)"
                   advpn_select: "enable"
                   minimum_sla_meet_members: "1"
-                  name: "default_name_273"
+                  name: "default_name_283"
                   service_sla_tie_break: "cfg-order"
 """
 
@@ -2253,6 +2313,7 @@ versioned_schema = {
                     "options": [
                         {"value": "cfg-order"},
                         {"value": "fib-best-match"},
+                        {"value": "priority", "v_range": [["v7.6.4", ""]]},
                         {"value": "input-device", "v_range": [["v7.2.0", ""]]},
                     ],
                 },
@@ -2407,6 +2468,11 @@ versioned_schema = {
                 },
                 "interval": {"v_range": [["v6.4.0", ""]], "type": "integer"},
                 "probe_timeout": {"v_range": [["v6.4.0", ""]], "type": "integer"},
+                "agent_probe_timeout": {"v_range": [["v7.6.3", ""]], "type": "integer"},
+                "remote_probe_timeout": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "integer",
+                },
                 "failtime": {"v_range": [["v6.4.0", ""]], "type": "integer"},
                 "recoverytime": {"v_range": [["v6.4.0", ""]], "type": "integer"},
                 "probe_count": {"v_range": [["v6.4.0", ""]], "type": "integer"},
@@ -2478,6 +2544,10 @@ versioned_schema = {
                     ],
                 },
                 "class_id": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+                "packet_loss_weight": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+                "latency_weight": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+                "jitter_weight": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+                "bandwidth_weight": {"v_range": [["v7.6.4", ""]], "type": "integer"},
                 "sla": {
                     "type": "list",
                     "elements": "dict",
@@ -2494,6 +2564,10 @@ versioned_schema = {
                                 {"value": "latency"},
                                 {"value": "jitter"},
                                 {"value": "packet-loss"},
+                                {
+                                    "value": "custom-profile-1",
+                                    "v_range": [["v7.6.4", ""]],
+                                },
                                 {"value": "mos", "v_range": [["v7.2.0", ""]]},
                                 {"value": "remote", "v_range": [["v7.6.0", ""]]},
                             ],
@@ -2515,6 +2589,10 @@ versioned_schema = {
                         "mos_threshold": {
                             "v_range": [["v7.2.0", ""]],
                             "type": "string",
+                        },
+                        "custom_profile_threshold": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "integer",
                         },
                         "priority_in_sla": {
                             "v_range": [["v7.2.1", ""]],
@@ -2753,6 +2831,18 @@ versioned_schema = {
                     },
                     "v_range": [["v6.4.0", ""]],
                 },
+                "internet_service_fortiguard": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.6.4", ""]],
+                },
                 "internet_service_name": {
                     "type": "list",
                     "elements": "dict",
@@ -2918,6 +3008,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "order"}, {"value": "number"}],
                 },
+                "fib_best_match_force": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
                 "tie_break": {
                     "v_range": [["v6.4.4", ""]],
                     "type": "string",
@@ -2925,6 +3020,7 @@ versioned_schema = {
                         {"value": "zone"},
                         {"value": "cfg-order"},
                         {"value": "fib-best-match"},
+                        {"value": "priority", "v_range": [["v7.6.4", ""]]},
                         {"value": "input-device", "v_range": [["v7.2.0", ""]]},
                     ],
                 },

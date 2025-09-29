@@ -121,6 +121,7 @@ options:
                     - 'single-vdom-connector'
                     - 'fgt-sysinfo-api'
                     - 'ztna-server-info'
+                    - 'used-tags'
             certificate:
                 description:
                     - FortiClient EMS certificate. Source certificate.remote.name.
@@ -711,6 +712,7 @@ versioned_schema = {
                 {"value": "single-vdom-connector", "v_range": [["v7.4.0", ""]]},
                 {"value": "fgt-sysinfo-api", "v_range": [["v7.4.4", ""]]},
                 {"value": "ztna-server-info", "v_range": [["v7.4.4", ""]]},
+                {"value": "used-tags", "v_range": [["v7.6.4", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",

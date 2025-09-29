@@ -89,6 +89,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            debug:
+                description:
+                    - Enable/disable debug logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             dlp_archive:
                 description:
                     - Enable/disable DLP archive logging.
@@ -150,6 +157,7 @@ options:
                             - 'file-filter'
                             - 'icap'
                             - 'virtual-patch'
+                            - 'debug'
                             - 'ztna'
                     filter:
                         description:
@@ -237,6 +245,7 @@ EXAMPLES = """
       vdom: "{{ vdom }}"
       log_fortianalyzer2_override_filter:
           anomaly: "enable"
+          debug: "enable"
           dlp_archive: "enable"
           filter: "<your_own_value>"
           filter_type: "include"
@@ -247,7 +256,7 @@ EXAMPLES = """
                   category: "traffic"
                   filter: "<your_own_value>"
                   filter_type: "include"
-                  id: "13"
+                  id: "14"
           gtp: "enable"
           http_transaction: "enable"
           local_traffic: "enable"
@@ -352,6 +361,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_log_fortianalyzer2_override_filter_data(json):
     option_list = [
         "anomaly",
+        "debug",
         "dlp_archive",
         "filter",
         "filter_type",
@@ -639,6 +649,7 @@ versioned_schema = {
                         {"value": "file-filter"},
                         {"value": "icap"},
                         {"value": "virtual-patch", "v_range": [["v7.4.1", ""]]},
+                        {"value": "debug", "v_range": [["v7.6.3", ""]]},
                         {"value": "ztna", "v_range": [["v7.0.1", "v7.0.3"]]},
                     ],
                 },
@@ -650,6 +661,11 @@ versioned_schema = {
                 },
             },
             "v_range": [["v7.0.0", ""]],
+        },
+        "debug": {
+            "v_range": [["v7.6.3", "v7.6.3"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "filter": {"v_range": [["v6.2.0", "v6.4.4"]], "type": "string"},
         "filter_type": {

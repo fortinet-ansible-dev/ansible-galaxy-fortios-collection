@@ -113,6 +113,7 @@ options:
                     - 'single-vdom-connector'
                     - 'fgt-sysinfo-api'
                     - 'ztna-server-info'
+                    - 'used-tags'
             cloud_authentication_access_key:
                 description:
                     - FortiClient EMS Cloud multitenancy access key
@@ -693,6 +694,7 @@ versioned_schema = {
                 {"value": "single-vdom-connector"},
                 {"value": "fgt-sysinfo-api", "v_range": [["v7.4.4", ""]]},
                 {"value": "ztna-server-info", "v_range": [["v7.4.4", ""]]},
+                {"value": "used-tags", "v_range": [["v7.6.4", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",

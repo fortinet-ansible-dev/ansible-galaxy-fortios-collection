@@ -118,6 +118,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            local_ip:
+                description:
+                    - IPv4 address to use as the source address for egress VXLAN packets.
+                type: str
+            local_ip6:
+                description:
+                    - IPv6 address to use as the source address for egress VXLAN packets.
+                type: str
             multicast_ttl:
                 description:
                     - VXLAN multicast TTL (1-255).
@@ -167,8 +175,10 @@ EXAMPLES = """
           interface: "<your_own_value> (source system.interface.name)"
           ip_version: "ipv4-unicast"
           learn_from_traffic: "enable"
+          local_ip: "<your_own_value>"
+          local_ip6: "<your_own_value>"
           multicast_ttl: "0"
-          name: "default_name_9"
+          name: "default_name_11"
           remote_ip:
               -
                   ip: "<your_own_value>"
@@ -276,6 +286,8 @@ def filter_system_vxlan_data(json):
         "interface",
         "ip_version",
         "learn_from_traffic",
+        "local_ip",
+        "local_ip6",
         "multicast_ttl",
         "name",
         "remote_ip",
@@ -471,6 +483,7 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "local_ip": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "remote_ip6": {
             "type": "list",
             "elements": "dict",
@@ -479,6 +492,7 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "local_ip6": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "dstport": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "multicast_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "evpn_id": {"v_range": [["v7.4.0", ""]], "type": "integer"},

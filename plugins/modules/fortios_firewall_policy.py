@@ -494,6 +494,7 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+                    - 'legacy'
             icap_profile:
                 description:
                     - Name of an existing ICAP profile. Source icap.profile.name.
@@ -543,6 +544,17 @@ options:
                     name:
                         description:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                        required: true
+                        type: str
+            internet_service_fortiguard:
+                description:
+                    - FortiGuard Internet Service name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
                         required: true
                         type: str
             internet_service_group:
@@ -614,6 +626,17 @@ options:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
                         required: true
                         type: str
+            internet_service_src_fortiguard:
+                description:
+                    - FortiGuard Internet Service source name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
+                        required: true
+                        type: str
             internet_service_src_group:
                 description:
                     - Internet Service source group name.
@@ -683,6 +706,17 @@ options:
                             - Custom Internet Service6 group name. Source firewall.internet-service-custom-group.name.
                         required: true
                         type: str
+            internet_service6_fortiguard:
+                description:
+                    - FortiGuard IPv6 Internet Service name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
+                        required: true
+                        type: str
             internet_service6_group:
                 description:
                     - Internet Service group name.
@@ -739,6 +773,17 @@ options:
                     name:
                         description:
                             - Custom Internet Service6 group name. Source firewall.internet-service-custom-group.name.
+                        required: true
+                        type: str
+            internet_service6_src_fortiguard:
+                description:
+                    - FortiGuard IPv6 Internet Service source name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
                         required: true
                         type: str
             internet_service6_src_group:
@@ -1134,6 +1179,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            saml_server:
+                description:
+                    - SAML server name. Source user.saml.name.
+                type: str
             scan_botnet_connections:
                 description:
                     - Block or monitor connections to Botnet servers or disable Botnet scanning.
@@ -1153,6 +1202,35 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            scim:
+                description:
+                    - Enable/disable SCIM .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            scim_groups:
+                description:
+                    - Names of SCIM groups.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of SCIM groups.
+                        required: true
+                        type: str
+            scim_users:
+                description:
+                    - Names of SCIM users.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of SCIM users.
+                        required: true
+                        type: str
             sctp_filter_profile:
                 description:
                     - Name of an existing SCTP filter profile. Source sctp-filter.profile.name.
@@ -1322,6 +1400,10 @@ options:
                     - 'all'
                     - 'data-only'
                     - 'disable'
+            telemetry_profile:
+                description:
+                    - Name of an existing telemetry profile. Source telemetry-controller.profile.name.
+                type: str
             timeout_send_rst:
                 description:
                     - Enable/disable sending RST packets when TCP sessions expire.
@@ -1655,60 +1737,72 @@ EXAMPLES = """
           internet_service_custom_group:
               -
                   name: "default_name_78 (source firewall.internet-service-custom-group.name)"
+          internet_service_fortiguard:
+              -
+                  name: "default_name_80 (source firewall.internet-service-fortiguard.name)"
           internet_service_group:
               -
-                  name: "default_name_80 (source firewall.internet-service-group.name)"
+                  name: "default_name_82 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "82 (source firewall.internet-service.id)"
+                  id: "84 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_84 (source firewall.internet-service-name.name)"
+                  name: "default_name_86 (source firewall.internet-service-name.name)"
           internet_service_negate: "enable"
           internet_service_src: "enable"
           internet_service_src_custom:
               -
-                  name: "default_name_88 (source firewall.internet-service-custom.name)"
+                  name: "default_name_90 (source firewall.internet-service-custom.name)"
           internet_service_src_custom_group:
               -
-                  name: "default_name_90 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_92 (source firewall.internet-service-custom-group.name)"
+          internet_service_src_fortiguard:
+              -
+                  name: "default_name_94 (source firewall.internet-service-fortiguard.name)"
           internet_service_src_group:
               -
-                  name: "default_name_92 (source firewall.internet-service-group.name)"
+                  name: "default_name_96 (source firewall.internet-service-group.name)"
           internet_service_src_id:
               -
-                  id: "94 (source firewall.internet-service.id)"
+                  id: "98 (source firewall.internet-service.id)"
           internet_service_src_name:
               -
-                  name: "default_name_96 (source firewall.internet-service-name.name)"
+                  name: "default_name_100 (source firewall.internet-service-name.name)"
           internet_service_src_negate: "enable"
           internet_service6: "enable"
           internet_service6_custom:
               -
-                  name: "default_name_100 (source firewall.internet-service-custom.name)"
+                  name: "default_name_104 (source firewall.internet-service-custom.name)"
           internet_service6_custom_group:
               -
-                  name: "default_name_102 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_106 (source firewall.internet-service-custom-group.name)"
+          internet_service6_fortiguard:
+              -
+                  name: "default_name_108 (source firewall.internet-service-fortiguard.name)"
           internet_service6_group:
               -
-                  name: "default_name_104 (source firewall.internet-service-group.name)"
+                  name: "default_name_110 (source firewall.internet-service-group.name)"
           internet_service6_name:
               -
-                  name: "default_name_106 (source firewall.internet-service-name.name)"
+                  name: "default_name_112 (source firewall.internet-service-name.name)"
           internet_service6_negate: "enable"
           internet_service6_src: "enable"
           internet_service6_src_custom:
               -
-                  name: "default_name_110 (source firewall.internet-service-custom.name)"
+                  name: "default_name_116 (source firewall.internet-service-custom.name)"
           internet_service6_src_custom_group:
               -
-                  name: "default_name_112 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_118 (source firewall.internet-service-custom-group.name)"
+          internet_service6_src_fortiguard:
+              -
+                  name: "default_name_120 (source firewall.internet-service-fortiguard.name)"
           internet_service6_src_group:
               -
-                  name: "default_name_114 (source firewall.internet-service-group.name)"
+                  name: "default_name_122 (source firewall.internet-service-group.name)"
           internet_service6_src_name:
               -
-                  name: "default_name_116 (source firewall.internet-service-name.name)"
+                  name: "default_name_124 (source firewall.internet-service-name.name)"
           internet_service6_src_negate: "enable"
           ippool: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
@@ -1721,7 +1815,7 @@ EXAMPLES = """
           match_vip: "enable"
           match_vip_only: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_129"
+          name: "default_name_137"
           nat: "enable"
           nat46: "enable"
           nat64: "enable"
@@ -1730,10 +1824,10 @@ EXAMPLES = """
           natoutbound: "enable"
           network_service_dynamic:
               -
-                  name: "default_name_137 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_145 (source firewall.network-service-dynamic.name)"
           network_service_src_dynamic:
               -
-                  name: "default_name_139 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_147 (source firewall.network-service-dynamic.name)"
           np_acceleration: "enable"
           ntlm: "enable"
           ntlm_enabled_browsers:
@@ -1746,7 +1840,7 @@ EXAMPLES = """
           pcp_outbound: "enable"
           pcp_poolname:
               -
-                  name: "default_name_150 (source system.pcp-server.pools.name)"
+                  name: "default_name_158 (source system.pcp-server.pools.name)"
           per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
           permit_any_host: "enable"
           permit_stun_host: "enable"
@@ -1757,10 +1851,10 @@ EXAMPLES = """
           policyid: "<you_own_value>"
           poolname:
               -
-                  name: "default_name_160 (source firewall.ippool.name)"
+                  name: "default_name_168 (source firewall.ippool.name)"
           poolname6:
               -
-                  name: "default_name_162 (source firewall.ippool6.name)"
+                  name: "default_name_170 (source firewall.ippool6.name)"
           port_preserve: "enable"
           port_random: "enable"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
@@ -1777,48 +1871,57 @@ EXAMPLES = """
           rsso: "enable"
           rtp_addr:
               -
-                  name: "default_name_178 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
+                  name: "default_name_186 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
           rtp_nat: "disable"
+          saml_server: "<your_own_value> (source user.saml.name)"
           scan_botnet_connections: "disable"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           schedule_timeout: "enable"
+          scim: "enable"
+          scim_groups:
+              -
+                  name: "default_name_194"
+          scim_users:
+              -
+                  name: "default_name_196"
           sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
           send_deny_packet: "disable"
           service:
               -
-                  name: "default_name_186 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_200 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "<your_own_value>"
           sgt:
               -
-                  id: "190"
+                  id: "204"
           sgt_check: "enable"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           src_vendor_mac:
               -
-                  id: "194 (source firewall.vendor-mac.id)"
+                  id: "208 (source firewall.vendor-mac.id)"
           srcaddr:
               -
-                  name: "default_name_196 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_210 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_199 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
+                  name: "default_name_213 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
           srcaddr6_negate: "enable"
           srcintf:
               -
-                  name: "default_name_202 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_216 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_mirror: "enable"
           ssl_mirror_intf:
               -
-                  name: "default_name_207 (source system.interface.name system.zone.name)"
+                  name: "default_name_221 (source system.interface.name system.zone.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           tcp_mss_receiver: "0"
           tcp_mss_sender: "0"
           tcp_session_without_syn: "all"
+          telemetry_profile: "<your_own_value> (source telemetry-controller.profile.name)"
           timeout_send_rst: "enable"
           tos: "<your_own_value>"
           tos_mask: "<your_own_value>"
@@ -1827,10 +1930,10 @@ EXAMPLES = """
           traffic_shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
           url_category:
               -
-                  id: "220"
+                  id: "235"
           users:
               -
-                  name: "default_name_222 (source user.local.name user.certificate.name)"
+                  name: "default_name_237 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -1856,14 +1959,14 @@ EXAMPLES = """
           ztna_device_ownership: "enable"
           ztna_ems_tag:
               -
-                  name: "default_name_247 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_262 (source firewall.address.name firewall.addrgrp.name)"
           ztna_ems_tag_negate: "enable"
           ztna_ems_tag_secondary:
               -
-                  name: "default_name_250 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_265 (source firewall.address.name firewall.addrgrp.name)"
           ztna_geo_tag:
               -
-                  name: "default_name_252 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_267 (source firewall.address.name firewall.addrgrp.name)"
           ztna_policy_redirect: "enable"
           ztna_status: "enable"
           ztna_tags_match_logic: "or"
@@ -2026,6 +2129,7 @@ def filter_firewall_policy_data(json):
         "internet_service",
         "internet_service_custom",
         "internet_service_custom_group",
+        "internet_service_fortiguard",
         "internet_service_group",
         "internet_service_id",
         "internet_service_name",
@@ -2033,6 +2137,7 @@ def filter_firewall_policy_data(json):
         "internet_service_src",
         "internet_service_src_custom",
         "internet_service_src_custom_group",
+        "internet_service_src_fortiguard",
         "internet_service_src_group",
         "internet_service_src_id",
         "internet_service_src_name",
@@ -2040,12 +2145,14 @@ def filter_firewall_policy_data(json):
         "internet_service6",
         "internet_service6_custom",
         "internet_service6_custom_group",
+        "internet_service6_fortiguard",
         "internet_service6_group",
         "internet_service6_name",
         "internet_service6_negate",
         "internet_service6_src",
         "internet_service6_src_custom",
         "internet_service6_src_custom_group",
+        "internet_service6_src_fortiguard",
         "internet_service6_src_group",
         "internet_service6_src_name",
         "internet_service6_src_negate",
@@ -2104,9 +2211,13 @@ def filter_firewall_policy_data(json):
         "rsso",
         "rtp_addr",
         "rtp_nat",
+        "saml_server",
         "scan_botnet_connections",
         "schedule",
         "schedule_timeout",
+        "scim",
+        "scim_groups",
+        "scim_users",
         "sctp_filter_profile",
         "send_deny_packet",
         "service",
@@ -2130,6 +2241,7 @@ def filter_firewall_policy_data(json):
         "tcp_mss_receiver",
         "tcp_mss_sender",
         "tcp_session_without_syn",
+        "telemetry_profile",
         "timeout_send_rst",
         "tos",
         "tos_mask",
@@ -2873,7 +2985,11 @@ versioned_schema = {
         "http_policy_redirect": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "enable"},
+                {"value": "disable"},
+                {"value": "legacy", "v_range": [["v7.6.3", ""]]},
+            ],
         },
         "ssh_policy_redirect": {
             "v_range": [["v6.2.0", ""]],
@@ -2912,6 +3028,7 @@ versioned_schema = {
         "waf_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ssh_filter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "telemetry_profile": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "logtraffic": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3172,6 +3289,36 @@ versioned_schema = {
             },
             "v_range": [["v6.2.0", ""]],
         },
+        "scim": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "saml_server": {"v_range": [["v7.6.4", ""]], "type": "string"},
+        "scim_users": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "scim_groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
         "auth_path": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3343,6 +3490,54 @@ versioned_schema = {
                 "id": {"v_range": [["v7.0.1", ""]], "type": "integer", "required": True}
             },
             "v_range": [["v7.0.1", ""]],
+        },
+        "internet_service_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "internet_service_src_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "internet_service6_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
+        "internet_service6_src_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "cifs_profile": {"v_range": [["v6.2.0", "v7.6.0"]], "type": "string"},
         "dlp_sensor": {"v_range": [["v6.0.0", "v7.0.12"]], "type": "string"},

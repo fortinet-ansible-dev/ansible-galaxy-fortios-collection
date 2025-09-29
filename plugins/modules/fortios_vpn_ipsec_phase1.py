@@ -480,6 +480,17 @@ options:
                 choices:
                     - 'manual'
                     - 'auto'
+            dns_suffix_search:
+                description:
+                    - One or more DNS domain name suffixes in quotes separated by spaces.
+                type: list
+                elements: dict
+                suboptions:
+                    dns_suffix:
+                        description:
+                            - DNS suffix.
+                        required: true
+                        type: str
             domain:
                 description:
                     - Instruct unity clients about the single default DNS domain.
@@ -1057,6 +1068,14 @@ options:
                     - 'disable'
                     - 'allow'
                     - 'require'
+            qkd_hybrid:
+                description:
+                    - Enable/disable use of Quantum Key Distribution (QKD) hybrid keys.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'allow'
+                    - 'require'
             qkd_profile:
                 description:
                     - Quantum Key Distribution (QKD) server profile. Source vpn.qkd.name.
@@ -1313,6 +1332,9 @@ EXAMPLES = """
           digital_signature_auth: "enable"
           distance: "15"
           dns_mode: "manual"
+          dns_suffix_search:
+              -
+                  dns_suffix: "<your_own_value>"
           domain: "<your_own_value>"
           dpd: "disable"
           dpd_retrycount: "3"
@@ -1360,7 +1382,7 @@ EXAMPLES = """
           ipv4_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "91"
+                  id: "93"
                   start_ip: "<your_own_value>"
           ipv4_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
           ipv4_netmask: "<your_own_value>"
@@ -1377,7 +1399,7 @@ EXAMPLES = """
           ipv6_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "107"
+                  id: "109"
                   start_ip: "<your_own_value>"
           ipv6_name: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_prefix: "128"
@@ -1396,7 +1418,7 @@ EXAMPLES = """
           mode: "aggressive"
           mode_cfg: "disable"
           mode_cfg_allow_client_selector: "disable"
-          name: "default_name_126"
+          name: "default_name_128"
           nattraversal: "enable"
           negotiate_timeout: "30"
           network_id: "0"
@@ -1414,6 +1436,7 @@ EXAMPLES = """
           psksecret: "<your_own_value>"
           psksecret_remote: "<your_own_value>"
           qkd: "disable"
+          qkd_hybrid: "disable"
           qkd_profile: "<your_own_value> (source vpn.qkd.name)"
           reauth: "disable"
           rekey: "enable"
@@ -1425,7 +1448,7 @@ EXAMPLES = """
           remote_gw_subnet: "<your_own_value>"
           remote_gw_ztna_tags:
               -
-                  name: "default_name_154 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_157 (source firewall.address.name firewall.addrgrp.name)"
           remote_gw6_country: "<your_own_value>"
           remote_gw6_end_ip: "<your_own_value>"
           remote_gw6_match: "any"
@@ -1582,6 +1605,7 @@ def filter_vpn_ipsec_phase1_data(json):
         "digital_signature_auth",
         "distance",
         "dns_mode",
+        "dns_suffix_search",
         "domain",
         "dpd",
         "dpd_retrycount",
@@ -1673,6 +1697,7 @@ def filter_vpn_ipsec_phase1_data(json):
         "psksecret",
         "psksecret_remote",
         "qkd",
+        "qkd_hybrid",
         "qkd_profile",
         "reauth",
         "rekey",
@@ -2026,6 +2051,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.1", ""]],
+        },
+        "dns_suffix_search": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "dns_suffix": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "ipv4_wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ipv4_wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -2686,6 +2723,11 @@ versioned_schema = {
         },
         "qkd": {
             "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "allow"}, {"value": "require"}],
+        },
+        "qkd_hybrid": {
+            "v_range": [["v7.6.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "allow"}, {"value": "require"}],
         },

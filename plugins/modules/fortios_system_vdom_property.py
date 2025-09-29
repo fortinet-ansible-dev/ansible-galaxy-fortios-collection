@@ -180,7 +180,7 @@ options:
                 type: int
             sslvpn:
                 description:
-                    - Maximum guaranteed number of SSL-VPNs.
+                    - Maximum guaranteed number of Agentless VPNs.
                 type: list
                 elements: str
             user:

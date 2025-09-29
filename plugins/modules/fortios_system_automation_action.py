@@ -249,6 +249,32 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            file_only:
+                description:
+                    - Enable/disable the output in files only.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            form_data:
+                description:
+                    - Form data parts for content type multipart/form-data.
+                type: list
+                elements: dict
+                suboptions:
+                    id:
+                        description:
+                            - Entry ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    key:
+                        description:
+                            - Key of the part of Multipart/form-data.
+                        type: str
+                    value:
+                        description:
+                            - Value of the part of Multipart/form-data.
+                        type: str
             forticare_email:
                 description:
                     - Enable/disable use of your FortiCare email address as the email-to address.
@@ -310,6 +336,13 @@ options:
                         description:
                             - Request header value.
                         type: str
+            log_debug_print:
+                description:
+                    - Enable/disable logging debug print output from diagnose action.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             message_type:
                 description:
                     - Message type.
@@ -317,6 +350,7 @@ options:
                 choices:
                     - 'text'
                     - 'json'
+                    - 'form-data'
             method:
                 description:
                     - Request method (POST, PUT, GET, PATCH or DELETE).
@@ -336,6 +370,10 @@ options:
                     - Name.
                 required: true
                 type: str
+            output_interval:
+                description:
+                    - Collect the outputs for each output-interval in seconds (0 = no intermediate output).
+                type: int
             output_size:
                 description:
                     - Number of megabytes to limit script output to (1 - 1024).
@@ -460,6 +498,12 @@ EXAMPLES = """
               -
                   name: "default_name_32"
           execute_security_fabric: "enable"
+          file_only: "enable"
+          form_data:
+              -
+                  id: "36"
+                  key: "<your_own_value>"
+                  value: "<your_own_value>"
           forticare_email: "enable"
           fos_message: "<your_own_value>"
           gcp_function: "<your_own_value>"
@@ -472,13 +516,15 @@ EXAMPLES = """
           http_body: "<your_own_value>"
           http_headers:
               -
-                  id: "44"
+                  id: "49"
                   key: "<your_own_value>"
                   value: "<your_own_value>"
+          log_debug_print: "enable"
           message_type: "text"
           method: "post"
           minimum_interval: "0"
-          name: "default_name_50"
+          name: "default_name_56"
+          output_interval: "0"
           output_size: "10"
           port: "0"
           protocol: "http"
@@ -489,7 +535,7 @@ EXAMPLES = """
           script: "<your_own_value>"
           sdn_connector:
               -
-                  name: "default_name_60 (source system.sdn-connector.name)"
+                  name: "default_name_67 (source system.sdn-connector.name)"
           security_tag: "<your_own_value>"
           system_action: "reboot"
           timeout: "0"
@@ -621,6 +667,8 @@ def filter_system_automation_action_data(json):
         "email_subject",
         "email_to",
         "execute_security_fabric",
+        "file_only",
+        "form_data",
         "forticare_email",
         "fos_message",
         "gcp_function",
@@ -630,10 +678,12 @@ def filter_system_automation_action_data(json):
         "headers",
         "http_body",
         "http_headers",
+        "log_debug_print",
         "message_type",
         "method",
         "minimum_interval",
         "name",
+        "output_interval",
         "output_size",
         "port",
         "protocol",
@@ -931,7 +981,11 @@ versioned_schema = {
         "message_type": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
-            "options": [{"value": "text"}, {"value": "json"}],
+            "options": [
+                {"value": "text"},
+                {"value": "json"},
+                {"value": "form-data", "v_range": [["v7.6.4", ""]]},
+            ],
         },
         "replacement_message": {
             "v_range": [["v7.0.0", ""]],
@@ -978,6 +1032,20 @@ versioned_schema = {
             },
             "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", ""]],
         },
+        "form_data": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "key": {"v_range": [["v7.6.4", ""]], "type": "string"},
+                "value": {"v_range": [["v7.6.4", ""]], "type": "string"},
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
         "verify_host_cert": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
@@ -987,12 +1055,24 @@ versioned_schema = {
         "output_size": {"v_range": [["v7.2.0", ""]], "type": "integer"},
         "timeout": {"v_range": [["v7.2.0", ""]], "type": "integer"},
         "duration": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+        "output_interval": {"v_range": [["v7.6.4", ""]], "type": "integer"},
+        "file_only": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "execute_security_fabric": {
             "v_range": [["v7.0.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "accprofile": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "regular_expression": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "log_debug_print": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "security_tag": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "sdn_connector": {
             "type": "list",
@@ -1006,7 +1086,6 @@ versioned_schema = {
             },
             "v_range": [["v6.2.0", ""]],
         },
-        "regular_expression": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "headers": {
             "type": "list",
             "elements": "dict",

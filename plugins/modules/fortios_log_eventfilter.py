@@ -173,6 +173,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            telemetry:
+                description:
+                    - Enable/disable telemetry event logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             user:
                 description:
                     - Enable/disable user authentication event logging.
@@ -228,6 +235,7 @@ EXAMPLES = """
           security_rating: "enable"
           switch_controller: "enable"
           system: "enable"
+          telemetry: "enable"
           user: "enable"
           vpn: "enable"
           wan_opt: "enable"
@@ -341,6 +349,7 @@ def filter_log_eventfilter_data(json):
         "security_rating",
         "switch_controller",
         "system",
+        "telemetry",
         "user",
         "vpn",
         "wan_opt",
@@ -591,6 +600,11 @@ versioned_schema = {
         },
         "webproxy": {
             "v_range": [["v7.2.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "telemetry": {
+            "v_range": [["v7.6.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

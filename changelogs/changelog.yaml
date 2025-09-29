@@ -383,3 +383,16 @@ releases:
     fragments:
       - 2.4.0_release.yml
     release_date: "2025-04-14"
+  2.4.1:
+    changes:
+      bugfixes:
+        - Fix the issue in check_modu when backend returns invallid IP address.
+        - Fix the issue in configuration_fact and monitor_fact when omitting vdom or
+          assigning vdom to "".
+      major_changes:
+        - Supported new versions 7.6.3 and 7.6.4.
+        - Supported the authentication method when using username and password in v7.6.4.
+      release_summary: patch release of 2.4.1
+    fragments:
+      - 2.4.1_release.yml
+    release_date: "2025-09-29"

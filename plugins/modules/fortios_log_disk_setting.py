@@ -260,6 +260,7 @@ options:
                     - 'file-filter'
                     - 'icap'
                     - 'virtual-patch'
+                    - 'debug'
                     - 'ztna'
                     - 'cifs'
                     - 'spamfilter'
@@ -719,6 +720,7 @@ versioned_schema = {
                 {"value": "file-filter", "v_range": [["v6.2.0", ""]]},
                 {"value": "icap", "v_range": [["v6.4.0", ""]]},
                 {"value": "virtual-patch", "v_range": [["v7.4.1", ""]]},
+                {"value": "debug", "v_range": [["v7.6.3", ""]]},
                 {"value": "ztna", "v_range": [["v7.0.1", "v7.0.3"]]},
                 {"value": "cifs", "v_range": [["v6.2.0", "v6.4.4"]]},
                 {"value": "spamfilter", "v_range": [["v6.0.0", "v6.0.11"]]},

@@ -261,6 +261,17 @@ options:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
                         required: true
                         type: str
+            internet_service_fortiguard:
+                description:
+                    - FortiGuard Internet Service name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
+                        required: true
+                        type: str
             internet_service_group:
                 description:
                     - Internet Service group name.
@@ -321,6 +332,17 @@ options:
                     name:
                         description:
                             - Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+                        required: true
+                        type: str
+            internet_service_src_fortiguard:
+                description:
+                    - FortiGuard Internet Service source name.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - FortiGuard Internet Service name. Source firewall.internet-service-fortiguard.name.
                         required: true
                         type: str
             internet_service_src_group:
@@ -529,47 +551,53 @@ EXAMPLES = """
           internet_service_custom_group:
               -
                   name: "default_name_30 (source firewall.internet-service-custom-group.name)"
+          internet_service_fortiguard:
+              -
+                  name: "default_name_32 (source firewall.internet-service-fortiguard.name)"
           internet_service_group:
               -
-                  name: "default_name_32 (source firewall.internet-service-group.name)"
+                  name: "default_name_34 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "34 (source firewall.internet-service.id)"
+                  id: "36 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_36 (source firewall.internet-service-name.name)"
+                  name: "default_name_38 (source firewall.internet-service-name.name)"
           internet_service_src: "enable"
           internet_service_src_custom:
               -
-                  name: "default_name_39 (source firewall.internet-service-custom.name)"
+                  name: "default_name_41 (source firewall.internet-service-custom.name)"
           internet_service_src_custom_group:
               -
-                  name: "default_name_41 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_43 (source firewall.internet-service-custom-group.name)"
+          internet_service_src_fortiguard:
+              -
+                  name: "default_name_45 (source firewall.internet-service-fortiguard.name)"
           internet_service_src_group:
               -
-                  name: "default_name_43 (source firewall.internet-service-group.name)"
+                  name: "default_name_47 (source firewall.internet-service-group.name)"
           internet_service_src_id:
               -
-                  id: "45 (source firewall.internet-service.id)"
+                  id: "49 (source firewall.internet-service.id)"
           internet_service_src_name:
               -
-                  name: "default_name_47 (source firewall.internet-service-name.name)"
+                  name: "default_name_51 (source firewall.internet-service-name.name)"
           ip_version: "4"
-          name: "default_name_49"
+          name: "default_name_53"
           per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           service:
               -
-                  name: "default_name_53 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_57 (source firewall.service.custom.name firewall.service.group.name)"
           srcaddr:
               -
-                  name: "default_name_55 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_59 (source firewall.address.name firewall.addrgrp.name)"
           srcaddr6:
               -
-                  name: "default_name_57 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_61 (source firewall.address6.name firewall.addrgrp6.name)"
           srcintf:
               -
-                  name: "default_name_59 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_63 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           status: "enable"
           tos: "<your_own_value>"
           tos_mask: "<your_own_value>"
@@ -579,10 +607,10 @@ EXAMPLES = """
           traffic_type: "forwarding"
           url_category:
               -
-                  id: "68"
+                  id: "72"
           users:
               -
-                  name: "default_name_70 (source user.local.name)"
+                  name: "default_name_74 (source user.local.name)"
           uuid: "<your_own_value>"
 """
 
@@ -698,12 +726,14 @@ def filter_firewall_shaping_policy_data(json):
         "internet_service",
         "internet_service_custom",
         "internet_service_custom_group",
+        "internet_service_fortiguard",
         "internet_service_group",
         "internet_service_id",
         "internet_service_name",
         "internet_service_src",
         "internet_service_src_custom",
         "internet_service_src_custom_group",
+        "internet_service_src_fortiguard",
         "internet_service_src_group",
         "internet_service_src_id",
         "internet_service_src_name",
@@ -1042,6 +1072,18 @@ versioned_schema = {
             },
             "v_range": [["v6.2.0", ""]],
         },
+        "internet_service_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
+        },
         "internet_service_src": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1094,6 +1136,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v6.2.0", ""]],
+        },
+        "internet_service_src_fortiguard": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "service": {
             "type": "list",

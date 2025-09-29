@@ -286,6 +286,13 @@ options:
                                 choices:
                                     - 'enable'
                                     - 'disable'
+                            verify_cert:
+                                description:
+                                    - Enable/disable certificate verification of the real server.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
                             weight:
                                 description:
                                     - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more
@@ -648,6 +655,13 @@ options:
                                 choices:
                                     - 'enable'
                                     - 'disable'
+                            verify_cert:
+                                description:
+                                    - Enable/disable certificate verification of the real server.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
                             weight:
                                 description:
                                     - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more
@@ -846,7 +860,7 @@ options:
                 type: str
             svr_pool_multiplex:
                 description:
-                    - Enable/disable server pool multiplexing. Share connected server in HTTP and HTTPS api-gateways.
+                    - Enable/disable server pool multiplexing . Share connected server in HTTP and HTTPS api-gateways.
                 type: str
                 choices:
                     - 'enable'
@@ -916,6 +930,7 @@ EXAMPLES = """
                           port: "443"
                           status: "active"
                           translate_host: "enable"
+                          verify_cert: "enable"
                           weight: "1"
                   service: "http"
                   ssl_algorithm: "high"
@@ -941,7 +956,7 @@ EXAMPLES = """
                   http_cookie_path: "<your_own_value>"
                   http_cookie_share: "disable"
                   https_cookie_secure: "disable"
-                  id: "60"
+                  id: "61"
                   ldb_method: "static"
                   persistence: "none"
                   quic:
@@ -961,11 +976,12 @@ EXAMPLES = """
                           health_check_proto: "ping"
                           holddown_interval: "enable"
                           http_host: "myhostname"
-                          id: "79"
+                          id: "80"
                           ip: "<your_own_value>"
                           port: "443"
                           status: "active"
                           translate_host: "enable"
+                          verify_cert: "enable"
                           weight: "1"
                   service: "http"
                   ssl_algorithm: "high"
@@ -985,7 +1001,7 @@ EXAMPLES = """
           decrypted_traffic_mirror: "<your_own_value> (source firewall.decrypted-traffic-mirror.name)"
           host: "myhostname (source firewall.access-proxy-virtual-host.name)"
           log_blocked_traffic: "disable"
-          name: "default_name_102"
+          name: "default_name_104"
           svr_pool_multiplex: "enable"
           svr_pool_server_max_concurrent_request: "0"
           svr_pool_server_max_request: "0"
@@ -1373,6 +1389,11 @@ versioned_schema = {
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
+                        "verify_cert": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
                     },
                     "v_range": [["v7.6.1", ""]],
                 },
@@ -1691,6 +1712,11 @@ versioned_schema = {
                         },
                         "translate_host": {
                             "v_range": [["v7.6.1", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "verify_cert": {
+                            "v_range": [["v7.6.3", ""]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },

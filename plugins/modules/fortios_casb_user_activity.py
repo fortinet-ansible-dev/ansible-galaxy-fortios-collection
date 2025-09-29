@@ -107,6 +107,7 @@ options:
                     - 'tenant-control'
                     - 'domain-control'
                     - 'safe-search-control'
+                    - 'advanced-tenant-control'
                     - 'other'
             control_options:
                 description:
@@ -186,6 +187,10 @@ options:
                                 choices:
                                     - 'enable'
                                     - 'disable'
+                            value_name_from_input:
+                                description:
+                                    - CASB operation value name from user input.
+                                type: str
                             values:
                                 description:
                                     - CASB operation new values.
@@ -425,6 +430,7 @@ EXAMPLES = """
                           search_pattern: "simple"
                           target: "header"
                           value_from_input: "enable"
+                          value_name_from_input: "<your_own_value>"
                           values:
                               -
                                   value: "<your_own_value>"
@@ -432,7 +438,7 @@ EXAMPLES = """
           description: "<your_own_value>"
           match:
               -
-                  id: "23"
+                  id: "24"
                   rules:
                       -
                           body_type: "json"
@@ -441,7 +447,7 @@ EXAMPLES = """
                               -
                                   domain: "<your_own_value>"
                           header_name: "<your_own_value>"
-                          id: "30"
+                          id: "31"
                           jq: "<your_own_value>"
                           match_pattern: "simple"
                           match_value: "<your_own_value>"
@@ -457,13 +463,13 @@ EXAMPLES = """
                               body_type: "json"
                               direction: "request"
                               header_name: "<your_own_value>"
-                              id: "44"
+                              id: "45"
                               place: "path"
                       jq: "<your_own_value>"
                       status: "disable"
                       type: "json-query"
           match_strategy: "and"
-          name: "default_name_50"
+          name: "default_name_51"
           status: "enable"
           type: "built-in"
           uuid: "<your_own_value>"
@@ -767,6 +773,7 @@ versioned_schema = {
                 {"value": "tenant-control"},
                 {"value": "domain-control"},
                 {"value": "safe-search-control"},
+                {"value": "advanced-tenant-control", "v_range": [["v7.6.4", ""]]},
                 {"value": "other"},
             ],
         },
@@ -995,6 +1002,10 @@ versioned_schema = {
                             "v_range": [["v7.4.1", ""]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "value_name_from_input": {
+                            "v_range": [["v7.6.4", ""]],
+                            "type": "string",
                         },
                         "values": {
                             "type": "list",

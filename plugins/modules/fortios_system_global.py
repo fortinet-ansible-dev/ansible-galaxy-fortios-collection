@@ -678,6 +678,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fortitoken_cloud_region:
+                description:
+                    - Region domain of FortiToken Cloud(unset to non-region).
+                type: str
             fortitoken_cloud_sync_interval:
                 description:
                     - Interval in which to clean up remote users in FortiToken Cloud (0 - 336 hours (14 days)).
@@ -1030,6 +1034,13 @@ options:
                 description:
                     - Timeout value in seconds for any IPv6 fragment not being reassembled
                 type: int
+            ipv6_snat_route_change:
+                description:
+                    - Enable/disable the ability to change the IPv6 source NAT route.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             irq_time_accounting:
                 description:
                     - Configure CPU IRQ time accounting mode.
@@ -1259,7 +1270,7 @@ options:
                 type: int
             proxy_auth_timeout:
                 description:
-                    - Authentication timeout in minutes for authenticated users (1 - 300 min).
+                    - Authentication timeout in minutes for authenticated users (1 - 10000 min).
                 type: int
             proxy_cert_use_mgmt_vdom:
                 description:
@@ -1424,6 +1435,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            router_affinity:
+                description:
+                    - Affinity setting for BFD/VRRP/BGP/OSPF daemons (hexadecimal value up to 256 bits in the format of xxxxxxxxxxxxxxxx).
+                type: str
             scanunit_count:
                 description:
                     - Number of scanunits. The range and the default depend on the number of CPUs. Only available on FortiGate units with multiple CPUs.
@@ -1700,6 +1715,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            sslvpn_affinity:
+                description:
+                    - Agentless VPN CPU affinity.
+                type: str
             sslvpn_cipher_hardware_acceleration:
                 description:
                     - sslvpn-cipher-hardware-acceleration
@@ -1723,8 +1742,8 @@ options:
                     - 'disable'
             sslvpn_max_worker_count:
                 description:
-                    - Maximum number of SSL-VPN processes. Upper limit for this value is the number of CPUs and depends on the model. Default value of zero
-                       means the SSLVPN daemon decides the number of worker processes.
+                    - Maximum number of Agentless VPN processes. Upper limit for this value is the number of CPUs and depends on the model. Default value of
+                       zero means the sslvpnd daemon decides the number of worker processes.
                 type: int
             sslvpn_plugin_version_check:
                 description:
@@ -1735,7 +1754,7 @@ options:
                     - 'disable'
             sslvpn_web_mode:
                 description:
-                    - Enable/disable SSL-VPN web mode.
+                    - Enable/disable Agentless VPN web mode.
                 type: str
                 choices:
                     - 'enable'
@@ -1800,6 +1819,17 @@ options:
                 description:
                     - Length of the TCP TIME-WAIT state in seconds (1 - 300 sec).
                 type: int
+            telemetry_controller:
+                description:
+                    - Enable/disable FortiTelemetry controller to manage FortiTelemetry agents.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            telemetry_data_port:
+                description:
+                    - FortiTelemetry data channel port (1024 - 49150).
+                type: int
             tftp:
                 description:
                     - Enable/disable TFTP.
@@ -1811,6 +1841,13 @@ options:
                 description:
                     - Timezone database name. Enter ? to view the list of timezone. Source system.timezone.name.
                 type: str
+            tls_session_cache:
+                description:
+                    - Enable/disable TLS session cache.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             tp_mc_skip_policy:
                 description:
                     - Enable/disable skip policy check and allow multicast through.
@@ -1871,6 +1908,10 @@ options:
             url_filter_count:
                 description:
                     - URL filter daemon count.
+                type: int
+            user_device_store_max_device_mem:
+                description:
+                    - Maximum percentage of total system memory allowed to be used for devices in the user device store.
                 type: int
             user_device_store_max_devices:
                 description:
@@ -1954,6 +1995,10 @@ options:
             wad_memory_change_granularity:
                 description:
                     - Minimum percentage change in system memory usage detected by the wad daemon prior to adjusting TCP window size for any active connection.
+                type: int
+            wad_p2s_max_body_size:
+                description:
+                    - Maximum size of the body of the local out HTTP request (1 - 32 Mbytes).
                 type: int
             wad_restart_end_time:
                 description:
@@ -2113,6 +2158,7 @@ EXAMPLES = """
           fortiservice_port: "8013"
           fortitoken_cloud: "enable"
           fortitoken_cloud_push_status: "enable"
+          fortitoken_cloud_region: "<your_own_value>"
           fortitoken_cloud_sync_interval: "24"
           gui_allow_default_hostname: "enable"
           gui_allow_incompatible_fabric_fgt: "enable"
@@ -2149,7 +2195,7 @@ EXAMPLES = """
           internet_service_database: "mini"
           internet_service_download_list:
               -
-                  id: "134 (source firewall.internet-service.id)"
+                  id: "135 (source firewall.internet-service.id)"
           interval: "5"
           ip_conflict_detection: "enable"
           ip_fragment_mem_thresholds: "32"
@@ -2169,6 +2215,7 @@ EXAMPLES = """
           ipv6_allow_multicast_probe: "enable"
           ipv6_allow_traffic_redirect: "enable"
           ipv6_fragment_timeout: "60"
+          ipv6_snat_route_change: "enable"
           irq_time_accounting: "auto"
           language: "english"
           ldapconntimeout: "500"
@@ -2185,7 +2232,7 @@ EXAMPLES = """
           management_port: "443"
           management_port_use_admin_sport: "enable"
           management_vdom: "<your_own_value> (source system.vdom.name)"
-          max_dlpstat_memory: "170"
+          max_dlpstat_memory: "172"
           max_route_cache_size: "0"
           mc_ttl_notchange: "enable"
           memory_use_threshold_extreme: "95"
@@ -2232,6 +2279,7 @@ EXAMPLES = """
           restart_time: "<your_own_value>"
           revision_backup_on_logout: "enable"
           revision_image_auto_backup: "enable"
+          router_affinity: "<your_own_value>"
           scanunit_count: "0"
           scim_http_port: "44558"
           scim_https_port: "44559"
@@ -2269,6 +2317,7 @@ EXAMPLES = """
           ssh_mac_weak: "enable"
           ssl_min_proto_version: "SSLv3"
           ssl_static_key_ciphers: "enable"
+          sslvpn_affinity: "<your_own_value>"
           sslvpn_cipher_hardware_acceleration: "enable"
           sslvpn_ems_sn_check: "enable"
           sslvpn_kxp_hardware_acceleration: "enable"
@@ -2286,8 +2335,11 @@ EXAMPLES = """
           tcp_option: "enable"
           tcp_rst_timer: "5"
           tcp_timewait_timer: "1"
+          telemetry_controller: "enable"
+          telemetry_data_port: "35246"
           tftp: "enable"
           timezone: "<your_own_value> (source system.timezone.name)"
+          tls_session_cache: "enable"
           tp_mc_skip_policy: "enable"
           traffic_priority: "tos"
           traffic_priority_level: "low"
@@ -2300,8 +2352,9 @@ EXAMPLES = """
           upgrade_report: "enable"
           url_filter_affinity: "<your_own_value>"
           url_filter_count: "1"
+          user_device_store_max_device_mem: "2"
           user_device_store_max_devices: "676985"
-          user_device_store_max_unified_mem: "3384926003"
+          user_device_store_max_unified_mem: "3384928051"
           user_device_store_max_users: "676985"
           user_history_password_threshold: "3"
           user_server_cert: "<your_own_value> (source certificate.local.name)"
@@ -2316,6 +2369,7 @@ EXAMPLES = """
           wad_csvc_cs_count: "1"
           wad_csvc_db_count: "0"
           wad_memory_change_granularity: "10"
+          wad_p2s_max_body_size: "4"
           wad_restart_end_time: "<your_own_value>"
           wad_restart_mode: "none"
           wad_restart_start_time: "<your_own_value>"
@@ -2517,6 +2571,7 @@ def filter_system_global_data(json):
         "fortiservice_port",
         "fortitoken_cloud",
         "fortitoken_cloud_push_status",
+        "fortitoken_cloud_region",
         "fortitoken_cloud_sync_interval",
         "gui_allow_default_hostname",
         "gui_allow_incompatible_fabric_fgt",
@@ -2571,6 +2626,7 @@ def filter_system_global_data(json):
         "ipv6_allow_multicast_probe",
         "ipv6_allow_traffic_redirect",
         "ipv6_fragment_timeout",
+        "ipv6_snat_route_change",
         "irq_time_accounting",
         "language",
         "ldapconntimeout",
@@ -2634,6 +2690,7 @@ def filter_system_global_data(json):
         "restart_time",
         "revision_backup_on_logout",
         "revision_image_auto_backup",
+        "router_affinity",
         "scanunit_count",
         "scim_http_port",
         "scim_https_port",
@@ -2668,6 +2725,7 @@ def filter_system_global_data(json):
         "ssh_mac_weak",
         "ssl_min_proto_version",
         "ssl_static_key_ciphers",
+        "sslvpn_affinity",
         "sslvpn_cipher_hardware_acceleration",
         "sslvpn_ems_sn_check",
         "sslvpn_kxp_hardware_acceleration",
@@ -2685,8 +2743,11 @@ def filter_system_global_data(json):
         "tcp_option",
         "tcp_rst_timer",
         "tcp_timewait_timer",
+        "telemetry_controller",
+        "telemetry_data_port",
         "tftp",
         "timezone",
+        "tls_session_cache",
         "tp_mc_skip_policy",
         "traffic_priority",
         "traffic_priority_level",
@@ -2699,6 +2760,7 @@ def filter_system_global_data(json):
         "upgrade_report",
         "url_filter_affinity",
         "url_filter_count",
+        "user_device_store_max_device_mem",
         "user_device_store_max_devices",
         "user_device_store_max_unified_mem",
         "user_device_store_max_users",
@@ -2715,6 +2777,7 @@ def filter_system_global_data(json):
         "wad_csvc_cs_count",
         "wad_csvc_db_count",
         "wad_memory_change_granularity",
+        "wad_p2s_max_body_size",
         "wad_restart_end_time",
         "wad_restart_mode",
         "wad_restart_start_time",
@@ -3142,6 +3205,7 @@ versioned_schema = {
         },
         "wad_restart_start_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "wad_restart_end_time": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "wad_p2s_max_body_size": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "radius_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "speedtestd_server_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "speedtestd_ctrl_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
@@ -3259,6 +3323,11 @@ versioned_schema = {
         },
         "snat_route_change": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_snat_route_change": {
+            "v_range": [["v7.6.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -3582,6 +3651,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "telemetry_controller": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "telemetry_data_port": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "switch_controller": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3648,11 +3723,7 @@ versioned_schema = {
         },
         "cert_chain_max": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "sslvpn_max_worker_count": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "vpn_ems_sn_check": {
-            "v_range": [["v7.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
+        "sslvpn_affinity": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "sslvpn_web_mode": {
             "v_range": [["v7.4.1", ""]],
             "type": "string",
@@ -3733,6 +3804,7 @@ versioned_schema = {
         "miglog_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "syslog_affinity": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "url_filter_affinity": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "router_affinity": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "ndp_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "br_fdb_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "max_route_cache_size": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -3744,6 +3816,10 @@ versioned_schema = {
         "device_idle_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "user_device_store_max_devices": {
             "v_range": [["v6.4.4", ""]],
+            "type": "integer",
+        },
+        "user_device_store_max_device_mem": {
+            "v_range": [["v7.6.3", ""]],
             "type": "integer",
         },
         "user_device_store_max_users": {"v_range": [["v6.4.4", ""]], "type": "integer"},
@@ -3817,6 +3893,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "fortitoken_cloud_region": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "fortitoken_cloud_sync_interval": {
             "v_range": [["v7.4.1", ""]],
             "type": "integer",
@@ -3915,6 +3992,16 @@ versioned_schema = {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "tls_session_cache": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "vpn_ems_sn_check": {
+            "v_range": [["v7.4.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ipsec_qat_offload": {
             "v_range": [],

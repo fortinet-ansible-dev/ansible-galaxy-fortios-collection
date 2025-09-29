@@ -166,7 +166,7 @@ options:
                             - 'disable'
             garbage_timer:
                 description:
-                    - Garbage timer.
+                    - Garbage timer in seconds.
                 type: int
             interface:
                 description:
@@ -311,11 +311,11 @@ options:
                             - 'disable'
             timeout_timer:
                 description:
-                    - Timeout timer.
+                    - Timeout timer in seconds.
                 type: int
             update_timer:
                 description:
-                    - Update timer.
+                    - Update timer in seconds.
                 type: int
 """
 

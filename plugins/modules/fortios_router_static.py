@@ -145,6 +145,10 @@ options:
                 description:
                     - Application name in the Internet service custom database. Source firewall.internet-service-custom.name.
                 type: str
+            internet_service_fortiguard:
+                description:
+                    - Application name in the Internet service fortiguard database. Source firewall.internet-service-fortiguard.name.
+                type: str
             link_monitor_exempt:
                 description:
                     - Enable/disable withdrawal of this static route when link monitor or health check is down.
@@ -233,13 +237,14 @@ EXAMPLES = """
           gateway: "<your_own_value>"
           internet_service: "0"
           internet_service_custom: "<your_own_value> (source firewall.internet-service-custom.name)"
+          internet_service_fortiguard: "<your_own_value> (source firewall.internet-service-fortiguard.name)"
           link_monitor_exempt: "enable"
           preferred_source: "<your_own_value>"
           priority: "1"
           sdwan: "enable"
           sdwan_zone:
               -
-                  name: "default_name_19 (source system.sdwan.zone.name)"
+                  name: "default_name_20 (source system.sdwan.zone.name)"
           seq_num: "<you_own_value>"
           src: "<your_own_value>"
           status: "enable"
@@ -353,6 +358,7 @@ def filter_router_static_data(json):
         "gateway",
         "internet_service",
         "internet_service_custom",
+        "internet_service_fortiguard",
         "link_monitor_exempt",
         "preferred_source",
         "priority",
@@ -574,6 +580,7 @@ versioned_schema = {
         "dstaddr": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "internet_service": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "internet_service_custom": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "internet_service_fortiguard": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "link_monitor_exempt": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

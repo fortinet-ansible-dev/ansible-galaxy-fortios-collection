@@ -229,7 +229,7 @@ options:
                     - 'same-ip'
             http_ip_header:
                 description:
-                    - For HTTP multiplexing, enable to add the original client IP address in the XForwarded-For HTTP header.
+                    - For HTTP multiplexing, enable to add the original client IP address in the X-Forwarded-For HTTP header.
                 type: str
                 choices:
                     - 'enable'
@@ -533,6 +533,13 @@ options:
                         choices:
                             - 'ip'
                             - 'address'
+                    verify_cert:
+                        description:
+                            - Enable/disable certificate verification of the real server.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     weight:
                         description:
                             - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more connections.
@@ -1167,11 +1174,12 @@ EXAMPLES = """
                   status: "active"
                   translate_host: "enable"
                   type: "ip"
+                  verify_cert: "enable"
                   weight: "1"
           server_type: "http"
           service:
               -
-                  name: "default_name_86 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_87 (source firewall.service.custom.name firewall.service.group.name)"
           src_filter:
               -
                   range: "<your_own_value>"
@@ -1184,7 +1192,7 @@ EXAMPLES = """
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
           ssl_certificate_dict:
               -
-                  name: "default_name_96 (source vpn.certificate.local.name)"
+                  name: "default_name_97 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1951,6 +1959,11 @@ versioned_schema = {
                     "v_range": [["v6.0.0", ""]],
                 },
                 "client_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "verify_cert": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
             },
             "v_range": [["v6.0.0", ""]],
         },

@@ -177,6 +177,13 @@ options:
                 description:
                     - User name used to sign in to the server. Must have proper permissions for service.
                 type: str
+            validate_server_certificate:
+                description:
+                    - Enable/disable exchange server certificate validation.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
 """
 
 EXAMPLES = """
@@ -201,6 +208,7 @@ EXAMPLES = """
           server_name: "<your_own_value>"
           ssl_min_proto_version: "default"
           username: "<your_own_value>"
+          validate_server_certificate: "disable"
 """
 
 RETURN = """
@@ -309,6 +317,7 @@ def filter_user_exchange_data(json):
         "server_name",
         "ssl_min_proto_version",
         "username",
+        "validate_server_certificate",
     ]
 
     json = remove_invalid_fields(json)
@@ -492,6 +501,11 @@ versioned_schema = {
                 {"value": "rpc-over-http"},
                 {"value": "rpc-over-https"},
             ],
+        },
+        "validate_server_certificate": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "auth_type": {
             "v_range": [["v6.2.0", ""]],

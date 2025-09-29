@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_casb_attribute_match
-short_description: Configure CASB SaaS application in Fortinet's FortiOS and FortiGate.
+short_description: Configure CASB attribute match rule in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify casb feature and attribute_match category.
@@ -85,13 +85,13 @@ options:
             - 'absent'
     casb_attribute_match:
         description:
-            - Configure CASB SaaS application.
+            - Configure CASB attribute match rule.
         default: null
         type: dict
         suboptions:
             application:
                 description:
-                    - CASB tenant application name. Source casb.saas-application.name.
+                    - CASB attribute application name. Source casb.saas-application.name.
                 type: str
             attribute:
                 description:
@@ -130,22 +130,81 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+            match:
+                description:
+                    - CASB tenant match rules.
+                type: list
+                elements: dict
+                suboptions:
+                    id:
+                        description:
+                            - CASB attribute match rule ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+                    rule:
+                        description:
+                            - CASB attribute match rule.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            attribute:
+                                description:
+                                    - CASB attribute match name.
+                                type: str
+                            case_sensitive:
+                                description:
+                                    - CASB attribute match case sensitive.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
+                            id:
+                                description:
+                                    - CASB attribute rule ID. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            match_pattern:
+                                description:
+                                    - CASB attribute match pattern.
+                                type: str
+                                choices:
+                                    - 'simple'
+                                    - 'substr'
+                                    - 'regexp'
+                            match_value:
+                                description:
+                                    - CASB attribute match value.
+                                type: str
+                            negate:
+                                description:
+                                    - Enable/disable what the matching strategy must not be.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
+                    rule_strategy:
+                        description:
+                            - CASB attribute match rule strategy.
+                        type: str
+                        choices:
+                            - 'and'
+                            - 'or'
             match_strategy:
                 description:
-                    - CASB tenant match strategy.
+                    - CASB attribute match strategy.
                 type: str
                 choices:
                     - 'and'
                     - 'or'
             name:
                 description:
-                    - CASB tenant match name.
+                    - CASB attribute match name.
                 required: true
                 type: str
 """
 
 EXAMPLES = """
-- name: Configure CASB SaaS application.
+- name: Configure CASB attribute match rule.
   fortinet.fortios.fortios_casb_attribute_match:
       vdom: "{{ vdom }}"
       state: "present"
@@ -159,8 +218,20 @@ EXAMPLES = """
                   match_value: "<your_own_value>"
                   name: "default_name_8"
                   negate: "enable"
+          match:
+              -
+                  id: "11"
+                  rule:
+                      -
+                          attribute: "<your_own_value>"
+                          case_sensitive: "enable"
+                          id: "15"
+                          match_pattern: "simple"
+                          match_value: "<your_own_value>"
+                          negate: "enable"
+                  rule_strategy: "and"
           match_strategy: "and"
-          name: "default_name_11"
+          name: "default_name_21"
 """
 
 RETURN = """
@@ -243,7 +314,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_casb_attribute_match_data(json):
-    option_list = ["application", "attribute", "match_strategy", "name"]
+    option_list = ["application", "attribute", "match", "match_strategy", "name"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -339,17 +410,67 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "and"}, {"value": "or"}],
         },
+        "match": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "rule_strategy": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [{"value": "and"}, {"value": "or"}],
+                },
+                "rule": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "attribute": {"v_range": [["v7.6.3", ""]], "type": "string"},
+                        "match_pattern": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "simple"},
+                                {"value": "substr"},
+                                {"value": "regexp"},
+                            ],
+                        },
+                        "match_value": {"v_range": [["v7.6.3", ""]], "type": "string"},
+                        "case_sensitive": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "negate": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                    },
+                    "v_range": [["v7.6.3", ""]],
+                },
+            },
+            "v_range": [["v7.6.3", ""]],
+        },
         "attribute": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "name": {
-                    "v_range": [["v7.6.1", ""]],
+                    "v_range": [["v7.6.1", "v7.6.2"]],
                     "type": "string",
                     "required": True,
                 },
                 "match_pattern": {
-                    "v_range": [["v7.6.1", ""]],
+                    "v_range": [["v7.6.1", "v7.6.2"]],
                     "type": "string",
                     "options": [
                         {"value": "simple"},
@@ -357,19 +478,19 @@ versioned_schema = {
                         {"value": "regexp"},
                     ],
                 },
-                "match_value": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "match_value": {"v_range": [["v7.6.1", "v7.6.2"]], "type": "string"},
                 "case_sensitive": {
-                    "v_range": [["v7.6.1", ""]],
+                    "v_range": [["v7.6.1", "v7.6.2"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "negate": {
-                    "v_range": [["v7.6.1", ""]],
+                    "v_range": [["v7.6.1", "v7.6.2"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
             },
-            "v_range": [["v7.6.1", ""]],
+            "v_range": [["v7.6.1", "v7.6.2"]],
         },
     },
     "v_range": [["v7.6.1", ""]],

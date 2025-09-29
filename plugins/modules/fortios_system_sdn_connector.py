@@ -287,6 +287,13 @@ options:
                 description:
                     - HTTP port number of the SAP message server.
                 type: int
+            microsoft_365:
+                description:
+                    - Enable to use as Microsoft 365 connector.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             name:
                 description:
                     - SDN connector name.
@@ -541,6 +548,10 @@ options:
                 description:
                     - vCenter server username for NSX quarantine.
                 type: str
+            vdom:
+                description:
+                    - Virtual domain name of the remote SDN connector. Source system.vdom.name.
+                type: str
             verify_certificate:
                 description:
                     - Enable/disable server certificate verification.
@@ -602,16 +613,17 @@ EXAMPLES = """
           key_passwd: "<your_own_value>"
           login_endpoint: "<your_own_value>"
           message_server_port: "0"
-          name: "default_name_37"
+          microsoft_365: "disable"
+          name: "default_name_38"
           nic:
               -
                   ip:
                       -
-                          name: "default_name_40"
+                          name: "default_name_41"
                           private_ip: "<your_own_value>"
                           public_ip: "<your_own_value>"
                           resource_group: "<your_own_value>"
-                  name: "default_name_44"
+                  name: "default_name_45"
                   peer_nic: "<your_own_value>"
           oci_cert: "<your_own_value> (source certificate.local.name)"
           oci_fingerprint: "<your_own_value>"
@@ -628,14 +640,14 @@ EXAMPLES = """
           resource_url: "<your_own_value>"
           route:
               -
-                  name: "default_name_59"
+                  name: "default_name_60"
           route_table:
               -
-                  name: "default_name_61"
+                  name: "default_name_62"
                   resource_group: "<your_own_value>"
                   route:
                       -
-                          name: "default_name_64"
+                          name: "default_name_65"
                           next_hop: "<your_own_value>"
                   subscription_id: "<your_own_value>"
           secret_key: "<your_own_value>"
@@ -659,6 +671,7 @@ EXAMPLES = """
           vcenter_password: "<your_own_value>"
           vcenter_server: "<your_own_value>"
           vcenter_username: "<your_own_value>"
+          vdom: "<your_own_value> (source system.vdom.name)"
           verify_certificate: "disable"
           vpc_id: "<your_own_value>"
 """
@@ -779,6 +792,7 @@ def filter_system_sdn_connector_data(json):
         "key_passwd",
         "login_endpoint",
         "message_server_port",
+        "microsoft_365",
         "name",
         "nic",
         "oci_cert",
@@ -813,6 +827,7 @@ def filter_system_sdn_connector_data(json):
         "vcenter_password",
         "vcenter_server",
         "vcenter_username",
+        "vdom",
         "verify_certificate",
         "vpc_id",
     ]
@@ -1020,6 +1035,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "microsoft_365": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "ha_status": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
@@ -1030,6 +1050,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "vdom": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "server_list": {
             "type": "list",

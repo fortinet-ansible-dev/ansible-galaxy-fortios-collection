@@ -532,6 +532,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            gui_fortitelemetry:
+                description:
+                    - Enable/disable FortiTelemetry on the GUI.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             gui_gtp:
                 description:
                     - Enable/disable Manage general radio packet service (GPRS) protocols on the GUI.
@@ -819,6 +826,13 @@ options:
                 choices:
                     - 'fortiweb'
                     - 'forticache'
+            ike_detailed_event_logs:
+                description:
+                    - Enable/disable detail log for IKE events.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             ike_dn_format:
                 description:
                     - Configure IKE ASN.1 Distinguished Name format conventions.
@@ -1079,7 +1093,7 @@ options:
                 elements: int
             snat_hairpin_traffic:
                 description:
-                    - Enable/disable source NAT (SNAT) for hairpin traffic.
+                    - Enable/disable source NAT (SNAT) for VIP hairpin traffic.
                 type: str
                 choices:
                     - 'enable'
@@ -1232,6 +1246,7 @@ EXAMPLES = """
           gui_file_filter: "enable"
           gui_fortiap_split_tunneling: "enable"
           gui_fortiextender_controller: "enable"
+          gui_fortitelemetry: "enable"
           gui_gtp: "enable"
           gui_icap: "enable"
           gui_implicit_policy: "enable"
@@ -1273,6 +1288,7 @@ EXAMPLES = """
           gui_ztna: "enable"
           h323_direct_model: "disable"
           http_external_dest: "fortiweb"
+          ike_detailed_event_logs: "disable"
           ike_dn_format: "with-space"
           ike_policy_route: "enable"
           ike_port: "500"
@@ -1490,6 +1506,7 @@ def filter_system_settings_data(json):
         "gui_file_filter",
         "gui_fortiap_split_tunneling",
         "gui_fortiextender_controller",
+        "gui_fortitelemetry",
         "gui_gtp",
         "gui_icap",
         "gui_implicit_policy",
@@ -1531,6 +1548,7 @@ def filter_system_settings_data(json):
         "gui_ztna",
         "h323_direct_model",
         "http_external_dest",
+        "ike_detailed_event_logs",
         "ike_dn_format",
         "ike_policy_route",
         "ike_port",
@@ -2278,6 +2296,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "gui_fortitelemetry": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "gui_videofilter": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
@@ -2385,6 +2408,11 @@ versioned_schema = {
             "v_range": [["v7.0.2", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ike_detailed_event_logs": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "block_land_attack": {
             "v_range": [["v6.0.0", ""]],

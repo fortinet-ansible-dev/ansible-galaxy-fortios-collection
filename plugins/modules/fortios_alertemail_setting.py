@@ -268,7 +268,7 @@ options:
                     - 'disable'
             sslvpn_authentication_errors_logs:
                 description:
-                    - Enable/disable SSL-VPN authentication error logs in alert email.
+                    - Enable/disable Agentless VPN authentication error logs in alert email.
                 type: str
                 choices:
                     - 'enable'

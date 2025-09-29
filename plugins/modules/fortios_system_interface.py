@@ -113,6 +113,7 @@ options:
                     - 'L2'
                     - 'L3'
                     - 'L4'
+                    - 'NPU-GRE'
                     - 'Source-MAC'
             alias:
                 description:
@@ -1017,6 +1018,7 @@ options:
                             - 'telnet'
                             - 'fgfm'
                             - 'fabric'
+                            - 'scim'
                             - 'capwap'
                     ip6_default_life:
                         description:
@@ -1481,6 +1483,9 @@ options:
                     - Number of IP addresses to be allocated by FortiIPAM and used by this FortiGate unit"s DHCP server settings.
                 type: str
                 choices:
+                    - '4'
+                    - '8'
+                    - '16'
                     - '32'
                     - '64'
                     - '128'
@@ -1493,6 +1498,14 @@ options:
                     - '16384'
                     - '32768'
                     - '65536'
+                    - '131072'
+                    - '262144'
+                    - '524288'
+                    - '1048576'
+                    - '2097152'
+                    - '4194304'
+                    - '8388608'
+                    - '16777216'
             management_ip:
                 description:
                     - High Availability in-band management IP address of this interface.
@@ -1984,13 +1997,13 @@ options:
                     - '10half'
                     - '100full'
                     - '100half'
+                    - '100auto'
                     - '1000full'
                     - '1000auto'
                     - '10000full'
                     - '10000auto'
                     - '40000full'
                     - '40000auto'
-                    - '100auto'
                     - '2500auto'
                     - '5000auto'
                     - '25000full'
@@ -2275,6 +2288,13 @@ options:
                 description:
                     - TCP maximum segment size. 0 means do not change segment size.
                 type: int
+            telemetry_discover:
+                description:
+                    - Enable/disable automatic registration of unknown FortiTelemetry agents.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             trunk:
                 description:
                     - Enable/disable VLAN trunk.
@@ -2324,11 +2344,11 @@ options:
                     - 'fext-wan'
                     - 'vxlan'
                     - 'geneve'
-                    - 'hdlc'
                     - 'switch-vlan'
                     - 'emac-vlan'
-                    - 'ssl'
                     - 'lan-extension'
+                    - 'hdlc'
+                    - 'ssl'
                     - 'hard-switch'
             username:
                 description:
@@ -2545,7 +2565,7 @@ EXAMPLES = """
           dhcp_relay_service: "disable"
           dhcp_relay_source_ip: "<your_own_value>"
           dhcp_relay_type: "regular"
-          dhcp_relay_vrf_select: "4294967295"
+          dhcp_relay_vrf_select: "-1"
           dhcp_renew_time: "0"
           dhcp_smart_relay: "disable"
           dhcp_snooping_server_list:
@@ -2744,7 +2764,7 @@ EXAMPLES = """
           managed_device:
               -
                   name: "default_name_243"
-          managed_subnetwork_size: "32"
+          managed_subnetwork_size: "4"
           management_ip: "<your_own_value>"
           measured_downstream_bandwidth: "0"
           measured_upstream_bandwidth: "0"
@@ -2877,6 +2897,7 @@ EXAMPLES = """
                       -
                           name: "default_name_370 (source system.object-tagging.tags.name)"
           tcp_mss: "0"
+          telemetry_discover: "enable"
           trunk: "enable"
           trust_ip_1: "<your_own_value>"
           trust_ip_2: "<your_own_value>"
@@ -2902,7 +2923,7 @@ EXAMPLES = """
                   priority: "100"
                   proxy_arp:
                       -
-                          id: "395"
+                          id: "396"
                           ip: "<your_own_value>"
                   start_time: "3"
                   status: "enable"
@@ -3243,6 +3264,7 @@ def filter_system_interface_data(json):
         "system_id_type",
         "tagging",
         "tcp_mss",
+        "telemetry_discover",
         "trunk",
         "trust_ip_1",
         "trust_ip_2",
@@ -3840,13 +3862,13 @@ versioned_schema = {
                 {"value": "10half"},
                 {"value": "100full"},
                 {"value": "100half"},
+                {"value": "100auto", "v_range": [["v7.4.2", "v7.4.2"], ["v7.6.4", ""]]},
                 {"value": "1000full"},
                 {"value": "1000auto"},
                 {"value": "10000full"},
                 {"value": "10000auto"},
                 {"value": "40000full"},
                 {"value": "40000auto", "v_range": [["v7.4.0", ""]]},
-                {"value": "100auto", "v_range": [["v7.4.2", "v7.4.2"]]},
                 {"value": "2500auto", "v_range": [["v7.4.2", "v7.4.2"]]},
                 {"value": "5000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
                 {"value": "25000full", "v_range": [["v7.4.2", "v7.4.2"]]},
@@ -3898,11 +3920,11 @@ versioned_schema = {
                 {"value": "fext-wan"},
                 {"value": "vxlan"},
                 {"value": "geneve", "v_range": [["v6.2.0", ""]]},
-                {"value": "hdlc"},
                 {"value": "switch-vlan"},
                 {"value": "emac-vlan"},
-                {"value": "ssl", "v_range": [["v7.0.0", ""]]},
                 {"value": "lan-extension", "v_range": [["v7.0.2", ""]]},
+                {"value": "hdlc", "v_range": [["v6.0.0", "v7.6.3"]]},
+                {"value": "ssl", "v_range": [["v7.0.0", "v7.6.3"]]},
                 {
                     "value": "hard-switch",
                     "v_range": [
@@ -3943,11 +3965,6 @@ versioned_schema = {
         "netflow_sample_rate": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "netflow_sampler_id": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "sflow_sampler": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "drop_overlapped_fragment": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
@@ -4063,6 +4080,7 @@ versioned_schema = {
                 {"value": "L2"},
                 {"value": "L3"},
                 {"value": "L4"},
+                {"value": "NPU-GRE", "v_range": [["v7.6.4", ""]]},
                 {"value": "Source-MAC", "v_range": [["v7.2.1", ""]]},
             ],
         },
@@ -4335,6 +4353,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "telemetry_discover": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "fortilink_neighbor_detect": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
@@ -4353,6 +4376,9 @@ versioned_schema = {
             "v_range": [["v6.4.0", ""]],
             "type": "string",
             "options": [
+                {"value": "4", "v_range": [["v7.6.3", ""]]},
+                {"value": "8", "v_range": [["v7.6.3", ""]]},
+                {"value": "16", "v_range": [["v7.6.3", ""]]},
                 {"value": "32", "v_range": [["v7.0.2", ""]]},
                 {"value": "64", "v_range": [["v7.0.2", ""]]},
                 {"value": "128", "v_range": [["v7.0.2", ""]]},
@@ -4365,6 +4391,14 @@ versioned_schema = {
                 {"value": "16384"},
                 {"value": "32768"},
                 {"value": "65536"},
+                {"value": "131072", "v_range": [["v7.6.3", ""]]},
+                {"value": "262144", "v_range": [["v7.6.3", ""]]},
+                {"value": "524288", "v_range": [["v7.6.3", ""]]},
+                {"value": "1048576", "v_range": [["v7.6.3", ""]]},
+                {"value": "2097152", "v_range": [["v7.6.3", ""]]},
+                {"value": "4194304", "v_range": [["v7.6.3", ""]]},
+                {"value": "8388608", "v_range": [["v7.6.3", ""]]},
+                {"value": "16777216", "v_range": [["v7.6.3", ""]]},
             ],
         },
         "fortilink_split_interface": {
@@ -4743,6 +4777,7 @@ versioned_schema = {
                         {"value": "telnet"},
                         {"value": "fgfm"},
                         {"value": "fabric", "v_range": [["v6.2.0", ""]]},
+                        {"value": "scim", "v_range": [["v7.6.4", ""]]},
                         {"value": "capwap", "v_range": [["v6.0.0", "v6.0.11"]]},
                     ],
                     "multiple_values": True,
@@ -5114,6 +5149,11 @@ versioned_schema = {
                     "type": "integer",
                 },
             },
+        },
+        "drop_overlapped_fragment": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ring_rx": {"v_range": [], "type": "integer"},
         "ring_tx": {"v_range": [], "type": "integer"},

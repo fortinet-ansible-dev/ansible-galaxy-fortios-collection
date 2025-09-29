@@ -173,7 +173,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Managed device ID.
+                            - FortiSwitch Serial-number.
                         required: true
                         type: str
             fips_enforce:
@@ -183,6 +183,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            firewall_auth_user_hold_period:
+                description:
+                    - Time period in minutes to hold firewall authenticated MAC users (5 - 1440).
+                type: int
             firmware_provision_on_authorization:
                 description:
                     - Enable/disable automatic provisioning of latest firmware on authorization.
@@ -304,6 +308,7 @@ EXAMPLES = """
               -
                   name: "default_name_17"
           fips_enforce: "disable"
+          firewall_auth_user_hold_period: "5"
           firmware_provision_on_authorization: "enable"
           https_image_push: "enable"
           log_mac_limit_violations: "enable"
@@ -426,6 +431,7 @@ def filter_switch_controller_global_data(json):
         "dhcp_snoop_db_per_port_learn_limit",
         "disable_discovery",
         "fips_enforce",
+        "firewall_auth_user_hold_period",
         "firmware_provision_on_authorization",
         "https_image_push",
         "log_mac_limit_violations",
@@ -786,6 +792,10 @@ versioned_schema = {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
             "options": [{"value": "no-op"}, {"value": "factory-reset"}],
+        },
+        "firewall_auth_user_hold_period": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "integer",
         },
         "allow_multiple_interfaces": {
             "v_range": [["v6.0.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],

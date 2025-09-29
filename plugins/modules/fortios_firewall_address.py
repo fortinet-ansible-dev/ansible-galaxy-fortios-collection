@@ -90,6 +90,10 @@ options:
         default: null
         type: dict
         suboptions:
+            agent_id:
+                description:
+                    - Telemetry agent id. Source telemetry-controller.agent.agent-id.
+                type: str
             allow_routing:
                 description:
                     - Enable/disable use of this address in routing configurations.
@@ -269,13 +273,13 @@ options:
                 type: str
             sso_attribute_value:
                 description:
-                    - Name(s) of the RADIUS user groups that this address includes.
+                    - RADIUS attributes value.
                 type: list
                 elements: dict
                 suboptions:
                     name:
                         description:
-                            - RADIUS user group name.
+                            - RADIUS attribute value.
                         required: true
                         type: str
             start_ip:
@@ -298,10 +302,12 @@ options:
                     - 'ems-tag'
                     - 'fortivoice-tag'
                     - 'fortinac-tag'
-                    - 'fortipolicy-tag'
                     - 'swc-tag'
                     - 'device-identification'
                     - 'external-resource'
+                    - 'telemetry'
+                    - 'obsolete'
+                    - 'fortipolicy-tag'
             subnet:
                 description:
                     - IP address and subnet mask of address.
@@ -395,6 +401,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       firewall_address:
+          agent_id: "<your_own_value> (source telemetry-controller.agent.agent-id)"
           allow_routing: "enable"
           associated_interface: "<your_own_value> (source system.interface.name system.zone.name)"
           cache_ttl: "0"
@@ -410,7 +417,7 @@ EXAMPLES = """
           fqdn: "<your_own_value>"
           fsso_group:
               -
-                  name: "default_name_17 (source user.adgrp.name)"
+                  name: "default_name_18 (source user.adgrp.name)"
           hw_model: "<your_own_value>"
           hw_vendor: "<your_own_value>"
           interface: "<your_own_value> (source system.interface.name)"
@@ -422,7 +429,7 @@ EXAMPLES = """
           macaddr:
               -
                   macaddr: "<your_own_value>"
-          name: "default_name_27"
+          name: "default_name_28"
           node_ip_only: "enable"
           obj_id: "<your_own_value>"
           obj_tag: "<your_own_value>"
@@ -436,7 +443,7 @@ EXAMPLES = """
           sdn_tag: "<your_own_value>"
           sso_attribute_value:
               -
-                  name: "default_name_40"
+                  name: "default_name_41"
           start_ip: "<your_own_value>"
           start_mac: "<your_own_value>"
           sub_type: "sdn"
@@ -448,10 +455,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_51"
+                  name: "default_name_52"
                   tags:
                       -
-                          name: "default_name_53 (source system.object-tagging.tags.name)"
+                          name: "default_name_54 (source system.object-tagging.tags.name)"
           tenant: "<your_own_value>"
           type: "ipmask"
           uuid: "<your_own_value>"
@@ -553,6 +560,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_firewall_address_data(json):
     option_list = [
+        "agent_id",
         "allow_routing",
         "associated_interface",
         "cache_ttl",
@@ -800,10 +808,12 @@ versioned_schema = {
                 {"value": "ems-tag", "v_range": [["v6.4.0", ""]]},
                 {"value": "fortivoice-tag", "v_range": [["v7.0.4", ""]]},
                 {"value": "fortinac-tag", "v_range": [["v7.0.4", ""]]},
-                {"value": "fortipolicy-tag", "v_range": [["v7.2.4", ""]]},
                 {"value": "swc-tag", "v_range": [["v7.0.1", ""]]},
                 {"value": "device-identification", "v_range": [["v7.4.0", ""]]},
                 {"value": "external-resource", "v_range": [["v7.6.1", ""]]},
+                {"value": "telemetry", "v_range": [["v7.6.4", ""]]},
+                {"value": "obsolete", "v_range": [["v7.6.3", ""]]},
+                {"value": "fortipolicy-tag", "v_range": [["v7.2.4", "v7.6.2"]]},
             ],
         },
         "clearpass_spt": {
@@ -884,6 +894,7 @@ versioned_schema = {
         "hw_model": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "os": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "sw_version": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "agent_id": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "associated_interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},

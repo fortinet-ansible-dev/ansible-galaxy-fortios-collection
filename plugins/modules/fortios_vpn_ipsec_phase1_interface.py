@@ -552,6 +552,17 @@ options:
                 choices:
                     - 'manual'
                     - 'auto'
+            dns_suffix_search:
+                description:
+                    - One or more DNS domain name suffixes in quotes separated by spaces.
+                type: list
+                elements: dict
+                suboptions:
+                    dns_suffix:
+                        description:
+                            - DNS suffix.
+                        required: true
+                        type: str
             domain:
                 description:
                     - Instruct unity clients about the single default DNS domain.
@@ -1148,6 +1159,17 @@ options:
                 description:
                     - Accept this peer certificate. Source user.peer.name.
                 type: str
+            peer_egress_shaping:
+                description:
+                    - Enable/disable peer egress shaping.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            peer_egress_shaping_value:
+                description:
+                    - Configure outbound bandwidth to use for peer egress shaping in kbps (0 - 80000000).
+                type: int
             peergrp:
                 description:
                     - Accept this peer certificate group. Source user.peergrp.name.
@@ -1260,6 +1282,14 @@ options:
             qkd:
                 description:
                     - Enable/disable use of Quantum Key Distribution (QKD) server.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'allow'
+                    - 'require'
+            qkd_hybrid:
+                description:
+                    - Enable/disable use of Quantum Key Distribution (QKD) hybrid keys.
                 type: str
                 choices:
                     - 'disable'
@@ -1548,6 +1578,9 @@ EXAMPLES = """
           digital_signature_auth: "enable"
           distance: "15"
           dns_mode: "manual"
+          dns_suffix_search:
+              -
+                  dns_suffix: "<your_own_value>"
           domain: "<your_own_value>"
           dpd: "disable"
           dpd_retrycount: "3"
@@ -1606,7 +1639,7 @@ EXAMPLES = """
           ipv4_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "114"
+                  id: "116"
                   start_ip: "<your_own_value>"
           ipv4_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
           ipv4_netmask: "<your_own_value>"
@@ -1623,7 +1656,7 @@ EXAMPLES = """
           ipv6_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "130"
+                  id: "132"
                   start_ip: "<your_own_value>"
           ipv6_name: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_prefix: "128"
@@ -1646,13 +1679,13 @@ EXAMPLES = """
           monitor: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
           monitor_dict:
               -
-                  name: "default_name_152 (source vpn.ipsec.phase1-interface.name)"
+                  name: "default_name_154 (source vpn.ipsec.phase1-interface.name)"
           monitor_hold_down_delay: "0"
           monitor_hold_down_time: "<your_own_value>"
           monitor_hold_down_type: "immediate"
           monitor_hold_down_weekday: "everyday"
           monitor_min: "0"
-          name: "default_name_158"
+          name: "default_name_160"
           nattraversal: "enable"
           negotiate_timeout: "30"
           net_device: "enable"
@@ -1662,6 +1695,8 @@ EXAMPLES = """
           packet_redistribution: "enable"
           passive_mode: "enable"
           peer: "<your_own_value> (source user.peer.name)"
+          peer_egress_shaping: "enable"
+          peer_egress_shaping_value: "0"
           peergrp: "<your_own_value> (source user.peergrp.name)"
           peerid: "<your_own_value>"
           peertype: "any"
@@ -1673,6 +1708,7 @@ EXAMPLES = """
           psksecret: "<your_own_value>"
           psksecret_remote: "<your_own_value>"
           qkd: "disable"
+          qkd_hybrid: "disable"
           qkd_profile: "<your_own_value> (source vpn.qkd.name)"
           reauth: "disable"
           rekey: "enable"
@@ -1684,7 +1720,7 @@ EXAMPLES = """
           remote_gw_subnet: "<your_own_value>"
           remote_gw_ztna_tags:
               -
-                  name: "default_name_189 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_194 (source firewall.address.name firewall.addrgrp.name)"
           remote_gw6: "<your_own_value>"
           remote_gw6_country: "<your_own_value>"
           remote_gw6_end_ip: "<your_own_value>"
@@ -1856,6 +1892,7 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "digital_signature_auth",
         "distance",
         "dns_mode",
+        "dns_suffix_search",
         "domain",
         "dpd",
         "dpd_retrycount",
@@ -1958,6 +1995,8 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "packet_redistribution",
         "passive_mode",
         "peer",
+        "peer_egress_shaping",
+        "peer_egress_shaping_value",
         "peergrp",
         "peerid",
         "peertype",
@@ -1969,6 +2008,7 @@ def filter_vpn_ipsec_phase1_interface_data(json):
         "psksecret",
         "psksecret_remote",
         "qkd",
+        "qkd_hybrid",
         "qkd_profile",
         "reauth",
         "rekey",
@@ -2367,6 +2407,12 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "aggregate_weight": {"v_range": [["v6.4.0", ""]], "type": "integer"},
+        "peer_egress_shaping": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "peer_egress_shaping_value": {"v_range": [["v7.6.4", ""]], "type": "integer"},
         "mode_cfg": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2422,6 +2468,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.1", ""]],
+        },
+        "dns_suffix_search": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "dns_suffix": {
+                    "v_range": [["v7.6.4", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.4", ""]],
         },
         "ipv4_wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ipv4_wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -3146,6 +3204,11 @@ versioned_schema = {
         },
         "qkd": {
             "v_range": [["v7.4.2", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "allow"}, {"value": "require"}],
+        },
+        "qkd_hybrid": {
+            "v_range": [["v7.6.3", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "allow"}, {"value": "require"}],
         },

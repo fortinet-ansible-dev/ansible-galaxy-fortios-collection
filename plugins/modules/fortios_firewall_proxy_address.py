@@ -163,7 +163,8 @@ options:
                 type: str
             host:
                 description:
-                    - Address object for the host. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name.
+                    - Address object for the host. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.vipgrp.name
+                       firewall.vip.name.
                 type: str
             host_regex:
                 description:
@@ -306,7 +307,7 @@ EXAMPLES = """
                   header_name: "<your_own_value>"
                   id: "15"
           header_name: "<your_own_value>"
-          host: "myhostname (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name)"
+          host: "myhostname (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.vipgrp.name firewall.vip.name)"
           host_regex: "myhostname"
           method: "get"
           name: "default_name_20"

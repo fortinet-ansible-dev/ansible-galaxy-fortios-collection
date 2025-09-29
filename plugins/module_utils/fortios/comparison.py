@@ -99,7 +99,6 @@ def is_same_comparison(reorder_current, reorder_filtered):
             elif reorder_current[key] != value:
                 return False
         elif isinstance(value, str) and IP_PREFIX.match(value):
-            print("is_same_ip_address", reorder_current[key], value)
             if not is_same_ip_address(reorder_current[key], value):
                 return False
         elif reorder_current[key] != value:
@@ -229,8 +228,11 @@ def find_current_values(small, big, keys_to_omit=frozenset(["q_origin_key"])):
                 # print("    not in result", big_item, result)
         return result
     elif isinstance(small, str) and isinstance(big, str):
+        # raise Exception(f"small: {small}, big before {big}, big after: {big.strip('" ')}, IP_PREFIX: {IP_PREFIX.match(big.strip('" '))}")
+        strip_big = big.strip('" ')
+        # raise Exception(match_applied_ip_address_format(strip_big, small) if IP_PREFIX.match(strip_big) else strip_big)
         return (
-            match_applied_ip_address_format(big, small) if IP_PREFIX.match(big) else big
+            match_applied_ip_address_format(strip_big, small) if IP_PREFIX.match(strip_big) else strip_big
         )
 
     return big

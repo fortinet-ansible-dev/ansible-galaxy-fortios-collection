@@ -111,7 +111,7 @@ options:
                 type: int
             digest_method:
                 description:
-                    - Digest method algorithm .
+                    - Digest method algorithm.
                 type: str
                 choices:
                     - 'sha1'
@@ -188,6 +188,21 @@ options:
                 description:
                     - SCIM client name. Source user.scim.name.
                 type: str
+            scim_group_attr_type:
+                description:
+                    - Group attribute type used to match SCIM groups .
+                type: str
+                choices:
+                    - 'display-name'
+                    - 'external-id'
+            scim_user_attr_type:
+                description:
+                    - User attribute type used to match SCIM users .
+                type: str
+                choices:
+                    - 'user-name'
+                    - 'display-name'
+                    - 'external-id'
             single_logout_url:
                 description:
                     - SP single logout URL.
@@ -250,6 +265,8 @@ EXAMPLES = """
           name: "default_name_16"
           reauth: "enable"
           scim_client: "<your_own_value> (source user.scim.name)"
+          scim_group_attr_type: "display-name"
+          scim_user_attr_type: "user-name"
           single_logout_url: "<your_own_value>"
           single_sign_on_url: "<your_own_value>"
           user_claim_type: "email"
@@ -365,6 +382,8 @@ def filter_user_saml_data(json):
         "name",
         "reauth",
         "scim_client",
+        "scim_group_attr_type",
+        "scim_user_attr_type",
         "single_logout_url",
         "single_sign_on_url",
         "user_claim_type",
@@ -548,6 +567,20 @@ versioned_schema = {
         "idp_single_logout_url": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "idp_cert": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "scim_client": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "scim_user_attr_type": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "user-name"},
+                {"value": "display-name"},
+                {"value": "external-id"},
+            ],
+        },
+        "scim_group_attr_type": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "display-name"}, {"value": "external-id"}],
+        },
         "user_name": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "group_name": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "digest_method": {

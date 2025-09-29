@@ -90,6 +90,21 @@ options:
         default: null
         type: dict
         suboptions:
+            digest_algo:
+                description:
+                    - Digest Authentication Algorithms.
+                type: list
+                elements: str
+                choices:
+                    - 'md5'
+                    - 'sha-256'
+            digest_rfc2069:
+                description:
+                    - Enable/disable support for the deprecated RFC2069 Digest Client (no cnonce field).
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             domain_controller:
                 description:
                     - Domain controller setting. Source user.domain-controller.name.
@@ -116,6 +131,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            group_attr_type:
+                description:
+                    - Group attribute type used to match SCIM groups .
+                type: str
+                choices:
+                    - 'display-name'
+                    - 'external-id'
             kerberos_keytab:
                 description:
                     - Kerberos keytab setting. Source user.krb-keytab.name.
@@ -177,13 +199,14 @@ options:
                     - 'disable'
             user_database:
                 description:
-                    - Authentication server to contain user information; "local" (default) or "123" (for LDAP).
+                    - Authentication server to contain user information; "local-user-db" (default) or "123" (for LDAP).
                 type: list
                 elements: dict
                 suboptions:
                     name:
                         description:
-                            - Authentication server name. Source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name.
+                            - Authentication server name. Source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name user
+                              .scim.name.
                         required: true
                         type: str
 """
@@ -195,14 +218,17 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       authentication_scheme:
+          digest_algo: "md5"
+          digest_rfc2069: "enable"
           domain_controller: "<your_own_value> (source user.domain-controller.name)"
           ems_device_owner: "enable"
           external_idp: "<your_own_value> (source user.external-identity-provider.name)"
           fsso_agent_for_ntlm: "<your_own_value> (source user.fsso.name)"
           fsso_guest: "enable"
+          group_attr_type: "display-name"
           kerberos_keytab: "<your_own_value> (source user.krb-keytab.name)"
           method: "ntlm"
-          name: "default_name_10"
+          name: "default_name_13"
           negotiate_ntlm: "enable"
           require_tfa: "enable"
           saml_server: "<your_own_value> (source user.saml.name)"
@@ -211,7 +237,7 @@ EXAMPLES = """
           user_cert: "enable"
           user_database:
               -
-                  name: "default_name_18 (source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name)"
+                  name: "default_name_21 (source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name user.scim.name)"
 """
 
 RETURN = """
@@ -307,11 +333,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_authentication_scheme_data(json):
     option_list = [
+        "digest_algo",
+        "digest_rfc2069",
         "domain_controller",
         "ems_device_owner",
         "external_idp",
         "fsso_agent_for_ntlm",
         "fsso_guest",
+        "group_attr_type",
         "kerberos_keytab",
         "method",
         "name",
@@ -357,6 +386,7 @@ def flatten_single_path(data, path, index):
 def flatten_multilists_attributes(data):
     multilist_attrs = [
         ["method"],
+        ["digest_algo"],
     ]
 
     for attr in multilist_attrs:
@@ -584,6 +614,23 @@ versioned_schema = {
         },
         "ssh_ca": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "external_idp": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "group_attr_type": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "display-name"}, {"value": "external-id"}],
+        },
+        "digest_algo": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "list",
+            "options": [{"value": "md5"}, {"value": "sha-256"}],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "digest_rfc2069": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ems_device_owner": {
             "v_range": [["v7.0.0", "v7.0.0"]],
             "type": "string",

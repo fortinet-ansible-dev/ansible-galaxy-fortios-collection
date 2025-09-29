@@ -171,6 +171,10 @@ options:
                 description:
                     - Name of an existing SSL SSH profile. Source firewall.ssl-ssh-profile.name.
                 type: str
+            telemetry_profile:
+                description:
+                    - Name of an existing telemetry profile. Source telemetry-controller.profile.name.
+                type: str
             videofilter_profile:
                 description:
                     - Name of an existing VideoFilter profile. Source videofilter.profile.name.
@@ -220,6 +224,7 @@ EXAMPLES = """
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
+          telemetry_profile: "<your_own_value> (source telemetry-controller.profile.name)"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
           virtual_patch_profile: "<your_own_value> (source virtual-patch.profile.name)"
           voip_profile: "<your_own_value> (source voip.profile.name)"
@@ -340,6 +345,7 @@ def filter_firewall_profile_group_data(json):
         "spamfilter_profile",
         "ssh_filter_profile",
         "ssl_ssh_profile",
+        "telemetry_profile",
         "videofilter_profile",
         "virtual_patch_profile",
         "voip_profile",
@@ -537,6 +543,7 @@ versioned_schema = {
         "waf_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ssh_filter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "telemetry_profile": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "cifs_profile": {"v_range": [["v6.2.0", "v7.6.0"]], "type": "string"},
         "dlp_sensor": {"v_range": [["v6.0.0", "v7.0.12"]], "type": "string"},
         "mms_profile": {"v_range": [["v6.0.0", "v6.2.7"]], "type": "string"},

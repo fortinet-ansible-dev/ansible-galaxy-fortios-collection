@@ -375,18 +375,18 @@ def fortios_system_autoupdate(data, fos, check_mode):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", ""]],
+    "v_range": [["v6.0.0", "v7.6.3"]],
     "type": "dict",
     "children": {
         "status": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.6.3"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "address": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "username": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "password": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "address": {"v_range": [["v6.0.0", "v7.6.3"]], "type": "string"},
+        "port": {"v_range": [["v6.0.0", "v7.6.3"]], "type": "integer"},
+        "username": {"v_range": [["v6.0.0", "v7.6.3"]], "type": "string"},
+        "password": {"v_range": [["v6.0.0", "v7.6.3"]], "type": "string"},
     },
 }
 

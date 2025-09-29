@@ -213,6 +213,13 @@ options:
                 description:
                     - echo request interval (in seconds)
                 type: int
+            echo_requires_path_in_use:
+                description:
+                    - Block GTP Echo Request if no active tunnel over the associated GTP path.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             extension_log:
                 description:
                     - log in extension format
@@ -1365,6 +1372,7 @@ EXAMPLES = """
           default_policy_action: "allow"
           denied_log: "enable"
           echo_request_interval: "0"
+          echo_requires_path_in_use: "enable"
           extension_log: "enable"
           forwarded_log: "enable"
           global_tunnel_limit: "<your_own_value> (source gtp.tunnel-limit.name)"
@@ -1381,7 +1389,7 @@ EXAMPLES = """
           ie_allow_list_v2: "<your_own_value> (source gtp.ie-allow-list.name)"
           ie_remove_policy:
               -
-                  id: "40"
+                  id: "41"
                   remove_ies: "apn-restriction"
                   sgsn_addr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   sgsn_addr6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
@@ -1413,8 +1421,8 @@ EXAMPLES = """
                   action: "allow"
                   apnmember:
                       -
-                          name: "default_name_70 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "71"
+                          name: "default_name_71 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "72"
                   mcc_mnc: "<your_own_value>"
                   msisdn_prefix: "<your_own_value>"
                   selection_mode: "ms"
@@ -1429,7 +1437,7 @@ EXAMPLES = """
                   action: "allow"
                   dstaddr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   dstaddr6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
-                  id: "85"
+                  id: "86"
                   srcaddr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   srcaddr6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           log_freq: "0"
@@ -1514,13 +1522,13 @@ EXAMPLES = """
           min_message_length: "0"
           miss_must_ie: "allow"
           monitor_mode: "enable"
-          name: "default_name_170"
+          name: "default_name_171"
           noip_filter: "enable"
           noip_policy:
               -
                   action: "allow"
                   end: "0"
-                  id: "175"
+                  id: "176"
                   start: "0"
                   type: "etsi"
           out_of_state_ie: "allow"
@@ -1528,7 +1536,7 @@ EXAMPLES = """
           per_apn_shaper:
               -
                   apn: "<your_own_value> (source gtp.apn.name)"
-                  id: "182"
+                  id: "183"
                   rate_limit: "0"
                   version: "1"
           policy:
@@ -1537,8 +1545,8 @@ EXAMPLES = """
                   apn_sel_mode: "ms"
                   apnmember:
                       -
-                          name: "default_name_189 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "190"
+                          name: "default_name_190 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "191"
                   imei: "<your_own_value>"
                   imsi: "<your_own_value>"
                   imsi_prefix: "<your_own_value>"
@@ -1556,8 +1564,8 @@ EXAMPLES = """
                   apn_sel_mode: "ms"
                   apnmember:
                       -
-                          name: "default_name_206 (source gtp.apn.name gtp.apngrp.name)"
-                  id: "207"
+                          name: "default_name_207 (source gtp.apn.name gtp.apngrp.name)"
+                  id: "208"
                   imsi_prefix: "<your_own_value>"
                   max_apn_restriction: "all"
                   mei: "<your_own_value>"
@@ -1698,6 +1706,7 @@ def filter_firewall_gtp_data(json):
         "default_policy_action",
         "denied_log",
         "echo_request_interval",
+        "echo_requires_path_in_use",
         "extension_log",
         "forwarded_log",
         "global_tunnel_limit",
@@ -2129,6 +2138,11 @@ versioned_schema = {
         },
         "noip_filter": {
             "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "echo_requires_path_in_use": {
+            "v_range": [["v7.6.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

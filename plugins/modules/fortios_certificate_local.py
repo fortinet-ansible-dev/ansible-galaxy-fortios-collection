@@ -98,6 +98,14 @@ options:
                 description:
                     - A valid domain that resolves to this FortiGate unit.
                 type: str
+            acme_eab_key_hmac:
+                description:
+                    - External Account Binding HMAC Key (URL-encoded base64).
+                type: str
+            acme_eab_key_id:
+                description:
+                    - External Account Binding Key ID (optional setting).
+                type: str
             acme_email:
                 description:
                     - Contact email address that is required by some CAs like LetsEncrypt.
@@ -179,6 +187,13 @@ options:
                 description:
                     - HTTP Authentication username for signing via EST.
                 type: str
+            est_regeneration_method:
+                description:
+                    - EST behavioral options during re-enrollment.
+                type: str
+                choices:
+                    - 'create-new-key'
+                    - 'use-existing-key'
             est_server:
                 description:
                     - 'Address and port for EST server (e.g. https://example.com:1234).'
@@ -279,12 +294,14 @@ EXAMPLES = """
       certificate_local:
           acme_ca_url: "<your_own_value>"
           acme_domain: "<your_own_value>"
+          acme_eab_key_hmac: "<your_own_value>"
+          acme_eab_key_id: "<your_own_value>"
           acme_email: "<your_own_value>"
           acme_renew_window: "30"
           acme_rsa_key_size: "2048"
           auto_regenerate_days: "0"
           auto_regenerate_days_warning: "0"
-          ca_identifier: "myId_10"
+          ca_identifier: "myId_12"
           certificate: "<your_own_value>"
           cmp_path: "<your_own_value>"
           cmp_regeneration_method: "keyupate"
@@ -297,6 +314,7 @@ EXAMPLES = """
           est_client_cert: "<your_own_value> (source certificate.local.name)"
           est_http_password: "<your_own_value>"
           est_http_username: "<your_own_value>"
+          est_regeneration_method: "create-new-key"
           est_server: "<your_own_value>"
           est_server_cert: "<your_own_value> (source certificate.ca.name certificate.remote.name)"
           est_srp_password: "<your_own_value>"
@@ -304,7 +322,7 @@ EXAMPLES = """
           ike_localid: "<your_own_value>"
           ike_localid_type: "asn1dn"
           last_updated: "2147483647"
-          name: "default_name_30"
+          name: "default_name_33"
           name_encoding: "printable"
           password: "<your_own_value>"
           private_key: "<your_own_value>"
@@ -412,6 +430,8 @@ def filter_certificate_local_data(json):
     option_list = [
         "acme_ca_url",
         "acme_domain",
+        "acme_eab_key_hmac",
+        "acme_eab_key_id",
         "acme_email",
         "acme_renew_window",
         "acme_rsa_key_size",
@@ -430,6 +450,7 @@ def filter_certificate_local_data(json):
         "est_client_cert",
         "est_http_password",
         "est_http_username",
+        "est_regeneration_method",
         "est_server",
         "est_server_cert",
         "est_srp_password",
@@ -682,6 +703,8 @@ versioned_schema = {
         "acme_ca_url": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "acme_domain": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "acme_email": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "acme_eab_key_id": {"v_range": [["v7.6.3", ""]], "type": "string"},
+        "acme_eab_key_hmac": {"v_range": [["v7.6.3", ""]], "type": "string"},
         "acme_rsa_key_size": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "acme_renew_window": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "est_server": {"v_range": [["v7.4.1", ""]], "type": "string"},
@@ -692,6 +715,11 @@ versioned_schema = {
         "est_server_cert": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "est_srp_username": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "est_srp_password": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "est_regeneration_method": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "create-new-key"}, {"value": "use-existing-key"}],
+        },
         "state": {
             "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
             "type": "string",

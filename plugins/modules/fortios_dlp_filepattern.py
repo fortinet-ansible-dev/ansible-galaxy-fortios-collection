@@ -125,6 +125,8 @@ options:
                             - 'binhex'
                             - 'elf'
                             - 'exe'
+                            - 'dll'
+                            - 'jnlp'
                             - 'hta'
                             - 'html'
                             - 'jad'
@@ -168,6 +170,8 @@ options:
                             - 'registry'
                             - 'hwp'
                             - 'rpm'
+                            - 'genscript'
+                            - 'python'
                             - 'c/cpp'
                             - 'pfile'
                             - 'lzip'
@@ -516,6 +520,8 @@ versioned_schema = {
                         {"value": "binhex"},
                         {"value": "elf"},
                         {"value": "exe"},
+                        {"value": "dll", "v_range": [["v7.6.3", ""]]},
+                        {"value": "jnlp", "v_range": [["v7.6.3", ""]]},
                         {"value": "hta"},
                         {"value": "html"},
                         {"value": "jad"},
@@ -559,6 +565,8 @@ versioned_schema = {
                         {"value": "registry", "v_range": [["v7.4.4", ""]]},
                         {"value": "hwp", "v_range": [["v7.4.4", ""]]},
                         {"value": "rpm", "v_range": [["v7.4.4", ""]]},
+                        {"value": "genscript", "v_range": [["v7.6.4", ""]]},
+                        {"value": "python", "v_range": [["v7.6.4", ""]]},
                         {"value": "c/cpp", "v_range": [["v7.4.4", ""]]},
                         {"value": "pfile", "v_range": [["v7.6.0", ""]]},
                         {"value": "lzip", "v_range": [["v7.6.0", ""]]},

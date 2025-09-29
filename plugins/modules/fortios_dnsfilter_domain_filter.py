@@ -110,6 +110,10 @@ options:
                             - 'block'
                             - 'allow'
                             - 'monitor'
+                    comment:
+                        description:
+                            - Comment.
+                        type: str
                     domain:
                         description:
                             - Domain entries to be filtered.
@@ -156,12 +160,13 @@ EXAMPLES = """
           entries:
               -
                   action: "block"
+                  comment: "Comment."
                   domain: "<your_own_value>"
-                  id: "7"
+                  id: "8"
                   status: "enable"
                   type: "simple"
-          id: "10"
-          name: "default_name_11"
+          id: "11"
+          name: "default_name_12"
 """
 
 RETURN = """
@@ -463,6 +468,7 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "comment": {"v_range": [["v7.6.4", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },

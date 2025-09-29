@@ -107,6 +107,14 @@ options:
                 description:
                     - Period of time before the source IP"s traffic is no longer assigned to the forwarding server (6 - 60 min).
                 type: int
+            http2_client_window_size:
+                description:
+                    - HTTP/2 client initial window size in bytes (65535 - 2147483647).
+                type: int
+            http2_server_window_size:
+                description:
+                    - HTTP/2 server initial window size in bytes (65535 - 2147483647).
+                type: int
             ldap_user_cache:
                 description:
                     - Enable/disable LDAP user cache for explicit and transparent proxy user.
@@ -194,7 +202,7 @@ options:
                     - 'disable'
             proxy_fqdn:
                 description:
-                    - Fully Qualified Domain Name (FQDN) that clients connect to  to connect to the explicit web proxy.
+                    - Fully Qualified Domain Name of the explicit web proxy  that clients connect to.
                 type: str
             proxy_transparent_cert_inspection:
                 description:
@@ -223,7 +231,7 @@ options:
                 elements: str
             ssl_ca_cert:
                 description:
-                    - SSL CA certificate for SSL interception. Source vpn.certificate.local.name.
+                    - SSL CA certificate for SSL interception. Source vpn.certificate.local.name vpn.certificate.hsm-local.name.
                 type: str
             ssl_cert:
                 description:
@@ -267,15 +275,17 @@ EXAMPLES = """
           fast_policy_match: "enable"
           forward_proxy_auth: "enable"
           forward_server_affinity_timeout: "30"
+          http2_client_window_size: "1048576"
+          http2_server_window_size: "1048576"
           ldap_user_cache: "enable"
           learn_client_ip: "enable"
           learn_client_ip_from_header: "true-client-ip"
           learn_client_ip_srcaddr:
               -
-                  name: "default_name_11 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_13 (source firewall.address.name firewall.addrgrp.name)"
           learn_client_ip_srcaddr6:
               -
-                  name: "default_name_13 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_15 (source firewall.address6.name firewall.addrgrp6.name)"
           log_app_id: "enable"
           log_forward_server: "enable"
           log_policy_pending: "enable"
@@ -288,7 +298,7 @@ EXAMPLES = """
           request_obs_fold: "replace-with-sp"
           src_affinity_exempt_addr: "<your_own_value>"
           src_affinity_exempt_addr6: "<your_own_value>"
-          ssl_ca_cert: "<your_own_value> (source vpn.certificate.local.name)"
+          ssl_ca_cert: "<your_own_value> (source vpn.certificate.local.name vpn.certificate.hsm-local.name)"
           ssl_cert: "<your_own_value> (source vpn.certificate.local.name)"
           strict_web_check: "enable"
           tunnel_non_http: "enable"
@@ -393,6 +403,8 @@ def filter_web_proxy_global_data(json):
         "fast_policy_match",
         "forward_proxy_auth",
         "forward_server_affinity_timeout",
+        "http2_client_window_size",
+        "http2_server_window_size",
         "ldap_user_cache",
         "learn_client_ip",
         "learn_client_ip_from_header",
@@ -628,6 +640,8 @@ versioned_schema = {
         "proxy_fqdn": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "max_request_length": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "max_message_length": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "http2_client_window_size": {"v_range": [["v7.6.3", ""]], "type": "integer"},
+        "http2_server_window_size": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "strict_web_check": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -701,11 +715,6 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
-        "policy_category_deep_inspect": {
-            "v_range": [["v7.4.2", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "log_policy_pending": {
             "v_range": [["v7.4.2", ""]],
             "type": "string",
@@ -734,6 +743,11 @@ versioned_schema = {
                 {"value": "block"},
                 {"value": "keep"},
             ],
+        },
+        "policy_category_deep_inspect": {
+            "v_range": [["v7.4.2", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "tunnel_non_http": {
             "v_range": [["v6.0.0", "v6.2.7"]],

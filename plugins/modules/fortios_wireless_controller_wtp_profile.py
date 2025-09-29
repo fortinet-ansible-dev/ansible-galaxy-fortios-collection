@@ -289,6 +289,7 @@ options:
                     - 'TW'
                     - 'TZ'
                     - 'TH'
+                    - 'TL'
                     - 'TG'
                     - 'TT'
                     - 'TN'
@@ -325,6 +326,32 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            apcfg_mesh:
+                description:
+                    - Enable/disable AP local mesh configuration .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            apcfg_mesh_ap_type:
+                description:
+                    - Mesh AP Type .
+                type: str
+                choices:
+                    - 'ethernet'
+                    - 'mesh'
+                    - 'auto'
+            apcfg_mesh_eth_bridge:
+                description:
+                    - Enable/disable mesh ethernet bridge .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            apcfg_mesh_ssid:
+                description:
+                    -  Mesh SSID . Source wireless-controller.vap.name.
+                type: str
             apcfg_profile:
                 description:
                     - AP local configuration profile name. Source wireless-controller.apcfg-profile.name.
@@ -363,6 +390,13 @@ options:
                     - 'aeroscout-mu'
                     - 'sta-health'
                     - 'spectral-analysis'
+            default_mesh_root:
+                description:
+                    - Configure default mesh root SSID when it is not included by radio"s SSID configuration.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             deny_mac_list:
                 description:
                     - List of MAC addresses that are denied access to this WTP, FortiAP, or AP.
@@ -485,7 +519,7 @@ options:
                             - 'disable'
                     tls_fqdn_verification:
                         description:
-                            - Enable/disable TLS certificate verification .
+                            - Enable/disable TLS FQDN verification .
                         type: str
                         choices:
                             - 'enable'
@@ -1022,8 +1056,10 @@ options:
                             - '433G'
                             - '231K'
                             - '23JK'
+                            - '222KL'
                             - '241K'
                             - '243K'
+                            - '244K'
                             - '441K'
                             - '443K'
                             - 'U421E'
@@ -1416,6 +1452,7 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                            - 'FANT-04BEAX-0606-P-R'
                     optional_antenna_gain:
                         description:
                             - Optional antenna gain in dBi (0 to 20).
@@ -1975,6 +2012,7 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                            - 'FANT-04BEAX-0606-P-R'
                     optional_antenna_gain:
                         description:
                             - Optional antenna gain in dBi (0 to 20).
@@ -2534,6 +2572,7 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                            - 'FANT-04BEAX-0606-P-R'
                     optional_antenna_gain:
                         description:
                             - Optional antenna gain in dBi (0 to 20).
@@ -3093,6 +3132,7 @@ options:
                             - 'FANT-04ABGN-0606-P-R'
                             - 'FANT-10ACAX-1213-D-N'
                             - 'FANT-08ABGN-1213-D-R'
+                            - 'FANT-04BEAX-0606-P-R'
                     optional_antenna_gain:
                         description:
                             - Optional antenna gain in dBi (0 to 20).
@@ -3428,15 +3468,20 @@ EXAMPLES = """
           allowaccess: "https"
           ap_country: "--"
           ap_handoff: "enable"
+          apcfg_mesh: "enable"
+          apcfg_mesh_ap_type: "ethernet"
+          apcfg_mesh_eth_bridge: "enable"
+          apcfg_mesh_ssid: "<your_own_value> (source wireless-controller.vap.name)"
           apcfg_profile: "<your_own_value> (source wireless-controller.apcfg-profile.name)"
           ble_profile: "<your_own_value> (source wireless-controller.ble-profile.name)"
           bonjour_profile: "<your_own_value> (source wireless-controller.bonjour-profile.name)"
           comment: "Comment."
           console_login: "enable"
           control_message_offload: "ebp-frame"
+          default_mesh_root: "enable"
           deny_mac_list:
               -
-                  id: "15"
+                  id: "20"
                   mac: "<your_own_value>"
           dtls_in_kernel: "enable"
           dtls_policy: "clear-text"
@@ -3534,13 +3579,13 @@ EXAMPLES = """
               station_locate: "enable"
           led_schedules:
               -
-                  name: "default_name_112 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_117 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           led_state: "enable"
           lldp: "enable"
           login_passwd: "<your_own_value>"
           login_passwd_change: "yes"
           max_clients: "0"
-          name: "default_name_118"
+          name: "default_name_123"
           platform:
               ddscan: "enable"
               mode: "single-5G"
@@ -3632,7 +3677,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_208 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_213 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_2:
@@ -3721,7 +3766,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_295 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_300 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_3:
@@ -3810,7 +3855,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_382 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_387 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_4:
@@ -3898,13 +3943,13 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_468 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_473 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "473"
+                  id: "478"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           syslog_profile: "<your_own_value> (source wireless-controller.syslog-profile.name)"
@@ -4018,12 +4063,17 @@ def filter_wireless_controller_wtp_profile_data(json):
         "allowaccess",
         "ap_country",
         "ap_handoff",
+        "apcfg_mesh",
+        "apcfg_mesh_ap_type",
+        "apcfg_mesh_eth_bridge",
+        "apcfg_mesh_ssid",
         "apcfg_profile",
         "ble_profile",
         "bonjour_profile",
         "comment",
         "console_login",
         "control_message_offload",
+        "default_mesh_root",
         "deny_mac_list",
         "dtls_in_kernel",
         "dtls_policy",
@@ -4423,8 +4473,10 @@ versioned_schema = {
                         },
                         {"value": "231K", "v_range": [["v7.6.1", ""]]},
                         {"value": "23JK", "v_range": [["v7.6.1", ""]]},
+                        {"value": "222KL", "v_range": [["v7.6.4", ""]]},
                         {"value": "241K", "v_range": [["v7.4.2", ""]]},
                         {"value": "243K", "v_range": [["v7.4.2", ""]]},
+                        {"value": "244K", "v_range": [["v7.6.4", ""]]},
                         {"value": "441K", "v_range": [["v7.4.2", ""]]},
                         {"value": "443K", "v_range": [["v7.4.2", ""]]},
                         {"value": "U421E"},
@@ -4517,6 +4569,22 @@ versioned_schema = {
         },
         "bonjour_profile": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "apcfg_profile": {"v_range": [["v6.4.0", ""]], "type": "string"},
+        "apcfg_mesh": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "apcfg_mesh_ap_type": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "ethernet"}, {"value": "mesh"}, {"value": "auto"}],
+        },
+        "apcfg_mesh_ssid": {"v_range": [["v7.6.4", ""]], "type": "string"},
+        "apcfg_mesh_eth_bridge": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ble_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "syslog_profile": {"v_range": [["v7.0.2", ""]], "type": "string"},
         "wan_port_mode": {
@@ -4879,6 +4947,7 @@ versioned_schema = {
                 {"value": "TW"},
                 {"value": "TZ"},
                 {"value": "TH"},
+                {"value": "TL", "v_range": [["v7.6.3", ""]]},
                 {"value": "TG", "v_range": [["v7.0.0", ""]]},
                 {"value": "TT"},
                 {"value": "TN"},
@@ -4991,6 +5060,11 @@ versioned_schema = {
         },
         "ap_handoff": {
             "v_range": [["v6.4.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "default_mesh_root": {
+            "v_range": [["v7.6.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -5194,6 +5268,7 @@ versioned_schema = {
                         {"value": "FANT-04ABGN-0606-P-R"},
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
+                        {"value": "FANT-04BEAX-0606-P-R", "v_range": [["v7.6.4", ""]]},
                     ],
                 },
                 "optional_antenna_gain": {
@@ -5622,6 +5697,7 @@ versioned_schema = {
                         {"value": "FANT-04ABGN-0606-P-R"},
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
+                        {"value": "FANT-04BEAX-0606-P-R", "v_range": [["v7.6.4", ""]]},
                     ],
                 },
                 "optional_antenna_gain": {
@@ -6050,6 +6126,7 @@ versioned_schema = {
                         {"value": "FANT-04ABGN-0606-P-R"},
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
+                        {"value": "FANT-04BEAX-0606-P-R", "v_range": [["v7.6.4", ""]]},
                     ],
                 },
                 "optional_antenna_gain": {
@@ -6508,6 +6585,7 @@ versioned_schema = {
                         {"value": "FANT-04ABGN-0606-P-R"},
                         {"value": "FANT-10ACAX-1213-D-N"},
                         {"value": "FANT-08ABGN-1213-D-R"},
+                        {"value": "FANT-04BEAX-0606-P-R", "v_range": [["v7.6.4", ""]]},
                     ],
                 },
                 "optional_antenna_gain": {

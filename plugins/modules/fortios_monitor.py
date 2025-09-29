@@ -293,6 +293,8 @@ options:
          - 'change-password.user.local'
          - 'report.sdwan.link-monitor-metrics'
          - 'generic-address.system.external-resource'
+         - 'set.system.private-data-encryption'
+         - 'create-default.wifi.ap-profile'
 
     params:
         description:
@@ -553,7 +555,10 @@ module_selectors_defs = {
     },
     "generate-key.system.api-user": {
         "url": "system/api-user/generate-key",
-        "params": {"api-user": {"type": "string", "required": "True"}},
+        "params": {
+            "api-user": {"type": "string", "required": "True"},
+            "expiry": {"type": "int", "required": "False"},
+        },
     },
     "update-comments.system.config-revision": {
         "url": "system/config-revision/update-comments",
@@ -616,6 +621,10 @@ module_selectors_defs = {
             "format_partition": {"type": "boolean", "required": "False"},
             "ignore_invalid_signature": {"type": "boolean", "required": "False"},
             "file_id": {"type": "string", "required": "False"},
+            "ignore_admin_lockout_upon_downgrade": {
+                "type": "boolean",
+                "required": "False",
+            },
             "file_content": {"type": "string", "required": "False"},
         },
     },
@@ -859,7 +868,17 @@ module_selectors_defs = {
             "password": {"type": "string", "required": "False"},
         },
     },
-    "test.user.tacacs-plus": {"url": "user/tacacs-plus/test", "params": {}},
+    "test.user.tacacs-plus": {
+        "url": "user/tacacs-plus/test",
+        "params": {
+            "mkey": {"type": "string", "required": "False"},
+            "ordinal": {"type": "string", "required": "False"},
+            "server": {"type": "string", "required": "False"},
+            "secret": {"type": "string", "required": "False"},
+            "port": {"type": "int", "required": "False"},
+            "source_ip": {"type": "string", "required": "False"},
+        },
+    },
     "delete.webfilter.override": {
         "url": "webfilter/override/delete",
         "params": {"mkey": {"type": "string", "required": "False"}},
@@ -1159,6 +1178,7 @@ module_selectors_defs = {
             "password": {"type": "string", "required": "True"},
             "old_email": {"type": "string", "required": "True"},
             "old_password": {"type": "string", "required": "True"},
+            "is_government": {"type": "boolean", "required": "False"},
         },
     },
     "register-device.registration.forticloud": {
@@ -1171,6 +1191,7 @@ module_selectors_defs = {
             "reseller_id": {"type": "int", "required": "True"},
             "country": {"type": "string", "required": "True"},
             "is_government": {"type": "boolean", "required": "False"},
+            "agreement_accepted": {"type": "boolean", "required": "False"},
         },
     },
     "register-appliance.system.csf": {
@@ -1693,6 +1714,17 @@ module_selectors_defs = {
             "data": {"type": "object", "required": "True"},
         },
     },
+    "set.system.private-data-encryption": {
+        "url": "system/private-data-encryption/set",
+        "params": {
+            "enable": {"type": "boolean", "required": "True"},
+            "password": {"type": "string", "required": "False"},
+        },
+    },
+    "create-default.wifi.ap-profile": {
+        "url": "wifi/ap-profile/create-default",
+        "params": {"platform": {"type": "string", "required": "True"}},
+    },
 }
 
 
@@ -2004,6 +2036,8 @@ def main():
                 "change-password.user.local",
                 "report.sdwan.link-monitor-metrics",
                 "generic-address.system.external-resource",
+                "set.system.private-data-encryption",
+                "create-default.wifi.ap-profile",
             ],
         },
     }

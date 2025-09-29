@@ -152,6 +152,13 @@ options:
                 description:
                     - Y axis coordinate.
                 type: str
+            default_mesh_root:
+                description:
+                    - Configure default mesh root SSID when it is not included by radio"s SSID configuration.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             firmware_provision:
                 description:
                     - Firmware version to provision to this FortiAP on bootup (major.minor.build, i.e. 6.2.1234).
@@ -356,6 +363,13 @@ options:
             override_allowaccess:
                 description:
                     - Enable to override the WTP profile management access configuration.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            override_default_mesh_root:
+                description:
+                    - Enable to override the WTP profile default mesh root SSID setting.
                 type: str
                 choices:
                     - 'enable'
@@ -1171,6 +1185,7 @@ EXAMPLES = """
           coordinate_longitude: "<your_own_value>"
           coordinate_x: "<your_own_value>"
           coordinate_y: "<your_own_value>"
+          default_mesh_root: "enable"
           firmware_provision: "<your_own_value>"
           firmware_provision_latest: "disable"
           image_download: "enable"
@@ -1202,8 +1217,9 @@ EXAMPLES = """
           login_passwd: "<your_own_value>"
           login_passwd_change: "yes"
           mesh_bridge_enable: "default"
-          name: "default_name_46"
+          name: "default_name_47"
           override_allowaccess: "enable"
+          override_default_mesh_root: "enable"
           override_ip_fragment: "enable"
           override_lan: "enable"
           override_led_state: "enable"
@@ -1234,7 +1250,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_76 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_78 (source wireless-controller.vap-group.name system.interface.name)"
           radio_2:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1258,7 +1274,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_98 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_100 (source wireless-controller.vap-group.name system.interface.name)"
           radio_3:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1282,7 +1298,7 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_120 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_122 (source wireless-controller.vap-group.name system.interface.name)"
           radio_4:
               auto_power_high: "17"
               auto_power_level: "enable"
@@ -1305,14 +1321,14 @@ EXAMPLES = """
               vap_all: "tunnel"
               vaps:
                   -
-                      name: "default_name_141 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_143 (source wireless-controller.vap-group.name system.interface.name)"
           region: "<your_own_value> (source wireless-controller.region.name)"
           region_x: "<your_own_value>"
           region_y: "<your_own_value>"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "147"
+                  id: "149"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           tun_mtu_downlink: "0"
@@ -1429,6 +1445,7 @@ def filter_wireless_controller_wtp_data(json):
         "coordinate_longitude",
         "coordinate_x",
         "coordinate_y",
+        "default_mesh_root",
         "firmware_provision",
         "firmware_provision_latest",
         "image_download",
@@ -1442,6 +1459,7 @@ def filter_wireless_controller_wtp_data(json):
         "mesh_bridge_enable",
         "name",
         "override_allowaccess",
+        "override_default_mesh_root",
         "override_ip_fragment",
         "override_lan",
         "override_led_state",
@@ -1917,6 +1935,16 @@ versioned_schema = {
             "options": [{"value": "yes"}, {"value": "default"}, {"value": "no"}],
         },
         "login_passwd": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "override_default_mesh_root": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "default_mesh_root": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "radio_1": {
             "v_range": [["v6.0.0", ""]],
             "type": "dict",

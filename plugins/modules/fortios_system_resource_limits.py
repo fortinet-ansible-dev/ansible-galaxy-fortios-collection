@@ -144,7 +144,7 @@ options:
                 type: int
             sslvpn:
                 description:
-                    - Maximum number of SSL-VPN.
+                    - Maximum number of Agentless VPN.
                 type: int
             user:
                 description:

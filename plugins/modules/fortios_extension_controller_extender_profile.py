@@ -574,9 +574,10 @@ options:
                                     - 'port5'
                                     - 'lan1'
                                     - 'lan2'
+                                    - 'lan'
                             pvid:
                                 description:
-                                    - FortiExtender LAN extension downlink PVID.
+                                    - FortiExtender LAN extension downlink PVID (1 - 4089).
                                 type: int
                             type:
                                 description:
@@ -589,6 +590,18 @@ options:
                                 description:
                                     - FortiExtender LAN extension downlink vap. Source extension-controller.extender-vap.name.
                                 type: str
+                            vids:
+                                description:
+                                    - FortiExtender LAN extension downlink VIDs.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    vid:
+                                        description:
+                                            - Please enter VID numbers (1 - 4089) with space separated. Up to 50 VIDs are accepted. see <a
+                                               href='#notes'>Notes</a>.
+                                        required: true
+                                        type: int
                     ipsec_tunnel:
                         description:
                             - IPsec tunnel name.
@@ -621,7 +634,7 @@ options:
                                 type: str
                             vsdb:
                                 description:
-                                    - Select vsdb [enable/disable].
+                                    - Set video streaming traffic goes through local WAN [enable/disable].
                                 type: str
                                 choices:
                                     - 'disable'
@@ -669,6 +682,8 @@ options:
                     - 'BS20GW'
                     - 'BS20GN'
                     - 'FVG51G'
+                    - 'FXE11G'
+                    - 'FX211G'
             name:
                 description:
                     - FortiExtender profile name.
@@ -856,6 +871,7 @@ options:
                             - 'TW'
                             - 'TZ'
                             - 'TH'
+                            - 'TL'
                             - 'TG'
                             - 'TT'
                             - 'TN'
@@ -1265,21 +1281,24 @@ EXAMPLES = """
                   -
                       name: "default_name_87"
                       port: "port1"
-                      pvid: "0"
+                      pvid: "1"
                       type: "port"
                       vap: "<your_own_value> (source extension-controller.extender-vap.name)"
+                      vids:
+                          -
+                              vid: "<you_own_value>"
               ipsec_tunnel: "<your_own_value>"
               link_loadbalance: "activebackup"
               traffic_split_services:
                   -
                       address: "<your_own_value> (source firewall.address.name)"
-                      name: "default_name_96"
+                      name: "default_name_98"
                       service: "<your_own_value> (source firewall.service.custom.name)"
                       vsdb: "disable"
           login_password: "<your_own_value>"
           login_password_change: "yes"
           model: "FX201E"
-          name: "default_name_102"
+          name: "default_name_104"
           wifi:
               country: "--"
               radio_1:
@@ -1294,7 +1313,7 @@ EXAMPLES = """
                   lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
                   local_vaps:
                       -
-                          name: "default_name_116 (source extension-controller.extender-vap.name)"
+                          name: "default_name_118 (source extension-controller.extender-vap.name)"
                   max_clients: "0"
                   mode: "AP"
                   operating_standard: "auto"
@@ -1313,7 +1332,7 @@ EXAMPLES = """
                   lan_ext_vap: "<your_own_value> (source extension-controller.extender-vap.name)"
                   local_vaps:
                       -
-                          name: "default_name_134 (source extension-controller.extender-vap.name)"
+                          name: "default_name_136 (source extension-controller.extender-vap.name)"
                   max_clients: "0"
                   mode: "AP"
                   operating_standard: "auto"
@@ -1708,6 +1727,8 @@ versioned_schema = {
                 {"value": "BS20GW", "v_range": [["v7.4.4", ""]]},
                 {"value": "BS20GN", "v_range": [["v7.4.4", ""]]},
                 {"value": "FVG51G", "v_range": [["v7.6.1", ""]]},
+                {"value": "FXE11G", "v_range": [["v7.6.3", ""]]},
+                {"value": "FX211G", "v_range": [["v7.6.4", ""]]},
             ],
         },
         "extension": {
@@ -2291,6 +2312,7 @@ versioned_schema = {
                         {"value": "TW"},
                         {"value": "TZ"},
                         {"value": "TH"},
+                        {"value": "TL", "v_range": [["v7.6.3", ""]]},
                         {"value": "TG"},
                         {"value": "TT"},
                         {"value": "TN"},
@@ -2649,10 +2671,23 @@ versioned_schema = {
                                 {"value": "port5"},
                                 {"value": "lan1"},
                                 {"value": "lan2"},
+                                {"value": "lan", "v_range": [["v7.6.4", ""]]},
                             ],
                         },
                         "vap": {"v_range": [["v7.6.0", ""]], "type": "string"},
                         "pvid": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                        "vids": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "vid": {
+                                    "v_range": [["v7.6.4", ""]],
+                                    "type": "integer",
+                                    "required": True,
+                                }
+                            },
+                            "v_range": [["v7.6.4", ""]],
+                        },
                     },
                     "v_range": [["v7.6.0", ""]],
                 },

@@ -170,6 +170,10 @@ options:
                 description:
                     - Source IPv4 address used to communicate with server.
                 type: str
+            source_ip_interface:
+                description:
+                    - IPv4 Source interface for communication with the server. Source system.interface.name.
+                type: str
             status:
                 description:
                     - Enable/disable user resource.
@@ -238,6 +242,7 @@ EXAMPLES = """
           resource: "<your_own_value>"
           server_identity_check: "none"
           source_ip: "84.230.14.43"
+          source_ip_interface: "<your_own_value> (source system.interface.name)"
           status: "enable"
           type: "category"
           update_method: "feed"
@@ -357,6 +362,7 @@ def filter_system_external_resource_data(json):
         "resource",
         "server_identity_check",
         "source_ip",
+        "source_ip_interface",
         "status",
         "type",
         "update_method",
@@ -589,6 +595,7 @@ versioned_schema = {
         },
         "refresh_rate": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "source_ip": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "source_ip_interface": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "interface_select_method": {
             "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
             "type": "string",

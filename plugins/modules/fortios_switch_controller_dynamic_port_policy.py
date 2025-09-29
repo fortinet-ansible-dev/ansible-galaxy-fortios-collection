@@ -172,6 +172,13 @@ options:
                         description:
                             - Number of days the matched devices will be retained (0 - 120, 0 = always retain).
                         type: int
+                    match_remove:
+                        description:
+                            - Options to remove the matched override devices.
+                        type: str
+                        choices:
+                            - 'default'
+                            - 'link-down'
                     match_type:
                         description:
                             - Match and retain the devices based on the type.
@@ -238,8 +245,9 @@ EXAMPLES = """
                   lldp_profile: "<your_own_value> (source switch-controller.lldp-profile.name)"
                   mac: "<your_own_value>"
                   match_period: "0"
+                  match_remove: "default"
                   match_type: "dynamic"
-                  name: "default_name_21"
+                  name: "default_name_22"
                   poe_reset: "disable"
                   qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
                   status: "enable"
@@ -580,6 +588,11 @@ versioned_schema = {
                     "options": [{"value": "dynamic"}, {"value": "override"}],
                 },
                 "match_period": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                "match_remove": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [{"value": "default"}, {"value": "link-down"}],
+                },
                 "interface_tags": {
                     "type": "list",
                     "elements": "dict",

@@ -468,6 +468,19 @@ options:
                  - 'user_scim_groups'
                  - 'virtual-wan_sladb'
                  - 'wifi_statistics'
+                 - 'router_charts'
+                 - 'switch-controller_known-nac-device-criteria-list'
+                 - 'system_sandbox_detect'
+                 - 'system_monitor-sensor'
+                 - 'user_device_iot-query'
+                 - 'user_scim_users'
+                 - 'telemetry-controller_agents'
+                 - 'telemetry-controller_agent-tasks'
+                 - 'firewall_internet-service-fqdn'
+                 - 'firewall_internet-service-fqdn-icon-ids'
+                 - 'system_5g-modem_status'
+                 - 'system_interface_poe-usage'
+                 - 'vpn_ipsec_connection-count'
 
     selector:
         description:
@@ -816,6 +829,19 @@ options:
          - 'user_scim_groups'
          - 'virtual-wan_sladb'
          - 'wifi_statistics'
+         - 'router_charts'
+         - 'switch-controller_known-nac-device-criteria-list'
+         - 'system_sandbox_detect'
+         - 'system_monitor-sensor'
+         - 'user_device_iot-query'
+         - 'user_scim_users'
+         - 'telemetry-controller_agents'
+         - 'telemetry-controller_agent-tasks'
+         - 'firewall_internet-service-fqdn'
+         - 'firewall_internet-service-fqdn-icon-ids'
+         - 'system_5g-modem_status'
+         - 'system_interface_poe-usage'
+         - 'vpn_ipsec_connection-count'
 
     params:
         description:
@@ -984,7 +1010,7 @@ module_selectors_defs = {
     "firewall_policy": {
         "url": "firewall/policy",
         "params": {
-            "policyid": {"type": "int", "required": "False"},
+            "policyid": {"type": "array", "required": "False"},
             "ip_version": {"type": "string", "required": "False"},
         },
     },
@@ -1012,6 +1038,8 @@ module_selectors_defs = {
             "auth_type": {"type": "string", "required": "False"},
             "user_group": {"type": "array", "required": "False"},
             "server_name": {"type": "string", "required": "False"},
+            "user_db": {"type": "string", "required": "False"},
+            "group_attr_type": {"type": "string", "required": "False"},
         },
     },
     "firewall_session": {
@@ -1107,7 +1135,10 @@ module_selectors_defs = {
     },
     "license_forticare-org-list": {"url": "license/forticare-org-list", "params": {}},
     "log_current-disk-usage": {"url": "log/current-disk-usage", "params": {}},
-    "log_device_state": {"url": "log/device/state", "params": {}},
+    "log_device_state": {
+        "url": "log/device/state",
+        "params": {"scope": {"type": "string", "required": "False"}},
+    },
     "log_forticloud": {"url": "log/forticloud", "params": {}},
     "log_fortianalyzer": {
         "url": "log/fortianalyzer",
@@ -1170,6 +1201,7 @@ module_selectors_defs = {
     "router_ipv4": {
         "url": "router/ipv4",
         "params": {
+            "operator": {"type": "string", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
@@ -1180,6 +1212,7 @@ module_selectors_defs = {
     "router_ipv6": {
         "url": "router/ipv6",
         "params": {
+            "operator": {"type": "string", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
             "type": {"type": "string", "required": "False"},
@@ -1190,6 +1223,7 @@ module_selectors_defs = {
     "router_statistics": {
         "url": "router/statistics",
         "params": {
+            "operator": {"type": "string", "required": "False"},
             "ip_version": {"type": "int", "required": "False"},
             "ip_mask": {"type": "string", "required": "False"},
             "gateway": {"type": "string", "required": "False"},
@@ -1554,7 +1588,9 @@ module_selectors_defs = {
     "virtual-wan_members": {
         "url": "virtual-wan/members",
         "params": {
+            "interface": {"type": "array", "required": "False"},
             "zone": {"type": "string", "required": "False"},
+            "sla": {"type": "string", "required": "False"},
             "skip_vpn_child": {"type": "boolean", "required": "False"},
         },
     },
@@ -1615,6 +1651,7 @@ module_selectors_defs = {
         "params": {
             "wtp_id": {"type": "string", "required": "False"},
             "incl_local": {"type": "boolean", "required": "False"},
+            "skip_eos": {"type": "boolean", "required": "False"},
         },
     },
     "wifi_firmware": {
@@ -1813,12 +1850,15 @@ module_selectors_defs = {
     "virtual-wan_sla-log": {
         "url": "virtual-wan/sla-log",
         "params": {
-            "sla": {"type": "string", "required": "False"},
+            "sla": {"type": "array", "required": "False"},
             "interface": {"type": "string", "required": "False"},
             "since": {"type": "int", "required": "False"},
             "seconds": {"type": "int", "required": "False"},
+            "latest": {"type": "boolean", "required": "False"},
+            "min_sample_interval": {"type": "int", "required": "False"},
             "sampling_interval": {"type": "int", "required": "False"},
             "skip_vpn_child": {"type": "boolean", "required": "False"},
+            "include_sla_targets_met": {"type": "boolean", "required": "False"},
         },
     },
     "vpn_ocvpn_members": {"url": "vpn/ocvpn/members", "params": {}},
@@ -2501,10 +2541,62 @@ module_selectors_defs = {
     },
     "user_scim_groups": {
         "url": "user/scim/groups",
-        "params": {"scim-client-name": {"type": "string", "required": "True"}},
+        "params": {"client_name": {"type": "string", "required": "True"}},
     },
     "virtual-wan_sladb": {"url": "virtual-wan/sladb", "params": {}},
     "wifi_statistics": {"url": "wifi/statistics", "params": {}},
+    "router_charts": {
+        "url": "router/charts",
+        "params": {
+            "operator": {"type": "string", "required": "False"},
+            "ip_version": {"type": "int", "required": "False"},
+            "ip_mask": {"type": "string", "required": "False"},
+            "gateway": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+            "origin": {"type": "string", "required": "False"},
+            "interface": {"type": "string", "required": "False"},
+        },
+    },
+    "switch-controller_known-nac-device-criteria-list": {
+        "url": "switch-controller/known-nac-device-criteria-list",
+        "params": {},
+    },
+    "system_sandbox_detect": {"url": "system/sandbox/detect", "params": {}},
+    "system_monitor-sensor": {"url": "system/monitor-sensor", "params": {}},
+    "user_device_iot-query": {
+        "url": "user/device/iot-query",
+        "params": {
+            "mac": {"type": "string", "required": "True"},
+            "ip": {"type": "string", "required": "True"},
+        },
+    },
+    "user_scim_users": {
+        "url": "user/scim/users",
+        "params": {
+            "client_name": {"type": "string", "required": "True"},
+            "group_name": {"type": "string", "required": "False"},
+            "user_name": {"type": "string", "required": "False"},
+        },
+    },
+    "telemetry-controller_agents": {"url": "telemetry-controller/agents", "params": {}},
+    "telemetry-controller_agent-tasks": {
+        "url": "telemetry-controller/agent-tasks",
+        "params": {},
+    },
+    "firewall_internet-service-fqdn": {
+        "url": "firewall/internet-service-fqdn",
+        "params": {},
+    },
+    "firewall_internet-service-fqdn-icon-ids": {
+        "url": "firewall/internet-service-fqdn-icon-ids",
+        "params": {},
+    },
+    "system_5g-modem_status": {
+        "url": "system/5g-modem/status",
+        "params": {"modem": {"type": "string", "required": "False"}},
+    },
+    "system_interface_poe-usage": {"url": "system/interface/poe-usage", "params": {}},
+    "vpn_ipsec_connection-count": {"url": "vpn/ipsec/connection-count", "params": {}},
 }
 
 
@@ -2959,6 +3051,19 @@ def main():
                 "user_scim_groups",
                 "virtual-wan_sladb",
                 "wifi_statistics",
+                "router_charts",
+                "switch-controller_known-nac-device-criteria-list",
+                "system_sandbox_detect",
+                "system_monitor-sensor",
+                "user_device_iot-query",
+                "user_scim_users",
+                "telemetry-controller_agents",
+                "telemetry-controller_agent-tasks",
+                "firewall_internet-service-fqdn",
+                "firewall_internet-service-fqdn-icon-ids",
+                "system_5g-modem_status",
+                "system_interface_poe-usage",
+                "vpn_ipsec_connection-count",
             ],
         },
         "selectors": {
@@ -3315,6 +3420,19 @@ def main():
                         "user_scim_groups",
                         "virtual-wan_sladb",
                         "wifi_statistics",
+                        "router_charts",
+                        "switch-controller_known-nac-device-criteria-list",
+                        "system_sandbox_detect",
+                        "system_monitor-sensor",
+                        "user_device_iot-query",
+                        "user_scim_users",
+                        "telemetry-controller_agents",
+                        "telemetry-controller_agent-tasks",
+                        "firewall_internet-service-fqdn",
+                        "firewall_internet-service-fqdn-icon-ids",
+                        "system_5g-modem_status",
+                        "system_interface_poe-usage",
+                        "vpn_ipsec_connection-count",
                     ],
                 },
             },

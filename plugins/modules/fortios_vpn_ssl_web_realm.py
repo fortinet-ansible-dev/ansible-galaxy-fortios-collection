@@ -92,7 +92,7 @@ options:
         suboptions:
             login_page:
                 description:
-                    - Replacement HTML for SSL-VPN login page.
+                    - Replacement HTML for Agentless VPN login page.
                 type: str
             max_concurrent_user:
                 description:
@@ -112,7 +112,7 @@ options:
                 type: str
             url_path:
                 description:
-                    - URL path to access SSL-VPN login page.
+                    - URL path to access Agentless VPN login page.
                 required: true
                 type: str
             virtual_host:
@@ -121,7 +121,7 @@ options:
                 type: str
             virtual_host_only:
                 description:
-                    - Enable/disable enforcement of virtual host method for SSL-VPN client access.
+                    - Enable/disable enforcement of virtual host method for Agentless VPN client access.
                 type: str
                 choices:
                     - 'enable'

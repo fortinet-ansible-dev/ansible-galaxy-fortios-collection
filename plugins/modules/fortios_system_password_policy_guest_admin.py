@@ -133,7 +133,7 @@ options:
                 type: int
             reuse_password:
                 description:
-                    - Enable/disable reuse of password. If both reuse-password and min-change-characters are enabled, min-change-characters overrides.
+                    - Enable/disable reuse of password.
                 type: str
                 choices:
                     - 'enable'
@@ -499,7 +499,6 @@ versioned_schema = {
         "min_upper_case_letter": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "min_non_alphanumeric": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "min_number": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "min_change_characters": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "expire_status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -512,6 +511,7 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "reuse_password_limit": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+        "min_change_characters": {"v_range": [["v7.0.0", "v7.6.2"]], "type": "integer"},
         "change_4_characters": {
             "v_range": [["v6.0.0", "v6.4.4"]],
             "type": "string",

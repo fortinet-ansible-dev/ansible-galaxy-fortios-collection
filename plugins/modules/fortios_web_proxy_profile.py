@@ -190,7 +190,7 @@ options:
                             - 'enable'
                     content:
                         description:
-                            - HTTP header content.
+                            - 'HTTP header content (max length: 3999 characters).'
                         type: str
                     dstaddr:
                         description:

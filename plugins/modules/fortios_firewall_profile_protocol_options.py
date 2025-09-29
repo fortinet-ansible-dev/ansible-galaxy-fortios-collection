@@ -334,8 +334,9 @@ options:
                         type: str
                         choices:
                             - 'allow'
-                            - 'block'
                             - 'monitor'
+                            - 'block'
+                            - 'strict'
                     fortinet_bar:
                         description:
                             - Enable/disable Fortinet bar on HTML content.
@@ -1664,8 +1665,9 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "allow"},
-                        {"value": "block"},
                         {"value": "monitor"},
+                        {"value": "block"},
+                        {"value": "strict", "v_range": [["v7.6.4", ""]]},
                     ],
                 },
                 "tcp_window_type": {

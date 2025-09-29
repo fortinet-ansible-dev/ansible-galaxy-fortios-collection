@@ -176,7 +176,6 @@ options:
                  - 'system.snmp_user'
                  - 'system.snmp_rmon-stat'
                  - 'system.autoupdate_schedule'
-                 - 'system.autoupdate_tunneling'
                  - 'system_session-ttl'
                  - 'system.dhcp_server'
                  - 'system.dhcp6_server'
@@ -192,6 +191,7 @@ options:
                  - 'system_sdn-vpn'
                  - 'system_ipv6-tunnel'
                  - 'system_external-resource'
+                 - 'system_cloud-service'
                  - 'system_ips-urlfilter-dns'
                  - 'system_ips-urlfilter-dns6'
                  - 'system_network-visibility'
@@ -240,6 +240,7 @@ options:
                  - 'system_geoip-override'
                  - 'system_fortisandbox'
                  - 'system_fortindr'
+                 - 'system_fortidata'
                  - 'system_vdom-exception'
                  - 'system_csf'
                  - 'system_automation-trigger'
@@ -251,6 +252,7 @@ options:
                  - 'system_saml'
                  - 'system_federated-upgrade'
                  - 'system_device-upgrade'
+                 - 'system_device-upgrade-exemptions'
                  - 'system_vne-interface'
                  - 'system_ike'
                  - 'system_acme'
@@ -336,6 +338,7 @@ options:
                  - 'switch-controller_stp-settings'
                  - 'switch-controller_stp-instance'
                  - 'switch-controller_storm-control'
+                 - 'switch-controller_ip-source-guard-log'
                  - 'switch-controller_global'
                  - 'switch-controller_system'
                  - 'switch-controller_switch-log'
@@ -351,6 +354,11 @@ options:
                  - 'switch-controller_traffic-sniffer'
                  - 'switch-controller_remote-log'
                  - 'switch-controller_mac-policy'
+                 - 'telemetry-controller_agent-profile'
+                 - 'telemetry-controller_agent'
+                 - 'telemetry-controller.application_predefine'
+                 - 'telemetry-controller_profile'
+                 - 'telemetry-controller_global'
                  - 'firewall_address'
                  - 'firewall_multicast-address'
                  - 'firewall_address6-template'
@@ -372,6 +380,7 @@ options:
                  - 'firewall_internet-service-append'
                  - 'firewall_internet-service-custom-group'
                  - 'firewall_internet-service-definition'
+                 - 'firewall_internet-service-fortiguard'
                  - 'firewall_network-service-dynamic'
                  - 'firewall.shaper_traffic-shaper'
                  - 'firewall.shaper_per-ip-shaper'
@@ -433,17 +442,16 @@ options:
                  - 'vpn.certificate_ca'
                  - 'vpn.certificate_remote'
                  - 'vpn.certificate_local'
+                 - 'vpn.certificate_hsm-local'
                  - 'vpn.certificate_crl'
                  - 'vpn.certificate_ocsp-server'
                  - 'vpn.certificate_setting'
                  - 'vpn_qkd'
                  - 'vpn.ssl.web_realm'
-                 - 'vpn.ssl.web_host-check-software'
                  - 'vpn.ssl.web_portal'
                  - 'vpn.ssl.web_user-group-bookmark'
                  - 'vpn.ssl.web_user-bookmark'
                  - 'vpn.ssl_settings'
-                 - 'vpn.ssl_client'
                  - 'vpn.ipsec_fec'
                  - 'vpn.ipsec_phase1'
                  - 'vpn.ipsec_phase2'
@@ -458,6 +466,7 @@ options:
                  - 'certificate_ca'
                  - 'certificate_remote'
                  - 'certificate_local'
+                 - 'certificate_hsm-local'
                  - 'certificate_crl'
                  - 'webfilter_ftgd-local-cat'
                  - 'webfilter_content'
@@ -504,6 +513,7 @@ options:
                  - 'dlp_data-type'
                  - 'dlp_dictionary'
                  - 'dlp_exact-data-match'
+                 - 'dlp_label'
                  - 'dlp_sensor'
                  - 'dlp_filepattern'
                  - 'dlp_sensitivity'
@@ -680,6 +690,9 @@ options:
                  - 'automation_setting'
                  - 'monitoring_np6-ipsec-engine'
                  - 'monitoring_npu-hpe'
+                 - 'system.autoupdate_tunneling'
+                 - 'vpn.ssl.web_host-check-software'
+                 - 'vpn.ssl_client'
                  - 'system_affinity-interrupt'
                  - 'system_affinity-packet-redistribution'
                  - 'nsxt_setting'
@@ -935,7 +948,6 @@ options:
          - 'system.snmp_user'
          - 'system.snmp_rmon-stat'
          - 'system.autoupdate_schedule'
-         - 'system.autoupdate_tunneling'
          - 'system_session-ttl'
          - 'system.dhcp_server'
          - 'system.dhcp6_server'
@@ -951,6 +963,7 @@ options:
          - 'system_sdn-vpn'
          - 'system_ipv6-tunnel'
          - 'system_external-resource'
+         - 'system_cloud-service'
          - 'system_ips-urlfilter-dns'
          - 'system_ips-urlfilter-dns6'
          - 'system_network-visibility'
@@ -999,6 +1012,7 @@ options:
          - 'system_geoip-override'
          - 'system_fortisandbox'
          - 'system_fortindr'
+         - 'system_fortidata'
          - 'system_vdom-exception'
          - 'system_csf'
          - 'system_automation-trigger'
@@ -1010,6 +1024,7 @@ options:
          - 'system_saml'
          - 'system_federated-upgrade'
          - 'system_device-upgrade'
+         - 'system_device-upgrade-exemptions'
          - 'system_vne-interface'
          - 'system_ike'
          - 'system_acme'
@@ -1095,6 +1110,7 @@ options:
          - 'switch-controller_stp-settings'
          - 'switch-controller_stp-instance'
          - 'switch-controller_storm-control'
+         - 'switch-controller_ip-source-guard-log'
          - 'switch-controller_global'
          - 'switch-controller_system'
          - 'switch-controller_switch-log'
@@ -1110,6 +1126,11 @@ options:
          - 'switch-controller_traffic-sniffer'
          - 'switch-controller_remote-log'
          - 'switch-controller_mac-policy'
+         - 'telemetry-controller_agent-profile'
+         - 'telemetry-controller_agent'
+         - 'telemetry-controller.application_predefine'
+         - 'telemetry-controller_profile'
+         - 'telemetry-controller_global'
          - 'firewall_address'
          - 'firewall_multicast-address'
          - 'firewall_address6-template'
@@ -1131,6 +1152,7 @@ options:
          - 'firewall_internet-service-append'
          - 'firewall_internet-service-custom-group'
          - 'firewall_internet-service-definition'
+         - 'firewall_internet-service-fortiguard'
          - 'firewall_network-service-dynamic'
          - 'firewall.shaper_traffic-shaper'
          - 'firewall.shaper_per-ip-shaper'
@@ -1192,17 +1214,16 @@ options:
          - 'vpn.certificate_ca'
          - 'vpn.certificate_remote'
          - 'vpn.certificate_local'
+         - 'vpn.certificate_hsm-local'
          - 'vpn.certificate_crl'
          - 'vpn.certificate_ocsp-server'
          - 'vpn.certificate_setting'
          - 'vpn_qkd'
          - 'vpn.ssl.web_realm'
-         - 'vpn.ssl.web_host-check-software'
          - 'vpn.ssl.web_portal'
          - 'vpn.ssl.web_user-group-bookmark'
          - 'vpn.ssl.web_user-bookmark'
          - 'vpn.ssl_settings'
-         - 'vpn.ssl_client'
          - 'vpn.ipsec_fec'
          - 'vpn.ipsec_phase1'
          - 'vpn.ipsec_phase2'
@@ -1217,6 +1238,7 @@ options:
          - 'certificate_ca'
          - 'certificate_remote'
          - 'certificate_local'
+         - 'certificate_hsm-local'
          - 'certificate_crl'
          - 'webfilter_ftgd-local-cat'
          - 'webfilter_content'
@@ -1263,6 +1285,7 @@ options:
          - 'dlp_data-type'
          - 'dlp_dictionary'
          - 'dlp_exact-data-match'
+         - 'dlp_label'
          - 'dlp_sensor'
          - 'dlp_filepattern'
          - 'dlp_sensitivity'
@@ -1439,6 +1462,9 @@ options:
          - 'automation_setting'
          - 'monitoring_np6-ipsec-engine'
          - 'monitoring_npu-hpe'
+         - 'system.autoupdate_tunneling'
+         - 'vpn.ssl.web_host-check-software'
+         - 'vpn.ssl_client'
          - 'system_affinity-interrupt'
          - 'system_affinity-packet-redistribution'
          - 'nsxt_setting'
@@ -1913,10 +1939,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
-    "system.autoupdate_tunneling": {
-        "mkey": "None",
-        "mkey_type": None,
-    },
     "system_session-ttl": {
         "mkey": "None",
         "mkey_type": None,
@@ -1974,6 +1996,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "system_external-resource": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "system_cloud-service": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -2169,6 +2195,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "system_fortidata": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
     "system_vdom-exception": {
         "mkey": "id",
         "mkey_type": int,
@@ -2212,6 +2242,10 @@ MODULE_MKEY_DEFINITONS = {
     "system_device-upgrade": {
         "mkey": "serial",
         "mkey_type": str,
+    },
+    "system_device-upgrade-exemptions": {
+        "mkey": "id",
+        "mkey_type": int,
     },
     "system_vne-interface": {
         "mkey": "name",
@@ -2553,6 +2587,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "None",
         "mkey_type": None,
     },
+    "switch-controller_ip-source-guard-log": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
     "switch-controller_global": {
         "mkey": "None",
         "mkey_type": None,
@@ -2612,6 +2650,26 @@ MODULE_MKEY_DEFINITONS = {
     "switch-controller_mac-policy": {
         "mkey": "name",
         "mkey_type": str,
+    },
+    "telemetry-controller_agent-profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "telemetry-controller_agent": {
+        "mkey": "agent_id",
+        "mkey_type": str,
+    },
+    "telemetry-controller.application_predefine": {
+        "mkey": "app_name",
+        "mkey_type": str,
+    },
+    "telemetry-controller_profile": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "telemetry-controller_global": {
+        "mkey": "None",
+        "mkey_type": None,
     },
     "firewall_address": {
         "mkey": "name",
@@ -2696,6 +2754,10 @@ MODULE_MKEY_DEFINITONS = {
     "firewall_internet-service-definition": {
         "mkey": "id",
         "mkey_type": int,
+    },
+    "firewall_internet-service-fortiguard": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "firewall_network-service-dynamic": {
         "mkey": "name",
@@ -2941,6 +3003,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "name",
         "mkey_type": str,
     },
+    "vpn.certificate_hsm-local": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
     "vpn.certificate_crl": {
         "mkey": "name",
         "mkey_type": str,
@@ -2961,10 +3027,6 @@ MODULE_MKEY_DEFINITONS = {
         "mkey": "url_path",
         "mkey_type": str,
     },
-    "vpn.ssl.web_host-check-software": {
-        "mkey": "name",
-        "mkey_type": str,
-    },
     "vpn.ssl.web_portal": {
         "mkey": "name",
         "mkey_type": str,
@@ -2980,10 +3042,6 @@ MODULE_MKEY_DEFINITONS = {
     "vpn.ssl_settings": {
         "mkey": "None",
         "mkey_type": None,
-    },
-    "vpn.ssl_client": {
-        "mkey": "name",
-        "mkey_type": str,
     },
     "vpn.ipsec_fec": {
         "mkey": "name",
@@ -3038,6 +3096,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "certificate_local": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "certificate_hsm-local": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3222,6 +3284,10 @@ MODULE_MKEY_DEFINITONS = {
         "mkey_type": str,
     },
     "dlp_exact-data-match": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "dlp_label": {
         "mkey": "name",
         "mkey_type": str,
     },
@@ -3928,6 +3994,18 @@ MODULE_MKEY_DEFINITONS = {
     "monitoring_npu-hpe": {
         "mkey": "None",
         "mkey_type": None,
+    },
+    "system.autoupdate_tunneling": {
+        "mkey": "None",
+        "mkey_type": None,
+    },
+    "vpn.ssl.web_host-check-software": {
+        "mkey": "name",
+        "mkey_type": str,
+    },
+    "vpn.ssl_client": {
+        "mkey": "name",
+        "mkey_type": str,
     },
     "system_affinity-interrupt": {
         "mkey": "id",
@@ -4912,13 +4990,18 @@ SPECIAL_ATTRIBUTE_TABLE = {
         ["map", "ip_precedence"],
     ],
     "switch_controller_initial_config_template": [["allowaccess"]],
-    "switch_controller_managed_switch": [["snmp_community", "events"]],
+    "switch_controller_managed_switch": [
+        ["snmp_community", "events"],
+        ["system_interface", "allowaccess"],
+        ["system_dhcp_server", "options", "ip"],
+    ],
     "switch_controller_global": [
         ["dhcp_option82_circuit_id"],
         ["dhcp_option82_remote_id"],
         ["update_user_device"],
     ],
     "switch_controller_snmp_community": [["events"]],
+    "telemetry_controller_profile": [["application", "sla", "sla_factor"]],
     "firewall_proxy_address": [["method"], ["ua"]],
     "firewall_schedule_recurring": [["day"]],
     "firewall_vip": [
@@ -5152,7 +5235,7 @@ SPECIAL_ATTRIBUTE_TABLE = {
         ["method", "method_policy", "allowed_methods"],
     ],
     "casb_profile": [["saas_application", "access_rule", "bypass"]],
-    "authentication_scheme": [["method"]],
+    "authentication_scheme": [["method"], ["digest_algo"]],
     "ztna_traffic_forward_proxy": [
         ["ssl_cipher_suites", "versions"],
         ["ssl_server_cipher_suites", "versions"],
@@ -5483,7 +5566,6 @@ def main():
                 "system.snmp_user",
                 "system.snmp_rmon-stat",
                 "system.autoupdate_schedule",
-                "system.autoupdate_tunneling",
                 "system_session-ttl",
                 "system.dhcp_server",
                 "system.dhcp6_server",
@@ -5499,6 +5581,7 @@ def main():
                 "system_sdn-vpn",
                 "system_ipv6-tunnel",
                 "system_external-resource",
+                "system_cloud-service",
                 "system_ips-urlfilter-dns",
                 "system_ips-urlfilter-dns6",
                 "system_network-visibility",
@@ -5547,6 +5630,7 @@ def main():
                 "system_geoip-override",
                 "system_fortisandbox",
                 "system_fortindr",
+                "system_fortidata",
                 "system_vdom-exception",
                 "system_csf",
                 "system_automation-trigger",
@@ -5558,6 +5642,7 @@ def main():
                 "system_saml",
                 "system_federated-upgrade",
                 "system_device-upgrade",
+                "system_device-upgrade-exemptions",
                 "system_vne-interface",
                 "system_ike",
                 "system_acme",
@@ -5643,6 +5728,7 @@ def main():
                 "switch-controller_stp-settings",
                 "switch-controller_stp-instance",
                 "switch-controller_storm-control",
+                "switch-controller_ip-source-guard-log",
                 "switch-controller_global",
                 "switch-controller_system",
                 "switch-controller_switch-log",
@@ -5658,6 +5744,11 @@ def main():
                 "switch-controller_traffic-sniffer",
                 "switch-controller_remote-log",
                 "switch-controller_mac-policy",
+                "telemetry-controller_agent-profile",
+                "telemetry-controller_agent",
+                "telemetry-controller.application_predefine",
+                "telemetry-controller_profile",
+                "telemetry-controller_global",
                 "firewall_address",
                 "firewall_multicast-address",
                 "firewall_address6-template",
@@ -5679,6 +5770,7 @@ def main():
                 "firewall_internet-service-append",
                 "firewall_internet-service-custom-group",
                 "firewall_internet-service-definition",
+                "firewall_internet-service-fortiguard",
                 "firewall_network-service-dynamic",
                 "firewall.shaper_traffic-shaper",
                 "firewall.shaper_per-ip-shaper",
@@ -5740,17 +5832,16 @@ def main():
                 "vpn.certificate_ca",
                 "vpn.certificate_remote",
                 "vpn.certificate_local",
+                "vpn.certificate_hsm-local",
                 "vpn.certificate_crl",
                 "vpn.certificate_ocsp-server",
                 "vpn.certificate_setting",
                 "vpn_qkd",
                 "vpn.ssl.web_realm",
-                "vpn.ssl.web_host-check-software",
                 "vpn.ssl.web_portal",
                 "vpn.ssl.web_user-group-bookmark",
                 "vpn.ssl.web_user-bookmark",
                 "vpn.ssl_settings",
-                "vpn.ssl_client",
                 "vpn.ipsec_fec",
                 "vpn.ipsec_phase1",
                 "vpn.ipsec_phase2",
@@ -5765,6 +5856,7 @@ def main():
                 "certificate_ca",
                 "certificate_remote",
                 "certificate_local",
+                "certificate_hsm-local",
                 "certificate_crl",
                 "webfilter_ftgd-local-cat",
                 "webfilter_content",
@@ -5811,6 +5903,7 @@ def main():
                 "dlp_data-type",
                 "dlp_dictionary",
                 "dlp_exact-data-match",
+                "dlp_label",
                 "dlp_sensor",
                 "dlp_filepattern",
                 "dlp_sensitivity",
@@ -5987,6 +6080,9 @@ def main():
                 "automation_setting",
                 "monitoring_np6-ipsec-engine",
                 "monitoring_npu-hpe",
+                "system.autoupdate_tunneling",
+                "vpn.ssl.web_host-check-software",
+                "vpn.ssl_client",
                 "system_affinity-interrupt",
                 "system_affinity-packet-redistribution",
                 "nsxt_setting",
@@ -6250,7 +6346,6 @@ def main():
                         "system.snmp_user",
                         "system.snmp_rmon-stat",
                         "system.autoupdate_schedule",
-                        "system.autoupdate_tunneling",
                         "system_session-ttl",
                         "system.dhcp_server",
                         "system.dhcp6_server",
@@ -6266,6 +6361,7 @@ def main():
                         "system_sdn-vpn",
                         "system_ipv6-tunnel",
                         "system_external-resource",
+                        "system_cloud-service",
                         "system_ips-urlfilter-dns",
                         "system_ips-urlfilter-dns6",
                         "system_network-visibility",
@@ -6314,6 +6410,7 @@ def main():
                         "system_geoip-override",
                         "system_fortisandbox",
                         "system_fortindr",
+                        "system_fortidata",
                         "system_vdom-exception",
                         "system_csf",
                         "system_automation-trigger",
@@ -6325,6 +6422,7 @@ def main():
                         "system_saml",
                         "system_federated-upgrade",
                         "system_device-upgrade",
+                        "system_device-upgrade-exemptions",
                         "system_vne-interface",
                         "system_ike",
                         "system_acme",
@@ -6410,6 +6508,7 @@ def main():
                         "switch-controller_stp-settings",
                         "switch-controller_stp-instance",
                         "switch-controller_storm-control",
+                        "switch-controller_ip-source-guard-log",
                         "switch-controller_global",
                         "switch-controller_system",
                         "switch-controller_switch-log",
@@ -6425,6 +6524,11 @@ def main():
                         "switch-controller_traffic-sniffer",
                         "switch-controller_remote-log",
                         "switch-controller_mac-policy",
+                        "telemetry-controller_agent-profile",
+                        "telemetry-controller_agent",
+                        "telemetry-controller.application_predefine",
+                        "telemetry-controller_profile",
+                        "telemetry-controller_global",
                         "firewall_address",
                         "firewall_multicast-address",
                         "firewall_address6-template",
@@ -6446,6 +6550,7 @@ def main():
                         "firewall_internet-service-append",
                         "firewall_internet-service-custom-group",
                         "firewall_internet-service-definition",
+                        "firewall_internet-service-fortiguard",
                         "firewall_network-service-dynamic",
                         "firewall.shaper_traffic-shaper",
                         "firewall.shaper_per-ip-shaper",
@@ -6507,17 +6612,16 @@ def main():
                         "vpn.certificate_ca",
                         "vpn.certificate_remote",
                         "vpn.certificate_local",
+                        "vpn.certificate_hsm-local",
                         "vpn.certificate_crl",
                         "vpn.certificate_ocsp-server",
                         "vpn.certificate_setting",
                         "vpn_qkd",
                         "vpn.ssl.web_realm",
-                        "vpn.ssl.web_host-check-software",
                         "vpn.ssl.web_portal",
                         "vpn.ssl.web_user-group-bookmark",
                         "vpn.ssl.web_user-bookmark",
                         "vpn.ssl_settings",
-                        "vpn.ssl_client",
                         "vpn.ipsec_fec",
                         "vpn.ipsec_phase1",
                         "vpn.ipsec_phase2",
@@ -6532,6 +6636,7 @@ def main():
                         "certificate_ca",
                         "certificate_remote",
                         "certificate_local",
+                        "certificate_hsm-local",
                         "certificate_crl",
                         "webfilter_ftgd-local-cat",
                         "webfilter_content",
@@ -6578,6 +6683,7 @@ def main():
                         "dlp_data-type",
                         "dlp_dictionary",
                         "dlp_exact-data-match",
+                        "dlp_label",
                         "dlp_sensor",
                         "dlp_filepattern",
                         "dlp_sensitivity",
@@ -6754,6 +6860,9 @@ def main():
                         "automation_setting",
                         "monitoring_np6-ipsec-engine",
                         "monitoring_npu-hpe",
+                        "system.autoupdate_tunneling",
+                        "vpn.ssl.web_host-check-software",
+                        "vpn.ssl_client",
                         "system_affinity-interrupt",
                         "system_affinity-packet-redistribution",
                         "nsxt_setting",

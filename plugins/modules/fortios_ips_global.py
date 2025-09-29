@@ -152,6 +152,13 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            machine_learning_detection:
+                description:
+                    - Enable/disable machine learning detection.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ngfw_max_scan_range:
                 description:
                     - NGFW policy-mode app detection threshold.
@@ -244,6 +251,7 @@ EXAMPLES = """
           fail_open: "enable"
           intelligent_mode: "enable"
           ips_reserve_cpu: "disable"
+          machine_learning_detection: "enable"
           ngfw_max_scan_range: "4096"
           np_accel_mode: "none"
           packet_log_queue_depth: "128"
@@ -364,6 +372,7 @@ def filter_ips_global_data(json):
         "fail_open",
         "intelligent_mode",
         "ips_reserve_cpu",
+        "machine_learning_detection",
         "ngfw_max_scan_range",
         "np_accel_mode",
         "packet_log_queue_depth",
@@ -597,6 +606,11 @@ versioned_schema = {
         "packet_log_queue_depth": {"v_range": [["v6.2.7", ""]], "type": "integer"},
         "ngfw_max_scan_range": {"v_range": [["v6.4.4", ""]], "type": "integer"},
         "av_mem_limit": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "machine_learning_detection": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "tls_active_probe": {
             "v_range": [["v6.2.7", "v6.2.7"], ["v6.4.4", ""]],
             "type": "dict",

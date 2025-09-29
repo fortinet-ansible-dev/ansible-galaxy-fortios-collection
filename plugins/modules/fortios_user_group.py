@@ -279,7 +279,7 @@ options:
                     - 'disabled'
             sso_attribute_value:
                 description:
-                    - Name of the RADIUS user group that this local user group represents.
+                    - RADIUS attribute value.
                 type: str
             user_id:
                 description:

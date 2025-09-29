@@ -105,6 +105,7 @@ options:
                     - 'default'
                     - 'ztna-ems-tag'
                     - 'ztna-geo-tag'
+                    - 'telemetry'
             color:
                 description:
                     - Color of icon on the GUI.
@@ -520,6 +521,7 @@ versioned_schema = {
                 {"value": "default"},
                 {"value": "ztna-ems-tag"},
                 {"value": "ztna-geo-tag"},
+                {"value": "telemetry", "v_range": [["v7.6.4", ""]]},
             ],
         },
         "allow_routing": {

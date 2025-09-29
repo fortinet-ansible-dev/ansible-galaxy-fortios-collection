@@ -124,6 +124,13 @@ options:
                 description:
                     - Forward proxy server IPv6 address.
                 type: str
+            masquerade:
+                description:
+                    - Enable/disable use of the of the IP address of the outgoing interface as the client IP address
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             name:
                 description:
                     - Server name.
@@ -153,7 +160,8 @@ EXAMPLES = """
           interface_select_method: "sdwan"
           ip: "<your_own_value>"
           ipv6: "<your_own_value>"
-          name: "default_name_10"
+          masquerade: "enable"
+          name: "default_name_11"
           port: "3128"
           vrf_select: "-1"
 """
@@ -246,6 +254,7 @@ def filter_web_proxy_isolator_server_data(json):
         "interface_select_method",
         "ip",
         "ipv6",
+        "masquerade",
         "name",
         "port",
         "vrf_select",
@@ -360,6 +369,11 @@ versioned_schema = {
         "interface": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
         "comment": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "masquerade": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
     },
     "v_range": [["v7.6.1", ""]],
 }

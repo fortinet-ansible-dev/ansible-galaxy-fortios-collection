@@ -92,7 +92,7 @@ options:
         suboptions:
             allow_user_access:
                 description:
-                    - Allow user access to SSL-VPN applications.
+                    - Allow user access to Agentless VPN applications.
                 type: list
                 elements: str
                 choices:
@@ -526,7 +526,7 @@ options:
                     - 'disable'
             focus_bookmark:
                 description:
-                    - Enable to prioritize the placement of the bookmark section over the quick-connection section in the SSL-VPN application.
+                    - Enable to prioritize the placement of the bookmark section over the quick-connection section in the Agentless VPN application.
                 type: str
                 choices:
                     - 'enable'
@@ -734,14 +734,14 @@ options:
                         type: str
             landing_page_mode:
                 description:
-                    - Enable/disable SSL-VPN landing page mode.
+                    - Enable/disable Agentless VPN landing page mode.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             limit_user_logins:
                 description:
-                    - Enable to limit each user to one SSL-VPN session at a time.
+                    - Enable to limit each user to one Agentless VPN session at a time.
                 type: str
                 choices:
                     - 'enable'
@@ -1023,7 +1023,7 @@ options:
                     - 'disable'
             web_mode:
                 description:
-                    - Enable/disable SSL-VPN web mode.
+                    - Enable/disable Agentless VPN web mode.
                 type: str
                 choices:
                     - 'enable'
@@ -1585,155 +1585,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
-        "tunnel_mode": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ip_mode": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "range"},
-                {"value": "user-group"},
-                {"value": "dhcp", "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", ""]]},
-                {"value": "no-ip", "v_range": [["v7.2.4", ""]]},
-            ],
-        },
-        "dhcp_ip_overlap": {
-            "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", ""]],
-            "type": "string",
-            "options": [{"value": "use-new"}, {"value": "use-old"}],
-        },
-        "auto_connect": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "keep_alive": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "dhcp_reservation": {
-            "v_range": [["v7.6.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "save_password": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ip_pools": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
-        "exclusive_routing": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "service_restriction": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "split_tunneling": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "split_tunneling_routing_negate": {
-            "v_range": [["v6.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "split_tunneling_routing_address": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
-        "dns_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "dns_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dns_suffix": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "dhcp_ra_giaddr": {"v_range": [["v7.2.4", ""]], "type": "string"},
-        "ipv6_tunnel_mode": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ipv6_pools": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
-        "ipv6_exclusive_routing": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ipv6_service_restriction": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ipv6_split_tunneling": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ipv6_split_tunneling_routing_negate": {
-            "v_range": [["v6.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ipv6_split_tunneling_routing_address": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
-        "ipv6_dns_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_dns_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "dhcp6_ra_linkaddr": {"v_range": [["v7.2.4", ""]], "type": "string"},
-        "client_src_range": {
-            "v_range": [["v7.2.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "web_mode": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2149,105 +2001,8 @@ versioned_schema = {
         },
         "default_window_width": {"v_range": [["v7.0.6", ""]], "type": "integer"},
         "default_window_height": {"v_range": [["v7.0.6", ""]], "type": "integer"},
-        "host_check": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "none"},
-                {"value": "av"},
-                {"value": "fw"},
-                {"value": "av-fw"},
-                {"value": "custom"},
-            ],
-        },
-        "host_check_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "host_check_policy": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
         "limit_user_logins": {
             "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "mac_addr_check": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "mac_addr_action": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "allow"}, {"value": "deny"}],
-        },
-        "mac_addr_check_rule": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                },
-                "mac_addr_mask": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "mac_addr_list": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "addr": {
-                            "v_range": [["v6.0.0", ""]],
-                            "type": "string",
-                            "required": True,
-                        }
-                    },
-                    "v_range": [["v6.0.0", ""]],
-                },
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
-        "os_check": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "forticlient_download": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "forticlient_download_method": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "direct"}, {"value": "ssl-vpn"}],
-        },
-        "customize_forticlient_download_url": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "windows_forticlient_download_url": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-        },
-        "macos_forticlient_download_url": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-        },
-        "skip_check_for_unsupported_os": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "skip_check_for_browser": {
-            "v_range": [["v6.2.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2255,23 +2010,6 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "split_dns": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "id": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "integer",
-                    "required": True,
-                },
-                "domains": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "dns_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "dns_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "ipv6_dns_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "ipv6_dns_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-            },
-            "v_range": [["v6.0.0", ""]],
         },
         "landing_page": {
             "v_range": [["v7.4.0", ""]],
@@ -2309,6 +2047,277 @@ versioned_schema = {
                 "sso_password": {"v_range": [["v7.4.0", ""]], "type": "string"},
                 "logout_url": {"v_range": [["v7.4.0", "v7.4.0"]], "type": "string"},
             },
+        },
+        "forticlient_download": {
+            "v_range": [["v6.0.0", "v7.6.3"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "forticlient_download_method": {
+            "v_range": [["v6.0.0", "v7.6.3"]],
+            "type": "string",
+            "options": [{"value": "direct"}, {"value": "ssl-vpn"}],
+        },
+        "customize_forticlient_download_url": {
+            "v_range": [["v6.0.0", "v7.6.3"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "windows_forticlient_download_url": {
+            "v_range": [["v6.0.0", "v7.6.3"]],
+            "type": "string",
+        },
+        "macos_forticlient_download_url": {
+            "v_range": [["v6.0.0", "v7.6.3"]],
+            "type": "string",
+        },
+        "tunnel_mode": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ip_mode": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [
+                {"value": "range"},
+                {"value": "user-group"},
+                {
+                    "value": "dhcp",
+                    "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", "v7.6.2"]],
+                },
+                {"value": "no-ip", "v_range": [["v7.2.4", "v7.6.2"]]},
+            ],
+        },
+        "dhcp_ip_overlap": {
+            "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "use-new"}, {"value": "use-old"}],
+        },
+        "auto_connect": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "keep_alive": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "dhcp_reservation": {
+            "v_range": [["v7.6.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "save_password": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ip_pools": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "exclusive_routing": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "service_restriction": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_tunneling": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_tunneling_routing_negate": {
+            "v_range": [["v6.4.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_tunneling_routing_address": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "dns_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "dns_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "wins_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "wins_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "dhcp_ra_giaddr": {"v_range": [["v7.2.4", "v7.6.2"]], "type": "string"},
+        "ipv6_tunnel_mode": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_pools": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "ipv6_exclusive_routing": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_service_restriction": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_split_tunneling": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_split_tunneling_routing_negate": {
+            "v_range": [["v6.4.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ipv6_split_tunneling_routing_address": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "ipv6_dns_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_dns_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_wins_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_wins_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "dhcp6_ra_linkaddr": {"v_range": [["v7.2.4", "v7.6.2"]], "type": "string"},
+        "client_src_range": {
+            "v_range": [["v7.2.4", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "host_check": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [
+                {"value": "none"},
+                {"value": "av"},
+                {"value": "fw"},
+                {"value": "av-fw"},
+                {"value": "custom"},
+            ],
+        },
+        "host_check_interval": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "integer"},
+        "host_check_policy": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "mac_addr_check": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "mac_addr_action": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "allow"}, {"value": "deny"}],
+        },
+        "mac_addr_check_rule": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                },
+                "mac_addr_mask": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "integer"},
+                "mac_addr_list": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "addr": {
+                            "v_range": [["v6.0.0", "v7.6.2"]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                },
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "os_check": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "skip_check_for_unsupported_os": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "skip_check_for_browser": {
+            "v_range": [["v6.2.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_dns": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "domains": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+                "dns_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+                "dns_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+                "ipv6_dns_server1": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                },
+                "ipv6_dns_server2": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                },
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
         },
         "os_check_list": {
             "type": "list",

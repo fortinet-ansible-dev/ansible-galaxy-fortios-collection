@@ -286,6 +286,7 @@ options:
                     - 'template'
                     - 'mac'
                     - 'route-tag'
+                    - 'wildcard'
             uuid:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
@@ -297,6 +298,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            wildcard:
+                description:
+                    - IPv6 address and wildcard netmask.
+                type: str
 """
 
 EXAMPLES = """
@@ -352,6 +357,7 @@ EXAMPLES = """
           type: "ipprefix"
           uuid: "<your_own_value>"
           visibility: "enable"
+          wildcard: "<your_own_value>"
 """
 
 RETURN = """
@@ -477,6 +483,7 @@ def filter_firewall_address6_data(json):
         "type",
         "uuid",
         "visibility",
+        "wildcard",
     ]
 
     json = remove_invalid_fields(json)
@@ -669,6 +676,7 @@ versioned_schema = {
                     ],
                 },
                 {"value": "route-tag", "v_range": [["v7.4.0", ""]]},
+                {"value": "wildcard", "v_range": [["v7.6.4", ""]]},
             ],
         },
         "route_tag": {"v_range": [["v7.4.0", ""]], "type": "integer"},
@@ -690,6 +698,7 @@ versioned_schema = {
             "options": [{"value": "nsx", "v_range": [["v6.0.0", "v6.0.11"]]}],
         },
         "ip6": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "wildcard": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "start_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "end_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "fqdn": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -697,16 +706,6 @@ versioned_schema = {
         "cache_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "obj_id": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "list": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "ip": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
-                "obj_id": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
-                "net_id": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
         "tagging": {
             "type": "list",
             "elements": "dict",
@@ -762,6 +761,16 @@ versioned_schema = {
         "epg_name": {"v_range": [["v7.2.1", ""]], "type": "string"},
         "sdn_tag": {"v_range": [["v7.2.1", ""]], "type": "string"},
         "filter": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "list": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "ip": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+                "obj_id": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+                "net_id": {"v_range": [["v6.2.3", "v6.2.3"]], "type": "string"},
+            },
+            "v_range": [["v6.0.0", ""]],
+        },
         "sdn_addr_type": {
             "v_range": [["v7.6.1", ""]],
             "type": "string",

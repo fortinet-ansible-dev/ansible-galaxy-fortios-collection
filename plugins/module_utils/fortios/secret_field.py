@@ -29,7 +29,9 @@ secret_fields = [
     "ssh_hostkey", "ssh_hostkey_password", "keyword", "sam_private_key", "sam_private_key_password",
     "videofilter_keyword", "cloud_authentication_access_key", "cloud_authentication_access_key", "auth_server_secret",
     "ssh_hsk_password", "user_history_password_threshold", "reuse_password_limit", "client_secret_token",
-    "token_certificate", "ble_rtls_server_token", "admin_auth_tacacs+"
+    "token_certificate", "ble_rtls_server_token", "admin_auth_tacacs+", "gch_cryptokey", "gch_cryptokey_version",
+    "gch_keyring", "acme_eab_key_hmac", "eab_key_hmac", "gck_access_token_lifetime", "gck_keyid", "gch_private_key",
+    "fortitoken_cloud_region", "gck_private_key"
 ]
 
 

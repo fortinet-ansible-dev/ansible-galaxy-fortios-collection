@@ -461,35 +461,35 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "name": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string", "required": True},
         "os_type": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.6.2"]],
             "type": "string",
             "options": [{"value": "windows"}, {"value": "macos"}],
         },
         "type": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.6.2"]],
             "type": "string",
             "options": [{"value": "av"}, {"value": "fw"}],
         },
-        "version": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "guid": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "version": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "guid": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
         "check_item_list": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.6.2"]],
                     "type": "integer",
                     "required": True,
                 },
                 "action": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.6.2"]],
                     "type": "string",
                     "options": [{"value": "require"}, {"value": "deny"}],
                 },
                 "type": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.6.2"]],
                     "type": "string",
                     "options": [
                         {"value": "file"},
@@ -497,25 +497,25 @@ versioned_schema = {
                         {"value": "process"},
                     ],
                 },
-                "target": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "version": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "target": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+                "version": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
                 "md5s": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "v_range": [["v6.0.0", ""]],
+                            "v_range": [["v6.0.0", "v7.6.2"]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.6.2"]],
                 },
             },
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.6.2"]],
         },
     },
-    "v_range": [["v6.0.0", ""]],
+    "v_range": [["v6.0.0", "v7.6.2"]],
 }
 
 

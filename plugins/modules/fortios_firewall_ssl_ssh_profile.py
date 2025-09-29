@@ -113,7 +113,7 @@ options:
                     - 'enable'
             caname:
                 description:
-                    - CA certificate used by SSL Inspection. Source vpn.certificate.local.name.
+                    - CA certificate used by SSL Inspection. Source vpn.certificate.local.name vpn.certificate.hsm-local.name.
                 type: str
             comment:
                 description:
@@ -1461,7 +1461,7 @@ options:
                     - 'none'
             untrusted_caname:
                 description:
-                    - Untrusted CA certificate used by SSL Inspection. Source vpn.certificate.local.name.
+                    - Untrusted CA certificate used by SSL Inspection. Source vpn.certificate.local.name vpn.certificate.hsm-local.name.
                 type: str
             use_ssl_server:
                 description:
@@ -1489,7 +1489,7 @@ EXAMPLES = """
           allowlist: "enable"
           block_blacklisted_certificates: "disable"
           block_blocklisted_certificates: "disable"
-          caname: "<your_own_value> (source vpn.certificate.local.name)"
+          caname: "<your_own_value> (source vpn.certificate.local.name vpn.certificate.hsm-local.name)"
           comment: "Optional comments."
           dot:
               cert_validation_failure: "allow"
@@ -1680,7 +1680,7 @@ EXAMPLES = """
                   ssl_other_client_certificate: "bypass"
           ssl_server_cert_log: "disable"
           supported_alpn: "http1-1"
-          untrusted_caname: "<your_own_value> (source vpn.certificate.local.name)"
+          untrusted_caname: "<your_own_value> (source vpn.certificate.local.name vpn.certificate.hsm-local.name)"
           use_ssl_server: "disable"
           whitelist: "enable"
 """

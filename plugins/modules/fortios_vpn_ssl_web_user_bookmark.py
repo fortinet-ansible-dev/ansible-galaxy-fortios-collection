@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_vpn_ssl_web_user_bookmark
-short_description: Configure SSL-VPN user bookmark in Fortinet's FortiOS and FortiGate.
+short_description: Configure Agentless VPN user bookmark in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify vpn_ssl_web feature and user_bookmark category.
@@ -86,7 +86,7 @@ options:
             - 'absent'
     vpn_ssl_web_user_bookmark:
         description:
-            - Configure SSL-VPN user bookmark.
+            - Configure Agentless VPN user bookmark.
         default: null
         type: dict
         suboptions:
@@ -385,7 +385,7 @@ options:
 """
 
 EXAMPLES = """
-- name: Configure SSL-VPN user bookmark.
+- name: Configure Agentless VPN user bookmark.
   fortinet.fortios.fortios_vpn_ssl_web_user_bookmark:
       vdom: "{{ vdom }}"
       state: "present"

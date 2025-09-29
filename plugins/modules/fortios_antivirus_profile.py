@@ -213,6 +213,14 @@ options:
                             - 'disable'
                             - 'block'
                             - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
                     options:
                         description:
                             - Enable/disable CIFS AntiVirus scanning, monitoring, and quarantine.
@@ -587,6 +595,14 @@ options:
                             - 'disable'
                             - 'block'
                             - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
                     options:
                         description:
                             - Enable/disable FTP AntiVirus scanning, monitoring, and quarantine.
@@ -698,6 +714,14 @@ options:
                     fortisandbox:
                         description:
                             - Enable scanning of files by FortiSandbox.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -834,6 +858,14 @@ options:
                             - 'disable'
                             - 'block'
                             - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
                     options:
                         description:
                             - Enable/disable IMAP AntiVirus scanning, monitoring, and quarantine.
@@ -952,6 +984,14 @@ options:
                     fortisandbox:
                         description:
                             - Enable scanning of files by FortiSandbox.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1101,6 +1141,14 @@ options:
                             - 'disable'
                             - 'block'
                             - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
                     options:
                         description:
                             - Enable/disable NNTP AntiVirus scanning, monitoring, and quarantine.
@@ -1245,6 +1293,14 @@ options:
                     fortisandbox:
                         description:
                             - Enable scanning of files by FortiSandbox.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1442,6 +1498,14 @@ options:
                             - 'disable'
                             - 'block'
                             - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
                     options:
                         description:
                             - Enable/disable SMTP AntiVirus scanning, monitoring, and quarantine.
@@ -1551,6 +1615,14 @@ options:
                             - 'disable'
                             - 'block'
                             - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
                     options:
                         description:
                             - Enable/disable SFTP and SCP AntiVirus scanning, monitoring, and quarantine.
@@ -1604,6 +1676,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1633,7 +1706,7 @@ EXAMPLES = """
           extended_log: "enable"
           external_blocklist:
               -
-                  name: "default_name_48 (source system.external-resource.name)"
+                  name: "default_name_49 (source system.external-resource.name)"
           external_blocklist_archive_scan: "disable"
           external_blocklist_enable_all: "disable"
           feature_set: "flow"
@@ -1655,6 +1728,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1668,6 +1742,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1683,6 +1758,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1697,6 +1773,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1705,7 +1782,7 @@ EXAMPLES = """
               expiry: "<your_own_value>"
               infected: "none"
               log: "enable"
-          name: "default_name_120"
+          name: "default_name_125"
           nntp:
               archive_block: "encrypted"
               archive_log: "encrypted"
@@ -1715,6 +1792,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1733,6 +1811,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1755,6 +1834,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -1767,6 +1847,7 @@ EXAMPLES = """
               fortiai: "disable"
               fortindr: "disable"
               fortisandbox: "disable"
+              malware_stream: "disable"
               options: "scan"
               outbreak_prevention: "disable"
               quarantine: "disable"
@@ -2201,6 +2282,15 @@ versioned_schema = {
                         {"value": "monitor"},
                     ],
                 },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
                 "fortindr": {
                     "v_range": [["v7.0.8", ""]],
                     "type": "string",
@@ -2333,6 +2423,15 @@ versioned_schema = {
                         {"value": "monitor"},
                     ],
                 },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
                 "fortindr": {
                     "v_range": [["v7.0.8", ""]],
                     "type": "string",
@@ -2444,6 +2543,15 @@ versioned_schema = {
                 },
                 "external_blocklist": {
                     "v_range": [["v7.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "disable"},
@@ -2579,6 +2687,15 @@ versioned_schema = {
                         {"value": "monitor"},
                     ],
                 },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
                 "fortindr": {
                     "v_range": [["v7.0.8", ""]],
                     "type": "string",
@@ -2700,6 +2817,15 @@ versioned_schema = {
                 },
                 "external_blocklist": {
                     "v_range": [["v7.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "disable"},
@@ -2835,6 +2961,15 @@ versioned_schema = {
                         {"value": "monitor"},
                     ],
                 },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
                 "fortindr": {
                     "v_range": [["v7.2.0", ""]],
                     "type": "string",
@@ -2951,6 +3086,15 @@ versioned_schema = {
                 },
                 "external_blocklist": {
                     "v_range": [["v7.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "disable"},
@@ -3076,6 +3220,15 @@ versioned_schema = {
                         {"value": "monitor"},
                     ],
                 },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
                 "fortindr": {
                     "v_range": [["v7.0.8", ""]],
                     "type": "string",
@@ -3187,6 +3340,15 @@ versioned_schema = {
                 },
                 "external_blocklist": {
                     "v_range": [["v7.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "malware_stream": {
+                    "v_range": [["v7.6.3", ""]],
                     "type": "string",
                     "options": [
                         {"value": "disable"},

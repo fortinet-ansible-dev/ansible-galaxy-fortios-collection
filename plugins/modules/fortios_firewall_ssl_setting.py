@@ -97,6 +97,10 @@ options:
                 description:
                     - Time limit to keep certificate cache (1 - 120 min).
                 type: int
+            cert_manager_cache_timeout:
+                description:
+                    - Time limit for certificate manager to keep FortiGate re-signed server certificate (24 - 720 hours).
+                type: int
             kxp_queue_threshold:
                 description:
                     - Maximum length of the CP KXP queue. When the queue becomes full, the proxy switches cipher functions to the main CPU (0 - 512).
@@ -112,6 +116,13 @@ options:
                 description:
                     - Time limit to make an internal connection to the appropriate proxy process (1 - 60 sec).
                 type: int
+            resigned_short_lived_certificate:
+                description:
+                    - Enable/disable short-lived certificate.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             session_cache_capacity:
                 description:
                     - Capacity of the SSL session cache (--Obsolete--) (1 - 1000).
@@ -150,9 +161,11 @@ EXAMPLES = """
           abbreviate_handshake: "enable"
           cert_cache_capacity: "200"
           cert_cache_timeout: "10"
+          cert_manager_cache_timeout: "72"
           kxp_queue_threshold: "16"
           no_matching_cipher_action: "bypass"
           proxy_connect_timeout: "30"
+          resigned_short_lived_certificate: "enable"
           session_cache_capacity: "500"
           session_cache_timeout: "20"
           ssl_dh_bits: "768"
@@ -256,9 +269,11 @@ def filter_firewall_ssl_setting_data(json):
         "abbreviate_handshake",
         "cert_cache_capacity",
         "cert_cache_timeout",
+        "cert_manager_cache_timeout",
         "kxp_queue_threshold",
         "no_matching_cipher_action",
         "proxy_connect_timeout",
+        "resigned_short_lived_certificate",
         "session_cache_capacity",
         "session_cache_timeout",
         "ssl_dh_bits",
@@ -447,6 +462,12 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "bypass"}, {"value": "drop"}],
+        },
+        "cert_manager_cache_timeout": {"v_range": [["v7.6.3", ""]], "type": "integer"},
+        "resigned_short_lived_certificate": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "cert_cache_capacity": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "cert_cache_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},

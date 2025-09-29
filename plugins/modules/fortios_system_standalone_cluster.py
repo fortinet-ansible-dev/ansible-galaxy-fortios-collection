@@ -214,6 +214,13 @@ options:
                 description:
                     - Cluster member ID (0 - 15).
                 type: int
+            helper_traffic_bounce:
+                description:
+                    - Enable/disable helper related traffic bounce.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             layer2_connection:
                 description:
                     - Indicate whether layer 2 connections are present among FGSP members.
@@ -279,6 +286,13 @@ options:
                 description:
                     - Cluster group ID (0 - 255). Must be the same for all members.
                 type: int
+            utm_traffic_bounce:
+                description:
+                    - Enable/disable UTM related traffic bounce.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
 """
 
 EXAMPLES = """
@@ -316,22 +330,24 @@ EXAMPLES = """
                           name: "default_name_26 (source system.vdom.name)"
           encryption: "enable"
           group_member_id: "0"
+          helper_traffic_bounce: "enable"
           layer2_connection: "available"
           monitor_interface:
               -
-                  name: "default_name_31 (source system.interface.name)"
+                  name: "default_name_32 (source system.interface.name)"
           monitor_prefix:
               -
-                  id: "33"
+                  id: "34"
                   prefix: "<your_own_value>"
                   vdom: "<your_own_value> (source system.vdom.name)"
                   vrf: "0"
           pingsvr_monitor_interface:
               -
-                  name: "default_name_38 (source system.interface.name)"
+                  name: "default_name_39 (source system.interface.name)"
           psksecret: "<your_own_value>"
           session_sync_dev: "<your_own_value> (source system.interface.name)"
           standalone_group_id: "0"
+          utm_traffic_bounce: "enable"
 """
 
 RETURN = """
@@ -431,6 +447,7 @@ def filter_system_standalone_cluster_data(json):
         "cluster_peer",
         "encryption",
         "group_member_id",
+        "helper_traffic_bounce",
         "layer2_connection",
         "monitor_interface",
         "monitor_prefix",
@@ -438,6 +455,7 @@ def filter_system_standalone_cluster_data(json):
         "psksecret",
         "session_sync_dev",
         "standalone_group_id",
+        "utm_traffic_bounce",
     ]
 
     json = remove_invalid_fields(json)
@@ -781,6 +799,16 @@ versioned_schema = {
                 "prefix": {"v_range": [["v7.6.1", ""]], "type": "string"},
             },
             "v_range": [["v7.6.1", ""]],
+        },
+        "helper_traffic_bounce": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "utm_traffic_bounce": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
 }

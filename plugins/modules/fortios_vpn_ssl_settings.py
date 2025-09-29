@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_vpn_ssl_settings
-short_description: Configure SSL-VPN in Fortinet's FortiOS and FortiGate.
+short_description: Configure Agentless VPN in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify vpn_ssl feature and settings category.
@@ -78,13 +78,13 @@ options:
 
     vpn_ssl_settings:
         description:
-            - Configure SSL-VPN.
+            - Configure Agentless VPN.
         default: null
         type: dict
         suboptions:
             algorithm:
                 description:
-                    - Force the SSL-VPN security level. High allows only high. Medium allows medium and high. Low allows any.
+                    - Force the Agentless VPN security level. High allows only high. Medium allows medium and high. Low allows any.
                 type: str
                 choices:
                     - 'high'
@@ -100,17 +100,17 @@ options:
                     - 'disable'
             auth_timeout:
                 description:
-                    - SSL-VPN authentication timeout (1 - 259200 sec (3 days), 0 for no timeout).
+                    - Agentless VPN authentication timeout (1 - 259200 sec (3 days), 0 for no timeout).
                 type: int
             authentication_rule:
                 description:
-                    - Authentication rule for SSL-VPN.
+                    - Authentication rule for Agentless VPN.
                 type: list
                 elements: dict
                 suboptions:
                     auth:
                         description:
-                            - SSL-VPN authentication method restriction.
+                            - Agentless VPN authentication method restriction.
                         type: str
                         choices:
                             - 'any'
@@ -121,7 +121,7 @@ options:
                             - 'peer'
                     cipher:
                         description:
-                            - SSL-VPN cipher strength.
+                            - Agentless VPN cipher strength.
                         type: str
                         choices:
                             - 'any'
@@ -129,7 +129,7 @@ options:
                             - 'medium'
                     client_cert:
                         description:
-                            - Enable/disable SSL-VPN client certificate restrictive.
+                            - Enable/disable Agentless VPN client certificate restrictive.
                         type: str
                         choices:
                             - 'enable'
@@ -152,11 +152,11 @@ options:
                         type: int
                     portal:
                         description:
-                            - SSL-VPN portal. Source vpn.ssl.web.portal.name.
+                            - Agentless VPN portal. Source vpn.ssl.web.portal.name.
                         type: str
                     realm:
                         description:
-                            - SSL-VPN realm. Source vpn.ssl.web.realm.url-path.
+                            - Agentless VPN realm. Source vpn.ssl.web.realm.url-path.
                         type: str
                     source_address:
                         description:
@@ -196,7 +196,7 @@ options:
                             - 'disable'
                     source_interface:
                         description:
-                            - SSL-VPN source interface of incoming traffic.
+                            - Agentless VPN source interface of incoming traffic.
                         type: list
                         elements: dict
                         suboptions:
@@ -229,7 +229,7 @@ options:
                     - 'disable'
             banned_cipher:
                 description:
-                    - Select one or more cipher technologies that cannot be used in SSL-VPN negotiations. Only applies to TLS 1.2 and below.
+                    - Select one or more cipher technologies that cannot be used in Agentless VPN negotiations. Only applies to TLS 1.2 and below.
                 type: list
                 elements: str
                 choices:
@@ -286,7 +286,7 @@ options:
                     - 'all'
             default_portal:
                 description:
-                    - Default SSL-VPN portal. Source vpn.ssl.web.portal.name.
+                    - Default Agentless VPN portal. Source vpn.ssl.web.portal.name.
                 type: str
             deflate_compression_level:
                 description:
@@ -306,7 +306,7 @@ options:
                 type: str
             dns_suffix:
                 description:
-                    - DNS suffix used for SSL-VPN clients.
+                    - DNS suffix used for Agentless VPN clients.
                 type: str
             dtls_heartbeat_fail_count:
                 description:
@@ -347,7 +347,7 @@ options:
                     - 'disable'
             dual_stack_mode:
                 description:
-                    - 'Tunnel mode: enable parallel IPv4 and IPv6 tunnel. Web mode: support IPv4 and IPv6 bookmarks in the portal.'
+                    - 'Agentless web mode: support IPv4 and IPv6 bookmarks in the portal.'
                 type: str
                 choices:
                     - 'enable'
@@ -361,14 +361,14 @@ options:
                     - 'disable'
             encrypt_and_store_password:
                 description:
-                    - Encrypt and store user passwords for SSL-VPN web sessions.
+                    - Encrypt and store user passwords for Agentless VPN web sessions.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             force_two_factor_auth:
                 description:
-                    - Enable/disable only PKI users with two-factor authentication for SSL-VPNs.
+                    - Enable/disable only PKI users with two-factor authentication for Agentless VPNs.
                 type: str
                 choices:
                     - 'enable'
@@ -390,36 +390,36 @@ options:
                     - 'disable'
             http_compression:
                 description:
-                    - Enable/disable to allow HTTP compression over SSL-VPN tunnels.
+                    - Enable/disable to allow HTTP compression over Agentless VPN connections.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             http_only_cookie:
                 description:
-                    - Enable/disable SSL-VPN support for HttpOnly cookies.
+                    - Enable/disable Agentless VPN support for HttpOnly cookies.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             http_request_body_timeout:
                 description:
-                    - SSL-VPN session is disconnected if an HTTP request body is not received within this time (1 - 60 sec).
+                    - Agentless VPN session is disconnected if an HTTP request body is not received within this time (1 - 60 sec).
                 type: int
             http_request_header_timeout:
                 description:
-                    - SSL-VPN session is disconnected if an HTTP request header is not received within this time (1 - 60 sec).
+                    - Agentless VPN session is disconnected if an HTTP request header is not received within this time (1 - 60 sec).
                 type: int
             https_redirect:
                 description:
-                    - Enable/disable redirect of port 80 to SSL-VPN port.
+                    - Enable/disable redirect of port 80 to Agentless VPN port.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             idle_timeout:
                 description:
-                    - SSL-VPN disconnects if idle for specified time in seconds.
+                    - Agentless VPN disconnects if idle for specified time in seconds.
                 type: int
             ipv6_dns_server1:
                 description:
@@ -439,7 +439,7 @@ options:
                 type: str
             login_attempt_limit:
                 description:
-                    - SSL-VPN maximum login attempt times before block (0 - 10).
+                    - Agentless VPN maximum login attempt times before block (0 - 10).
                 type: int
             login_block_time:
                 description:
@@ -447,22 +447,23 @@ options:
                 type: int
             login_timeout:
                 description:
-                    - SSLVPN maximum login timeout (10 - 180 sec).
+                    - Agentless VPN maximum login timeout (10 - 180 sec).
                 type: int
             port:
                 description:
-                    - SSL-VPN access port (1 - 65535).
+                    - Agentless VPN access port (1 - 65535).
                 type: int
             port_precedence:
                 description:
-                    - Enable/disable, Enable means that if SSL-VPN connections are allowed on an interface admin GUI connections are blocked on that interface.
+                    - Enable/disable, Enable means that if Agentless VPN connections are allowed on an interface admin GUI connections are blocked on that
+                       interface.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             reqclientcert:
                 description:
-                    - Enable/disable to require client certificates for all SSL-VPN users.
+                    - Enable/disable to require client certificates for all Agentless VPN users.
                 type: str
                 choices:
                     - 'enable'
@@ -480,11 +481,11 @@ options:
                 type: int
             server_hostname:
                 description:
-                    - Server hostname for HTTPS. When set, will be used for SSL VPN web proxy host header for any redirection.
+                    - Server hostname for HTTPS. When set, will be used for Agentless VPN web proxy host header for any redirection.
                 type: str
             servercert:
                 description:
-                    - Name of the server certificate to be used for SSL-VPNs. Source vpn.certificate.local.name.
+                    - Name of the server certificate to be used for Agentless VPNs. Source vpn.certificate.local.name.
                 type: str
             source_address:
                 description:
@@ -524,7 +525,7 @@ options:
                     - 'disable'
             source_interface:
                 description:
-                    - SSL-VPN source interface of incoming traffic.
+                    - Agentless VPN source interface of incoming traffic.
                 type: list
                 elements: dict
                 suboptions:
@@ -567,7 +568,7 @@ options:
                     - 'tls1-3'
             status:
                 description:
-                    - Enable/disable SSL-VPN.
+                    - Enable/disable Agentless VPN.
                 type: str
                 choices:
                     - 'enable'
@@ -697,7 +698,7 @@ options:
 """
 
 EXAMPLES = """
-- name: Configure SSL-VPN.
+- name: Configure Agentless VPN.
   fortinet.fortios.fortios_vpn_ssl_settings:
       vdom: "{{ vdom }}"
       vpn_ssl_settings:
@@ -1301,39 +1302,7 @@ versioned_schema = {
         "dtls_heartbeat_idle_timeout": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "dtls_heartbeat_interval": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "dtls_heartbeat_fail_count": {"v_range": [["v7.4.0", ""]], "type": "integer"},
-        "tunnel_ip_pools": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
-        "tunnel_ipv6_pools": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "required": True,
-                }
-            },
-            "v_range": [["v6.0.0", ""]],
-        },
         "dns_suffix": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "dns_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "dns_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_dns_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_dns_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ipv6_wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "url_obscuration": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1353,11 +1322,6 @@ versioned_schema = {
         "deflate_min_data_size": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "port_precedence": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "auto_tunnel_static_route": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
@@ -1530,21 +1494,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "dtls_tunnel": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "dtls_max_proto_ver": {
-            "v_range": [["v6.2.0", ""]],
-            "type": "string",
-            "options": [{"value": "dtls1-0"}, {"value": "dtls1-2"}],
-        },
-        "dtls_min_proto_ver": {
-            "v_range": [["v6.2.0", ""]],
-            "type": "string",
-            "options": [{"value": "dtls1-0"}, {"value": "dtls1-2"}],
-        },
         "check_referer": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1557,12 +1506,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "tunnel_connect_without_reauth": {
-            "v_range": [["v6.2.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "tunnel_user_session_timeout": {"v_range": [["v6.2.0", ""]], "type": "integer"},
         "hsts_include_subdomains": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
@@ -1593,18 +1536,79 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "tunnel_addr_assigned_method": {
-            "v_range": [["v7.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "first-available"}, {"value": "round-robin"}],
+        "server_hostname": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "tunnel_ip_pools": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
         },
-        "saml_redirect_port": {"v_range": [["v7.0.1", ""]], "type": "integer"},
-        "ztna_trusted_client": {
-            "v_range": [["v7.2.1", ""]],
+        "tunnel_ipv6_pools": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v6.0.0", "v7.6.2"]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v6.0.0", "v7.6.2"]],
+        },
+        "dns_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "dns_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "wins_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "wins_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_dns_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_dns_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_wins_server1": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "ipv6_wins_server2": {"v_range": [["v6.0.0", "v7.6.2"]], "type": "string"},
+        "auto_tunnel_static_route": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "server_hostname": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "dtls_tunnel": {
+            "v_range": [["v6.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "dtls_max_proto_ver": {
+            "v_range": [["v6.2.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "dtls1-0"}, {"value": "dtls1-2"}],
+        },
+        "dtls_min_proto_ver": {
+            "v_range": [["v6.2.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "dtls1-0"}, {"value": "dtls1-2"}],
+        },
+        "tunnel_connect_without_reauth": {
+            "v_range": [["v6.2.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "tunnel_user_session_timeout": {
+            "v_range": [["v6.2.0", "v7.6.2"]],
+            "type": "integer",
+        },
+        "tunnel_addr_assigned_method": {
+            "v_range": [["v7.0.0", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "first-available"}, {"value": "round-robin"}],
+        },
+        "saml_redirect_port": {"v_range": [["v7.0.1", "v7.6.2"]], "type": "integer"},
+        "ztna_trusted_client": {
+            "v_range": [["v7.2.1", "v7.6.2"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "web_mode_snat": {
             "v_range": [["v7.0.6", "v7.4.0"]],
             "type": "string",

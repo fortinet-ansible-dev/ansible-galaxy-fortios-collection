@@ -119,6 +119,14 @@ options:
                             - Interface name. Source system.interface.name.
                         required: true
                         type: str
+            bounce_intf_upon_failover:
+                description:
+                    - Enable/disable notification of kernel to bring down and up all monitored interfaces. The setting is used during failovers if gratuitous
+                       ARPs do not update the network.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             check_secondary_dev_health:
                 description:
                     - Enable/disable secondary dev health check for session load-balance in HA A-A mode.
@@ -184,6 +192,10 @@ options:
                     dst:
                         description:
                             - Default route destination for reserved HA management interface.
+                        type: str
+                    dst6:
+                        description:
+                            - Default IPv6 destination for reserved HA management interface.
                         type: str
                     gateway:
                         description:
@@ -744,6 +756,7 @@ EXAMPLES = """
           backup_hbdev:
               -
                   name: "default_name_9 (source system.interface.name)"
+          bounce_intf_upon_failover: "enable"
           check_secondary_dev_health: "enable"
           cpu_threshold: "<your_own_value>"
           encryption: "enable"
@@ -758,9 +771,10 @@ EXAMPLES = """
           ha_mgmt_interfaces:
               -
                   dst: "<your_own_value>"
+                  dst6: "<your_own_value>"
                   gateway: "<your_own_value>"
                   gateway6: "<your_own_value>"
-                  id: "25"
+                  id: "27"
                   interface: "<your_own_value> (source system.interface.name)"
           ha_mgmt_status: "enable"
           ha_uptime_diff_margin: "300"
@@ -833,7 +847,7 @@ EXAMPLES = """
           unicast_hb_peerip: "<your_own_value>"
           unicast_peers:
               -
-                  id: "97"
+                  id: "99"
                   peer_ip: "<your_own_value>"
           unicast_status: "enable"
           uninterruptible_primary_wait: "30"
@@ -853,7 +867,7 @@ EXAMPLES = """
                   vcluster_id: "<you_own_value>"
                   vdom:
                       -
-                          name: "default_name_115 (source system.vdom.name)"
+                          name: "default_name_117 (source system.vdom.name)"
           vcluster_id: "0"
           vcluster_status: "enable"
           vcluster2: "enable"
@@ -959,6 +973,7 @@ def filter_system_ha_data(json):
         "authentication",
         "auto_virtual_mac_interface",
         "backup_hbdev",
+        "bounce_intf_upon_failover",
         "check_secondary_dev_health",
         "cpu_threshold",
         "encryption",
@@ -1400,6 +1415,7 @@ versioned_schema = {
                 "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "dst": {"v_range": [["v6.0.0", ""]], "type": "string"},
                 "gateway": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "dst6": {"v_range": [["v7.6.3", ""]], "type": "string"},
                 "gateway6": {"v_range": [["v6.0.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
@@ -1592,6 +1608,11 @@ versioned_schema = {
             ],
             "multiple_values": True,
             "elements": "str",
+        },
+        "bounce_intf_upon_failover": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "unicast_hb": {
             "v_range": [],

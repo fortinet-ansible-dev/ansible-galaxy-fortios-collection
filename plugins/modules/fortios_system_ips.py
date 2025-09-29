@@ -91,7 +91,7 @@ options:
                     - 'disable'
             signature_hold_time:
                 description:
-                    - 'Time to hold and monitor IPS signatures. Format <#d##h> (day range: 0 - 7, hour range: 0 - 23, max hold time: 7d0h).'
+                    - 'Time to hold and monitor IPS signatures. Format <#d##h> (day range: 0 - 21, hour range: 0 - 23, max hold time: 21d0h).'
                 type: str
 """
 

@@ -90,6 +90,13 @@ options:
         default: null
         type: dict
         suboptions:
+            allow_download:
+                description:
+                    - Enable/disable download firmware images.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             device_type:
                 description:
                     - Fortinet device type.
@@ -121,6 +128,7 @@ options:
                     - 'csf-tree-not-supported'
                     - 'firmware-changed'
                     - 'node-failed'
+                    - 'image-missing'
             ha_reboot_controller:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
@@ -208,6 +216,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_device_upgrade:
+          allow_download: "enable"
           device_type: "fortigate"
           failure_reason: "none"
           ha_reboot_controller: "<your_own_value>"
@@ -320,6 +329,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_system_device_upgrade_data(json):
     option_list = [
+        "allow_download",
         "device_type",
         "failure_reason",
         "ha_reboot_controller",
@@ -527,29 +537,6 @@ versioned_schema = {
                 {"value": "failed"},
             ],
         },
-        "failure_reason": {
-            "v_range": [["v7.2.4", ""]],
-            "type": "string",
-            "options": [
-                {"value": "none"},
-                {"value": "internal"},
-                {"value": "timeout"},
-                {"value": "device-type-unsupported"},
-                {"value": "download-failed"},
-                {"value": "device-missing"},
-                {"value": "version-unavailable"},
-                {"value": "staging-failed"},
-                {"value": "reboot-failed"},
-                {"value": "device-not-reconnected"},
-                {"value": "node-not-ready"},
-                {"value": "no-final-confirmation"},
-                {"value": "no-confirmation-query"},
-                {"value": "config-error-log-nonempty"},
-                {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
-                {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
-                {"value": "node-failed"},
-            ],
-        },
         "ha_reboot_controller": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "next_path_index": {"v_range": [["v7.6.0", ""]], "type": "integer"},
         "known_ha_members": {
@@ -584,6 +571,35 @@ versioned_schema = {
                 {"value": "fortiswitch"},
                 {"value": "fortiap"},
                 {"value": "fortiextender"},
+            ],
+        },
+        "allow_download": {
+            "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "failure_reason": {
+            "v_range": [["v7.2.4", ""]],
+            "type": "string",
+            "options": [
+                {"value": "none"},
+                {"value": "internal"},
+                {"value": "timeout"},
+                {"value": "device-type-unsupported"},
+                {"value": "download-failed"},
+                {"value": "device-missing"},
+                {"value": "version-unavailable"},
+                {"value": "staging-failed"},
+                {"value": "reboot-failed"},
+                {"value": "device-not-reconnected"},
+                {"value": "node-not-ready"},
+                {"value": "no-final-confirmation"},
+                {"value": "no-confirmation-query"},
+                {"value": "config-error-log-nonempty"},
+                {"value": "csf-tree-not-supported", "v_range": [["v7.4.1", ""]]},
+                {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
+                {"value": "node-failed"},
+                {"value": "image-missing", "v_range": [["v7.6.4", ""]]},
             ],
         },
     },

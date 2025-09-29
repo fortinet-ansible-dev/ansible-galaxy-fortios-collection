@@ -454,6 +454,11 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "expire_status": {
+            "v_range": [["v7.4.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "expire_days": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "warn_days": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "expired_password_renewal": {
@@ -467,11 +472,6 @@ versioned_schema = {
         "min_non_alphanumeric": {"v_range": [["v7.4.1", ""]], "type": "integer"},
         "min_number": {"v_range": [["v7.4.1", ""]], "type": "integer"},
         "min_change_characters": {"v_range": [["v7.4.1", ""]], "type": "integer"},
-        "expire_status": {
-            "v_range": [["v7.4.1", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "reuse_password": {
             "v_range": [["v7.4.1", ""]],
             "type": "string",

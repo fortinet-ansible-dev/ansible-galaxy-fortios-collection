@@ -249,6 +249,13 @@ options:
                     - 'mac'
                     - 'ip'
                     - 'apname'
+            captive_network_assistant_bypass:
+                description:
+                    - Enable/disable Captive Network Assistant bypass.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             captive_portal:
                 description:
                     - Enable/disable captive portal.
@@ -1589,6 +1596,7 @@ EXAMPLES = """
           bstm_load_balancing_disassoc_timer: "10"
           bstm_rssi_disassoc_timer: "200"
           called_station_id_type: "mac"
+          captive_network_assistant_bypass: "enable"
           captive_portal: "enable"
           captive_portal_ac_name: "<your_own_value>"
           captive_portal_auth_timeout: "0"
@@ -1651,7 +1659,7 @@ EXAMPLES = """
           mac_filter: "enable"
           mac_filter_list:
               -
-                  id: "89"
+                  id: "90"
                   mac: "<your_own_value>"
                   mac_filter_policy: "allow"
           mac_filter_policy_other: "allow"
@@ -1672,7 +1680,7 @@ EXAMPLES = """
                   key_name: "<your_own_value>"
                   mpsk_schedules:
                       -
-                          name: "default_name_108 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                          name: "default_name_109 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
                   passphrase: "<your_own_value>"
           mpsk_profile: "<your_own_value> (source wireless-controller.mpsk-profile.name)"
           mu_mimo: "enable"
@@ -1680,7 +1688,7 @@ EXAMPLES = """
           multicast_rate: "0"
           nac: "enable"
           nac_profile: "<your_own_value> (source wireless-controller.nac-profile.name)"
-          name: "default_name_116"
+          name: "default_name_117"
           nas_filter_rule: "enable"
           neighbor_report_dual_band: "disable"
           okc: "disable"
@@ -1718,7 +1726,7 @@ EXAMPLES = """
           radius_mac_auth_server: "<your_own_value> (source user.radius.name)"
           radius_mac_auth_usergroups:
               -
-                  name: "default_name_153 (source user.group.name)"
+                  name: "default_name_154 (source user.group.name)"
           radius_mac_mpsk_auth: "enable"
           radius_mac_mpsk_timeout: "86400"
           radius_server: "<your_own_value> (source user.radius.name)"
@@ -1745,7 +1753,7 @@ EXAMPLES = """
           scan_botnet_connections: "disable"
           schedule:
               -
-                  name: "default_name_179 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_180 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           secondary_wag_profile: "<your_own_value> (source wireless-controller.wag-profile.name)"
           security: "open"
           security_exempt_list: "<your_own_value> (source user.security-exempt-list.name)"
@@ -1753,7 +1761,7 @@ EXAMPLES = """
           security_redirect_url: "<your_own_value>"
           selected_usergroups:
               -
-                  name: "default_name_186 (source user.group.name)"
+                  name: "default_name_187 (source user.group.name)"
           set_80211k: "disable"
           set_80211v: "disable"
           split_tunneling: "enable"
@@ -1768,7 +1776,7 @@ EXAMPLES = """
           tunnel_fallback_interval: "7200"
           usergroup:
               -
-                  name: "default_name_200 (source user.group.name)"
+                  name: "default_name_201 (source user.group.name)"
           utm_log: "enable"
           utm_profile: "<your_own_value> (source wireless-controller.utm-profile.name)"
           utm_status: "enable"
@@ -1776,11 +1784,11 @@ EXAMPLES = """
           vlan_auto: "enable"
           vlan_name:
               -
-                  name: "default_name_207"
+                  name: "default_name_208"
                   vlan_id: "<your_own_value>"
           vlan_pool:
               -
-                  id: "210"
+                  id: "211"
                   wtp_group: "<your_own_value> (source wireless-controller.wtp-group.name)"
           vlan_pooling: "wtp-group"
           vlanid: "0"
@@ -1906,6 +1914,7 @@ def filter_wireless_controller_vap_data(json):
         "bstm_load_balancing_disassoc_timer",
         "bstm_rssi_disassoc_timer",
         "called_station_id_type",
+        "captive_network_assistant_bypass",
         "captive_portal",
         "captive_portal_ac_name",
         "captive_portal_auth_timeout",
@@ -2692,6 +2701,11 @@ versioned_schema = {
         },
         "captive_portal": {
             "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "captive_network_assistant_bypass": {
+            "v_range": [["v7.6.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

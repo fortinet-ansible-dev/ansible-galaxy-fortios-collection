@@ -112,7 +112,7 @@ options:
                     - 'disable'
             ca_cert:
                 description:
-                    - CA certificate to be used by FGFM protocol.
+                    - CA certificate to be used by FGFM protocol. Source certificate.ca.name.
                 type: str
             enc_algorithm:
                 description:
@@ -134,6 +134,13 @@ options:
                 description:
                     - IPv6 source address that this FortiGate uses when communicating with FortiManager.
                 type: str
+            fmg_update_http_header:
+                description:
+                    - Enable/disable inclusion of HTTP header in update request.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fmg_update_port:
                 description:
                     - Port used to communicate with FortiManager that is acting as a FortiGuard update server.
@@ -166,7 +173,7 @@ options:
                     - 'specify'
             local_cert:
                 description:
-                    - Certificate to be used by FGFM protocol.
+                    - Certificate to be used by FGFM protocol. Source certificate.local.name.
                 type: str
             mode:
                 description:
@@ -263,17 +270,18 @@ EXAMPLES = """
           allow_push_configuration: "enable"
           allow_push_firmware: "enable"
           allow_remote_firmware_upgrade: "enable"
-          ca_cert: "<your_own_value>"
+          ca_cert: "<your_own_value> (source certificate.ca.name)"
           enc_algorithm: "default"
           fmg: "<your_own_value>"
           fmg_source_ip: "<your_own_value>"
           fmg_source_ip6: "<your_own_value>"
+          fmg_update_http_header: "enable"
           fmg_update_port: "8890"
           fortigate_cloud_sso_default_profile: "<your_own_value> (source system.accprofile.name)"
           include_default_servers: "enable"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
-          local_cert: "<your_own_value>"
+          local_cert: "<your_own_value> (source certificate.local.name)"
           mode: "normal"
           schedule_config_restore: "enable"
           schedule_script_restore: "enable"
@@ -282,7 +290,7 @@ EXAMPLES = """
               -
                   addr_type: "ipv4"
                   fqdn: "<your_own_value>"
-                  id: "25"
+                  id: "26"
                   server_address: "<your_own_value>"
                   server_address6: "<your_own_value>"
                   server_type: "update"
@@ -393,6 +401,7 @@ def filter_system_central_management_data(json):
         "fmg",
         "fmg_source_ip",
         "fmg_source_ip6",
+        "fmg_update_http_header",
         "fmg_update_port",
         "fortigate_cloud_sso_default_profile",
         "include_default_servers",
@@ -705,6 +714,11 @@ versioned_schema = {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
             "options": [{"value": "8890"}, {"value": "443"}],
+        },
+        "fmg_update_http_header": {
+            "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "include_default_servers": {
             "v_range": [["v6.0.0", ""]],

@@ -263,6 +263,7 @@ options:
                     - 'TW'
                     - 'TZ'
                     - 'TH'
+                    - 'TL'
                     - 'TG'
                     - 'TT'
                     - 'TN'
@@ -908,6 +909,7 @@ versioned_schema = {
                 {"value": "TW"},
                 {"value": "TZ"},
                 {"value": "TH"},
+                {"value": "TL", "v_range": [["v7.6.3", ""]]},
                 {"value": "TG", "v_range": [["v7.0.0", ""]]},
                 {"value": "TT"},
                 {"value": "TN"},

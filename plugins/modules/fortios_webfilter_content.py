@@ -460,8 +460,14 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "lang": {
+                "score": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "action": {
                     "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "block"}, {"value": "exempt"}],
+                },
+                "lang": {
+                    "v_range": [["v6.0.0", "v7.6.3"]],
                     "type": "string",
                     "options": [
                         {"value": "western"},
@@ -474,12 +480,6 @@ versioned_schema = {
                         {"value": "spanish"},
                         {"value": "cyrillic"},
                     ],
-                },
-                "score": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-                "action": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "options": [{"value": "block"}, {"value": "exempt"}],
                 },
             },
             "v_range": [["v6.0.0", ""]],

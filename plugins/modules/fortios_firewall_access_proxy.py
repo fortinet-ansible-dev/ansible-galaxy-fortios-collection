@@ -358,6 +358,13 @@ options:
                                 choices:
                                     - 'tcp-forwarding'
                                     - 'ssh'
+                            verify_cert:
+                                description:
+                                    - Enable/disable certificate verification of the real server.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
                             weight:
                                 description:
                                     - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more
@@ -529,7 +536,7 @@ options:
                             - 'disable'
                     ssl_vpn_web_portal:
                         description:
-                            - SSL-VPN web portal. Source vpn.ssl.web.portal.name.
+                            - Agentless VPN web portal. Source vpn.ssl.web.portal.name.
                         type: str
                     url_map:
                         description:
@@ -806,6 +813,13 @@ options:
                                 choices:
                                     - 'tcp-forwarding'
                                     - 'ssh'
+                            verify_cert:
+                                description:
+                                    - Enable/disable certificate verification of the real server.
+                                type: str
+                                choices:
+                                    - 'enable'
+                                    - 'disable'
                             weight:
                                 description:
                                     - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more
@@ -976,7 +990,7 @@ options:
                             - 'disable'
                     ssl_vpn_web_portal:
                         description:
-                            - SSL-VPN web portal. Source vpn.ssl.web.portal.name.
+                            - Agentless VPN web portal. Source vpn.ssl.web.portal.name.
                         type: str
                     url_map:
                         description:
@@ -1175,7 +1189,7 @@ options:
                             - 'disable'
             svr_pool_multiplex:
                 description:
-                    - Enable/disable server pool multiplexing. Share connected server in HTTP, HTTPS, and web-portal api-gateway.
+                    - Enable/disable server pool multiplexing . Share connected server in HTTP, HTTPS, and web-portal api-gateway.
                 type: str
                 choices:
                     - 'enable'
@@ -1262,6 +1276,7 @@ EXAMPLES = """
                           translate_host: "enable"
                           tunnel_encryption: "enable"
                           type: "tcp-forwarding"
+                          verify_cert: "enable"
                           weight: "1"
                   saml_redirect: "disable"
                   saml_server: "<your_own_value> (source user.saml.name)"
@@ -1284,7 +1299,7 @@ EXAMPLES = """
               -
                   application:
                       -
-                          name: "default_name_68"
+                          name: "default_name_69"
                   h2_support: "enable"
                   h3_support: "enable"
                   http_cookie_age: "60"
@@ -1294,7 +1309,7 @@ EXAMPLES = """
                   http_cookie_path: "<your_own_value>"
                   http_cookie_share: "disable"
                   https_cookie_secure: "disable"
-                  id: "78"
+                  id: "79"
                   ldb_method: "static"
                   persistence: "none"
                   quic:
@@ -1316,19 +1331,20 @@ EXAMPLES = """
                           health_check_proto: "ping"
                           holddown_interval: "enable"
                           http_host: "myhostname"
-                          id: "99"
+                          id: "100"
                           ip: "<your_own_value>"
                           mappedport: "<your_own_value>"
                           port: "443"
                           ssh_client_cert: "<your_own_value> (source firewall.access-proxy-ssh-client-cert.name)"
                           ssh_host_key:
                               -
-                                  name: "default_name_105 (source firewall.ssh.host-key.name)"
+                                  name: "default_name_106 (source firewall.ssh.host-key.name)"
                           ssh_host_key_validation: "disable"
                           status: "active"
                           translate_host: "enable"
                           tunnel_encryption: "enable"
                           type: "tcp-forwarding"
+                          verify_cert: "enable"
                           weight: "1"
                   saml_redirect: "disable"
                   saml_server: "<your_own_value> (source user.saml.name)"
@@ -1355,10 +1371,10 @@ EXAMPLES = """
           http_supported_max_version: "http1"
           ldb_method: "static"
           log_blocked_traffic: "enable"
-          name: "default_name_136"
+          name: "default_name_138"
           realservers:
               -
-                  id: "138"
+                  id: "140"
                   ip: "<your_own_value>"
                   port: "0"
                   status: "active"
@@ -1370,7 +1386,7 @@ EXAMPLES = """
                   -
                       critical: "no"
                       data: "<your_own_value>"
-                      name: "default_name_149"
+                      name: "default_name_151"
                       type: "fixed"
               permit_agent_forwarding: "enable"
               permit_port_forwarding: "enable"
@@ -1919,6 +1935,11 @@ versioned_schema = {
                             },
                             "v_range": [["v7.0.1", ""]],
                         },
+                        "verify_cert": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
                     },
                     "v_range": [["v7.0.0", ""]],
                 },
@@ -2308,6 +2329,11 @@ versioned_schema = {
                                 }
                             },
                             "v_range": [["v7.0.1", ""]],
+                        },
+                        "verify_cert": {
+                            "v_range": [["v7.6.3", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                     },
                     "v_range": [["v7.0.1", ""]],
