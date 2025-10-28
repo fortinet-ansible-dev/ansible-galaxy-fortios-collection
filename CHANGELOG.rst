@@ -4,6 +4,24 @@ Fortinet.Fortios Release Notes
 
 .. contents:: Topics
 
+v2.4.2
+======
+
+Release Summary
+---------------
+
+patch release of 2.4.2
+
+Major Changes
+-------------
+
+- Supported default_group feature for the all of the modules.
+
+Bugfixes
+-------------
+
+- Fixed authentication issue in v7.6.4 when using access_token.
+
 v2.4.1
 ======
 

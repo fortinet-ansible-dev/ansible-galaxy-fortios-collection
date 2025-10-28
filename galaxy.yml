@@ -1,6 +1,6 @@
 namespace: "fortinet"
 name: "fortios"
-version: "2.4.1"
+version: "2.4.2"
 description: "A collection of Ansible Modules for FortiOS v6"
 readme: "README.md"
 authors:
@@ -10,9 +10,7 @@ authors:
     - Jie Xue (@JieX19)
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
-dependencies: {
-    "ansible.netcommon": "*"
-}
+dependencies: { "ansible.netcommon": "*" }
 license:
     - "GPL-3.0-or-later"
 tags:

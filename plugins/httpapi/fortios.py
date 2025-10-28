@@ -38,7 +38,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = "v6.0.0"
-        self._ansible_galaxy_version = "2.4.0"
+        self._ansible_galaxy_version = "2.4.2"
         self._log = None
         self._logged_in = False
         self._api_login = False
@@ -322,7 +322,7 @@ class HttpApi(HttpApiBase):
         headers = message_kwargs.get("headers", {})
 
         if self.get_access_token() is not None:
-            url = self._concat_token(message_kwargs.get("url", "/"))
+            # url = self._concat_token(message_kwargs.get("url", "/"))
             headers["Authorization"] = f"Bearer {self.get_access_token()}"
 
         url = self._concat_params(url, params)

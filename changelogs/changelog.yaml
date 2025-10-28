@@ -396,3 +396,13 @@ releases:
     fragments:
       - 2.4.1_release.yml
     release_date: "2025-09-29"
+  2.4.2:
+    changes:
+      bugfixes:
+        - Fixed authentication issue in v7.6.4 when using access_token.
+      major_changes:
+        - Supported default_group feature for the all of the modules.
+      release_summary: patch release of 2.4.2
+    fragments:
+      - 2.4.2_release.yml
+    release_date: "2025-10-24"
