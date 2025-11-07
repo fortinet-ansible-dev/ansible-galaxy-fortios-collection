@@ -511,6 +511,12 @@ def firewall_local_in_policy(data, fos, check_mode=False):
     state = data.get("state", None)
     firewall_local_in_policy_data = data["firewall_local_in_policy"]
 
+    # Rename intf_dict field to correctly compare against current configuration
+    if "intf_dict" in firewall_local_in_policy_data:
+        firewall_local_in_policy_data["intf"] = firewall_local_in_policy_data.pop(
+            "intf_dict"
+        )
+
     filtered_data = filter_firewall_local_in_policy_data(firewall_local_in_policy_data)
     converted_data = underscore_to_hyphen(filtered_data)
     converted_data = remap_attribute_names(converted_data)
