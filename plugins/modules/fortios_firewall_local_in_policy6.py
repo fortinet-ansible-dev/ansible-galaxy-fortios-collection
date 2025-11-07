@@ -502,6 +502,12 @@ def firewall_local_in_policy6(data, fos, check_mode=False):
     state = data.get("state", None)
     firewall_local_in_policy6_data = data["firewall_local_in_policy6"]
 
+    # Rename intf_dict field to correctly compare against current configuration
+    if "intf_dict" in firewall_local_in_policy6_data:
+        firewall_local_in_policy6_data["intf"] = firewall_local_in_policy6_data.pop(
+            "intf_dict"
+        )
+
     filtered_data = filter_firewall_local_in_policy6_data(
         firewall_local_in_policy6_data
     )
