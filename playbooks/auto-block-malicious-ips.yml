@@ -2,6 +2,7 @@
 # Auto-block malicious IPs on FortiGate
 # Enterprise Security Lab | Manjula Wickramasuriya
 # Network Defense Automation
+# Note: Pairs with FortiOS external threat feeds for .txt import (no playbook needed for basic use).
 - name: Block known bad IPs
   hosts: fortigate
   gather_facts: no
