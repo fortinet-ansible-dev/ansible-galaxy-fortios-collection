@@ -1,0 +1,22 @@
+---
+# Auto-block malicious IPs on FortiGate
+# Enterprise Security Lab | Manjula Wickramasuriya
+# Network Defense Automation
+- name: Block known bad IPs
+  hosts: fortigate
+  gather_facts: no
+  vars:
+    threat_feed: "https://rules.emergingthreats.net/blockrules/emerging-Block-IPs.txt"
+  tasks:
+    - name: Fetch latest malicious IPs
+      uri:
+        url: "{{ threat_feed }}"
+        return_content: yes
+      register: bad_ips
+      delegate_to: localhost
+
+    - name: Block each IP (demo output)
+      debug:
+        msg: "BLOCKED {{ item }} on FortiGate (would use fortios_ipmask)"
+      loop: "{{ bad_ips.content.splitlines() | select('match', '^[0-9]') | list[:5] }}"
+      when: bad_ips.content is defined
