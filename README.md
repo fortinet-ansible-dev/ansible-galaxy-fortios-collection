@@ -796,3 +796,5 @@ The collection incluses the following modules:
 ## License Information
 
 FortiOS Ansible Collection follows [GNU General Public License v3.0](./LICENSE).
+### Automation Playbooks
+- `playbooks/auto-block-malicious-ips.yml` – Auto-blocks live malicious IPs from threat feed
