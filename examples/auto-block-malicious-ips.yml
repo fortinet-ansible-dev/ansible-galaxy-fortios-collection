@@ -7,7 +7,7 @@
   hosts: fortigate
   gather_facts: no
   vars:
-    threat_feed: "https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt"
+    threat_feed: "https://rules.emergingthreats.net/blockrules/compromised-ips.txt"
   tasks:
     - name: Fetch latest malicious IPs
       uri:
