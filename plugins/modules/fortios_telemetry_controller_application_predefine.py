@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -216,6 +216,7 @@ def underscore_to_hyphen(data):
 def telemetry_controller_application_predefine(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     telemetry_controller_application_predefine_data = data[
         "telemetry_controller_application_predefine"
@@ -242,6 +243,7 @@ def telemetry_controller_application_predefine(data, fos):
             "predefine",
             data=converted_data,
             vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -250,6 +252,7 @@ def telemetry_controller_application_predefine(data, fos):
             "predefine",
             mkey=converted_data["app-name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

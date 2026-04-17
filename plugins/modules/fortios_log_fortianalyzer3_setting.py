@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -458,6 +458,7 @@ def log_fortianalyzer3_setting(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     log_fortianalyzer3_setting_data = data["log_fortianalyzer3_setting"]
 
@@ -474,7 +475,9 @@ def log_fortianalyzer3_setting(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("log.fortianalyzer3", "setting", filtered_data, vdom=vdom)
-        current_data = fos.get("log.fortianalyzer3", "setting", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "log.fortianalyzer3", "setting", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -556,7 +559,13 @@ def log_fortianalyzer3_setting(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("log.fortianalyzer3", "setting", data=converted_data, vdom=vdom)
+    return fos.set(
+        "log.fortianalyzer3",
+        "setting",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

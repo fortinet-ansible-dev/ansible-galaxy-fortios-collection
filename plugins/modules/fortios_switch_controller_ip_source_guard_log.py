@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -213,6 +213,7 @@ def underscore_to_hyphen(data):
 def switch_controller_ip_source_guard_log(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_ip_source_guard_log_data = data[
         "switch_controller_ip_source_guard_log"
@@ -234,7 +235,11 @@ def switch_controller_ip_source_guard_log(data, fos):
     )
 
     return fos.set(
-        "switch-controller", "ip-source-guard-log", data=converted_data, vdom=vdom
+        "switch-controller",
+        "ip-source-guard-log",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

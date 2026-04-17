@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -305,6 +305,7 @@ def switch_controller_initial_config_template(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_initial_config_template_data = data[
         "switch_controller_initial_config_template"
@@ -327,7 +328,11 @@ def switch_controller_initial_config_template(data, fos, check_mode=False):
             "switch-controller.initial-config", "template", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller.initial-config", "template", vdom=vdom, mkey=mkey
+            "switch-controller.initial-config",
+            "template",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -416,6 +421,7 @@ def switch_controller_initial_config_template(data, fos, check_mode=False):
             "template",
             data=converted_data,
             vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -424,6 +430,7 @@ def switch_controller_initial_config_template(data, fos, check_mode=False):
             "template",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

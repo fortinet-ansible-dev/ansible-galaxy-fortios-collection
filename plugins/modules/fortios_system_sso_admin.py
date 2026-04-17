@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -502,6 +502,7 @@ def system_sso_admin(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_sso_admin_data = data["system_sso_admin"]
 
@@ -516,7 +517,9 @@ def system_sso_admin(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system", "sso-admin", filtered_data, vdom=vdom)
-        current_data = fos.get("system", "sso-admin", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "system", "sso-admin", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -599,10 +602,18 @@ def system_sso_admin(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("system", "sso-admin", data=converted_data, vdom=vdom)
+        return fos.set(
+            "system", "sso-admin", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("system", "sso-admin", mkey=converted_data["name"], vdom=vdom)
+        return fos.delete(
+            "system",
+            "sso-admin",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

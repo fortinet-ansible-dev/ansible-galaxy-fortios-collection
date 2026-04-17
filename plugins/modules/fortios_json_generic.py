@@ -25,19 +25,22 @@ description:
       Tested with FOS v6.0.4
 version_added: "2.0.0"
 author:
-    - Frank Shen (@frankshen01)
+    - Link Zheng (@chillancezen)
+    - Jie Xue (@JieX19)
+    - Frank Shen (@fshen01)
     - Hongbin Lu (@fgtdev-hblu)
-notes:
-    - Requires fortiosapi library developed by Fortinet
-    - Run as a local_action in your playbook
-requirements:
-    - fortiosapi>=0.9.8
 options:
     access_token:
         description:
             - Token-based authentication.
               Generated from GUI of Fortigate.
         type: str
+        required: false
+    headers:
+        description:
+            - Custom HTTP headers to include in this request.
+            - To auto-inject connection password, set C(X-Admin-Passwd) to C(true).
+        type: dict
         required: false
     enable_log:
         description:
@@ -150,6 +153,16 @@ EXAMPLES = '''
           specialparams: "action=move&after=2"
   register: info
 
+- name: test request headers
+  fortinet.fortios.fortios_json_generic:
+      vdom: "root"
+      headers:
+          X-Admin-Passwd: true
+      json_generic:
+          method: "POST"
+          path: "/api/v2/cmdb/system/api-user"
+  register: info
+
 - name: display vars
   debug: msg="{{info}}"
 '''
@@ -222,41 +235,27 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios i
 import json
 
 
-def login(data, fos):
-    host = data['host']
-    username = data['username']
-    password = data['password']
-    ssl_verify = data['ssl_verify']
-
-    fos.debug('on')
-    if 'https' in data and not data['https']:
-        fos.https('off')
-    else:
-        fos.https('on')
-
-    fos.login(host, username, password, verify=ssl_verify)
-
-
-def json_generic(data, fos):
+def json_generic(data, fos, request_headers=None):
     vdom = data['vdom']
     json_generic_data = data['json_generic']
 
     # Give priority to jsonbody
-    data = ""
+    body = ""
     if json_generic_data['jsonbody']:
         try:
-            data = json.loads(json_generic_data['jsonbody'])
+            body = json.loads(json_generic_data['jsonbody'])
         except Exception as e:
             fos._module.fail_json("invalid json content: %s" % (e))
     else:
         if json_generic_data['dictbody']:
-            data = json_generic_data['dictbody']
+            body = json_generic_data['dictbody']
 
     return fos.jsonraw(json_generic_data['method'],
                        json_generic_data['path'],
-                       data=data,
+                       data=body,
                        specific_params=json_generic_data['specialparams'],
-                       vdom=vdom)
+                       vdom=vdom,
+                       headers=request_headers)
 
 
 def is_successful_status(resp):
@@ -265,10 +264,10 @@ def is_successful_status(resp):
         and 'http_status' in resp and resp['http_status'] == 404
 
 
-def fortios_json(data, fos):
+def fortios_json(data, fos, request_headers=None):
 
     if data['json_generic']:
-        resp = json_generic(data, fos)
+        resp = json_generic(data, fos, request_headers)
 
     return not is_successful_status(resp), \
         resp['status'] == "success", \
@@ -278,6 +277,7 @@ def fortios_json(data, fos):
 def main():
     fields = {
         "access_token": {"required": False, "type": "str", "no_log": True},
+        "headers": {"required": False, "type": "dict", "no_log": True},
         "enable_log": {"required": False, "type": 'bool', "default": False},
         "vdom": {"required": False, "type": "str", "default": "root"},
         "json_generic": {
@@ -311,8 +311,11 @@ def main():
             connection.set_custom_option('enable_log', module.params['enable_log'])
         else:
             connection.set_custom_option('enable_log', False)
+
+        request_headers = module.params.get('headers')
+
         fos = FortiOSHandler(connection, module)
-        is_error, has_changed, result = fortios_json(module.params, fos)
+        is_error, has_changed, result = fortios_json(module.params, fos, request_headers)
     else:
         module.fail_json(**FAIL_SOCKET_MSG)
 

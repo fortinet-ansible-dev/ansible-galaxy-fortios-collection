@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -326,8 +326,14 @@ def firewall_access_proxy_virtual_host(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_access_proxy_virtual_host_data = data["firewall_access_proxy_virtual_host"]
+    # Rename ssl_certificate_dict field to correctly compare against current configuration
+    if firewall_access_proxy_virtual_host_data.get("ssl_certificate_dict") is not None:
+        firewall_access_proxy_virtual_host_data["ssl_certificate"] = (
+            firewall_access_proxy_virtual_host_data.pop("ssl_certificate_dict")
+        )
 
     filtered_data = filter_firewall_access_proxy_virtual_host_data(
         firewall_access_proxy_virtual_host_data
@@ -346,7 +352,11 @@ def firewall_access_proxy_virtual_host(data, fos, check_mode=False):
             "firewall", "access-proxy-virtual-host", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "firewall", "access-proxy-virtual-host", vdom=vdom, mkey=mkey
+            "firewall",
+            "access-proxy-virtual-host",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -431,7 +441,11 @@ def firewall_access_proxy_virtual_host(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "access-proxy-virtual-host", data=converted_data, vdom=vdom
+            "firewall",
+            "access-proxy-virtual-host",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -440,6 +454,7 @@ def firewall_access_proxy_virtual_host(data, fos, check_mode=False):
             "access-proxy-virtual-host",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -1155,6 +1155,7 @@ def system_virtual_wan_link(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_virtual_wan_link_data = data["system_virtual_wan_link"]
 
@@ -1170,7 +1171,9 @@ def system_virtual_wan_link(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system", "virtual-wan-link", filtered_data, vdom=vdom)
-        current_data = fos.get("system", "virtual-wan-link", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "system", "virtual-wan-link", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -1252,7 +1255,13 @@ def system_virtual_wan_link(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("system", "virtual-wan-link", data=converted_data, vdom=vdom)
+    return fos.set(
+        "system",
+        "virtual-wan-link",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

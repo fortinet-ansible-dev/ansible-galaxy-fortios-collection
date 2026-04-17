@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -404,6 +404,7 @@ def switch_controller_dynamic_port_policy(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_dynamic_port_policy_data = data[
         "switch_controller_dynamic_port_policy"
@@ -425,7 +426,11 @@ def switch_controller_dynamic_port_policy(data, fos, check_mode=False):
             "switch-controller", "dynamic-port-policy", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "dynamic-port-policy", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "dynamic-port-policy",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -510,7 +515,11 @@ def switch_controller_dynamic_port_policy(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller", "dynamic-port-policy", data=converted_data, vdom=vdom
+            "switch-controller",
+            "dynamic-port-policy",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -519,6 +528,7 @@ def switch_controller_dynamic_port_policy(data, fos, check_mode=False):
             "dynamic-port-policy",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -384,8 +384,14 @@ def firewall_ssl_server(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_ssl_server_data = data["firewall_ssl_server"]
+    # Rename ssl_cert_dict field to correctly compare against current configuration
+    if firewall_ssl_server_data.get("ssl_cert_dict") is not None:
+        firewall_ssl_server_data["ssl_cert"] = firewall_ssl_server_data.pop(
+            "ssl_cert_dict"
+        )
 
     filtered_data = filter_firewall_ssl_server_data(firewall_ssl_server_data)
     converted_data = underscore_to_hyphen(filtered_data)
@@ -399,7 +405,9 @@ def firewall_ssl_server(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("firewall", "ssl-server", filtered_data, vdom=vdom)
-        current_data = fos.get("firewall", "ssl-server", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall", "ssl-server", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -482,11 +490,21 @@ def firewall_ssl_server(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("firewall", "ssl-server", data=converted_data, vdom=vdom)
+        return fos.set(
+            "firewall",
+            "ssl-server",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "ssl-server", mkey=converted_data["name"], vdom=vdom
+            "firewall",
+            "ssl-server",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

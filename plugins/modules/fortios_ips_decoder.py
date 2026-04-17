@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -249,6 +249,7 @@ def ips_decoder(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     ips_decoder_data = data["ips_decoder"]
 
@@ -263,7 +264,9 @@ def ips_decoder(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("ips", "decoder", filtered_data, vdom=vdom)
-        current_data = fos.get("ips", "decoder", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "ips", "decoder", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -346,10 +349,18 @@ def ips_decoder(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("ips", "decoder", data=converted_data, vdom=vdom)
+        return fos.set(
+            "ips", "decoder", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("ips", "decoder", mkey=converted_data["name"], vdom=vdom)
+        return fos.delete(
+            "ips",
+            "decoder",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

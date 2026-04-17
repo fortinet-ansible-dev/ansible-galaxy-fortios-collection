@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -406,6 +406,7 @@ def underscore_to_hyphen(data):
 def ztna_web_portal(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     ztna_web_portal_data = data["ztna_web_portal"]
 
@@ -423,10 +424,18 @@ def ztna_web_portal(data, fos):
     )
 
     if state == "present" or state is True:
-        return fos.set("ztna", "web-portal", data=converted_data, vdom=vdom)
+        return fos.set(
+            "ztna", "web-portal", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("ztna", "web-portal", mkey=converted_data["name"], vdom=vdom)
+        return fos.delete(
+            "ztna",
+            "web-portal",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

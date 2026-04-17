@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -1521,8 +1521,14 @@ def firewall_vip(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_vip_data = data["firewall_vip"]
+    # Rename ssl_certificate_dict field to correctly compare against current configuration
+    if firewall_vip_data.get("ssl_certificate_dict") is not None:
+        firewall_vip_data["ssl_certificate"] = firewall_vip_data.pop(
+            "ssl_certificate_dict"
+        )
 
     filtered_data = filter_firewall_vip_data(firewall_vip_data)
     filtered_data = flatten_multilists_attributes(filtered_data)
@@ -1537,7 +1543,9 @@ def firewall_vip(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("firewall", "vip", filtered_data, vdom=vdom)
-        current_data = fos.get("firewall", "vip", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall", "vip", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -1620,10 +1628,18 @@ def firewall_vip(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("firewall", "vip", data=converted_data, vdom=vdom)
+        return fos.set(
+            "firewall", "vip", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("firewall", "vip", mkey=converted_data["name"], vdom=vdom)
+        return fos.delete(
+            "firewall",
+            "vip",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

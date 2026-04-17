@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -321,6 +321,7 @@ def underscore_to_hyphen(data):
 def vpn_certificate_hsm_local(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     vpn_certificate_hsm_local_data = data["vpn_certificate_hsm_local"]
 
@@ -340,11 +341,21 @@ def vpn_certificate_hsm_local(data, fos):
     )
 
     if state == "present" or state is True:
-        return fos.set("vpn.certificate", "hsm-local", data=converted_data, vdom=vdom)
+        return fos.set(
+            "vpn.certificate",
+            "hsm-local",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "vpn.certificate", "hsm-local", mkey=converted_data["name"], vdom=vdom
+            "vpn.certificate",
+            "hsm-local",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

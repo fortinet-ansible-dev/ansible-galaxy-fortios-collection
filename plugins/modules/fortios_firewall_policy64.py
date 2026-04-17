@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -423,6 +423,7 @@ def firewall_policy64(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_policy64_data = data["firewall_policy64"]
 
@@ -437,7 +438,9 @@ def firewall_policy64(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("firewall", "policy64", filtered_data, vdom=vdom)
-        current_data = fos.get("firewall", "policy64", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall", "policy64", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -520,11 +523,21 @@ def firewall_policy64(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("firewall", "policy64", data=converted_data, vdom=vdom)
+        return fos.set(
+            "firewall",
+            "policy64",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "policy64", mkey=converted_data["policyid"], vdom=vdom
+            "firewall",
+            "policy64",
+            mkey=converted_data["policyid"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

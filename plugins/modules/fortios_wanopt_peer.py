@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -235,6 +235,7 @@ def wanopt_peer(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wanopt_peer_data = data["wanopt_peer"]
 
@@ -249,7 +250,9 @@ def wanopt_peer(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("wanopt", "peer", filtered_data, vdom=vdom)
-        current_data = fos.get("wanopt", "peer", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "wanopt", "peer", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -332,11 +335,17 @@ def wanopt_peer(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("wanopt", "peer", data=converted_data, vdom=vdom)
+        return fos.set(
+            "wanopt", "peer", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
         return fos.delete(
-            "wanopt", "peer", mkey=converted_data["peer-host-id"], vdom=vdom
+            "wanopt",
+            "peer",
+            mkey=converted_data["peer-host-id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

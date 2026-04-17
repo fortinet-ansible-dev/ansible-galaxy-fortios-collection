@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -345,6 +345,7 @@ def underscore_to_hyphen(data):
 def casb_attribute_match(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     casb_attribute_match_data = data["casb_attribute_match"]
 
@@ -362,11 +363,21 @@ def casb_attribute_match(data, fos):
     )
 
     if state == "present" or state is True:
-        return fos.set("casb", "attribute-match", data=converted_data, vdom=vdom)
+        return fos.set(
+            "casb",
+            "attribute-match",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "casb", "attribute-match", mkey=converted_data["name"], vdom=vdom
+            "casb",
+            "attribute-match",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

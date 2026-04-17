@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -489,6 +489,7 @@ def router_policy6(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     router_policy6_data = data["router_policy6"]
 
@@ -503,7 +504,9 @@ def router_policy6(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("router", "policy6", filtered_data, vdom=vdom)
-        current_data = fos.get("router", "policy6", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "router", "policy6", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -586,11 +589,17 @@ def router_policy6(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("router", "policy6", data=converted_data, vdom=vdom)
+        return fos.set(
+            "router", "policy6", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
         return fos.delete(
-            "router", "policy6", mkey=converted_data["seq-num"], vdom=vdom
+            "router",
+            "policy6",
+            mkey=converted_data["seq-num"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -237,6 +237,7 @@ def firewall_internet_service_sld(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_internet_service_sld_data = data["firewall_internet_service_sld"]
 
@@ -255,7 +256,13 @@ def firewall_internet_service_sld(data, fos, check_mode=False):
         mkey = fos.get_mkey(
             "firewall", "internet-service-sld", filtered_data, vdom=vdom
         )
-        current_data = fos.get("firewall", "internet-service-sld", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall",
+            "internet-service-sld",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -339,12 +346,20 @@ def firewall_internet_service_sld(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "internet-service-sld", data=converted_data, vdom=vdom
+            "firewall",
+            "internet-service-sld",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "internet-service-sld", mkey=converted_data["id"], vdom=vdom
+            "firewall",
+            "internet-service-sld",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

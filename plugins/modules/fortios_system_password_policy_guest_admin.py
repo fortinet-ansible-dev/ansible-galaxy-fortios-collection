@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -339,6 +339,7 @@ def system_password_policy_guest_admin(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_password_policy_guest_admin_data = data["system_password_policy_guest_admin"]
 
@@ -359,7 +360,11 @@ def system_password_policy_guest_admin(data, fos, check_mode=False):
             "system", "password-policy-guest-admin", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "system", "password-policy-guest-admin", vdom=vdom, mkey=mkey
+            "system",
+            "password-policy-guest-admin",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -443,7 +448,11 @@ def system_password_policy_guest_admin(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "system", "password-policy-guest-admin", data=converted_data, vdom=vdom
+        "system",
+        "password-policy-guest-admin",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

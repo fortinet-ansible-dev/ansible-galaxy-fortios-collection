@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -232,6 +232,7 @@ def application_rule_settings(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     application_rule_settings_data = data["application_rule_settings"]
 
@@ -248,7 +249,9 @@ def application_rule_settings(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("application", "rule-settings", filtered_data, vdom=vdom)
-        current_data = fos.get("application", "rule-settings", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "application", "rule-settings", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -331,11 +334,21 @@ def application_rule_settings(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("application", "rule-settings", data=converted_data, vdom=vdom)
+        return fos.set(
+            "application",
+            "rule-settings",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "application", "rule-settings", mkey=converted_data["id"], vdom=vdom
+            "application",
+            "rule-settings",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

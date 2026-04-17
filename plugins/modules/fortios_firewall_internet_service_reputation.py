@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -237,6 +237,7 @@ def firewall_internet_service_reputation(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_internet_service_reputation_data = data[
         "firewall_internet_service_reputation"
@@ -258,7 +259,11 @@ def firewall_internet_service_reputation(data, fos, check_mode=False):
             "firewall", "internet-service-reputation", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "firewall", "internet-service-reputation", vdom=vdom, mkey=mkey
+            "firewall",
+            "internet-service-reputation",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -343,7 +348,11 @@ def firewall_internet_service_reputation(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "internet-service-reputation", data=converted_data, vdom=vdom
+            "firewall",
+            "internet-service-reputation",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -352,6 +361,7 @@ def firewall_internet_service_reputation(data, fos, check_mode=False):
             "internet-service-reputation",
             mkey=converted_data["id"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

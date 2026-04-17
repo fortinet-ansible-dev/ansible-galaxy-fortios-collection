@@ -40,7 +40,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -239,6 +239,7 @@ def underscore_to_hyphen(data):
 def system_health_check_fortiguard(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_health_check_fortiguard_data = data["system_health_check_fortiguard"]
 
@@ -259,12 +260,20 @@ def system_health_check_fortiguard(data, fos):
 
     if state == "present" or state is True:
         return fos.set(
-            "system", "health-check-fortiguard", data=converted_data, vdom=vdom
+            "system",
+            "health-check-fortiguard",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
         return fos.delete(
-            "system", "health-check-fortiguard", mkey=converted_data["name"], vdom=vdom
+            "system",
+            "health-check-fortiguard",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

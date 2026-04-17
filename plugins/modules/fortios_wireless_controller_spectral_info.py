@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -233,6 +233,7 @@ def wireless_controller_spectral_info(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wireless_controller_spectral_info_data = data["wireless_controller_spectral_info"]
 
@@ -252,7 +253,11 @@ def wireless_controller_spectral_info(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "wireless-controller", "spectral-info", data=converted_data, vdom=vdom
+        "wireless-controller",
+        "spectral-info",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

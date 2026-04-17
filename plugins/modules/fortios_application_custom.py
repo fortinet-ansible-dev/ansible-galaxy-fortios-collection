@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -286,6 +286,7 @@ def application_custom(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     application_custom_data = data["application_custom"]
 
@@ -300,7 +301,9 @@ def application_custom(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("application", "custom", filtered_data, vdom=vdom)
-        current_data = fos.get("application", "custom", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "application", "custom", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -383,11 +386,21 @@ def application_custom(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("application", "custom", data=converted_data, vdom=vdom)
+        return fos.set(
+            "application",
+            "custom",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "application", "custom", mkey=converted_data["tag"], vdom=vdom
+            "application",
+            "custom",
+            mkey=converted_data["tag"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -273,6 +273,7 @@ def firewall_identity_based_route(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_identity_based_route_data = data["firewall_identity_based_route"]
 
@@ -291,7 +292,13 @@ def firewall_identity_based_route(data, fos, check_mode=False):
         mkey = fos.get_mkey(
             "firewall", "identity-based-route", filtered_data, vdom=vdom
         )
-        current_data = fos.get("firewall", "identity-based-route", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall",
+            "identity-based-route",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -375,12 +382,20 @@ def firewall_identity_based_route(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "identity-based-route", data=converted_data, vdom=vdom
+            "firewall",
+            "identity-based-route",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "identity-based-route", mkey=converted_data["name"], vdom=vdom
+            "firewall",
+            "identity-based-route",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -329,6 +329,7 @@ def firewall_access_proxy_ssh_client_cert(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_access_proxy_ssh_client_cert_data = data[
         "firewall_access_proxy_ssh_client_cert"
@@ -350,7 +351,11 @@ def firewall_access_proxy_ssh_client_cert(data, fos, check_mode=False):
             "firewall", "access-proxy-ssh-client-cert", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "firewall", "access-proxy-ssh-client-cert", vdom=vdom, mkey=mkey
+            "firewall",
+            "access-proxy-ssh-client-cert",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -435,7 +440,11 @@ def firewall_access_proxy_ssh_client_cert(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "access-proxy-ssh-client-cert", data=converted_data, vdom=vdom
+            "firewall",
+            "access-proxy-ssh-client-cert",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -444,6 +453,7 @@ def firewall_access_proxy_ssh_client_cert(data, fos, check_mode=False):
             "access-proxy-ssh-client-cert",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

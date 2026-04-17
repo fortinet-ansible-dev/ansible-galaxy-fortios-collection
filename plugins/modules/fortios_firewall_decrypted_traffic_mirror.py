@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -298,6 +298,7 @@ def firewall_decrypted_traffic_mirror(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_decrypted_traffic_mirror_data = data["firewall_decrypted_traffic_mirror"]
 
@@ -318,7 +319,11 @@ def firewall_decrypted_traffic_mirror(data, fos, check_mode=False):
             "firewall", "decrypted-traffic-mirror", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "firewall", "decrypted-traffic-mirror", vdom=vdom, mkey=mkey
+            "firewall",
+            "decrypted-traffic-mirror",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -403,7 +408,11 @@ def firewall_decrypted_traffic_mirror(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "decrypted-traffic-mirror", data=converted_data, vdom=vdom
+            "firewall",
+            "decrypted-traffic-mirror",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -412,6 +421,7 @@ def firewall_decrypted_traffic_mirror(data, fos, check_mode=False):
             "decrypted-traffic-mirror",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

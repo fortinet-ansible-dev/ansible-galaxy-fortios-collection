@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -252,6 +252,7 @@ def dpdk_cpus(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     dpdk_cpus_data = data["dpdk_cpus"]
 
@@ -266,7 +267,9 @@ def dpdk_cpus(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("dpdk", "cpus", filtered_data, vdom=vdom)
-        current_data = fos.get("dpdk", "cpus", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "dpdk", "cpus", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -348,7 +351,9 @@ def dpdk_cpus(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("dpdk", "cpus", data=converted_data, vdom=vdom)
+    return fos.set(
+        "dpdk", "cpus", data=converted_data, vdom=vdom, parameters=parameters
+    )
 
 
 def is_successful_status(resp):

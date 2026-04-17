@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -260,6 +260,7 @@ def endpoint_control_registered_forticlient(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     endpoint_control_registered_forticlient_data = data[
         "endpoint_control_registered_forticlient"
@@ -281,7 +282,11 @@ def endpoint_control_registered_forticlient(data, fos, check_mode=False):
             "endpoint-control", "registered-forticlient", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "endpoint-control", "registered-forticlient", vdom=vdom, mkey=mkey
+            "endpoint-control",
+            "registered-forticlient",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -366,7 +371,11 @@ def endpoint_control_registered_forticlient(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "endpoint-control", "registered-forticlient", data=converted_data, vdom=vdom
+            "endpoint-control",
+            "registered-forticlient",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -375,6 +384,7 @@ def endpoint_control_registered_forticlient(data, fos, check_mode=False):
             "registered-forticlient",
             mkey=converted_data["uid"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

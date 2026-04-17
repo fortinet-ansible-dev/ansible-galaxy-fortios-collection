@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -260,6 +260,7 @@ def ips_view_map(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     ips_view_map_data = data["ips_view_map"]
 
@@ -274,7 +275,9 @@ def ips_view_map(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("ips", "view-map", filtered_data, vdom=vdom)
-        current_data = fos.get("ips", "view-map", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "ips", "view-map", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -357,10 +360,18 @@ def ips_view_map(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("ips", "view-map", data=converted_data, vdom=vdom)
+        return fos.set(
+            "ips", "view-map", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("ips", "view-map", mkey=converted_data["id"], vdom=vdom)
+        return fos.delete(
+            "ips",
+            "view-map",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

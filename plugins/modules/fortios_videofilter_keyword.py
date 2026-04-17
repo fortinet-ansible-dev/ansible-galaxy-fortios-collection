@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -285,6 +285,7 @@ def videofilter_keyword(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     videofilter_keyword_data = data["videofilter_keyword"]
 
@@ -299,7 +300,9 @@ def videofilter_keyword(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("videofilter", "keyword", filtered_data, vdom=vdom)
-        current_data = fos.get("videofilter", "keyword", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "videofilter", "keyword", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -382,11 +385,21 @@ def videofilter_keyword(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("videofilter", "keyword", data=converted_data, vdom=vdom)
+        return fos.set(
+            "videofilter",
+            "keyword",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "videofilter", "keyword", mkey=converted_data["id"], vdom=vdom
+            "videofilter",
+            "keyword",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

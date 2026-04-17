@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -461,6 +461,7 @@ def wireless_controller_snmp(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wireless_controller_snmp_data = data["wireless_controller_snmp"]
 
@@ -476,7 +477,9 @@ def wireless_controller_snmp(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("wireless-controller", "snmp", filtered_data, vdom=vdom)
-        current_data = fos.get("wireless-controller", "snmp", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "wireless-controller", "snmp", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -558,7 +561,13 @@ def wireless_controller_snmp(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("wireless-controller", "snmp", data=converted_data, vdom=vdom)
+    return fos.set(
+        "wireless-controller",
+        "snmp",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

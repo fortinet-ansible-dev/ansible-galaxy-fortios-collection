@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -246,6 +246,7 @@ def system_ips_urlfilter_dns(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_ips_urlfilter_dns_data = data["system_ips_urlfilter_dns"]
 
@@ -260,7 +261,9 @@ def system_ips_urlfilter_dns(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system", "ips-urlfilter-dns", filtered_data, vdom=vdom)
-        current_data = fos.get("system", "ips-urlfilter-dns", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "system", "ips-urlfilter-dns", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -343,11 +346,21 @@ def system_ips_urlfilter_dns(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("system", "ips-urlfilter-dns", data=converted_data, vdom=vdom)
+        return fos.set(
+            "system",
+            "ips-urlfilter-dns",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "system", "ips-urlfilter-dns", mkey=converted_data["address"], vdom=vdom
+            "system",
+            "ips-urlfilter-dns",
+            mkey=converted_data["address"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

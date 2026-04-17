@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -490,6 +490,7 @@ def wanopt_content_delivery_network_rule(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wanopt_content_delivery_network_rule_data = data[
         "wanopt_content_delivery_network_rule"
@@ -511,7 +512,11 @@ def wanopt_content_delivery_network_rule(data, fos, check_mode=False):
             "wanopt", "content-delivery-network-rule", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "wanopt", "content-delivery-network-rule", vdom=vdom, mkey=mkey
+            "wanopt",
+            "content-delivery-network-rule",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -596,7 +601,11 @@ def wanopt_content_delivery_network_rule(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "wanopt", "content-delivery-network-rule", data=converted_data, vdom=vdom
+            "wanopt",
+            "content-delivery-network-rule",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -605,6 +614,7 @@ def wanopt_content_delivery_network_rule(data, fos, check_mode=False):
             "content-delivery-network-rule",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -254,6 +254,7 @@ def system_replacemsg_fortiguard_wf(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_replacemsg_fortiguard_wf_data = data["system_replacemsg_fortiguard_wf"]
 
@@ -273,7 +274,11 @@ def system_replacemsg_fortiguard_wf(data, fos, check_mode=False):
             "system.replacemsg", "fortiguard-wf", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "system.replacemsg", "fortiguard-wf", vdom=vdom, mkey=mkey
+            "system.replacemsg",
+            "fortiguard-wf",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -358,7 +363,11 @@ def system_replacemsg_fortiguard_wf(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "system.replacemsg", "fortiguard-wf", data=converted_data, vdom=vdom
+            "system.replacemsg",
+            "fortiguard-wf",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -367,6 +376,7 @@ def system_replacemsg_fortiguard_wf(data, fos, check_mode=False):
             "fortiguard-wf",
             mkey=converted_data["msg-type"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

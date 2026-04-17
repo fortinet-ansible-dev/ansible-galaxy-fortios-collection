@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -236,6 +236,7 @@ def system_nd_proxy(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_nd_proxy_data = data["system_nd_proxy"]
 
@@ -250,7 +251,9 @@ def system_nd_proxy(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system", "nd-proxy", filtered_data, vdom=vdom)
-        current_data = fos.get("system", "nd-proxy", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "system", "nd-proxy", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -332,7 +335,9 @@ def system_nd_proxy(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("system", "nd-proxy", data=converted_data, vdom=vdom)
+    return fos.set(
+        "system", "nd-proxy", data=converted_data, vdom=vdom, parameters=parameters
+    )
 
 
 def is_successful_status(resp):

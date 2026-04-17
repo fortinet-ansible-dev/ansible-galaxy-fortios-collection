@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -319,6 +319,7 @@ def wanopt_cache_service(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wanopt_cache_service_data = data["wanopt_cache_service"]
 
@@ -333,7 +334,9 @@ def wanopt_cache_service(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("wanopt", "cache-service", filtered_data, vdom=vdom)
-        current_data = fos.get("wanopt", "cache-service", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "wanopt", "cache-service", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -415,7 +418,9 @@ def wanopt_cache_service(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("wanopt", "cache-service", data=converted_data, vdom=vdom)
+    return fos.set(
+        "wanopt", "cache-service", data=converted_data, vdom=vdom, parameters=parameters
+    )
 
 
 def is_successful_status(resp):

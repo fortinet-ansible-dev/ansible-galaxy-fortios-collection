@@ -41,7 +41,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -228,6 +228,7 @@ def underscore_to_hyphen(data):
 def system_device_upgrade_exemptions(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_device_upgrade_exemptions_data = data["system_device_upgrade_exemptions"]
 
@@ -248,12 +249,20 @@ def system_device_upgrade_exemptions(data, fos):
 
     if state == "present" or state is True:
         return fos.set(
-            "system", "device-upgrade-exemptions", data=converted_data, vdom=vdom
+            "system",
+            "device-upgrade-exemptions",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
         return fos.delete(
-            "system", "device-upgrade-exemptions", mkey=converted_data["id"], vdom=vdom
+            "system",
+            "device-upgrade-exemptions",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -270,6 +270,7 @@ def ztna_traffic_forward_proxy_reverse_service(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     ztna_traffic_forward_proxy_reverse_service_data = data[
         "ztna_traffic_forward_proxy_reverse_service"
@@ -291,7 +292,11 @@ def ztna_traffic_forward_proxy_reverse_service(data, fos, check_mode=False):
             "ztna", "traffic-forward-proxy-reverse-service", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "ztna", "traffic-forward-proxy-reverse-service", vdom=vdom, mkey=mkey
+            "ztna",
+            "traffic-forward-proxy-reverse-service",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -375,7 +380,11 @@ def ztna_traffic_forward_proxy_reverse_service(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "ztna", "traffic-forward-proxy-reverse-service", data=converted_data, vdom=vdom
+        "ztna",
+        "traffic-forward-proxy-reverse-service",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

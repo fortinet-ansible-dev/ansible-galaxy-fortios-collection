@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -266,6 +266,7 @@ def switch_controller_initial_config_vlans(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_initial_config_vlans_data = data[
         "switch_controller_initial_config_vlans"
@@ -287,7 +288,11 @@ def switch_controller_initial_config_vlans(data, fos, check_mode=False):
             "switch-controller.initial-config", "vlans", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller.initial-config", "vlans", vdom=vdom, mkey=mkey
+            "switch-controller.initial-config",
+            "vlans",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -371,7 +376,11 @@ def switch_controller_initial_config_vlans(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "switch-controller.initial-config", "vlans", data=converted_data, vdom=vdom
+        "switch-controller.initial-config",
+        "vlans",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

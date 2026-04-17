@@ -14,7 +14,7 @@ import os
 import time
 import traceback
 
-from ansible.module_utils._text import to_text
+from ansible.module_utils.common.text.converters import to_text
 import json
 from ansible_collections.fortinet.fortios.plugins.module_utils.common.type_utils import (
     underscore_to_hyphen,
@@ -450,9 +450,12 @@ class FortiOSHandler(object):
         url_prefix = self.cmdb_url(path, name)
         url_suffix = ""
         if vdom == "global":
-            url_suffix = "?global=1"
+            url_suffix = "?scope=global"
         elif vdom:
-            url_suffix = "?vdom=" + vdom
+            if vdom == "":
+                url_suffix = "?vdom=root"
+            else:
+                url_suffix = "?vdom=" + vdom
         for url_tokens in traced_url_tokens:
             url = dict()
             url_get = toplevel_url_token
@@ -660,7 +663,7 @@ class FortiOSHandler(object):
             url = url + "/" + urlencoding.quote(str(mkey), safe="")
         if vdom is not None:
             if vdom == "global":
-                url += "?global=1"
+                url += "?scope=global"
             else:
                 if vdom == "":
                     url += "?vdom=root"
@@ -674,7 +677,7 @@ class FortiOSHandler(object):
             url = url + "/" + urlencoding.quote(str(mkey), safe="")
         if vdom is not None:
             if vdom == "global":
-                url += "?global=1"
+                url += "?scope=global"
             else:
                 if vdom == "":
                     url += "?vdom=root"
@@ -737,16 +740,19 @@ class FortiOSHandler(object):
         slash_index = url.find("/")
         full_url = self.mon_url(url[:slash_index], url[slash_index + 1 :], vdom)
         http_status, result_data = self._conn.send_request(
-            url=full_url, params=parameters, method="GET"
+            url=full_url,
+            params=parameters,
+            method="GET",
         )
         return self.formatresponse(result_data, http_status, vdom=vdom)
 
-    def monitor_post(self, url, data=None, vdom=None, mkey=None, parameters=None):
+    def monitor_post(self, url, data=None, vdom=None, mkey=None, parameters=None, headers=None):
         slash_index = url.find("/")
         url = self.mon_url(url[:slash_index], url[slash_index + 1 :], vdom)
 
         http_status, result_data = self._conn.send_request(
-            url=url, params=parameters, data=json.dumps(data), method="POST"
+            url=url, params=parameters, data=json.dumps(data), method="POST",
+            headers=self._with_admin_passwd_header(headers),
         )
 
         return self.formatresponse(result_data, http_status, vdom=vdom)
@@ -796,7 +802,15 @@ class FortiOSHandler(object):
             url=url, params=parameters, method="GET", headers=headers
         )
         if http_get_status != 200:
-            return self.post(path, name, data, vdom, mkey, headers=headers)
+            return self.post(
+                path,
+                name,
+                data,
+                vdom,
+                mkey,
+                parameters=parameters,
+                headers=headers,
+            )
 
         http_status, result_data = self._conn.send_request(
             url=url,
@@ -884,12 +898,12 @@ class FortiOSHandler(object):
             resp = self.__to_local(to_text(res), http_status, False)
         return resp
 
-    def jsonraw(self, method, path, data, specific_params, vdom=None, parameters=None):
+    def jsonraw(self, method, path, data, specific_params, vdom=None, parameters=None, headers=None):
         url = urlencoding.quote(path)
         bvdom = False
         if vdom:
             if vdom == "global":
-                url += "?global=1"
+                url += "?scope=global"
             else:
                 url += "?vdom=" + vdom
             bvdom = True
@@ -902,11 +916,12 @@ class FortiOSHandler(object):
 
         if method == "GET":
             http_status, result_data = self._conn.send_request(
-                url=url, method="GET", params=parameters
+                url=url, method="GET", params=parameters, headers=self._with_admin_passwd_header(headers)
             )
         else:
             http_status, result_data = self._conn.send_request(
-                url=url, method=method, data=json.dumps(data), params=parameters
+                url=url, method=method, data=json.dumps(data), params=parameters,
+                headers=self._with_admin_passwd_header(headers)
             )
 
         return self.formatresponse(result_data, http_status, vdom=vdom)

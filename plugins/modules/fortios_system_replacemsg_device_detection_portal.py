@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -254,6 +254,7 @@ def system_replacemsg_device_detection_portal(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_replacemsg_device_detection_portal_data = data[
         "system_replacemsg_device_detection_portal"
@@ -275,7 +276,11 @@ def system_replacemsg_device_detection_portal(data, fos, check_mode=False):
             "system.replacemsg", "device-detection-portal", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "system.replacemsg", "device-detection-portal", vdom=vdom, mkey=mkey
+            "system.replacemsg",
+            "device-detection-portal",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -364,6 +369,7 @@ def system_replacemsg_device_detection_portal(data, fos, check_mode=False):
             "device-detection-portal",
             data=converted_data,
             vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -372,6 +378,7 @@ def system_replacemsg_device_detection_portal(data, fos, check_mode=False):
             "device-detection-portal",
             mkey=converted_data["msg-type"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

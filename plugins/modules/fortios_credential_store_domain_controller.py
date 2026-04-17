@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -274,6 +274,7 @@ def credential_store_domain_controller(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     credential_store_domain_controller_data = data["credential_store_domain_controller"]
 
@@ -293,7 +294,11 @@ def credential_store_domain_controller(data, fos, check_mode=False):
             "credential-store", "domain-controller", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "credential-store", "domain-controller", vdom=vdom, mkey=mkey
+            "credential-store",
+            "domain-controller",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -378,7 +383,11 @@ def credential_store_domain_controller(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "credential-store", "domain-controller", data=converted_data, vdom=vdom
+            "credential-store",
+            "domain-controller",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -387,6 +396,7 @@ def credential_store_domain_controller(data, fos, check_mode=False):
             "domain-controller",
             mkey=converted_data["server-name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

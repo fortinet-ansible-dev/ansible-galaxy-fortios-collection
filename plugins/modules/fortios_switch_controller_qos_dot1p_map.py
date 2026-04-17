@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -367,6 +367,7 @@ def switch_controller_qos_dot1p_map(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_qos_dot1p_map_data = data["switch_controller_qos_dot1p_map"]
 
@@ -386,7 +387,11 @@ def switch_controller_qos_dot1p_map(data, fos, check_mode=False):
             "switch-controller.qos", "dot1p-map", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller.qos", "dot1p-map", vdom=vdom, mkey=mkey
+            "switch-controller.qos",
+            "dot1p-map",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -471,12 +476,20 @@ def switch_controller_qos_dot1p_map(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller.qos", "dot1p-map", data=converted_data, vdom=vdom
+            "switch-controller.qos",
+            "dot1p-map",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
         return fos.delete(
-            "switch-controller.qos", "dot1p-map", mkey=converted_data["name"], vdom=vdom
+            "switch-controller.qos",
+            "dot1p-map",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -230,6 +230,7 @@ def switch_controller_switch_interface_tag(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_switch_interface_tag_data = data[
         "switch_controller_switch_interface_tag"
@@ -251,7 +252,11 @@ def switch_controller_switch_interface_tag(data, fos, check_mode=False):
             "switch-controller", "switch-interface-tag", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "switch-interface-tag", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "switch-interface-tag",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -336,7 +341,11 @@ def switch_controller_switch_interface_tag(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "switch-controller", "switch-interface-tag", data=converted_data, vdom=vdom
+            "switch-controller",
+            "switch-interface-tag",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -345,6 +354,7 @@ def switch_controller_switch_interface_tag(data, fos, check_mode=False):
             "switch-interface-tag",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -250,6 +250,7 @@ def vpn_pptp(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     vpn_pptp_data = data["vpn_pptp"]
 
@@ -264,7 +265,9 @@ def vpn_pptp(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("vpn", "pptp", filtered_data, vdom=vdom)
-        current_data = fos.get("vpn", "pptp", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "vpn", "pptp", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -346,7 +349,7 @@ def vpn_pptp(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("vpn", "pptp", data=converted_data, vdom=vdom)
+    return fos.set("vpn", "pptp", data=converted_data, vdom=vdom, parameters=parameters)
 
 
 def is_successful_status(resp):

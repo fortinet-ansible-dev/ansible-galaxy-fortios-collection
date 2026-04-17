@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -245,6 +245,7 @@ def extender_lte_carrier_by_mcc_mnc(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     extender_lte_carrier_by_mcc_mnc_data = data["extender_lte_carrier_by_mcc_mnc"]
 
@@ -264,7 +265,11 @@ def extender_lte_carrier_by_mcc_mnc(data, fos, check_mode=False):
             "extender", "lte-carrier-by-mcc-mnc", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "extender", "lte-carrier-by-mcc-mnc", vdom=vdom, mkey=mkey
+            "extender",
+            "lte-carrier-by-mcc-mnc",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -347,7 +352,13 @@ def extender_lte_carrier_by_mcc_mnc(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("extender", "lte-carrier-by-mcc-mnc", data=converted_data, vdom=vdom)
+    return fos.set(
+        "extender",
+        "lte-carrier-by-mcc-mnc",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -208,6 +208,7 @@ def underscore_to_hyphen(data):
 def system_security_rating_settings(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_security_rating_settings_data = data["system_security_rating_settings"]
 
@@ -226,7 +227,13 @@ def system_security_rating_settings(data, fos):
         data_copy,
     )
 
-    return fos.set("system.security-rating", "settings", data=converted_data, vdom=vdom)
+    return fos.set(
+        "system.security-rating",
+        "settings",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

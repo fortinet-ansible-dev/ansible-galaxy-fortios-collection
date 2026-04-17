@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -233,6 +233,7 @@ def firewall_internet_service_append(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_internet_service_append_data = data["firewall_internet_service_append"]
 
@@ -252,7 +253,11 @@ def firewall_internet_service_append(data, fos, check_mode=False):
             "firewall", "internet-service-append", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "firewall", "internet-service-append", vdom=vdom, mkey=mkey
+            "firewall",
+            "internet-service-append",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -336,7 +341,11 @@ def firewall_internet_service_append(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "firewall", "internet-service-append", data=converted_data, vdom=vdom
+        "firewall",
+        "internet-service-append",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

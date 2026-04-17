@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -233,6 +233,7 @@ def switch_controller_snmp_trap_threshold(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_snmp_trap_threshold_data = data[
         "switch_controller_snmp_trap_threshold"
@@ -254,7 +255,11 @@ def switch_controller_snmp_trap_threshold(data, fos, check_mode=False):
             "switch-controller", "snmp-trap-threshold", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "snmp-trap-threshold", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "snmp-trap-threshold",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -338,7 +343,11 @@ def switch_controller_snmp_trap_threshold(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "switch-controller", "snmp-trap-threshold", data=converted_data, vdom=vdom
+        "switch-controller",
+        "snmp-trap-threshold",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

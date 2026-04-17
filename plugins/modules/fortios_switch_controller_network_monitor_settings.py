@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -222,6 +222,7 @@ def switch_controller_network_monitor_settings(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_network_monitor_settings_data = data[
         "switch_controller_network_monitor_settings"
@@ -243,7 +244,11 @@ def switch_controller_network_monitor_settings(data, fos, check_mode=False):
             "switch-controller", "network-monitor-settings", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "network-monitor-settings", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "network-monitor-settings",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -327,7 +332,11 @@ def switch_controller_network_monitor_settings(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "switch-controller", "network-monitor-settings", data=converted_data, vdom=vdom
+        "switch-controller",
+        "network-monitor-settings",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

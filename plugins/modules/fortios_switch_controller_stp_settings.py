@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -266,6 +266,7 @@ def switch_controller_stp_settings(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_stp_settings_data = data["switch_controller_stp_settings"]
 
@@ -285,7 +286,11 @@ def switch_controller_stp_settings(data, fos, check_mode=False):
             "switch-controller", "stp-settings", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "stp-settings", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "stp-settings",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -368,7 +373,13 @@ def switch_controller_stp_settings(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("switch-controller", "stp-settings", data=converted_data, vdom=vdom)
+    return fos.set(
+        "switch-controller",
+        "stp-settings",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

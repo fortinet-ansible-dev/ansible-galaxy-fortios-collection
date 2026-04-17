@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -264,6 +264,7 @@ def gtp_apn_shaper(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     gtp_apn_shaper_data = data["gtp_apn_shaper"]
 
@@ -278,7 +279,9 @@ def gtp_apn_shaper(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("gtp", "apn-shaper", filtered_data, vdom=vdom)
-        current_data = fos.get("gtp", "apn-shaper", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "gtp", "apn-shaper", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -361,10 +364,18 @@ def gtp_apn_shaper(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("gtp", "apn-shaper", data=converted_data, vdom=vdom)
+        return fos.set(
+            "gtp", "apn-shaper", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("gtp", "apn-shaper", mkey=converted_data["id"], vdom=vdom)
+        return fos.delete(
+            "gtp",
+            "apn-shaper",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

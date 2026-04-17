@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -342,6 +342,7 @@ def wireless_controller_hotspot20_h2qp_conn_capability(data, fos, check_mode=Fal
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wireless_controller_hotspot20_h2qp_conn_capability_data = data[
         "wireless_controller_hotspot20_h2qp_conn_capability"
@@ -370,6 +371,7 @@ def wireless_controller_hotspot20_h2qp_conn_capability(data, fos, check_mode=Fal
             "h2qp-conn-capability",
             vdom=vdom,
             mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -458,6 +460,7 @@ def wireless_controller_hotspot20_h2qp_conn_capability(data, fos, check_mode=Fal
             "h2qp-conn-capability",
             data=converted_data,
             vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -466,6 +469,7 @@ def wireless_controller_hotspot20_h2qp_conn_capability(data, fos, check_mode=Fal
             "h2qp-conn-capability",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

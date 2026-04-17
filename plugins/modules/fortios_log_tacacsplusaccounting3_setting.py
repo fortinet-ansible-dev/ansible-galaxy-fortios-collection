@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -264,6 +264,7 @@ def log_tacacsplusaccounting3_setting(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     log_tacacsplusaccounting3_setting_data = data["log_tacacsplusaccounting3_setting"]
 
@@ -283,7 +284,11 @@ def log_tacacsplusaccounting3_setting(data, fos, check_mode=False):
             "log.tacacs+accounting3", "setting", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "log.tacacs+accounting3", "setting", vdom=vdom, mkey=mkey
+            "log.tacacs+accounting3",
+            "setting",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -366,7 +371,13 @@ def log_tacacsplusaccounting3_setting(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("log.tacacs+accounting3", "setting", data=converted_data, vdom=vdom)
+    return fos.set(
+        "log.tacacs+accounting3",
+        "setting",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

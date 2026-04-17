@@ -2694,7 +2694,9 @@ def fortios_monitor_fact(params, fos):
             url_params[selector_param_key] = selector_param
 
     fact = fos.monitor_get(
-        module_selectors_defs[selector]["url"], params["vdom"], url_params
+        module_selectors_defs[selector]["url"],
+        params["vdom"],
+        url_params,
     )
 
     return not is_successful_status(fact), False, fact

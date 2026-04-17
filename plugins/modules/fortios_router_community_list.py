@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -270,6 +270,7 @@ def router_community_list(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     router_community_list_data = data["router_community_list"]
 
@@ -284,7 +285,9 @@ def router_community_list(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("router", "community-list", filtered_data, vdom=vdom)
-        current_data = fos.get("router", "community-list", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "router", "community-list", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -367,11 +370,21 @@ def router_community_list(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("router", "community-list", data=converted_data, vdom=vdom)
+        return fos.set(
+            "router",
+            "community-list",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "router", "community-list", mkey=converted_data["name"], vdom=vdom
+            "router",
+            "community-list",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

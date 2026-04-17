@@ -9,8 +9,8 @@ Please refer to [Documentation](https://ansible-galaxy-fortios-docs.readthedocs.
 
 ## Requirements
 
-- Ansible 2.15.0 or above
-- Python 3.9 or above
+- Ansible-core 2.16 or above
+- Python 3.12 or above
 
 ## Installation
 This collection is distributed via [ansible-galaxy](https://galaxy.ansible.com/).

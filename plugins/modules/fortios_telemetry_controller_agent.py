@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -240,6 +240,7 @@ def underscore_to_hyphen(data):
 def telemetry_controller_agent(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     telemetry_controller_agent_data = data["telemetry_controller_agent"]
 
@@ -259,11 +260,21 @@ def telemetry_controller_agent(data, fos):
     )
 
     if state == "present" or state is True:
-        return fos.set("telemetry-controller", "agent", data=converted_data, vdom=vdom)
+        return fos.set(
+            "telemetry-controller",
+            "agent",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "telemetry-controller", "agent", mkey=converted_data["agent-id"], vdom=vdom
+            "telemetry-controller",
+            "agent",
+            mkey=converted_data["agent-id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

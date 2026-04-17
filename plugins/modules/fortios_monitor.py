@@ -1794,10 +1794,15 @@ def fortios_monitor(fos):
     selector = params["selector"]
     selector_params = params["params"]
 
+    selector_url = module_selectors_defs[selector]["url"]
+    request_headers = None
+    if selector in ["generate-key.system.api-user"] or selector_url in [
+        "system/api-user/generate-key"
+    ]:
+        request_headers = {"X-Admin-Passwd": True}
+
     resp = fos.monitor_post(
-        module_selectors_defs[selector]["url"],
-        vdom=params["vdom"],
-        data=selector_params,
+        selector_url, vdom=params["vdom"], data=selector_params, headers=request_headers
     )
 
     return not is_successful_status(resp), False, resp

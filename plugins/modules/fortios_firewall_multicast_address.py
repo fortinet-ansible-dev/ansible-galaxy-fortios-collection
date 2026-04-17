@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -321,6 +321,7 @@ def firewall_multicast_address(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_multicast_address_data = data["firewall_multicast_address"]
 
@@ -337,7 +338,9 @@ def firewall_multicast_address(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("firewall", "multicast-address", filtered_data, vdom=vdom)
-        current_data = fos.get("firewall", "multicast-address", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall", "multicast-address", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -420,11 +423,21 @@ def firewall_multicast_address(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("firewall", "multicast-address", data=converted_data, vdom=vdom)
+        return fos.set(
+            "firewall",
+            "multicast-address",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "multicast-address", mkey=converted_data["name"], vdom=vdom
+            "firewall",
+            "multicast-address",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

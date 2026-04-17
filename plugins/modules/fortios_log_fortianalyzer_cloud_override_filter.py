@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -437,6 +437,7 @@ def log_fortianalyzer_cloud_override_filter(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     log_fortianalyzer_cloud_override_filter_data = data[
         "log_fortianalyzer_cloud_override_filter"
@@ -458,7 +459,11 @@ def log_fortianalyzer_cloud_override_filter(data, fos, check_mode=False):
             "log.fortianalyzer-cloud", "override-filter", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "log.fortianalyzer-cloud", "override-filter", vdom=vdom, mkey=mkey
+            "log.fortianalyzer-cloud",
+            "override-filter",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -542,7 +547,11 @@ def log_fortianalyzer_cloud_override_filter(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "log.fortianalyzer-cloud", "override-filter", data=converted_data, vdom=vdom
+        "log.fortianalyzer-cloud",
+        "override-filter",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

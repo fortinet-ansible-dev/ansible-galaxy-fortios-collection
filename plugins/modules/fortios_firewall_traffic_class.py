@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -237,6 +237,7 @@ def firewall_traffic_class(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_traffic_class_data = data["firewall_traffic_class"]
 
@@ -251,7 +252,9 @@ def firewall_traffic_class(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("firewall", "traffic-class", filtered_data, vdom=vdom)
-        current_data = fos.get("firewall", "traffic-class", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall", "traffic-class", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -334,11 +337,21 @@ def firewall_traffic_class(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("firewall", "traffic-class", data=converted_data, vdom=vdom)
+        return fos.set(
+            "firewall",
+            "traffic-class",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "firewall", "traffic-class", mkey=converted_data["class-id"], vdom=vdom
+            "firewall",
+            "traffic-class",
+            mkey=converted_data["class-id"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

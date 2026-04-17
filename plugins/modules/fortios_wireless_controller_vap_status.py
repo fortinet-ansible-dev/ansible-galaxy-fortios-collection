@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -245,6 +245,7 @@ def wireless_controller_vap_status(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wireless_controller_vap_status_data = data["wireless_controller_vap_status"]
 
@@ -264,7 +265,11 @@ def wireless_controller_vap_status(data, fos, check_mode=False):
             "wireless-controller", "vap-status", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "wireless-controller", "vap-status", vdom=vdom, mkey=mkey
+            "wireless-controller",
+            "vap-status",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -347,7 +352,13 @@ def wireless_controller_vap_status(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("wireless-controller", "vap-status", data=converted_data, vdom=vdom)
+    return fos.set(
+        "wireless-controller",
+        "vap-status",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

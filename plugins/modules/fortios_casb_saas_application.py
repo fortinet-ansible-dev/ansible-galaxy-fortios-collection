@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -399,6 +399,7 @@ def casb_saas_application(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     casb_saas_application_data = data["casb_saas_application"]
 
@@ -413,7 +414,9 @@ def casb_saas_application(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("casb", "saas-application", filtered_data, vdom=vdom)
-        current_data = fos.get("casb", "saas-application", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "casb", "saas-application", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -496,11 +499,21 @@ def casb_saas_application(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("casb", "saas-application", data=converted_data, vdom=vdom)
+        return fos.set(
+            "casb",
+            "saas-application",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "casb", "saas-application", mkey=converted_data["name"], vdom=vdom
+            "casb",
+            "saas-application",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

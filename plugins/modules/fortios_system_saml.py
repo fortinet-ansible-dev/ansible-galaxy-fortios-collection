@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -451,6 +451,7 @@ def system_saml(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_saml_data = data["system_saml"]
 
@@ -465,7 +466,9 @@ def system_saml(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system", "saml", filtered_data, vdom=vdom)
-        current_data = fos.get("system", "saml", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "system", "saml", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -547,7 +550,9 @@ def system_saml(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("system", "saml", data=converted_data, vdom=vdom)
+    return fos.set(
+        "system", "saml", data=converted_data, vdom=vdom, parameters=parameters
+    )
 
 
 def is_successful_status(resp):

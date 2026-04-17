@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -304,6 +304,7 @@ def switch_controller_802_1x_settings(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_802_1x_settings_data = data["switch_controller_802_1x_settings"]
 
@@ -323,7 +324,11 @@ def switch_controller_802_1x_settings(data, fos, check_mode=False):
             "switch-controller", "802-1X-settings", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "802-1X-settings", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "802-1X-settings",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -407,7 +412,11 @@ def switch_controller_802_1x_settings(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "switch-controller", "802-1X-settings", data=converted_data, vdom=vdom
+        "switch-controller",
+        "802-1X-settings",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

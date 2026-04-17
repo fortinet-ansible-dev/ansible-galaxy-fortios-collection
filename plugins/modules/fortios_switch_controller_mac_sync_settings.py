@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -219,6 +219,7 @@ def switch_controller_mac_sync_settings(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     switch_controller_mac_sync_settings_data = data[
         "switch_controller_mac_sync_settings"
@@ -240,7 +241,11 @@ def switch_controller_mac_sync_settings(data, fos, check_mode=False):
             "switch-controller", "mac-sync-settings", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "switch-controller", "mac-sync-settings", vdom=vdom, mkey=mkey
+            "switch-controller",
+            "mac-sync-settings",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -324,7 +329,11 @@ def switch_controller_mac_sync_settings(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "switch-controller", "mac-sync-settings", data=converted_data, vdom=vdom
+        "switch-controller",
+        "mac-sync-settings",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

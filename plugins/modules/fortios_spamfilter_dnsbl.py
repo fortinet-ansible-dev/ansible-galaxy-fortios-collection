@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -277,6 +277,7 @@ def spamfilter_dnsbl(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     spamfilter_dnsbl_data = data["spamfilter_dnsbl"]
 
@@ -291,7 +292,9 @@ def spamfilter_dnsbl(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("spamfilter", "dnsbl", filtered_data, vdom=vdom)
-        current_data = fos.get("spamfilter", "dnsbl", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "spamfilter", "dnsbl", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -374,10 +377,18 @@ def spamfilter_dnsbl(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("spamfilter", "dnsbl", data=converted_data, vdom=vdom)
+        return fos.set(
+            "spamfilter", "dnsbl", data=converted_data, vdom=vdom, parameters=parameters
+        )
 
     elif state == "absent":
-        return fos.delete("spamfilter", "dnsbl", mkey=converted_data["id"], vdom=vdom)
+        return fos.delete(
+            "spamfilter",
+            "dnsbl",
+            mkey=converted_data["id"],
+            vdom=vdom,
+            parameters=parameters,
+        )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
 

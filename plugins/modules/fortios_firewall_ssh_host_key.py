@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -299,6 +299,7 @@ def firewall_ssh_host_key(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_ssh_host_key_data = data["firewall_ssh_host_key"]
 
@@ -313,7 +314,9 @@ def firewall_ssh_host_key(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("firewall.ssh", "host-key", filtered_data, vdom=vdom)
-        current_data = fos.get("firewall.ssh", "host-key", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "firewall.ssh", "host-key", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -396,11 +399,21 @@ def firewall_ssh_host_key(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("firewall.ssh", "host-key", data=converted_data, vdom=vdom)
+        return fos.set(
+            "firewall.ssh",
+            "host-key",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "firewall.ssh", "host-key", mkey=converted_data["name"], vdom=vdom
+            "firewall.ssh",
+            "host-key",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

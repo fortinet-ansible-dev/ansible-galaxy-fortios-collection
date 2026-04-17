@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -1443,6 +1443,7 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     vpn_ssl_web_portal_data = data["vpn_ssl_web_portal"]
 
@@ -1458,7 +1459,9 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("vpn.ssl.web", "portal", filtered_data, vdom=vdom)
-        current_data = fos.get("vpn.ssl.web", "portal", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "vpn.ssl.web", "portal", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -1541,11 +1544,21 @@ def vpn_ssl_web_portal(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("vpn.ssl.web", "portal", data=converted_data, vdom=vdom)
+        return fos.set(
+            "vpn.ssl.web",
+            "portal",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "vpn.ssl.web", "portal", mkey=converted_data["name"], vdom=vdom
+            "vpn.ssl.web",
+            "portal",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

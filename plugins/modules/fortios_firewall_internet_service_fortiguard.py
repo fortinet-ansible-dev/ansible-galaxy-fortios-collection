@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -302,6 +302,7 @@ def underscore_to_hyphen(data):
 def firewall_internet_service_fortiguard(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_internet_service_fortiguard_data = data[
         "firewall_internet_service_fortiguard"
@@ -324,7 +325,11 @@ def firewall_internet_service_fortiguard(data, fos):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "internet-service-fortiguard", data=converted_data, vdom=vdom
+            "firewall",
+            "internet-service-fortiguard",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -333,6 +338,7 @@ def firewall_internet_service_fortiguard(data, fos):
             "internet-service-fortiguard",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -42,7 +42,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -309,6 +309,7 @@ def videofilter_youtube_channel_filter(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     videofilter_youtube_channel_filter_data = data["videofilter_youtube_channel_filter"]
 
@@ -328,7 +329,11 @@ def videofilter_youtube_channel_filter(data, fos, check_mode=False):
             "videofilter", "youtube-channel-filter", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "videofilter", "youtube-channel-filter", vdom=vdom, mkey=mkey
+            "videofilter",
+            "youtube-channel-filter",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -413,7 +418,11 @@ def videofilter_youtube_channel_filter(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "videofilter", "youtube-channel-filter", data=converted_data, vdom=vdom
+            "videofilter",
+            "youtube-channel-filter",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -422,6 +431,7 @@ def videofilter_youtube_channel_filter(data, fos, check_mode=False):
             "youtube-channel-filter",
             mkey=converted_data["id"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

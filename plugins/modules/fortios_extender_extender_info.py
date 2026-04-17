@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -233,6 +233,7 @@ def extender_extender_info(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     extender_extender_info_data = data["extender_extender_info"]
 
@@ -249,7 +250,13 @@ def extender_extender_info(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("extender", "extender-info", data=converted_data, vdom=vdom)
+    return fos.set(
+        "extender",
+        "extender-info",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

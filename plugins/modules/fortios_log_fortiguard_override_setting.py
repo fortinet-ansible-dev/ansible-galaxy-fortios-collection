@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -290,6 +290,7 @@ def log_fortiguard_override_setting(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     log_fortiguard_override_setting_data = data["log_fortiguard_override_setting"]
 
@@ -309,7 +310,11 @@ def log_fortiguard_override_setting(data, fos, check_mode=False):
             "log.fortiguard", "override-setting", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "log.fortiguard", "override-setting", vdom=vdom, mkey=mkey
+            "log.fortiguard",
+            "override-setting",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -392,7 +397,13 @@ def log_fortiguard_override_setting(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("log.fortiguard", "override-setting", data=converted_data, vdom=vdom)
+    return fos.set(
+        "log.fortiguard",
+        "override-setting",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
+    )
 
 
 def is_successful_status(resp):

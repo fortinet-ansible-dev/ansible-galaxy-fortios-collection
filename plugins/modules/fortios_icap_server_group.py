@@ -41,7 +41,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -259,6 +259,7 @@ def icap_server_group(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     icap_server_group_data = data["icap_server_group"]
 
@@ -273,7 +274,9 @@ def icap_server_group(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("icap", "server-group", filtered_data, vdom=vdom)
-        current_data = fos.get("icap", "server-group", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "icap", "server-group", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -356,11 +359,21 @@ def icap_server_group(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("icap", "server-group", data=converted_data, vdom=vdom)
+        return fos.set(
+            "icap",
+            "server-group",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "icap", "server-group", mkey=converted_data["name"], vdom=vdom
+            "icap",
+            "server-group",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -670,6 +670,7 @@ def gtp_message_filter_v2(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     gtp_message_filter_v2_data = data["gtp_message_filter_v2"]
 
@@ -684,7 +685,9 @@ def gtp_message_filter_v2(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("gtp", "message-filter-v2", filtered_data, vdom=vdom)
-        current_data = fos.get("gtp", "message-filter-v2", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "gtp", "message-filter-v2", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -767,11 +770,21 @@ def gtp_message_filter_v2(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("gtp", "message-filter-v2", data=converted_data, vdom=vdom)
+        return fos.set(
+            "gtp",
+            "message-filter-v2",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "gtp", "message-filter-v2", mkey=converted_data["name"], vdom=vdom
+            "gtp",
+            "message-filter-v2",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

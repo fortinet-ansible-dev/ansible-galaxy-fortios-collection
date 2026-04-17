@@ -39,7 +39,7 @@ notes:
 
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -269,6 +269,7 @@ def underscore_to_hyphen(data):
 def wireless_controller_lw_profile(data, fos):
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wireless_controller_lw_profile_data = data["wireless_controller_lw_profile"]
 
@@ -289,12 +290,20 @@ def wireless_controller_lw_profile(data, fos):
 
     if state == "present" or state is True:
         return fos.set(
-            "wireless-controller", "lw-profile", data=converted_data, vdom=vdom
+            "wireless-controller",
+            "lw-profile",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
         return fos.delete(
-            "wireless-controller", "lw-profile", mkey=converted_data["name"], vdom=vdom
+            "wireless-controller",
+            "lw-profile",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

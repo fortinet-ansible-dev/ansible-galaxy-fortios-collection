@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -325,6 +325,7 @@ def system_api_user(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     admin_passwd = data.get("admin_passwd", None)
     if admin_passwd is True:
@@ -349,7 +350,12 @@ def system_api_user(data, fos, check_mode=False):
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system", "api-user", filtered_data, vdom=vdom)
         current_data = fos.get(
-            "system", "api-user", vdom=vdom, mkey=mkey, headers=request_headers
+            "system",
+            "api-user",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
+            headers=request_headers,
         )
         is_existed = (
             current_data
@@ -438,6 +444,7 @@ def system_api_user(data, fos, check_mode=False):
             "api-user",
             data=converted_data,
             vdom=vdom,
+            parameters=parameters,
             headers=request_headers,
         )
 
@@ -447,6 +454,7 @@ def system_api_user(data, fos, check_mode=False):
             "api-user",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
             headers=request_headers,
         )
     else:

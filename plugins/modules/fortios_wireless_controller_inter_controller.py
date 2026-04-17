@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -294,6 +294,7 @@ def wireless_controller_inter_controller(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     wireless_controller_inter_controller_data = data[
         "wireless_controller_inter_controller"
@@ -315,7 +316,11 @@ def wireless_controller_inter_controller(data, fos, check_mode=False):
             "wireless-controller", "inter-controller", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "wireless-controller", "inter-controller", vdom=vdom, mkey=mkey
+            "wireless-controller",
+            "inter-controller",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -399,7 +404,11 @@ def wireless_controller_inter_controller(data, fos, check_mode=False):
     )
 
     return fos.set(
-        "wireless-controller", "inter-controller", data=converted_data, vdom=vdom
+        "wireless-controller",
+        "inter-controller",
+        data=converted_data,
+        vdom=vdom,
+        parameters=parameters,
     )
 
 

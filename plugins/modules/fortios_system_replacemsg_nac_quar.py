@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -254,6 +254,7 @@ def system_replacemsg_nac_quar(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_replacemsg_nac_quar_data = data["system_replacemsg_nac_quar"]
 
@@ -270,7 +271,9 @@ def system_replacemsg_nac_quar(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("system.replacemsg", "nac-quar", filtered_data, vdom=vdom)
-        current_data = fos.get("system.replacemsg", "nac-quar", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "system.replacemsg", "nac-quar", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -353,11 +356,21 @@ def system_replacemsg_nac_quar(data, fos, check_mode=False):
     )
 
     if state == "present" or state is True:
-        return fos.set("system.replacemsg", "nac-quar", data=converted_data, vdom=vdom)
+        return fos.set(
+            "system.replacemsg",
+            "nac-quar",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
 
     elif state == "absent":
         return fos.delete(
-            "system.replacemsg", "nac-quar", mkey=converted_data["msg-type"], vdom=vdom
+            "system.replacemsg",
+            "nac-quar",
+            mkey=converted_data["msg-type"],
+            vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

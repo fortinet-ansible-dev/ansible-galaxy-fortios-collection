@@ -4,6 +4,28 @@ Fortinet.Fortios Release Notes
 
 .. contents:: Topics
 
+v2.5.1
+======
+
+Release Summary
+---------------
+
+patch release of 2.5.1
+
+Major Changes
+-------------
+
+- Added a generic `headers` parameter to `fortios_json_generic` to support admin-password confirmation headers and future custom request headers.
+- Updated FAQ to illustrate the use of `headers` in `fortios_json_generic` module.
+- Updated deprecated import of to_text from ansible.module_utils._text to the supported implementation.
+
+Bugfixes
+--------
+
+- Fixed an issue where some modules could not be configured globally.
+- Fixed an issue where parameters ending with _dict always returned changed, even in check mode or when no changes were made.
+- Fixed an issue where the generate-key.system.api-user selector in the fortios_monitor module required an admin password to function.
+
 v2.5.0
 ======
 

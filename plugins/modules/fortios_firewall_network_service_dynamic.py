@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -245,6 +245,7 @@ def firewall_network_service_dynamic(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     firewall_network_service_dynamic_data = data["firewall_network_service_dynamic"]
 
@@ -264,7 +265,11 @@ def firewall_network_service_dynamic(data, fos, check_mode=False):
             "firewall", "network-service-dynamic", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "firewall", "network-service-dynamic", vdom=vdom, mkey=mkey
+            "firewall",
+            "network-service-dynamic",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -349,7 +354,11 @@ def firewall_network_service_dynamic(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "firewall", "network-service-dynamic", data=converted_data, vdom=vdom
+            "firewall",
+            "network-service-dynamic",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -358,6 +367,7 @@ def firewall_network_service_dynamic(data, fos, check_mode=False):
             "network-service-dynamic",
             mkey=converted_data["name"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")

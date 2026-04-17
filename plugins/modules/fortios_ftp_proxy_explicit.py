@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -367,8 +367,14 @@ def ftp_proxy_explicit(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     ftp_proxy_explicit_data = data["ftp_proxy_explicit"]
+    # Rename ssl_cert_dict field to correctly compare against current configuration
+    if ftp_proxy_explicit_data.get("ssl_cert_dict") is not None:
+        ftp_proxy_explicit_data["ssl_cert"] = ftp_proxy_explicit_data.pop(
+            "ssl_cert_dict"
+        )
 
     filtered_data = filter_ftp_proxy_explicit_data(ftp_proxy_explicit_data)
     filtered_data = flatten_multilists_attributes(filtered_data)
@@ -383,7 +389,9 @@ def ftp_proxy_explicit(data, fos, check_mode=False):
         }
         mkeyname = fos.get_mkeyname(None, None)
         mkey = fos.get_mkey("ftp-proxy", "explicit", filtered_data, vdom=vdom)
-        current_data = fos.get("ftp-proxy", "explicit", vdom=vdom, mkey=mkey)
+        current_data = fos.get(
+            "ftp-proxy", "explicit", vdom=vdom, mkey=mkey, parameters=parameters
+        )
         is_existed = (
             current_data
             and current_data.get("http_status") == 200
@@ -465,7 +473,9 @@ def ftp_proxy_explicit(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set("ftp-proxy", "explicit", data=converted_data, vdom=vdom)
+    return fos.set(
+        "ftp-proxy", "explicit", data=converted_data, vdom=vdom, parameters=parameters
+    )
 
 
 def is_successful_status(resp):

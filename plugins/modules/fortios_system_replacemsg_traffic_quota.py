@@ -40,7 +40,7 @@ notes:
     - The module supports check_mode.
 
 requirements:
-    - ansible>=2.15
+    - ansible>=2.16
 options:
     access_token:
         description:
@@ -254,6 +254,7 @@ def system_replacemsg_traffic_quota(data, fos, check_mode=False):
 
     state = None
     vdom = data["vdom"]
+    parameters = None
     state = data.get("state", None)
     system_replacemsg_traffic_quota_data = data["system_replacemsg_traffic_quota"]
 
@@ -273,7 +274,11 @@ def system_replacemsg_traffic_quota(data, fos, check_mode=False):
             "system.replacemsg", "traffic-quota", filtered_data, vdom=vdom
         )
         current_data = fos.get(
-            "system.replacemsg", "traffic-quota", vdom=vdom, mkey=mkey
+            "system.replacemsg",
+            "traffic-quota",
+            vdom=vdom,
+            mkey=mkey,
+            parameters=parameters,
         )
         is_existed = (
             current_data
@@ -358,7 +363,11 @@ def system_replacemsg_traffic_quota(data, fos, check_mode=False):
 
     if state == "present" or state is True:
         return fos.set(
-            "system.replacemsg", "traffic-quota", data=converted_data, vdom=vdom
+            "system.replacemsg",
+            "traffic-quota",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
         )
 
     elif state == "absent":
@@ -367,6 +376,7 @@ def system_replacemsg_traffic_quota(data, fos, check_mode=False):
             "traffic-quota",
             mkey=converted_data["msg-type"],
             vdom=vdom,
+            parameters=parameters,
         )
     else:
         fos._module.fail_json(msg="state must be present or absent!")
