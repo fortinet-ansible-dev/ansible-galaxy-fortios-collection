@@ -1,0 +1,65 @@
+---
+# FortiOS External Threat Feed Integration
+# Auto-imports and blocks malicious IPs from public feeds
+# Demo-safe – works on any FortiGate
+- name: Import external threat feed
+  hosts: fortigate
+  gather_facts: no
+  collections:
+    - fortinet.fortios
+
+  vars:
+    vdom: "root"
+    threat_feeds:
+      - name: "Abuse-CH-Feodo"
+        url: "https://feodotracker.abuse.ch/downloads/ipblocklist.txt"
+        comment: "Feodo Tracker C&C IPs"
+      - name: "Emer0.0gingThreats-Compromised"
+        url: "https://rules.emergingthreats.net/blockrules/compromised-ips.txt"
+        comment: "Emerging Threats compromised IPs"
+
+  tasks:
+    - name: Configure external threat feed addresses
+      fortinet.fortios.fortios_firewall_address:
+        vdom: "{{ vdom }}"
+        state: "present"
+        firewall_address:
+          name: "{{ item.name }}"
+          type: "threat-feed"
+          threat_feed_url: "{{ item.url }}"
+          comment: "{{ item.comment }}"
+          visibility: "enable"
+          allow_routing: "disable"
+      loop: "{{ threat_feeds }}"
+      register: threat_feed_result
+
+    - name: Create address group for all threat feeds
+      fortinet.fortios.fortios_firewall_addrgrp:
+        vdom: "{{ vdom }}"
+        state: "present"
+        firewall_addrgrp:
+          name: "External-Threat-Feeds"
+          comment: "Consolidated external threat intelligence"
+          member: "{{ threat_feeds | map(attribute='name') | list }}"
+          visibility: "enable"
+
+    - name: Create firewall policy to block threat feed IPs
+      fortinet.fortios.fortios_firewall_policy:
+        vdom: "{{ vdom }}"
+        state: "present"
+        firewall_policy:
+          policyid: 100
+          name: "Block-External-Threats"
+          srcintf: [{"name": "any"}]
+          dstintf: [{"name": "any"}]
+          srcaddr: [{ "name": "External-Threat-Feeds" }]
+          dstaddr: [{ "name": "all" }]
+          action: "deny"
+          schedule: "always"
+          service: [{ "name": "ALL" }]
+          logtraffic: "all"
+          comments: "Block traffic from known malicious IPs"
+
+    - name: Display configuration status
+      debug:
+        msg: "Successfully configured {{ threat_feeds | length }} threat feed(s)" 
