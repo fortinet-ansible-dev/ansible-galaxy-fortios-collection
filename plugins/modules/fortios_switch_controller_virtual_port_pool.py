@@ -100,7 +100,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure virtual pool.
   fortinet.fortios.fortios_switch_controller_virtual_port_pool:

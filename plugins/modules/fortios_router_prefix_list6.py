@@ -134,7 +134,6 @@ options:
                             - IPv6 prefix to define regular filter criteria, such as "any" or subnets.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 prefix lists.
   fortinet.fortios.fortios_router_prefix_list6:

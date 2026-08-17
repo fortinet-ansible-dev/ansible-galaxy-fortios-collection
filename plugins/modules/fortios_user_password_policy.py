@@ -153,7 +153,6 @@ options:
                     - Time in days before a password expiration warning message is displayed to the user upon login.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure user password policy.
   fortinet.fortios.fortios_user_password_policy:

@@ -107,7 +107,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch multiple spanning tree protocol (MSTP) instances.
   fortinet.fortios.fortios_switch_controller_stp_instance:

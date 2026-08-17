@@ -103,7 +103,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPS URL filter IPv6 DNS servers.
   fortinet.fortios.fortios_system_ips_urlfilter_dns6:

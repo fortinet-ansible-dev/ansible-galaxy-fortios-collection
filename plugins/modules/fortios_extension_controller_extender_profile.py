@@ -618,7 +618,7 @@ options:
                                 suboptions:
                                     vid:
                                         description:
-                                            - Please enter VID numbers (1 - 4089) with space separated. Up to 50 VIDs are accepted. see <a
+                                            - Enter VID numbers (1 - 4089) separated by spaces. Up to 50 VIDs can be configured. see <a
                                                href='#notes'>Notes</a>.
                                         required: true
                                         type: int
@@ -704,6 +704,8 @@ options:
                     - 'FVG51G'
                     - 'FXE11G'
                     - 'FX211G'
+                    - 'FWE50G'
+                    - 'FWA50G'
             name:
                 description:
                     - FortiExtender profile name.
@@ -1203,7 +1205,6 @@ options:
                                     - 'disable'
                                     - 'enable'
 """
-
 EXAMPLES = """
 - name: FortiExtender extender profile configuration.
   fortinet.fortios.fortios_extension_controller_extender_profile:
@@ -1764,6 +1765,8 @@ versioned_schema = {
                 {"value": "FVG51G", "v_range": [["v7.6.1", ""]]},
                 {"value": "FXE11G", "v_range": [["v7.6.3", ""]]},
                 {"value": "FX211G", "v_range": [["v7.6.4", ""]]},
+                {"value": "FWE50G", "v_range": [["v7.6.7", ""]]},
+                {"value": "FWA50G", "v_range": [["v7.6.7", ""]]},
             ],
         },
         "extension": {

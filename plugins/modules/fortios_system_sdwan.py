@@ -88,7 +88,7 @@ options:
                 type: int
             duplication:
                 description:
-                    - Create SD-WAN duplication rule.
+                    - Create SD-WAN duplication rules.
                 type: list
                 elements: dict
                 suboptions:
@@ -130,6 +130,17 @@ options:
                             - Duplication rule ID (1 - 255). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
+                    members:
+                        description:
+                            - Member sequence number list.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            seq_num:
+                                description:
+                                    - Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
+                                required: true
+                                type: int
                     packet_de_duplication:
                         description:
                             - Enable/disable discarding of packets that have been duplicated.
@@ -207,6 +218,14 @@ options:
                                     - Interface, zone or SDWAN zone name. Source system.interface.name system.zone.name system.sdwan.zone.name.
                                 required: true
                                 type: str
+                    tos:
+                        description:
+                            - Type of service bit pattern.
+                        type: str
+                    tos_mask:
+                        description:
+                            - Type of service evaluated bits.
+                        type: str
             duplication_max_discrepancy:
                 description:
                     - Maximum discrepancy between two packets for deduplication in milliseconds (250 - 1000).
@@ -875,6 +894,10 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    billing_start_day:
+                        description:
+                            - Volume billing start day when this member"s volume usgage will begin to calculate.
+                        type: int
                     comment:
                         description:
                             - Comments.
@@ -882,6 +905,25 @@ options:
                     cost:
                         description:
                             - Cost of this interface for services in SLA mode (0 - 4294967295).
+                        type: int
+                    duplication_threshold_bandwidth:
+                        description:
+                            - Configure duplication threshold bandwidth interface in the SD-WAN.
+                        type: str
+                        choices:
+                            - 'overlay'
+                            - 'underlay'
+                    duplication_threshold_bibandwidth:
+                        description:
+                            - Bandwidth bistream threshold value in kilobytes per second (0 - 4294967295).
+                        type: int
+                    duplication_threshold_dwbandwidth:
+                        description:
+                            - Bandwidth downstream threshold value in kilobytes per second (0 - 4294967295).
+                        type: int
+                    duplication_threshold_upbandwidth:
+                        description:
+                            - Bandwidth upstream threshold value in kilobytes per second (0 - 4294967295).
                         type: int
                     gateway:
                         description:
@@ -901,6 +943,25 @@ options:
                         description:
                             - Interface name. Source system.interface.name.
                         type: str
+                    overage:
+                        description:
+                            - Enable/disable the volume overage when member"s volume usage reaches quota-limit.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    overage_cost:
+                        description:
+                            - Cost value for this member when its volume is over quota and overage is enabled(0 - 4294967295).
+                        type: int
+                    overage_volume_ratio:
+                        description:
+                            - Volume ratio value for this member when its volume is over quota and overage is enabled(1 - 255).
+                        type: int
+                    overage_weight:
+                        description:
+                            - Weight value for this member when its volume is over quota and overage is enabled.
+                        type: int
                     preferred_source:
                         description:
                             - Preferred source of route for this member.
@@ -920,6 +981,10 @@ options:
                     priority6:
                         description:
                             - Priority of the interface for IPv6 (1 - 65535). Used for SD-WAN rules or priority rules.
+                        type: int
+                    quota_limit:
+                        description:
+                            - Volume quota limit assigned to this member in gigabytes (0 - 10485760).
                         type: int
                     seq_num:
                         description:
@@ -964,7 +1029,7 @@ options:
                         type: str
             neighbor:
                 description:
-                    - Create SD-WAN neighbor from BGP neighbor table to control route advertisements according to SLA status.
+                    - Create SD-WAN neighbors from BGP neighbor table to control route advertisements according to SLA status.
                 type: list
                 elements: dict
                 suboptions:
@@ -1057,6 +1122,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    bandwidth_type:
+                        description:
+                            - Overlay/underlay bandwidth-type.
+                        type: str
+                        choices:
+                            - 'overlay'
+                            - 'underlay'
                     bandwidth_weight:
                         description:
                             - Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
@@ -1608,7 +1680,6 @@ options:
                             - 'priority'
                             - 'input-device'
 """
-
 EXAMPLES = """
 - name: Configure redundant Internet connections with multiple outbound links and health-check profiles.
   fortinet.fortios.fortios_system_sdwan:
@@ -1627,29 +1698,34 @@ EXAMPLES = """
                       -
                           name: "default_name_10 (source system.interface.name system.zone.name system.sdwan.zone.name)"
                   id: "11"
+                  members:
+                      -
+                          seq_num: "<you_own_value>"
                   packet_de_duplication: "enable"
                   packet_duplication: "disable"
                   service:
                       -
-                          name: "default_name_15 (source firewall.service.custom.name firewall.service.group.name)"
+                          name: "default_name_17 (source firewall.service.custom.name firewall.service.group.name)"
                   service_id:
                       -
-                          id: "17 (source system.sdwan.service.id)"
+                          id: "19 (source system.sdwan.service.id)"
                   sla_match_service: "enable"
                   srcaddr:
                       -
-                          name: "default_name_20 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_22 (source firewall.address.name firewall.addrgrp.name)"
                   srcaddr6:
                       -
-                          name: "default_name_22 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_24 (source firewall.address6.name firewall.addrgrp6.name)"
                   srcintf:
                       -
-                          name: "default_name_24 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                          name: "default_name_26 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  tos: "<your_own_value>"
+                  tos_mask: "<your_own_value>"
           duplication_max_discrepancy: "250"
           duplication_max_num: "2"
           fail_alert_interfaces:
               -
-                  name: "default_name_28 (source system.interface.name)"
+                  name: "default_name_32 (source system.interface.name)"
           fail_detect: "enable"
           health_check:
               -
@@ -1678,7 +1754,7 @@ EXAMPLES = """
                       -
                           seq_num: "<you_own_value>"
                   mos_codec: "g711"
-                  name: "default_name_55"
+                  name: "default_name_59"
                   packet_loss_weight: "0"
                   packet_size: "124"
                   password: "<your_own_value>"
@@ -1695,7 +1771,7 @@ EXAMPLES = """
                   sla:
                       -
                           custom_profile_threshold: "0"
-                          id: "71"
+                          id: "75"
                           jitter_threshold: "5"
                           latency_threshold: "5"
                           link_cost_factor: "latency"
@@ -1754,7 +1830,7 @@ EXAMPLES = """
                   server: "192.168.100.40"
                   sla:
                       -
-                          id: "127"
+                          id: "131"
                           jitter_threshold: "5"
                           latency_threshold: "5"
                           link_cost_factor: "latency"
@@ -1782,17 +1858,27 @@ EXAMPLES = """
           load_balance_mode: "source-ip-based"
           members:
               -
+                  billing_start_day: "1"
                   comment: "Comments."
                   cost: "0"
+                  duplication_threshold_bandwidth: "overlay"
+                  duplication_threshold_bibandwidth: "0"
+                  duplication_threshold_dwbandwidth: "0"
+                  duplication_threshold_upbandwidth: "0"
                   gateway: "<your_own_value>"
                   gateway6: "<your_own_value>"
                   ingress_spillover_threshold: "0"
                   interface: "<your_own_value> (source system.interface.name)"
+                  overage: "disable"
+                  overage_cost: "0"
+                  overage_volume_ratio: "1"
+                  overage_weight: "1"
                   preferred_source: "<your_own_value>"
                   priority: "1"
                   priority_in_sla: "0"
                   priority_out_sla: "0"
                   priority6: "1024"
+                  quota_limit: "0"
                   seq_num: "<you_own_value>"
                   source: "<your_own_value>"
                   source6: "<your_own_value>"
@@ -1822,6 +1908,7 @@ EXAMPLES = """
               -
                   addr_mode: "ipv4"
                   agent_exclusive: "enable"
+                  bandwidth_type: "overlay"
                   bandwidth_weight: "0"
                   comment: "Comments."
                   default: "enable"
@@ -1831,56 +1918,56 @@ EXAMPLES = """
                   dscp_reverse_tag: "<your_own_value>"
                   dst:
                       -
-                          name: "default_name_199 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_214 (source firewall.address.name firewall.addrgrp.name)"
                   dst_negate: "enable"
                   dst6:
                       -
-                          name: "default_name_202 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_217 (source firewall.address6.name firewall.addrgrp6.name)"
                   end_port: "65535"
                   end_src_port: "65535"
                   fib_best_match_force: "disable"
                   gateway: "enable"
                   groups:
                       -
-                          name: "default_name_208 (source user.group.name)"
+                          name: "default_name_223 (source user.group.name)"
                   hash_mode: "round-robin"
                   health_check:
                       -
-                          name: "default_name_211 (source system.sdwan.health-check.name)"
+                          name: "default_name_226 (source system.sdwan.health-check.name)"
                   hold_down_time: "0"
-                  id: "213"
+                  id: "228"
                   input_device:
                       -
-                          name: "default_name_215 (source system.interface.name)"
+                          name: "default_name_230 (source system.interface.name)"
                   input_device_negate: "enable"
                   input_zone:
                       -
-                          name: "default_name_218 (source system.sdwan.zone.name)"
+                          name: "default_name_233 (source system.sdwan.zone.name)"
                   internet_service: "enable"
                   internet_service_app_ctrl:
                       -
-                          id: "221"
+                          id: "236"
                   internet_service_app_ctrl_category:
                       -
-                          id: "223"
+                          id: "238"
                   internet_service_app_ctrl_group:
                       -
-                          name: "default_name_225 (source application.group.name)"
+                          name: "default_name_240 (source application.group.name)"
                   internet_service_custom:
                       -
-                          name: "default_name_227 (source firewall.internet-service-custom.name)"
+                          name: "default_name_242 (source firewall.internet-service-custom.name)"
                   internet_service_custom_group:
                       -
-                          name: "default_name_229 (source firewall.internet-service-custom-group.name)"
+                          name: "default_name_244 (source firewall.internet-service-custom-group.name)"
                   internet_service_fortiguard:
                       -
-                          name: "default_name_231 (source firewall.internet-service-fortiguard.name)"
+                          name: "default_name_246 (source firewall.internet-service-fortiguard.name)"
                   internet_service_group:
                       -
-                          name: "default_name_233 (source firewall.internet-service-group.name)"
+                          name: "default_name_248 (source firewall.internet-service-group.name)"
                   internet_service_name:
                       -
-                          name: "default_name_235 (source firewall.internet-service-name.name)"
+                          name: "default_name_250 (source firewall.internet-service-name.name)"
                   jitter_weight: "0"
                   latency_weight: "0"
                   link_cost_factor: "latency"
@@ -1888,7 +1975,7 @@ EXAMPLES = """
                   load_balance: "enable"
                   minimum_sla_meet_members: "0"
                   mode: "auto"
-                  name: "default_name_243"
+                  name: "default_name_258"
                   packet_loss_weight: "0"
                   passive_measurement: "enable"
                   priority_members:
@@ -1896,7 +1983,7 @@ EXAMPLES = """
                           seq_num: "<you_own_value>"
                   priority_zone:
                       -
-                          name: "default_name_249 (source system.sdwan.zone.name)"
+                          name: "default_name_264 (source system.sdwan.zone.name)"
                   protocol: "0"
                   quality_link: "0"
                   role: "standalone"
@@ -1907,16 +1994,16 @@ EXAMPLES = """
                   sla:
                       -
                           health_check: "<your_own_value> (source system.sdwan.health-check.name)"
-                          id: "259"
+                          id: "274"
                   sla_compare_method: "order"
                   sla_stickiness: "enable"
                   src:
                       -
-                          name: "default_name_263 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_278 (source firewall.address.name firewall.addrgrp.name)"
                   src_negate: "enable"
                   src6:
                       -
-                          name: "default_name_266 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_281 (source firewall.address6.name firewall.addrgrp6.name)"
                   standalone_action: "enable"
                   start_port: "1"
                   start_src_port: "1"
@@ -1927,7 +2014,7 @@ EXAMPLES = """
                   use_shortcut_sla: "enable"
                   users:
                       -
-                          name: "default_name_276 (source user.local.name)"
+                          name: "default_name_291 (source user.local.name)"
                   zone_mode: "enable"
           speedtest_bypass_routing: "disable"
           status: "disable"
@@ -1936,7 +2023,7 @@ EXAMPLES = """
                   advpn_health_check: "<your_own_value> (source system.sdwan.health-check.name)"
                   advpn_select: "enable"
                   minimum_sla_meet_members: "1"
-                  name: "default_name_284"
+                  name: "default_name_299"
                   service_sla_tie_break: "cfg-order"
 """
 
@@ -2346,6 +2433,23 @@ versioned_schema = {
                     "type": "integer",
                     "required": True,
                 },
+                "duplication_threshold_upbandwidth": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "duplication_threshold_dwbandwidth": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "duplication_threshold_bibandwidth": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "duplication_threshold_bandwidth": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "overlay"}, {"value": "underlay"}],
+                },
                 "interface": {"v_range": [["v6.4.0", ""]], "type": "string"},
                 "zone": {"v_range": [["v6.4.0", ""]], "type": "string"},
                 "gateway": {"v_range": [["v6.4.0", ""]], "type": "string"},
@@ -2365,6 +2469,19 @@ versioned_schema = {
                     "type": "integer",
                 },
                 "volume_ratio": {"v_range": [["v6.4.0", ""]], "type": "integer"},
+                "quota_limit": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "billing_start_day": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "overage": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "overage_weight": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "overage_cost": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "overage_volume_ratio": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
                 "status": {
                     "v_range": [["v6.4.0", ""]],
                     "type": "string",
@@ -2645,6 +2762,11 @@ versioned_schema = {
                     "v_range": [["v7.4.1", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "bandwidth_type": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "overlay"}, {"value": "underlay"}],
                 },
                 "input_device": {
                     "type": "list",
@@ -3222,6 +3344,20 @@ versioned_schema = {
                         }
                     },
                     "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
+                },
+                "tos": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "tos_mask": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "members": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "seq_num": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
                 },
                 "packet_duplication": {
                     "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],

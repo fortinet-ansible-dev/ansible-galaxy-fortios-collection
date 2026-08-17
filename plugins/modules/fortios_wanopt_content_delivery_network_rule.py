@@ -305,7 +305,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure WAN optimization content delivery network rules.
   fortinet.fortios.fortios_wanopt_content_delivery_network_rule:

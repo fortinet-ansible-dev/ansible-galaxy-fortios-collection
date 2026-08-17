@@ -116,6 +116,17 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this policy. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
             dst_addr:
                 description:
                     - IPv4 Destination address.
@@ -279,7 +290,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv4 and IPv6 central SNAT policies.
   fortinet.fortios.fortios_firewall_central_snat_map:
@@ -288,32 +298,35 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       firewall_central_snat_map:
           comments: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_5 (source firewall.custom-tag.name)"
           dst_addr:
               -
-                  name: "default_name_5 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_7 (source firewall.address.name firewall.addrgrp.name)"
           dst_addr6:
               -
-                  name: "default_name_7 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_9 (source firewall.address6.name firewall.addrgrp6.name)"
           dst_port: "<your_own_value>"
           dstintf:
               -
-                  name: "default_name_10 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_12 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           nat: "disable"
           nat_ippool:
               -
-                  name: "default_name_13 (source firewall.ippool.name)"
+                  name: "default_name_15 (source firewall.ippool.name)"
           nat_ippool6:
               -
-                  name: "default_name_15 (source firewall.ippool6.name)"
+                  name: "default_name_17 (source firewall.ippool6.name)"
           nat_port: "<your_own_value>"
           nat46: "enable"
           nat64: "enable"
           orig_addr:
               -
-                  name: "default_name_20 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_22 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           orig_addr6:
               -
-                  name: "default_name_22 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_24 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           orig_port: "<your_own_value>"
           policyid: "<you_own_value>"
           port_preserve: "enable"
@@ -321,7 +334,7 @@ EXAMPLES = """
           protocol: "0"
           srcintf:
               -
-                  name: "default_name_29 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_31 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           status: "enable"
           type: "ipv4"
           uuid: "<your_own_value>"
@@ -421,6 +434,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_firewall_central_snat_map_data(json):
     option_list = [
         "comments",
+        "custom_tags",
         "dst_addr",
         "dst_addr6",
         "dst_port",
@@ -687,6 +701,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "orig_addr": {
             "type": "list",

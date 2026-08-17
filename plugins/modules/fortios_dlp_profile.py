@@ -108,6 +108,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - Flow/proxy feature set.
@@ -123,6 +146,10 @@ options:
                     - 'log-only'
                     - 'block'
                     - 'ignore'
+            fortidata_scan_timeout:
+                description:
+                    - FortiData inline scan timeout in seconds (10 - 30).
+                type: int
             full_archive_proto:
                 description:
                     - Protocols to always content archive.
@@ -139,6 +166,7 @@ options:
                     - 'mapi'
                     - 'ssh'
                     - 'cifs'
+                    - 'websocket'
             nac_quar_log:
                 description:
                     - Enable/disable NAC quarantine logging.
@@ -233,6 +261,7 @@ options:
                             - 'mapi'
                             - 'ssh'
                             - 'cifs'
+                            - 'websocket'
                     sensitivity:
                         description:
                             - Select a DLP file pattern sensitivity to match.
@@ -252,7 +281,7 @@ options:
                         suboptions:
                             name:
                                 description:
-                                    - Address name. Source dlp.sensor.name.
+                                    - Sensor name. Source dlp.sensor.name.
                                 required: true
                                 type: str
                     severity:
@@ -288,8 +317,12 @@ options:
                     - 'mapi'
                     - 'ssh'
                     - 'cifs'
+                    - 'websocket'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure DLP profiles.
   fortinet.fortios.fortios_dlp_profile:
@@ -300,11 +333,15 @@ EXAMPLES = """
           comment: "Comment."
           dlp_log: "enable"
           extended_log: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "flow"
           fortidata_error_action: "log-only"
+          fortidata_scan_timeout: "15"
           full_archive_proto: "smtp"
           nac_quar_log: "enable"
-          name: "default_name_10"
+          name: "default_name_14"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           rule:
               -
@@ -314,20 +351,21 @@ EXAMPLES = """
                   file_size: "0"
                   file_type: "0"
                   filter_by: "sensor"
-                  id: "19"
+                  id: "23"
                   label: "<your_own_value> (source dlp.label.name)"
                   match_percentage: "10"
-                  name: "default_name_22"
+                  name: "default_name_26"
                   proto: "smtp"
                   sensitivity:
                       -
-                          name: "default_name_25 (source dlp.sensitivity.name)"
+                          name: "default_name_29 (source dlp.sensitivity.name)"
                   sensor:
                       -
-                          name: "default_name_27 (source dlp.sensor.name)"
+                          name: "default_name_31 (source dlp.sensor.name)"
                   severity: "info"
                   type: "file"
           summary_proto: "smtp"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -426,14 +464,19 @@ def filter_dlp_profile_data(json):
         "comment",
         "dlp_log",
         "extended_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "feature_set",
         "fortidata_error_action",
+        "fortidata_scan_timeout",
         "full_archive_proto",
         "nac_quar_log",
         "name",
         "replacemsg_group",
         "rule",
         "summary_proto",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -675,6 +718,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.2.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "feature_set": {
             "v_range": [["v7.2.0", ""]],
@@ -722,6 +781,7 @@ versioned_schema = {
                         {"value": "mapi"},
                         {"value": "ssh"},
                         {"value": "cifs"},
+                        {"value": "websocket", "v_range": [["v7.6.7", ""]]},
                     ],
                     "multiple_values": True,
                     "elements": "str",
@@ -820,6 +880,7 @@ versioned_schema = {
                 {"value": "mapi"},
                 {"value": "ssh"},
                 {"value": "cifs"},
+                {"value": "websocket", "v_range": [["v7.6.7", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -838,6 +899,7 @@ versioned_schema = {
                 {"value": "mapi"},
                 {"value": "ssh"},
                 {"value": "cifs"},
+                {"value": "websocket", "v_range": [["v7.6.7", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -847,6 +909,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "log-only"}, {"value": "block"}, {"value": "ignore"}],
         },
+        "fortidata_scan_timeout": {"v_range": [["v8.0.0", ""]], "type": "integer"},
     },
     "v_range": [["v7.2.0", ""]],
 }

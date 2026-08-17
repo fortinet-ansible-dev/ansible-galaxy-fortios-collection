@@ -114,7 +114,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure the MAC address group.
   fortinet.fortios.fortios_wireless_controller_addrgrp:

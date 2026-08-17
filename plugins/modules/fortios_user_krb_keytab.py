@@ -126,7 +126,6 @@ options:
                     - Kerberos service principal. For example, HTTP/myfgt.example.com@example.com.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Kerberos keytab entries.
   fortinet.fortios.fortios_user_krb_keytab:

@@ -110,7 +110,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard Web Filter local risk score.
   fortinet.fortios.fortios_webfilter_ftgd_local_risk:

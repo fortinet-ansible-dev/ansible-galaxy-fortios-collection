@@ -94,6 +94,10 @@ options:
                     - 'auto'
                     - 'sdwan'
                     - 'specify'
+            port:
+                description:
+                    - Server listen port.
+                type: int
             server:
                 description:
                     - Address of TACACS+ server.
@@ -113,12 +117,15 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            timeout:
+                description:
+                    - connection time-out in seconds.
+                type: int
             vrf_select:
                 description:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Settings for TACACS+ accounting.
   fortinet.fortios.fortios_log_tacacsplusaccounting2_setting:
@@ -126,10 +133,12 @@ EXAMPLES = """
       log_tacacsplusaccounting2_setting:
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
+          port: "49"
           server: "192.168.100.40"
           server_key: "<your_own_value>"
           source_ip: "84.230.14.43"
           status: "enable"
+          timeout: "5"
           vrf_select: "0"
 """
 
@@ -228,10 +237,12 @@ def filter_log_tacacsplusaccounting2_setting_data(json):
     option_list = [
         "interface",
         "interface_select_method",
+        "port",
         "server",
         "server_key",
         "source_ip",
         "status",
+        "timeout",
         "vrf_select",
     ]
 
@@ -421,6 +432,8 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "server": {"v_range": [["v7.0.2", ""]], "type": "string"},
+        "port": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "timeout": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "server_key": {"v_range": [["v7.0.2", ""]], "type": "string"},
         "source_ip": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "interface_select_method": {

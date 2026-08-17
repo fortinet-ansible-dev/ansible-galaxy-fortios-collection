@@ -157,6 +157,7 @@ options:
                     - 'interface'
                     - 'ospf-nbr-state-change'
                     - 'ospf-virtnbr-state-change'
+                    - 'fsso'
                     - 'bfd'
                     - 'power-supply-failure'
             ha_direct:
@@ -275,7 +276,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: SNMP user configuration.
   fortinet.fortios.fortios_system_snmp_user:
@@ -731,6 +731,7 @@ versioned_schema = {
                 {"value": "interface", "v_range": [["v7.6.0", ""]]},
                 {"value": "ospf-nbr-state-change", "v_range": [["v7.0.0", ""]]},
                 {"value": "ospf-virtnbr-state-change", "v_range": [["v7.0.0", ""]]},
+                {"value": "fsso", "v_range": [["v8.0.0", ""]]},
                 {"value": "bfd", "v_range": [["v7.6.5", ""]]},
                 {"value": "power-supply-failure", "v_range": [["v6.0.0", "v7.4.1"]]},
             ],

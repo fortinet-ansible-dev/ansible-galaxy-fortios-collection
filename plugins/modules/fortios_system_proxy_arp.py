@@ -110,7 +110,6 @@ options:
                     - IP address or start IP to be proxied.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure proxy-ARP.
   fortinet.fortios.fortios_system_proxy_arp:

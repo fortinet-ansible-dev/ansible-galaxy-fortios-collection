@@ -109,7 +109,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FIPS-CC mode.
   fortinet.fortios.fortios_system_fips_cc:

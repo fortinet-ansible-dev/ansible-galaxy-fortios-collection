@@ -118,7 +118,6 @@ options:
                     - Endpoint client MAC address.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure endpoint control client lists.
   fortinet.fortios.fortios_endpoint_control_client:

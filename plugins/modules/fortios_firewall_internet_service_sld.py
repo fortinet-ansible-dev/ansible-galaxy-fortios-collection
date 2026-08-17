@@ -102,7 +102,6 @@ options:
                     - Second Level Domain name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Internet Service Second Level Domain.
   fortinet.fortios.fortios_firewall_internet_service_sld:

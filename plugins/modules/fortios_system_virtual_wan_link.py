@@ -817,7 +817,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure redundant internet connections using SD-WAN (formerly virtual WAN link).
   fortinet.fortios.fortios_system_virtual_wan_link:

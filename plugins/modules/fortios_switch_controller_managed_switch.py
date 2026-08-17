@@ -95,6 +95,13 @@ options:
                     - Configuration method to edit FortiSwitch 802.1X global settings.
                 type: dict
                 suboptions:
+                    allow_mac_move:
+                        description:
+                            - Enable/disable MAC move .
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     link_down_auth:
                         description:
                             - Authentication state to set if a link is down.
@@ -109,6 +116,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    mab_entry_as:
+                        description:
+                            - Configure MAB MAC entry as static or dynamic .
+                        type: str
+                        choices:
+                            - 'static'
+                            - 'dynamic'
                     mab_reauth:
                         description:
                             - Enable or disable MAB reauthentication settings.
@@ -175,6 +189,74 @@ options:
                 description:
                     - FortiSwitch access profile. Source switch-controller.security-policy.local-access.name.
                 type: str
+            components:
+                description:
+                    - Managed-switch component list.
+                type: list
+                elements: dict
+                suboptions:
+                    admin_status:
+                        description:
+                            - Managed-switch component admin-status.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    capability:
+                        description:
+                            - Managed-switch feature capability list.
+                        type: str
+                    component_id:
+                        description:
+                            - Managed-switch component id in stacking/chassis.
+                        type: int
+                    description:
+                        description:
+                            - Managed-switch component description.
+                        type: str
+                    max_allowed_trunk_members:
+                        description:
+                            - Managed-switch component maximum allowed trunk members.
+                        type: int
+                    name:
+                        description:
+                            - Managed-switch component name.
+                        required: true
+                        type: str
+                    poe_detection_type:
+                        description:
+                            - Managed-switch component PoE detection type.
+                        type: int
+                    role:
+                        description:
+                            - Managed-switch components role.
+                        type: str
+                        choices:
+                            - 'None'
+                            - 'Primary'
+                            - 'Backup'
+                            - 'Follower'
+                            - 'Standalone'
+                    serial_number:
+                        description:
+                            - Managed-switch component serial number.
+                        type: str
+                    sw_version:
+                        description:
+                            - Managed-switch component software version.
+                        type: str
+                    type:
+                        description:
+                            - Managed-switch component type.
+                        type: str
+                        choices:
+                            - 'stack-node'
+                            - 'supervisor'
+                            - 'linecard'
+                    version:
+                        description:
+                            - Managed-switch component version.
+                        type: int
             custom_command:
                 description:
                     - Configuration method to edit FortiSwitch commands to be pushed to this FortiSwitch device upon rebooting the FortiGate switch controller
@@ -509,6 +591,17 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            port_selection_criteria:
+                description:
+                    - Algorithm for aggregate port selection.
+                type: str
+                choices:
+                    - 'src-mac'
+                    - 'dst-mac'
+                    - 'src-dst-mac'
+                    - 'src-ip'
+                    - 'dst-ip'
+                    - 'src-dst-ip'
             ports:
                 description:
                     - Managed-switch port list.
@@ -633,6 +726,21 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    eee_tx_idle_time:
+                        description:
+                            - Time in which the transmitter is in low power idle (LPI) before transitioning to the refresh state in microseconds (0 - 2560).
+                        type: int
+                    eee_tx_wake_time:
+                        description:
+                            - Time for the transmitter to transition from low power idle (LPI) to its normal operating state in microseconds (0 - 2560).
+                        type: int
+                    energy_efficient_ethernet:
+                        description:
+                            - Enable/disable energy efficient events.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     export_tags:
                         description:
                             - Configure export tag(s) for FortiSwitch port when exported to a virtual port pool.
@@ -940,6 +1048,14 @@ options:
                         description:
                             - PoE maximum power.
                         type: str
+                    poe_max_power_mode:
+                        description:
+                            - PoE maximum power mode.
+                        type: str
+                        choices:
+                            - 'class-based'
+                            - '30W'
+                            - '60W'
                     poe_mode_bt_cabable:
                         description:
                             - PoE mode IEEE 802.3BT capable.
@@ -1088,7 +1204,7 @@ options:
                             - '1000auto'
                             - '1000full-fiber'
                             - '40000full'
-                            - 'auto-module'
+                            - 'detect-by-module'
                             - '100FX-half'
                             - '100FX-full'
                             - '100000full'
@@ -1109,6 +1225,7 @@ options:
                             - '50000sr'
                             - '5000auto'
                             - 'sgmii-auto'
+                            - 'auto-module'
                             - '1000fiber'
                             - '10000'
                             - '40000'
@@ -2088,7 +2205,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch devices that are managed by this FortiGate.
   fortinet.fortios.fortios_switch_controller_managed_switch:
@@ -2097,8 +2213,10 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       switch_controller_managed_switch:
           settings_802_1X:
+              allow_mac_move: "disable"
               link_down_auth: "set-unauth"
               local_override: "enable"
+              mab_entry_as: "static"
               mab_reauth: "disable"
               mac_called_station_delimiter: "colon"
               mac_calling_station_delimiter: "colon"
@@ -2109,6 +2227,20 @@ EXAMPLES = """
               reauth_period: "60"
               tx_period: "30"
           access_profile: "<your_own_value> (source switch-controller.security-policy.local-access.name)"
+          components:
+              -
+                  admin_status: "disable"
+                  capability: "<your_own_value>"
+                  component_id: "0"
+                  description: "<your_own_value>"
+                  max_allowed_trunk_members: "0"
+                  name: "default_name_24"
+                  poe_detection_type: "0"
+                  role: "None"
+                  serial_number: "<your_own_value>"
+                  sw_version: "<your_own_value>"
+                  type: "stack-node"
+                  version: "0"
           custom_command:
               -
                   command_entry: "<your_own_value>"
@@ -2120,7 +2252,7 @@ EXAMPLES = """
               -
                   ip: "<your_own_value>"
                   mac: "<your_own_value>"
-                  name: "default_name_25"
+                  name: "default_name_40"
                   port: "<your_own_value>"
                   vlan: "<your_own_value> (source system.interface.name)"
           directly_connected: "0"
@@ -2161,16 +2293,16 @@ EXAMPLES = """
           mirror:
               -
                   dst: "<your_own_value>"
-                  name: "default_name_62"
+                  name: "default_name_77"
                   src_egress:
                       -
-                          name: "default_name_64"
+                          name: "default_name_79"
                   src_ingress:
                       -
-                          name: "default_name_66"
+                          name: "default_name_81"
                   status: "active"
                   switching_packet: "enable"
-          name: "default_name_69"
+          name: "default_name_84"
           override_snmp_community: "enable"
           override_snmp_sysinfo: "disable"
           override_snmp_trap_threshold: "enable"
@@ -2179,12 +2311,13 @@ EXAMPLES = """
           poe_detection_type: "0"
           poe_lldp_detection: "enable"
           poe_pre_standard_detection: "enable"
+          port_selection_criteria: "src-mac"
           ports:
               -
                   access_mode: "dynamic"
                   acl_group:
                       -
-                          name: "default_name_81 (source switch-controller.acl.group.name)"
+                          name: "default_name_97 (source switch-controller.acl.group.name)"
                   aggregator_mode: "bandwidth"
                   allow_arp_monitor: "disable"
                   allowed_vlans:
@@ -2203,6 +2336,9 @@ EXAMPLES = """
                   dhcp_snooping: "untrusted"
                   discard_mode: "none"
                   edge_port: "enable"
+                  eee_tx_idle_time: "60"
+                  eee_tx_wake_time: "30"
+                  energy_efficient_ethernet: "disable"
                   export_tags:
                       -
                           tag_name: "<your_own_value> (source switch-controller.switch-interface-tag.name)"
@@ -2224,7 +2360,7 @@ EXAMPLES = """
                   fortilink_port: "0"
                   fortiswitch_acls:
                       -
-                          id: "117"
+                          id: "136"
                   igmp_snooping: "enable"
                   igmp_snooping_flood_reports: "enable"
                   igmps_flood_reports: "enable"
@@ -2265,6 +2401,7 @@ EXAMPLES = """
                   pd_capable: "0"
                   poe_capable: "0"
                   poe_max_power: "<your_own_value>"
+                  poe_max_power_mode: "class-based"
                   poe_mode_bt_cabable: "0"
                   poe_port_mode: "ieee802-3af"
                   poe_port_power: "normal"
@@ -2317,7 +2454,7 @@ EXAMPLES = """
               -
                   csv: "enable"
                   facility: "kernel"
-                  name: "default_name_206"
+                  name: "default_name_226"
                   port: "514"
                   server: "192.168.100.40"
                   severity: "emergency"
@@ -2337,13 +2474,13 @@ EXAMPLES = """
                   dst: "<your_own_value>"
                   dynamic_gateway: "disable"
                   gateway: "<your_own_value>"
-                  id: "224"
+                  id: "244"
                   status: "disable"
                   switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
                   vrf: "<your_own_value> (source switch-controller.managed-switch.router-vrf.name)"
           router_vrf:
               -
-                  name: "default_name_229"
+                  name: "default_name_249"
                   switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
                   vrfid: "0"
           sn: "<your_own_value>"
@@ -2352,10 +2489,10 @@ EXAMPLES = """
                   events: "cpu-high"
                   hosts:
                       -
-                          id: "236"
+                          id: "256"
                           ip: "<your_own_value>"
-                  id: "238"
-                  name: "default_name_239"
+                  id: "258"
+                  name: "default_name_259"
                   query_v1_port: "161"
                   query_v1_status: "disable"
                   query_v2c_port: "161"
@@ -2381,7 +2518,7 @@ EXAMPLES = """
               -
                   auth_proto: "md5"
                   auth_pwd: "<your_own_value>"
-                  name: "default_name_264"
+                  name: "default_name_284"
                   priv_proto: "aes128"
                   priv_pwd: "<your_own_value>"
                   queries: "disable"
@@ -2391,7 +2528,7 @@ EXAMPLES = """
           static_mac:
               -
                   description: "<your_own_value>"
-                  id: "273"
+                  id: "293"
                   interface: "<your_own_value>"
                   mac: "<your_own_value>"
                   type: "static"
@@ -2405,7 +2542,7 @@ EXAMPLES = """
               unknown_unicast: "enable"
           stp_instance:
               -
-                  id: "286"
+                  id: "306"
                   priority: "0"
           stp_settings:
               forward_time: "15"
@@ -2413,7 +2550,7 @@ EXAMPLES = """
               local_override: "enable"
               max_age: "20"
               max_hops: "20"
-              name: "default_name_294"
+              name: "default_name_314"
               pending_timer: "4"
               revision: "0"
               status: "enable"
@@ -2434,12 +2571,12 @@ EXAMPLES = """
                   dns_server2: "<your_own_value>"
                   dns_server3: "<your_own_value>"
                   dns_service: "local"
-                  id: "314"
+                  id: "334"
                   interface: "<your_own_value> (source switch-controller.managed-switch.system-interface.name)"
                   ip_range:
                       -
                           end_ip: "<your_own_value>"
-                          id: "318"
+                          id: "338"
                           start_ip: "<your_own_value>"
                   lease_time: "604800"
                   netmask: "<your_own_value>"
@@ -2450,7 +2587,7 @@ EXAMPLES = """
                   options:
                       -
                           code: "0"
-                          id: "328"
+                          id: "348"
                           ip: "<your_own_value>"
                           type: "hex"
                           value: "<your_own_value>"
@@ -2462,7 +2599,7 @@ EXAMPLES = """
                   interface: "<your_own_value> (source switch-controller.managed-switch.ports.port-name)"
                   ip: "<your_own_value>"
                   mode: "static"
-                  name: "default_name_339"
+                  name: "default_name_359"
                   status: "disable"
                   switch_id: "<your_own_value> (source switch-controller.managed-switch.switch-id)"
                   type: "vlan"
@@ -2572,6 +2709,7 @@ def filter_switch_controller_managed_switch_data(json):
     option_list = [
         "settings_802_1X",
         "access_profile",
+        "components",
         "custom_command",
         "delayed_restart_trigger",
         "description",
@@ -2604,6 +2742,7 @@ def filter_switch_controller_managed_switch_data(json):
         "poe_detection_type",
         "poe_lldp_detection",
         "poe_pre_standard_detection",
+        "port_selection_criteria",
         "ports",
         "pre_provisioned",
         "ptp_profile",
@@ -3013,6 +3152,18 @@ versioned_schema = {
         "flow_identity": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "staged_image_version": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "delayed_restart_trigger": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "port_selection_criteria": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "src-mac"},
+                {"value": "dst-mac"},
+                {"value": "src-dst-mac"},
+                {"value": "src-ip"},
+                {"value": "dst-ip"},
+                {"value": "src-dst-ip"},
+            ],
+        },
         "firmware_provision": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
@@ -3023,6 +3174,54 @@ versioned_schema = {
             "v_range": [["v7.0.4", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "once"}],
+        },
+        "components": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "component_id": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "serial_number": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "description": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "type": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "stack-node"},
+                        {"value": "supervisor"},
+                        {"value": "linecard"},
+                    ],
+                },
+                "role": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "None"},
+                        {"value": "Primary"},
+                        {"value": "Backup"},
+                        {"value": "Follower"},
+                        {"value": "Standalone"},
+                    ],
+                },
+                "admin_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "sw_version": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "capability": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "version": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "poe_detection_type": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "max_allowed_trunk_members": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "ports": {
             "type": "list",
@@ -3057,7 +3256,7 @@ versioned_schema = {
                             "value": "40000full",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
                         },
-                        {"value": "auto-module"},
+                        {"value": "detect-by-module", "v_range": [["v8.0.0", ""]]},
                         {"value": "100FX-half"},
                         {"value": "100FX-full"},
                         {"value": "100000full"},
@@ -3121,6 +3320,7 @@ versioned_schema = {
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
                         },
                         {"value": "sgmii-auto", "v_range": [["v7.6.5", ""]]},
+                        {"value": "auto-module", "v_range": [["v6.0.0", "v7.6.7"]]},
                         {
                             "value": "1000fiber",
                             "v_range": [["v6.0.0", "v7.0.7"], ["v7.2.0", "v7.2.2"]],
@@ -3208,6 +3408,15 @@ versioned_schema = {
                 },
                 "poe_capable": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "pd_capable": {"v_range": [["v7.6.0", ""]], "type": "integer"},
+                "poe_max_power_mode": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "class-based"},
+                        {"value": "30W"},
+                        {"value": "60W"},
+                    ],
+                },
                 "poe_mode_bt_cabable": {"v_range": [["v7.2.4", ""]], "type": "integer"},
                 "poe_port_mode": {
                     "v_range": [["v7.2.4", ""]],
@@ -3478,6 +3687,13 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
+                "energy_efficient_ethernet": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "eee_tx_wake_time": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "eee_tx_idle_time": {"v_range": [["v8.0.0", ""]], "type": "integer"},
                 "port_selection_criteria": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -4440,6 +4656,11 @@ versioned_schema = {
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
+                "mab_entry_as": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "static"}, {"value": "dynamic"}],
+                },
                 "mac_username_delimiter": {
                     "v_range": [["v7.4.2", ""]],
                     "type": "string",
@@ -4484,6 +4705,11 @@ versioned_schema = {
                     "v_range": [["v7.4.2", ""]],
                     "type": "string",
                     "options": [{"value": "lowercase"}, {"value": "uppercase"}],
+                },
+                "allow_mac_move": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
                 },
             },
         },

@@ -109,6 +109,10 @@ options:
                 description:
                     - Do not submit files matching this DLP file-pattern to FortiSandbox (post-transfer scan only). Source dlp.filepattern.id.
                 type: int
+            analytics_ignore_mpip:
+                description:
+                    - Do not submit files matching this DLP label to FortiSandbox (post-transfer scan only). Source dlp.label.name.
+                type: str
             analytics_max_upload:
                 description:
                     - Maximum size of files that can be uploaded to FortiSandbox.
@@ -168,7 +172,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -183,7 +187,7 @@ options:
                             - 'disable'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -199,7 +203,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -207,7 +211,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -215,7 +219,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -232,7 +236,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -438,6 +442,29 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - Flow/proxy feature set.
@@ -477,6 +504,14 @@ options:
                     - 'log-only'
                     - 'block'
                     - 'ignore'
+            fortisandbox_destination:
+                description:
+                    - FortiSandbox destination options.
+                type: str
+                choices:
+                    - 'auto'
+                    - 'sandbox'
+                    - 'sandbox-cloud'
             fortisandbox_error_action:
                 description:
                     - Action to take if FortiSandbox inline scan encounters an error.
@@ -554,7 +589,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -569,7 +604,7 @@ options:
                             - 'disable'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -585,7 +620,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -593,7 +628,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -601,7 +636,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -618,7 +653,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -671,7 +706,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -693,7 +728,7 @@ options:
                             - 'disable'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -709,7 +744,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -717,7 +752,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -725,7 +760,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -742,7 +777,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -803,7 +838,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -832,7 +867,7 @@ options:
                             - 'virus'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -848,7 +883,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -856,7 +891,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -864,7 +899,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -881,7 +916,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -941,7 +976,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -963,7 +998,7 @@ options:
                             - 'virus'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -979,7 +1014,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -987,7 +1022,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -995,7 +1030,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1012,7 +1047,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -1100,7 +1135,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -1115,7 +1150,7 @@ options:
                             - 'disable'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1131,7 +1166,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -1139,7 +1174,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -1147,7 +1182,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1164,7 +1199,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -1206,6 +1241,22 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            outbreak_prevention_error_action:
+                description:
+                    - Action to take if outbreak-prevention encounters an error
+                type: str
+                choices:
+                    - 'log-only'
+                    - 'block'
+                    - 'ignore'
+            outbreak_prevention_timeout_action:
+                description:
+                    - Action to take if outbreak-prevention encounters a request timeout
+                type: str
+                choices:
+                    - 'log-only'
+                    - 'block'
+                    - 'ignore'
             pop3:
                 description:
                     - Configure POP3 AntiVirus options.
@@ -1243,7 +1294,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -1272,7 +1323,7 @@ options:
                             - 'virus'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1288,7 +1339,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -1296,7 +1347,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -1304,7 +1355,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1321,7 +1372,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -1443,7 +1494,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -1472,7 +1523,7 @@ options:
                             - 'virus'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1488,7 +1539,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -1496,7 +1547,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -1504,7 +1555,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1521,7 +1572,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -1574,7 +1625,7 @@ options:
                             - 'fileslimit'
                     av_scan:
                         description:
-                            - Enable AntiVirus scan service.
+                            - Enable/disable AntiVirus scan service.
                         type: str
                         choices:
                             - 'disable'
@@ -1589,7 +1640,7 @@ options:
                             - 'disable'
                     external_blocklist:
                         description:
-                            - Enable external-blocklist. Analyzes files including the content of archives.
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1605,7 +1656,7 @@ options:
                             - 'monitor'
                     fortindr:
                         description:
-                            - Enable scanning of files by FortiNDR.
+                            - Enable/disable scanning of files by FortiNDR.
                         type: str
                         choices:
                             - 'disable'
@@ -1613,7 +1664,7 @@ options:
                             - 'monitor'
                     fortisandbox:
                         description:
-                            - Enable scanning of files by FortiSandbox.
+                            - Enable/disable scanning of files by FortiSandbox.
                         type: str
                         choices:
                             - 'disable'
@@ -1621,7 +1672,7 @@ options:
                             - 'monitor'
                     malware_stream:
                         description:
-                            - Enable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
                         type: str
                         choices:
                             - 'disable'
@@ -1638,7 +1689,7 @@ options:
                             - 'quarantine'
                     outbreak_prevention:
                         description:
-                            - Enable virus outbreak prevention service.
+                            - Enable/disable virus outbreak prevention service.
                         type: str
                         choices:
                             - 'disable'
@@ -1654,8 +1705,106 @@ options:
                         choices:
                             - 'disable'
                             - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
+            websocket:
+                description:
+                    - Configure WEBSOCKET AntiVirus options.
+                type: dict
+                suboptions:
+                    archive_block:
+                        description:
+                            - Select the archive types to block.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'encrypted'
+                            - 'corrupted'
+                            - 'partiallycorrupted'
+                            - 'multipart'
+                            - 'nested'
+                            - 'mailbomb'
+                            - 'timeout'
+                            - 'unhandled'
+                    archive_log:
+                        description:
+                            - Select the archive types to log.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'encrypted'
+                            - 'corrupted'
+                            - 'partiallycorrupted'
+                            - 'multipart'
+                            - 'nested'
+                            - 'mailbomb'
+                            - 'timeout'
+                            - 'unhandled'
+                    av_scan:
+                        description:
+                            - Enable/disable AntiVirus scan service.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    emulator:
+                        description:
+                            - Enable/disable the virus emulator.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    external_blocklist:
+                        description:
+                            - Enable/disable external-blocklist. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    fortindr:
+                        description:
+                            - Enable/disable scanning of files by FortiNDR.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    fortisandbox:
+                        description:
+                            - Enable/disable scanning of files by FortiSandbox.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    malware_stream:
+                        description:
+                            - Enable/disable 0-day malware-stream scanning. Analyzes files including the content of archives.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    outbreak_prevention:
+                        description:
+                            - Enable/disable virus outbreak prevention service.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'block'
+                            - 'monitor'
+                    quarantine:
+                        description:
+                            - Enable/disable quarantine for infected files.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure AntiVirus profiles.
   fortinet.fortios.fortios_antivirus_profile:
@@ -1667,6 +1816,7 @@ EXAMPLES = """
           analytics_bl_filetype: "2147483647"
           analytics_db: "disable"
           analytics_ignore_filetype: "0"
+          analytics_ignore_mpip: "<your_own_value> (source dlp.label.name)"
           analytics_max_upload: "10"
           analytics_wl_filetype: "2147483647"
           av_block_log: "enable"
@@ -1710,14 +1860,18 @@ EXAMPLES = """
           extended_log: "enable"
           external_blocklist:
               -
-                  name: "default_name_49 (source system.external-resource.name)"
+                  name: "default_name_50 (source system.external-resource.name)"
           external_blocklist_archive_scan: "disable"
           external_blocklist_enable_all: "disable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "flow"
           fortiai_error_action: "log-only"
           fortiai_timeout_action: "log-only"
           fortindr_error_action: "log-only"
           fortindr_timeout_action: "log-only"
+          fortisandbox_destination: "auto"
           fortisandbox_error_action: "log-only"
           fortisandbox_max_upload: "10"
           fortisandbox_mode: "inline"
@@ -1787,7 +1941,7 @@ EXAMPLES = """
               expiry: "<your_own_value>"
               infected: "none"
               log: "enable"
-          name: "default_name_126"
+          name: "default_name_131"
           nntp:
               archive_block: "encrypted"
               archive_log: "encrypted"
@@ -1805,6 +1959,8 @@ EXAMPLES = """
               external_blocklist: "disable"
               ftgd_service: "disable"
           outbreak_prevention_archive_scan: "disable"
+          outbreak_prevention_error_action: "log-only"
+          outbreak_prevention_timeout_action: "log-only"
           pop3:
               archive_block: "encrypted"
               archive_log: "encrypted"
@@ -1854,6 +2010,18 @@ EXAMPLES = """
               fortisandbox: "disable"
               malware_stream: "disable"
               options: "scan"
+              outbreak_prevention: "disable"
+              quarantine: "disable"
+          uuid: "<your_own_value>"
+          websocket:
+              archive_block: "encrypted"
+              archive_log: "encrypted"
+              av_scan: "disable"
+              emulator: "enable"
+              external_blocklist: "disable"
+              fortindr: "disable"
+              fortisandbox: "disable"
+              malware_stream: "disable"
               outbreak_prevention: "disable"
               quarantine: "disable"
 """
@@ -1955,6 +2123,7 @@ def filter_antivirus_profile_data(json):
         "analytics_bl_filetype",
         "analytics_db",
         "analytics_ignore_filetype",
+        "analytics_ignore_mpip",
         "analytics_max_upload",
         "analytics_wl_filetype",
         "av_block_log",
@@ -1967,11 +2136,15 @@ def filter_antivirus_profile_data(json):
         "external_blocklist",
         "external_blocklist_archive_scan",
         "external_blocklist_enable_all",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "feature_set",
         "fortiai_error_action",
         "fortiai_timeout_action",
         "fortindr_error_action",
         "fortindr_timeout_action",
+        "fortisandbox_destination",
         "fortisandbox_error_action",
         "fortisandbox_max_upload",
         "fortisandbox_mode",
@@ -1989,12 +2162,16 @@ def filter_antivirus_profile_data(json):
         "nntp",
         "outbreak_prevention",
         "outbreak_prevention_archive_scan",
+        "outbreak_prevention_error_action",
+        "outbreak_prevention_timeout_action",
         "pop3",
         "replacemsg_group",
         "scan_mode",
         "smb",
         "smtp",
         "ssh",
+        "uuid",
+        "websocket",
     ]
 
     json = remove_invalid_fields(json)
@@ -2056,6 +2233,8 @@ def flatten_multilists_attributes(data):
         ["ssh", "archive_block"],
         ["ssh", "archive_log"],
         ["ssh", "options"],
+        ["websocket", "archive_block"],
+        ["websocket", "archive_log"],
     ]
 
     for attr in multilist_attrs:
@@ -2238,6 +2417,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "replacemsg_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "feature_set": {
@@ -2254,9 +2449,19 @@ versioned_schema = {
                 {"value": "analytics-everything"},
             ],
         },
+        "fortisandbox_destination": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "auto"},
+                {"value": "sandbox"},
+                {"value": "sandbox-cloud"},
+            ],
+        },
         "fortisandbox_max_upload": {"v_range": [["v7.2.0", ""]], "type": "integer"},
         "analytics_ignore_filetype": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "analytics_accept_filetype": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "analytics_ignore_mpip": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "analytics_db": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3459,6 +3664,108 @@ versioned_schema = {
                 },
             },
         },
+        "websocket": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "dict",
+            "children": {
+                "av_scan": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "outbreak_prevention": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "external_blocklist": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "malware_stream": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "fortindr": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "fortisandbox": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "block"},
+                        {"value": "monitor"},
+                    ],
+                },
+                "quarantine": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "archive_block": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "encrypted"},
+                        {"value": "corrupted"},
+                        {"value": "partiallycorrupted"},
+                        {"value": "multipart"},
+                        {"value": "nested"},
+                        {"value": "mailbomb"},
+                        {"value": "timeout"},
+                        {"value": "unhandled"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "archive_log": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "encrypted"},
+                        {"value": "corrupted"},
+                        {"value": "partiallycorrupted"},
+                        {"value": "multipart"},
+                        {"value": "nested"},
+                        {"value": "mailbomb"},
+                        {"value": "timeout"},
+                        {"value": "unhandled"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "emulator": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+        },
         "nac_quar": {
             "v_range": [["v6.0.0", ""]],
             "type": "dict",
@@ -3616,6 +3923,16 @@ versioned_schema = {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "outbreak_prevention_timeout_action": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "log-only"}, {"value": "block"}, {"value": "ignore"}],
+        },
+        "outbreak_prevention_error_action": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "log-only"}, {"value": "block"}, {"value": "ignore"}],
         },
         "fortindr_error_action": {
             "v_range": [["v7.0.8", ""]],

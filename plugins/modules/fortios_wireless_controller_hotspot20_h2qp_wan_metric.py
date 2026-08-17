@@ -138,7 +138,6 @@ options:
                     - Uplink speed (in kilobits/s).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure WAN metrics.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_wan_metric:

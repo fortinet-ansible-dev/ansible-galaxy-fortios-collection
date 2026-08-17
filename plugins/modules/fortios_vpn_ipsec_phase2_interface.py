@@ -104,6 +104,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -126,6 +142,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -148,6 +180,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -170,6 +218,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -192,6 +256,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -214,6 +294,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -236,6 +332,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -512,6 +624,7 @@ options:
                     - 'seed-sha256'
                     - 'seed-sha384'
                     - 'seed-sha512'
+                    - 'sm4-sm3'
             protocol:
                 description:
                     - Quick mode protocol selector (1 - 255 or 0 for all).
@@ -588,7 +701,6 @@ options:
                     - Local proxy ID IPv6 subnet.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure VPN autokey tunnel.
   fortinet.fortios.fortios_vpn_ipsec_phase2_interface:
@@ -597,13 +709,13 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       vpn_ipsec_phase2_interface:
           add_route: "phase1"
-          addke1: "0"
-          addke2: "0"
-          addke3: "0"
-          addke4: "0"
-          addke5: "0"
-          addke6: "0"
-          addke7: "0"
+          addke1: "none"
+          addke2: "none"
+          addke3: "none"
+          addke4: "none"
+          addke5: "none"
+          addke6: "none"
+          addke7: "none"
           auto_discovery_forwarder: "phase1"
           auto_discovery_sender: "phase1"
           auto_negotiate: "enable"
@@ -1098,6 +1210,7 @@ versioned_schema = {
                 {"value": "seed-sha256"},
                 {"value": "seed-sha384"},
                 {"value": "seed-sha512"},
+                {"value": "sm4-sm3", "v_range": [["v8.0.0", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1136,22 +1249,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1160,22 +1289,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1184,22 +1329,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1208,22 +1369,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1232,22 +1409,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1256,22 +1449,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1280,22 +1489,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",

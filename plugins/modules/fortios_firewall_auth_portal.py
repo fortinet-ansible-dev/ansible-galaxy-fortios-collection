@@ -113,7 +113,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure firewall authentication portals.
   fortinet.fortios.fortios_firewall_auth_portal:

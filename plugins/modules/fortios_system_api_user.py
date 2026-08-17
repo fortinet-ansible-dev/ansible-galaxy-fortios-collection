@@ -164,7 +164,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure API users.
   fortinet.fortios.fortios_system_api_user:

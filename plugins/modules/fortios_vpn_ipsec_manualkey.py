@@ -157,7 +157,6 @@ options:
                     - Remote SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption rules.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPsec manual keys.
   fortinet.fortios.fortios_vpn_ipsec_manualkey:

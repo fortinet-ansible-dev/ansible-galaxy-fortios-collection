@@ -164,7 +164,6 @@ options:
                     - Virtual private gateway id.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure public cloud VPN service.
   fortinet.fortios.fortios_system_sdn_vpn:

@@ -110,7 +110,6 @@ options:
                     - 'medium'
                     - 'low'
 """
-
 EXAMPLES = """
 - name: Configure WAN optimization settings.
   fortinet.fortios.fortios_wanopt_settings:

@@ -103,6 +103,25 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             end_ip:
                 description:
                     - Final IPv4 address (inclusive) in the range for the address.
@@ -161,7 +180,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure multicast addresses.
   fortinet.fortios.fortios_firewall_multicast_address:
@@ -172,17 +190,21 @@ EXAMPLES = """
           associated_interface: "<your_own_value> (source system.interface.name)"
           color: "0"
           comment: "Comment."
+          custom_tags:
+              -
+                  name: "default_name_7 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           end_ip: "<your_own_value>"
-          name: "default_name_7"
+          name: "default_name_10"
           start_ip: "<your_own_value>"
           subnet: "<your_own_value>"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_12"
+                  name: "default_name_15"
                   tags:
                       -
-                          name: "default_name_14 (source system.object-tagging.tags.name)"
+                          name: "default_name_17 (source system.object-tagging.tags.name)"
           type: "multicastrange"
           visibility: "enable"
 """
@@ -283,6 +305,8 @@ def filter_firewall_multicast_address_data(json):
         "associated_interface",
         "color",
         "comment",
+        "custom_tags",
+        "display_with",
         "end_ip",
         "name",
         "start_ip",
@@ -514,6 +538,27 @@ versioned_schema = {
                 },
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "visibility": {
             "v_range": [["v6.0.0", "v6.2.7"]],

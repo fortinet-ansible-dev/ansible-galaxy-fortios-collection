@@ -105,7 +105,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure push updates.
   fortinet.fortios.fortios_system_autoupdate_push_update:

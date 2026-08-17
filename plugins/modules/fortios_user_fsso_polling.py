@@ -162,7 +162,6 @@ options:
                     - User name required to log into this Active Directory server.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FSSO active directory servers for polling mode.
   fortinet.fortios.fortios_user_fsso_polling:

@@ -194,7 +194,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure SSL servers.
   fortinet.fortios.fortios_firewall_ssl_server:

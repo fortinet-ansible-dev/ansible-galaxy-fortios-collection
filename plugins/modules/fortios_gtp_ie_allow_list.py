@@ -115,7 +115,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: IE allow list.
   fortinet.fortios.fortios_gtp_ie_allow_list:
@@ -434,7 +433,11 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "required": True,
         },
@@ -446,7 +449,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -455,7 +458,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -463,15 +466,19 @@ versioned_schema = {
                     "v_range": [
                         ["v7.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
             },
-            "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
     },
-    "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+    "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", "v7.6.7"]],
 }
 
 

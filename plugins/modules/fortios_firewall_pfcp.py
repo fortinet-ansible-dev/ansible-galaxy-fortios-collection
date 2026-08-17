@@ -159,7 +159,6 @@ options:
                     - 'allow'
                     - 'deny'
 """
-
 EXAMPLES = """
 - name: Configure PFCP.
   fortinet.fortios.fortios_firewall_pfcp:
@@ -467,62 +466,110 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "required": True,
         },
         "min_message_length": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "max_message_length": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "monitor_mode": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}, {"value": "vdom"}],
         },
         "message_filter": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "pfcp_timeout": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "unknown_version": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "invalid_reserved_field": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "forwarded_log": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "denied_log": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "traffic_count_log": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "log_freq": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
     },
-    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", "v7.6.7"]],
 }
 
 

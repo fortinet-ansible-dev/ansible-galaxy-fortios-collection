@@ -117,6 +117,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -139,6 +155,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -161,6 +193,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -183,6 +231,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -205,6 +269,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -227,6 +307,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -249,6 +345,22 @@ options:
                 type: list
                 elements: str
                 choices:
+                    - 'none'
+                    - 'ml-kem-512'
+                    - 'ml-kem-768'
+                    - 'ml-kem-1024'
+                    - 'kyber512'
+                    - 'kyber768'
+                    - 'kyber1024'
+                    - 'frodo-l1'
+                    - 'frodo-l3'
+                    - 'frodo-l5'
+                    - 'bike-l1'
+                    - 'bike-l3'
+                    - 'bike-l5'
+                    - 'hqc128'
+                    - 'hqc192'
+                    - 'hqc256'
                     - '0'
                     - '35'
                     - '36'
@@ -572,7 +684,7 @@ options:
                 type: int
             fec_base:
                 description:
-                    - Number of base Forward Error Correction packets (1 - 20).
+                    - Number of base Forward Error Correction packets (1 - 40).
                 type: int
             fec_codec:
                 description:
@@ -609,12 +721,19 @@ options:
                 type: int
             fec_redundant:
                 description:
-                    - Number of redundant Forward Error Correction packets (1 - 5 for reed-solomon, 1 for xor).
+                    - Number of redundant Forward Error Correction packets (1 - 20 for reed-solomon, 1 for xor).
                 type: int
             fec_send_timeout:
                 description:
                     - Timeout in milliseconds before sending Forward Error Correction packets (1 - 1000).
                 type: int
+            fec_separate_redundant_tunnel:
+                description:
+                    - Enable/disable Forward Error Correction redundancy on separate tunnel.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fgsp_sync:
                 description:
                     - Enable/disable IPsec syncing of tunnels for FGSP IPsec.
@@ -699,7 +818,7 @@ options:
                     - 'enable'
             interface:
                 description:
-                    - Local physical, aggregate, or VLAN outgoing interface. Source system.interface.name.
+                    - Local physical, aggregate, loopback, or VLAN outgoing interface. Source system.interface.name.
                 type: str
             internal_domain_list:
                 description:
@@ -1052,6 +1171,7 @@ options:
                     - 'seed-sha256'
                     - 'seed-sha384'
                     - 'seed-sha512'
+                    - 'sm4-sm3'
             psksecret:
                 description:
                     - Pre-shared secret for PSK authentication (ASCII string or hexadecimal encoded with a leading 0x).
@@ -1209,6 +1329,7 @@ options:
                     - 'sha2-256'
                     - 'sha2-384'
                     - 'sha2-512'
+                    - 'identity'
             split_include_service:
                 description:
                     - Split-include services. Source firewall.service.group.name firewall.service.custom.name.
@@ -1256,10 +1377,8 @@ options:
                 choices:
                     - 'custom'
                     - 'dialup-forticlient'
-                    - 'dialup-ios'
-                    - 'dialup-android'
-                    - 'dialup-windows'
-                    - 'dialup-cisco'
+                    - 'dialup-ikev2'
+                    - 'dialup-l2tp'
                     - 'static-fortigate'
                     - 'dialup-fortigate'
                     - 'static-cisco'
@@ -1268,6 +1387,11 @@ options:
                     - 'hub-fortigate-auto-discovery'
                     - 'spoke-fortigate-auto-discovery'
                     - 'fabric-overlay-orchestrator'
+                    - 'cloud-sdn-orchestration'
+                    - 'dialup-ios'
+                    - 'dialup-android'
+                    - 'dialup-windows'
+                    - 'dialup-cisco'
             xauthtype:
                 description:
                     - XAuth type.
@@ -1278,8 +1402,17 @@ options:
                     - 'pap'
                     - 'chap'
                     - 'auto'
+            ztna_cert_scim_authorization:
+                description:
+                    - Enable/disable SCIM authorization based on the ZTNA peer certificate identity.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'email'
+                    - 'user-name'
+                    - 'display-name'
+                    - 'external-id'
 """
-
 EXAMPLES = """
 - name: Configure VPN remote gateway.
   fortinet.fortios.fortios_vpn_ipsec_phase1:
@@ -1290,13 +1423,13 @@ EXAMPLES = """
           acct_verify: "enable"
           add_gw_route: "enable"
           add_route: "disable"
-          addke1: "0"
-          addke2: "0"
-          addke3: "0"
-          addke4: "0"
-          addke5: "0"
-          addke6: "0"
-          addke7: "0"
+          addke1: "none"
+          addke2: "none"
+          addke3: "none"
+          addke4: "none"
+          addke5: "none"
+          addke6: "none"
+          addke7: "none"
           assign_ip: "disable"
           assign_ip_from: "range"
           authmethod: "psk"
@@ -1357,6 +1490,7 @@ EXAMPLES = """
           fec_receive_timeout: "50"
           fec_redundant: "1"
           fec_send_timeout: "5"
+          fec_separate_redundant_tunnel: "enable"
           fgsp_sync: "enable"
           forticlient_enforcement: "enable"
           fortinet_esp: "enable"
@@ -1382,7 +1516,7 @@ EXAMPLES = """
           ipv4_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "93"
+                  id: "94"
                   start_ip: "<your_own_value>"
           ipv4_name: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
           ipv4_netmask: "<your_own_value>"
@@ -1399,7 +1533,7 @@ EXAMPLES = """
           ipv6_exclude_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "109"
+                  id: "110"
                   start_ip: "<your_own_value>"
           ipv6_name: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
           ipv6_prefix: "128"
@@ -1418,7 +1552,7 @@ EXAMPLES = """
           mode: "aggressive"
           mode_cfg: "disable"
           mode_cfg_allow_client_selector: "disable"
-          name: "default_name_128"
+          name: "default_name_129"
           nattraversal: "enable"
           negotiate_timeout: "30"
           network_id: "0"
@@ -1448,7 +1582,7 @@ EXAMPLES = """
           remote_gw_subnet: "<your_own_value>"
           remote_gw_ztna_tags:
               -
-                  name: "default_name_157 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_158 (source firewall.address.name firewall.addrgrp.name)"
           remote_gw6_country: "<your_own_value>"
           remote_gw6_end_ip: "<your_own_value>"
           remote_gw6_match: "any"
@@ -1469,6 +1603,7 @@ EXAMPLES = """
           usrgrp: "<your_own_value> (source user.group.name)"
           wizard_type: "custom"
           xauthtype: "disable"
+          ztna_cert_scim_authorization: "disable"
 """
 
 RETURN = """
@@ -1628,6 +1763,7 @@ def filter_vpn_ipsec_phase1_data(json):
         "fec_receive_timeout",
         "fec_redundant",
         "fec_send_timeout",
+        "fec_separate_redundant_tunnel",
         "fgsp_sync",
         "forticlient_enforcement",
         "fortinet_esp",
@@ -1728,6 +1864,7 @@ def filter_vpn_ipsec_phase1_data(json):
         "usrgrp",
         "wizard_type",
         "xauthtype",
+        "ztna_cert_scim_authorization",
     ]
 
     json = remove_invalid_fields(json)
@@ -2219,6 +2356,7 @@ versioned_schema = {
                 {"value": "seed-sha256"},
                 {"value": "seed-sha384"},
                 {"value": "seed-sha512"},
+                {"value": "sm4-sm3", "v_range": [["v8.0.0", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2313,22 +2451,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2337,22 +2491,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2361,22 +2531,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2385,22 +2571,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2409,22 +2611,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2433,22 +2651,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2457,22 +2691,38 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "list",
             "options": [
-                {"value": "0"},
-                {"value": "35", "v_range": [["v7.6.1", ""]]},
-                {"value": "36", "v_range": [["v7.6.1", ""]]},
-                {"value": "37", "v_range": [["v7.6.1", ""]]},
-                {"value": "1080"},
-                {"value": "1081"},
-                {"value": "1082"},
-                {"value": "1083", "v_range": [["v7.6.1", ""]]},
-                {"value": "1084", "v_range": [["v7.6.1", ""]]},
-                {"value": "1085", "v_range": [["v7.6.1", ""]]},
-                {"value": "1089", "v_range": [["v7.6.1", ""]]},
-                {"value": "1090", "v_range": [["v7.6.1", ""]]},
-                {"value": "1091", "v_range": [["v7.6.1", ""]]},
-                {"value": "1092", "v_range": [["v7.6.1", ""]]},
-                {"value": "1093", "v_range": [["v7.6.1", ""]]},
-                {"value": "1094", "v_range": [["v7.6.1", ""]]},
+                {"value": "none", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-512", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-768", "v_range": [["v7.6.7", ""]]},
+                {"value": "ml-kem-1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber512", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber768", "v_range": [["v7.6.7", ""]]},
+                {"value": "kyber1024", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "frodo-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l1", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l3", "v_range": [["v7.6.7", ""]]},
+                {"value": "bike-l5", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc128", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc192", "v_range": [["v7.6.7", ""]]},
+                {"value": "hqc256", "v_range": [["v7.6.7", ""]]},
+                {"value": "0", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "35", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "36", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "37", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1080", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1081", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1082", "v_range": [["v7.6.0", "v7.6.6"]]},
+                {"value": "1083", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1084", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1085", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1089", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1090", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1091", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1092", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1093", "v_range": [["v7.6.1", "v7.6.6"]]},
+                {"value": "1094", "v_range": [["v7.6.1", "v7.6.6"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2520,10 +2770,8 @@ versioned_schema = {
             "options": [
                 {"value": "custom"},
                 {"value": "dialup-forticlient"},
-                {"value": "dialup-ios"},
-                {"value": "dialup-android"},
-                {"value": "dialup-windows"},
-                {"value": "dialup-cisco"},
+                {"value": "dialup-ikev2", "v_range": [["v7.6.7", ""]]},
+                {"value": "dialup-l2tp", "v_range": [["v7.6.7", ""]]},
                 {"value": "static-fortigate"},
                 {"value": "dialup-fortigate"},
                 {"value": "static-cisco"},
@@ -2535,6 +2783,11 @@ versioned_schema = {
                     "v_range": [["v6.2.0", ""]],
                 },
                 {"value": "fabric-overlay-orchestrator", "v_range": [["v7.6.1", ""]]},
+                {"value": "cloud-sdn-orchestration", "v_range": [["v8.0.0", ""]]},
+                {"value": "dialup-ios", "v_range": [["v6.0.0", "v7.6.6"]]},
+                {"value": "dialup-android", "v_range": [["v6.0.0", "v7.6.6"]]},
+                {"value": "dialup-windows", "v_range": [["v6.0.0", "v7.6.6"]]},
+                {"value": "dialup-cisco", "v_range": [["v6.0.0", "v7.6.6"]]},
             ],
         },
         "xauthtype": {
@@ -2638,6 +2891,7 @@ versioned_schema = {
                 {"value": "sha2-256"},
                 {"value": "sha2-384"},
                 {"value": "sha2-512"},
+                {"value": "identity", "v_range": [["v8.0.0", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -2668,6 +2922,11 @@ versioned_schema = {
         },
         "fec_egress": {
             "v_range": [["v6.2.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fec_separate_redundant_tunnel": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2814,6 +3073,17 @@ versioned_schema = {
             "v_range": [["v7.4.4", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "ztna_cert_scim_authorization": {
+            "v_range": [["v7.6.7", "v7.6.7"]],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "email"},
+                {"value": "user-name"},
+                {"value": "display-name"},
+                {"value": "external-id"},
+            ],
         },
         "fallback_tcp_threshold": {
             "v_range": [["v7.4.2", "v7.4.4"]],

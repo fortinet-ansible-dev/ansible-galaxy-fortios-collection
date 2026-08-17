@@ -103,7 +103,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch logging (logs are transferred to and inserted into FortiGate event log).
   fortinet.fortios.fortios_switch_controller_switch_log:

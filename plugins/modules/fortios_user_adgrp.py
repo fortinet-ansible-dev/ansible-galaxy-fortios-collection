@@ -94,6 +94,29 @@ options:
                 description:
                     - FSSO connector source.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             id:
                 description:
                     - Group ID.
@@ -107,8 +130,11 @@ options:
                 description:
                     - FSSO agent name. Source user.fsso.name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure FSSO groups.
   fortinet.fortios.fortios_user_adgrp:
@@ -117,9 +143,13 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       user_adgrp:
           connector_source: "<your_own_value>"
-          id: "4"
-          name: "default_name_5"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          id: "7"
+          name: "default_name_8"
           server_name: "<your_own_value> (source user.fsso.name)"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -214,7 +244,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_user_adgrp_data(json):
-    option_list = ["connector_source", "id", "name", "server_name"]
+    option_list = [
+        "connector_source",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "id",
+        "name",
+        "server_name",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -395,6 +434,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "server_name": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "connector_source": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "id": {

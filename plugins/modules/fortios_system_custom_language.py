@@ -104,7 +104,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure custom languages.
   fortinet.fortios.fortios_system_custom_language:

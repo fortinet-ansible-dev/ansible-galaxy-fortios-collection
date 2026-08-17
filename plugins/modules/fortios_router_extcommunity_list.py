@@ -136,7 +136,6 @@ options:
                     - 'standard'
                     - 'expanded'
 """
-
 EXAMPLES = """
 - name: Configure extended community lists.
   fortinet.fortios.fortios_router_extcommunity_list:

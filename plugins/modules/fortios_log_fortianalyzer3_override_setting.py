@@ -276,7 +276,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Override FortiAnalyzer settings.
   fortinet.fortios.fortios_log_fortianalyzer3_override_setting:

@@ -91,7 +91,6 @@ options:
                     - 'block'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure global heuristic options.
   fortinet.fortios.fortios_antivirus_heuristic:

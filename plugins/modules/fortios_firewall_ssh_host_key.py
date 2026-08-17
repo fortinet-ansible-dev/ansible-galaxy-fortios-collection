@@ -147,7 +147,6 @@ options:
                     - 'transparent-proxy'
                     - 'access-proxy'
 """
-
 EXAMPLES = """
 - name: SSH proxy host public keys.
   fortinet.fortios.fortios_firewall_ssh_host_key:

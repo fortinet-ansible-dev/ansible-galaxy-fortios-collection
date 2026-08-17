@@ -118,7 +118,6 @@ options:
                     - VLAN dedicated for voice devices. Source switch-controller.initial-config.template.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure initial template for auto-generated VLAN interfaces.
   fortinet.fortios.fortios_switch_controller_initial_config_vlans:

@@ -115,7 +115,6 @@ options:
                     - Comment.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiTelemetry agents managed by a FortiGate unit.
   fortinet.fortios.fortios_telemetry_controller_agent:

@@ -123,7 +123,6 @@ options:
                     - Maximum running time for this script in seconds (0 = no timeout).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure auto script.
   fortinet.fortios.fortios_system_auto_script:

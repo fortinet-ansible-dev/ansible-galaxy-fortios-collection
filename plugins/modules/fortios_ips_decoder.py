@@ -111,7 +111,6 @@ options:
                             - Parameter value.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure IPS decoder.
   fortinet.fortios.fortios_ips_decoder:

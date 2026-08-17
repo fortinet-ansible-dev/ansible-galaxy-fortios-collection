@@ -1041,7 +1041,6 @@ options:
                     - IPv4 WINS server 1.
                 type: str
 """
-
 EXAMPLES = """
 - name: Portal.
   fortinet.fortios.fortios_vpn_ssl_web_portal:

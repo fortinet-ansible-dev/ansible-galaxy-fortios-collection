@@ -241,6 +241,17 @@ options:
                             - Custom log field. Source log.custom-field.id.
                         required: true
                         type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this policy. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
             decrypted_traffic_mirror:
                 description:
                     - Decrypted traffic mirror. Source firewall.decrypted-traffic-mirror.name.
@@ -407,6 +418,42 @@ options:
                 description:
                     - Name of an existing email filter profile. Source emailfilter.profile.name.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
+            fabric_policy:
+                description:
+                    - Fabric policy related attributes.
+                type: dict
+                suboptions:
+                    from:
+                        description:
+                            - From device. Source system.csf.trusted-list.name.
+                        type: str
+                    to:
+                        description:
+                            - To device. Source system.csf.trusted-list.name.
+                        type: str
             fec:
                 description:
                     - Enable/disable Forward Error Correction on traffic matching this policy on a FEC device.
@@ -841,6 +888,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            llm_profile:
+                description:
+                    - Name of an existing LLM profile. Source llm.profile.name.
+                type: str
             log_http_transaction:
                 description:
                     - Enable/disable HTTP transaction log.
@@ -1282,6 +1333,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            skip_vrf_match:
+                description:
+                    - Enable/disable skipping VRF matching on reply direction.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             spamfilter_profile:
                 description:
                     - Name of an existing Spam filter profile. Source spamfilter.profile.name.
@@ -1570,6 +1628,17 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ztna_destination:
+                description:
+                    - Configure ZTNA destinations. Must be used with ZTNA traffic-forward-proxy.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - ZTNA destination name. Source ztna.destination.name.
+                        required: true
+                        type: str
             ztna_device_ownership:
                 description:
                     - Enable/disable zero trust device ownership.
@@ -1606,6 +1675,17 @@ options:
                             - Address name. Source firewall.address.name firewall.addrgrp.name.
                         required: true
                         type: str
+            ztna_ems_tag6:
+                description:
+                    - Source ZTNA FortiClient EMS tag IPv6 names.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Address name. Source firewall.address6.name firewall.addrgrp6.name.
+                        required: true
+                        type: str
             ztna_geo_tag:
                 description:
                     - Source ztna-geo-tag names.
@@ -1639,7 +1719,6 @@ options:
                     - 'or'
                     - 'and'
 """
-
 EXAMPLES = """
 - name: Configure IPv4/IPv6 policies.
   fortinet.fortios.fortios_firewall_policy:
@@ -1674,11 +1753,14 @@ EXAMPLES = """
           custom_log_fields:
               -
                   field_id: "<your_own_value> (source log.custom-field.id)"
+          custom_tags:
+              -
+                  name: "default_name_27 (source firewall.custom-tag.name)"
           decrypted_traffic_mirror: "<your_own_value> (source firewall.decrypted-traffic-mirror.name)"
           delay_tcp_npu_session: "enable"
           devices:
               -
-                  name: "default_name_29 (source user.device.alias user.device-group.name user.device-category.name)"
+                  name: "default_name_31 (source user.device.alias user.device-group.name user.device-category.name)"
           diameter_filter_profile: "<your_own_value> (source diameter-filter.profile.name)"
           diffserv_copy: "enable"
           diffserv_forward: "enable"
@@ -1695,20 +1777,26 @@ EXAMPLES = """
           dsri: "enable"
           dstaddr:
               -
-                  name: "default_name_45 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
+                  name: "default_name_47 (source firewall.address.name firewall.addrgrp.name firewall.vip.name firewall.vipgrp.name system.external-resource
                     .name)"
           dstaddr_negate: "enable"
           dstaddr6:
               -
-                  name: "default_name_48 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
+                  name: "default_name_50 (source firewall.address6.name firewall.addrgrp6.name firewall.vip6.name firewall.vipgrp6.name system
                     .external-resource.name)"
           dstaddr6_negate: "enable"
           dstintf:
               -
-                  name: "default_name_51 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_53 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           dynamic_shaping: "enable"
           email_collect: "enable"
           emailfilter_profile: "<your_own_value> (source emailfilter.profile.name)"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          fabric_policy:
+              from: "<your_own_value> (source system.csf.trusted-list.name)"
+              to: "<your_own_value> (source system.csf.trusted-list.name)"
           fec: "enable"
           file_filter_profile: "<your_own_value> (source file-filter.profile.name)"
           firewall_session_dirty: "check-all"
@@ -1717,13 +1805,13 @@ EXAMPLES = """
           fsso_agent_for_ntlm: "<your_own_value> (source user.fsso.name)"
           fsso_groups:
               -
-                  name: "default_name_62 (source user.adgrp.name)"
+                  name: "default_name_70 (source user.adgrp.name)"
           geoip_anycast: "enable"
           geoip_match: "physical-location"
           global_label: "<your_own_value>"
           groups:
               -
-                  name: "default_name_67 (source user.group.name)"
+                  name: "default_name_75 (source user.group.name)"
           gtp_profile: "<your_own_value> (source firewall.gtp.name)"
           http_policy_redirect: "enable"
           icap_profile: "<your_own_value> (source icap.profile.name)"
@@ -1733,89 +1821,90 @@ EXAMPLES = """
           internet_service: "enable"
           internet_service_custom:
               -
-                  name: "default_name_76 (source firewall.internet-service-custom.name)"
+                  name: "default_name_84 (source firewall.internet-service-custom.name)"
           internet_service_custom_group:
               -
-                  name: "default_name_78 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_86 (source firewall.internet-service-custom-group.name)"
           internet_service_fortiguard:
               -
-                  name: "default_name_80 (source firewall.internet-service-fortiguard.name)"
+                  name: "default_name_88 (source firewall.internet-service-fortiguard.name)"
           internet_service_group:
               -
-                  name: "default_name_82 (source firewall.internet-service-group.name)"
+                  name: "default_name_90 (source firewall.internet-service-group.name)"
           internet_service_id:
               -
-                  id: "84 (source firewall.internet-service.id)"
+                  id: "92 (source firewall.internet-service.id)"
           internet_service_name:
               -
-                  name: "default_name_86 (source firewall.internet-service-name.name)"
+                  name: "default_name_94 (source firewall.internet-service-name.name)"
           internet_service_negate: "enable"
           internet_service_src: "enable"
           internet_service_src_custom:
               -
-                  name: "default_name_90 (source firewall.internet-service-custom.name)"
+                  name: "default_name_98 (source firewall.internet-service-custom.name)"
           internet_service_src_custom_group:
               -
-                  name: "default_name_92 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_100 (source firewall.internet-service-custom-group.name)"
           internet_service_src_fortiguard:
               -
-                  name: "default_name_94 (source firewall.internet-service-fortiguard.name)"
+                  name: "default_name_102 (source firewall.internet-service-fortiguard.name)"
           internet_service_src_group:
               -
-                  name: "default_name_96 (source firewall.internet-service-group.name)"
+                  name: "default_name_104 (source firewall.internet-service-group.name)"
           internet_service_src_id:
               -
-                  id: "98 (source firewall.internet-service.id)"
+                  id: "106 (source firewall.internet-service.id)"
           internet_service_src_name:
               -
-                  name: "default_name_100 (source firewall.internet-service-name.name)"
+                  name: "default_name_108 (source firewall.internet-service-name.name)"
           internet_service_src_negate: "enable"
           internet_service6: "enable"
           internet_service6_custom:
               -
-                  name: "default_name_104 (source firewall.internet-service-custom.name)"
+                  name: "default_name_112 (source firewall.internet-service-custom.name)"
           internet_service6_custom_group:
               -
-                  name: "default_name_106 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_114 (source firewall.internet-service-custom-group.name)"
           internet_service6_fortiguard:
               -
-                  name: "default_name_108 (source firewall.internet-service-fortiguard.name)"
+                  name: "default_name_116 (source firewall.internet-service-fortiguard.name)"
           internet_service6_group:
               -
-                  name: "default_name_110 (source firewall.internet-service-group.name)"
+                  name: "default_name_118 (source firewall.internet-service-group.name)"
           internet_service6_name:
               -
-                  name: "default_name_112 (source firewall.internet-service-name.name)"
+                  name: "default_name_120 (source firewall.internet-service-name.name)"
           internet_service6_negate: "enable"
           internet_service6_src: "enable"
           internet_service6_src_custom:
               -
-                  name: "default_name_116 (source firewall.internet-service-custom.name)"
+                  name: "default_name_124 (source firewall.internet-service-custom.name)"
           internet_service6_src_custom_group:
               -
-                  name: "default_name_118 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_126 (source firewall.internet-service-custom-group.name)"
           internet_service6_src_fortiguard:
               -
-                  name: "default_name_120 (source firewall.internet-service-fortiguard.name)"
+                  name: "default_name_128 (source firewall.internet-service-fortiguard.name)"
           internet_service6_src_group:
               -
-                  name: "default_name_122 (source firewall.internet-service-group.name)"
+                  name: "default_name_130 (source firewall.internet-service-group.name)"
           internet_service6_src_name:
               -
-                  name: "default_name_124 (source firewall.internet-service-name.name)"
+                  name: "default_name_132 (source firewall.internet-service-name.name)"
           internet_service6_src_negate: "enable"
           ippool: "enable"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
           label: "<your_own_value>"
           learning_mode: "enable"
+          llm_profile: "<your_own_value> (source llm.profile.name)"
           log_http_transaction: "enable"
           logtraffic: "all"
           logtraffic_start: "enable"
           match_vip: "enable"
           match_vip_only: "enable"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_137"
+          name: "default_name_146"
           nat: "enable"
           nat46: "enable"
           nat64: "enable"
@@ -1824,10 +1913,10 @@ EXAMPLES = """
           natoutbound: "enable"
           network_service_dynamic:
               -
-                  name: "default_name_145 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_154 (source firewall.network-service-dynamic.name)"
           network_service_src_dynamic:
               -
-                  name: "default_name_147 (source firewall.network-service-dynamic.name)"
+                  name: "default_name_156 (source firewall.network-service-dynamic.name)"
           np_acceleration: "enable"
           ntlm: "enable"
           ntlm_enabled_browsers:
@@ -1840,7 +1929,7 @@ EXAMPLES = """
           pcp_outbound: "enable"
           pcp_poolname:
               -
-                  name: "default_name_158 (source system.pcp-server.pools.name)"
+                  name: "default_name_167 (source system.pcp-server.pools.name)"
           per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
           permit_any_host: "enable"
           permit_stun_host: "enable"
@@ -1851,10 +1940,10 @@ EXAMPLES = """
           policyid: "<you_own_value>"
           poolname:
               -
-                  name: "default_name_168 (source firewall.ippool.name)"
+                  name: "default_name_177 (source firewall.ippool.name)"
           poolname6:
               -
-                  name: "default_name_170 (source firewall.ippool6.name)"
+                  name: "default_name_179 (source firewall.ippool6.name)"
           port_preserve: "enable"
           port_random: "enable"
           profile_group: "<your_own_value> (source firewall.profile-group.name)"
@@ -1871,7 +1960,7 @@ EXAMPLES = """
           rsso: "enable"
           rtp_addr:
               -
-                  name: "default_name_186 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
+                  name: "default_name_195 (source firewall.internet-service-custom-group.name firewall.addrgrp.name)"
           rtp_nat: "disable"
           saml_server: "<your_own_value> (source user.saml.name)"
           scan_botnet_connections: "disable"
@@ -1880,42 +1969,43 @@ EXAMPLES = """
           scim: "enable"
           scim_groups:
               -
-                  name: "default_name_194"
+                  name: "default_name_203"
           scim_users:
               -
-                  name: "default_name_196"
+                  name: "default_name_205"
           sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
           send_deny_packet: "disable"
           service:
               -
-                  name: "default_name_200 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_209 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           session_ttl: "<your_own_value>"
           sgt:
               -
-                  id: "204"
+                  id: "213"
           sgt_check: "enable"
+          skip_vrf_match: "enable"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           src_vendor_mac:
               -
-                  id: "208 (source firewall.vendor-mac.id)"
+                  id: "218 (source firewall.vendor-mac.id)"
           srcaddr:
               -
-                  name: "default_name_210 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
+                  name: "default_name_220 (source firewall.address.name firewall.addrgrp.name system.external-resource.name)"
           srcaddr_negate: "enable"
           srcaddr6:
               -
-                  name: "default_name_213 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
+                  name: "default_name_223 (source firewall.address6.name system.external-resource.name firewall.addrgrp6.name)"
           srcaddr6_negate: "enable"
           srcintf:
               -
-                  name: "default_name_216 (source system.interface.name system.zone.name system.sdwan.zone.name)"
+                  name: "default_name_226 (source system.interface.name system.zone.name system.sdwan.zone.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssh_policy_redirect: "enable"
           ssl_mirror: "enable"
           ssl_mirror_intf:
               -
-                  name: "default_name_221 (source system.interface.name system.zone.name)"
+                  name: "default_name_231 (source system.interface.name system.zone.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           tcp_mss_receiver: "0"
@@ -1930,10 +2020,10 @@ EXAMPLES = """
           traffic_shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
           url_category:
               -
-                  id: "235"
+                  id: "245"
           users:
               -
-                  name: "default_name_237 (source user.local.name user.certificate.name)"
+                  name: "default_name_247 (source user.local.name user.certificate.name)"
           utm_status: "enable"
           uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
@@ -1956,17 +2046,23 @@ EXAMPLES = """
           webproxy_forward_server: "<your_own_value> (source web-proxy.forward-server.name web-proxy.forward-server-group.name)"
           webproxy_profile: "<your_own_value> (source web-proxy.profile.name)"
           wsso: "enable"
+          ztna_destination:
+              -
+                  name: "default_name_271 (source ztna.destination.name)"
           ztna_device_ownership: "enable"
           ztna_ems_tag:
               -
-                  name: "default_name_262 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_274 (source firewall.address.name firewall.addrgrp.name)"
           ztna_ems_tag_negate: "enable"
           ztna_ems_tag_secondary:
               -
-                  name: "default_name_265 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_277 (source firewall.address.name firewall.addrgrp.name)"
+          ztna_ems_tag6:
+              -
+                  name: "default_name_279 (source firewall.address6.name firewall.addrgrp6.name)"
           ztna_geo_tag:
               -
-                  name: "default_name_267 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_281 (source firewall.address.name firewall.addrgrp.name)"
           ztna_policy_redirect: "enable"
           ztna_status: "enable"
           ztna_tags_match_logic: "or"
@@ -2084,6 +2180,7 @@ def filter_firewall_policy_data(json):
         "cifs_profile",
         "comments",
         "custom_log_fields",
+        "custom_tags",
         "decrypted_traffic_mirror",
         "delay_tcp_npu_session",
         "devices",
@@ -2109,6 +2206,10 @@ def filter_firewall_policy_data(json):
         "dynamic_shaping",
         "email_collect",
         "emailfilter_profile",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "fabric_policy",
         "fec",
         "file_filter_profile",
         "firewall_session_dirty",
@@ -2161,6 +2262,7 @@ def filter_firewall_policy_data(json):
         "ips_voip_filter",
         "label",
         "learning_mode",
+        "llm_profile",
         "log_http_transaction",
         "logtraffic",
         "logtraffic_start",
@@ -2225,6 +2327,7 @@ def filter_firewall_policy_data(json):
         "session_ttl",
         "sgt",
         "sgt_check",
+        "skip_vrf_match",
         "spamfilter_profile",
         "src_vendor_mac",
         "srcaddr",
@@ -2272,10 +2375,12 @@ def filter_firewall_policy_data(json):
         "webproxy_forward_server",
         "webproxy_profile",
         "wsso",
+        "ztna_destination",
         "ztna_device_ownership",
         "ztna_ems_tag",
         "ztna_ems_tag_negate",
         "ztna_ems_tag_secondary",
+        "ztna_ems_tag6",
         "ztna_geo_tag",
         "ztna_policy_redirect",
         "ztna_status",
@@ -2490,6 +2595,21 @@ versioned_schema = {
         },
         "name": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "uuid": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "srcintf": {
             "type": "list",
             "elements": "dict",
@@ -2538,6 +2658,18 @@ versioned_schema = {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "srcaddr": {
             "type": "list",
@@ -2611,6 +2743,18 @@ versioned_schema = {
             },
             "v_range": [["v7.4.0", ""]],
         },
+        "ztna_ems_tag6": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "ztna_tags_match_logic": {
             "v_range": [["v7.2.4", ""]],
             "type": "string",
@@ -2627,6 +2771,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.0.0", ""]],
+        },
+        "ztna_destination": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "internet_service": {
             "v_range": [["v6.0.0", ""]],
@@ -3038,6 +3194,7 @@ versioned_schema = {
         "ssh_filter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "telemetry_profile": {"v_range": [["v7.6.3", ""]], "type": "string"},
+        "llm_profile": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "logtraffic": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3330,6 +3487,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "skip_vrf_match": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "diffserv_forward": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3345,14 +3507,6 @@ versioned_schema = {
         "tcp_mss_sender": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "tcp_mss_receiver": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "gtp_profile": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "string",
-        },
-        "pfcp_profile": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "string",
-        },
         "auth_cert": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "auth_redirect_addr": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "redirect_url": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -3517,6 +3671,30 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.6.4", ""]],
+        },
+        "fabric_policy": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "from": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "to": {"v_range": [["v8.0.0", ""]], "type": "string"},
+            },
+        },
+        "gtp_profile": {
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+        },
+        "pfcp_profile": {
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
         },
         "scim": {
             "v_range": [["v7.6.4", "v7.6.4"]],

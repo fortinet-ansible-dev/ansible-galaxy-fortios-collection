@@ -146,7 +146,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam MIME header.
   fortinet.fortios.fortios_spamfilter_mheader:

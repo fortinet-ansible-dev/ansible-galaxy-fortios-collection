@@ -110,7 +110,6 @@ options:
                     - Indicates whether the Vendor ID can be used.
                 type: int
 """
-
 EXAMPLES = """
 - name: Show vendor and the MAC address they have.
   fortinet.fortios.fortios_firewall_vendor_mac:

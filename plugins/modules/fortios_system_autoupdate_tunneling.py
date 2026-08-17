@@ -106,7 +106,6 @@ options:
                     - Web proxy username.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure web proxy tunneling for the FDN.
   fortinet.fortios.fortios_system_autoupdate_tunneling:

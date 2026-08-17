@@ -122,7 +122,6 @@ options:
                     - 'decrease'
                     - 'retain'
 """
-
 EXAMPLES = """
 - name: Configure system probe response.
   fortinet.fortios.fortios_system_probe_response:

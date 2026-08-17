@@ -138,7 +138,7 @@ options:
                 type: str
             match_period:
                 description:
-                    - Number of days the matched devices will be retained (0 - always retain)
+                    - Duration in hours to retain the matched devices (0 - 3072, 0 = always retain).
                 type: int
             match_remove:
                 description:
@@ -162,6 +162,17 @@ options:
             os:
                 description:
                     - NAC policy matching operating system.
+                type: str
+            port_setting_override:
+                description:
+                    - Enable/disable port setting action on the NAC policy.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            qos_policy:
+                description:
+                    - Switch Port qos-policy action to be applied on the matched NAC policy. Source switch-controller.qos.qos-policy.name.
                 type: str
             severity:
                 description:
@@ -248,7 +259,6 @@ options:
                     - NAC policy matching user group. Source user.group.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure NAC policy matching pattern to identify matching NAC devices.
   fortinet.fortios.fortios_user_nac_policy:
@@ -271,6 +281,8 @@ EXAMPLES = """
           match_type: "dynamic"
           name: "default_name_16"
           os: "<your_own_value>"
+          port_setting_override: "disable"
+          qos_policy: "<your_own_value> (source switch-controller.qos.qos-policy.name)"
           severity:
               -
                   severity_num: "<you_own_value>"
@@ -282,7 +294,7 @@ EXAMPLES = """
           switch_fortilink: "<your_own_value> (source system.interface.name)"
           switch_group:
               -
-                  name: "default_name_27 (source switch-controller.switch-group.name)"
+                  name: "default_name_29 (source switch-controller.switch-group.name)"
           switch_mac_policy: "<your_own_value> (source switch-controller.mac-policy.name)"
           switch_port_policy: "<your_own_value> (source switch-controller.port-policy.name)"
           switch_scope:
@@ -401,6 +413,8 @@ def filter_user_nac_policy_data(json):
         "match_type",
         "name",
         "os",
+        "port_setting_override",
+        "qos_policy",
         "severity",
         "src",
         "ssid_policy",
@@ -666,6 +680,12 @@ versioned_schema = {
             "v_range": [["v7.0.2", ""]],
         },
         "switch_mac_policy": {"v_range": [["v6.4.0", ""]], "type": "string"},
+        "port_setting_override": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "qos_policy": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "firewall_address": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "ssid_policy": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "switch_scope": {

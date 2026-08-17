@@ -116,7 +116,7 @@ options:
                         type: str
             dst_negate:
                 description:
-                    - Enable/disable negating destination address match.
+                    - Enable/disable negation of destination address match.
                 type: str
                 choices:
                     - 'enable'
@@ -232,7 +232,7 @@ options:
                         type: str
             src_negate:
                 description:
-                    - Enable/disable negating source address match.
+                    - Enable/disable negation of source address match.
                 type: str
                 choices:
                     - 'enable'
@@ -283,7 +283,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv4 routing policies.
   fortinet.fortios.fortios_router_policy:

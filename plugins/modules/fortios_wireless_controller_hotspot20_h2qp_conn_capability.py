@@ -184,7 +184,6 @@ options:
                     - 'open'
                     - 'unknown'
 """
-
 EXAMPLES = """
 - name: Configure connection capability.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_conn_capability:

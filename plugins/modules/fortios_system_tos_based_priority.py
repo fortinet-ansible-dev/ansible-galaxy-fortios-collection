@@ -111,7 +111,6 @@ options:
                        monetary cost, and 0: ).'
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure Type of Service (ToS) based priority table to set network traffic priorities.
   fortinet.fortios.fortios_system_tos_based_priority:

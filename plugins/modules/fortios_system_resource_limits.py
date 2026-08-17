@@ -155,7 +155,6 @@ options:
                     - Maximum number of user groups.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure resource limits.
   fortinet.fortios.fortios_system_resource_limits:

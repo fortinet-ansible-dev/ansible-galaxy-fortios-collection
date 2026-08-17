@@ -215,7 +215,7 @@ options:
                                 type: int
                     realservers:
                         description:
-                            - Select the real servers that this Access Proxy will distribute traffic to.
+                            - Select the real servers that this ZTNA web-proxy will distribute traffic to.
                         type: list
                         elements: dict
                         suboptions:
@@ -584,7 +584,7 @@ options:
                                 type: int
                     realservers:
                         description:
-                            - Select the real servers that this Access Proxy will distribute traffic to.
+                            - Select the real servers that this ZTNA web-proxy will distribute traffic to.
                         type: list
                         elements: dict
                         suboptions:
@@ -855,7 +855,7 @@ options:
                     - 'enable'
             name:
                 description:
-                    - ZTNA proxy name.
+                    - ZTNA web proxy name.
                 required: true
                 type: str
             svr_pool_multiplex:
@@ -886,7 +886,6 @@ options:
                     - Virtual IPv6 name. Source firewall.vip6.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure ZTNA web-proxy.
   fortinet.fortios.fortios_ztna_web_proxy:
@@ -1238,29 +1237,7 @@ versioned_schema = {
         "vip": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "host": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "decrypted_traffic_mirror": {"v_range": [["v7.6.1", ""]], "type": "string"},
-        "log_blocked_traffic": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "auth_portal": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "auth_virtual_host": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "vip6": {"v_range": [["v7.6.1", ""]], "type": "string"},
-        "svr_pool_multiplex": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "svr_pool_ttl": {"v_range": [["v7.6.1", ""]], "type": "integer"},
-        "svr_pool_server_max_request": {"v_range": [["v7.6.1", ""]], "type": "integer"},
-        "svr_pool_server_max_concurrent_request": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "integer",
-        },
         "api_gateway": {
             "type": "list",
             "elements": "dict",
@@ -1912,6 +1889,31 @@ versioned_schema = {
                 },
             },
             "v_range": [["v7.6.1", ""]],
+        },
+        "log_blocked_traffic": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "auth_portal": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "auth_virtual_host": {"v_range": [["v7.6.1", "v7.6.7"]], "type": "string"},
+        "svr_pool_multiplex": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "svr_pool_ttl": {"v_range": [["v7.6.1", "v7.6.7"]], "type": "integer"},
+        "svr_pool_server_max_request": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "integer",
+        },
+        "svr_pool_server_max_concurrent_request": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "integer",
         },
     },
     "v_range": [["v7.6.1", ""]],

@@ -105,7 +105,6 @@ options:
                     - Highest version of Fortinet firmware to exempt (format in Major.minor.patch, such as 7.6.4).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure device upgrade exemptions. Device will stop receiving upgrade notifications on the GUI.
   fortinet.fortios.fortios_system_device_upgrade_exemptions:

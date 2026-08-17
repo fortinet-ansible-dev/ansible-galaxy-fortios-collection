@@ -144,7 +144,6 @@ options:
                     - Source IP address for sFlow agent.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure sFlow.
   fortinet.fortios.fortios_system_sflow:

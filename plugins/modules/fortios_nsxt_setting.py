@@ -94,7 +94,6 @@ options:
                     - Service name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure NSX-T setting.
   fortinet.fortios.fortios_nsxt_setting:

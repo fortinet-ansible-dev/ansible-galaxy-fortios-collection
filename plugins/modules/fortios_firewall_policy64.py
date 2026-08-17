@@ -235,7 +235,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 to IPv4 policies.
   fortinet.fortios.fortios_firewall_policy64:

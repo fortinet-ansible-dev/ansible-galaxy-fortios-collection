@@ -133,7 +133,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure OSU provider icon.
   fortinet.fortios.fortios_wireless_controller_hotspot20_icon:

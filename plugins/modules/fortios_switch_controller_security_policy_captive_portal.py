@@ -106,7 +106,6 @@ options:
                     - Names of VLANs that use captive portal authentication. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Names of VLANs that use captive portal authentication.
   fortinet.fortios.fortios_switch_controller_security_policy_captive_portal:

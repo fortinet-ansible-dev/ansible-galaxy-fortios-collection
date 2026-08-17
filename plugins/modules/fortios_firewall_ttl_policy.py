@@ -147,7 +147,6 @@ options:
                     - 'Value/range to match against the packet"s Time to Live value (format: ttl[ - ttl_high], 1 - 255).'
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure TTL policies.
   fortinet.fortios.fortios_firewall_ttl_policy:

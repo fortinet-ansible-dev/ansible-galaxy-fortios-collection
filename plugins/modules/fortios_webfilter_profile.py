@@ -211,6 +211,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - Flow/proxy feature set.
@@ -680,6 +703,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             web:
                 description:
                     - Web content filtering settings.
@@ -958,7 +985,6 @@ options:
                     - 'blacklist'
                     - 'whitelist'
 """
-
 EXAMPLES = """
 - name: Configure Web filter profiles.
   fortinet.fortios.fortios_webfilter_profile:
@@ -988,6 +1014,9 @@ EXAMPLES = """
               status: "enable"
           comment: "Optional comments."
           extended_log: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "flow"
           file_filter:
               entries:
@@ -997,7 +1026,7 @@ EXAMPLES = """
                       direction: "incoming"
                       file_type:
                           -
-                              name: "default_name_30 (source antivirus.filetype.name)"
+                              name: "default_name_33 (source antivirus.filetype.name)"
                       filter: "<your_own_value>"
                       password_protected: "yes"
                       protocol: "http"
@@ -1011,9 +1040,9 @@ EXAMPLES = """
                       action: "block"
                       auth_usr_grp:
                           -
-                              name: "default_name_42 (source user.group.name)"
+                              name: "default_name_45 (source user.group.name)"
                       category: "0"
-                      id: "44"
+                      id: "47"
                       log: "enable"
                       override_replacemsg: "<your_own_value>"
                       warn_duration: "<your_own_value>"
@@ -1026,7 +1055,7 @@ EXAMPLES = """
                   -
                       category: "<your_own_value>"
                       duration: "<your_own_value>"
-                      id: "56"
+                      id: "59"
                       override_replacemsg: "<your_own_value>"
                       type: "time"
                       unit: "B"
@@ -1038,13 +1067,13 @@ EXAMPLES = """
               risk:
                   -
                       action: "block"
-                      id: "67"
+                      id: "70"
                       log: "enable"
                       risk_level: "<your_own_value> (source webfilter.ftgd-risk-level.name)"
           https_replacemsg: "enable"
           inspection_mode: "proxy"
           log_all_url: "enable"
-          name: "default_name_73"
+          name: "default_name_76"
           options: "activexfilter"
           override:
               ovrd_cookie: "allow"
@@ -1053,10 +1082,10 @@ EXAMPLES = """
               ovrd_scope: "user"
               ovrd_user_group:
                   -
-                      name: "default_name_81 (source user.group.name)"
+                      name: "default_name_84 (source user.group.name)"
               profile:
                   -
-                      name: "default_name_83 (source webfilter.profile.name)"
+                      name: "default_name_86 (source webfilter.profile.name)"
               profile_attribute: "User-Name"
               profile_type: "list"
           ovrd_perm: "bannedword-override"
@@ -1068,6 +1097,7 @@ EXAMPLES = """
               redirect_url: "<your_own_value>"
               server_fqdn: "<your_own_value>"
               status: "enable"
+          uuid: "<your_own_value>"
           web:
               allowlist: "exempt-av"
               blacklist: "enable"
@@ -1106,12 +1136,12 @@ EXAMPLES = """
           wisp_algorithm: "primary-secondary"
           wisp_servers:
               -
-                  name: "default_name_131 (source web-proxy.wisp.name)"
+                  name: "default_name_135 (source web-proxy.wisp.name)"
           youtube_channel_filter:
               -
                   channel_id: "<your_own_value>"
                   comment: "Comment."
-                  id: "135"
+                  id: "139"
           youtube_channel_status: "disable"
 """
 
@@ -1211,6 +1241,9 @@ def filter_webfilter_profile_data(json):
         "antiphish",
         "comment",
         "extended_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "feature_set",
         "file_filter",
         "ftgd_wf",
@@ -1224,6 +1257,7 @@ def filter_webfilter_profile_data(json):
         "post_action",
         "replacemsg_group",
         "url_extraction",
+        "uuid",
         "web",
         "web_antiphishing_log",
         "web_content_log",
@@ -1475,6 +1509,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "feature_set": {
             "v_range": [["v6.4.0", ""]],
@@ -1963,54 +2013,6 @@ versioned_schema = {
                 "ldap": {"v_range": [["v7.0.0", ""]], "type": "string"},
             },
         },
-        "url_extraction": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "dict",
-            "children": {
-                "status": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                    "options": [{"value": "enable"}, {"value": "disable"}],
-                },
-                "server_fqdn": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "redirect_header": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "redirect_url": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "redirect_no_content": {
-                    "v_range": [
-                        ["v6.0.0", "v7.0.8"],
-                        ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                    "options": [{"value": "enable"}, {"value": "disable"}],
-                },
-            },
-        },
         "wisp": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2131,6 +2133,58 @@ versioned_schema = {
             "v_range": [["v6.4.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "url_extraction": {
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "dict",
+            "children": {
+                "status": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "server_fqdn": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "redirect_header": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "redirect_url": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "redirect_no_content": {
+                    "v_range": [
+                        ["v6.0.0", "v7.0.8"],
+                        ["v7.2.0", "v7.2.4"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
         },
         "youtube_channel_status": {
             "v_range": [["v6.0.0", "v6.4.4"]],

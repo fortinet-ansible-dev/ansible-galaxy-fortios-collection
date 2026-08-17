@@ -160,7 +160,6 @@ options:
                     - SQL query statement.
                 type: str
 """
-
 EXAMPLES = """
 - name: Report dataset configuration.
   fortinet.fortios.fortios_report_dataset:

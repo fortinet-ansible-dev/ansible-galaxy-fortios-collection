@@ -104,7 +104,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure device categories.
   fortinet.fortios.fortios_user_device_category:

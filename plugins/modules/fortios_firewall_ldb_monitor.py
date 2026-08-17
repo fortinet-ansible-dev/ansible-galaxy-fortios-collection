@@ -155,7 +155,6 @@ options:
                     - 'dns'
                     - 'passive-sip'
 """
-
 EXAMPLES = """
 - name: Configure server load balancing health monitors.
   fortinet.fortios.fortios_firewall_ldb_monitor:
@@ -483,7 +482,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
             ],

@@ -114,7 +114,6 @@ options:
                     - Web browsing time calculation threshold (3 - 15 min).
                 type: int
 """
-
 EXAMPLES = """
 - name: Report setting configuration.
   fortinet.fortios.fortios_report_setting:

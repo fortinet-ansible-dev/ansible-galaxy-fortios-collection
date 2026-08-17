@@ -379,7 +379,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Agentless VPN user group bookmark.
   fortinet.fortios.fortios_vpn_ssl_web_user_group_bookmark:

@@ -144,6 +144,7 @@ options:
                     - 'interface'
                     - 'ospf-nbr-state-change'
                     - 'ospf-virtnbr-state-change'
+                    - 'fsso'
                     - 'bfd'
                     - 'power-supply-failure'
             hosts:
@@ -330,7 +331,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: SNMP community configuration.
   fortinet.fortios.fortios_system_snmp_community:
@@ -869,6 +869,7 @@ versioned_schema = {
                 {"value": "interface", "v_range": [["v7.6.0", ""]]},
                 {"value": "ospf-nbr-state-change", "v_range": [["v7.0.0", ""]]},
                 {"value": "ospf-virtnbr-state-change", "v_range": [["v7.0.0", ""]]},
+                {"value": "fsso", "v_range": [["v8.0.0", ""]]},
                 {"value": "bfd", "v_range": [["v7.6.5", ""]]},
                 {"value": "power-supply-failure", "v_range": [["v6.0.0", "v7.4.1"]]},
             ],

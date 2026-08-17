@@ -171,7 +171,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: CA certificate.
   fortinet.fortios.fortios_certificate_ca:

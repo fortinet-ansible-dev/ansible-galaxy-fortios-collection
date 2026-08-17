@@ -109,7 +109,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiData.
   fortinet.fortios.fortios_system_fortidata:

@@ -109,7 +109,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiTelemetry agent profiles.
   fortinet.fortios.fortios_telemetry_controller_agent_profile:

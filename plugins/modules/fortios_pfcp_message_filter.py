@@ -198,7 +198,6 @@ options:
                     - 'allow'
                     - 'deny'
 """
-
 EXAMPLES = """
 - name: Message filter for PFCP messages.
   fortinet.fortios.fortios_pfcp_message_filter:
@@ -518,12 +517,20 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "required": True,
         },
         "unknown_message": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
@@ -535,76 +542,128 @@ versioned_schema = {
                     "v_range": [
                         ["v7.0.1", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
                 }
             },
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "heartbeat": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "pfd_management": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "version_not_support": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "session_establish": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "session_modification": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "session_deletion": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "session_report": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "association_setup": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "association_update": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "association_release": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "node_report": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "session_set_deletion": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
     },
-    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+    "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", "v7.6.7"]],
 }
 
 

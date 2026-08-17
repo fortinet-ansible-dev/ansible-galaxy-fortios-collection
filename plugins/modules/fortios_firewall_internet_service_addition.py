@@ -143,7 +143,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure Internet Services Addition.
   fortinet.fortios.fortios_firewall_internet_service_addition:

@@ -97,7 +97,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source.
   fortinet.fortios.fortios_dlp_fp_sensitivity:

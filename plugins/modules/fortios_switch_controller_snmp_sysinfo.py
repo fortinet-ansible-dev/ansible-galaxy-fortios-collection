@@ -106,7 +106,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch SNMP system information globally.
   fortinet.fortios.fortios_switch_controller_snmp_sysinfo:

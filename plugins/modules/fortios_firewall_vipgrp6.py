@@ -119,7 +119,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 virtual IP groups.
   fortinet.fortios.fortios_firewall_vipgrp6:

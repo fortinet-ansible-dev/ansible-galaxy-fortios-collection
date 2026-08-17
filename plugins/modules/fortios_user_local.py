@@ -109,6 +109,29 @@ options:
                 description:
                     - Two-factor recipient"s email address.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             fortitoken:
                 description:
                     - Two-factor recipient"s FortiToken serial number. Source user.fortitoken.serial-number.
@@ -234,12 +257,15 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             workstation:
                 description:
                     - Name of the remote user workstation, if you want to limit the user to authenticate only from a particular workstation.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure local users.
   fortinet.fortios.fortios_user_local:
@@ -251,10 +277,13 @@ EXAMPLES = """
           auth_concurrent_value: "0"
           authtimeout: "0"
           email_to: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           fortitoken: "<your_own_value> (source user.fortitoken.serial-number)"
-          id: "8"
+          id: "11"
           ldap_server: "<your_own_value> (source user.ldap.name)"
-          name: "default_name_10"
+          name: "default_name_13"
           passwd: "<your_own_value>"
           passwd_policy: "<your_own_value> (source user.password-policy.name)"
           passwd_time: "<your_own_value>"
@@ -274,6 +303,7 @@ EXAMPLES = """
           type: "password"
           username_case_sensitivity: "disable"
           username_sensitivity: "disable"
+          uuid: "<your_own_value>"
           workstation: "<your_own_value>"
 """
 
@@ -374,6 +404,9 @@ def filter_user_local_data(json):
         "auth_concurrent_value",
         "authtimeout",
         "email_to",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "fortitoken",
         "id",
         "ldap_server",
@@ -397,6 +430,7 @@ def filter_user_local_data(json):
         "type",
         "username_case_sensitivity",
         "username_sensitivity",
+        "uuid",
         "workstation",
     ]
 
@@ -605,6 +639,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

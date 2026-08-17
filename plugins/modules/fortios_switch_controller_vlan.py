@@ -171,7 +171,6 @@ options:
                     - VLAN ID.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure VLANs for switch controller.
   fortinet.fortios.fortios_switch_controller_vlan:

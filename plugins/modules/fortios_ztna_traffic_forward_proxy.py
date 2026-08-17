@@ -148,7 +148,7 @@ options:
                     - 'enable'
             name:
                 description:
-                    - ZTNA proxy name.
+                    - ZTNA traffic forward proxy name.
                 required: true
                 type: str
             port:
@@ -657,6 +657,25 @@ options:
                 description:
                     - Time-to-live in the server pool for idle connections to servers.
                 type: int
+            url_route:
+                description:
+                    - Configure URL-based routing rules.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Name of the URL route.
+                        required: true
+                        type: str
+                    service_connector:
+                        description:
+                            - Service-connector to handle matched requests. Source ztna.service-connector.name.
+                        type: str
+                    url_pattern:
+                        description:
+                            - URL pattern used to match incoming requests.
+                        type: str
             user_agent_detect:
                 description:
                     - Enable/disable to detect device type by HTTP user-agent if no client certificate provided.
@@ -673,7 +692,6 @@ options:
                     - Virtual IPv6 name. Source firewall.vip6.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure ZTNA traffic forward proxy.
   fortinet.fortios.fortios_ztna_traffic_forward_proxy:
@@ -752,6 +770,11 @@ EXAMPLES = """
           svr_pool_server_max_concurrent_request: "0"
           svr_pool_server_max_request: "0"
           svr_pool_ttl: "15"
+          url_route:
+              -
+                  name: "default_name_72"
+                  service_connector: "<your_own_value> (source ztna.service-connector.name)"
+                  url_pattern: "<your_own_value>"
           user_agent_detect: "disable"
           vip: "<your_own_value> (source firewall.vip.name)"
           vip6: "<your_own_value> (source firewall.vip6.name)"
@@ -903,6 +926,7 @@ def filter_ztna_traffic_forward_proxy_data(json):
         "svr_pool_server_max_concurrent_request",
         "svr_pool_server_max_request",
         "svr_pool_ttl",
+        "url_route",
         "user_agent_detect",
         "vip",
         "vip6",
@@ -1131,18 +1155,32 @@ versioned_schema = {
         "vip": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "host": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "decrypted_traffic_mirror": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "vip6": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "url_route": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "url_pattern": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "service_connector": {"v_range": [["v8.0.0", ""]], "type": "string"},
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "log_blocked_traffic": {
-            "v_range": [["v7.6.0", ""]],
+            "v_range": [["v7.6.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "auth_portal": {
-            "v_range": [["v7.6.0", ""]],
+            "v_range": [["v7.6.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "auth_virtual_host": {"v_range": [["v7.6.1", ""]], "type": "string"},
-        "vip6": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "auth_virtual_host": {"v_range": [["v7.6.1", "v7.6.7"]], "type": "string"},
         "status": {
             "v_range": [["v7.6.0", "v7.6.0"]],
             "type": "string",

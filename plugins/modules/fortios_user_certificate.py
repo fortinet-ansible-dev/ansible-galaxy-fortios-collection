@@ -100,7 +100,7 @@ options:
                 type: int
             issuer:
                 description:
-                    - CA certificate used for client certificate verification. Source vpn.certificate.ca.name.
+                    - CA certificate used for client certificate verification. Source vpn.certificate.ca.name vpn.certificate.local.name.
                 type: str
             name:
                 description:
@@ -122,7 +122,6 @@ options:
                     - 'single-certificate'
                     - 'trusted-issuer'
 """
-
 EXAMPLES = """
 - name: Configure certificate users.
   fortinet.fortios.fortios_user_certificate:
@@ -132,7 +131,7 @@ EXAMPLES = """
       user_certificate:
           common_name: "<your_own_value>"
           id: "4"
-          issuer: "<your_own_value> (source vpn.certificate.ca.name)"
+          issuer: "<your_own_value> (source vpn.certificate.ca.name vpn.certificate.local.name)"
           name: "default_name_6"
           status: "enable"
           type: "single-certificate"

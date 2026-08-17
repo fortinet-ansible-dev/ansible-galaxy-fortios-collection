@@ -111,7 +111,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure virtual Access Point (VAP) groups.
   fortinet.fortios.fortios_wireless_controller_vap_group:

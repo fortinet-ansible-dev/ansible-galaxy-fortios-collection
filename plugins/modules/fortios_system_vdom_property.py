@@ -151,7 +151,7 @@ options:
                 type: str
             onetime_schedule:
                 description:
-                    - Maximum guaranteed number of firewall one-time schedules..
+                    - Maximum guaranteed number of firewall one-time schedules.
                 type: list
                 elements: str
             proxy:
@@ -194,7 +194,6 @@ options:
                 type: list
                 elements: str
 """
-
 EXAMPLES = """
 - name: Configure VDOM property.
   fortinet.fortios.fortios_system_vdom_property:

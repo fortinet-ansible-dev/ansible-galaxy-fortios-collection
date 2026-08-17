@@ -106,8 +106,11 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            urlfilter_table:
+                description:
+                    - Local URL list. Source webfilter.urlfilter.id.
+                type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard Web Filter local categories.
   fortinet.fortios.fortios_webfilter_ftgd_local_cat:
@@ -118,6 +121,7 @@ EXAMPLES = """
           desc: "<your_own_value>"
           id: "4"
           status: "enable"
+          urlfilter_table: "0"
 """
 
 RETURN = """
@@ -212,7 +216,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_webfilter_ftgd_local_cat_data(json):
-    option_list = ["desc", "id", "status"]
+    option_list = ["desc", "id", "status", "urlfilter_table"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -404,6 +408,7 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "id": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "urlfilter_table": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "desc": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
     },
     "v_range": [["v6.0.0", ""]],

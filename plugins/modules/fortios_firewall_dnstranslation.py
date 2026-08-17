@@ -112,7 +112,6 @@ options:
                        matches, the resolved address is substituted with dst.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure DNS translation.
   fortinet.fortios.fortios_firewall_dnstranslation:

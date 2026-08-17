@@ -94,6 +94,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - IPS or voipd (SIP-ALG) inspection feature set.
@@ -968,8 +991,11 @@ options:
                             - 'none'
                             - 'src-ip'
                             - 'dest-ip'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure VoIP profiles.
   fortinet.fortios.fortios_voip_profile:
@@ -978,13 +1004,16 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       voip_profile:
           comment: "Comment."
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "ips"
           msrp:
               log_violations: "disable"
               max_msg_size: "0"
               max_msg_size_action: "pass"
               status: "disable"
-          name: "default_name_10"
+          name: "default_name_13"
           sccp:
               block_mcast: "disable"
               log_call_summary: "disable"
@@ -1108,6 +1137,7 @@ EXAMPLES = """
               unknown_header: "discard"
               update_rate: "0"
               update_rate_track: "none"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -1202,7 +1232,18 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_voip_profile_data(json):
-    option_list = ["comment", "feature_set", "msrp", "name", "sccp", "sip"]
+    option_list = [
+        "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "feature_set",
+        "msrp",
+        "name",
+        "sccp",
+        "sip",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -1383,6 +1424,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "feature_set": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",

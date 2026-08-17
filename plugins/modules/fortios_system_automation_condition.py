@@ -130,7 +130,6 @@ options:
                     - 'tunnel-up'
                     - 'tunnel-down'
 """
-
 EXAMPLES = """
 - name: Condition for automation stitches.
   fortinet.fortios.fortios_system_automation_condition:

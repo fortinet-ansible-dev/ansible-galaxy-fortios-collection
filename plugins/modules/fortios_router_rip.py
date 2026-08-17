@@ -349,7 +349,6 @@ options:
                     - '1'
                     - '2'
 """
-
 EXAMPLES = """
 - name: Configure RIP.
   fortinet.fortios.fortios_router_rip:

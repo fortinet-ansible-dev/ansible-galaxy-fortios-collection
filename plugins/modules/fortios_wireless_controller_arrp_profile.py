@@ -174,34 +174,33 @@ options:
                 type: int
             weight_channel_load:
                 description:
-                    - Weight in DARRP channel score calculation for channel load (0 - 2000).
+                    - Weight in DARRP channel score calculation for channel load (0 - 200).
                 type: int
             weight_dfs_channel:
                 description:
-                    - Weight in DARRP channel score calculation for DFS channel (0 - 2000).
+                    - Weight in DARRP channel score calculation for DFS channel (0 - 200).
                 type: int
             weight_managed_ap:
                 description:
-                    - Weight in DARRP channel score calculation for managed APs (0 - 2000).
+                    - Weight in DARRP channel score calculation for managed APs (0 - 200).
                 type: int
             weight_noise_floor:
                 description:
-                    - Weight in DARRP channel score calculation for noise floor (0 - 2000).
+                    - Weight in DARRP channel score calculation for noise floor (0 - 200).
                 type: int
             weight_rogue_ap:
                 description:
-                    - Weight in DARRP channel score calculation for rogue APs (0 - 2000).
+                    - Weight in DARRP channel score calculation for rogue APs (0 - 200).
                 type: int
             weight_spectral_rssi:
                 description:
-                    - Weight in DARRP channel score calculation for spectral RSSI (0 - 2000).
+                    - Weight in DARRP channel score calculation for spectral RSSI (0 - 200).
                 type: int
             weight_weather_channel:
                 description:
-                    - Weight in DARRP channel score calculation for weather channel (0 - 2000).
+                    - Weight in DARRP channel score calculation for weather channel (0 - 200).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure WiFi Automatic Radio Resource Provisioning (ARRP) profiles.
   fortinet.fortios.fortios_wireless_controller_arrp_profile:
@@ -227,12 +226,12 @@ EXAMPLES = """
           threshold_spectral_rssi: "<your_own_value>"
           threshold_tx_retries: "300"
           weight_channel_load: "20"
-          weight_dfs_channel: "500"
+          weight_dfs_channel: "50"
           weight_managed_ap: "50"
           weight_noise_floor: "40"
           weight_rogue_ap: "10"
           weight_spectral_rssi: "40"
-          weight_weather_channel: "1000"
+          weight_weather_channel: "100"
 """
 
 RETURN = """

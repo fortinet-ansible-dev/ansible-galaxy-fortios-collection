@@ -100,7 +100,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure APN for GTP.
   fortinet.fortios.fortios_gtp_apn:
@@ -381,16 +380,24 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "required": True,
         },
         "apn": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
     },
-    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", "v7.6.7"]],
 }
 
 

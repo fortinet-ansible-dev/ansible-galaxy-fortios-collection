@@ -145,7 +145,6 @@ options:
                     - Native VLAN to be applied when using this VLAN policy. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure VLAN policy to be applied on the managed FortiSwitch ports through dynamic-port-policy.
   fortinet.fortios.fortios_switch_controller_vlan_policy:

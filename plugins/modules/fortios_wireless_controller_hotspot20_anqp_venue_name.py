@@ -115,7 +115,6 @@ options:
                             - Venue name value.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure venue name duple.
   fortinet.fortios.fortios_wireless_controller_hotspot20_anqp_venue_name:

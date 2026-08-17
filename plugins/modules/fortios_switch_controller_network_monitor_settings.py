@@ -90,7 +90,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure network monitor settings.
   fortinet.fortios.fortios_switch_controller_network_monitor_settings:

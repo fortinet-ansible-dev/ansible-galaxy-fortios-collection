@@ -203,6 +203,15 @@ options:
                                     - Application category ID. see <a href='#notes'>Notes</a>.
                                 required: true
                                 type: int
+                    classification:
+                        description:
+                            - Application classification filter.
+                        type: str
+                        choices:
+                            - 'none'
+                            - 'sanctioned'
+                            - 'unsanctioned'
+                            - 'unclassified'
                     exclusion:
                         description:
                             - ID of excluded applications.
@@ -382,6 +391,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             force_inclusion_ssl_di_sigs:
                 description:
                     - Enable/disable forced inclusion of SSL deep inspection signatures.
@@ -434,9 +466,9 @@ options:
                 type: list
                 elements: str
                 choices:
-                    - 'skype'
                     - 'edonkey'
                     - 'bittorrent'
+                    - 'skype'
             replacemsg_group:
                 description:
                     - Replacement message group. Source system.replacemsg-group.name.
@@ -455,8 +487,11 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure application control lists.
   fortinet.fortios.fortios_application_list:
@@ -485,19 +520,20 @@ EXAMPLES = """
                   category:
                       -
                           id: "19"
+                  classification: "none"
                   exclusion:
                       -
-                          id: "21"
-                  id: "22"
+                          id: "22"
+                  id: "23"
                   log: "disable"
                   log_packet: "disable"
                   parameters:
                       -
-                          id: "26"
+                          id: "27"
                           members:
                               -
-                                  id: "28"
-                                  name: "default_name_29"
+                                  id: "29"
+                                  name: "default_name_30"
                                   value: "<your_own_value>"
                           value: "<your_own_value>"
                   per_ip_shaper: "<your_own_value> (source firewall.shaper.per-ip-shaper.name)"
@@ -518,20 +554,24 @@ EXAMPLES = """
                   shaper_reverse: "<your_own_value> (source firewall.shaper.traffic-shaper.name)"
                   sub_category:
                       -
-                          id: "48"
+                          id: "49"
                   technology: "<your_own_value>"
                   vendor: "<your_own_value>"
           extended_log: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           force_inclusion_ssl_di_sigs: "disable"
-          name: "default_name_53"
+          name: "default_name_57"
           options: "allow-dns"
           other_application_action: "pass"
           other_application_log: "disable"
           p2p_black_list: "skype"
-          p2p_block_list: "skype"
+          p2p_block_list: "edonkey"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           unknown_application_action: "pass"
           unknown_application_log: "disable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -635,6 +675,9 @@ def filter_application_list_data(json):
         "enforce_default_app_port",
         "entries",
         "extended_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "force_inclusion_ssl_di_sigs",
         "name",
         "options",
@@ -645,6 +688,7 @@ def filter_application_list_data(json):
         "replacemsg_group",
         "unknown_application_action",
         "unknown_application_log",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -866,6 +910,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "replacemsg_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "extended_log": {
@@ -912,9 +972,9 @@ versioned_schema = {
             "v_range": [["v7.0.0", ""]],
             "type": "list",
             "options": [
-                {"value": "skype"},
                 {"value": "edonkey"},
                 {"value": "bittorrent"},
+                {"value": "skype", "v_range": [["v7.0.0", "v7.6.7"]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -1018,6 +1078,16 @@ versioned_schema = {
                     ],
                     "multiple_values": True,
                     "elements": "str",
+                },
+                "classification": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "none"},
+                        {"value": "sanctioned"},
+                        {"value": "unsanctioned"},
+                        {"value": "unclassified"},
+                    ],
                 },
                 "exclusion": {
                     "type": "list",

@@ -96,7 +96,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Settings for memory buffer.
   fortinet.fortios.fortios_log_memory_setting:

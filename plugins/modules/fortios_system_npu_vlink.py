@@ -96,7 +96,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure NPU VDOM link.
   fortinet.fortios.fortios_system_npu_vlink:
@@ -379,9 +378,13 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string", "required": True}
+        "name": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "required": True,
+        }
     },
-    "v_range": [["v7.4.2", "v7.4.2"]],
+    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
 }
 
 

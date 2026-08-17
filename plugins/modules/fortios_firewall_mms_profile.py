@@ -884,7 +884,6 @@ options:
                     - Replacement message group. Source system.replacemsg-group.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure MMS profiles.
   fortinet.fortios.fortios_firewall_mms_profile:

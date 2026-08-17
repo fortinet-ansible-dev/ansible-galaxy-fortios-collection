@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_monitoring_npu_hpe
-short_description: Configure npu-hpe status monitoring in Fortinet's FortiOS and FortiGate.
+short_description: Configure HPE status monitoring in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify monitoring feature and npu_hpe category.
@@ -78,7 +78,7 @@ options:
 
     monitoring_npu_hpe:
         description:
-            - Configure npu-hpe status monitoring.
+            - Configure HPE status monitoring.
         default: null
         type: dict
         suboptions:
@@ -99,9 +99,8 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
-- name: Configure npu-hpe status monitoring.
+- name: Configure HPE status monitoring.
   fortinet.fortios.fortios_monitoring_npu_hpe:
       vdom: "{{ vdom }}"
       monitoring_npu_hpe:

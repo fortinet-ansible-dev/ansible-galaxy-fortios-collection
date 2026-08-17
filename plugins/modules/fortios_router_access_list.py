@@ -137,7 +137,6 @@ options:
                             - Wildcard to define Cisco-style wildcard filter criteria.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure access lists.
   fortinet.fortios.fortios_router_access_list:

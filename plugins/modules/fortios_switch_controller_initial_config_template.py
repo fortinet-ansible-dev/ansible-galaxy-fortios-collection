@@ -135,7 +135,6 @@ options:
                     - Unique VLAN ID.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure template for auto-generated VLANs.
   fortinet.fortios.fortios_switch_controller_initial_config_template:

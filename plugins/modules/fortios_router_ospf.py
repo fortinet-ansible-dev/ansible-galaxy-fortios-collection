@@ -411,7 +411,7 @@ options:
                     - 'disable'
             lsa_refresh_interval:
                 description:
-                    - The minimal OSPF LSA update time interval
+                    - The minimal OSPF LSA update time interval.
                 type: int
             neighbor:
                 description:
@@ -721,7 +721,6 @@ options:
                             - Tag value.
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure OSPF.
   fortinet.fortios.fortios_router_ospf:

@@ -286,7 +286,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch location services.
   fortinet.fortios.fortios_switch_controller_location:

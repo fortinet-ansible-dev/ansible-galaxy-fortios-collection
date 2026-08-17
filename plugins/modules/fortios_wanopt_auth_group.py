@@ -124,7 +124,6 @@ options:
                     - Pre-shared key used by the peers in this authentication group.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure WAN optimization authentication groups.
   fortinet.fortios.fortios_wanopt_auth_group:

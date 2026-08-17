@@ -138,7 +138,6 @@ options:
                     - 'FortiClient EMS telemetry upload port number. (1 - 65535).'
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiClient Enterprise Management Server (EMS) entries.
   fortinet.fortios.fortios_endpoint_control_forticlient_ems:

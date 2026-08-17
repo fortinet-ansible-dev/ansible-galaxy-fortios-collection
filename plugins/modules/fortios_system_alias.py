@@ -100,7 +100,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure alias command.
   fortinet.fortios.fortios_system_alias:

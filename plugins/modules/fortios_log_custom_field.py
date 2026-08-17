@@ -90,6 +90,29 @@ options:
         default: null
         type: dict
         suboptions:
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             id:
                 description:
                     - Field ID string.
@@ -99,12 +122,15 @@ options:
                 description:
                     - 'Field name (max: 15 characters).'
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             value:
                 description:
                     - 'Field value (max: 15 characters).'
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure custom log fields.
   fortinet.fortios.fortios_log_custom_field:
@@ -112,8 +138,12 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       log_custom_field:
-          id: "3"
-          name: "default_name_4"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          id: "6"
+          name: "default_name_7"
+          uuid: "<your_own_value>"
           value: "<your_own_value>"
 """
 
@@ -209,7 +239,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_log_custom_field_data(json):
-    option_list = ["id", "name", "value"]
+    option_list = [
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "id",
+        "name",
+        "uuid",
+        "value",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -390,6 +428,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "id": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "name": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "value": {"v_range": [["v6.0.0", ""]], "type": "string"},
     },

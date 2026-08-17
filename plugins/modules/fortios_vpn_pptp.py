@@ -113,7 +113,6 @@ options:
                     - User group. Source user.group.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure PPTP.
   fortinet.fortios.fortios_vpn_pptp:

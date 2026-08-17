@@ -119,7 +119,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch switch groups.
   fortinet.fortios.fortios_switch_controller_switch_group:

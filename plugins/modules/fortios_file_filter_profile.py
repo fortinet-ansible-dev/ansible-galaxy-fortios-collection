@@ -101,6 +101,29 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - Flow/proxy feature set.
@@ -137,13 +160,14 @@ options:
                         choices:
                             - 'log-only'
                             - 'block'
+                            - 'warning'
                     comment:
                         description:
                             - Comment.
                         type: str
                     direction:
                         description:
-                            - Traffic direction (HTTP, FTP, SSH, CIFS, and MAPI only).
+                            - Traffic direction (HTTP, FTP, SSH, WEBSOCKET, CIFS, and MAPI only).
                         type: str
                         choices:
                             - 'incoming'
@@ -186,6 +210,7 @@ options:
                             - 'mapi'
                             - 'cifs'
                             - 'ssh'
+                            - 'websocket'
             scan_archive_contents:
                 description:
                     - Enable/disable archive contents scan.
@@ -193,8 +218,11 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure file-filter profiles.
   fortinet.fortios.fortios_file_filter_profile:
@@ -204,9 +232,12 @@ EXAMPLES = """
       file_filter_profile:
           comment: "Comment."
           extended_log: "disable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "flow"
           log: "disable"
-          name: "default_name_7"
+          name: "default_name_10"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           rules:
               -
@@ -215,11 +246,12 @@ EXAMPLES = """
                   direction: "incoming"
                   file_type:
                       -
-                          name: "default_name_14 (source antivirus.filetype.name)"
-                  name: "default_name_15"
+                          name: "default_name_17 (source antivirus.filetype.name)"
+                  name: "default_name_18"
                   password_protected: "yes"
                   protocol: "http"
           scan_archive_contents: "disable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -317,12 +349,16 @@ def filter_file_filter_profile_data(json):
     option_list = [
         "comment",
         "extended_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "feature_set",
         "log",
         "name",
         "replacemsg_group",
         "rules",
         "scan_archive_contents",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -584,6 +620,7 @@ versioned_schema = {
                         {"value": "mapi"},
                         {"value": "cifs"},
                         {"value": "ssh"},
+                        {"value": "websocket", "v_range": [["v7.6.7", ""]]},
                     ],
                     "multiple_values": True,
                     "elements": "str",
@@ -591,7 +628,11 @@ versioned_schema = {
                 "action": {
                     "v_range": [["v6.4.0", ""]],
                     "type": "string",
-                    "options": [{"value": "log-only"}, {"value": "block"}],
+                    "options": [
+                        {"value": "log-only"},
+                        {"value": "block"},
+                        {"value": "warning", "v_range": [["v8.0.0", ""]]},
+                    ],
                 },
                 "direction": {
                     "v_range": [["v6.4.0", ""]],
@@ -621,6 +662,22 @@ versioned_schema = {
                 },
             },
             "v_range": [["v6.4.0", ""]],
+        },
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
         },
     },
     "v_range": [["v6.4.0", ""]],

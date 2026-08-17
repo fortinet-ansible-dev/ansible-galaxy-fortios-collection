@@ -111,7 +111,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Policies which can override the 'default' for specific ISL/ICL/FortiLink interface.
   fortinet.fortios.fortios_switch_controller_auto_config_custom:

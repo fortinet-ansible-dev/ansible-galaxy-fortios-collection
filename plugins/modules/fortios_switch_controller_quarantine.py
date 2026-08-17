@@ -120,7 +120,6 @@ options:
                                 required: true
                                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch quarantine support.
   fortinet.fortios.fortios_switch_controller_quarantine:

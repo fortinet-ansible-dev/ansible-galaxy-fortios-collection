@@ -94,7 +94,6 @@ options:
                     - 'Time to hold and monitor IPS signatures. Format <#d##h> (day range: 0 - 21, hour range: 0 - 23, max hold time: 21d0h).'
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPS system settings.
   fortinet.fortios.fortios_system_ips:

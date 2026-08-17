@@ -185,7 +185,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure MS Exchange server entries.
   fortinet.fortios.fortios_user_exchange:

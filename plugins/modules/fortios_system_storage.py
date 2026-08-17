@@ -142,7 +142,6 @@ options:
                     - 'wanopt'
                     - 'webcache'
 """
-
 EXAMPLES = """
 - name: Configure logical storage.
   fortinet.fortios.fortios_system_storage:

@@ -122,7 +122,6 @@ options:
                     - 'unknown'
                     - 'google-cloud-kms'
 """
-
 EXAMPLES = """
 - name: Configure system cloud service.
   fortinet.fortios.fortios_system_cloud_service:

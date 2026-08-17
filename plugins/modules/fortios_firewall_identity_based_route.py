@@ -130,7 +130,6 @@ options:
                         required: true
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure identity based routing.
   fortinet.fortios.fortios_firewall_identity_based_route:

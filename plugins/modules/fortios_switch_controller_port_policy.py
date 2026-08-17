@@ -129,7 +129,6 @@ options:
                     - VLAN policy to be applied when using this port-policy. Source switch-controller.vlan-policy.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure port policy to be applied on the managed FortiSwitch ports through NAC device.
   fortinet.fortios.fortios_switch_controller_port_policy:

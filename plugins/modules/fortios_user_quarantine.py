@@ -143,7 +143,6 @@ options:
                     - Traffic policy for quarantined MACs. Source switch-controller.traffic-policy.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure quarantine support.
   fortinet.fortios.fortios_user_quarantine:

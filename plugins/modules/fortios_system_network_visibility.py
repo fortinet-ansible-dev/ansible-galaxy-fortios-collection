@@ -119,7 +119,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure network visibility settings.
   fortinet.fortios.fortios_system_network_visibility:

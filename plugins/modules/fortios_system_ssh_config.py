@@ -149,6 +149,7 @@ options:
                     - 'ecdh-sha2-nistp256'
                     - 'ecdh-sha2-nistp384'
                     - 'ecdh-sha2-nistp521'
+                    - 'mlkem768x25519-sha256'
             ssh_mac_algo:
                 description:
                     - Select one or more SSH MAC algorithms.
@@ -173,7 +174,6 @@ options:
                     - 'umac-64-etm@openssh.com'
                     - 'umac-128-etm@openssh.com'
 """
-
 EXAMPLES = """
 - name: Configure SSH config.
   fortinet.fortios.fortios_system_ssh_config:
@@ -506,6 +506,7 @@ versioned_schema = {
                 {"value": "ecdh-sha2-nistp256"},
                 {"value": "ecdh-sha2-nistp384"},
                 {"value": "ecdh-sha2-nistp521"},
+                {"value": "mlkem768x25519-sha256", "v_range": [["v8.0.0", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",

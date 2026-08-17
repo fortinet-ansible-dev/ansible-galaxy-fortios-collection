@@ -131,7 +131,6 @@ options:
                     - WebFilter profile name. Source webfilter.profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure UTM (Unified Threat Management) profile.
   fortinet.fortios.fortios_wireless_controller_utm_profile:

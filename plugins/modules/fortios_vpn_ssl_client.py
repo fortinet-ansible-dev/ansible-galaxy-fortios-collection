@@ -163,7 +163,6 @@ options:
                     - Username to offer to the peer to authenticate the client.
                 type: str
 """
-
 EXAMPLES = """
 - name: Client.
   fortinet.fortios.fortios_vpn_ssl_client:

@@ -395,7 +395,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: VDOM wireless controller configuration.
   fortinet.fortios.fortios_wireless_controller_setting:

@@ -147,7 +147,6 @@ options:
                     - 'auth-no-priv'
                     - 'auth-priv'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch SNMP v3 users globally.
   fortinet.fortios.fortios_switch_controller_snmp_user:

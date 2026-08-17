@@ -120,6 +120,29 @@ options:
                         description:
                             - Name of MPIP label. Source dlp.mpip-label.name.
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             mpip_type:
                 description:
                     - MPIP label type.
@@ -139,8 +162,11 @@ options:
                 choices:
                     - 'mpip'
                     - 'fortidata'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure labels used by DLP blocking.
   fortinet.fortios.fortios_dlp_label:
@@ -156,9 +182,13 @@ EXAMPLES = """
                   guid: "<your_own_value>"
                   id: "8"
                   mpip_label_name: "<your_own_value> (source dlp.mpip-label.name)"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           mpip_type: "remote"
-          name: "default_name_11"
+          name: "default_name_14"
           type: "mpip"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -241,7 +271,18 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_dlp_label_data(json):
-    option_list = ["comment", "connector", "entries", "mpip_type", "name", "type"]
+    option_list = [
+        "comment",
+        "connector",
+        "entries",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "mpip_type",
+        "name",
+        "type",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -367,6 +408,22 @@ versioned_schema = {
                 "guid": {"v_range": [["v7.6.3", ""]], "type": "string"},
             },
             "v_range": [["v7.6.3", ""]],
+        },
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
         },
     },
     "v_range": [["v7.6.3", ""]],

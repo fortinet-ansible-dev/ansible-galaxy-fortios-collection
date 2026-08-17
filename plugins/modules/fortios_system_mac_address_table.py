@@ -104,7 +104,6 @@ options:
                     - New MAC for reply traffic.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure MAC address tables.
   fortinet.fortios.fortios_system_mac_address_table:

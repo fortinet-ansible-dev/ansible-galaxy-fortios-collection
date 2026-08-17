@@ -129,7 +129,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure virtual wire pairs.
   fortinet.fortios.fortios_system_virtual_wire_pair:
@@ -450,12 +449,12 @@ versioned_schema = {
             "elements": "dict",
             "children": {
                 "vlanid": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "integer",
                     "required": True,
                 }
             },
-            "v_range": [["v7.4.2", "v7.4.2"]],
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
         },
     },
     "v_range": [["v6.0.0", ""]],

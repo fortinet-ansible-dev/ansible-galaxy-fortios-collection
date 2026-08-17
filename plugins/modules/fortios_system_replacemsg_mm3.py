@@ -163,7 +163,6 @@ options:
                     - subject text string
                 type: str
 """
-
 EXAMPLES = """
 - name: Replacement messages.
   fortinet.fortios.fortios_system_replacemsg_mm3:

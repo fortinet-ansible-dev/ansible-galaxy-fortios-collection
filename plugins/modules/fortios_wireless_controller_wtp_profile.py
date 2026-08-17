@@ -90,6 +90,14 @@ options:
         default: null
         type: dict
         suboptions:
+            set_80211mc_mode:
+                description:
+                    - Set 802.11mc mode of the AP .
+                type: str
+                choices:
+                    - 'auto'
+                    - 'initiator'
+                    - 'responder'
             admin_auth_tacacs_plus:
                 description:
                     - Remote authentication server for admin user. Source user.tacacs+.name.
@@ -678,6 +686,13 @@ options:
                 choices:
                     - 'tcp-mss-adjust'
                     - 'icmp-unreachable'
+            ipsec_offload:
+                description:
+                    - Enable/disable data channel IPSec offloading .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             lan:
                 description:
                     - WTP LAN port mapping.
@@ -1141,15 +1156,10 @@ options:
                         type: str
                         choices:
                             - 'AP-11N'
-                            - 'C24JE'
                             - '421E'
                             - '423E'
                             - '221E'
-                            - '222E'
                             - '223E'
-                            - '224E'
-                            - '231E'
-                            - '321E'
                             - '431F'
                             - '431FL'
                             - '432F'
@@ -1167,6 +1177,7 @@ options:
                             - '431G'
                             - '432G'
                             - '433G'
+                            - '221K'
                             - '231K'
                             - '231KD'
                             - '23JK'
@@ -1175,8 +1186,20 @@ options:
                             - '243K'
                             - '244K'
                             - '441K'
-                            - '432K'
+                            - '435K'
                             - '443K'
+                            - 'U431F'
+                            - 'U433F'
+                            - 'U231F'
+                            - 'U234F'
+                            - 'U432F'
+                            - 'U231G'
+                            - 'MVP'
+                            - 'C24JE'
+                            - '222E'
+                            - '224E'
+                            - '231E'
+                            - '321E'
                             - 'U421E'
                             - 'U422EV'
                             - 'U423E'
@@ -1185,13 +1208,7 @@ options:
                             - 'U24JEV'
                             - 'U321EV'
                             - 'U323EV'
-                            - 'U431F'
-                            - 'U433F'
-                            - 'U231F'
-                            - 'U234F'
-                            - 'U432F'
-                            - 'U231G'
-                            - 'MVP'
+                            - '432K'
                             - '220B'
                             - '210B'
                             - '222B'
@@ -1240,6 +1257,7 @@ options:
                     - 'power-adapter'
                     - 'full'
                     - 'high'
+                    - 'high-pse'
                     - 'low'
             radio_1:
                 description:
@@ -1441,6 +1459,10 @@ options:
                         description:
                             - Maximum number of Voice over WLAN (VoWLAN) phones supported by the radio (0 - 60).
                         type: int
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -1745,7 +1767,7 @@ options:
                             - 'disable'
                     set_80211mc:
                         description:
-                            - Enable/disable 802.11mc responder mode .
+                            - Enable/disable radio 802.11mc capability .
                         type: str
                         choices:
                             - 'enable'
@@ -1785,6 +1807,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -2009,6 +2038,10 @@ options:
                         description:
                             - Maximum number of Voice over WLAN (VoWLAN) phones supported by the radio (0 - 60).
                         type: int
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -2313,7 +2346,7 @@ options:
                             - 'disable'
                     set_80211mc:
                         description:
-                            - Enable/disable 802.11mc responder mode .
+                            - Enable/disable radio 802.11mc capability .
                         type: str
                         choices:
                             - 'enable'
@@ -2353,6 +2386,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -2577,6 +2617,10 @@ options:
                         description:
                             - Maximum number of Voice over WLAN (VoWLAN) phones supported by the radio (0 - 60).
                         type: int
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -2881,7 +2925,7 @@ options:
                             - 'disable'
                     set_80211mc:
                         description:
-                            - Enable/disable 802.11mc responder mode .
+                            - Enable/disable radio 802.11mc capability .
                         type: str
                         choices:
                             - 'enable'
@@ -2921,6 +2965,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -3145,6 +3196,10 @@ options:
                         description:
                             - Maximum number of Voice over WLAN (VoWLAN) phones supported by the radio (0 - 60).
                         type: int
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -3445,7 +3500,7 @@ options:
                             - 'disable'
                     set_80211mc:
                         description:
-                            - Enable/disable 802.11mc responder mode .
+                            - Enable/disable radio 802.11mc capability .
                         type: str
                         choices:
                             - 'enable'
@@ -3485,6 +3540,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -3603,7 +3665,6 @@ options:
                     - 'wan-lan'
                     - 'wan-only'
 """
-
 EXAMPLES = """
 - name: Configure WTP profiles or FortiAP profiles that define radio settings for manageable FortiAP platforms.
   fortinet.fortios.fortios_wireless_controller_wtp_profile:
@@ -3611,6 +3672,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       wireless_controller_wtp_profile:
+          set_80211mc_mode: "auto"
           admin_auth_tacacs_plus: "<your_own_value> (source user.tacacs+.name)"
           admin_restrict_local: "enable"
           allowaccess: "https"
@@ -3649,7 +3711,7 @@ EXAMPLES = """
           default_mesh_root: "enable"
           deny_mac_list:
               -
-                  id: "40"
+                  id: "41"
                   mac: "<your_own_value>"
           dtls_in_kernel: "enable"
           dtls_policy: "clear-text"
@@ -3673,6 +3735,7 @@ EXAMPLES = """
           handoff_sta_thresh: "0"
           indoor_outdoor_deployment: "platform-determined"
           ip_fragment_preventing: "tcp-mss-adjust"
+          ipsec_offload: "enable"
           lan:
               port_esl_mode: "offline"
               port_esl_ssid: "<your_own_value> (source system.interface.name)"
@@ -3747,14 +3810,14 @@ EXAMPLES = """
               station_locate: "enable"
           led_schedules:
               -
-                  name: "default_name_137 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_139 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           led_state: "enable"
           lldp: "enable"
           login_passwd: "<your_own_value>"
           login_passwd_change: "yes"
           lw_profile: "<your_own_value> (source wireless-controller.lw-profile.name)"
           max_clients: "0"
-          name: "default_name_144"
+          name: "default_name_146"
           platform:
               ddscan: "enable"
               mode: "single-5G"
@@ -3788,6 +3851,7 @@ EXAMPLES = """
               bss_color_mode: "auto"
               call_admission_control: "enable"
               call_capacity: "10"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
@@ -3845,9 +3909,10 @@ EXAMPLES = """
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_235 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_239 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_2:
@@ -3878,6 +3943,7 @@ EXAMPLES = """
               bss_color_mode: "auto"
               call_admission_control: "enable"
               call_capacity: "10"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
@@ -3935,9 +4001,10 @@ EXAMPLES = """
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_323 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_329 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_3:
@@ -3968,6 +4035,7 @@ EXAMPLES = """
               bss_color_mode: "auto"
               call_admission_control: "enable"
               call_capacity: "10"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
@@ -4025,9 +4093,10 @@ EXAMPLES = """
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_411 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_419 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           radio_4:
@@ -4058,6 +4127,7 @@ EXAMPLES = """
               bss_color_mode: "auto"
               call_admission_control: "enable"
               call_capacity: "10"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
@@ -4114,15 +4184,16 @@ EXAMPLES = """
               spectrum_analysis: "enable"
               transmit_optimize: "disable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_498 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_508 (source wireless-controller.vap-group.name system.interface.name)"
               wids_profile: "<your_own_value> (source wireless-controller.wids-profile.name)"
               zero_wait_dfs: "enable"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "503"
+                  id: "513"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
           syslog_profile: "<your_own_value> (source wireless-controller.syslog-profile.name)"
@@ -4231,6 +4302,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_wireless_controller_wtp_profile_data(json):
     option_list = [
+        "set_80211mc_mode",
         "admin_auth_tacacs_plus",
         "admin_restrict_local",
         "allowaccess",
@@ -4279,6 +4351,7 @@ def filter_wireless_controller_wtp_profile_data(json):
         "handoff_sta_thresh",
         "indoor_outdoor_deployment",
         "ip_fragment_preventing",
+        "ipsec_offload",
         "lan",
         "lbs",
         "led_schedules",
@@ -4386,6 +4459,7 @@ def valid_attr_to_invalid_attr(data):
     speciallist = {
         "80211d": "set_80211d",
         "80211mc": "set_80211mc",
+        "80211mc_mode": "set_80211mc_mode",
         "admin_auth_tacacs+": "admin_auth_tacacs_plus",
     }
 
@@ -4591,18 +4665,10 @@ versioned_schema = {
                     "type": "string",
                     "options": [
                         {"value": "AP-11N"},
-                        {"value": "C24JE"},
                         {"value": "421E"},
                         {"value": "423E"},
                         {"value": "221E"},
-                        {"value": "222E"},
                         {"value": "223E"},
-                        {"value": "224E"},
-                        {
-                            "value": "231E",
-                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
-                        },
-                        {"value": "321E", "v_range": [["v6.2.0", ""]]},
                         {
                             "value": "431F",
                             "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -4678,6 +4744,7 @@ versioned_schema = {
                             "value": "433G",
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],
                         },
+                        {"value": "221K", "v_range": [["v7.6.7", ""]]},
                         {"value": "231K", "v_range": [["v7.6.1", ""]]},
                         {"value": "231KD", "v_range": [["v7.6.5", ""]]},
                         {"value": "23JK", "v_range": [["v7.6.1", ""]]},
@@ -4686,16 +4753,8 @@ versioned_schema = {
                         {"value": "243K", "v_range": [["v7.4.2", ""]]},
                         {"value": "244K", "v_range": [["v7.6.4", ""]]},
                         {"value": "441K", "v_range": [["v7.4.2", ""]]},
-                        {"value": "432K", "v_range": [["v7.6.5", ""]]},
+                        {"value": "435K", "v_range": [["v7.6.7", ""]]},
                         {"value": "443K", "v_range": [["v7.4.2", ""]]},
-                        {"value": "U421E"},
-                        {"value": "U422EV"},
-                        {"value": "U423E"},
-                        {"value": "U221EV"},
-                        {"value": "U223EV"},
-                        {"value": "U24JEV"},
-                        {"value": "U321EV"},
-                        {"value": "U323EV"},
                         {"value": "U431F", "v_range": [["v6.2.0", ""]]},
                         {"value": "U433F", "v_range": [["v6.2.0", ""]]},
                         {"value": "U231F", "v_range": [["v6.4.4", ""]]},
@@ -4706,6 +4765,23 @@ versioned_schema = {
                             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]],
                         },
                         {"value": "MVP", "v_range": [["v7.6.5", ""]]},
+                        {"value": "C24JE", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "222E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "224E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {
+                            "value": "231E",
+                            "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.6.7"]],
+                        },
+                        {"value": "321E", "v_range": [["v6.2.0", "v7.6.7"]]},
+                        {"value": "U421E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U422EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U423E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U221EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U223EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U24JEV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U321EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "U323EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                        {"value": "432K", "v_range": [["v7.6.5", "v7.6.6"]]},
                         {"value": "220B", "v_range": [["v6.0.0", "v7.2.4"]]},
                         {"value": "210B", "v_range": [["v6.0.0", "v7.2.4"]]},
                         {"value": "222B", "v_range": [["v6.0.0", "v7.2.4"]]},
@@ -4759,6 +4835,11 @@ versioned_schema = {
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
             },
+        },
+        "unii_4_5ghz_band": {
+            "v_range": [["v7.4.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "control_message_offload": {
             "v_range": [["v6.0.0", ""]],
@@ -4955,6 +5036,11 @@ versioned_schema = {
             ],
             "multiple_values": True,
             "elements": "str",
+        },
+        "ipsec_offload": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "dtls_in_kernel": {
             "v_range": [["v6.0.0", ""]],
@@ -5256,6 +5342,7 @@ versioned_schema = {
                 {"value": "power-adapter"},
                 {"value": "full", "v_range": [["v6.4.4", ""]]},
                 {"value": "high", "v_range": [["v6.4.4", ""]]},
+                {"value": "high-pse", "v_range": [["v8.0.0", ""]]},
                 {"value": "low", "v_range": [["v6.4.4", ""]]},
             ],
         },
@@ -5278,6 +5365,15 @@ versioned_schema = {
             "v_range": [["v7.6.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "indoor_outdoor_deployment": {
+            "v_range": [["v7.0.1", ""]],
+            "type": "string",
+            "options": [
+                {"value": "platform-determined"},
+                {"value": "outdoor"},
+                {"value": "indoor"},
+            ],
         },
         "radio_1": {
             "v_range": [["v6.0.0", ""]],
@@ -5505,6 +5601,7 @@ versioned_schema = {
                 "beacon_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "rts_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "frag_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "ap_sniffer_bufsize": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_chan": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_chan_width": {
@@ -5630,6 +5727,11 @@ versioned_schema = {
                 "arrp_profile": {"v_range": [["v7.0.4", ""]], "type": "string"},
                 "max_clients": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "max_distance": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "vap_all": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -5939,6 +6041,7 @@ versioned_schema = {
                 "beacon_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "rts_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "frag_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "ap_sniffer_bufsize": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_chan": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "ap_sniffer_chan_width": {
@@ -6064,6 +6167,11 @@ versioned_schema = {
                 "arrp_profile": {"v_range": [["v7.0.4", ""]], "type": "string"},
                 "max_clients": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "max_distance": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "vap_all": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -6373,6 +6481,7 @@ versioned_schema = {
                 "beacon_interval": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "rts_threshold": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "frag_threshold": {"v_range": [["v6.2.0", ""]], "type": "integer"},
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "ap_sniffer_bufsize": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "ap_sniffer_chan": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "ap_sniffer_chan_width": {
@@ -6498,6 +6607,11 @@ versioned_schema = {
                 "arrp_profile": {"v_range": [["v7.0.4", ""]], "type": "string"},
                 "max_clients": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "max_distance": {"v_range": [["v6.2.0", ""]], "type": "integer"},
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "vap_all": {
                     "v_range": [["v6.2.0", ""]],
                     "type": "string",
@@ -6858,6 +6972,7 @@ versioned_schema = {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "integer",
                 },
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "ap_sniffer_bufsize": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "integer",
@@ -7000,6 +7115,11 @@ versioned_schema = {
                 "max_distance": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "integer",
+                },
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "vap_all": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
@@ -7300,15 +7420,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "indoor_outdoor_deployment": {
-            "v_range": [["v7.0.1", ""]],
-            "type": "string",
-            "options": [
-                {"value": "platform-determined"},
-                {"value": "outdoor"},
-                {"value": "indoor"},
-            ],
-        },
         "esl_ses_dongle": {
             "v_range": [["v7.0.1", ""]],
             "type": "dict",
@@ -7493,15 +7604,19 @@ versioned_schema = {
             "v_range": [["v7.6.5", ""]],
             "type": "string",
         },
-        "unii_4_5ghz_band": {
-            "v_range": [["v7.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "admin_restrict_local": {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "set_80211mc_mode": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "auto"},
+                {"value": "initiator"},
+                {"value": "responder"},
+            ],
         },
         "admin_auth_tacacs_plus": {"v_range": [["v7.6.1", ""]], "type": "string"},
     },

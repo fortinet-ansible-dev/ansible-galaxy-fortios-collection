@@ -117,7 +117,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: FortiGate connector profile configuration.
   fortinet.fortios.fortios_extension_controller_fortigate_profile:

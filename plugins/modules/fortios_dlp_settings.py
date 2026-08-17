@@ -102,6 +102,37 @@ options:
                     - 'stop-adding'
                     - 'remove-modified-then-oldest'
                     - 'remove-oldest'
+            ocr:
+                description:
+                    - Configure settings for optical character recognition (OCR) conversion.
+                type: dict
+                suboptions:
+                    confidence:
+                        description:
+                            - Minimum confidence threshold for the OCR converted content to be scanned (0 - 100).
+                        type: int
+                    filetype_ignore_list:
+                        description:
+                            - List of file types to be exempt from OCR scanning.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - File type name. Source antivirus.filetype.name.
+                                required: true
+                                type: str
+                    max_file_size:
+                        description:
+                            - Maximum file size for an image to be a candidate for OCR conversion in kilobytes (0 - 1427456, 0 = unlimited).
+                        type: int
+                    scan:
+                        description:
+                            - Enable/disable OCR conversion of images for DLP content scanning.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
             size:
                 description:
                     - Maximum total size of files within the DLP fingerprint database (MB).
@@ -111,7 +142,6 @@ options:
                     - Storage device name. Source system.storage.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure settings for DLP.
   fortinet.fortios.fortios_dlp_settings:
@@ -121,6 +151,13 @@ EXAMPLES = """
           chunk_size: "2800"
           config_builder_timeout: "60"
           db_mode: "stop-adding"
+          ocr:
+              confidence: "80"
+              filetype_ignore_list:
+                  -
+                      name: "default_name_10 (source antivirus.filetype.name)"
+              max_file_size: "0"
+              scan: "enable"
           size: "16"
           storage_device: "<your_own_value> (source system.storage.name)"
 """
@@ -222,6 +259,7 @@ def filter_dlp_settings_data(json):
         "chunk_size",
         "config_builder_timeout",
         "db_mode",
+        "ocr",
         "size",
         "storage_device",
     ]
@@ -406,6 +444,31 @@ versioned_schema = {
         "cache_mem_percent": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "chunk_size": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "config_builder_timeout": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+        "ocr": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "scan": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "confidence": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "max_file_size": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "filetype_ignore_list": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
+            },
+        },
     },
 }
 

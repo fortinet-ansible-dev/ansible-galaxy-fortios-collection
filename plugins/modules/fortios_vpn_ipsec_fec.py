@@ -100,42 +100,103 @@ options:
                         description:
                             - Apply FEC parameters when available bi-bandwidth is >= threshold (kbps, 0 means no threshold).
                         type: int
+                    bandwidth_bi_threshold_negate:
+                        description:
+                            - Negate bi-bandwidth threshold.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     bandwidth_down_threshold:
                         description:
                             - Apply FEC parameters when available down bandwidth is >= threshold (kbps, 0 means no threshold).
                         type: int
+                    bandwidth_down_threshold_negate:
+                        description:
+                            - Negate down bandwidth threshold.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     bandwidth_up_threshold:
                         description:
                             - Apply FEC parameters when available up bandwidth is >= threshold (kbps, 0 means no threshold).
                         type: int
+                    bandwidth_up_threshold_negate:
+                        description:
+                            - Negate up bandwidth threshold.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     base:
                         description:
-                            - Number of base FEC packets (1 - 20).
+                            - Number of base FEC packets (1 - 40).
                         type: int
                     latency_threshold:
                         description:
                             - Apply FEC parameters when latency is <= threshold (0 means no threshold).
                         type: int
+                    latency_threshold_negate:
+                        description:
+                            - Negate latency threshold.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     packet_loss_threshold:
                         description:
                             - Apply FEC parameters when packet loss is >= threshold (0 - 100, 0 means no threshold).
                         type: int
+                    packet_loss_threshold_negate:
+                        description:
+                            - Negate packet loss threshold.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     redundant:
                         description:
-                            - Number of redundant FEC packets (1 - 5).
+                            - Number of redundant FEC packets (0 - 20).
                         type: int
                     seqno:
                         description:
                             - Sequence number (1 - 64). see <a href='#notes'>Notes</a>.
                         required: true
                         type: int
+                    tos:
+                        description:
+                            - FEC redundancy mapping table for specific type of service (TOS).
+                        type: list
+                        elements: dict
+                        suboptions:
+                            base:
+                                description:
+                                    - Number of base FEC packets (1 - 40).
+                                type: int
+                            redundant:
+                                description:
+                                    - Number of redundant FEC packets (0 - 20).
+                                type: int
+                            seqno:
+                                description:
+                                    - Sequence number (1 - 8). see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            tos:
+                                description:
+                                    - Type of service bit pattern.
+                                type: str
+                            tos_mask:
+                                description:
+                                    - Type of service evaluated bits.
+                                type: str
             name:
                 description:
                     - Profile name.
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Forward Error Correction (FEC) mapping profiles.
   fortinet.fortios.fortios_vpn_ipsec_fec:
@@ -146,14 +207,26 @@ EXAMPLES = """
           mappings:
               -
                   bandwidth_bi_threshold: "0"
+                  bandwidth_bi_threshold_negate: "enable"
                   bandwidth_down_threshold: "0"
+                  bandwidth_down_threshold_negate: "enable"
                   bandwidth_up_threshold: "0"
+                  bandwidth_up_threshold_negate: "enable"
                   base: "0"
                   latency_threshold: "0"
+                  latency_threshold_negate: "enable"
                   packet_loss_threshold: "0"
+                  packet_loss_threshold_negate: "enable"
                   redundant: "0"
                   seqno: "<you_own_value>"
-          name: "default_name_12"
+                  tos:
+                      -
+                          base: "0"
+                          redundant: "0"
+                          seqno: "<you_own_value>"
+                          tos: "<your_own_value>"
+                          tos_mask: "<your_own_value>"
+          name: "default_name_23"
 """
 
 RETURN = """
@@ -444,18 +517,59 @@ versioned_schema = {
                     "v_range": [["v7.0.2", ""]],
                     "type": "integer",
                 },
+                "packet_loss_threshold_negate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "latency_threshold": {"v_range": [["v7.0.2", ""]], "type": "integer"},
+                "latency_threshold_negate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "bandwidth_up_threshold": {
                     "v_range": [["v7.0.2", ""]],
                     "type": "integer",
+                },
+                "bandwidth_up_threshold_negate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "bandwidth_down_threshold": {
                     "v_range": [["v7.0.2", ""]],
                     "type": "integer",
                 },
+                "bandwidth_down_threshold_negate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "bandwidth_bi_threshold": {
                     "v_range": [["v7.0.2", ""]],
                     "type": "integer",
+                },
+                "bandwidth_bi_threshold_negate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "tos": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "seqno": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "tos": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                        "tos_mask": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                        "base": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                        "redundant": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                    },
+                    "v_range": [["v8.0.0", ""]],
                 },
             },
             "v_range": [["v7.0.2", ""]],

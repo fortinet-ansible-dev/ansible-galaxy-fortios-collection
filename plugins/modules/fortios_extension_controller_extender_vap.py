@@ -116,37 +116,37 @@ options:
                 type: str
             broadcast_ssid:
                 description:
-                    - Wi-Fi broadcast SSID enable / disable.
+                    - Enable/disable Wi-Fi broadcast SSID.
                 type: str
                 choices:
                     - 'disable'
                     - 'enable'
             bss_color_partial:
                 description:
-                    - Wi-Fi 802.11AX bss color partial enable / disable, default = enable.
+                    - Enable/disable Wi-Fi 802.11AX BSS color partial .
                 type: str
                 choices:
                     - 'disable'
                     - 'enable'
             dtim:
                 description:
-                    - Wi-Fi DTIM (1 - 255) default = 1.
+                    - Wi-Fi DTIM (1 - 255).
                 type: int
             end_ip:
                 description:
-                    - End ip address.
+                    - End IP address.
                 type: str
             ip_address:
                 description:
-                    - Extender ip address.
+                    - Extender IP address.
                 type: str
             max_clients:
                 description:
-                    - Wi-Fi max clients (0 - 512))
+                    - Wi-Fi maximum clients (0 - 512).
                 type: int
             mu_mimo:
                 description:
-                    - Wi-Fi multi-user MIMO enable / disable, default = enable.
+                    - Enable/disable Wi-Fi multi-user MIMO .
                 type: str
                 choices:
                     - 'disable'
@@ -162,7 +162,7 @@ options:
                 type: str
             pmf:
                 description:
-                    - Wi-Fi pmf enable/disable, default = disable.
+                    - Enable/disable Wi-Fi PMF .
                 type: str
                 choices:
                     - 'disabled'
@@ -170,7 +170,7 @@ options:
                     - 'required'
             rts_threshold:
                 description:
-                    - Wi-Fi RTS Threshold (256 - 2347)).
+                    - Wi-Fi RTS threshold (256 - 2347).
                 type: int
             sae_password:
                 description:
@@ -190,17 +190,47 @@ options:
                     - 'WPA3-Enterprise-only'
                     - 'WPA3-Enterprise-transition'
                     - 'WPA3-Enterprise-192-bit'
+            security_exempt_list:
+                description:
+                    - Name of security exempt list. Source user.security-exempt-list.name.
+                type: str
+            security_external_web:
+                description:
+                    - URL of external authentication web server.
+                type: str
+            security_groups:
+                description:
+                    - User groups that can authenticate with the captive portal.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of user groups that can authenticate with the captive portal. Source user.group.name.
+                        required: true
+                        type: str
+            security_mode:
+                description:
+                    - Turn on captive portal authentication for this Wi-Fi interface.
+                type: str
+                choices:
+                    - 'none'
+                    - 'captive-portal'
+            security_redirect_url:
+                description:
+                    - Optional URL for redirecting users after they pass captive portal authentication.
+                type: str
             ssid:
                 description:
                     - Wi-Fi SSID.
                 type: str
             start_ip:
                 description:
-                    - Start ip address.
+                    - Start IP address.
                 type: str
             target_wake_time:
                 description:
-                    - Wi-Fi 802.11AX target wake time enable / disable, default = enable.
+                    - Enable/disable Wi-Fi 802.11AX target wake time .
                 type: str
                 choices:
                     - 'disable'
@@ -213,7 +243,6 @@ options:
                     - 'local-vap'
                     - 'lan-ext-vap'
 """
-
 EXAMPLES = """
 - name: FortiExtender wifi vap configuration.
   fortinet.fortios.fortios_extension_controller_extender_vap:
@@ -238,6 +267,13 @@ EXAMPLES = """
           rts_threshold: "2347"
           sae_password: "<your_own_value>"
           security: "OPEN"
+          security_exempt_list: "<your_own_value> (source user.security-exempt-list.name)"
+          security_external_web: "<your_own_value>"
+          security_groups:
+              -
+                  name: "default_name_23 (source user.group.name)"
+          security_mode: "none"
+          security_redirect_url: "<your_own_value>"
           ssid: "<your_own_value>"
           start_ip: "<your_own_value>"
           target_wake_time: "disable"
@@ -354,6 +390,11 @@ def filter_extension_controller_extender_vap_data(json):
         "rts_threshold",
         "sae_password",
         "security",
+        "security_exempt_list",
+        "security_external_web",
+        "security_groups",
+        "security_mode",
+        "security_redirect_url",
         "ssid",
         "start_ip",
         "target_wake_time",
@@ -659,6 +700,26 @@ versioned_schema = {
             ],
             "multiple_values": True,
             "elements": "str",
+        },
+        "security_mode": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "none"}, {"value": "captive-portal"}],
+        },
+        "security_external_web": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "security_redirect_url": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "security_exempt_list": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "security_groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
     },
     "v_range": [["v7.4.4", ""]],

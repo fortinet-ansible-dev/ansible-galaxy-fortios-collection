@@ -126,7 +126,6 @@ options:
                     - URL pattern to be exempted from web proxy forwarding, caching and fast-fallback.
                 type: str
 """
-
 EXAMPLES = """
 - name: Exempt URLs from web proxy forwarding, caching and fast-fallback.
   fortinet.fortios.fortios_web_proxy_url_match:

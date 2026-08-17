@@ -130,7 +130,6 @@ options:
                     - Protocol number.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure session helper.
   fortinet.fortios.fortios_system_session_helper:
@@ -445,7 +444,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 {
@@ -453,7 +452,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 {
@@ -461,7 +460,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 {
@@ -469,7 +468,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.0.1", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
             ],

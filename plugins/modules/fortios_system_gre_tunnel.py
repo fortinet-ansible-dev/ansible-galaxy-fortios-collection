@@ -157,6 +157,13 @@ options:
                 description:
                     - IPv6 address of the local gateway.
                 type: str
+            loopback_ecmp_offload:
+                description:
+                    - Enable/disable tunnel over loopback ecmp offloading support.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             name:
                 description:
                     - Tunnel name.
@@ -192,7 +199,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure GRE tunnel.
   fortinet.fortios.fortios_system_gre_tunnel:
@@ -213,7 +219,8 @@ EXAMPLES = """
           key_outbound: "0"
           local_gw: "<your_own_value>"
           local_gw6: "<your_own_value>"
-          name: "default_name_16"
+          loopback_ecmp_offload: "disable"
+          name: "default_name_17"
           remote_gw: "<your_own_value>"
           remote_gw6: "<your_own_value>"
           sequence_number_reception: "disable"
@@ -327,6 +334,7 @@ def filter_system_gre_tunnel_data(json):
         "key_outbound",
         "local_gw",
         "local_gw6",
+        "loopback_ecmp_offload",
         "name",
         "remote_gw",
         "remote_gw6",
@@ -635,13 +643,18 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "diffservcode": {"v_range": [["v6.2.0", ""]], "type": "string"},
-        "keepalive_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "keepalive_failtimes": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "auto_asic_offload": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "loopback_ecmp_offload": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "keepalive_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "keepalive_failtimes": {"v_range": [["v6.0.0", ""]], "type": "integer"},
     },
     "v_range": [["v6.0.0", ""]],
 }

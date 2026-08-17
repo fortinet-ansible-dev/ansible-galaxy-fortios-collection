@@ -103,6 +103,17 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this policy. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
             dstaddr:
                 description:
                     - Destination address object from available options.
@@ -277,7 +288,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure user defined IPv6 local-in policies.
   fortinet.fortios.fortios_firewall_local_in_policy6:
@@ -287,41 +297,44 @@ EXAMPLES = """
       firewall_local_in_policy6:
           action: "accept"
           comments: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_6 (source firewall.custom-tag.name)"
           dstaddr:
               -
-                  name: "default_name_6 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_8 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           dstaddr_negate: "enable"
           internet_service6_src: "enable"
           internet_service6_src_custom:
               -
-                  name: "default_name_10 (source firewall.internet-service-custom.name)"
+                  name: "default_name_12 (source firewall.internet-service-custom.name)"
           internet_service6_src_custom_group:
               -
-                  name: "default_name_12 (source firewall.internet-service-custom-group.name)"
+                  name: "default_name_14 (source firewall.internet-service-custom-group.name)"
           internet_service6_src_fortiguard:
               -
-                  name: "default_name_14 (source firewall.internet-service-fortiguard.name)"
+                  name: "default_name_16 (source firewall.internet-service-fortiguard.name)"
           internet_service6_src_group:
               -
-                  name: "default_name_16 (source firewall.internet-service-group.name)"
+                  name: "default_name_18 (source firewall.internet-service-group.name)"
           internet_service6_src_name:
               -
-                  name: "default_name_18 (source firewall.internet-service-name.name)"
+                  name: "default_name_20 (source firewall.internet-service-name.name)"
           internet_service6_src_negate: "enable"
           intf: "<your_own_value> (source system.zone.name system.interface.name)"
           intf_dict:
               -
-                  name: "default_name_22 (source system.zone.name system.sdwan.zone.name system.interface.name)"
+                  name: "default_name_24 (source system.zone.name system.sdwan.zone.name system.interface.name)"
           logtraffic: "enable"
           policyid: "<you_own_value>"
           schedule: "<your_own_value> (source firewall.schedule.onetime.name firewall.schedule.recurring.name firewall.schedule.group.name)"
           service:
               -
-                  name: "default_name_27 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_29 (source firewall.service.custom.name firewall.service.group.name)"
           service_negate: "enable"
           srcaddr:
               -
-                  name: "default_name_30 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
+                  name: "default_name_32 (source firewall.address6.name firewall.addrgrp6.name system.external-resource.name)"
           srcaddr_negate: "enable"
           status: "enable"
           uuid: "<your_own_value>"
@@ -423,6 +436,7 @@ def filter_firewall_local_in_policy6_data(json):
     option_list = [
         "action",
         "comments",
+        "custom_tags",
         "dstaddr",
         "dstaddr_negate",
         "internet_service6_src",
@@ -675,6 +689,18 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.2", ""]],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "srcaddr": {
             "type": "list",

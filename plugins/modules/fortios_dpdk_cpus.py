@@ -108,7 +108,6 @@ options:
                     - CPUs enabled to run DPDK VNP slow path.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure CPUs enabled to run engines in each DPDK stage.
   fortinet.fortios.fortios_dpdk_cpus:

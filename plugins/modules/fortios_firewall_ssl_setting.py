@@ -152,7 +152,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: SSL proxy settings.
   fortinet.fortios.fortios_firewall_ssl_setting:

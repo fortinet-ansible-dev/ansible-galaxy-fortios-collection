@@ -119,7 +119,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure multicast-flow.
   fortinet.fortios.fortios_router_multicast_flow:

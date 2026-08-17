@@ -101,8 +101,34 @@ options:
                 description:
                     - Define the name for this class-id.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure names for shaping classes.
   fortinet.fortios.fortios_firewall_traffic_class:
@@ -112,6 +138,10 @@ EXAMPLES = """
       firewall_traffic_class:
           class_id: "<you_own_value>"
           class_name: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -206,7 +236,14 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_traffic_class_data(json):
-    option_list = ["class_id", "class_name"]
+    option_list = [
+        "class_id",
+        "class_name",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -392,6 +429,22 @@ versioned_schema = {
     "children": {
         "class_id": {"v_range": [["v6.2.0", ""]], "type": "integer", "required": True},
         "class_name": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
     },
     "v_range": [["v6.2.0", ""]],
 }

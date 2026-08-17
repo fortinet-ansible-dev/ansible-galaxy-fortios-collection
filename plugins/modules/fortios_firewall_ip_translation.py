@@ -116,7 +116,6 @@ options:
                 choices:
                     - 'SCTP'
 """
-
 EXAMPLES = """
 - name: Configure firewall IP-translation.
   fortinet.fortios.fortios_firewall_ip_translation:

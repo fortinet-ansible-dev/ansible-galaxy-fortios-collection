@@ -209,6 +209,25 @@ options:
                         description:
                             - Lease time in seconds, 0 means default lease time.
                         type: int
+                    oui_match:
+                        description:
+                            - Enable/disable organizationally unique identifier (OUI) matching. When enabled only DHCP requests with a matching OUI are served
+                               with this range.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    oui_string:
+                        description:
+                            - 'One or more OUI strings in quotes separated by spaces (in format of xx:xx:xx).'
+                        type: list
+                        elements: dict
+                        suboptions:
+                            oui_string:
+                                description:
+                                    - MAC OUI strings.
+                                required: true
+                                type: str
                     start_ip:
                         description:
                             - Start of IP range.
@@ -251,6 +270,10 @@ options:
                                     - VCI strings.
                                 required: true
                                 type: str
+                    vendor:
+                        description:
+                            - Vendor this ip-range will be assigned to.
+                        type: str
             filename:
                 description:
                     - Name of the boot file on the TFTP server.
@@ -297,6 +320,25 @@ options:
                         description:
                             - Lease time in seconds, 0 means default lease time.
                         type: int
+                    oui_match:
+                        description:
+                            - Enable/disable organizationally unique identifier (OUI) matching. When enabled only DHCP requests with a matching OUI are served
+                               with this range.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    oui_string:
+                        description:
+                            - 'One or more OUI strings in quotes separated by spaces (in format of xx:xx:xx).'
+                        type: list
+                        elements: dict
+                        suboptions:
+                            oui_string:
+                                description:
+                                    - MAC OUI strings.
+                                required: true
+                                type: str
                     start_ip:
                         description:
                             - Start of IP range.
@@ -339,6 +381,10 @@ options:
                                     - VCI strings.
                                 required: true
                                 type: str
+                    vendor:
+                        description:
+                            - Vendor this ip-range will be assigned to.
+                        type: str
             ipsec_lease_hold:
                 description:
                     - DHCP over IPsec leases expire this many seconds after tunnel down (0 to disable forced-expiry).
@@ -360,7 +406,7 @@ options:
                 type: str
             next_server:
                 description:
-                    - IP address of a server (for example, a TFTP sever) that DHCP clients can download a boot file from.
+                    - IP address of a server, such as a TFTP server, from which DHCP clients can download a boot file.
                 type: str
             ntp_server1:
                 description:
@@ -538,6 +584,21 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            template:
+                description:
+                    - DHCP template associated with the server. Source system.dhcp.template.name.
+                type: str
+            template_subnet:
+                description:
+                    - Configure template subnet.
+                type: str
+            template_subnet_from_interface:
+                description:
+                    - Use interface subnet as DHCP template subnet.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             tftp_server:
                 description:
                     - One or more hostnames or IP addresses of the TFTP servers in quotes separated by spaces.
@@ -696,7 +757,6 @@ options:
                     - WINS server 2.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure DHCP servers.
   fortinet.fortios.fortios_system_dhcp_server:
@@ -728,6 +788,10 @@ EXAMPLES = """
                   end_ip: "<your_own_value>"
                   id: "24"
                   lease_time: "0"
+                  oui_match: "disable"
+                  oui_string:
+                      -
+                          oui_string: "<your_own_value>"
                   start_ip: "<your_own_value>"
                   uci_match: "disable"
                   uci_string:
@@ -737,16 +801,21 @@ EXAMPLES = """
                   vci_string:
                       -
                           vci_string: "<your_own_value>"
+                  vendor: "<your_own_value>"
           filename: "<your_own_value>"
           forticlient_on_net_status: "disable"
-          id: "35"
+          id: "39"
           interface: "<your_own_value> (source system.interface.name)"
           ip_mode: "range"
           ip_range:
               -
                   end_ip: "<your_own_value>"
-                  id: "40"
+                  id: "44"
                   lease_time: "0"
+                  oui_match: "disable"
+                  oui_string:
+                      -
+                          oui_string: "<your_own_value>"
                   start_ip: "<your_own_value>"
                   uci_match: "disable"
                   uci_string:
@@ -756,6 +825,7 @@ EXAMPLES = """
                   vci_string:
                       -
                           vci_string: "<your_own_value>"
+                  vendor: "<your_own_value>"
           ipsec_lease_hold: "60"
           lease_time: "604800"
           mac_acl_default_action: "assign"
@@ -768,7 +838,7 @@ EXAMPLES = """
           options:
               -
                   code: "0"
-                  id: "60"
+                  id: "68"
                   ip: "<your_own_value>"
                   type: "hex"
                   uci_match: "disable"
@@ -787,7 +857,7 @@ EXAMPLES = """
                   circuit_id: "<your_own_value>"
                   circuit_id_type: "hex"
                   description: "<your_own_value>"
-                  id: "76"
+                  id: "84"
                   ip: "<your_own_value>"
                   mac: "<your_own_value>"
                   remote_id: "<your_own_value>"
@@ -796,6 +866,9 @@ EXAMPLES = """
           server_type: "regular"
           shared_subnet: "disable"
           status: "disable"
+          template: "<your_own_value> (source system.dhcp.template.name)"
+          template_subnet: "<your_own_value>"
+          template_subnet_from_interface: "disable"
           tftp_server:
               -
                   tftp_server: "<your_own_value>"
@@ -947,6 +1020,9 @@ def filter_system_dhcp_server_data(json):
         "server_type",
         "shared_subnet",
         "status",
+        "template",
+        "template_subnet",
+        "template_subnet_from_interface",
         "tftp_server",
         "timezone",
         "timezone_option",
@@ -1220,9 +1296,9 @@ versioned_schema = {
         "wins_server1": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "wins_server2": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "default_gateway": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "next_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "netmask": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "next_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ip_range": {
             "type": "list",
             "elements": "dict",
@@ -1268,7 +1344,25 @@ versioned_schema = {
                     },
                     "v_range": [["v7.2.4", ""]],
                 },
+                "oui_match": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "oui_string": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "oui_string": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
                 "lease_time": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "vendor": {"v_range": [["v8.0.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -1388,6 +1482,13 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
         },
         "filename": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "template": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "template_subnet": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "template_subnet_from_interface": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "options": {
             "type": "list",
             "elements": "dict",
@@ -1561,7 +1662,25 @@ versioned_schema = {
                     },
                     "v_range": [["v7.2.4", ""]],
                 },
+                "oui_match": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "oui_string": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "oui_string": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
                 "lease_time": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "vendor": {"v_range": [["v8.0.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },

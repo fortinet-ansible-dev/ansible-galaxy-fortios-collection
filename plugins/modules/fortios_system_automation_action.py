@@ -458,7 +458,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Action for automation stitches.
   fortinet.fortios.fortios_system_automation_action:

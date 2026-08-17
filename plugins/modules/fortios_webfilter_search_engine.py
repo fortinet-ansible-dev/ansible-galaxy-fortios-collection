@@ -133,7 +133,6 @@ options:
                     - URL (regular expression).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure web filter search engines.
   fortinet.fortios.fortios_webfilter_search_engine:

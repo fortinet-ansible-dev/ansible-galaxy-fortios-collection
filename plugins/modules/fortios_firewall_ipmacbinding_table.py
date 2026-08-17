@@ -117,7 +117,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IP to MAC address pairs in the IP/MAC binding table.
   fortinet.fortios.fortios_firewall_ipmacbinding_table:

@@ -496,7 +496,6 @@ options:
                             - 'high'
                             - 'critical'
 """
-
 EXAMPLES = """
 - name: Configure threat weight settings.
   fortinet.fortios.fortios_log_threat_weight:

@@ -219,7 +219,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure DDNS.
   fortinet.fortios.fortios_system_ddns:

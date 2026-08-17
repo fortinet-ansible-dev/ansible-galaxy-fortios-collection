@@ -104,7 +104,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Settings for TACACS+ accounting events filter.
   fortinet.fortios.fortios_log_tacacsplusaccounting_filter:

@@ -204,6 +204,13 @@ options:
                 description:
                     - Maximum number of station offline ip2mac stored on the controller .
                 type: int
+            max_vap_per_radio:
+                description:
+                    - Maximum number of SSIDs supported on the radio .
+                type: str
+                choices:
+                    - '8'
+                    - '16'
             max_wids_entry:
                 description:
                     - Maximum number of wids entries stored on the controller .
@@ -237,7 +244,7 @@ options:
                 type: str
             tunnel_mode:
                 description:
-                    - Compatible/strict tunnel mode.
+                    - Configure tunnel mode security .
                 type: str
                 choices:
                     - 'compatible'
@@ -254,7 +261,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure wireless controller global settings.
   fortinet.fortios.fortios_wireless_controller_global:
@@ -284,10 +290,11 @@ EXAMPLES = """
           max_sta_cap_wtp: "8"
           max_sta_offline: "0"
           max_sta_offline_ip2mac: "0"
+          max_vap_per_radio: "8"
           max_wids_entry: "0"
           mesh_eth_type: "8755"
           nac_interval: "120"
-          name: "default_name_30"
+          name: "default_name_31"
           rogue_scan_mac_adjacency: "7"
           rolling_wtp_upgrade: "enable"
           rolling_wtp_upgrade_threshold: "<your_own_value>"
@@ -413,6 +420,7 @@ def filter_wireless_controller_global_data(json):
         "max_sta_cap_wtp",
         "max_sta_offline",
         "max_sta_offline_ip2mac",
+        "max_vap_per_radio",
         "max_wids_entry",
         "mesh_eth_type",
         "nac_interval",
@@ -702,6 +710,11 @@ versioned_schema = {
         },
         "ap_log_server_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ap_log_server_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "max_vap_per_radio": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "8"}, {"value": "16"}],
+        },
         "max_sta_offline": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "max_sta_offline_ip2mac": {"v_range": [["v7.6.3", ""]], "type": "integer"},
         "max_sta_cap": {"v_range": [["v7.4.4", ""]], "type": "integer"},

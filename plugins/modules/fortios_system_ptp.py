@@ -141,7 +141,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure system PTP information.
   fortinet.fortios.fortios_system_ptp:

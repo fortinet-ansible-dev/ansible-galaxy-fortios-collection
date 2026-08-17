@@ -102,7 +102,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure a remote cache device as Web cache storage.
   fortinet.fortios.fortios_wanopt_remote_storage:

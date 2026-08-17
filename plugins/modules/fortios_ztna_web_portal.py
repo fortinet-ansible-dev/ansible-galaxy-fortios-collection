@@ -104,6 +104,10 @@ options:
                 description:
                     - Virtual host for authentication portal. Source firewall.access-proxy-virtual-host.name.
                 type: str
+            bookmarks:
+                description:
+                    - Dynamic bookmarks. Source ztna.web-portal-bookmark.name.
+                type: str
             clipboard:
                 description:
                     - Enable to support RDP/VPC clipboard functionality.
@@ -184,6 +188,17 @@ options:
                 description:
                     - Virtual or real host name. Source firewall.access-proxy-virtual-host.name.
                 type: str
+            llm_profile:
+                description:
+                    - LLM Profile. Source llm.profile.name.
+                type: str
+            llm_proxy:
+                description:
+                    - Enable LLM Proxy.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             log_blocked_traffic:
                 description:
                     - Enable/disable logging of blocked traffic.
@@ -197,7 +212,7 @@ options:
                 type: str
             name:
                 description:
-                    - ZTNA proxy name.
+                    - ZTNA web portal name.
                 required: true
                 type: str
             policy_auth_sso:
@@ -235,7 +250,6 @@ options:
                     - Download URL for Windows FortiClient.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure ztna web-portal.
   fortinet.fortios.fortios_ztna_web_portal:
@@ -246,6 +260,7 @@ EXAMPLES = """
           auth_portal: "disable"
           auth_rule: "<your_own_value> (source authentication.rule.name)"
           auth_virtual_host: "myhostname (source firewall.access-proxy-virtual-host.name)"
+          bookmarks: "<your_own_value> (source ztna.web-portal-bookmark.name)"
           clipboard: "enable"
           cookie_age: "60"
           customize_forticlient_download_url: "enable"
@@ -260,9 +275,11 @@ EXAMPLES = """
           forticlient_download_method: "direct"
           heading: "<your_own_value>"
           host: "myhostname (source firewall.access-proxy-virtual-host.name)"
+          llm_profile: "<your_own_value> (source llm.profile.name)"
+          llm_proxy: "enable"
           log_blocked_traffic: "disable"
           macos_forticlient_download_url: "<your_own_value>"
-          name: "default_name_22"
+          name: "default_name_25"
           policy_auth_sso: "enable"
           theme: "jade"
           vip: "<your_own_value> (source firewall.vip.name)"
@@ -354,6 +371,7 @@ def filter_ztna_web_portal_data(json):
         "auth_portal",
         "auth_rule",
         "auth_virtual_host",
+        "bookmarks",
         "clipboard",
         "cookie_age",
         "customize_forticlient_download_url",
@@ -368,6 +386,8 @@ def filter_ztna_web_portal_data(json):
         "forticlient_download_method",
         "heading",
         "host",
+        "llm_profile",
+        "llm_proxy",
         "log_blocked_traffic",
         "macos_forticlient_download_url",
         "name",
@@ -476,17 +496,6 @@ versioned_schema = {
         "vip": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "host": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "decrypted_traffic_mirror": {"v_range": [["v7.6.1", ""]], "type": "string"},
-        "log_blocked_traffic": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "auth_portal": {
-            "v_range": [["v7.6.1", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "auth_virtual_host": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "vip6": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "auth_rule": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "display_bookmark": {
@@ -557,6 +566,24 @@ versioned_schema = {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
         },
+        "bookmarks": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "llm_proxy": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "llm_profile": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "log_blocked_traffic": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "auth_portal": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "auth_virtual_host": {"v_range": [["v7.6.1", "v7.6.7"]], "type": "string"},
         "forticlient_download_method": {
             "v_range": [["v7.6.1", "v7.6.3"]],
             "type": "string",

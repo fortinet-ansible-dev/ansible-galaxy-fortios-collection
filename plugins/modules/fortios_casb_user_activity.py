@@ -236,6 +236,7 @@ options:
                                 type: str
                                 choices:
                                     - 'json'
+                                    - 'form'
                             case_sensitive:
                                 description:
                                     - CASB user activity match case sensitive.
@@ -329,29 +330,30 @@ options:
                                 suboptions:
                                     body_type:
                                         description:
-                                            - CASB tenant extraction filter body type.
+                                            - CASB content extraction filter body type.
                                         type: str
                                         choices:
                                             - 'json'
+                                            - 'form'
                                     direction:
                                         description:
-                                            - CASB tenant extraction filter direction.
+                                            - CASB content extraction filter direction.
                                         type: str
                                         choices:
                                             - 'request'
                                             - 'response'
                                     header_name:
                                         description:
-                                            - CASB tenant extraction filter header name.
+                                            - CASB content extraction filter header name.
                                         type: str
                                     id:
                                         description:
-                                            - CASB tenant extraction filter ID. see <a href='#notes'>Notes</a>.
+                                            - CASB content extraction filter ID. see <a href='#notes'>Notes</a>.
                                         required: true
                                         type: int
                                     place:
                                         description:
-                                            - CASB tenant extraction filter place type.
+                                            - CASB content extraction filter place type.
                                         type: str
                                         choices:
                                             - 'path'
@@ -374,6 +376,75 @@ options:
                                 type: str
                                 choices:
                                     - 'json-query'
+                    tenant_session_extraction:
+                        description:
+                            - CASB user activity tenant session extraction.
+                        type: dict
+                        suboptions:
+                            filters:
+                                description:
+                                    - CASB user activity session extraction filters.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    body_type:
+                                        description:
+                                            - CASB content extraction filter body type.
+                                        type: str
+                                        choices:
+                                            - 'json'
+                                            - 'form'
+                                    cookie_name:
+                                        description:
+                                            - CASB content extraction filter cookie name.
+                                        type: str
+                                    direction:
+                                        description:
+                                            - CASB content extraction filter direction.
+                                        type: str
+                                        choices:
+                                            - 'request'
+                                            - 'response'
+                                    header_name:
+                                        description:
+                                            - CASB content extraction filter header name.
+                                        type: str
+                                    id:
+                                        description:
+                                            - CASB content extraction filter ID. see <a href='#notes'>Notes</a>.
+                                        required: true
+                                        type: int
+                                    place:
+                                        description:
+                                            - CASB content extraction filter place type.
+                                        type: str
+                                        choices:
+                                            - 'path'
+                                            - 'header'
+                                            - 'cookie'
+                                            - 'body'
+                            jq:
+                                description:
+                                    - CASB user activity session extraction jq script.
+                                type: str
+                            session_match:
+                                description:
+                                    - CASB user activity session match name.
+                                type: str
+                            session_source:
+                                description:
+                                    - Enable/disable CASB session extraction source flag.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
+                            status:
+                                description:
+                                    - Enable/disable CASB session extraction.
+                                type: str
+                                choices:
+                                    - 'disable'
+                                    - 'enable'
             match_strategy:
                 description:
                     - CASB user activity match strategy.
@@ -405,7 +476,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure CASB user activity.
   fortinet.fortios.fortios_casb_user_activity:
@@ -468,8 +538,21 @@ EXAMPLES = """
                       jq: "<your_own_value>"
                       status: "disable"
                       type: "json-query"
+                  tenant_session_extraction:
+                      filters:
+                          -
+                              body_type: "json"
+                              cookie_name: "<your_own_value>"
+                              direction: "request"
+                              header_name: "<your_own_value>"
+                              id: "56"
+                              place: "path"
+                      jq: "<your_own_value>"
+                      session_match: "<your_own_value>"
+                      session_source: "disable"
+                      status: "disable"
           match_strategy: "and"
-          name: "default_name_51"
+          name: "default_name_63"
           status: "enable"
           type: "built-in"
           uuid: "<your_own_value>"
@@ -869,7 +952,10 @@ versioned_schema = {
                         "body_type": {
                             "v_range": [["v7.6.1", ""]],
                             "type": "string",
-                            "options": [{"value": "json"}],
+                            "options": [
+                                {"value": "json"},
+                                {"value": "form", "v_range": [["v8.0.0", ""]]},
+                            ],
                         },
                         "jq": {"v_range": [["v7.6.1", ""]], "type": "string"},
                         "case_sensitive": {
@@ -933,10 +1019,77 @@ versioned_schema = {
                                 "body_type": {
                                     "v_range": [["v7.6.1", ""]],
                                     "type": "string",
-                                    "options": [{"value": "json"}],
+                                    "options": [
+                                        {"value": "json"},
+                                        {"value": "form", "v_range": [["v8.0.0", ""]]},
+                                    ],
                                 },
                             },
                             "v_range": [["v7.6.1", ""]],
+                        },
+                    },
+                },
+                "tenant_session_extraction": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "status": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "session_source": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "disable"}, {"value": "enable"}],
+                        },
+                        "session_match": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "jq": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                        "filters": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "id": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "integer",
+                                    "required": True,
+                                },
+                                "direction": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "string",
+                                    "options": [
+                                        {"value": "request"},
+                                        {"value": "response"},
+                                    ],
+                                },
+                                "place": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "string",
+                                    "options": [
+                                        {"value": "path"},
+                                        {"value": "header"},
+                                        {"value": "cookie"},
+                                        {"value": "body"},
+                                    ],
+                                },
+                                "header_name": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "string",
+                                },
+                                "cookie_name": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "string",
+                                },
+                                "body_type": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "string",
+                                    "options": [{"value": "json"}, {"value": "form"}],
+                                },
+                            },
+                            "v_range": [["v8.0.0", ""]],
                         },
                     },
                 },

@@ -4,6 +4,28 @@ Fortinet.Fortios Release Notes
 
 .. contents:: Topics
 
+v2.6.0
+======
+
+Release Summary
+---------------
+
+minor release of 2.6.0
+
+Major Changes
+-------------
+
+- Supported multiple versions of log fact modules.
+- Supported new versions 7.6.7 and 8.0.0.
+- Updated the Q&A for importing a certificate in the fortios_certificate_remote module.
+
+Bugfixes
+--------
+
+- Fixed an issue to throw an user-friendly error message when the users make the Connection protocol mismatch. Github issue
+- Fixed an issue where forwarder always returns diff when using check_mode in the system_dns_database module even when no changes were made. Github Issue
+- Fixed the Github issue
+
 v2.5.1
 ======
 
@@ -22,8 +44,8 @@ Major Changes
 Bugfixes
 --------
 
-- Fixed an issue where some modules could not be configured globally.
 - Fixed an issue where parameters ending with _dict always returned changed, even in check mode or when no changes were made.
+- Fixed an issue where some modules could not be configured globally.
 - Fixed an issue where the generate-key.system.api-user selector in the fortios_monitor module required an admin password to function.
 
 v2.5.0

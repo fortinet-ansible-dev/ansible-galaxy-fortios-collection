@@ -137,7 +137,6 @@ options:
                     - URL of provisioning server.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure virtual network enabler tunnel.
   fortinet.fortios.fortios_system_vne_tunnel:

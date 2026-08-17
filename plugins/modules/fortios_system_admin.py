@@ -113,6 +113,16 @@ options:
                 description:
                     - Comment.
                 type: str
+            disallowed_login_methods:
+                description:
+                    - Configure login methods that explicitly are disallowed. All other login methods not listed here are permitted by default.
+                type: list
+                elements: str
+                choices:
+                    - 'console'
+                    - 'gui'
+                    - 'ssh'
+                    - 'telnet'
             email_to:
                 description:
                     - This administrator"s email address.
@@ -150,6 +160,10 @@ options:
                             - Select guest user groups.
                         required: true
                         type: str
+            gui_custom_theme:
+                description:
+                    - Custom theme that overrides the default FortiGate theme. Source system.theme.name.
+                type: str
             gui_dashboard:
                 description:
                     - GUI dashboards.
@@ -333,6 +347,13 @@ options:
                             - Select menu ID.
                         required: true
                         type: str
+            gui_llm_provider:
+                description:
+                    - Select the LLM provider.
+                type: str
+                choices:
+                    - 'fortiai'
+                    - 'openai'
             gui_new_feature_acknowledge:
                 description:
                     - Acknowledgement of new features.
@@ -344,6 +365,30 @@ options:
                             - Select menu ID.
                         required: true
                         type: str
+            gui_theme:
+                description:
+                    - Predefined theme that overrides the default FortiGate theme.
+                type: str
+                choices:
+                    - 'jade'
+                    - 'neutrino'
+                    - 'mariner'
+                    - 'graphite'
+                    - 'melongene'
+                    - 'jet-stream'
+                    - 'security-fabric'
+                    - 'retro'
+                    - 'dark-matter'
+                    - 'onyx'
+                    - 'eclipse'
+                    - 'none'
+            gui_theme_type:
+                description:
+                    - Use predefined themes or custom themes.
+                type: str
+                choices:
+                    - 'predefined'
+                    - 'custom'
             gui_vdom_menu_favorites:
                 description:
                     - Favorite GUI menu IDs for VDOMs.
@@ -430,6 +475,26 @@ options:
                 description:
                     - User name.
                 required: true
+                type: str
+            openai_api_key:
+                description:
+                    - Openai API key.
+                type: str
+            openai_api_key_part2:
+                description:
+                    - OpenAI API key part 2 for excess length.
+                type: str
+            openai_model:
+                description:
+                    - OpenAI model.
+                type: str
+            openai_org_id:
+                description:
+                    - OpenAI organization ID.
+                type: str
+            openai_project_id:
+                description:
+                    - OpenAI project ID.
                 type: str
             password:
                 description:
@@ -608,7 +673,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure admin users.
   fortinet.fortios.fortios_system_admin:
@@ -620,6 +684,7 @@ EXAMPLES = """
           accprofile_override: "enable"
           allow_remove_admin_session: "enable"
           comments: "<your_own_value>"
+          disallowed_login_methods: "console"
           email_to: "<your_own_value>"
           force_password_change: "enable"
           fortitoken: "<your_own_value>"
@@ -627,13 +692,14 @@ EXAMPLES = """
           guest_lang: "<your_own_value> (source system.custom-language.name)"
           guest_usergroups:
               -
-                  name: "default_name_13"
+                  name: "default_name_14"
+          gui_custom_theme: "<your_own_value> (source system.theme.name)"
           gui_dashboard:
               -
                   columns: "10"
-                  id: "16"
+                  id: "18"
                   layout_type: "responsive"
-                  name: "default_name_18"
+                  name: "default_name_20"
                   permanent: "disable"
                   scope: "global"
                   vdom: "<your_own_value> (source system.vdom.name)"
@@ -645,7 +711,7 @@ EXAMPLES = """
                           fortiview_device: "<your_own_value>"
                           fortiview_filters:
                               -
-                                  id: "28"
+                                  id: "30"
                                   key: "<your_own_value>"
                                   value: "<your_own_value>"
                           fortiview_sort_by: "<your_own_value>"
@@ -653,7 +719,7 @@ EXAMPLES = """
                           fortiview_type: "<your_own_value>"
                           fortiview_visualization: "<your_own_value>"
                           height: "25"
-                          id: "36"
+                          id: "38"
                           industry: "default"
                           interface: "<your_own_value> (source system.interface.name)"
                           region: "default"
@@ -664,13 +730,16 @@ EXAMPLES = """
                           y_pos: "500"
           gui_global_menu_favorites:
               -
-                  id: "46"
+                  id: "48"
+          gui_llm_provider: "fortiai"
           gui_new_feature_acknowledge:
               -
-                  id: "48"
+                  id: "51"
+          gui_theme: "jade"
+          gui_theme_type: "predefined"
           gui_vdom_menu_favorites:
               -
-                  id: "50"
+                  id: "55"
           hidden: "127"
           history0: "<your_own_value>"
           history1: "<your_own_value>"
@@ -689,7 +758,12 @@ EXAMPLES = """
                   last_failed_login: "<your_own_value>"
                   last_login: "<your_own_value>"
                   usr_name: "<your_own_value>"
-          name: "default_name_68"
+          name: "default_name_73"
+          openai_api_key: "<your_own_value>"
+          openai_api_key_part2: "<your_own_value>"
+          openai_model: "<your_own_value>"
+          openai_org_id: "<your_own_value>"
+          openai_project_id: "<your_own_value>"
           password: "<your_own_value>"
           password_expire: "<your_own_value>"
           peer_auth: "enable"
@@ -720,7 +794,7 @@ EXAMPLES = """
           two_factor_notification: "email"
           vdom:
               -
-                  name: "default_name_98 (source system.vdom.name)"
+                  name: "default_name_108 (source system.vdom.name)"
           vdom_override: "enable"
           wildcard: "enable"
 """
@@ -822,15 +896,20 @@ def filter_system_admin_data(json):
         "accprofile_override",
         "allow_remove_admin_session",
         "comments",
+        "disallowed_login_methods",
         "email_to",
         "force_password_change",
         "fortitoken",
         "guest_auth",
         "guest_lang",
         "guest_usergroups",
+        "gui_custom_theme",
         "gui_dashboard",
         "gui_global_menu_favorites",
+        "gui_llm_provider",
         "gui_new_feature_acknowledge",
+        "gui_theme",
+        "gui_theme_type",
         "gui_vdom_menu_favorites",
         "hidden",
         "history0",
@@ -847,6 +926,11 @@ def filter_system_admin_data(json):
         "ip6_trusthost9",
         "login_time",
         "name",
+        "openai_api_key",
+        "openai_api_key_part2",
+        "openai_model",
+        "openai_org_id",
+        "openai_project_id",
         "password",
         "password_expire",
         "peer_auth",
@@ -890,6 +974,37 @@ def filter_system_admin_data(json):
     return dictionary
 
 
+def flatten_single_path(data, path, index):
+    if (
+        not data
+        or index == len(path)
+        or path[index] not in data
+        or (not data[path[index]] and not isinstance(data[path[index]], list))
+    ):
+        return
+
+    if index == len(path) - 1:
+        data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
+    elif isinstance(data[path[index]], list):
+        for value in data[path[index]]:
+            flatten_single_path(value, path, index + 1)
+    else:
+        flatten_single_path(data[path[index]], path, index + 1)
+
+
+def flatten_multilists_attributes(data):
+    multilist_attrs = [
+        ["disallowed_login_methods"],
+    ]
+
+    for attr in multilist_attrs:
+        flatten_single_path(data, attr, 0)
+
+    return data
+
+
 def underscore_to_hyphen(data):
     new_data = None
     if isinstance(data, list):
@@ -923,6 +1038,7 @@ def system_admin(data, fos, check_mode=False):
     system_admin_data = data["system_admin"]
 
     filtered_data = filter_system_admin_data(system_admin_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
     converted_data = underscore_to_hyphen(filtered_data)
 
     # check_mode starts from here
@@ -1079,6 +1195,18 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "disallowed_login_methods": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "console"},
+                {"value": "gui"},
+                {"value": "ssh"},
+                {"value": "telnet"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
         "vdom": {
             "type": "list",
             "elements": "dict",
@@ -1205,6 +1333,40 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
         },
         "guest_lang": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "gui_theme_type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "predefined"}, {"value": "custom"}],
+        },
+        "gui_theme": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "jade"},
+                {"value": "neutrino"},
+                {"value": "mariner"},
+                {"value": "graphite"},
+                {"value": "melongene"},
+                {"value": "jet-stream"},
+                {"value": "security-fabric"},
+                {"value": "retro"},
+                {"value": "dark-matter"},
+                {"value": "onyx"},
+                {"value": "eclipse"},
+                {"value": "none"},
+            ],
+        },
+        "gui_custom_theme": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "gui_llm_provider": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "fortiai"}, {"value": "openai"}],
+        },
+        "openai_api_key": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_api_key_part2": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_model": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_project_id": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_org_id": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "radius_vdom_override": {
             "v_range": [["v6.0.0", "v7.2.0"]],
             "type": "string",

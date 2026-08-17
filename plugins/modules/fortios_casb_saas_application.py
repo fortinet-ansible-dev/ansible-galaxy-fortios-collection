@@ -230,7 +230,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure CASB SaaS application.
   fortinet.fortios.fortios_casb_saas_application:

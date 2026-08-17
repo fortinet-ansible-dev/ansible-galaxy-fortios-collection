@@ -183,6 +183,10 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    dhcp_template:
+                        description:
+                            - DHCP template for assingned interface. Source system.dhcp.template.name.
+                        type: str
                     interface:
                         description:
                             - Configure name or wildcard of interface to match.
@@ -194,6 +198,24 @@ options:
                                     - Interface name or wildcard.
                                 required: true
                                 type: str
+                    item_name:
+                        description:
+                            - Configure name or wildcard of item to match.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Name or wildcard.
+                                required: true
+                                type: str
+                    item_type:
+                        description:
+                            - Configure whether item is an interface or an address.
+                        type: str
+                        choices:
+                            - 'interface'
+                            - 'address'
                     name:
                         description:
                             - IPAM rule name.
@@ -220,6 +242,17 @@ options:
                             - 'wan'
                             - 'dmz'
                             - 'undefined'
+                    vdom:
+                        description:
+                            - Configure which VDOMs have access to this IPAM rule.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - VDOM or wildcard.
+                                required: true
+                                type: str
             server_type:
                 description:
                     - Configure the type of IPAM server to use.
@@ -235,7 +268,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IP address management services.
   fortinet.fortios.fortios_system_ipam:
@@ -263,14 +295,22 @@ EXAMPLES = """
                       -
                           name: "default_name_19"
                   dhcp: "enable"
+                  dhcp_template: "<your_own_value> (source system.dhcp.template.name)"
                   interface:
                       -
-                          name: "default_name_22"
-                  name: "default_name_23"
+                          name: "default_name_23"
+                  item_name:
+                      -
+                          name: "default_name_25"
+                  item_type: "interface"
+                  name: "default_name_27"
                   pool:
                       -
-                          name: "default_name_25 (source system.ipam.pools.name)"
+                          name: "default_name_29 (source system.ipam.pools.name)"
                   role: "any"
+                  vdom:
+                      -
+                          name: "default_name_32"
           server_type: "fabric-root"
           status: "enable"
 """
@@ -624,6 +664,23 @@ versioned_schema = {
                     "required": True,
                 },
                 "description": {"v_range": [["v7.2.1", ""]], "type": "string"},
+                "item_type": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "interface"}, {"value": "address"}],
+                },
+                "item_name": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
                 "device": {
                     "type": "list",
                     "elements": "dict",
@@ -636,17 +693,17 @@ versioned_schema = {
                     },
                     "v_range": [["v7.2.1", ""]],
                 },
-                "interface": {
+                "vdom": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "v_range": [["v7.2.1", ""]],
+                            "v_range": [["v8.0.0", ""]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "v_range": [["v7.2.1", ""]],
+                    "v_range": [["v8.0.0", ""]],
                 },
                 "role": {
                     "v_range": [["v7.2.1", ""]],
@@ -675,6 +732,19 @@ versioned_schema = {
                     "v_range": [["v7.2.1", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "dhcp_template": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "interface": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.2.1", "v7.6.7"]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v7.2.1", "v7.6.7"]],
                 },
             },
             "v_range": [["v7.2.1", ""]],

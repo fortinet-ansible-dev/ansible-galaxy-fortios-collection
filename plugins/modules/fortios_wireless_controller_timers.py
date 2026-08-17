@@ -163,6 +163,14 @@ options:
                 description:
                     - Time period to keep IPsec VPN interfaces up after WTP sessions are disconnected (30 - 3600 sec).
                 type: int
+            keep_alive_interval:
+                description:
+                    - Time between data keep alive message sent by the managed WTP, AP, or FortiAP (1 - 255 sec).
+                type: int
+            max_retransmit_interval:
+                description:
+                    - Maximal time to retransmit a control packet by the managed WTP, AP, or FortiAP (2 - 255 sec).
+                type: int
             nat_session_keep_alive:
                 description:
                     - Maximal time in seconds between control requests sent by the managed WTP, AP, or FortiAP (0 - 255 sec).
@@ -216,7 +224,6 @@ options:
                     - Time period in minutes to keep wids entry after it is gone .
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure CAPWAP timers.
   fortinet.fortios.fortios_wireless_controller_timers:
@@ -240,6 +247,8 @@ EXAMPLES = """
           echo_interval: "30"
           fake_ap_log: "1"
           ipsec_intf_cleanup: "120"
+          keep_alive_interval: "0"
+          max_retransmit_interval: "0"
           nat_session_keep_alive: "0"
           radio_stats_interval: "15"
           rogue_ap_cleanup: "0"
@@ -364,6 +373,8 @@ def filter_wireless_controller_timers_data(json):
         "echo_interval",
         "fake_ap_log",
         "ipsec_intf_cleanup",
+        "keep_alive_interval",
+        "max_retransmit_interval",
         "nat_session_keep_alive",
         "radio_stats_interval",
         "rogue_ap_cleanup",
@@ -554,6 +565,8 @@ versioned_schema = {
     "type": "dict",
     "children": {
         "echo_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "keep_alive_interval": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "max_retransmit_interval": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "nat_session_keep_alive": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "discovery_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "client_idle_timeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},

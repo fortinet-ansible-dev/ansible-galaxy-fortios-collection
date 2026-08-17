@@ -119,6 +119,29 @@ options:
                 elements: str
                 choices:
                     - 'scan-progress'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             file_transfer:
                 description:
                     - Configure the file transfer protocols to pass transferred files to an ICAP server as REQMOD.
@@ -349,8 +372,11 @@ options:
                 description:
                     - Time (in seconds) that ICAP client waits for the response from ICAP server.
                 type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure ICAP profiles.
   fortinet.fortios.fortios_icap_profile:
@@ -363,6 +389,9 @@ EXAMPLES = """
           chunk_encap: "disable"
           comment: "Comment."
           extension_feature: "scan-progress"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           file_transfer: "ssh"
           file_transfer_failure: "error"
           file_transfer_path: "<your_own_value>"
@@ -372,10 +401,10 @@ EXAMPLES = """
               -
                   base64_encoding: "disable"
                   content: "<your_own_value>"
-                  id: "16"
-                  name: "default_name_17"
+                  id: "19"
+                  name: "default_name_20"
           methods: "delete"
-          name: "default_name_19"
+          name: "default_name_22"
           ocr_only: "disable"
           preview: "disable"
           preview_data_length: "0"
@@ -393,12 +422,12 @@ EXAMPLES = """
                           case_sensitivity: "disable"
                           header: "<your_own_value>"
                           header_name: "<your_own_value>"
-                          id: "35"
+                          id: "38"
                   host: "myhostname (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name)"
                   http_resp_status_code:
                       -
                           code: "<you_own_value>"
-                  name: "default_name_39"
+                  name: "default_name_42"
           response: "disable"
           response_failure: "error"
           response_path: "<your_own_value>"
@@ -407,6 +436,7 @@ EXAMPLES = """
           scan_progress_interval: "10"
           streaming_content_bypass: "disable"
           timeout: "30"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -507,6 +537,9 @@ def filter_icap_profile_data(json):
         "chunk_encap",
         "comment",
         "extension_feature",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "file_transfer",
         "file_transfer_failure",
         "file_transfer_path",
@@ -533,6 +566,7 @@ def filter_icap_profile_data(json):
         "scan_progress_interval",
         "streaming_content_bypass",
         "timeout",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -876,6 +910,22 @@ versioned_schema = {
         },
         "scan_progress_interval": {"v_range": [["v7.0.2", ""]], "type": "integer"},
         "timeout": {"v_range": [["v7.2.0", ""]], "type": "integer"},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "icap_headers": {
             "type": "list",
             "elements": "dict",

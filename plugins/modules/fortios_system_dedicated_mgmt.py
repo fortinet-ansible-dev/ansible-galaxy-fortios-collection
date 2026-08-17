@@ -117,7 +117,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure dedicated management.
   fortinet.fortios.fortios_system_dedicated_mgmt:

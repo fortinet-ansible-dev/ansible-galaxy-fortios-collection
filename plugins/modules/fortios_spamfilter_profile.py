@@ -346,7 +346,6 @@ options:
                             - 'enable'
                             - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam profiles.
   fortinet.fortios.fortios_spamfilter_profile:

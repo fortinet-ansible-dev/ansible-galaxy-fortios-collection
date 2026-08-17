@@ -160,7 +160,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure logging by FortiSwitch device to a remote syslog server.
   fortinet.fortios.fortios_switch_controller_remote_log:

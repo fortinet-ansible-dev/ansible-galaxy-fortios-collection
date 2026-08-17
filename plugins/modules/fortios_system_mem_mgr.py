@@ -87,7 +87,6 @@ options:
                     - memory limit for Mass MMS Daemon (% of free memory)
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure memory manager.
   fortinet.fortios.fortios_system_mem_mgr:

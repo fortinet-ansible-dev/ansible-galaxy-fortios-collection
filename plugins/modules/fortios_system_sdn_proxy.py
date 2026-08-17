@@ -90,6 +90,29 @@ options:
         default: null
         type: dict
         suboptions:
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             name:
                 description:
                     - SDN proxy name.
@@ -118,8 +141,11 @@ options:
                 description:
                     - SDN proxy username.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure SDN proxy.
   fortinet.fortios.fortios_system_sdn_proxy:
@@ -127,12 +153,16 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_sdn_proxy:
-          name: "default_name_3"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          name: "default_name_6"
           password: "<your_own_value>"
           server: "192.168.100.40"
           server_port: "0"
           type: "general"
           username: "<your_own_value>"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -227,7 +257,18 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_system_sdn_proxy_data(json):
-    option_list = ["name", "password", "server", "server_port", "type", "username"]
+    option_list = [
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "name",
+        "password",
+        "server",
+        "server_port",
+        "type",
+        "username",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -408,6 +449,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.4.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "type": {
             "v_range": [["v7.4.0", ""]],
             "type": "string",

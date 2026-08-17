@@ -165,7 +165,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure anti-spam black/white list.
   fortinet.fortios.fortios_emailfilter_bwl:

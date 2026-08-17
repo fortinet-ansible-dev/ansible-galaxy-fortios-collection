@@ -109,6 +109,7 @@ options:
                     - 'firmware-changed'
                     - 'node-failed'
                     - 'image-missing'
+                    - 'suspension-timeout'
             ha_reboot_controller:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
@@ -188,6 +189,7 @@ options:
                             - 'firmware-changed'
                             - 'node-failed'
                             - 'image-missing'
+                            - 'suspension-timeout'
                     maximum_minutes:
                         description:
                             - Maximum number of minutes to allow for immediate upgrade preparation.
@@ -253,7 +255,6 @@ options:
                     - Unique identifier for this upgrade.
                 type: int
 """
-
 EXAMPLES = """
 - name: Coordinate federated upgrades within the Security Fabric.
   fortinet.fortios.fortios_system_federated_upgrade:
@@ -617,6 +618,7 @@ versioned_schema = {
                 {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
                 {"value": "node-failed", "v_range": [["v7.2.4", ""]]},
                 {"value": "image-missing", "v_range": [["v7.6.4", ""]]},
+                {"value": "suspension-timeout", "v_range": [["v8.0.0", ""]]},
             ],
         },
         "failure_device": {"v_range": [["v7.0.2", ""]], "type": "string"},
@@ -701,6 +703,7 @@ versioned_schema = {
                         {"value": "firmware-changed"},
                         {"value": "node-failed"},
                         {"value": "image-missing", "v_range": [["v7.6.4", ""]]},
+                        {"value": "suspension-timeout", "v_range": [["v8.0.0", ""]]},
                     ],
                 },
             },

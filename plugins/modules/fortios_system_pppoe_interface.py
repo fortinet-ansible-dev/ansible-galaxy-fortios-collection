@@ -195,7 +195,6 @@ options:
                     - User name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure the PPPoE interfaces.
   fortinet.fortios.fortios_system_pppoe_interface:

@@ -147,7 +147,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure advice of charge.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_advice_of_charge:

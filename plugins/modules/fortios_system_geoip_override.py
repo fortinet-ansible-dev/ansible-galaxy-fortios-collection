@@ -142,7 +142,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure geographical location mapping for IP address(es) to override mappings from FortiGuard.
   fortinet.fortios.fortios_system_geoip_override:

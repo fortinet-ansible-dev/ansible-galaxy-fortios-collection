@@ -208,7 +208,6 @@ options:
                     - 'tcp'
                     - 'sctp'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch flow tracking and export via ipfix/netflow.
   fortinet.fortios.fortios_switch_controller_flow_tracking:

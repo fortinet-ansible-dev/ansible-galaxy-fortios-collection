@@ -232,7 +232,6 @@ options:
                     - User name to sign in with. Must have proper permissions for service.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure domain controller entries.
   fortinet.fortios.fortios_user_domain_controller:

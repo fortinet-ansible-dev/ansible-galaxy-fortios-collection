@@ -114,7 +114,6 @@ options:
                     - URL exemption pattern.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure debug URL addresses.
   fortinet.fortios.fortios_web_proxy_debug_url:

@@ -122,7 +122,6 @@ options:
                     - 'explicit'
                     - 'firewall6'
 """
-
 EXAMPLES = """
 - name: Configure IPS view-map.
   fortinet.fortios.fortios_ips_view_map:

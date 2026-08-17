@@ -87,7 +87,6 @@ options:
                     - Number, hexadecimal.
                 type: str
 """
-
 EXAMPLES = """
 - name: List.
   fortinet.fortios.fortios_firewall_iprope_list:

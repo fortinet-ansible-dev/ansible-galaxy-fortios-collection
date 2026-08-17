@@ -157,7 +157,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv4 access control list.
   fortinet.fortios.fortios_firewall_acl:

@@ -115,7 +115,6 @@ options:
                             - Friendly name value.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure operator friendly name.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_operator_name:

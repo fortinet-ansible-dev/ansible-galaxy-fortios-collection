@@ -382,7 +382,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure hotspot profile.
   fortinet.fortios.fortios_wireless_controller_hotspot20_hs_profile:

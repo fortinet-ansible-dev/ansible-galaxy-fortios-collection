@@ -141,6 +141,29 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             log:
                 description:
                     - Enable/disable logging of detection.
@@ -164,8 +187,11 @@ options:
                     - 'medium'
                     - 'high'
                     - 'critical'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure virtual-patch profile.
   fortinet.fortios.fortios_virtual_patch_profile:
@@ -185,9 +211,13 @@ EXAMPLES = """
                       -
                           id: "10"
                   status: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           log: "enable"
-          name: "default_name_13"
+          name: "default_name_16"
           severity: "info"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -282,7 +312,18 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_virtual_patch_profile_data(json):
-    option_list = ["action", "comment", "exemption", "log", "name", "severity"]
+    option_list = [
+        "action",
+        "comment",
+        "exemption",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "log",
+        "name",
+        "severity",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -500,6 +541,22 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
         "comment": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "severity": {
             "v_range": [["v7.4.1", ""]],
             "type": "list",

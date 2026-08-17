@@ -89,7 +89,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure Sovereign SASE.
   fortinet.fortios.fortios_system_sov_sase:

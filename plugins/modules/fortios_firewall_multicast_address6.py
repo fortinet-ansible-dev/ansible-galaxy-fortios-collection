@@ -98,6 +98,25 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             ip6:
                 description:
                     - 'IPv6 address prefix (format: xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx).'
@@ -141,7 +160,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv6 multicast address.
   fortinet.fortios.fortios_firewall_multicast_address6:
@@ -151,15 +169,19 @@ EXAMPLES = """
       firewall_multicast_address6:
           color: "0"
           comment: "Comment."
+          custom_tags:
+              -
+                  name: "default_name_6 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           ip6: "<your_own_value>"
-          name: "default_name_6"
+          name: "default_name_9"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_9"
+                  name: "default_name_12"
                   tags:
                       -
-                          name: "default_name_11 (source system.object-tagging.tags.name)"
+                          name: "default_name_14 (source system.object-tagging.tags.name)"
           visibility: "enable"
 """
 
@@ -255,7 +277,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_multicast_address6_data(json):
-    option_list = ["color", "comment", "ip6", "name", "tagging", "visibility"]
+    option_list = [
+        "color",
+        "comment",
+        "custom_tags",
+        "display_with",
+        "ip6",
+        "name",
+        "tagging",
+        "visibility",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -475,6 +506,27 @@ versioned_schema = {
                 },
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "visibility": {
             "v_range": [["v6.0.0", "v6.2.7"]],

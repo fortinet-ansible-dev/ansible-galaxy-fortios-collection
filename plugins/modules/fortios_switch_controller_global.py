@@ -241,6 +241,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            switch_custom_cmd:
+                description:
+                    - Configure push method for switch bound custom command.
+                type: str
+                choices:
+                    - 'on-replay'
+                    - 'on-any'
             switch_on_deauth:
                 description:
                     - No-operation/Factory-reset the managed FortiSwitch on deauthorization.
@@ -284,7 +291,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch global settings.
   fortinet.fortios.fortios_switch_controller_global:
@@ -318,6 +324,7 @@ EXAMPLES = """
           mac_violation_timer: "0"
           quarantine_mode: "by-vlan"
           sn_dns_resolution: "enable"
+          switch_custom_cmd: "on-replay"
           switch_on_deauth: "no-op"
           update_user_device: "mac-cache"
           vlan_all_mode: "all"
@@ -441,6 +448,7 @@ def filter_switch_controller_global_data(json):
         "mac_violation_timer",
         "quarantine_mode",
         "sn_dns_resolution",
+        "switch_custom_cmd",
         "switch_on_deauth",
         "update_user_device",
         "vlan_all_mode",
@@ -805,6 +813,11 @@ versioned_schema = {
         "firewall_auth_user_hold_period": {
             "v_range": [["v7.6.4", ""]],
             "type": "integer",
+        },
+        "switch_custom_cmd": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "on-replay"}, {"value": "on-any"}],
         },
         "allow_multiple_interfaces": {
             "v_range": [["v6.0.0", "v6.2.7"], ["v6.4.1", "v6.4.1"]],

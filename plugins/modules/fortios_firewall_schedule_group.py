@@ -94,6 +94,14 @@ options:
                 description:
                     - Color of icon on the GUI.
                 type: int
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -101,6 +109,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             member:
                 description:
                     - Schedules added to the schedule group.
@@ -122,7 +138,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Schedule group configuration.
   fortinet.fortios.fortios_firewall_schedule_group:
@@ -131,11 +146,13 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       firewall_schedule_group:
           color: "0"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           member:
               -
-                  name: "default_name_6 (source firewall.schedule.onetime.name firewall.schedule.recurring.name)"
-          name: "default_name_7"
+                  name: "default_name_8 (source firewall.schedule.onetime.name firewall.schedule.recurring.name)"
+          name: "default_name_9"
           uuid: "<your_own_value>"
 """
 
@@ -231,7 +248,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_schedule_group_data(json):
-    option_list = ["color", "fabric_object", "member", "name", "uuid"]
+    option_list = [
+        "color",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "member",
+        "name",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -429,12 +454,22 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
         },
         "uuid": {"v_range": [["v7.6.0", ""]], "type": "string"},
-        "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "fabric_object": {
             "v_range": [["v6.4.4", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
+        "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
     },
     "v_range": [["v6.0.0", ""]],
 }

@@ -125,7 +125,6 @@ options:
                             - VDOM name. Source system.vdom.name.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure NSX-T service chain.
   fortinet.fortios.fortios_nsxt_service_chain:

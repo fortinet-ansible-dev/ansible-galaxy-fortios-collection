@@ -129,7 +129,6 @@ options:
                             - Trusted Server CA certificate used by SSL connection. Source vpn.certificate.ca.name.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure ZTNA traffic forward proxy reverse service.
   fortinet.fortios.fortios_ztna_traffic_forward_proxy_reverse_service:

@@ -122,7 +122,6 @@ options:
                     - Untrusted CA certificate used by SSH Inspection. Source firewall.ssh.local-ca.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: SSH proxy settings.
   fortinet.fortios.fortios_firewall_ssh_setting:

@@ -106,7 +106,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: SNMP Access Control MIB View configuration.
   fortinet.fortios.fortios_system_snmp_mib_view:

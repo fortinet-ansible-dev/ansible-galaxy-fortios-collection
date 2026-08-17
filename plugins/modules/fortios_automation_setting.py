@@ -101,7 +101,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Automation setting configuration.
   fortinet.fortios.fortios_automation_setting:

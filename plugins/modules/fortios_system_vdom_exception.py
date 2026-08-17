@@ -127,6 +127,7 @@ options:
                     - 'log.syslogd.setting'
                     - 'log.syslogd.override-setting'
                     - 'firewall.address'
+                    - 'system.snmp.sysinfo'
                     - 'vpn.ipsec.phase1-interface'
                     - 'vpn.ipsec.phase2-interface'
                     - 'router.bgp'
@@ -168,7 +169,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Global configuration objects that can be configured independently across different ha peers for all VDOMs or for the defined VDOM scope.
   fortinet.fortios.fortios_system_vdom_exception:
@@ -514,9 +514,10 @@ versioned_schema = {
                     "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", ""]],
                 },
                 {"value": "system.interface", "v_range": [["v7.6.3", ""]]},
-                {"value": "log.syslogd.setting", "v_range": [["v7.6.6", ""]]},
-                {"value": "log.syslogd.override-setting", "v_range": [["v7.6.6", ""]]},
+                {"value": "log.syslogd.setting", "v_range": [["v8.0.0", ""]]},
+                {"value": "log.syslogd.override-setting", "v_range": [["v8.0.0", ""]]},
                 {"value": "firewall.address", "v_range": [["v7.4.2", ""]]},
+                {"value": "system.snmp.sysinfo", "v_range": [["v7.6.7", ""]]},
                 {"value": "vpn.ipsec.phase1-interface", "v_range": []},
                 {"value": "vpn.ipsec.phase2-interface", "v_range": []},
                 {"value": "router.bgp", "v_range": []},

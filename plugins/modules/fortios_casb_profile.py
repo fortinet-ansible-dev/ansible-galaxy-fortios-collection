@@ -94,6 +94,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             name:
                 description:
                     - CASB profile name.
@@ -320,8 +343,11 @@ options:
                                     - Tenant control tenants name.
                                 required: true
                                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure CASB profile.
   fortinet.fortios.fortios_casb_profile:
@@ -330,7 +356,10 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       casb_profile:
           comment: "Comment."
-          name: "default_name_4"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          name: "default_name_7"
           saas_application:
               -
                   access_rule:
@@ -340,9 +369,9 @@ EXAMPLES = """
                               -
                                   action: "monitor"
                                   attribute_match: "<your_own_value> (source casb.attribute-match.name)"
-                                  id: "11"
+                                  id: "14"
                           bypass: "av"
-                          name: "default_name_13 (source casb.user-activity.name)"
+                          name: "default_name_16 (source casb.user-activity.name)"
                   advanced_tenant_control:
                       -
                           attribute:
@@ -350,37 +379,38 @@ EXAMPLES = """
                                   input:
                                       -
                                           value: "<your_own_value>"
-                                  name: "default_name_18"
-                          name: "default_name_19 (source casb.user-activity.name)"
+                                  name: "default_name_21"
+                          name: "default_name_22 (source casb.user-activity.name)"
                   custom_control:
                       -
                           attribute_filter:
                               -
                                   action: "monitor"
                                   attribute_match: "<your_own_value> (source casb.attribute-match.name)"
-                                  id: "24"
-                          name: "default_name_25 (source casb.user-activity.name)"
+                                  id: "27"
+                          name: "default_name_28 (source casb.user-activity.name)"
                           option:
                               -
-                                  name: "default_name_27"
+                                  name: "default_name_30"
                                   user_input:
                                       -
                                           value: "<your_own_value>"
                   domain_control: "enable"
                   domain_control_domains:
                       -
-                          name: "default_name_32"
+                          name: "default_name_35"
                   log: "enable"
-                  name: "default_name_34 (source casb.saas-application.name)"
+                  name: "default_name_37 (source casb.saas-application.name)"
                   safe_search: "enable"
                   safe_search_control:
                       -
-                          name: "default_name_37"
+                          name: "default_name_40"
                   status: "enable"
                   tenant_control: "enable"
                   tenant_control_tenants:
                       -
-                          name: "default_name_41"
+                          name: "default_name_44"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -475,7 +505,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_casb_profile_data(json):
-    option_list = ["comment", "name", "saas_application"]
+    option_list = [
+        "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "name",
+        "saas_application",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -688,6 +726,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.4.1", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v7.4.4", ""]], "type": "string"},
         "saas_application": {
             "type": "list",

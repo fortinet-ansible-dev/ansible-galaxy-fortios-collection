@@ -155,7 +155,6 @@ options:
                     - VDOM for CRL update. Source system.vdom.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Certificate Revocation List as a PEM file.
   fortinet.fortios.fortios_vpn_certificate_crl:

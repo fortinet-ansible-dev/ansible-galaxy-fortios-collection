@@ -94,6 +94,10 @@ options:
                 description:
                     - SSO admin user access profile. Source system.accprofile.name.
                 type: str
+            gui_custom_theme:
+                description:
+                    - Custom theme that overrides the default FortiGate theme. Source system.theme.name.
+                type: str
             gui_dashboard:
                 description:
                     - GUI dashboards.
@@ -273,6 +277,13 @@ options:
                 description:
                     - The FortiOS version to ignore release overview prompt for.
                 type: str
+            gui_llm_provider:
+                description:
+                    - Select the LLM provider.
+                type: str
+                choices:
+                    - 'fortiai'
+                    - 'openai'
             gui_new_feature_acknowledge:
                 description:
                     - Acknowledgement of new features.
@@ -284,6 +295,30 @@ options:
                             - Select menu ID.
                         required: true
                         type: str
+            gui_theme:
+                description:
+                    - Predefined theme that overrides the default FortiGate theme.
+                type: str
+                choices:
+                    - 'jade'
+                    - 'neutrino'
+                    - 'mariner'
+                    - 'graphite'
+                    - 'melongene'
+                    - 'jet-stream'
+                    - 'security-fabric'
+                    - 'retro'
+                    - 'dark-matter'
+                    - 'onyx'
+                    - 'eclipse'
+                    - 'none'
+            gui_theme_type:
+                description:
+                    - Use predefined themes or custom themes.
+                type: str
+                choices:
+                    - 'predefined'
+                    - 'custom'
             gui_vdom_menu_favorites:
                 description:
                     - Favorite GUI menu IDs for VDOMs.
@@ -300,6 +335,26 @@ options:
                     - SSO admin name.
                 required: true
                 type: str
+            openai_api_key:
+                description:
+                    - OpenAI API key.
+                type: str
+            openai_api_key_part2:
+                description:
+                    - OpenAI API key part 2 for excess length.
+                type: str
+            openai_model:
+                description:
+                    - OpenAI model.
+                type: str
+            openai_org_id:
+                description:
+                    - OpenAI organization ID.
+                type: str
+            openai_project_id:
+                description:
+                    - OpenAI project ID.
+                type: str
             vdom:
                 description:
                     - Virtual domain(s) that the administrator can access.
@@ -312,7 +367,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure SSO admin users.
   fortinet.fortios.fortios_system_sso_admin:
@@ -321,12 +375,13 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       system_sso_admin:
           accprofile: "<your_own_value> (source system.accprofile.name)"
+          gui_custom_theme: "<your_own_value> (source system.theme.name)"
           gui_dashboard:
               -
                   columns: "10"
-                  id: "6"
+                  id: "7"
                   layout_type: "responsive"
-                  name: "default_name_8"
+                  name: "default_name_9"
                   permanent: "disable"
                   vdom: "<your_own_value> (source system.vdom.name)"
                   widget:
@@ -337,7 +392,7 @@ EXAMPLES = """
                           fortiview_device: "<your_own_value>"
                           fortiview_filters:
                               -
-                                  id: "17"
+                                  id: "18"
                                   key: "<your_own_value>"
                                   value: "<your_own_value>"
                           fortiview_sort_by: "<your_own_value>"
@@ -345,7 +400,7 @@ EXAMPLES = """
                           fortiview_type: "<your_own_value>"
                           fortiview_visualization: "<your_own_value>"
                           height: "25"
-                          id: "25"
+                          id: "26"
                           industry: "default"
                           interface: "<your_own_value> (source system.interface.name)"
                           region: "default"
@@ -356,18 +411,26 @@ EXAMPLES = """
                           y_pos: "500"
           gui_global_menu_favorites:
               -
-                  id: "35"
+                  id: "36"
           gui_ignore_release_overview_version: "<your_own_value>"
+          gui_llm_provider: "fortiai"
           gui_new_feature_acknowledge:
               -
-                  id: "38"
+                  id: "40"
+          gui_theme: "jade"
+          gui_theme_type: "predefined"
           gui_vdom_menu_favorites:
               -
-                  id: "40"
-          name: "default_name_41"
+                  id: "44"
+          name: "default_name_45"
+          openai_api_key: "<your_own_value>"
+          openai_api_key_part2: "<your_own_value>"
+          openai_model: "<your_own_value>"
+          openai_org_id: "<your_own_value>"
+          openai_project_id: "<your_own_value>"
           vdom:
               -
-                  name: "default_name_43 (source system.vdom.name)"
+                  name: "default_name_52 (source system.vdom.name)"
 """
 
 RETURN = """
@@ -464,12 +527,21 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_system_sso_admin_data(json):
     option_list = [
         "accprofile",
+        "gui_custom_theme",
         "gui_dashboard",
         "gui_global_menu_favorites",
         "gui_ignore_release_overview_version",
+        "gui_llm_provider",
         "gui_new_feature_acknowledge",
+        "gui_theme",
+        "gui_theme_type",
         "gui_vdom_menu_favorites",
         "name",
+        "openai_api_key",
+        "openai_api_key_part2",
+        "openai_model",
+        "openai_org_id",
+        "openai_project_id",
         "vdom",
     ]
 
@@ -653,6 +725,40 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.2.0", ""]], "type": "string", "required": True},
         "accprofile": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "gui_theme_type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "predefined"}, {"value": "custom"}],
+        },
+        "gui_theme": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "jade"},
+                {"value": "neutrino"},
+                {"value": "mariner"},
+                {"value": "graphite"},
+                {"value": "melongene"},
+                {"value": "jet-stream"},
+                {"value": "security-fabric"},
+                {"value": "retro"},
+                {"value": "dark-matter"},
+                {"value": "onyx"},
+                {"value": "eclipse"},
+                {"value": "none"},
+            ],
+        },
+        "gui_custom_theme": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "gui_llm_provider": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "fortiai"}, {"value": "openai"}],
+        },
+        "openai_api_key": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_api_key_part2": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_model": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_project_id": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "openai_org_id": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "vdom": {
             "type": "list",
             "elements": "dict",

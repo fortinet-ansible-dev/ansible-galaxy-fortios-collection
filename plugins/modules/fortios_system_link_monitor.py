@@ -309,7 +309,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure Link Health Monitor.
   fortinet.fortios.fortios_system_link_monitor:

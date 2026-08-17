@@ -134,7 +134,6 @@ options:
                     - 'ingress'
                     - 'egress'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch traffic policy.
   fortinet.fortios.fortios_switch_controller_traffic_policy:

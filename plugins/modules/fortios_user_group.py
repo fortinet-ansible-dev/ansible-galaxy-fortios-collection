@@ -131,15 +131,39 @@ options:
                 choices:
                     - 'immediately'
                     - 'first-successful-login'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             group_type:
                 description:
-                    - Set the group to be for firewall authentication, FSSO, RSSO, or guest users.
+                    - Set the group to be for firewall authentication, FSSO, RSSO, SCIM, or guest users.
                 type: str
                 choices:
                     - 'firewall'
                     - 'fsso-service'
                     - 'rsso'
                     - 'guest'
+                    - 'scim'
             guest:
                 description:
                     - Guest User.
@@ -221,14 +245,14 @@ options:
                 type: int
             member:
                 description:
-                    - Names of users, peers, LDAP severs, RADIUS servers or external idp servers to add to the user group.
+                    - Names of users, peers, LDAP severs, RADIUS servers, SCIM client or external idp servers to add to the user group.
                 type: list
                 elements: dict
                 suboptions:
                     name:
                         description:
                             - Group member name. Source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name user.saml.name user
-                              .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name.
+                              .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name user.scim.name user.oidc.name.
                         required: true
                         type: str
             mobile_phone:
@@ -258,6 +282,44 @@ options:
                     - 'auto-generate'
                     - 'specify'
                     - 'disable'
+            scim_group_attr_type:
+                description:
+                    - Group attribute type used to match SCIM groups .
+                type: str
+                choices:
+                    - 'display-name'
+                    - 'external-id'
+            scim_groups:
+                description:
+                    - Names of SCIM groups.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of SCIM groups.
+                        required: true
+                        type: str
+            scim_user_attr_type:
+                description:
+                    - User attribute type used to match SCIM users .
+                type: str
+                choices:
+                    - 'user-name'
+                    - 'display-name'
+                    - 'external-id'
+                    - 'email'
+            scim_users:
+                description:
+                    - Names of SCIM users.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of SCIM users.
+                        required: true
+                        type: str
             sms_custom_server:
                 description:
                     - SMS server. Source system.sms-server.name.
@@ -296,8 +358,11 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure user groups.
   fortinet.fortios.fortios_user_group:
@@ -312,6 +377,9 @@ EXAMPLES = """
           email: "disable"
           expire: "14400"
           expire_type: "immediately"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           group_type: "firewall"
           guest:
               -
@@ -319,35 +387,44 @@ EXAMPLES = """
                   company: "<your_own_value>"
                   email: "<your_own_value>"
                   expiration: "<your_own_value>"
-                  id: "16"
+                  id: "19"
                   mobile_phone: "<your_own_value>"
-                  name: "default_name_18"
+                  name: "default_name_21"
                   password: "<your_own_value>"
                   sponsor: "<your_own_value>"
                   user_id: "<your_own_value>"
           http_digest_realm: "<your_own_value>"
-          id: "23"
+          id: "26"
           match:
               -
                   group_name: "<your_own_value>"
-                  id: "26"
+                  id: "29"
                   server_name: "<your_own_value> (source user.radius.name user.ldap.name user.tacacs+.name user.saml.name user.external-identity-provider
                     .name)"
           max_accounts: "0"
           member:
               -
-                  name: "default_name_30 (source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name user.saml.name user
-                    .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name)"
+                  name: "default_name_33 (source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name user.saml.name user
+                    .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name user.scim.name user.oidc.name)"
           mobile_phone: "disable"
           multiple_guest_add: "disable"
-          name: "default_name_33"
+          name: "default_name_36"
           password: "auto-generate"
+          scim_group_attr_type: "display-name"
+          scim_groups:
+              -
+                  name: "default_name_40"
+          scim_user_attr_type: "user-name"
+          scim_users:
+              -
+                  name: "default_name_43"
           sms_custom_server: "<your_own_value> (source system.sms-server.name)"
           sms_server: "fortiguard"
           sponsor: "optional"
           sso_attribute_value: "<your_own_value>"
           user_id: "email"
           user_name: "disable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -450,6 +527,9 @@ def filter_user_group_data(json):
         "email",
         "expire",
         "expire_type",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "group_type",
         "guest",
         "http_digest_realm",
@@ -461,12 +541,17 @@ def filter_user_group_data(json):
         "multiple_guest_add",
         "name",
         "password",
+        "scim_group_attr_type",
+        "scim_groups",
+        "scim_user_attr_type",
+        "scim_users",
         "sms_custom_server",
         "sms_server",
         "sponsor",
         "sso_attribute_value",
         "user_id",
         "user_name",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -648,6 +733,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "group_type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -656,6 +757,7 @@ versioned_schema = {
                 {"value": "fsso-service"},
                 {"value": "rsso"},
                 {"value": "guest"},
+                {"value": "scim", "v_range": [["v7.6.7", ""]]},
             ],
         },
         "authtimeout": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -782,6 +884,45 @@ versioned_schema = {
                 "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "scim_user_attr_type": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "string",
+            "options": [
+                {"value": "user-name"},
+                {"value": "display-name"},
+                {"value": "external-id"},
+                {"value": "email"},
+            ],
+        },
+        "scim_group_attr_type": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "string",
+            "options": [{"value": "display-name"}, {"value": "external-id"}],
+        },
+        "scim_users": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.7", ""]],
+        },
+        "scim_groups": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v7.6.7", ""]],
         },
         "id": {
             "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],

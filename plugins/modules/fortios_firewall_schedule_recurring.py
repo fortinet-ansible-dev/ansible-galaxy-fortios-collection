@@ -112,6 +112,14 @@ options:
                 description:
                     - 'Time of day to end the schedule, format hh:mm.'
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -119,6 +127,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             label_day:
                 description:
                     - Configure a window during the time of day in which the schedule job is executed.
@@ -147,7 +163,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Recurring schedule configuration.
   fortinet.fortios.fortios_firewall_schedule_recurring:
@@ -158,9 +173,11 @@ EXAMPLES = """
           color: "0"
           day: "sunday"
           end: "<your_own_value>"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           label_day: "none"
-          name: "default_name_8"
+          name: "default_name_10"
           start: "<your_own_value>"
           uuid: "<your_own_value>"
 """
@@ -261,7 +278,9 @@ def filter_firewall_schedule_recurring_data(json):
         "color",
         "day",
         "end",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "label_day",
         "name",
         "start",
@@ -492,6 +511,21 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "start": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "end": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "day": {
@@ -510,8 +544,9 @@ versioned_schema = {
             "multiple_values": True,
             "elements": "str",
         },
+        "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "label_day": {
-            "v_range": [["v7.6.5", ""]],
+            "v_range": [["v7.6.5", "v7.6.7"]],
             "type": "string",
             "options": [
                 {"value": "none"},
@@ -524,12 +559,6 @@ versioned_schema = {
                 {"value": "night"},
                 {"value": "late-night"},
             ],
-        },
-        "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
         },
     },
     "v_range": [["v6.0.0", ""]],

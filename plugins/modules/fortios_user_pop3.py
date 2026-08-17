@@ -123,7 +123,6 @@ options:
                     - 'TLSv1-2'
                     - 'TLSv1-3'
 """
-
 EXAMPLES = """
 - name: POP3 server entry configuration.
   fortinet.fortios.fortios_user_pop3:

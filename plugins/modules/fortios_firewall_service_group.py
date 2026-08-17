@@ -98,6 +98,14 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -105,6 +113,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             member:
                 description:
                     - Service objects contained within the group.
@@ -133,7 +149,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure service groups.
   fortinet.fortios.fortios_firewall_service_group:
@@ -143,11 +158,13 @@ EXAMPLES = """
       firewall_service_group:
           color: "0"
           comment: "Comment."
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           member:
               -
-                  name: "default_name_7 (source firewall.service.custom.name firewall.service.group.name)"
-          name: "default_name_8"
+                  name: "default_name_9 (source firewall.service.custom.name firewall.service.group.name)"
+          name: "default_name_10"
           proxy: "enable"
           uuid: "<your_own_value>"
 """
@@ -247,7 +264,9 @@ def filter_firewall_service_group_data(json):
     option_list = [
         "color",
         "comment",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "member",
         "name",
         "proxy",
@@ -438,6 +457,21 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "proxy": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -457,11 +491,6 @@ versioned_schema = {
         },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
     },
     "v_range": [["v6.0.0", ""]],
 }

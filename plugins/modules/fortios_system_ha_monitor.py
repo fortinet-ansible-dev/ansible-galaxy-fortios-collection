@@ -98,7 +98,6 @@ options:
                     - VLAN lost heartbeat threshold (1 - 60).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure HA monitor.
   fortinet.fortios.fortios_system_ha_monitor:

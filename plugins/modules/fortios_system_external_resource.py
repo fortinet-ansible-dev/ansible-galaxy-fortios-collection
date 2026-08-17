@@ -121,6 +121,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             interface:
                 description:
                     - Specify outgoing interface to reach server. Source system.interface.name.
@@ -181,6 +204,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            threat_feed_hash_mode:
+                description:
+                    - Configure use of the external threat feed as either a hash database or plain text database .
+                type: str
+                choices:
+                    - 'hash-db'
+                    - 'plain-text-db'
             type:
                 description:
                     - User resource type.
@@ -200,6 +230,7 @@ options:
                 choices:
                     - 'feed'
                     - 'push'
+                    - 'fortimq'
             user_agent:
                 description:
                     - HTTP User-Agent header .
@@ -217,7 +248,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure external resource.
   fortinet.fortios.fortios_system_external_resource:
@@ -232,9 +262,12 @@ EXAMPLES = """
           client_cert: "<your_own_value> (source vpn.certificate.local.name)"
           client_cert_auth: "enable"
           comments: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
-          name: "default_name_12"
+          name: "default_name_15"
           namespace: "<your_own_value>"
           object_array_path: "<your_own_value>"
           password: "<your_own_value>"
@@ -244,6 +277,7 @@ EXAMPLES = """
           source_ip: "84.230.14.43"
           source_ip_interface: "<your_own_value> (source system.interface.name)"
           status: "enable"
+          threat_feed_hash_mode: "hash-db"
           type: "category"
           update_method: "feed"
           user_agent: "<your_own_value>"
@@ -352,6 +386,9 @@ def filter_system_external_resource_data(json):
         "client_cert",
         "client_cert_auth",
         "comments",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "interface",
         "interface_select_method",
         "name",
@@ -364,6 +401,7 @@ def filter_system_external_resource_data(json):
         "source_ip",
         "source_ip_interface",
         "status",
+        "threat_feed_hash_mode",
         "type",
         "update_method",
         "user_agent",
@@ -558,6 +596,21 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -584,9 +637,18 @@ versioned_schema = {
         "update_method": {
             "v_range": [["v7.2.1", ""]],
             "type": "string",
-            "options": [{"value": "feed"}, {"value": "push"}],
+            "options": [
+                {"value": "feed"},
+                {"value": "push"},
+                {"value": "fortimq", "v_range": [["v8.0.0", ""]]},
+            ],
         },
         "category": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "threat_feed_hash_mode": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "hash-db"}, {"value": "plain-text-db"}],
+        },
         "username": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "password": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "client_cert_auth": {

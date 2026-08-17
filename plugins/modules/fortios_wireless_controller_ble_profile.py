@@ -198,7 +198,6 @@ options:
                     - '16'
                     - '17'
 """
-
 EXAMPLES = """
 - name: Configure Bluetooth Low Energy profile.
   fortinet.fortios.fortios_wireless_controller_ble_profile:

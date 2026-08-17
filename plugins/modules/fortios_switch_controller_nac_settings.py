@@ -134,7 +134,6 @@ options:
                     - Default NAC Onboarding VLAN when NAC devices are discovered. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure integrated NAC settings for FortiSwitch.
   fortinet.fortios.fortios_switch_controller_nac_settings:

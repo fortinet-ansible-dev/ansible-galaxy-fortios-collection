@@ -126,7 +126,6 @@ options:
                     - USB vendor ID in hexadecimal format (0000-ffff).
                 type: str
 """
-
 EXAMPLES = """
 - name: 3G MODEM custom.
   fortinet.fortios.fortios_system_3g_modem_custom:

@@ -87,7 +87,6 @@ options:
                     - WTP ID.
                 type: str
 """
-
 EXAMPLES = """
 - name: Wireless controller spectrum analysis.
   fortinet.fortios.fortios_wireless_controller_spectral_info:

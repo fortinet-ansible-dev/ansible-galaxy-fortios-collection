@@ -160,7 +160,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch QoS IP precedence/DSCP.
   fortinet.fortios.fortios_switch_controller_qos_ip_dscp_map:

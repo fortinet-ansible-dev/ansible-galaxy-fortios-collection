@@ -94,7 +94,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Settings for WebTrends.
   fortinet.fortios.fortios_log_webtrends_setting:

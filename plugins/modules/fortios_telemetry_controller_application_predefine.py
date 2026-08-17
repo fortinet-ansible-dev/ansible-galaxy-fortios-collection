@@ -95,7 +95,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiTelemetry predefined applications.
   fortinet.fortios.fortios_telemetry_controller_application_predefine:

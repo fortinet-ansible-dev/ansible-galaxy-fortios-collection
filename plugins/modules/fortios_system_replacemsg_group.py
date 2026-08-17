@@ -317,6 +317,29 @@ options:
                             - Message type.
                         required: true
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             fortiguard_wf:
                 description:
                     - Replacement message table entries.
@@ -1157,6 +1180,10 @@ options:
                             - Message type.
                         required: true
                         type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             webproxy:
                 description:
                     - Replacement message table entries.
@@ -1190,7 +1217,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure replacement message groups.
   fortinet.fortios.fortios_system_replacemsg_group:
@@ -1241,6 +1267,9 @@ EXAMPLES = """
                   format: "none"
                   header: "none"
                   msg_type: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           fortiguard_wf:
               -
                   buffer: "<your_own_value>"
@@ -1353,7 +1382,7 @@ EXAMPLES = """
                   format: "none"
                   header: "none"
                   msg_type: "<your_own_value>"
-          name: "default_name_140"
+          name: "default_name_143"
           nntp:
               -
                   buffer: "<your_own_value>"
@@ -1384,6 +1413,7 @@ EXAMPLES = """
                   format: "none"
                   header: "none"
                   msg_type: "<your_own_value>"
+          uuid: "<your_own_value>"
           webproxy:
               -
                   buffer: "<your_own_value>"
@@ -1493,6 +1523,9 @@ def filter_system_replacemsg_group_data(json):
         "custom_message",
         "device_detection_portal",
         "ec",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "fortiguard_wf",
         "ftp",
         "group_type",
@@ -1511,6 +1544,7 @@ def filter_system_replacemsg_group_data(json):
         "sslvpn",
         "traffic_quota",
         "utm",
+        "uuid",
         "webproxy",
     ]
 
@@ -1723,6 +1757,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "group_type": {
             "v_range": [["v6.0.0", ""]],

@@ -105,15 +105,10 @@ options:
                 type: str
                 choices:
                     - 'AP-11N'
-                    - 'C24JE'
                     - '421E'
                     - '423E'
                     - '221E'
-                    - '222E'
                     - '223E'
-                    - '224E'
-                    - '231E'
-                    - '321E'
                     - '431F'
                     - '431FL'
                     - '432F'
@@ -131,6 +126,7 @@ options:
                     - '431G'
                     - '432G'
                     - '433G'
+                    - '221K'
                     - '231K'
                     - '231KD'
                     - '23JK'
@@ -139,8 +135,20 @@ options:
                     - '243K'
                     - '244K'
                     - '441K'
-                    - '432K'
+                    - '435K'
                     - '443K'
+                    - 'U431F'
+                    - 'U433F'
+                    - 'U231F'
+                    - 'U234F'
+                    - 'U432F'
+                    - 'U231G'
+                    - 'MVP'
+                    - 'C24JE'
+                    - '222E'
+                    - '224E'
+                    - '231E'
+                    - '321E'
                     - 'U421E'
                     - 'U422EV'
                     - 'U423E'
@@ -149,13 +157,7 @@ options:
                     - 'U24JEV'
                     - 'U321EV'
                     - 'U323EV'
-                    - 'U431F'
-                    - 'U433F'
-                    - 'U231F'
-                    - 'U234F'
-                    - 'U432F'
-                    - 'U231G'
-                    - 'MVP'
+                    - '432K'
                     - '220B'
                     - '210B'
                     - '222B'
@@ -205,7 +207,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure WTP groups.
   fortinet.fortios.fortios_wireless_controller_wtp_group:
@@ -513,15 +514,10 @@ versioned_schema = {
             "type": "string",
             "options": [
                 {"value": "AP-11N"},
-                {"value": "C24JE"},
                 {"value": "421E"},
                 {"value": "423E"},
                 {"value": "221E"},
-                {"value": "222E"},
                 {"value": "223E"},
-                {"value": "224E"},
-                {"value": "231E", "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]]},
-                {"value": "321E", "v_range": [["v6.2.0", ""]]},
                 {"value": "431F", "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]]},
                 {"value": "431FL", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]]},
                 {
@@ -567,6 +563,7 @@ versioned_schema = {
                 {"value": "431G", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]]},
                 {"value": "432G", "v_range": [["v7.4.2", ""]]},
                 {"value": "433G", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]]},
+                {"value": "221K", "v_range": [["v7.6.7", ""]]},
                 {"value": "231K", "v_range": [["v7.6.1", ""]]},
                 {"value": "231KD", "v_range": [["v7.6.5", ""]]},
                 {"value": "23JK", "v_range": [["v7.6.1", ""]]},
@@ -575,16 +572,8 @@ versioned_schema = {
                 {"value": "243K", "v_range": [["v7.4.2", ""]]},
                 {"value": "244K", "v_range": [["v7.6.4", ""]]},
                 {"value": "441K", "v_range": [["v7.4.2", ""]]},
-                {"value": "432K", "v_range": [["v7.6.5", ""]]},
+                {"value": "435K", "v_range": [["v7.6.7", ""]]},
                 {"value": "443K", "v_range": [["v7.4.2", ""]]},
-                {"value": "U421E"},
-                {"value": "U422EV"},
-                {"value": "U423E"},
-                {"value": "U221EV"},
-                {"value": "U223EV"},
-                {"value": "U24JEV"},
-                {"value": "U321EV"},
-                {"value": "U323EV"},
                 {"value": "U431F", "v_range": [["v6.2.0", ""]]},
                 {"value": "U433F", "v_range": [["v6.2.0", ""]]},
                 {"value": "U231F", "v_range": [["v6.4.4", ""]]},
@@ -592,6 +581,23 @@ versioned_schema = {
                 {"value": "U432F", "v_range": [["v6.4.4", ""]]},
                 {"value": "U231G", "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.4", ""]]},
                 {"value": "MVP", "v_range": [["v7.6.5", ""]]},
+                {"value": "C24JE", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "222E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "224E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {
+                    "value": "231E",
+                    "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", "v7.6.7"]],
+                },
+                {"value": "321E", "v_range": [["v6.2.0", "v7.6.7"]]},
+                {"value": "U421E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U422EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U423E", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U221EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U223EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U24JEV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U321EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "U323EV", "v_range": [["v6.0.0", "v7.6.7"]]},
+                {"value": "432K", "v_range": [["v7.6.5", "v7.6.6"]]},
                 {"value": "220B", "v_range": [["v6.0.0", "v7.2.4"]]},
                 {"value": "210B", "v_range": [["v6.0.0", "v7.2.4"]]},
                 {"value": "222B", "v_range": [["v6.0.0", "v7.2.4"]]},

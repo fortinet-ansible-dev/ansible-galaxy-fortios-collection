@@ -186,7 +186,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure global Web cache settings.
   fortinet.fortios.fortios_wanopt_webcache:

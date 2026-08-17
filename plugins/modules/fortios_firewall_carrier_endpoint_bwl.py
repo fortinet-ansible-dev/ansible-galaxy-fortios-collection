@@ -148,7 +148,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Carrier end point black/white list tables.
   fortinet.fortios.fortios_firewall_carrier_endpoint_bwl:

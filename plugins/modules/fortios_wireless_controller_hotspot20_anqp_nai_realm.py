@@ -197,7 +197,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure network access identifier (NAI) realm.
   fortinet.fortios.fortios_wireless_controller_hotspot20_anqp_nai_realm:

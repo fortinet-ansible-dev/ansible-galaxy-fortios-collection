@@ -349,7 +349,6 @@ options:
                     - 'Enter wireless port number: 0 for default, 1 for first port, and so on (0 - 4294967295).'
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure MODEM.
   fortinet.fortios.fortios_system_modem:

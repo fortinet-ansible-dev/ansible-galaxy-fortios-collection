@@ -105,7 +105,6 @@ options:
                     - Default image file name in USB disk.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure USB auto installation.
   fortinet.fortios.fortios_system_auto_install:

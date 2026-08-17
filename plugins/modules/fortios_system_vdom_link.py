@@ -111,7 +111,6 @@ options:
                     - 'vcluster1'
                     - 'vcluster2'
 """
-
 EXAMPLES = """
 - name: Configure VDOM links.
   fortinet.fortios.fortios_system_vdom_link:

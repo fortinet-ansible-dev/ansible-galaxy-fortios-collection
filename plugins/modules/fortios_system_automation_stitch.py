@@ -177,7 +177,6 @@ options:
                     - Trigger name. Source system.automation-trigger.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Automation stitches.
   fortinet.fortios.fortios_system_automation_stitch:

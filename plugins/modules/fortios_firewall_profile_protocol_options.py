@@ -202,6 +202,29 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             ftp:
                 description:
                     - Configure FTP protocol options.
@@ -473,6 +496,33 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    streaming_content_scan_type:
+                        description:
+                            - Enforce scan on certain streaming content type when streaming-content-bypass is enabled.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'flv'
+                            - 'octet'
+                            - 'dvi'
+                            - 'rtmp'
+                            - 'mms-framed'
+                            - 'msmediaview'
+                            - 'pncmd'
+                            - 'rtsp-tunnel'
+                            - 'audio'
+                            - 'audio-accp'
+                            - 'audio-mpeg'
+                            - 'pn-realaudio'
+                            - 'pn-realaudio-plugin'
+                            - 'mixed'
+                            - 'x-mixed'
+                            - 'event-stream'
+                            - 'video'
+                            - 'video-mp4'
+                            - 'video-mpeg'
+                            - 'video-xflv'
+                            - 'video-xasf'
                     strip_x_forwarded_for:
                         description:
                             - Enable/disable stripping of HTTP X-Forwarded-For header.
@@ -972,8 +1022,92 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
+            websocket:
+                description:
+                    - Configure WebSocket protocol options.
+                type: dict
+                suboptions:
+                    comfort_amount:
+                        description:
+                            - Number of bytes to send in each transmission for client comforting (bytes).
+                        type: int
+                    comfort_interval:
+                        description:
+                            - Interval between successive transmissions of data for client comforting (seconds).
+                        type: int
+                    options:
+                        description:
+                            - One or more options that can be applied to the session.
+                        type: list
+                        elements: str
+                        choices:
+                            - 'oversize'
+                            - 'clientcomfort'
+                            - 'servercomfort'
+                    oversize_limit:
+                        description:
+                            - Maximum in-memory file size that can be scanned (MB).
+                        type: int
+                    scan_bzip2:
+                        description:
+                            - Enable/disable scanning of BZip2 compressed files.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    status:
+                        description:
+                            - Enable/disable the active status of scanning for this protocol.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    stream_based_uncompressed_limit:
+                        description:
+                            - Maximum stream-based uncompressed data size that will be scanned in megabytes. Stream-based uncompression used only under
+                               certain conditions (unlimited = 0).
+                        type: int
+                    tcp_window_maximum:
+                        description:
+                            - Maximum dynamic TCP window size.
+                        type: int
+                    tcp_window_minimum:
+                        description:
+                            - Minimum dynamic TCP window size.
+                        type: int
+                    tcp_window_size:
+                        description:
+                            - Set TCP static window size.
+                        type: int
+                    tcp_window_type:
+                        description:
+                            - TCP window type to use for this protocol.
+                        type: str
+                        choices:
+                            - 'auto-tuning'
+                            - 'system'
+                            - 'static'
+                            - 'dynamic'
+                    tunnel_non_websocket:
+                        description:
+                            - Configure how to process non-websocket traffic when a profile configured for websocket traffic accepts a non-websocket session.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    uncompressed_nest_limit:
+                        description:
+                            - Maximum nested levels of compression that can be uncompressed and scanned (2 - 100).
+                        type: int
+                    uncompressed_oversize_limit:
+                        description:
+                            - Maximum in-memory uncompressed file size that can be scanned (MB).
+                        type: int
 """
-
 EXAMPLES = """
 - name: Configure protocol options.
   fortinet.fortios.fortios_firewall_profile_protocol_options:
@@ -1003,6 +1137,9 @@ EXAMPLES = """
           dns:
               ports: "<your_own_value>"
               status: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           ftp:
               comfort_amount: "1"
               comfort_interval: "10"
@@ -1045,6 +1182,7 @@ EXAMPLES = """
               status: "enable"
               stream_based_uncompressed_limit: "0"
               streaming_content_bypass: "enable"
+              streaming_content_scan_type: "flv"
               strip_x_forwarded_for: "disable"
               switching_protocols: "bypass"
               tcp_window_maximum: "8388608"
@@ -1079,7 +1217,7 @@ EXAMPLES = """
               status: "enable"
               uncompressed_nest_limit: "12"
               uncompressed_oversize_limit: "10"
-          name: "default_name_100"
+          name: "default_name_104"
           nntp:
               inspect_all: "enable"
               options: "oversize"
@@ -1131,6 +1269,22 @@ EXAMPLES = """
               uncompressed_nest_limit: "12"
               uncompressed_oversize_limit: "10"
           switching_protocols_log: "disable"
+          uuid: "<your_own_value>"
+          websocket:
+              comfort_amount: "1"
+              comfort_interval: "10"
+              options: "oversize"
+              oversize_limit: "10"
+              scan_bzip2: "enable"
+              status: "enable"
+              stream_based_uncompressed_limit: "0"
+              tcp_window_maximum: "8388608"
+              tcp_window_minimum: "131072"
+              tcp_window_size: "262144"
+              tcp_window_type: "auto-tuning"
+              tunnel_non_websocket: "enable"
+              uncompressed_nest_limit: "12"
+              uncompressed_oversize_limit: "10"
 """
 
 RETURN = """
@@ -1229,6 +1383,9 @@ def filter_firewall_profile_protocol_options_data(json):
         "cifs",
         "comment",
         "dns",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "ftp",
         "http",
         "imap",
@@ -1243,6 +1400,8 @@ def filter_firewall_profile_protocol_options_data(json):
         "smtp",
         "ssh",
         "switching_protocols_log",
+        "uuid",
+        "websocket",
     ]
 
     json = remove_invalid_fields(json)
@@ -1280,6 +1439,7 @@ def flatten_multilists_attributes(data):
         ["http", "ports"],
         ["http", "options"],
         ["http", "post_lang"],
+        ["http", "streaming_content_scan_type"],
         ["ftp", "ports"],
         ["ftp", "options"],
         ["imap", "ports"],
@@ -1296,6 +1456,7 @@ def flatten_multilists_attributes(data):
         ["dns", "ports"],
         ["cifs", "ports"],
         ["cifs", "options"],
+        ["websocket", "options"],
     ]
 
     for attr in multilist_attrs:
@@ -1514,6 +1675,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "replacemsg_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "oversize_log": {
@@ -1608,6 +1785,35 @@ versioned_schema = {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "streaming_content_scan_type": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "flv"},
+                        {"value": "octet"},
+                        {"value": "dvi"},
+                        {"value": "rtmp"},
+                        {"value": "mms-framed"},
+                        {"value": "msmediaview"},
+                        {"value": "pncmd"},
+                        {"value": "rtsp-tunnel"},
+                        {"value": "audio"},
+                        {"value": "audio-accp"},
+                        {"value": "audio-mpeg"},
+                        {"value": "pn-realaudio"},
+                        {"value": "pn-realaudio-plugin"},
+                        {"value": "mixed"},
+                        {"value": "x-mixed"},
+                        {"value": "event-stream"},
+                        {"value": "video"},
+                        {"value": "video-mp4"},
+                        {"value": "video-mpeg"},
+                        {"value": "video-xflv"},
+                        {"value": "video-xasf"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
                 },
                 "switching_protocols": {
                     "v_range": [["v6.0.0", ""]],
@@ -2206,6 +2412,66 @@ versioned_schema = {
                     },
                     "v_range": [["v6.2.7", "v6.4.0"], ["v6.4.4", ""]],
                 },
+            },
+        },
+        "websocket": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "dict",
+            "children": {
+                "status": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "options": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "list",
+                    "options": [
+                        {"value": "oversize"},
+                        {"value": "clientcomfort"},
+                        {"value": "servercomfort"},
+                    ],
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "comfort_interval": {"v_range": [["v7.6.7", ""]], "type": "integer"},
+                "comfort_amount": {"v_range": [["v7.6.7", ""]], "type": "integer"},
+                "tunnel_non_websocket": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "oversize_limit": {"v_range": [["v7.6.7", ""]], "type": "integer"},
+                "uncompressed_oversize_limit": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "integer",
+                },
+                "uncompressed_nest_limit": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "integer",
+                },
+                "stream_based_uncompressed_limit": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "integer",
+                },
+                "scan_bzip2": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "tcp_window_type": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "auto-tuning"},
+                        {"value": "system"},
+                        {"value": "static"},
+                        {"value": "dynamic"},
+                    ],
+                },
+                "tcp_window_minimum": {"v_range": [["v7.6.7", ""]], "type": "integer"},
+                "tcp_window_maximum": {"v_range": [["v7.6.7", ""]], "type": "integer"},
+                "tcp_window_size": {"v_range": [["v7.6.7", ""]], "type": "integer"},
             },
         },
         "mail_signature": {

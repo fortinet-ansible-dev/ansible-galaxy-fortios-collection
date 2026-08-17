@@ -113,7 +113,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure IPS VDOM parameter.
   fortinet.fortios.fortios_ips_settings:

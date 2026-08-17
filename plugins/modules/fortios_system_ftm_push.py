@@ -117,7 +117,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiToken Mobile push services.
   fortinet.fortios.fortios_system_ftm_push:

@@ -284,7 +284,6 @@ options:
                     - Certificate Signing Request State.
                 type: str
 """
-
 EXAMPLES = """
 - name: Local keys and certificates.
   fortinet.fortios.fortios_certificate_local:

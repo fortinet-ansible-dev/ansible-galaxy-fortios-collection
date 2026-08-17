@@ -180,7 +180,6 @@ options:
                     - Second Level Domain.
                 type: int
 """
-
 EXAMPLES = """
 - name: Show Internet Service application.
   fortinet.fortios.fortios_firewall_internet_service:

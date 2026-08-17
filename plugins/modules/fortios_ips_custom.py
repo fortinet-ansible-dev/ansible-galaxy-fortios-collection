@@ -163,7 +163,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPS custom signature.
   fortinet.fortios.fortios_ips_custom:

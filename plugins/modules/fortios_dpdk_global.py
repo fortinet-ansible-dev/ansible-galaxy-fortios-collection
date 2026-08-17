@@ -153,7 +153,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure global DPDK options.
   fortinet.fortios.fortios_dpdk_global:

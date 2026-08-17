@@ -109,7 +109,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure replacement message images.
   fortinet.fortios.fortios_system_replacemsg_image:

@@ -113,7 +113,6 @@ options:
                         required: true
                         type: int
 """
-
 EXAMPLES = """
 - name: Define country table.
   fortinet.fortios.fortios_firewall_country:

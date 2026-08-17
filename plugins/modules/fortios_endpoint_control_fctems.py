@@ -121,7 +121,9 @@ options:
                     - 'single-vdom-connector'
                     - 'fgt-sysinfo-api'
                     - 'ztna-server-info'
+                    - 'tag-def'
                     - 'used-tags'
+                    - 'crl'
             certificate:
                 description:
                     - FortiClient EMS certificate. Source certificate.remote.name.
@@ -179,7 +181,7 @@ options:
                 type: str
             out_of_sync_threshold:
                 description:
-                    - Outdated resource threshold in seconds (10 - 3600).
+                    - Outdated resource threshold in seconds (10 - 2592000).
                 type: int
             preserve_ssl_session:
                 description:
@@ -276,7 +278,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiClient Enterprise Management Server (EMS) entries.
   fortinet.fortios.fortios_endpoint_control_fctems:
@@ -298,7 +299,7 @@ EXAMPLES = """
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
           name: "default_name_16"
-          out_of_sync_threshold: "180"
+          out_of_sync_threshold: "345600"
           preserve_ssl_session: "enable"
           pull_avatars: "enable"
           pull_malware_hash: "enable"
@@ -725,7 +726,9 @@ versioned_schema = {
                 {"value": "single-vdom-connector", "v_range": [["v7.4.0", ""]]},
                 {"value": "fgt-sysinfo-api", "v_range": [["v7.4.4", ""]]},
                 {"value": "ztna-server-info", "v_range": [["v7.4.4", ""]]},
+                {"value": "tag-def", "v_range": [["v8.0.0", ""]]},
                 {"value": "used-tags", "v_range": [["v7.6.4", ""]]},
+                {"value": "crl", "v_range": [["v7.6.7", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",

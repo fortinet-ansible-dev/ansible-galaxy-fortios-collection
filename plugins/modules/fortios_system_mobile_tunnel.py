@@ -178,7 +178,6 @@ options:
                 choices:
                     - 'gre'
 """
-
 EXAMPLES = """
 - name: Configure Mobile tunnels, an implementation of Network Mobility (NEMO) extensions for Mobile IPv4 RFC5177.
   fortinet.fortios.fortios_system_mobile_tunnel:

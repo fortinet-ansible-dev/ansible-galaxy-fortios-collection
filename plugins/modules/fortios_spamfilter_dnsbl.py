@@ -135,7 +135,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam DNSBL/ORBL.
   fortinet.fortios.fortios_spamfilter_dnsbl:

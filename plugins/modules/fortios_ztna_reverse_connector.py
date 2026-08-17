@@ -97,10 +97,26 @@ options:
                 description:
                     - The name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
                 type: str
+            default_incoming_vip:
+                description:
+                    - Default Incoming Virtual IP name. Source firewall.vip.name.
+                type: str
             health_check_interval:
                 description:
                     - Health check interval in seconds (0 - 600).
                 type: int
+            interface:
+                description:
+                    - Specify outgoing interface to reach server. Source system.interface.name.
+                type: str
+            interface_select_method:
+                description:
+                    - Specify how to select outgoing interface to reach server.
+                type: str
+                choices:
+                    - 'auto'
+                    - 'sdwan'
+                    - 'specify'
             name:
                 description:
                     - Reverse-Connector name
@@ -108,11 +124,27 @@ options:
                 type: str
             port:
                 description:
-                    - Port number that traffic uses to connect to connector service edge(0 - 65535;).
+                    - Port number that traffic uses to connect to connector service edge(1 - 65535;).
                 type: int
+            source_ip:
+                description:
+                    - FortiGate IPv4 address to be used for ZTNA reverse-connector connection.
+                type: str
+            source_ip_interface:
+                description:
+                    - Source interface to be used for ZTNA reverse-connector connection. Source system.interface.name.
+                type: str
             ssl_max_version:
                 description:
                     - Highest TLS version acceptable from a server.
+                type: str
+                choices:
+                    - 'tls-1.1'
+                    - 'tls-1.2'
+                    - 'tls-1.3'
+            ssl_min_version:
+                description:
+                    - Lowest SSL/TLS version acceptable from a server.
                 type: str
                 choices:
                     - 'tls-1.1'
@@ -129,8 +161,11 @@ options:
                 description:
                     - Trusted Server CA certificate used by SSL connection. Source vpn.certificate.ca.name.
                 type: str
+            vrf_select:
+                description:
+                    - VRF ID used for connection to server.
+                type: int
 """
-
 EXAMPLES = """
 - name: Configure ZTNA Reverse-Connector.
   fortinet.fortios.fortios_ztna_reverse_connector:
@@ -140,12 +175,19 @@ EXAMPLES = """
       ztna_reverse_connector:
           address: "<your_own_value>"
           certificate: "<your_own_value> (source vpn.certificate.local.name)"
+          default_incoming_vip: "<your_own_value> (source firewall.vip.name)"
           health_check_interval: "60"
-          name: "default_name_6"
+          interface: "<your_own_value> (source system.interface.name)"
+          interface_select_method: "auto"
+          name: "default_name_9"
           port: "0"
+          source_ip: "84.230.14.43"
+          source_ip_interface: "<your_own_value> (source system.interface.name)"
           ssl_max_version: "tls-1.1"
+          ssl_min_version: "tls-1.1"
           status: "enable"
           trusted_server_ca: "<your_own_value> (source vpn.certificate.ca.name)"
+          vrf_select: "0"
 """
 
 RETURN = """
@@ -231,12 +273,19 @@ def filter_ztna_reverse_connector_data(json):
     option_list = [
         "address",
         "certificate",
+        "default_incoming_vip",
         "health_check_interval",
+        "interface",
+        "interface_select_method",
         "name",
         "port",
+        "source_ip",
+        "source_ip_interface",
         "ssl_max_version",
+        "ssl_min_version",
         "status",
         "trusted_server_ca",
+        "vrf_select",
     ]
 
     json = remove_invalid_fields(json)
@@ -345,7 +394,19 @@ versioned_schema = {
         },
         "address": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "port": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+        "default_incoming_vip": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "source_ip": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "source_ip_interface": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "health_check_interval": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+        "ssl_min_version": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "tls-1.1"},
+                {"value": "tls-1.2"},
+                {"value": "tls-1.3"},
+            ],
+        },
         "ssl_max_version": {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
@@ -357,6 +418,13 @@ versioned_schema = {
         },
         "certificate": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "trusted_server_ca": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "interface_select_method": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "auto"}, {"value": "sdwan"}, {"value": "specify"}],
+        },
+        "interface": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "vrf_select": {"v_range": [["v8.0.0", ""]], "type": "integer"},
     },
     "v_range": [["v7.6.1", ""]],
 }

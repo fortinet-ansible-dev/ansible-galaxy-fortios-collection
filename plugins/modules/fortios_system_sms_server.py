@@ -100,7 +100,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure SMS server for sending SMS messages to support user authentication.
   fortinet.fortios.fortios_system_sms_server:

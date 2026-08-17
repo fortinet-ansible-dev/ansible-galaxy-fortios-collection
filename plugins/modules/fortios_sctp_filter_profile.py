@@ -94,6 +94,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             name:
                 description:
                     - Profile name.
@@ -126,8 +149,11 @@ options:
                         description:
                             - Payload protocol identifier.
                         type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure SCTP filter profiles.
   fortinet.fortios.fortios_sctp_filter_profile:
@@ -136,13 +162,17 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       sctp_filter_profile:
           comment: "Comment."
-          name: "default_name_4"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          name: "default_name_7"
           ppid_filters:
               -
                   action: "pass"
                   comment: "Comment."
-                  id: "8"
+                  id: "11"
                   ppid: ""
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -237,7 +267,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_sctp_filter_profile_data(json):
-    option_list = ["comment", "name", "ppid_filters"]
+    option_list = [
+        "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "name",
+        "ppid_filters",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -422,6 +460,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.0.1", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "ppid_filters": {
             "type": "list",

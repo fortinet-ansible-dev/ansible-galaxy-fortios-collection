@@ -119,7 +119,6 @@ options:
                     - Region image opacity (0 - 100).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiAP regions (for floor plans and maps).
   fortinet.fortios.fortios_wireless_controller_region:

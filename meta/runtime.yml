@@ -710,7 +710,5 @@ action_groups:
     - fortios_ztna_web_portal
     - fortios_ztna_web_portal_bookmark
     - fortios_ztna_web_proxy
-    - fortios_system_affinity_interrupt
-    - fortios_system_affinity_packet_redistribution
     - fortios_system_sov_sase
     - fortios_wireless_controller_lw_profile

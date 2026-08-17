@@ -119,7 +119,6 @@ options:
                     - Wildcard FQDN.
                 type: str
 """
-
 EXAMPLES = """
 - name: Config global/VDOM Wildcard FQDN address.
   fortinet.fortios.fortios_firewall_wildcard_fqdn_custom:

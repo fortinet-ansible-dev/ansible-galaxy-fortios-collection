@@ -110,6 +110,17 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this policy. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
             dstaddr:
                 description:
                     - IPv6 destination address name.
@@ -193,7 +204,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 multicast NAT policies.
   fortinet.fortios.fortios_firewall_multicast_policy6:
@@ -204,19 +214,22 @@ EXAMPLES = """
           action: "accept"
           auto_asic_offload: "enable"
           comments: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_7 (source firewall.custom-tag.name)"
           dstaddr:
               -
-                  name: "default_name_7 (source firewall.multicast-address6.name)"
+                  name: "default_name_9 (source firewall.multicast-address6.name)"
           dstintf: "<your_own_value> (source system.interface.name system.zone.name system.sdwan.zone.name)"
           end_port: "65535"
-          id: "10"
+          id: "12"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           logtraffic: "all"
-          name: "default_name_13"
+          name: "default_name_15"
           protocol: "0"
           srcaddr:
               -
-                  name: "default_name_16 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_18 (source firewall.address6.name firewall.addrgrp6.name)"
           srcintf: "<your_own_value> (source system.interface.name system.zone.name system.sdwan.zone.name)"
           start_port: "1"
           status: "enable"
@@ -320,6 +333,7 @@ def filter_firewall_multicast_policy6_data(json):
         "action",
         "auto_asic_offload",
         "comments",
+        "custom_tags",
         "dstaddr",
         "dstintf",
         "end_port",
@@ -532,6 +546,18 @@ versioned_schema = {
         "name": {"v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]], "type": "string"},
         "srcintf": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dstintf": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "srcaddr": {
             "type": "list",
             "elements": "dict",

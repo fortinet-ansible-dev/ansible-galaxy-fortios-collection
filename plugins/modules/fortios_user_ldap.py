@@ -148,6 +148,29 @@ options:
                 description:
                     - Distinguished name used to look up entries on the LDAP server.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             group_filter:
                 description:
                     - Filter used for group matching.
@@ -326,12 +349,15 @@ options:
                 description:
                     - Username (full DN) for initial binding.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vrf_select:
                 description:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure LDAP server entries.
   fortinet.fortios.fortios_user_ldap:
@@ -349,6 +375,9 @@ EXAMPLES = """
           client_cert_auth: "enable"
           cnid: "<your_own_value>"
           dn: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           group_filter: "<your_own_value>"
           group_member_check: "user-attr"
           group_object_filter: "<your_own_value>"
@@ -356,7 +385,7 @@ EXAMPLES = """
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
           member_attr: "<your_own_value>"
-          name: "default_name_20"
+          name: "default_name_23"
           obtain_user_info: "enable"
           password: "<your_own_value>"
           password_attr: "<your_own_value>"
@@ -381,6 +410,7 @@ EXAMPLES = """
           type: "simple"
           user_info_exchange_server: "<your_own_value> (source user.exchange.name)"
           username: "<your_own_value>"
+          uuid: "<your_own_value>"
           vrf_select: "0"
 """
 
@@ -487,6 +517,9 @@ def filter_user_ldap_data(json):
         "client_cert_auth",
         "cnid",
         "dn",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "group_filter",
         "group_member_check",
         "group_object_filter",
@@ -519,6 +552,7 @@ def filter_user_ldap_data(json):
         "type",
         "user_info_exchange_server",
         "username",
+        "uuid",
         "vrf_select",
     ]
 
@@ -733,6 +767,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "secondary_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "tertiary_server": {"v_range": [["v6.0.0", ""]], "type": "string"},

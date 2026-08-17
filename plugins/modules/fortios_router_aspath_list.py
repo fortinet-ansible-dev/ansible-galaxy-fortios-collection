@@ -118,7 +118,6 @@ options:
                             - Regular-expression to match the Border Gateway Protocol (BGP) AS paths.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure Autonomous System (AS) path lists.
   fortinet.fortios.fortios_router_aspath_list:

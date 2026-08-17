@@ -119,14 +119,14 @@ options:
                     - 'disable'
             asymroute6:
                 description:
-                    - Enable/disable asymmetric IPv6 routing.
+                    - Enable/disable IPv6 asymmetric routing.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
             asymroute6_icmp:
                 description:
-                    - Enable/disable asymmetric ICMPv6 routing.
+                    - Enable/disable ICMPv6 asymmetric routing.
                 type: str
                 choices:
                     - 'enable'
@@ -341,6 +341,13 @@ options:
             gui_advanced_policy:
                 description:
                     - Enable/disable advanced policy configuration on the GUI.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            gui_advanced_switch_features:
+                description:
+                    - Enable/disable advanced switching features on the GUI.
                 type: str
                 choices:
                     - 'enable'
@@ -644,6 +651,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            gui_policy_custom_tags:
+                description:
+                    - Enable/disable Allow configuring custom tags for polices on the GUI.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             gui_policy_disclaimer:
                 description:
                     - Enable/disable policy disclaimer on the GUI.
@@ -668,6 +682,13 @@ options:
             gui_replacement_message_groups:
                 description:
                     - Enable/disable replacement message groups on the GUI.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            gui_reverse_connector:
+                description:
+                    - Enable/disable Enable ZTNA Reverse Proxy Connector on the GUI.
                 type: str
                 choices:
                     - 'enable'
@@ -840,6 +861,11 @@ options:
                 choices:
                     - 'with-space'
                     - 'no-space'
+            ike_extra_ports:
+                description:
+                    - Extra UDP ports for the IKE daemon to listen on other than 500 and 4500 (maximum 3).
+                type: list
+                elements: int
             ike_policy_route:
                 description:
                     - Enable/disable IKE Policy Based Routing (PBR).
@@ -851,6 +877,13 @@ options:
                 description:
                     - UDP port for IKE/IPsec traffic .
                 type: int
+            ike_proposal_visibility:
+                description:
+                    - Enable/disable display only recommended proposals in IPsec tunnel configuration.
+                type: str
+                choices:
+                    - 'recommended'
+                    - 'all'
             ike_quick_crash_detect:
                 description:
                     - Enable/disable IKE quick crash detection (RFC 6290).
@@ -869,6 +902,20 @@ options:
                 description:
                     - TCP port for IKE/IPsec traffic .
                 type: int
+            ike_tcp_service:
+                description:
+                    - Enable/disable IKE TCP service.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            ike_tls_service:
+                description:
+                    - Enable/disable IKE TLS service.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             implicit_allow_dns:
                 description:
                     - Enable/disable implicitly allowing DNS traffic.
@@ -1102,6 +1149,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            src_check_reply:
+                description:
+                    - Enable/disable source verification for reply packets.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ssl_ssh_profile:
                 description:
                     - Profile for SSL/SSH inspection. Source firewall.ssl-ssh-profile.name.
@@ -1165,6 +1219,13 @@ options:
                 description:
                     - Period to send VPN log statistics (0 or 60 - 86400 sec).
                 type: int
+            vrf_local_ip_isolation:
+                description:
+                    - Enable/disable VRF local IP address isolation.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             wccp_cache_engine:
                 description:
                     - Enable/disable WCCP cache engine.
@@ -1173,7 +1234,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure VDOM settings.
   fortinet.fortios.fortios_system_settings:
@@ -1222,6 +1282,7 @@ EXAMPLES = """
           gtp_asym_fgsp: "disable"
           gtp_monitor_mode: "enable"
           gui_advanced_policy: "enable"
+          gui_advanced_switch_features: "enable"
           gui_advanced_wireless_features: "enable"
           gui_allow_unnamed_policy: "enable"
           gui_antivirus: "enable"
@@ -1230,7 +1291,7 @@ EXAMPLES = """
           gui_casb: "enable"
           gui_default_policy_columns:
               -
-                  name: "default_name_53"
+                  name: "default_name_54"
           gui_dhcp_advanced: "enable"
           gui_dlp: "enable"
           gui_dlp_advanced: "enable"
@@ -1266,10 +1327,12 @@ EXAMPLES = """
           gui_ot: "enable"
           gui_per_policy_disclaimer: "enable"
           gui_policy_based_ipsec: "enable"
+          gui_policy_custom_tags: "enable"
           gui_policy_disclaimer: "enable"
           gui_policy_learning: "enable"
           gui_proxy_inspection: "enable"
           gui_replacement_message_groups: "enable"
+          gui_reverse_connector: "enable"
           gui_route_tag_address_creation: "enable"
           gui_security_profile_group: "enable"
           gui_spamfilter: "enable"
@@ -1294,11 +1357,15 @@ EXAMPLES = """
           http_external_dest: "fortiweb"
           ike_detailed_event_logs: "disable"
           ike_dn_format: "with-space"
+          ike_extra_ports: "<your_own_value>"
           ike_policy_route: "enable"
           ike_port: "500"
+          ike_proposal_visibility: "recommended"
           ike_quick_crash_detect: "enable"
           ike_session_resume: "enable"
           ike_tcp_port: "443"
+          ike_tcp_service: "enable"
+          ike_tls_service: "enable"
           implicit_allow_dns: "enable"
           inspection_mode: "proxy"
           internet_service_app_ctrl_size: "32768"
@@ -1337,6 +1404,7 @@ EXAMPLES = """
           sip_tcp_port: "<your_own_value>"
           sip_udp_port: "<your_own_value>"
           snat_hairpin_traffic: "enable"
+          src_check_reply: "enable"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           status: "enable"
           strict_src_check: "enable"
@@ -1346,6 +1414,7 @@ EXAMPLES = """
           vdom_type: "traffic"
           vpn_stats_log: "ipsec"
           vpn_stats_period: "600"
+          vrf_local_ip_isolation: "enable"
           wccp_cache_engine: "enable"
 """
 
@@ -1485,6 +1554,7 @@ def filter_system_settings_data(json):
         "gtp_asym_fgsp",
         "gtp_monitor_mode",
         "gui_advanced_policy",
+        "gui_advanced_switch_features",
         "gui_advanced_wireless_features",
         "gui_allow_unnamed_policy",
         "gui_antivirus",
@@ -1527,10 +1597,12 @@ def filter_system_settings_data(json):
         "gui_ot",
         "gui_per_policy_disclaimer",
         "gui_policy_based_ipsec",
+        "gui_policy_custom_tags",
         "gui_policy_disclaimer",
         "gui_policy_learning",
         "gui_proxy_inspection",
         "gui_replacement_message_groups",
+        "gui_reverse_connector",
         "gui_route_tag_address_creation",
         "gui_security_profile_group",
         "gui_spamfilter",
@@ -1555,11 +1627,15 @@ def filter_system_settings_data(json):
         "http_external_dest",
         "ike_detailed_event_logs",
         "ike_dn_format",
+        "ike_extra_ports",
         "ike_policy_route",
         "ike_port",
+        "ike_proposal_visibility",
         "ike_quick_crash_detect",
         "ike_session_resume",
         "ike_tcp_port",
+        "ike_tcp_service",
+        "ike_tls_service",
         "implicit_allow_dns",
         "inspection_mode",
         "internet_service_app_ctrl_size",
@@ -1598,6 +1674,7 @@ def filter_system_settings_data(json):
         "sip_tcp_port",
         "sip_udp_port",
         "snat_hairpin_traffic",
+        "src_check_reply",
         "ssl_ssh_profile",
         "status",
         "strict_src_check",
@@ -1607,6 +1684,7 @@ def filter_system_settings_data(json):
         "vdom_type",
         "vpn_stats_log",
         "vpn_stats_period",
+        "vrf_local_ip_isolation",
         "wccp_cache_engine",
     ]
 
@@ -1647,6 +1725,7 @@ def flatten_multilists_attributes(data):
         ["dhcp6_server_ip"],
         ["sip_tcp_port"],
         ["sip_udp_port"],
+        ["ike_extra_ports"],
     ]
 
     for attr in multilist_attrs:
@@ -1835,6 +1914,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "nat"}, {"value": "transparent"}],
         },
+        "policy_offload_level": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "dos-offload"}],
+        },
         "ngfw_mode": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2012,6 +2096,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "vrf_local_ip_isolation": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "asymroute": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2039,6 +2128,11 @@ versioned_schema = {
         },
         "strict_src_check": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "src_check_reply": {
+            "v_range": [["v7.6.7", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2281,6 +2375,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "gui_advanced_switch_features": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "gui_fortiap_split_tunneling": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2361,6 +2460,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "gui_policy_custom_tags": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "gui_allow_unnamed_policy": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2386,6 +2490,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "gui_reverse_connector": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "gui_ot": {
             "v_range": [["v7.2.0", ""]],
             "type": "string",
@@ -2393,11 +2502,6 @@ versioned_schema = {
         },
         "gui_dynamic_device_os_id": {
             "v_range": [["v7.4.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "gui_gtp": {
-            "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2418,7 +2522,23 @@ versioned_schema = {
             "options": [{"value": "with-space"}, {"value": "no-space"}],
         },
         "ike_port": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "ike_extra_ports": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "list",
+            "multiple_values": True,
+            "elements": "int",
+        },
+        "ike_tcp_service": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ike_tcp_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "ike_tls_service": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ike_policy_route": {
             "v_range": [["v7.0.2", ""]],
             "type": "string",
@@ -2429,6 +2549,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "ike_proposal_visibility": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "recommended"}, {"value": "all"}],
+        },
         "block_land_attack": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2436,21 +2561,6 @@ versioned_schema = {
         },
         "default_app_port_as_service": {
             "v_range": [["v7.2.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "gtp_asym_fgsp": {
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "gtp_monitor_mode": {
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "pfcp_monitor_mode": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -2488,6 +2598,38 @@ versioned_schema = {
             "v_range": [["v7.4.4", ""]],
             "type": "integer",
         },
+        "gui_gtp": {
+            "v_range": [["v7.6.0", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "gtp_asym_fgsp": {
+            "v_range": [
+                ["v6.2.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "gtp_monitor_mode": {
+            "v_range": [
+                ["v6.2.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "pfcp_monitor_mode": {
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "application_bandwidth_tracking": {
             "v_range": [["v7.0.0", "v7.6.0"]],
             "type": "string",
@@ -2497,11 +2639,6 @@ versioned_schema = {
             "v_range": [["v7.2.4", "v7.4.4"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "policy_offload_level": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "dos-offload"}],
         },
         "gui_endpoint_control": {
             "v_range": [["v6.0.0", "v7.2.4"]],

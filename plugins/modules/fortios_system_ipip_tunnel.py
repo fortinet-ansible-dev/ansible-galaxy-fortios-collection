@@ -122,7 +122,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure IP in IP Tunneling.
   fortinet.fortios.fortios_system_ipip_tunnel:

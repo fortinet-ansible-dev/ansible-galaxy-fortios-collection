@@ -126,6 +126,13 @@ options:
                     - Interface name. Source system.interface.name.
                 required: true
                 type: str
+            legacy_server_mode:
+                description:
+                    - Legacy test server selection.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             mode:
                 description:
                     - Protocol Auto(default), TCP or UDP used for speed test.
@@ -155,8 +162,7 @@ options:
                         type: str
             server_name:
                 description:
-                    - Speed test server name in system.speed-test-server list or leave it as empty to choose default server "FTNT_Auto". Source system
-                      .speed-test-server.name.
+                    - Speed test server name. Source system.speed-test-server.name.
                 type: str
             server_port:
                 description:
@@ -169,6 +175,13 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            update_bandwidth_limit_unit:
+                description:
+                    - Set the update bandwidth limits by values in kbps or percentages of interface"s bandwidth.
+                type: str
+                choices:
+                    - 'value'
+                    - 'percentage'
             update_inbandwidth:
                 description:
                     - Enable/disable bypassing interface"s inbound bandwidth setting.
@@ -178,11 +191,11 @@ options:
                     - 'enable'
             update_inbandwidth_maximum:
                 description:
-                    - Maximum downloading bandwidth (kbps) to be used in a speed test.
+                    - Maximum downloading bandwidth (kbps) or percentage of the interface"s inbandwidth to be used in shaping.
                 type: int
             update_inbandwidth_minimum:
                 description:
-                    - Minimum downloading bandwidth (kbps) to be considered effective.
+                    - Minimum downloading bandwidth (kbps) or percentage of the interface"s inbandwidth to be used in shaping.
                 type: int
             update_interface_shaping:
                 description:
@@ -200,11 +213,11 @@ options:
                     - 'enable'
             update_outbandwidth_maximum:
                 description:
-                    - Maximum uploading bandwidth (kbps) to be used in a speed test.
+                    - Maximum uploading bandwidth (kbps) or percentage of the interface"s outbandwidth to be used in shaping.
                 type: int
             update_outbandwidth_minimum:
                 description:
-                    - Minimum uploading bandwidth (kbps) to be considered effective.
+                    - Minimum uploading bandwidth (kbps) or percentage of the interface"s outbandwidth to be used in shaping.
                 type: int
             update_shaper:
                 description:
@@ -216,7 +229,6 @@ options:
                     - 'remote'
                     - 'both'
 """
-
 EXAMPLES = """
 - name: Speed test schedule for each interface.
   fortinet.fortios.fortios_system_speed_test_schedule:
@@ -232,15 +244,17 @@ EXAMPLES = """
           expected_outbandwidth_maximum: "0"
           expected_outbandwidth_minimum: "0"
           interface: "<your_own_value> (source system.interface.name)"
+          legacy_server_mode: "disable"
           mode: "UDP"
           retries: "5"
           retry_pause: "300"
           schedules:
               -
-                  name: "default_name_15 (source firewall.schedule.recurring.name)"
+                  name: "default_name_16 (source firewall.schedule.recurring.name)"
           server_name: "<your_own_value> (source system.speed-test-server.name)"
           server_port: "5201"
           status: "disable"
+          update_bandwidth_limit_unit: "value"
           update_inbandwidth: "disable"
           update_inbandwidth_maximum: "0"
           update_inbandwidth_minimum: "0"
@@ -352,6 +366,7 @@ def filter_system_speed_test_schedule_data(json):
         "expected_outbandwidth_maximum",
         "expected_outbandwidth_minimum",
         "interface",
+        "legacy_server_mode",
         "mode",
         "retries",
         "retry_pause",
@@ -359,6 +374,7 @@ def filter_system_speed_test_schedule_data(json):
         "server_name",
         "server_port",
         "status",
+        "update_bandwidth_limit_unit",
         "update_inbandwidth",
         "update_inbandwidth_maximum",
         "update_inbandwidth_minimum",
@@ -563,6 +579,11 @@ versioned_schema = {
         },
         "diffserv": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "server_name": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "legacy_server_mode": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "mode": {
             "v_range": [["v7.4.1", ""]],
             "type": "string",
@@ -587,8 +608,17 @@ versioned_schema = {
         },
         "ctrl_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "server_port": {"v_range": [["v7.4.2", ""]], "type": "integer"},
+        "update_bandwidth_limit_unit": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "value"}, {"value": "percentage"}],
+        },
+        "update_inbandwidth_maximum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "update_inbandwidth_minimum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "update_outbandwidth_maximum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "update_outbandwidth_minimum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "update_shaper": {
-            "v_range": [["v7.4.2", ""]],
+            "v_range": [["v7.4.2", "v7.6.7"]],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -598,42 +628,38 @@ versioned_schema = {
             ],
         },
         "update_inbandwidth": {
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "update_outbandwidth": {
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "update_interface_shaping": {
-            "v_range": [["v7.6.5", ""]],
+            "v_range": [["v7.6.5", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "update_inbandwidth_maximum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-        "update_inbandwidth_minimum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-        "update_outbandwidth_maximum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-        "update_outbandwidth_minimum": {"v_range": [["v7.0.0", ""]], "type": "integer"},
         "expected_inbandwidth_minimum": {
-            "v_range": [["v7.6.5", ""]],
+            "v_range": [["v7.6.5", "v7.6.7"]],
             "type": "integer",
         },
         "expected_inbandwidth_maximum": {
-            "v_range": [["v7.6.5", ""]],
+            "v_range": [["v7.6.5", "v7.6.7"]],
             "type": "integer",
         },
         "expected_outbandwidth_minimum": {
-            "v_range": [["v7.6.5", ""]],
+            "v_range": [["v7.6.5", "v7.6.7"]],
             "type": "integer",
         },
         "expected_outbandwidth_maximum": {
-            "v_range": [["v7.6.5", ""]],
+            "v_range": [["v7.6.5", "v7.6.7"]],
             "type": "integer",
         },
-        "retries": {"v_range": [["v7.6.5", ""]], "type": "integer"},
-        "retry_pause": {"v_range": [["v7.6.5", ""]], "type": "integer"},
+        "retries": {"v_range": [["v7.6.5", "v7.6.7"]], "type": "integer"},
+        "retry_pause": {"v_range": [["v7.6.5", "v7.6.7"]], "type": "integer"},
     },
     "v_range": [["v7.0.0", ""]],
 }

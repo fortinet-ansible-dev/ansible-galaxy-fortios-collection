@@ -202,7 +202,6 @@ options:
                     - Administrative weight (0 - 255).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure IPv6 static routing tables.
   fortinet.fortios.fortios_router_static6:

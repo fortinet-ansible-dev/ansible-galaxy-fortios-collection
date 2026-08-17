@@ -211,7 +211,6 @@ options:
                     - 'queue-6'
                     - 'queue-7'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch QoS 802.1p.
   fortinet.fortios.fortios_switch_controller_qos_dot1p_map:

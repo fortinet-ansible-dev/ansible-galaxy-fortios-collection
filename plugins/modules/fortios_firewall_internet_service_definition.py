@@ -140,7 +140,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure Internet Service definition.
   fortinet.fortios.fortios_firewall_internet_service_definition:

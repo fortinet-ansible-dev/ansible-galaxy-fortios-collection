@@ -459,7 +459,6 @@ options:
                     - Report title.
                 type: str
 """
-
 EXAMPLES = """
 - name: Report layout configuration.
   fortinet.fortios.fortios_report_layout:

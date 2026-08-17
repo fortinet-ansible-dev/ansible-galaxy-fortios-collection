@@ -114,6 +114,17 @@ options:
                     - FortiSwitch Profile name.
                 required: true
                 type: str
+            private_data_encryption:
+                description:
+                    - Enable/disable private data encryption for non-admin passwords.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            private_data_encryption_key:
+                description:
+                    - Private data encryption key length (32 hexadecimal numbers).
+                type: str
             revision_backup_on_logout:
                 description:
                     - Enable/disable automatic revision backup upon logout from FortiSwitch.
@@ -129,7 +140,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch switch profile.
   fortinet.fortios.fortios_switch_controller_switch_profile:
@@ -141,6 +151,8 @@ EXAMPLES = """
           login_passwd: "<your_own_value>"
           login_passwd_override: "enable"
           name: "default_name_6"
+          private_data_encryption: "enable"
+          private_data_encryption_key: "<your_own_value>"
           revision_backup_on_logout: "enable"
           revision_backup_on_upgrade: "enable"
 """
@@ -242,6 +254,8 @@ def filter_switch_controller_switch_profile_data(json):
         "login_passwd",
         "login_passwd_override",
         "name",
+        "private_data_encryption",
+        "private_data_encryption_key",
         "revision_backup_on_logout",
         "revision_backup_on_upgrade",
     ]
@@ -460,6 +474,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "private_data_encryption": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "private_data_encryption_key": {"v_range": [["v8.0.0", ""]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

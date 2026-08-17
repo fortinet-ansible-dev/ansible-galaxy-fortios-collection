@@ -164,6 +164,15 @@ def unify_data_format(input, keys_to_omit=frozenset(["psksecret"])):
     return omit_encrypted_fields(hyphen_to_underscore(input), keys_to_omit)
 
 
+def normalize_quoted_multivalue_string(value):
+    if not isinstance(value, str) or '" "' not in value:
+        return value
+
+    return " ".join(
+        part.strip('" ') for part in value.split('" "') if part.strip('" ')
+    )
+
+
 def find_current_values(small, big, keys_to_omit=frozenset(["q_origin_key"])):
     """Extract all key-value pairs from big that also exist in small and convert keys with hyphens to underscores.
 
@@ -228,19 +237,21 @@ def find_current_values(small, big, keys_to_omit=frozenset(["q_origin_key"])):
                 # print("    not in result", big_item, result)
         return result
     elif isinstance(small, str) and isinstance(big, str):
-        # raise Exception(f"small: {small}, big before {big}, big after: {big.strip('" ')}, IP_PREFIX: {IP_PREFIX.match(big.strip('" '))}")
-        strip_big = big.strip('" ')
-        # raise Exception(match_applied_ip_address_format(strip_big, small) if IP_PREFIX.match(strip_big) else strip_big)
+        strip_big = normalize_quoted_multivalue_string(big).strip('" ')
         return (
-            match_applied_ip_address_format(strip_big, small) if IP_PREFIX.match(strip_big) else strip_big
+            match_applied_ip_address_format(strip_big, small)
+            if IP_PREFIX.match(strip_big)
+            else strip_big
         )
 
     return big
 
 
 def serialize(data):
-    if isinstance(data, str) and " " in data:
-        return serialize(data.split(" "))
+    if isinstance(data, str):
+        data = normalize_quoted_multivalue_string(data)
+        if " " in data:
+            return serialize(data.split(" "))
     if isinstance(data, list) and len(data) > 0:
         if isinstance(data[0], dict):
             list_to_order = []

@@ -101,6 +101,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - Flow/proxy feature set.
@@ -467,6 +490,10 @@ options:
                 description:
                     - Anti-spam DNSBL table ID. Source emailfilter.dnsbl.id.
                 type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             yahoo_mail:
                 description:
                     - Yahoo! Mail.
@@ -487,7 +514,6 @@ options:
                             - 'disable'
                             - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure Email Filter profiles.
   fortinet.fortios.fortios_emailfilter_profile:
@@ -497,6 +523,9 @@ EXAMPLES = """
       emailfilter_profile:
           comment: "Comment."
           external: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "flow"
           file_filter:
               entries:
@@ -505,7 +534,7 @@ EXAMPLES = """
                       comment: "Comment."
                       file_type:
                           -
-                              name: "default_name_11 (source antivirus.filetype.name)"
+                              name: "default_name_14 (source antivirus.filetype.name)"
                       filter: "<your_own_value>"
                       password_protected: "yes"
                       protocol: "smtp"
@@ -528,7 +557,7 @@ EXAMPLES = """
           msn_hotmail:
               log: "enable"
               log_all: "disable"
-          name: "default_name_34"
+          name: "default_name_37"
           options: "bannedword"
           other_webmails:
               log_all: "disable"
@@ -557,6 +586,7 @@ EXAMPLES = """
           spam_log_fortiguard_response: "disable"
           spam_mheader_table: "0"
           spam_rbl_table: "0"
+          uuid: "<your_own_value>"
           yahoo_mail:
               log: "enable"
               log_all: "disable"
@@ -657,6 +687,9 @@ def filter_emailfilter_profile_data(json):
     option_list = [
         "comment",
         "external",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "feature_set",
         "file_filter",
         "gmail",
@@ -679,6 +712,7 @@ def filter_emailfilter_profile_data(json):
         "spam_log_fortiguard_response",
         "spam_mheader_table",
         "spam_rbl_table",
+        "uuid",
         "yahoo_mail",
     ]
 
@@ -901,6 +935,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.2.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "feature_set": {
             "v_range": [["v6.4.0", ""]],

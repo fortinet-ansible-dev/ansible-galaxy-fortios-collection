@@ -234,7 +234,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPS global parameter.
   fortinet.fortios.fortios_ips_global:
@@ -257,7 +256,7 @@ EXAMPLES = """
           packet_log_queue_depth: "128"
           session_limit_mode: "accurate"
           skype_client_public_ipaddr: "<your_own_value>"
-          socket_size: "128"
+          socket_size: "64"
           sync_session_ttl: "enable"
           tls_active_probe:
               interface: "<your_own_value> (source system.interface.name)"
@@ -587,11 +586,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "none"}, {"value": "basic"}],
         },
-        "ips_reserve_cpu": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
         "cp_accel_mode": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -646,6 +640,11 @@ versioned_schema = {
                     "type": "string",
                 },
             },
+        },
+        "ips_reserve_cpu": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "intelligent_mode": {
             "v_range": [["v6.0.0", "v6.4.1"]],

@@ -144,7 +144,6 @@ options:
                     - Ingress traffic VLAN assignment for the MAC address matching this MAC policy. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure MAC policy to be applied on the managed FortiSwitch devices through NAC device.
   fortinet.fortios.fortios_switch_controller_mac_policy:

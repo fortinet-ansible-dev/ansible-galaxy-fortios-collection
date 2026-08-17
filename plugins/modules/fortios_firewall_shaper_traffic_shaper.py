@@ -150,13 +150,36 @@ options:
                 description:
                     - DSCP mark for traffic in guaranteed-bandwidth and exceed-bandwidth.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             guaranteed_bandwidth:
                 description:
-                    - Amount of bandwidth guaranteed for this shaper (0 - 80000000). Units depend on the bandwidth-unit setting.
+                    - Amount of bandwidth guaranteed for this shaper (0 - 100000000). Units depend on the bandwidth-unit setting.
                 type: int
             maximum_bandwidth:
                 description:
-                    - Upper bandwidth limit enforced by this shaper (0 - 80000000). 0 means no limit. Units depend on the bandwidth-unit setting.
+                    - Upper bandwidth limit enforced by this shaper (0 - 100000000). 0 means no limit. Units depend on the bandwidth-unit setting.
                 type: int
             maximum_cos:
                 description:
@@ -191,8 +214,11 @@ options:
                     - 'low'
                     - 'medium'
                     - 'high'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure shared traffic shaper.
   fortinet.fortios.fortios_firewall_shaper_traffic_shaper:
@@ -211,14 +237,18 @@ EXAMPLES = """
           exceed_class_id: "0"
           exceed_cos: "<your_own_value>"
           exceed_dscp: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           guaranteed_bandwidth: "0"
           maximum_bandwidth: "0"
           maximum_cos: "<your_own_value>"
           maximum_dscp: "<your_own_value>"
-          name: "default_name_18"
+          name: "default_name_21"
           overhead: "0"
           per_policy: "disable"
           priority: "low"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -325,6 +355,9 @@ def filter_firewall_shaper_traffic_shaper_data(json):
         "exceed_class_id",
         "exceed_cos",
         "exceed_dscp",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "guaranteed_bandwidth",
         "maximum_bandwidth",
         "maximum_cos",
@@ -333,6 +366,7 @@ def filter_firewall_shaper_traffic_shaper_data(json):
         "overhead",
         "per_policy",
         "priority",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -544,6 +578,22 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
         },
         "diffserv": {
             "v_range": [["v6.0.0", ""]],

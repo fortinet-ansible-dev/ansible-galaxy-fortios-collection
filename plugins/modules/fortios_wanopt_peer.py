@@ -100,7 +100,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure WAN optimization peers.
   fortinet.fortios.fortios_wanopt_peer:

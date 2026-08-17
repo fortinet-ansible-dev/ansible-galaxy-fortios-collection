@@ -203,7 +203,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure CASB attribute match rule.
   fortinet.fortios.fortios_casb_attribute_match:

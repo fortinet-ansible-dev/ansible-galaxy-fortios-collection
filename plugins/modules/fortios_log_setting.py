@@ -111,6 +111,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            detailed_svc_name:
+                description:
+                    - Enable/disable logging of the specific service name or the top-most service group name.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             expolicy_implicit_log:
                 description:
                     - Enable/disable proxy firewall implicit policy logging.
@@ -286,6 +293,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            tacacs_accounting_server_alternate:
+                description:
+                    - Enable/disable TACACS Acounting Server alternating.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             user_anonymize:
                 description:
                     - Enable/disable anonymizing user names in log messages.
@@ -308,7 +322,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure general log settings.
   fortinet.fortios.fortios_log_setting:
@@ -320,6 +333,7 @@ EXAMPLES = """
               -
                   field_id: "<your_own_value> (source log.custom-field.id)"
           daemon_log: "enable"
+          detailed_svc_name: "enable"
           expolicy_implicit_log: "enable"
           extended_log: "enable"
           extended_utm_log: "enable"
@@ -345,6 +359,7 @@ EXAMPLES = """
           rest_api_performance: "enable"
           rest_api_set: "enable"
           syslog_override: "enable"
+          tacacs_accounting_server_alternate: "enable"
           user_anonymize: "enable"
           web_svc_perf: "enable"
           zone_name: "enable"
@@ -447,6 +462,7 @@ def filter_log_setting_data(json):
         "brief_traffic_format",
         "custom_log_fields",
         "daemon_log",
+        "detailed_svc_name",
         "expolicy_implicit_log",
         "extended_log",
         "extended_utm_log",
@@ -472,6 +488,7 @@ def filter_log_setting_data(json):
         "rest_api_performance",
         "rest_api_set",
         "syslog_override",
+        "tacacs_accounting_server_alternate",
         "user_anonymize",
         "web_svc_perf",
         "zone_name",
@@ -778,8 +795,18 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "tacacs_accounting_server_alternate": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "web_svc_perf": {
             "v_range": [["v7.6.5", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "detailed_svc_name": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

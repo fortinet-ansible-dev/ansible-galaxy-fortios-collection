@@ -164,7 +164,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard Internet Services.
   fortinet.fortios.fortios_firewall_internet_service_fortiguard:

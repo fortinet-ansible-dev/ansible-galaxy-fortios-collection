@@ -163,7 +163,6 @@ options:
                     - Version.
                 type: str
 """
-
 EXAMPLES = """
 - name: SSL-VPN host check software.
   fortinet.fortios.fortios_vpn_ssl_web_host_check_software:

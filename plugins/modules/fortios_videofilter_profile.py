@@ -109,6 +109,29 @@ options:
                     - 'allow'
                     - 'monitor'
                     - 'block'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             filters:
                 description:
                     - YouTube filter entries.
@@ -212,6 +235,10 @@ options:
                 description:
                     - Replacement message group. Source system.replacemsg-group.name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vimeo:
                 description:
                     - Enable/disable Vimeo video source.
@@ -243,7 +270,6 @@ options:
                     - 'strict'
                     - 'moderate'
 """
-
 EXAMPLES = """
 - name: Configure VideoFilter profile.
   fortinet.fortios.fortios_videofilter_profile:
@@ -254,13 +280,16 @@ EXAMPLES = """
           comment: "Comment."
           dailymotion: "enable"
           default_action: "allow"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           filters:
               -
                   action: "allow"
                   category: "<your_own_value>"
                   channel: "<your_own_value>"
                   comment: "Comment."
-                  id: "11"
+                  id: "14"
                   keyword: "0"
                   log: "enable"
                   type: "category"
@@ -269,11 +298,12 @@ EXAMPLES = """
                   -
                       action: "allow"
                       category_id: "0"
-                      id: "19"
+                      id: "22"
                       log: "enable"
           log: "enable"
-          name: "default_name_22"
+          name: "default_name_25"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
+          uuid: "<your_own_value>"
           vimeo: "enable"
           vimeo_restrict: "<your_own_value>"
           youtube: "enable"
@@ -377,11 +407,15 @@ def filter_videofilter_profile_data(json):
         "comment",
         "dailymotion",
         "default_action",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "filters",
         "fortiguard_category",
         "log",
         "name",
         "replacemsg_group",
+        "uuid",
         "vimeo",
         "vimeo_restrict",
         "youtube",
@@ -613,22 +647,38 @@ versioned_schema = {
             },
             "v_range": [["v7.4.2", ""]],
         },
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
+        "replacemsg_group": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "youtube": {
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "vimeo": {
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "dailymotion": {
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "replacemsg_group": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "default_action": {
             "v_range": [["v7.4.0", "v7.4.1"]],
             "type": "string",

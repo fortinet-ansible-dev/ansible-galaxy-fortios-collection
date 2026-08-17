@@ -98,7 +98,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure IPS rule setting.
   fortinet.fortios.fortios_ips_rule_settings:

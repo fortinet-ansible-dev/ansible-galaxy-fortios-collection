@@ -162,6 +162,13 @@ options:
                             - Address name. Source firewall.address.name firewall.addrgrp.name.
                         required: true
                         type: str
+            ems_root_ca:
+                description:
+                    - Enable/disable use of the EMS root CA for FortiClient, ZTNA, and endpoint authentication .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ip_auth_cookie:
                 description:
                     - Enable/disable persistent cookie on IP based web portal authentication .
@@ -196,7 +203,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure authentication setting.
   fortinet.fortios.fortios_authentication_setting:
@@ -220,13 +226,14 @@ EXAMPLES = """
           dev_range:
               -
                   name: "default_name_19 (source firewall.address.name firewall.addrgrp.name)"
+          ems_root_ca: "enable"
           ip_auth_cookie: "enable"
           persistent_cookie: "enable"
           sso_auth_scheme: "<your_own_value> (source authentication.scheme.name)"
           update_time: "<your_own_value>"
           user_cert_ca:
               -
-                  name: "default_name_25 (source vpn.certificate.ca.name vpn.certificate.local.name)"
+                  name: "default_name_26 (source vpn.certificate.ca.name vpn.certificate.local.name)"
 """
 
 RETURN = """
@@ -338,6 +345,7 @@ def filter_authentication_setting_data(json):
         "cookie_max_age",
         "cookie_refresh_div",
         "dev_range",
+        "ems_root_ca",
         "ip_auth_cookie",
         "persistent_cookie",
         "sso_auth_scheme",
@@ -554,6 +562,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "captive_portal_ssl_port": {"v_range": [["v6.2.0", ""]], "type": "integer"},
+        "ems_root_ca": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "user_cert_ca": {
             "type": "list",
             "elements": "dict",

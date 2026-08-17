@@ -246,7 +246,6 @@ options:
                     - 'information'
                     - 'debug'
 """
-
 EXAMPLES = """
 - name: Configure wireless controller event log filters.
   fortinet.fortios.fortios_wireless_controller_log:

@@ -106,7 +106,7 @@ options:
                         type: int
                     interval:
                         description:
-                            - Time in milliseconds to check the application (1000 - 86,400 * 1000).
+                            - Time in milliseconds to check the application (60 * 1000 - 86,400 * 1000).
                         type: int
                     monitor:
                         description:
@@ -191,7 +191,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiTelemetry profiles.
   fortinet.fortios.fortios_telemetry_controller_profile:

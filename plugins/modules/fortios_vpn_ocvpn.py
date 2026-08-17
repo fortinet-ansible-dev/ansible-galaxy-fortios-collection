@@ -306,7 +306,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure Overlay Controller VPN settings.
   fortinet.fortios.fortios_vpn_ocvpn:

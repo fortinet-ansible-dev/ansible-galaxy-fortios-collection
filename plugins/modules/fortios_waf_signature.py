@@ -102,7 +102,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Hidden table for datasource.
   fortinet.fortios.fortios_waf_signature:

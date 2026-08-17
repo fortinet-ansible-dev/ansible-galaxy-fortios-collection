@@ -115,7 +115,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure 3GPP public land mobile network (PLMN).
   fortinet.fortios.fortios_wireless_controller_hotspot20_anqp_3gpp_cellular:

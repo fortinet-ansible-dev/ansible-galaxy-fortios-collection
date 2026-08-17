@@ -117,7 +117,6 @@ options:
                     - ID of the receive queue (when the interface has multiple queues) on which to perform packet redistribution (255 = all queues).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure packet redistribution.
   fortinet.fortios.fortios_system_affinity_packet_redistribution:

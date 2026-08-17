@@ -162,7 +162,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure dictionaries used by DLP blocking.
   fortinet.fortios.fortios_dlp_dictionary:

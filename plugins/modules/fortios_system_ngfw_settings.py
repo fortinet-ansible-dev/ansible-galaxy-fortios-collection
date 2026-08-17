@@ -95,7 +95,6 @@ options:
                     - Number of seconds to wait before a security policy match for an idle TCP session (0 - 1800).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure IPS NGFW policy-mode VDOM settings.
   fortinet.fortios.fortios_system_ngfw_settings:

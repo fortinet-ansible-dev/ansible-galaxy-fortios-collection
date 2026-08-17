@@ -356,7 +356,6 @@ options:
                             - 802.1Q VLAN ID to advertise (1 - 4094).
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure LLDP network policy.
   fortinet.fortios.fortios_system_lldp_network_policy:

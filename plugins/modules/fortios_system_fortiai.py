@@ -106,7 +106,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure FortiAI.
   fortinet.fortios.fortios_system_fortiai:

@@ -144,7 +144,6 @@ options:
                     - Extra regular expression pattern string used to verify the data type.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure predefined data type used by DLP blocking.
   fortinet.fortios.fortios_dlp_data_type:

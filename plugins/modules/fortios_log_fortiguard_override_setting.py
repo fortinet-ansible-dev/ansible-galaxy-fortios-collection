@@ -140,7 +140,6 @@ options:
                     - 'Time of day to roll logs (hh:mm).'
                 type: str
 """
-
 EXAMPLES = """
 - name: Override global FortiCloud logging settings for this VDOM.
   fortinet.fortios.fortios_log_fortiguard_override_setting:

@@ -139,7 +139,6 @@ options:
                     - Authentication username for PDP-IP packet data calls.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure USB LTE/WIMAX devices.
   fortinet.fortios.fortios_system_lte_modem:
@@ -451,12 +450,18 @@ versioned_schema = {
         "apn": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "modem_port": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "mode": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.6.6"], ["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "standalone"}, {"value": "redundant"}],
         },
-        "holddown_timer": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "holddown_timer": {
+            "v_range": [["v6.0.0", "v7.6.6"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "interface": {
+            "v_range": [["v6.0.0", "v7.6.6"], ["v8.0.0", ""]],
+            "type": "string",
+        },
     },
 }
 

@@ -452,7 +452,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure sniffer.
   fortinet.fortios.fortios_firewall_sniffer:
@@ -983,20 +982,8 @@ versioned_schema = {
                         {"value": "proxy"},
                     ],
                 },
-                "quarantine": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "options": [{"value": "none"}, {"value": "attacker"}],
-                },
-                "quarantine_expiry": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "quarantine_log": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "options": [{"value": "disable"}, {"value": "enable"}],
-                },
-                "threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "synproxy_ttl": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "32"},
@@ -1006,7 +993,7 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tos": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "0"},
@@ -1028,7 +1015,7 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tcp_mss": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "0"},
@@ -1042,17 +1029,17 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tcp_sack": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "synproxy_tcp_timestamp": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "synproxy_tcp_window": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "4096"},
@@ -1062,7 +1049,7 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tcp_windowscale": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "0"},
@@ -1082,6 +1069,18 @@ versioned_schema = {
                         {"value": "14"},
                     ],
                 },
+                "quarantine": {
+                    "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "none"}, {"value": "attacker"}],
+                },
+                "quarantine_expiry": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "quarantine_log": {
+                    "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "threshold_default": {
                     "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
                     "type": "integer",

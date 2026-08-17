@@ -506,7 +506,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure shaping policies.
   fortinet.fortios.fortios_firewall_shaping_policy:

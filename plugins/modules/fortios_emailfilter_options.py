@@ -87,7 +87,6 @@ options:
                     - DNS query time out (1 - 30 sec).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam options.
   fortinet.fortios.fortios_emailfilter_options:

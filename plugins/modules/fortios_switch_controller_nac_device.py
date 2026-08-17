@@ -137,7 +137,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure/list NAC devices learned on the managed FortiSwitch ports which matches NAC policy.
   fortinet.fortios.fortios_switch_controller_nac_device:

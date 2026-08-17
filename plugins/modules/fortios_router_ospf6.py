@@ -608,7 +608,6 @@ options:
                             - Tag value.
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure IPv6 OSPF.
   fortinet.fortios.fortios_router_ospf6:

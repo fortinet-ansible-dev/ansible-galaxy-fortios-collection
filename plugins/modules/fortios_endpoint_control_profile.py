@@ -666,7 +666,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiClient endpoint control profiles.
   fortinet.fortios.fortios_endpoint_control_profile:

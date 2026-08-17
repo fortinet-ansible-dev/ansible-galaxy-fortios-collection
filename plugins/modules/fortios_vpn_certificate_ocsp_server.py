@@ -123,7 +123,6 @@ options:
                     - OCSP server URL.
                 type: str
 """
-
 EXAMPLES = """
 - name: OCSP server configuration.
   fortinet.fortios.fortios_vpn_certificate_ocsp_server:

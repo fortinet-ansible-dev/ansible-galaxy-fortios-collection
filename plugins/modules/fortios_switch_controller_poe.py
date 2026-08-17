@@ -87,7 +87,6 @@ options:
                     - FortiSwitch device ID.
                 type: str
 """
-
 EXAMPLES = """
 - name: List PoE end-points status.
   fortinet.fortios.fortios_switch_controller_poe:

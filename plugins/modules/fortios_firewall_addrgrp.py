@@ -114,6 +114,25 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address group. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             exclude:
                 description:
                     - Enable/disable address exclusion.
@@ -132,6 +151,14 @@ options:
                             - Address name. Source firewall.address.name firewall.addrgrp.name.
                         required: true
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -139,6 +166,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             member:
                 description:
                     - Address objects contained within the group.
@@ -188,6 +223,7 @@ options:
                 choices:
                     - 'default'
                     - 'folder'
+                    - 'dynamic-tag'
             uuid:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
@@ -200,7 +236,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv4 address groups.
   fortinet.fortios.fortios_firewall_addrgrp:
@@ -212,22 +247,28 @@ EXAMPLES = """
           category: "default"
           color: "0"
           comment: "Comment."
+          custom_tags:
+              -
+                  name: "default_name_8 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           exclude: "enable"
           exclude_member:
               -
-                  name: "default_name_9 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_12 (source firewall.address.name firewall.addrgrp.name)"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           member:
               -
-                  name: "default_name_12 (source firewall.address.name firewall.addrgrp.name)"
-          name: "default_name_13"
+                  name: "default_name_17 (source firewall.address.name firewall.addrgrp.name)"
+          name: "default_name_18"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_16"
+                  name: "default_name_21"
                   tags:
                       -
-                          name: "default_name_18 (source system.object-tagging.tags.name)"
+                          name: "default_name_23 (source system.object-tagging.tags.name)"
           type: "default"
           uuid: "<your_own_value>"
           visibility: "enable"
@@ -330,9 +371,13 @@ def filter_firewall_addrgrp_data(json):
         "category",
         "color",
         "comment",
+        "custom_tags",
+        "display_with",
         "exclude",
         "exclude_member",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "member",
         "name",
         "tagging",
@@ -523,7 +568,11 @@ versioned_schema = {
         "type": {
             "v_range": [["v6.4.0", ""]],
             "type": "string",
-            "options": [{"value": "default"}, {"value": "folder"}],
+            "options": [
+                {"value": "default"},
+                {"value": "folder"},
+                {"value": "dynamic-tag", "v_range": [["v8.0.0", ""]]},
+            ],
         },
         "category": {
             "v_range": [["v7.0.0", ""]],
@@ -554,6 +603,21 @@ versioned_schema = {
         },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "uuid": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "exclude": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",
@@ -597,10 +661,26 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "visibility": {
             "v_range": [["v6.0.0", "v6.2.7"]],

@@ -110,7 +110,6 @@ options:
                     - 'MAC address (format: xx:xx:xx:xx:xx:xx).'
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 neighbor cache table.
   fortinet.fortios.fortios_system_ipv6_neighbor_cache:

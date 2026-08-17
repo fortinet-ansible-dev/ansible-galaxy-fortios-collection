@@ -112,7 +112,6 @@ options:
                     - Virtual cluster ID (0 - 4294967295).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure virtual domain.
   fortinet.fortios.fortios_system_vdom:

@@ -87,7 +87,6 @@ options:
                     - Delay in seconds .
                 type: str
 """
-
 EXAMPLES = """
 - name: Display information about the top CPU processes.
   fortinet.fortios.fortios_system_performance_top:

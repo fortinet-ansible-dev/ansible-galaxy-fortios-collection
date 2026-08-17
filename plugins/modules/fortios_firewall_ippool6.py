@@ -109,6 +109,29 @@ options:
                 description:
                     - External NPTv6 prefix length (32 - 64).
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             internal_prefix:
                 description:
                     - Internal NPTv6 prefix length (32 - 64).
@@ -136,8 +159,11 @@ options:
                 choices:
                     - 'overload'
                     - 'nptv6'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 IP pools.
   fortinet.fortios.fortios_firewall_ippool6:
@@ -149,11 +175,15 @@ EXAMPLES = """
           comments: "<your_own_value>"
           endip: "<your_own_value>"
           external_prefix: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           internal_prefix: "<your_own_value>"
-          name: "default_name_8"
+          name: "default_name_11"
           nat46: "disable"
           startip: "<your_own_value>"
           type: "overload"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -253,11 +283,15 @@ def filter_firewall_ippool6_data(json):
         "comments",
         "endip",
         "external_prefix",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "internal_prefix",
         "name",
         "nat46",
         "startip",
         "type",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -443,6 +477,22 @@ versioned_schema = {
             "v_range": [["v7.6.0", ""]],
             "type": "string",
             "options": [{"value": "overload"}, {"value": "nptv6"}],
+        },
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
         },
         "startip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "endip": {"v_range": [["v6.0.0", ""]], "type": "string"},

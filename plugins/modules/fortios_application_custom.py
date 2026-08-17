@@ -132,7 +132,6 @@ options:
                     - Custom application signature vendor.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure custom application signatures.
   fortinet.fortios.fortios_application_custom:

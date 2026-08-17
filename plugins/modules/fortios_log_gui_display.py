@@ -104,7 +104,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure how log messages are displayed on the GUI.
   fortinet.fortios.fortios_log_gui_display:

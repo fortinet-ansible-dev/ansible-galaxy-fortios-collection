@@ -101,7 +101,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure DNS64.
   fortinet.fortios.fortios_system_dns64:

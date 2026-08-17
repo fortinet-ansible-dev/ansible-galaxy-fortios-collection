@@ -257,7 +257,6 @@ options:
                     - 'hard-timeout'
                     - 'ignore-timeout'
 """
-
 EXAMPLES = """
 - name: Configure user authentication setting.
   fortinet.fortios.fortios_user_setting:

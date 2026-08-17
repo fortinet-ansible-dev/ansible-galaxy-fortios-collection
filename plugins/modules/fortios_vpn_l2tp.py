@@ -128,7 +128,6 @@ options:
                     - User group. Source user.group.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure L2TP.
   fortinet.fortios.fortios_vpn_l2tp:

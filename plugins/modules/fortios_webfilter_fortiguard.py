@@ -157,7 +157,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard Web Filter service.
   fortinet.fortios.fortios_webfilter_fortiguard:

@@ -146,7 +146,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure ingress ACL policies to be applied on managed FortiSwitch ports.
   fortinet.fortios.fortios_switch_controller_acl_ingress:

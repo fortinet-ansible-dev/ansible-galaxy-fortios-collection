@@ -126,7 +126,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Config global Wildcard FQDN address groups.
   fortinet.fortios.fortios_firewall_wildcard_fqdn_group:

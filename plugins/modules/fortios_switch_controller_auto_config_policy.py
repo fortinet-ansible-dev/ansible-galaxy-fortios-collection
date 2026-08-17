@@ -125,7 +125,6 @@ options:
                     - Auto-Config storm control policy. Source switch-controller.storm-control-policy.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Policy definitions which can define the behavior on auto configured interfaces.
   fortinet.fortios.fortios_switch_controller_auto_config_policy:

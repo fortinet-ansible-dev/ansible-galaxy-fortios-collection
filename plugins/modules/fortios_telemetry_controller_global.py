@@ -103,7 +103,6 @@ options:
                     - Name of the CA certificate used to verify the telemetry agent certificate. Source certificate.ca.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiTelemetry global settings.
   fortinet.fortios.fortios_telemetry_controller_global:

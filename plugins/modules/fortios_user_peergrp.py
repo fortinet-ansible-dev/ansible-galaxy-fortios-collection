@@ -107,7 +107,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure peer groups.
   fortinet.fortios.fortios_user_peergrp:

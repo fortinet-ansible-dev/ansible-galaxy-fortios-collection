@@ -87,7 +87,6 @@ options:
                     - NP6 ID
                 type: str
 """
-
 EXAMPLES = """
 - name: Show NP6 session offloading statistics counters.
   fortinet.fortios.fortios_hardware_npu_np6_session_stats:

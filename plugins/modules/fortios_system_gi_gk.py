@@ -91,7 +91,6 @@ options:
                     - UDP port to listen, range 0-65535.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure Gi Firewall Gatekeeper.
   fortinet.fortios.fortios_system_gi_gk:
@@ -358,15 +357,23 @@ def fortios_system(data, fos, check_mode):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", "v7.6.7"]],
     "type": "dict",
     "children": {
         "context": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "port": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
     },

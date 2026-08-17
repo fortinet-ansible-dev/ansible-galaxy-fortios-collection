@@ -259,7 +259,6 @@ options:
                     - Tolerance to the range of time when the assertion is valid (in minutes).
                 type: int
 """
-
 EXAMPLES = """
 - name: Global settings for SAML authentication.
   fortinet.fortios.fortios_system_saml:

@@ -1218,7 +1218,6 @@ options:
                     - Virtual IP name. Source firewall.vip.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv4 access proxy.
   fortinet.fortios.fortios_firewall_access_proxy:
@@ -1733,60 +1732,66 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
-        "name": {"v_range": [["v7.0.0", ""]], "type": "string", "required": True},
-        "vip": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "name": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "string", "required": True},
+        "vip": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "string"},
         "auth_portal": {
-            "v_range": [["v7.0.4", ""]],
+            "v_range": [["v7.0.4", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "auth_virtual_host": {"v_range": [["v7.0.4", ""]], "type": "string"},
+        "auth_virtual_host": {"v_range": [["v7.0.4", "v7.6.7"]], "type": "string"},
         "log_blocked_traffic": {
-            "v_range": [["v7.0.2", ""]],
+            "v_range": [["v7.0.2", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "add_vhost_domain_to_dnsdb": {
-            "v_range": [["v7.2.1", ""]],
+            "v_range": [["v7.2.1", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "svr_pool_multiplex": {
-            "v_range": [["v7.2.4", ""]],
+            "v_range": [["v7.2.4", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "svr_pool_ttl": {"v_range": [["v7.2.4", ""]], "type": "integer"},
-        "svr_pool_server_max_request": {"v_range": [["v7.2.4", ""]], "type": "integer"},
-        "svr_pool_server_max_concurrent_request": {
-            "v_range": [["v7.4.1", ""]],
+        "svr_pool_ttl": {"v_range": [["v7.2.4", "v7.6.7"]], "type": "integer"},
+        "svr_pool_server_max_request": {
+            "v_range": [["v7.2.4", "v7.6.7"]],
             "type": "integer",
         },
-        "decrypted_traffic_mirror": {"v_range": [["v7.0.2", ""]], "type": "string"},
+        "svr_pool_server_max_concurrent_request": {
+            "v_range": [["v7.4.1", "v7.6.7"]],
+            "type": "integer",
+        },
+        "decrypted_traffic_mirror": {
+            "v_range": [["v7.0.2", "v7.6.7"]],
+            "type": "string",
+        },
         "api_gateway": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "integer",
                     "required": True,
                 },
-                "url_map": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "url_map": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "string"},
                 "service": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "http"},
                         {"value": "https"},
                         {"value": "tcp-forwarding"},
                         {"value": "samlsp"},
-                        {"value": "web-portal", "v_range": [["v7.0.4", ""]]},
-                        {"value": "saas", "v_range": [["v7.2.1", ""]]},
+                        {"value": "web-portal", "v_range": [["v7.0.4", "v7.6.7"]]},
+                        {"value": "saas", "v_range": [["v7.2.1", "v7.6.7"]]},
                     ],
                 },
                 "ldb_method": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "static"},
@@ -1798,9 +1803,9 @@ versioned_schema = {
                         {"value": "least-rtt", "v_range": [["v7.0.0", "v7.0.0"]]},
                     ],
                 },
-                "virtual_host": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "virtual_host": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "string"},
                 "url_map_type": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "sub-string"},
@@ -1809,50 +1814,50 @@ versioned_schema = {
                     ],
                 },
                 "h2_support": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "h3_support": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "quic": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.7"]],
                     "type": "dict",
                     "children": {
                         "max_idle_timeout": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "max_udp_payload_size": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "active_connection_id_limit": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "ack_delay_exponent": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "max_ack_delay": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "max_datagram_frame_size": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "active_migration": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "grease_quic_bit": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
@@ -1863,22 +1868,28 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "integer",
                             "required": True,
                         },
                         "addr_type": {
-                            "v_range": [["v7.0.2", ""]],
+                            "v_range": [["v7.0.2", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "ip"}, {"value": "fqdn"}],
                         },
-                        "address": {"v_range": [["v7.0.0", ""]], "type": "string"},
-                        "ip": {"v_range": [["v7.0.0", ""]], "type": "string"},
-                        "domain": {"v_range": [["v7.0.4", ""]], "type": "string"},
-                        "port": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-                        "mappedport": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                        "address": {
+                            "v_range": [["v7.0.0", "v7.6.7"]],
+                            "type": "string",
+                        },
+                        "ip": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "string"},
+                        "domain": {"v_range": [["v7.0.4", "v7.6.7"]], "type": "string"},
+                        "port": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "integer"},
+                        "mappedport": {
+                            "v_range": [["v7.0.0", "v7.6.7"]],
+                            "type": "string",
+                        },
                         "status": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "string",
                             "options": [
                                 {"value": "active"},
@@ -1887,29 +1898,35 @@ versioned_schema = {
                             ],
                         },
                         "type": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "tcp-forwarding"}, {"value": "ssh"}],
                         },
                         "external_auth": {
-                            "v_range": [["v7.4.0", ""]],
+                            "v_range": [["v7.4.0", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "tunnel_encryption": {
-                            "v_range": [["v7.4.0", ""]],
+                            "v_range": [["v7.4.0", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
-                        "weight": {"v_range": [["v7.0.0", ""]], "type": "integer"},
-                        "http_host": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                        "weight": {
+                            "v_range": [["v7.0.0", "v7.6.7"]],
+                            "type": "integer",
+                        },
+                        "http_host": {
+                            "v_range": [["v7.0.0", "v7.6.7"]],
+                            "type": "string",
+                        },
                         "health_check": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "disable"}, {"value": "enable"}],
                         },
                         "health_check_proto": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "string",
                             "options": [
                                 {"value": "ping"},
@@ -1918,21 +1935,21 @@ versioned_schema = {
                             ],
                         },
                         "holddown_interval": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "translate_host": {
-                            "v_range": [["v7.2.4", ""]],
+                            "v_range": [["v7.2.4", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "ssh_client_cert": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                         },
                         "ssh_host_key_validation": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "disable"}, {"value": "enable"}],
                         },
@@ -1941,68 +1958,77 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "name": {
-                                    "v_range": [["v7.0.1", ""]],
+                                    "v_range": [["v7.0.1", "v7.6.7"]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                         },
                         "verify_cert": {
-                            "v_range": [["v7.6.3", ""]],
+                            "v_range": [["v7.6.3", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                     },
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                 },
                 "application": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "v_range": [["v7.2.1", ""]],
+                            "v_range": [["v7.2.1", "v7.6.7"]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "v_range": [["v7.2.1", ""]],
+                    "v_range": [["v7.2.1", "v7.6.7"]],
                 },
                 "persistence": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "none"}, {"value": "http-cookie"}],
                 },
                 "http_cookie_domain_from_host": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "http_cookie_domain": {"v_range": [["v7.0.0", ""]], "type": "string"},
-                "http_cookie_path": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "http_cookie_domain": {
+                    "v_range": [["v7.0.0", "v7.6.7"]],
+                    "type": "string",
+                },
+                "http_cookie_path": {
+                    "v_range": [["v7.0.0", "v7.6.7"]],
+                    "type": "string",
+                },
                 "http_cookie_generation": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "integer",
                 },
-                "http_cookie_age": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+                "http_cookie_age": {
+                    "v_range": [["v7.0.0", "v7.6.7"]],
+                    "type": "integer",
+                },
                 "http_cookie_share": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "same-ip"}],
                 },
                 "https_cookie_secure": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "saml_server": {"v_range": [["v7.0.0", ""]], "type": "string"},
+                "saml_server": {"v_range": [["v7.0.0", "v7.6.7"]], "type": "string"},
                 "saml_redirect": {
-                    "v_range": [["v7.0.2", ""]],
+                    "v_range": [["v7.0.2", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
                 "ssl_dh_bits": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "768"},
@@ -2014,7 +2040,7 @@ versioned_schema = {
                     ],
                 },
                 "ssl_algorithm": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "high"},
@@ -2028,12 +2054,12 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "priority": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "integer",
                             "required": True,
                         },
                         "cipher": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "string",
                             "options": [
                                 {"value": "TLS-AES-128-GCM-SHA256"},
@@ -2069,7 +2095,7 @@ versioned_schema = {
                                 {"value": "TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256"},
                                 {
                                     "value": "TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA",
-                                    "v_range": [["v7.0.1", ""]],
+                                    "v_range": [["v7.0.1", "v7.6.7"]],
                                 },
                                 {"value": "TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384"},
                                 {"value": "TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384"},
@@ -2117,7 +2143,7 @@ versioned_schema = {
                             ],
                         },
                         "versions": {
-                            "v_range": [["v7.0.0", ""]],
+                            "v_range": [["v7.0.0", "v7.6.7"]],
                             "type": "list",
                             "options": [
                                 {"value": "tls-1.0"},
@@ -2129,10 +2155,10 @@ versioned_schema = {
                             "elements": "str",
                         },
                     },
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                 },
                 "ssl_min_version": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "tls-1.0"},
@@ -2142,7 +2168,7 @@ versioned_schema = {
                     ],
                 },
                 "ssl_max_version": {
-                    "v_range": [["v7.0.0", ""]],
+                    "v_range": [["v7.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "tls-1.0"},
@@ -2152,38 +2178,41 @@ versioned_schema = {
                     ],
                 },
                 "ssl_renegotiation": {
-                    "v_range": [["v7.2.4", ""]],
+                    "v_range": [["v7.2.4", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "ssl_vpn_web_portal": {"v_range": [["v7.0.4", ""]], "type": "string"},
+                "ssl_vpn_web_portal": {
+                    "v_range": [["v7.0.4", "v7.6.7"]],
+                    "type": "string",
+                },
             },
-            "v_range": [["v7.0.0", ""]],
+            "v_range": [["v7.0.0", "v7.6.7"]],
         },
         "api_gateway6": {
             "type": "list",
             "elements": "dict",
             "children": {
                 "id": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "integer",
                     "required": True,
                 },
-                "url_map": {"v_range": [["v7.0.1", ""]], "type": "string"},
+                "url_map": {"v_range": [["v7.0.1", "v7.6.7"]], "type": "string"},
                 "service": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "http"},
                         {"value": "https"},
                         {"value": "tcp-forwarding"},
                         {"value": "samlsp"},
-                        {"value": "web-portal", "v_range": [["v7.0.4", ""]]},
-                        {"value": "saas", "v_range": [["v7.2.1", ""]]},
+                        {"value": "web-portal", "v_range": [["v7.0.4", "v7.6.7"]]},
+                        {"value": "saas", "v_range": [["v7.2.1", "v7.6.7"]]},
                     ],
                 },
                 "ldb_method": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "static"},
@@ -2193,9 +2222,9 @@ versioned_schema = {
                         {"value": "http-host"},
                     ],
                 },
-                "virtual_host": {"v_range": [["v7.0.1", ""]], "type": "string"},
+                "virtual_host": {"v_range": [["v7.0.1", "v7.6.7"]], "type": "string"},
                 "url_map_type": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "sub-string"},
@@ -2204,50 +2233,50 @@ versioned_schema = {
                     ],
                 },
                 "h2_support": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "h3_support": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "quic": {
-                    "v_range": [["v7.4.1", ""]],
+                    "v_range": [["v7.4.1", "v7.6.7"]],
                     "type": "dict",
                     "children": {
                         "max_idle_timeout": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "max_udp_payload_size": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "active_connection_id_limit": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "ack_delay_exponent": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "max_ack_delay": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "max_datagram_frame_size": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "integer",
                         },
                         "active_migration": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "grease_quic_bit": {
-                            "v_range": [["v7.4.1", ""]],
+                            "v_range": [["v7.4.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
@@ -2258,22 +2287,28 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "id": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "integer",
                             "required": True,
                         },
                         "addr_type": {
-                            "v_range": [["v7.0.2", ""]],
+                            "v_range": [["v7.0.2", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "ip"}, {"value": "fqdn"}],
                         },
-                        "address": {"v_range": [["v7.0.1", ""]], "type": "string"},
-                        "ip": {"v_range": [["v7.0.1", ""]], "type": "string"},
-                        "domain": {"v_range": [["v7.0.4", ""]], "type": "string"},
-                        "port": {"v_range": [["v7.0.1", ""]], "type": "integer"},
-                        "mappedport": {"v_range": [["v7.0.1", ""]], "type": "string"},
+                        "address": {
+                            "v_range": [["v7.0.1", "v7.6.7"]],
+                            "type": "string",
+                        },
+                        "ip": {"v_range": [["v7.0.1", "v7.6.7"]], "type": "string"},
+                        "domain": {"v_range": [["v7.0.4", "v7.6.7"]], "type": "string"},
+                        "port": {"v_range": [["v7.0.1", "v7.6.7"]], "type": "integer"},
+                        "mappedport": {
+                            "v_range": [["v7.0.1", "v7.6.7"]],
+                            "type": "string",
+                        },
                         "status": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [
                                 {"value": "active"},
@@ -2282,29 +2317,35 @@ versioned_schema = {
                             ],
                         },
                         "type": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "tcp-forwarding"}, {"value": "ssh"}],
                         },
                         "external_auth": {
-                            "v_range": [["v7.4.0", ""]],
+                            "v_range": [["v7.4.0", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "tunnel_encryption": {
-                            "v_range": [["v7.4.0", ""]],
+                            "v_range": [["v7.4.0", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
-                        "weight": {"v_range": [["v7.0.1", ""]], "type": "integer"},
-                        "http_host": {"v_range": [["v7.0.1", ""]], "type": "string"},
+                        "weight": {
+                            "v_range": [["v7.0.1", "v7.6.7"]],
+                            "type": "integer",
+                        },
+                        "http_host": {
+                            "v_range": [["v7.0.1", "v7.6.7"]],
+                            "type": "string",
+                        },
                         "health_check": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "disable"}, {"value": "enable"}],
                         },
                         "health_check_proto": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [
                                 {"value": "ping"},
@@ -2313,21 +2354,21 @@ versioned_schema = {
                             ],
                         },
                         "holddown_interval": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "translate_host": {
-                            "v_range": [["v7.2.4", ""]],
+                            "v_range": [["v7.2.4", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                         "ssh_client_cert": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                         },
                         "ssh_host_key_validation": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "disable"}, {"value": "enable"}],
                         },
@@ -2336,68 +2377,77 @@ versioned_schema = {
                             "elements": "dict",
                             "children": {
                                 "name": {
-                                    "v_range": [["v7.0.1", ""]],
+                                    "v_range": [["v7.0.1", "v7.6.7"]],
                                     "type": "string",
                                     "required": True,
                                 }
                             },
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                         },
                         "verify_cert": {
-                            "v_range": [["v7.6.3", ""]],
+                            "v_range": [["v7.6.3", "v7.6.7"]],
                             "type": "string",
                             "options": [{"value": "enable"}, {"value": "disable"}],
                         },
                     },
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                 },
                 "application": {
                     "type": "list",
                     "elements": "dict",
                     "children": {
                         "name": {
-                            "v_range": [["v7.2.1", ""]],
+                            "v_range": [["v7.2.1", "v7.6.7"]],
                             "type": "string",
                             "required": True,
                         }
                     },
-                    "v_range": [["v7.2.1", ""]],
+                    "v_range": [["v7.2.1", "v7.6.7"]],
                 },
                 "persistence": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "none"}, {"value": "http-cookie"}],
                 },
                 "http_cookie_domain_from_host": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "http_cookie_domain": {"v_range": [["v7.0.1", ""]], "type": "string"},
-                "http_cookie_path": {"v_range": [["v7.0.1", ""]], "type": "string"},
+                "http_cookie_domain": {
+                    "v_range": [["v7.0.1", "v7.6.7"]],
+                    "type": "string",
+                },
+                "http_cookie_path": {
+                    "v_range": [["v7.0.1", "v7.6.7"]],
+                    "type": "string",
+                },
                 "http_cookie_generation": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "integer",
                 },
-                "http_cookie_age": {"v_range": [["v7.0.1", ""]], "type": "integer"},
+                "http_cookie_age": {
+                    "v_range": [["v7.0.1", "v7.6.7"]],
+                    "type": "integer",
+                },
                 "http_cookie_share": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "same-ip"}],
                 },
                 "https_cookie_secure": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
-                "saml_server": {"v_range": [["v7.0.1", ""]], "type": "string"},
+                "saml_server": {"v_range": [["v7.0.1", "v7.6.7"]], "type": "string"},
                 "saml_redirect": {
-                    "v_range": [["v7.0.2", ""]],
+                    "v_range": [["v7.0.2", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "disable"}, {"value": "enable"}],
                 },
                 "ssl_dh_bits": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "768"},
@@ -2409,7 +2459,7 @@ versioned_schema = {
                     ],
                 },
                 "ssl_algorithm": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "high"},
@@ -2422,12 +2472,12 @@ versioned_schema = {
                     "elements": "dict",
                     "children": {
                         "priority": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "integer",
                             "required": True,
                         },
                         "cipher": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "string",
                             "options": [
                                 {"value": "TLS-AES-128-GCM-SHA256"},
@@ -2508,7 +2558,7 @@ versioned_schema = {
                             ],
                         },
                         "versions": {
-                            "v_range": [["v7.0.1", ""]],
+                            "v_range": [["v7.0.1", "v7.6.7"]],
                             "type": "list",
                             "options": [
                                 {"value": "tls-1.0"},
@@ -2520,10 +2570,10 @@ versioned_schema = {
                             "elements": "str",
                         },
                     },
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                 },
                 "ssl_min_version": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "tls-1.0"},
@@ -2533,7 +2583,7 @@ versioned_schema = {
                     ],
                 },
                 "ssl_max_version": {
-                    "v_range": [["v7.0.1", ""]],
+                    "v_range": [["v7.0.1", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "tls-1.0"},
@@ -2543,13 +2593,16 @@ versioned_schema = {
                     ],
                 },
                 "ssl_renegotiation": {
-                    "v_range": [["v7.2.4", ""]],
+                    "v_range": [["v7.2.4", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "ssl_vpn_web_portal": {"v_range": [["v7.0.4", ""]], "type": "string"},
+                "ssl_vpn_web_portal": {
+                    "v_range": [["v7.0.4", "v7.6.7"]],
+                    "type": "string",
+                },
             },
-            "v_range": [["v7.0.1", ""]],
+            "v_range": [["v7.0.1", "v7.6.7"]],
         },
         "client_cert": {
             "v_range": [["v7.0.0", "v7.6.0"]],
@@ -2677,7 +2730,7 @@ versioned_schema = {
             "v_range": [["v7.0.0", "v7.0.0"]],
         },
     },
-    "v_range": [["v7.0.0", ""]],
+    "v_range": [["v7.0.0", "v7.6.7"]],
 }
 
 

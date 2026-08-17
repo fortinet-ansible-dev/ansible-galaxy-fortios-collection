@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_system_health_check_fortiguard
-short_description: SD-WAN status checking or health checking. Identify a server predefine by FortiGuard and determine how SD-WAN verifies that FGT can
+short_description: SD-WAN status checking or health checking. Identify a server predefined by FortiGuard and determine how SD-WAN verifies that FGT can
    communicate with it in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
@@ -86,7 +86,7 @@ options:
             - 'absent'
     system_health_check_fortiguard:
         description:
-            - SD-WAN status checking or health checking. Identify a server predefine by FortiGuard and determine how SD-WAN verifies that FGT can communicate
+            - SD-WAN status checking or health checking. Identify a server predefined by FortiGuard and determine how SD-WAN verifies that FGT can communicate
                with it.
         default: null
         type: dict
@@ -115,9 +115,8 @@ options:
                     - Status check or predefined health-check domain name.
                 type: str
 """
-
 EXAMPLES = """
-- name: SD-WAN status checking or health checking. Identify a server predefine by FortiGuard and determine how SD-WAN verifies that FGT can communicate with
+- name: SD-WAN status checking or health checking. Identify a server predefined by FortiGuard and determine how SD-WAN verifies that FGT can communicate with
    it.
   fortinet.fortios.fortios_system_health_check_fortiguard:
       vdom: "{{ vdom }}"

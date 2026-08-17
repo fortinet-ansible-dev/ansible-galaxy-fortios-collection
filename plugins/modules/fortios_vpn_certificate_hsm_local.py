@@ -172,7 +172,6 @@ options:
                     - 'unknown'
                     - 'gch'
 """
-
 EXAMPLES = """
 - name: Local certificates whose keys are stored on HSM.
   fortinet.fortios.fortios_vpn_certificate_hsm_local:

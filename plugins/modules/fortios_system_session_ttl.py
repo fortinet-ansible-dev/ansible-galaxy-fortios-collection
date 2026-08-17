@@ -122,7 +122,6 @@ options:
                             - Session timeout (TTL).
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure global session TTL timers for this FortiGate.
   fortinet.fortios.fortios_system_session_ttl:

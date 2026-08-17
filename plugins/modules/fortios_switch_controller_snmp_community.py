@@ -188,7 +188,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch SNMP v1/v2c communities globally.
   fortinet.fortios.fortios_switch_controller_snmp_community:

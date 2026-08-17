@@ -93,7 +93,6 @@ options:
                     - IP source gurad log violation timer in seconds (0 - 1500).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch ip source guard log.
   fortinet.fortios.fortios_switch_controller_ip_source_guard_log:

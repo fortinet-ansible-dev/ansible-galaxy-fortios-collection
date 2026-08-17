@@ -98,6 +98,25 @@ options:
                 description:
                     - Optional comments.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             member:
                 description:
                     - Members of address group.
@@ -159,7 +178,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure web proxy address group.
   fortinet.fortios.fortios_firewall_proxy_addrgrp:
@@ -169,17 +187,21 @@ EXAMPLES = """
       firewall_proxy_addrgrp:
           color: "0"
           comment: "Optional comments."
+          custom_tags:
+              -
+                  name: "default_name_6 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           member:
               -
-                  name: "default_name_6 (source firewall.proxy-address.name firewall.proxy-addrgrp.name)"
-          name: "default_name_7"
+                  name: "default_name_9 (source firewall.proxy-address.name firewall.proxy-addrgrp.name)"
+          name: "default_name_10"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_10"
+                  name: "default_name_13"
                   tags:
                       -
-                          name: "default_name_12 (source system.object-tagging.tags.name)"
+                          name: "default_name_15 (source system.object-tagging.tags.name)"
           type: "src"
           uuid: "<your_own_value>"
           visibility: "enable"
@@ -280,6 +302,8 @@ def filter_firewall_proxy_addrgrp_data(json):
     option_list = [
         "color",
         "comment",
+        "custom_tags",
+        "display_with",
         "member",
         "name",
         "tagging",
@@ -516,6 +540,27 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
         },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "visibility": {
             "v_range": [["v6.0.0", "v6.2.7"]],
             "type": "string",

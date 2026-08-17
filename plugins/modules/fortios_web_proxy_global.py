@@ -240,6 +240,13 @@ options:
                     - IPv6 source addresses to exempt proxy affinity.
                 type: list
                 elements: str
+            ssl_bypass_cache:
+                description:
+                    - Enable/disable SSL bypass cache.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ssl_ca_cert:
                 description:
                     - SSL CA certificate for SSL interception. Source vpn.certificate.local.name vpn.certificate.hsm-local.name.
@@ -276,7 +283,6 @@ options:
                        explicit proxy policy. Source web-proxy.profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Web proxy global settings.
   fortinet.fortios.fortios_web_proxy_global:
@@ -311,6 +317,7 @@ EXAMPLES = """
           request_obs_fold: "replace-with-sp"
           src_affinity_exempt_addr: "<your_own_value>"
           src_affinity_exempt_addr6: "<your_own_value>"
+          ssl_bypass_cache: "enable"
           ssl_ca_cert: "<your_own_value> (source vpn.certificate.local.name vpn.certificate.hsm-local.name)"
           ssl_cert: "<your_own_value> (source vpn.certificate.local.name)"
           strict_web_check: "enable"
@@ -437,6 +444,7 @@ def filter_web_proxy_global_data(json):
         "request_obs_fold",
         "src_affinity_exempt_addr",
         "src_affinity_exempt_addr6",
+        "ssl_bypass_cache",
         "ssl_ca_cert",
         "ssl_cert",
         "strict_web_check",
@@ -769,6 +777,11 @@ versioned_schema = {
                 {"value": "block"},
                 {"value": "keep"},
             ],
+        },
+        "ssl_bypass_cache": {
+            "v_range": [["v7.6.7", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "policy_category_deep_inspect": {
             "v_range": [["v7.4.2", "v7.6.2"]],

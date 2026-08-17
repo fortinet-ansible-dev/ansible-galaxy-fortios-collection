@@ -104,7 +104,6 @@ options:
                     - 'allow'
                     - 'block'
 """
-
 EXAMPLES = """
 - name: Configure IP to MAC binding settings.
   fortinet.fortios.fortios_firewall_ipmacbinding_setting:

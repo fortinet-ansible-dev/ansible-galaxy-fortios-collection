@@ -151,7 +151,6 @@ options:
                             - VLAN ID to which the Bonjour service is made available (0 - 4094).
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure Bonjour profiles. Bonjour is Apple's zero configuration networking protocol. Bonjour profiles allow APs and FortiAPs to connect to networks
    using Bonjour.

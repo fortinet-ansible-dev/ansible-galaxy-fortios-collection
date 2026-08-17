@@ -131,7 +131,6 @@ options:
                     - Name of the server certificate to used for this realm. Source vpn.certificate.local.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Realm.
   fortinet.fortios.fortios_vpn_ssl_web_realm:

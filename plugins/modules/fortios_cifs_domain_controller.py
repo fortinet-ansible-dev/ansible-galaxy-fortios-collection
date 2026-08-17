@@ -120,7 +120,6 @@ options:
                     - User name to sign in with. Must have proper permissions for service.
                 type: str
 """
-
 EXAMPLES = """
 - name: Define known domain controller servers.
   fortinet.fortios.fortios_cifs_domain_controller:

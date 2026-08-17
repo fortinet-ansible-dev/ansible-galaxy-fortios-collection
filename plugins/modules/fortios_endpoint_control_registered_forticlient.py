@@ -120,7 +120,6 @@ options:
                     - Registering vdom.
                 type: str
 """
-
 EXAMPLES = """
 - name: Registered FortiClient list.
   fortinet.fortios.fortios_endpoint_control_registered_forticlient:

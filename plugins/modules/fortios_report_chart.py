@@ -441,7 +441,6 @@ options:
                             - First Y-series legend type/name.
                         type: str
 """
-
 EXAMPLES = """
 - name: Report chart widget configuration.
   fortinet.fortios.fortios_report_chart:

@@ -174,7 +174,6 @@ options:
                     - Application weight.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure application signatures.
   fortinet.fortios.fortios_application_name:

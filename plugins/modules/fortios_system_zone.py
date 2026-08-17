@@ -96,9 +96,32 @@ options:
                 description:
                     - Description.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             interface:
                 description:
-                    - Add interfaces to this zone. Interfaces must not be assigned to another zone or have firewall policies defined.
+                    - Names of the interfaces that belong to this zone. Interfaces must not be assigned to another zone or have firewall policies defined.
                 type: list
                 elements: dict
                 suboptions:
@@ -145,8 +168,11 @@ options:
                                     - Tag name. Source system.object-tagging.tags.name.
                                 required: true
                                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure zones to group two or more interfaces. When a zone is created you can configure policies for the zone instead of individual interfaces in
    the zone.
@@ -156,18 +182,22 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       system_zone:
           description: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           interface:
               -
                   interface_name: "<your_own_value> (source system.interface.name)"
           intrazone: "allow"
-          name: "default_name_7"
+          name: "default_name_10"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_10"
+                  name: "default_name_13"
                   tags:
                       -
-                          name: "default_name_12 (source system.object-tagging.tags.name)"
+                          name: "default_name_15 (source system.object-tagging.tags.name)"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -262,7 +292,17 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_system_zone_data(json):
-    option_list = ["description", "interface", "intrazone", "name", "tagging"]
+    option_list = [
+        "description",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "interface",
+        "intrazone",
+        "name",
+        "tagging",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -442,6 +482,22 @@ versioned_schema = {
     "type": "list",
     "elements": "dict",
     "children": {
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "tagging": {
             "type": "list",

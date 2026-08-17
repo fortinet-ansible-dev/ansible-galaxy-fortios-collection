@@ -102,7 +102,6 @@ options:
                     - Internet Service Botnet name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Show Internet Service botnet.
   fortinet.fortios.fortios_firewall_internet_service_botnet:

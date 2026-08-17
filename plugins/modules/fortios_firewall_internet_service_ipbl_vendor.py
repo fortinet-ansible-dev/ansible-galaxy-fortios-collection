@@ -102,7 +102,6 @@ options:
                     - IP block list vendor name.
                 type: str
 """
-
 EXAMPLES = """
 - name: IP block list vendor.
   fortinet.fortios.fortios_firewall_internet_service_ipbl_vendor:

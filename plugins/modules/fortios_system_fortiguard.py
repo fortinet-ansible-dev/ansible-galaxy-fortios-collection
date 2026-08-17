@@ -283,6 +283,14 @@ options:
                     - 'udp'
                     - 'http'
                     - 'https'
+            proxy_fqdn_host:
+                description:
+                    - Enable/disable preference of the FQDN as host header, if resolved by DNS, in the CONNECT request to FortiGuard servers. For use when the
+                       FortiGate unit is behind a proxy server.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             proxy_password:
                 description:
                     - Proxy user password.
@@ -436,7 +444,6 @@ options:
                     - Web filter query time out (1 - 30 sec).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard services.
   fortinet.fortios.fortios_system_fortiguard:
@@ -456,7 +463,7 @@ EXAMPLES = """
           auto_firmware_upgrade_day: "sunday"
           auto_firmware_upgrade_delay: "3"
           auto_firmware_upgrade_end_hour: "4"
-          auto_firmware_upgrade_start_hour: "1"
+          auto_firmware_upgrade_start_hour: "2"
           auto_join_forticloud: "enable"
           ddns_server_ip: "<your_own_value>"
           ddns_server_ip6: "<your_own_value>"
@@ -466,7 +473,7 @@ EXAMPLES = """
           fortiguard_anycast_source: "fortinet"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
-          load_balance_servers: "1"
+          load_balance_servers: "5"
           outbreak_prevention_cache: "enable"
           outbreak_prevention_cache_mpercent: "2"
           outbreak_prevention_cache_mpermille: "1"
@@ -478,6 +485,7 @@ EXAMPLES = """
           persistent_connection: "enable"
           port: "8888"
           protocol: "udp"
+          proxy_fqdn_host: "enable"
           proxy_password: "<your_own_value>"
           proxy_server_ip: "<your_own_value>"
           proxy_server_port: "0"
@@ -638,6 +646,7 @@ def filter_system_fortiguard_data(json):
         "persistent_connection",
         "port",
         "protocol",
+        "proxy_fqdn_host",
         "proxy_password",
         "proxy_server_ip",
         "proxy_server_port",
@@ -983,6 +992,11 @@ versioned_schema = {
         "FDS_license_expiring_days": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "subscribe_update_notification": {
             "v_range": [["v7.6.3", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "proxy_fqdn_host": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

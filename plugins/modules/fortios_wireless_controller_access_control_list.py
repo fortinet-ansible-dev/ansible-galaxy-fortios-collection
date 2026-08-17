@@ -130,7 +130,7 @@ options:
                         type: int
                     srcaddr:
                         description:
-                            - Source IP address (any | local-LAN | IPv4 address[/<network mask | mask length>]).
+                            - Source IP address (any | local-LAN | IPv4 address[/<network mask | mask length>] | fqdn).
                         type: str
                     srcport:
                         description:
@@ -172,7 +172,7 @@ options:
                         type: int
                     srcaddr:
                         description:
-                            - Source IPv6 address (any | local-LAN | IPv6 address[/prefix length]), default = any.
+                            - Source IPv6 address (any | local-LAN | IPv6 address[/prefix length] | fqdn), default = any.
                         type: str
                     srcport:
                         description:
@@ -184,7 +184,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure WiFi bridge access control list.
   fortinet.fortios.fortios_wireless_controller_access_control_list:

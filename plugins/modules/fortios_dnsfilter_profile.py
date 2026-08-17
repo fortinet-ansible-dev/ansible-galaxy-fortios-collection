@@ -182,6 +182,29 @@ options:
                             - External domain block list name. Source system.external-resource.name.
                         required: true
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             ftgd_dns:
                 description:
                     - FortiGuard DNS Filter settings.
@@ -283,6 +306,10 @@ options:
                             - DNS database zone name. Source system.dns-database.name.
                         required: true
                         type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             youtube_restrict:
                 description:
                     - Set safe search for YouTube restriction level.
@@ -292,7 +319,6 @@ options:
                     - 'moderate'
                     - 'none'
 """
-
 EXAMPLES = """
 - name: Configure DNS domain filter profile.
   fortinet.fortios.fortios_dnsfilter_profile:
@@ -319,16 +345,19 @@ EXAMPLES = """
           external_ip_blocklist:
               -
                   name: "default_name_19 (source system.external-resource.name)"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           ftgd_dns:
               filters:
                   -
                       action: "block"
                       category: "0"
-                      id: "24"
+                      id: "27"
                       log: "enable"
               options: "error-allow"
           log_all_domain: "enable"
-          name: "default_name_28"
+          name: "default_name_31"
           redirect_portal: "<your_own_value>"
           redirect_portal6: "<your_own_value>"
           safe_search: "disable"
@@ -337,7 +366,8 @@ EXAMPLES = """
           strip_ech: "disable"
           transparent_dns_database:
               -
-                  name: "default_name_36 (source system.dns-database.name)"
+                  name: "default_name_39 (source system.dns-database.name)"
+          uuid: "<your_own_value>"
           youtube_restrict: "strict"
 """
 
@@ -440,6 +470,9 @@ def filter_dnsfilter_profile_data(json):
         "dns_translation",
         "domain_filter",
         "external_ip_blocklist",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "ftgd_dns",
         "log_all_domain",
         "name",
@@ -450,6 +483,7 @@ def filter_dnsfilter_profile_data(json):
         "sdns_ftgd_err_log",
         "strip_ech",
         "transparent_dns_database",
+        "uuid",
         "youtube_restrict",
     ]
 
@@ -668,6 +702,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "domain_filter": {
             "v_range": [["v6.0.0", ""]],

@@ -127,9 +127,28 @@ options:
                 description:
                     - Optional comments.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             header:
                 description:
-                    - HTTP header name as a regular expression.
+                    - HTTP header value as a regular expression.
                 type: str
             header_group:
                 description:
@@ -170,6 +189,17 @@ options:
                 description:
                     - Host name as a regular expression.
                 type: str
+            llm_servers:
+                description:
+                    - LLM Proxy server names.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Server name. Source llm.server.name.
+                        required: true
+                        type: str
             method:
                 description:
                     - HTTP request methods to be used.
@@ -247,6 +277,7 @@ options:
                     - 'src-advanced'
                     - 'dst-advanced'
                     - 'saas'
+                    - 'llm-server'
             ua:
                 description:
                     - Names of browsers to be used as user agent.
@@ -282,7 +313,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure web proxy address.
   fortinet.fortios.fortios_firewall_proxy_address:
@@ -299,28 +329,35 @@ EXAMPLES = """
                   id: "7"
           color: "0"
           comment: "Optional comments."
+          custom_tags:
+              -
+                  name: "default_name_11 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           header: "<your_own_value>"
           header_group:
               -
                   case_sensitivity: "disable"
                   header: "<your_own_value>"
                   header_name: "<your_own_value>"
-                  id: "15"
+                  id: "18"
           header_name: "<your_own_value>"
           host: "myhostname (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.vipgrp.name firewall.vip.name)"
           host_regex: "myhostname"
+          llm_servers:
+              -
+                  name: "default_name_23 (source llm.server.name)"
           method: "get"
-          name: "default_name_20"
+          name: "default_name_25"
           path: "<your_own_value>"
           query: "<your_own_value>"
           referrer: "enable"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_26"
+                  name: "default_name_31"
                   tags:
                       -
-                          name: "default_name_28 (source system.object-tagging.tags.name)"
+                          name: "default_name_33 (source system.object-tagging.tags.name)"
           type: "host-regex"
           ua: "chrome"
           ua_max_ver: "<your_own_value>"
@@ -427,11 +464,14 @@ def filter_firewall_proxy_address_data(json):
         "category",
         "color",
         "comment",
+        "custom_tags",
+        "display_with",
         "header",
         "header_group",
         "header_name",
         "host",
         "host_regex",
+        "llm_servers",
         "method",
         "name",
         "path",
@@ -676,6 +716,7 @@ versioned_schema = {
                 {"value": "src-advanced"},
                 {"value": "dst-advanced"},
                 {"value": "saas", "v_range": [["v7.2.1", ""]]},
+                {"value": "llm-server", "v_range": [["v8.0.0", ""]]},
             ],
         },
         "host": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -757,6 +798,18 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
+        "llm_servers": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "tagging": {
             "type": "list",
@@ -795,6 +848,27 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.2.1", ""]],
+        },
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "visibility": {
             "v_range": [["v6.0.0", "v6.2.7"]],

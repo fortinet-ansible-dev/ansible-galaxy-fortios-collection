@@ -139,7 +139,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam IP trust.
   fortinet.fortios.fortios_spamfilter_iptrust:

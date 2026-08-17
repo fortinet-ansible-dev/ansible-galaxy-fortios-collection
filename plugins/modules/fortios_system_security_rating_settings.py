@@ -89,7 +89,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Settings for Security Rating.
   fortinet.fortios.fortios_system_security_rating_settings:

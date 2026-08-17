@@ -123,6 +123,17 @@ options:
                                     - Client subnets.
                                 required: true
                                 type: str
+                    client6_prefix:
+                        description:
+                            - Prefixes from which PCP requests are accepted.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            prefix:
+                                description:
+                                    - IPv6 Client prefixes.
+                                required: true
+                                type: str
                     description:
                         description:
                             - Description.
@@ -178,6 +189,13 @@ options:
                             - PCP pool name.
                         required: true
                         type: str
+                    nat46:
+                        description:
+                            - Enable/disable NAT46.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
                     recycle_delay:
                         description:
                             - Minimum delay (in seconds) the PCP Server will wait before recycling mappings that have expired (0 - 3600).
@@ -208,7 +226,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure PCP server information.
   fortinet.fortios.fortios_system_pcp_server:
@@ -223,11 +240,14 @@ EXAMPLES = """
                   client_subnet:
                       -
                           subnet: "<your_own_value>"
+                  client6_prefix:
+                      -
+                          prefix: "<your_own_value>"
                   description: "<your_own_value>"
                   ext_intf: "<your_own_value> (source system.interface.name)"
                   extip: "<your_own_value>"
                   extport: "<your_own_value>"
-                  id: "14"
+                  id: "16"
                   intl_intf:
                       -
                           interface_name: "<your_own_value> (source system.interface.name)"
@@ -235,7 +255,8 @@ EXAMPLES = """
                   maximal_lifetime: "86400"
                   minimal_lifetime: "120"
                   multicast_announcement: "enable"
-                  name: "default_name_21"
+                  name: "default_name_23"
+                  nat46: "disable"
                   recycle_delay: "0"
                   third_party: "allow"
                   third_party_subnet:
@@ -564,6 +585,18 @@ versioned_schema = {
                     },
                     "v_range": [["v7.4.0", ""]],
                 },
+                "client6_prefix": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "prefix": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
                 "ext_intf": {"v_range": [["v7.4.0", ""]], "type": "string"},
                 "arp_reply": {
                     "v_range": [["v7.4.0", ""]],
@@ -629,6 +662,11 @@ versioned_schema = {
                     "v_range": [["v7.4.0", ""]],
                 },
                 "recycle_delay": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+                "nat46": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
             },
             "v_range": [["v7.4.0", ""]],
         },

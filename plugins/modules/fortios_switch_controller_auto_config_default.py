@@ -95,7 +95,6 @@ options:
                     - Default ISL auto-config policy. Source switch-controller.auto-config.policy.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Policies which are applied automatically to all ISL/ICL/FortiLink interfaces.
   fortinet.fortios.fortios_switch_controller_auto_config_default:

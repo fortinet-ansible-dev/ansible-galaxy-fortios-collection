@@ -177,7 +177,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure DNS servers for a non-management VDOM.
   fortinet.fortios.fortios_system_vdom_dns:

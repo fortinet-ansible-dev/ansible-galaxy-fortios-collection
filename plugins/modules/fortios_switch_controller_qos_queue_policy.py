@@ -160,7 +160,6 @@ options:
                     - 'round-robin'
                     - 'weighted'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch QoS egress queue policy.
   fortinet.fortios.fortios_switch_controller_qos_queue_policy:

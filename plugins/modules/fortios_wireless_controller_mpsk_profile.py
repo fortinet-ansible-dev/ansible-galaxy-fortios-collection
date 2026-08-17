@@ -210,7 +210,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure MPSK profile.
   fortinet.fortios.fortios_wireless_controller_mpsk_profile:

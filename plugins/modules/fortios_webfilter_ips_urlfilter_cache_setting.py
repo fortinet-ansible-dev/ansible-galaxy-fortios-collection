@@ -91,7 +91,6 @@ options:
                     - Extend time to live beyond reported by DNS. Use of 0 means use DNS server"s TTL.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure IPS URL filter cache settings.
   fortinet.fortios.fortios_webfilter_ips_urlfilter_cache_setting:

@@ -170,7 +170,7 @@ options:
                         type: str
                     match_period:
                         description:
-                            - Number of days the matched devices will be retained (0 - 120, 0 = always retain).
+                            - Duration in hours to retain the matched devices (0 - 3072, 0 = always retain).
                         type: int
                     match_remove:
                         description:
@@ -218,7 +218,6 @@ options:
                             - VLAN policy to be applied when using this policy. Source switch-controller.vlan-policy.name.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure Dynamic port policy to be applied on the managed FortiSwitch ports through DPP device.
   fortinet.fortios.fortios_switch_controller_dynamic_port_policy:

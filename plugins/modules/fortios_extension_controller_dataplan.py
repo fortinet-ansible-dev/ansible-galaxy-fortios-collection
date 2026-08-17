@@ -194,7 +194,6 @@ options:
                     - Username.
                 type: str
 """
-
 EXAMPLES = """
 - name: FortiExtender dataplan configuration.
   fortinet.fortios.fortios_extension_controller_dataplan:

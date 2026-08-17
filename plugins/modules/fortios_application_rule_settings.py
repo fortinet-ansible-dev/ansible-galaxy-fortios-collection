@@ -98,7 +98,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure application rule settings.
   fortinet.fortios.fortios_application_rule_settings:

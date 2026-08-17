@@ -108,7 +108,6 @@ options:
                     - URL.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure terms and conditions.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_terms_and_conditions:

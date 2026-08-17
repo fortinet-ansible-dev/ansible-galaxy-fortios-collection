@@ -243,6 +243,17 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this policy. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
             dstaddr:
                 description:
                     - Destination address name from available addresses.
@@ -297,7 +308,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv4 DoS policies.
   fortinet.fortios.fortios_firewall_dos_policy:
@@ -324,18 +334,21 @@ EXAMPLES = """
                   threshold: "0"
                   threshold_default: "0"
           comments: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_22 (source firewall.custom-tag.name)"
           dstaddr:
               -
-                  name: "default_name_22 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_24 (source firewall.address.name firewall.addrgrp.name)"
           interface: "<your_own_value> (source system.zone.name system.sdwan.zone.name system.interface.name)"
-          name: "default_name_24"
+          name: "default_name_26"
           policyid: "<you_own_value>"
           service:
               -
-                  name: "default_name_27 (source firewall.service.custom.name firewall.service.group.name)"
+                  name: "default_name_29 (source firewall.service.custom.name firewall.service.group.name)"
           srcaddr:
               -
-                  name: "default_name_29 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_31 (source firewall.address.name firewall.addrgrp.name)"
           status: "enable"
 """
 
@@ -434,6 +447,7 @@ def filter_firewall_dos_policy_data(json):
     option_list = [
         "anomaly",
         "comments",
+        "custom_tags",
         "dstaddr",
         "interface",
         "name",
@@ -660,6 +674,18 @@ versioned_schema = {
         "name": {"v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]], "type": "string"},
         "comments": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "srcaddr": {
             "type": "list",
             "elements": "dict",
@@ -724,20 +750,8 @@ versioned_schema = {
                         {"value": "proxy"},
                     ],
                 },
-                "quarantine": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "options": [{"value": "none"}, {"value": "attacker"}],
-                },
-                "quarantine_expiry": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "quarantine_log": {
-                    "v_range": [["v6.0.0", ""]],
-                    "type": "string",
-                    "options": [{"value": "disable"}, {"value": "enable"}],
-                },
-                "threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "synproxy_ttl": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "32"},
@@ -747,7 +761,7 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tos": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "0"},
@@ -769,7 +783,7 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tcp_mss": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "0"},
@@ -783,17 +797,17 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tcp_sack": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "synproxy_tcp_timestamp": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "synproxy_tcp_window": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "4096"},
@@ -803,7 +817,7 @@ versioned_schema = {
                     ],
                 },
                 "synproxy_tcp_windowscale": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
                     "type": "string",
                     "options": [
                         {"value": "0"},
@@ -823,6 +837,18 @@ versioned_schema = {
                         {"value": "14"},
                     ],
                 },
+                "quarantine": {
+                    "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "none"}, {"value": "attacker"}],
+                },
+                "quarantine_expiry": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "quarantine_log": {
+                    "v_range": [["v6.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+                "threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "threshold_default": {
                     "v_range": [["v6.0.0", "v7.0.5"], ["v7.2.0", "v7.2.0"]],
                     "type": "integer",

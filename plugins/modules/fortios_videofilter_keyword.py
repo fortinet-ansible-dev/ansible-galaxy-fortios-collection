@@ -142,7 +142,6 @@ options:
                             - 'enable'
                             - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure video filter keywords.
   fortinet.fortios.fortios_videofilter_keyword:

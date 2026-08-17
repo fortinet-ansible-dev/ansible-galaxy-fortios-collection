@@ -318,7 +318,6 @@ options:
                     - Update timer in seconds.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure RIPng.
   fortinet.fortios.fortios_router_ripng:

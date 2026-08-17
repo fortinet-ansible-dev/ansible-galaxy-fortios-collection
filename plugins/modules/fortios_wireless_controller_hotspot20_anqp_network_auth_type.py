@@ -109,7 +109,6 @@ options:
                     - Redirect URL.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure network authentication type.
   fortinet.fortios.fortios_wireless_controller_hotspot20_anqp_network_auth_type:

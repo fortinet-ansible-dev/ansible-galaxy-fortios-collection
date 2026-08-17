@@ -105,6 +105,10 @@ options:
                         description:
                             - Field name [A-Za-z0-9_].
                         type: str
+            custom_log_format:
+                description:
+                    - Customized format for logs. Source log.custom-format.name.
+                type: str
             enc_algorithm:
                 description:
                     - Enable/disable reliable syslogging with TLS encryption.
@@ -153,6 +157,7 @@ options:
                     - 'cef'
                     - 'rfc5424'
                     - 'json'
+                    - 'custom'
             interface:
                 description:
                     - Specify outgoing interface to reach server. Source system.interface.name.
@@ -241,7 +246,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Override settings for remote syslog server.
   fortinet.fortios.fortios_log_syslogd3_override_setting:
@@ -253,6 +257,7 @@ EXAMPLES = """
                   custom: "<your_own_value>"
                   id: "6"
                   name: "default_name_7"
+          custom_log_format: "<your_own_value> (source log.custom-format.name)"
           enc_algorithm: "high-medium"
           facility: "kernel"
           format: "default"
@@ -368,6 +373,7 @@ def filter_log_syslogd3_override_setting_data(json):
     option_list = [
         "certificate",
         "custom_field_name",
+        "custom_log_format",
         "enc_algorithm",
         "facility",
         "format",
@@ -630,6 +636,7 @@ versioned_schema = {
                 {"value": "cef"},
                 {"value": "rfc5424", "v_range": [["v7.0.0", ""]]},
                 {"value": "json", "v_range": [["v7.4.1", ""]]},
+                {"value": "custom", "v_range": [["v8.0.0", ""]]},
             ],
         },
         "priority": {
@@ -685,6 +692,7 @@ versioned_schema = {
             "type": "string",
         },
         "vrf_select": {"v_range": [["v7.6.1", ""]], "type": "integer"},
+        "custom_log_format": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "override": {
             "v_range": [["v6.2.3", "v6.2.3"]],
             "type": "string",

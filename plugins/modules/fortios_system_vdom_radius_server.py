@@ -107,7 +107,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure a RADIUS server to use as a RADIUS Single Sign On (RSSO) server for this VDOM.
   fortinet.fortios.fortios_system_vdom_radius_server:

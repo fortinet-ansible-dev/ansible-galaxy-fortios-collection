@@ -187,7 +187,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure alarm.
   fortinet.fortios.fortios_system_alarm:

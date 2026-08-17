@@ -115,7 +115,6 @@ options:
                     - 'built-in'
                     - 'user'
 """
-
 EXAMPLES = """
 - name: SSH proxy local keys.
   fortinet.fortios.fortios_firewall_ssh_local_key:

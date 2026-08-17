@@ -96,6 +96,13 @@ options:
                 choices:
                     - 'serial'
                     - 'certificate'
+            autoclear_removed_shared_objects:
+                description:
+                    - Control system behavior for deleted shared objects.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             certificate:
                 description:
                     - Certificate. Source certificate.local.name.
@@ -152,6 +159,24 @@ options:
                                     - Virtual domain name. Source system.vdom.name.
                                 required: true
                                 type: str
+            fabric_datasource_exemption:
+                description:
+                    - Disable the fabric datasource check on the tables when synchronizing them.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Name.
+                        required: true
+                        type: str
+                    status:
+                        description:
+                            - Enable/disable the fabric datasource check on the target table.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
             fabric_device:
                 description:
                     - Fabric device configuration.
@@ -189,6 +214,13 @@ options:
                         description:
                             - Device login password.
                         type: str
+            fabric_object_change_auto_cascade:
+                description:
+                    - Enable/disable the cascade mode for fabric objects datasource check.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object_unification:
                 description:
                     - Fabric CMDB Object Unification.
@@ -263,6 +295,43 @@ options:
                 choices:
                     - 'default'
                     - 'local'
+            shared_objects:
+                description:
+                    - Fabric-wide objects shared by non-root nodes.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - UID of the source device.
+                        required: true
+                        type: str
+                    objects:
+                        description:
+                            - CMDB table entries.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            keys:
+                                description:
+                                    - Keys of CMDB table entries.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                    name:
+                                        description:
+                                            - key. Source firewall.address.name.
+                                        required: true
+                                        type: str
+                            pathname:
+                                description:
+                                    - CMDB path and object name.
+                                required: true
+                                type: str
+                    trusted_list_entry:
+                        description:
+                            - Trusted list entry name. Source system.csf.trusted-list.name.
+                        type: str
             source_ip:
                 description:
                     - Source IP address for communication with the upstream FortiGate.
@@ -294,10 +363,23 @@ options:
                         choices:
                             - 'serial'
                             - 'certificate'
+                    ca:
+                        description:
+                            - Name of a CA on the downstream"s certificat chain. Source certificate.ca.name.
+                        type: str
+                    ca_fingerprint:
+                        description:
+                            - SHA512 fingerprint of a CA on the downstream"s certificate chain.
+                        type: str
                     certificate:
                         description:
                             - Certificate.
                         type: str
+                    cn:
+                        description:
+                            - Certificate CNs used by HA members.
+                        type: list
+                        elements: str
                     downstream_authorization:
                         description:
                             - Trust authorizations by this node"s administrator.
@@ -319,6 +401,13 @@ options:
                             - Name.
                         required: true
                         type: str
+                    role:
+                        description:
+                            - Device role to this member.
+                        type: str
+                        choices:
+                            - 'downstream'
+                            - 'upstream'
                     serial:
                         description:
                             - Serial.
@@ -327,6 +416,13 @@ options:
                 description:
                     - Unique ID of the current CSF node
                 type: str
+            upload_shared_objects:
+                description:
+                    - Configure uploading shared objects entries to the tree.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             upstream:
                 description:
                     - IP/FQDN of the FortiGate upstream from this FortiGate in the Security Fabric.
@@ -352,7 +448,6 @@ options:
                     - The port number to use to communicate with the FortiGate upstream from this FortiGate in the Security Fabric .
                 type: int
 """
-
 EXAMPLES = """
 - name: Add this FortiGate to a Security Fabric or set up a new Security Fabric on this FortiGate.
   fortinet.fortios.fortios_system_csf:
@@ -360,6 +455,7 @@ EXAMPLES = """
       system_csf:
           accept_auth_by_cert: "disable"
           authorization_request_type: "serial"
+          autoclear_removed_shared_objects: "enable"
           certificate: "<your_own_value> (source certificate.local.name)"
           configuration_sync: "default"
           downstream_access: "enable"
@@ -371,7 +467,11 @@ EXAMPLES = """
                   serial: "<your_own_value>"
                   vdom:
                       -
-                          name: "default_name_14 (source system.vdom.name)"
+                          name: "default_name_15 (source system.vdom.name)"
+          fabric_datasource_exemption:
+              -
+                  name: "default_name_17"
+                  status: "enable"
           fabric_device:
               -
                   access_token: "<your_own_value>"
@@ -379,8 +479,9 @@ EXAMPLES = """
                   device_type: "fortimail"
                   https_port: "443"
                   login: "<your_own_value>"
-                  name: "default_name_21"
+                  name: "default_name_25"
                   password: "<your_own_value>"
+          fabric_object_change_auto_cascade: "enable"
           fabric_object_unification: "default"
           fabric_workers: "2"
           file_mgmt: "enable"
@@ -395,19 +496,34 @@ EXAMPLES = """
           management_ip: "<your_own_value>"
           management_port: "32767"
           saml_configuration_sync: "default"
+          shared_objects:
+              -
+                  name: "default_name_43"
+                  objects:
+                      -
+                          keys:
+                              -
+                                  name: "default_name_46 (source firewall.address.name)"
+                          pathname: "<your_own_value>"
+                  trusted_list_entry: "<your_own_value> (source system.csf.trusted-list.name)"
           source_ip: "84.230.14.43"
           status: "enable"
           trusted_list:
               -
                   action: "accept"
                   authorization_type: "serial"
+                  ca: "<your_own_value> (source certificate.ca.name)"
+                  ca_fingerprint: "<your_own_value>"
                   certificate: "<your_own_value>"
+                  cn: "<your_own_value>"
                   downstream_authorization: "enable"
                   ha_members: "<your_own_value>"
                   index: "0"
-                  name: "default_name_46"
+                  name: "default_name_61"
+                  role: "downstream"
                   serial: "<your_own_value>"
           uid: "<your_own_value>"
+          upload_shared_objects: "enable"
           upstream: "<your_own_value>"
           upstream_interface: "<your_own_value> (source system.interface.name)"
           upstream_interface_select_method: "auto"
@@ -510,12 +626,15 @@ def filter_system_csf_data(json):
     option_list = [
         "accept_auth_by_cert",
         "authorization_request_type",
+        "autoclear_removed_shared_objects",
         "certificate",
         "configuration_sync",
         "downstream_access",
         "downstream_accprofile",
         "fabric_connector",
+        "fabric_datasource_exemption",
         "fabric_device",
+        "fabric_object_change_auto_cascade",
         "fabric_object_unification",
         "fabric_workers",
         "file_mgmt",
@@ -530,10 +649,12 @@ def filter_system_csf_data(json):
         "management_ip",
         "management_port",
         "saml_configuration_sync",
+        "shared_objects",
         "source_ip",
         "status",
         "trusted_list",
         "uid",
+        "upload_shared_objects",
         "upstream",
         "upstream_interface",
         "upstream_interface_select_method",
@@ -573,6 +694,7 @@ def flatten_single_path(data, path, index):
 
 def flatten_multilists_attributes(data):
     multilist_attrs = [
+        ["trusted_list", "cn"],
         ["trusted_list", "ha_members"],
     ]
 
@@ -787,6 +909,11 @@ versioned_schema = {
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "downstream_accprofile": {"v_range": [["v7.0.0", ""]], "type": "string"},
+        "fabric_object_change_auto_cascade": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "configuration_sync": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -811,35 +938,95 @@ versioned_schema = {
                     "type": "string",
                     "required": True,
                 },
-                "authorization_type": {
-                    "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
-                    "type": "string",
-                    "options": [{"value": "serial"}, {"value": "certificate"}],
-                },
-                "serial": {"v_range": [["v6.0.0", ""]], "type": "string"},
-                "certificate": {
-                    "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", ""]],
-                    "type": "string",
-                },
                 "action": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "accept"}, {"value": "deny"}],
                 },
+                "role": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "downstream"}, {"value": "upstream"}],
+                },
+                "index": {"v_range": [["v7.2.4", ""]], "type": "integer"},
+                "ca": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "ca_fingerprint": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "cn": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "list",
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "authorization_type": {
+                    "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.6.7"]],
+                    "type": "string",
+                    "options": [{"value": "serial"}, {"value": "certificate"}],
+                },
+                "serial": {"v_range": [["v6.0.0", "v7.6.7"]], "type": "string"},
+                "certificate": {
+                    "v_range": [["v6.4.0", "v6.4.0"], ["v6.4.4", "v7.6.7"]],
+                    "type": "string",
+                },
                 "ha_members": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.6.7"]],
                     "type": "list",
                     "multiple_values": True,
                     "elements": "str",
                 },
                 "downstream_authorization": {
-                    "v_range": [["v6.0.0", ""]],
+                    "v_range": [["v6.0.0", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
-                "index": {"v_range": [["v7.2.4", ""]], "type": "integer"},
             },
             "v_range": [["v6.0.0", ""]],
+        },
+        "upload_shared_objects": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "autoclear_removed_shared_objects": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "shared_objects": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "trusted_list_entry": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "objects": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "pathname": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "keys": {
+                            "type": "list",
+                            "elements": "dict",
+                            "children": {
+                                "name": {
+                                    "v_range": [["v8.0.0", ""]],
+                                    "type": "string",
+                                    "required": True,
+                                }
+                            },
+                            "v_range": [["v8.0.0", ""]],
+                        },
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "fabric_connector": {
             "type": "list",
@@ -883,6 +1070,23 @@ versioned_schema = {
         },
         "file_quota": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "file_quota_warning": {"v_range": [["v7.4.0", ""]], "type": "integer"},
+        "fabric_datasource_exemption": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "fabric_device": {
             "type": "list",
             "elements": "dict",

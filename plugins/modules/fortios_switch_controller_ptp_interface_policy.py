@@ -108,7 +108,6 @@ options:
                     - Configure PTP VLAN priority (0 - 7).
                 type: int
 """
-
 EXAMPLES = """
 - name: PTP interface-policy configuration.
   fortinet.fortios.fortios_switch_controller_ptp_interface_policy:

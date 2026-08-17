@@ -101,7 +101,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv6 neighbor discovery proxy (RFC4389).
   fortinet.fortios.fortios_system_nd_proxy:

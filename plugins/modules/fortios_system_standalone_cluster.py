@@ -108,12 +108,16 @@ options:
                                 type: str
                     hb_interval:
                         description:
-                            - Heartbeat interval (1 - 20 (100*ms). Increase to reduce false positives.
+                            - Heartbeat interval (1 - 20) (100*ms). Increase to reduce false positives.
                         type: int
                     hb_lost_threshold:
                         description:
                             - Lost heartbeat threshold (1 - 60). Increase to reduce false positives.
                         type: int
+                    interface:
+                        description:
+                            - Outgoing interface for peer connections. Source system.interface.name.
+                        type: str
                     ipsec_tunnel_sync:
                         description:
                             - Enable/disable IPsec tunnel synchronization.
@@ -187,6 +191,10 @@ options:
                                 description:
                                     - Only sessions from this interface are synchronized. Source system.interface.name.
                                 type: str
+                    source_ip:
+                        description:
+                            - Source IP address to use for peer connections.
+                        type: str
                     sync_id:
                         description:
                             - Sync ID. see <a href='#notes'>Notes</a>.
@@ -277,6 +285,13 @@ options:
                 description:
                     - Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
                 type: str
+            session_sync:
+                description:
+                    - Enable/disable session synchronization.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             session_sync_dev:
                 description:
                     - Offload session-sync process to kernel and sync sessions using connected interface(s) directly. Source system.interface.name.
@@ -288,13 +303,12 @@ options:
                 type: int
             utm_traffic_bounce:
                 description:
-                    - Enable/disable UTM related traffic bounce.
+                    - Enable/disable UTM related traffic bounce, disable it may stop the asymmetric-traffic UTM features from working.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiGate Session Life Support Protocol (FGSP) cluster attributes.
   fortinet.fortios.fortios_system_standalone_cluster:
@@ -308,6 +322,7 @@ EXAMPLES = """
                           name: "default_name_6 (source system.interface.name)"
                   hb_interval: "2"
                   hb_lost_threshold: "10"
+                  interface: "<your_own_value> (source system.interface.name)"
                   ipsec_tunnel_sync: "enable"
                   peerip: "<your_own_value>"
                   peervd: "<your_own_value> (source system.vdom.name)"
@@ -316,7 +331,7 @@ EXAMPLES = """
                       custom_service:
                           -
                               dst_port_range: "<your_own_value>"
-                              id: "16"
+                              id: "17"
                               src_port_range: "<your_own_value>"
                       dstaddr: "<your_own_value>"
                       dstaddr6: "<your_own_value>"
@@ -324,27 +339,29 @@ EXAMPLES = """
                       srcaddr: "<your_own_value>"
                       srcaddr6: "<your_own_value>"
                       srcintf: "<your_own_value> (source system.interface.name)"
+                  source_ip: "84.230.14.43"
                   sync_id: "<you_own_value>"
                   syncvd:
                       -
-                          name: "default_name_26 (source system.vdom.name)"
+                          name: "default_name_28 (source system.vdom.name)"
           encryption: "enable"
           group_member_id: "0"
           helper_traffic_bounce: "enable"
           layer2_connection: "available"
           monitor_interface:
               -
-                  name: "default_name_32 (source system.interface.name)"
+                  name: "default_name_34 (source system.interface.name)"
           monitor_prefix:
               -
-                  id: "34"
+                  id: "36"
                   prefix: "<your_own_value>"
                   vdom: "<your_own_value> (source system.vdom.name)"
                   vrf: "0"
           pingsvr_monitor_interface:
               -
-                  name: "default_name_39 (source system.interface.name)"
+                  name: "default_name_41 (source system.interface.name)"
           psksecret: "<your_own_value>"
+          session_sync: "enable"
           session_sync_dev: "<your_own_value> (source system.interface.name)"
           standalone_group_id: "0"
           utm_traffic_bounce: "enable"
@@ -453,6 +470,7 @@ def filter_system_standalone_cluster_data(json):
         "monitor_prefix",
         "pingsvr_monitor_interface",
         "psksecret",
+        "session_sync",
         "session_sync_dev",
         "standalone_group_id",
         "utm_traffic_bounce",
@@ -688,6 +706,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "cps-preferred"}, {"value": "strict-anti-replay"}],
         },
+        "session_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "cluster_peer": {
             "type": "list",
             "elements": "dict",
@@ -711,6 +734,8 @@ versioned_schema = {
                     },
                     "v_range": [["v7.2.1", ""]],
                 },
+                "interface": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "source_ip": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "down_intfs_before_sess_sync": {
                     "type": "list",
                     "elements": "dict",

@@ -112,7 +112,6 @@ options:
                     - User group name for FortiClient users. Source user.group.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiClient policy realm.
   fortinet.fortios.fortios_vpn_ipsec_forticlient:

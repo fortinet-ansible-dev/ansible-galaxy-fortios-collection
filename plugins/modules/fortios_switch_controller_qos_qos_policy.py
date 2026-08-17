@@ -112,7 +112,6 @@ options:
                     - QoS trust ip dscp map. Source switch-controller.qos.ip-dscp-map.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch QoS policy.
   fortinet.fortios.fortios_switch_controller_qos_qos_policy:

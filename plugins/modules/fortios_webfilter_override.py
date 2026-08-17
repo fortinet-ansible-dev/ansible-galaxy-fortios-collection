@@ -146,7 +146,6 @@ options:
                     - Specify the user group for which the override applies. Source user.group.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard Web Filter administrative overrides.
   fortinet.fortios.fortios_webfilter_override:

@@ -87,7 +87,6 @@ options:
                     - WTP ID.
                 type: str
 """
-
 EXAMPLES = """
 - name: Wireless controller rf-analysis.
   fortinet.fortios.fortios_wireless_controller_rf_analysis:

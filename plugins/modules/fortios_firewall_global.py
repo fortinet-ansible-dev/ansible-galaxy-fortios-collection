@@ -91,7 +91,6 @@ options:
                     - 'permanent-only'
                     - 'all'
 """
-
 EXAMPLES = """
 - name: Global firewall settings.
   fortinet.fortios.fortios_firewall_global:

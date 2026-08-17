@@ -253,7 +253,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure DNS databases.
   fortinet.fortios.fortios_system_dns_database:

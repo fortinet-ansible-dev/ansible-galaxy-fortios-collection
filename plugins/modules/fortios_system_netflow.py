@@ -205,7 +205,6 @@ options:
                     - Timeout for periodic template flowset transmission (60 - 86400 sec).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure NetFlow.
   fortinet.fortios.fortios_system_netflow:

@@ -262,7 +262,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Global FortiAnalyzer settings.
   fortinet.fortios.fortios_log_fortianalyzer3_setting:

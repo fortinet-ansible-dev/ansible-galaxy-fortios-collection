@@ -295,6 +295,13 @@ options:
          - 'generic-address.system.external-resource'
          - 'set.system.private-data-encryption'
          - 'create-default.wifi.ap-profile'
+         - 'upgrade.system.5g-modem'
+         - 'upload-image.firmware.extension-device'
+         - 'download-image.firmware.extension-device'
+         - 'trigger-update.firmware.extension-device'
+         - 'upstream-authorize.system.csf'
+         - 'config-sync.switch-controller.managed-switch'
+         - 'speed-test-run.vpn.ipsec'
 
     params:
         description:
@@ -839,8 +846,6 @@ module_selectors_defs = {
         "params": {
             "token": {"type": "string", "required": "True"},
             "method": {"type": "string", "required": "False"},
-            "email": {"type": "string", "required": "False"},
-            "sms_phone": {"type": "string", "required": "False"},
         },
     },
     "import-trial.user.fortitoken": {
@@ -1725,6 +1730,51 @@ module_selectors_defs = {
         "url": "wifi/ap-profile/create-default",
         "params": {"platform": {"type": "string", "required": "True"}},
     },
+    "upgrade.system.5g-modem": {
+        "url": "system/5g-modem/upgrade",
+        "params": {
+            "source": {"type": "string", "required": "True"},
+            "modem": {"type": "string", "required": "False"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "upload-image.firmware.extension-device": {
+        "url": "firmware/extension-device/upload-image",
+        "params": {
+            "type": {"type": "string", "required": "True"},
+            "file_content": {"type": "string", "required": "False"},
+        },
+    },
+    "download-image.firmware.extension-device": {
+        "url": "firmware/extension-device/download-image",
+        "params": {
+            "type": {"type": "string", "required": "True"},
+            "image_id": {"type": "string", "required": "True"},
+        },
+    },
+    "trigger-update.firmware.extension-device": {
+        "url": "firmware/extension-device/trigger-update",
+        "params": {
+            "serial": {"type": "array", "required": "True"},
+            "image_id": {"type": "string", "required": "True"},
+            "type": {"type": "string", "required": "True"},
+        },
+    },
+    "upstream-authorize.system.csf": {
+        "url": "system/csf/upstream-authorize",
+        "params": {"upstream_serial": {"type": "string", "required": "True"}},
+    },
+    "config-sync.switch-controller.managed-switch": {
+        "url": "switch-controller/managed-switch/config-sync",
+        "params": {"mkey": {"type": "string", "required": "True"}},
+    },
+    "speed-test-run.vpn.ipsec": {
+        "url": "vpn/ipsec/speed-test-run",
+        "params": {
+            "p1name": {"type": "string", "required": "True"},
+            "tunnel": {"type": "string", "required": "False"},
+        },
+    },
 }
 
 
@@ -2043,6 +2093,13 @@ def main():
                 "generic-address.system.external-resource",
                 "set.system.private-data-encryption",
                 "create-default.wifi.ap-profile",
+                "upgrade.system.5g-modem",
+                "upload-image.firmware.extension-device",
+                "download-image.firmware.extension-device",
+                "trigger-update.firmware.extension-device",
+                "upstream-authorize.system.csf",
+                "config-sync.switch-controller.managed-switch",
+                "speed-test-run.vpn.ipsec",
             ],
         },
     }

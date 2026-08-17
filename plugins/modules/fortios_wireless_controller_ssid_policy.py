@@ -104,7 +104,6 @@ options:
                     - VLAN interface name. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure WiFi SSID policies.
   fortinet.fortios.fortios_wireless_controller_ssid_policy:

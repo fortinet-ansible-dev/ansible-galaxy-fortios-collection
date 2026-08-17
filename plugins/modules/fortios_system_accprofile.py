@@ -210,6 +210,41 @@ options:
                             - 'none'
                             - 'read'
                             - 'read-write'
+            gui_ai_assistant:
+                description:
+                    - Enable/disable permission to use AI assistant.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            gui_custom_theme:
+                description:
+                    - Custom theme that overrides the default FortiGate theme. Source system.theme.name.
+                type: str
+            gui_theme:
+                description:
+                    - Predefined theme that overrides the default FortiGate theme.
+                type: str
+                choices:
+                    - 'jade'
+                    - 'neutrino'
+                    - 'mariner'
+                    - 'graphite'
+                    - 'melongene'
+                    - 'jet-stream'
+                    - 'security-fabric'
+                    - 'retro'
+                    - 'dark-matter'
+                    - 'onyx'
+                    - 'eclipse'
+                    - 'none'
+            gui_theme_type:
+                description:
+                    - Use predefined themes or custom themes.
+                type: str
+                choices:
+                    - 'predefined'
+                    - 'custom'
             loggrp:
                 description:
                     - Administrator access to Logging and Reporting including viewing log messages.
@@ -610,7 +645,6 @@ options:
                     - 'read'
                     - 'read-write'
 """
-
 EXAMPLES = """
 - name: Configure access profiles for system administrators.
   fortinet.fortios.fortios_system_accprofile:
@@ -635,13 +669,17 @@ EXAMPLES = """
               policy: "none"
               schedule: "none"
               service: "none"
+          gui_ai_assistant: "enable"
+          gui_custom_theme: "<your_own_value> (source system.theme.name)"
+          gui_theme: "jade"
+          gui_theme_type: "predefined"
           loggrp: "none"
           loggrp_permission:
               config: "none"
               data_access: "none"
               report_access: "none"
               threat_weight: "none"
-          name: "default_name_26"
+          name: "default_name_30"
           netgrp: "none"
           netgrp_permission:
               cfg: "none"
@@ -794,6 +832,10 @@ def filter_system_accprofile_data(json):
         "ftviewgrp",
         "fwgrp",
         "fwgrp_permission",
+        "gui_ai_assistant",
+        "gui_custom_theme",
+        "gui_theme",
+        "gui_theme_type",
         "loggrp",
         "loggrp_permission",
         "name",
@@ -1473,7 +1515,7 @@ versioned_schema = {
                     ],
                 },
                 "mmsgtp": {
-                    "v_range": [["v7.6.5", ""]],
+                    "v_range": [["v7.6.5", "v7.6.7"]],
                     "type": "string",
                     "options": [
                         {"value": "none"},
@@ -1521,6 +1563,35 @@ versioned_schema = {
         },
         "system_execute_telnet": {
             "v_range": [["v7.2.1", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "gui_theme_type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "predefined"}, {"value": "custom"}],
+        },
+        "gui_theme": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "jade"},
+                {"value": "neutrino"},
+                {"value": "mariner"},
+                {"value": "graphite"},
+                {"value": "melongene"},
+                {"value": "jet-stream"},
+                {"value": "security-fabric"},
+                {"value": "retro"},
+                {"value": "dark-matter"},
+                {"value": "onyx"},
+                {"value": "eclipse"},
+                {"value": "none"},
+            ],
+        },
+        "gui_custom_theme": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "gui_ai_assistant": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

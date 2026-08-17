@@ -639,7 +639,6 @@ options:
                     - WiMax realm.
                 type: str
 """
-
 EXAMPLES = """
 - name: Extender controller configuration.
   fortinet.fortios.fortios_extender_controller_extender:

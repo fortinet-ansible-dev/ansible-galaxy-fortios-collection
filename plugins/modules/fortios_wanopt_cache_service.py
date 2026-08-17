@@ -163,7 +163,6 @@ options:
                             - Set priority for this peer.
                         type: int
 """
-
 EXAMPLES = """
 - name: Designate cache-service for wan-optimization and webcache.
   fortinet.fortios.fortios_wanopt_cache_service:

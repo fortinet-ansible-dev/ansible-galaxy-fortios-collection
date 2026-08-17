@@ -296,7 +296,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure alert email settings.
   fortinet.fortios.fortios_alertemail_setting:

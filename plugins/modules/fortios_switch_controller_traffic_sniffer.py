@@ -178,7 +178,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch RSPAN/ERSPAN traffic sniffing parameters.
   fortinet.fortios.fortios_switch_controller_traffic_sniffer:

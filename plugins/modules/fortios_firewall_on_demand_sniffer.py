@@ -148,7 +148,6 @@ options:
                         required: true
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure on-demand packet sniffer.
   fortinet.fortios.fortios_firewall_on_demand_sniffer:

@@ -112,7 +112,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch storm control.
   fortinet.fortios.fortios_switch_controller_storm_control:

@@ -94,6 +94,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             filter:
                 description:
                     - Match criteria filter.
@@ -107,8 +130,11 @@ options:
                 description:
                     - SDN connector name. Source system.sdn-connector.name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure Dynamic Network Services.
   fortinet.fortios.fortios_firewall_network_service_dynamic:
@@ -117,9 +143,13 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       firewall_network_service_dynamic:
           comment: "Comment."
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           filter: "<your_own_value>"
-          name: "default_name_5"
+          name: "default_name_8"
           sdn: "<your_own_value> (source system.sdn-connector.name)"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -214,7 +244,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_network_service_dynamic_data(json):
-    option_list = ["comment", "filter", "name", "sdn"]
+    option_list = [
+        "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "filter",
+        "name",
+        "sdn",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -409,6 +448,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.2.1", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "sdn": {"v_range": [["v7.2.1", ""]], "type": "string"},
         "comment": {"v_range": [["v7.2.1", ""]], "type": "string"},
         "filter": {"v_range": [["v7.2.1", ""]], "type": "string"},

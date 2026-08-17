@@ -482,6 +482,25 @@ options:
                  - 'system_interface_poe-usage'
                  - 'vpn_ipsec_connection-count'
                  - 'registration_forticare_check-connectivity'
+                 - 'system_5g-modem_firmware'
+                 - 'firmware_extension-device_image-list'
+                 - 'firmware_extension-device_update-status'
+                 - 'system_theme_permissions'
+                 - 'system_dhcp_convert-from-template'
+                 - 'system_fsck_status'
+                 - 'system_csf_upstream-status'
+                 - 'system_trigger-ha-force-resync'
+                 - 'system_ha-table-configuration'
+                 - 'user_fortitoken-cloud_realms'
+                 - 'user_fortitoken-cloud_user-sources'
+                 - 'user_fortitoken-cloud_idp-certs'
+                 - 'user_fortitoken-cloud_groups'
+                 - 'user_fortitoken-cloud_users'
+                 - 'user_device_forticlient-vulnerabilities'
+                 - 'utm_applications'
+                 - 'vpn_ipsec_speed-test-result'
+                 - 'vpn_sdn_gateway'
+                 - 'vpn_sdn_validate-aws-permissions'
 
     selector:
         description:
@@ -844,6 +863,25 @@ options:
          - 'system_interface_poe-usage'
          - 'vpn_ipsec_connection-count'
          - 'registration_forticare_check-connectivity'
+         - 'system_5g-modem_firmware'
+         - 'firmware_extension-device_image-list'
+         - 'firmware_extension-device_update-status'
+         - 'system_theme_permissions'
+         - 'system_dhcp_convert-from-template'
+         - 'system_fsck_status'
+         - 'system_csf_upstream-status'
+         - 'system_trigger-ha-force-resync'
+         - 'system_ha-table-configuration'
+         - 'user_fortitoken-cloud_realms'
+         - 'user_fortitoken-cloud_user-sources'
+         - 'user_fortitoken-cloud_idp-certs'
+         - 'user_fortitoken-cloud_groups'
+         - 'user_fortitoken-cloud_users'
+         - 'user_device_forticlient-vulnerabilities'
+         - 'utm_applications'
+         - 'vpn_ipsec_speed-test-result'
+         - 'vpn_sdn_gateway'
+         - 'vpn_sdn_validate-aws-permissions'
 
     params:
         description:
@@ -1921,7 +1959,7 @@ module_selectors_defs = {
     },
     "user_fortitoken-cloud_status": {
         "url": "user/fortitoken-cloud/status",
-        "params": {},
+        "params": {"invalidate_cache": {"type": "boolean", "required": "False"}},
     },
     "wifi_vlan-probe": {
         "url": "wifi/vlan-probe",
@@ -1979,8 +2017,14 @@ module_selectors_defs = {
     },
     "router_bgp_neighbors": {"url": "router/bgp/neighbors", "params": {}},
     "router_bgp_neighbors6": {"url": "router/bgp/neighbors6", "params": {}},
-    "router_bgp_paths": {"url": "router/bgp/paths", "params": {}},
-    "router_bgp_paths6": {"url": "router/bgp/paths6", "params": {}},
+    "router_bgp_paths": {
+        "url": "router/bgp/paths",
+        "params": {"vrf": {"type": "int", "required": "False"}},
+    },
+    "router_bgp_paths6": {
+        "url": "router/bgp/paths6",
+        "params": {"vrf": {"type": "int", "required": "False"}},
+    },
     "router_ospf_neighbors": {"url": "router/ospf/neighbors", "params": {}},
     "system_automation-action_stats": {
         "url": "system/automation-action/stats",
@@ -2040,7 +2084,10 @@ module_selectors_defs = {
     },
     "router_bgp_paths-statistics": {
         "url": "router/bgp/paths-statistics",
-        "params": {"ip_version": {"type": "string", "required": "False"}},
+        "params": {
+            "vrf": {"type": "int", "required": "False"},
+            "ip_version": {"type": "string", "required": "False"},
+        },
     },
     "system_lte-modem_status": {"url": "system/lte-modem/status", "params": {}},
     "system_global-search": {
@@ -2560,7 +2607,10 @@ module_selectors_defs = {
         "url": "switch-controller/known-nac-device-criteria-list",
         "params": {},
     },
-    "system_sandbox_detect": {"url": "system/sandbox/detect", "params": {}},
+    "system_sandbox_detect": {
+        "url": "system/sandbox/detect",
+        "params": {"fsb_cloud": {"type": "boolean", "required": "False"}},
+    },
     "system_monitor-sensor": {"url": "system/monitor-sensor", "params": {}},
     "user_device_iot-query": {
         "url": "user/device/iot-query",
@@ -2599,6 +2649,85 @@ module_selectors_defs = {
     "registration_forticare_check-connectivity": {
         "url": "registration/forticare/check-connectivity",
         "params": {},
+    },
+    "system_5g-modem_firmware": {"url": "system/5g-modem/firmware", "params": {}},
+    "firmware_extension-device_image-list": {
+        "url": "firmware/extension-device/image-list",
+        "params": {"type": {"type": "string", "required": "False"}},
+    },
+    "firmware_extension-device_update-status": {
+        "url": "firmware/extension-device/update-status",
+        "params": {"serial": {"type": "array", "required": "False"}},
+    },
+    "system_theme_permissions": {"url": "system/theme/permissions", "params": {}},
+    "system_dhcp_convert-from-template": {
+        "url": "system/dhcp/convert-from-template",
+        "params": {
+            "template": {"type": "string", "required": "True"},
+            "interface": {"type": "string", "required": "True"},
+            "ip": {"type": "string", "required": "True"},
+            "mask": {"type": "string", "required": "True"},
+        },
+    },
+    "system_fsck_status": {"url": "system/fsck/status", "params": {}},
+    "system_csf_upstream-status": {"url": "system/csf/upstream-status", "params": {}},
+    "system_trigger-ha-force-resync": {
+        "url": "system/trigger-ha-force-resync",
+        "params": {},
+    },
+    "system_ha-table-configuration": {
+        "url": "system/ha-table-configuration",
+        "params": {
+            "serial_a": {"type": "string", "required": "True"},
+            "serial_b": {"type": "string", "required": "True"},
+            "vdom_name": {"type": "string", "required": "False"},
+        },
+    },
+    "user_fortitoken-cloud_realms": {
+        "url": "user/fortitoken-cloud/realms",
+        "params": {},
+    },
+    "user_fortitoken-cloud_user-sources": {
+        "url": "user/fortitoken-cloud/user-sources",
+        "params": {},
+    },
+    "user_fortitoken-cloud_idp-certs": {
+        "url": "user/fortitoken-cloud/idp-certs",
+        "params": {},
+    },
+    "user_fortitoken-cloud_groups": {
+        "url": "user/fortitoken-cloud/groups",
+        "params": {"realm_id": {"type": "string", "required": "False"}},
+    },
+    "user_fortitoken-cloud_users": {
+        "url": "user/fortitoken-cloud/users",
+        "params": {
+            "realm_id": {"type": "string", "required": "False"},
+            "type": {"type": "string", "required": "False"},
+        },
+    },
+    "user_device_forticlient-vulnerabilities": {
+        "url": "user/device/forticlient-vulnerabilities",
+        "params": {
+            "mac": {"type": "string", "required": "True"},
+            "ip": {"type": "string", "required": "True"},
+        },
+    },
+    "utm_applications": {"url": "utm/applications", "params": {}},
+    "vpn_ipsec_speed-test-result": {
+        "url": "vpn/ipsec/speed-test-result",
+        "params": {"p1name": {"type": "string", "required": "False"}},
+    },
+    "vpn_sdn_gateway": {
+        "url": "vpn/sdn/gateway",
+        "params": {
+            "connector": {"type": "string", "required": "True"},
+            "gateway-type": {"type": "string", "required": "True"},
+        },
+    },
+    "vpn_sdn_validate-aws-permissions": {
+        "url": "vpn/sdn/validate-aws-permissions",
+        "params": {"connector": {"type": "string", "required": "True"}},
     },
 }
 
@@ -3070,6 +3199,25 @@ def main():
                 "system_interface_poe-usage",
                 "vpn_ipsec_connection-count",
                 "registration_forticare_check-connectivity",
+                "system_5g-modem_firmware",
+                "firmware_extension-device_image-list",
+                "firmware_extension-device_update-status",
+                "system_theme_permissions",
+                "system_dhcp_convert-from-template",
+                "system_fsck_status",
+                "system_csf_upstream-status",
+                "system_trigger-ha-force-resync",
+                "system_ha-table-configuration",
+                "user_fortitoken-cloud_realms",
+                "user_fortitoken-cloud_user-sources",
+                "user_fortitoken-cloud_idp-certs",
+                "user_fortitoken-cloud_groups",
+                "user_fortitoken-cloud_users",
+                "user_device_forticlient-vulnerabilities",
+                "utm_applications",
+                "vpn_ipsec_speed-test-result",
+                "vpn_sdn_gateway",
+                "vpn_sdn_validate-aws-permissions",
             ],
         },
         "selectors": {
@@ -3440,6 +3588,25 @@ def main():
                         "system_interface_poe-usage",
                         "vpn_ipsec_connection-count",
                         "registration_forticare_check-connectivity",
+                        "system_5g-modem_firmware",
+                        "firmware_extension-device_image-list",
+                        "firmware_extension-device_update-status",
+                        "system_theme_permissions",
+                        "system_dhcp_convert-from-template",
+                        "system_fsck_status",
+                        "system_csf_upstream-status",
+                        "system_trigger-ha-force-resync",
+                        "system_ha-table-configuration",
+                        "user_fortitoken-cloud_realms",
+                        "user_fortitoken-cloud_user-sources",
+                        "user_fortitoken-cloud_idp-certs",
+                        "user_fortitoken-cloud_groups",
+                        "user_fortitoken-cloud_users",
+                        "user_device_forticlient-vulnerabilities",
+                        "utm_applications",
+                        "vpn_ipsec_speed-test-result",
+                        "vpn_sdn_gateway",
+                        "vpn_sdn_validate-aws-permissions",
                     ],
                 },
             },

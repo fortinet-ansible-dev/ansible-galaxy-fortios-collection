@@ -311,7 +311,6 @@ options:
                     - Interface name from where delegated information is provided. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure DHCPv6 servers.
   fortinet.fortios.fortios_system_dhcp6_server:

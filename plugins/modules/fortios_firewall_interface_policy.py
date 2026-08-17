@@ -283,7 +283,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv4 interface policies.
   fortinet.fortios.fortios_firewall_interface_policy:

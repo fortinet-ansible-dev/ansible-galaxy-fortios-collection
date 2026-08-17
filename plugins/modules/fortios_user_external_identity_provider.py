@@ -152,7 +152,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure external identity provider.
   fortinet.fortios.fortios_user_external_identity_provider:

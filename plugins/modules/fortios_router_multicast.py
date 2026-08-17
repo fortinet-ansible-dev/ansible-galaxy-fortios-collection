@@ -246,6 +246,10 @@ options:
                         description:
                             - Minimum TTL of multicast packets that will be forwarded (applied only to new multicast routes) (1 - 255).
                         type: int
+                    update_source:
+                        description:
+                            - Interface to use as source IP. Source system.interface.name.
+                        type: str
             multicast_routing:
                 description:
                     - Enable/disable IP multicast routing.
@@ -484,7 +488,6 @@ options:
                     - Generate warnings when the number of multicast routes exceeds this number, must not be greater than route-limit.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure router multicast.
   fortinet.fortios.fortios_router_multicast:
@@ -525,6 +528,7 @@ EXAMPLES = """
                   state_refresh_interval: "60"
                   static_group: "<your_own_value> (source router.multicast-flow.name)"
                   ttl_threshold: "1"
+                  update_source: "<your_own_value> (source system.interface.name)"
           multicast_routing: "enable"
           pim_sm_global:
               accept_register_list: "<your_own_value> (source router.access-list.name)"
@@ -551,7 +555,7 @@ EXAMPLES = """
               rp_address:
                   -
                       group: "<your_own_value> (source router.access-list.name)"
-                      id: "61"
+                      id: "62"
                       ip_address: "<your_own_value>"
               rp_register_keepalive: "185"
               spt_threshold: "enable"
@@ -569,7 +573,7 @@ EXAMPLES = """
                   rp_address:
                       -
                           group: "<your_own_value> (source router.access-list.name)"
-                          id: "77"
+                          id: "78"
                           ip_address: "<your_own_value>"
                   vrf: "<you_own_value>"
           route_limit: "2147483647"
@@ -1113,6 +1117,7 @@ versioned_schema = {
                         },
                     },
                 },
+                "update_source": {"v_range": [["v7.6.7", "v7.6.7"]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },

@@ -176,7 +176,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure logging to FortiCloud.
   fortinet.fortios.fortios_log_fortiguard_setting:

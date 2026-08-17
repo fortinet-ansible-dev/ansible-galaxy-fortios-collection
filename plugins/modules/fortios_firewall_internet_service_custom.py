@@ -197,6 +197,29 @@ options:
                         description:
                             - Integer value for the protocol type as defined by IANA (0 - 255).
                         type: int
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             master_service_id:
                 description:
                     - Internet Service ID in the Internet Service database. Source firewall.internet-service.id.
@@ -210,8 +233,11 @@ options:
                 description:
                     - Reputation level of the custom Internet Service. Source firewall.internet-service-reputation.id.
                 type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure custom Internet Services.
   fortinet.fortios.fortios_firewall_internet_service_custom:
@@ -246,9 +272,13 @@ EXAMPLES = """
                           id: "21"
                           start_port: "1"
                   protocol: "0"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           master_service_id: "2147483647"
-          name: "default_name_25"
+          name: "default_name_28"
           reputation: "3"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -347,9 +377,13 @@ def filter_firewall_internet_service_custom_data(json):
         "comment",
         "disable_entry",
         "entry",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "master_service_id",
         "name",
         "reputation",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -545,6 +579,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "reputation": {"v_range": [["v6.2.0", ""]], "type": "integer"},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "entry": {

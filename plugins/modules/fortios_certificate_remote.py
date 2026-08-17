@@ -115,7 +115,6 @@ options:
                     - 'user'
                     - 'bundle'
 """
-
 EXAMPLES = """
 - name: Remote certificate as a PEM file.
   fortinet.fortios.fortios_certificate_remote:

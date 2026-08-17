@@ -101,6 +101,29 @@ options:
                             - Interface name. Source system.interface.name.
                         required: true
                         type: str
+                    rp_candidate:
+                        description:
+                            - Enable/disable compete to become RP in elections.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rp_candidate_group:
+                        description:
+                            - Multicast groups managed by this RP. Source router.access-list6.name.
+                        type: str
+                    rp_candidate_interval:
+                        description:
+                            - RP candidate advertisement interval (1 - 16383 sec).
+                        type: int
+                    rp_candidate_priority:
+                        description:
+                            - Router"s priority as RP.
+                        type: int
+                    static_group:
+                        description:
+                            - Statically set IPv6 multicast groups to forward out. Source router.multicast6-flow.name.
+                        type: str
             multicast_pmtu:
                 description:
                     - Enable/disable PMTU for IPv6 multicast.
@@ -120,6 +143,46 @@ options:
                     - PIM sparse-mode global settings.
                 type: dict
                 suboptions:
+                    bsr_allow_quick_refresh:
+                        description:
+                            - Enable/disable accept BSR quick refresh packets from neighbors.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    bsr_candidate:
+                        description:
+                            - Enable/disable allowing this router to become a bootstrap router (BSR).
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    bsr_hash:
+                        description:
+                            - BSR hash length (0 - 128).
+                        type: int
+                    bsr_interface:
+                        description:
+                            - Interface to advertise as candidate BSR. Source system.interface.name.
+                        type: str
+                    bsr_priority:
+                        description:
+                            - BSR priority (0 - 255).
+                        type: int
+                    cisco_crp_prefix:
+                        description:
+                            - Enable/disable making candidate RP compatible with old Cisco IOS.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    cisco_ignore_rp_set_priority:
+                        description:
+                            - Use only hash for RP selection (compatibility with old Cisco IOS).
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     pim_use_sdwan:
                         description:
                             - Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
@@ -137,6 +200,10 @@ options:
                         type: list
                         elements: dict
                         suboptions:
+                            group:
+                                description:
+                                    - Groups to use this RP. Source router.access-list6.name.
+                                type: str
                             id:
                                 description:
                                     - ID of the entry. see <a href='#notes'>Notes</a>.
@@ -146,8 +213,81 @@ options:
                                 description:
                                     - RP router IPv6 address.
                                 type: str
+                    spt_threshold:
+                        description:
+                            - Enable/disable switching to source specific trees.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    spt_threshold_group:
+                        description:
+                            - Groups allowed to switch to source tree. Source router.access-list6.name.
+                        type: str
+            pim_sm_global_vrf:
+                description:
+                    - per-VRF PIM sparse-mode global settings.
+                type: list
+                elements: dict
+                suboptions:
+                    bsr_allow_quick_refresh:
+                        description:
+                            - Enable/disable accept BSR quick refresh packets from neighbors.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    bsr_candidate:
+                        description:
+                            - Enable/disable allowing this router to become a bootstrap router (BSR).
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    bsr_hash:
+                        description:
+                            - BSR hash length (0 - 128).
+                        type: int
+                    bsr_interface:
+                        description:
+                            - Interface to advertise as candidate BSR. Source system.interface.name.
+                        type: str
+                    bsr_priority:
+                        description:
+                            - BSR priority (0 - 255).
+                        type: int
+                    cisco_crp_prefix:
+                        description:
+                            - Enable/disable making candidate RP compatible with old Cisco IOS.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    rp_address:
+                        description:
+                            - Statically configured RP addresses.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            group:
+                                description:
+                                    - Groups to use this RP. Source router.access-list6.name.
+                                type: str
+                            id:
+                                description:
+                                    - ID of the entry. see <a href='#notes'>Notes</a>.
+                                required: true
+                                type: int
+                            ip6_address:
+                                description:
+                                    - RP router IPv6 address.
+                                type: str
+                    vrf:
+                        description:
+                            - VRF ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
 """
-
 EXAMPLES = """
 - name: Configure IPv6 multicast.
   fortinet.fortios.fortios_router_multicast6:
@@ -158,15 +298,44 @@ EXAMPLES = """
                   hello_holdtime: ""
                   hello_interval: "30"
                   name: "default_name_6 (source system.interface.name)"
+                  rp_candidate: "enable"
+                  rp_candidate_group: "<your_own_value> (source router.access-list6.name)"
+                  rp_candidate_interval: "60"
+                  rp_candidate_priority: "192"
+                  static_group: "<your_own_value> (source router.multicast6-flow.name)"
           multicast_pmtu: "enable"
           multicast_routing: "enable"
           pim_sm_global:
+              bsr_allow_quick_refresh: "enable"
+              bsr_candidate: "enable"
+              bsr_hash: "126"
+              bsr_interface: "<your_own_value> (source system.interface.name)"
+              bsr_priority: "0"
+              cisco_crp_prefix: "enable"
+              cisco_ignore_rp_set_priority: "enable"
               pim_use_sdwan: "enable"
               register_rate_limit: "0"
               rp_address:
                   -
-                      id: "13"
+                      group: "<your_own_value> (source router.access-list6.name)"
+                      id: "26"
                       ip6_address: "<your_own_value>"
+              spt_threshold: "enable"
+              spt_threshold_group: "<your_own_value> (source router.access-list6.name)"
+          pim_sm_global_vrf:
+              -
+                  bsr_allow_quick_refresh: "enable"
+                  bsr_candidate: "enable"
+                  bsr_hash: "126"
+                  bsr_interface: "<your_own_value> (source system.interface.name)"
+                  bsr_priority: "0"
+                  cisco_crp_prefix: "enable"
+                  rp_address:
+                      -
+                          group: "<your_own_value> (source router.access-list6.name)"
+                          id: "39"
+                          ip6_address: "<your_own_value>"
+                  vrf: "<you_own_value>"
 """
 
 RETURN = """
@@ -261,7 +430,13 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_router_multicast6_data(json):
-    option_list = ["interface", "multicast_pmtu", "multicast_routing", "pim_sm_global"]
+    option_list = [
+        "interface",
+        "multicast_pmtu",
+        "multicast_routing",
+        "pim_sm_global",
+        "pim_sm_global_vrf",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -450,6 +625,21 @@ versioned_schema = {
                 },
                 "hello_interval": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "hello_holdtime": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "rp_candidate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rp_candidate_group": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "rp_candidate_priority": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "rp_candidate_interval": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "static_group": {"v_range": [["v8.0.0", ""]], "type": "string"},
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -457,7 +647,36 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
             "type": "dict",
             "children": {
+                "bsr_candidate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "bsr_interface": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "bsr_priority": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "bsr_hash": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "bsr_allow_quick_refresh": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cisco_crp_prefix": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "register_rate_limit": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+                "cisco_ignore_rp_set_priority": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "spt_threshold": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "spt_threshold_group": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "pim_use_sdwan": {
                     "v_range": [["v7.6.0", ""]],
                     "type": "string",
@@ -473,10 +692,55 @@ versioned_schema = {
                             "required": True,
                         },
                         "ip6_address": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                        "group": {"v_range": [["v8.0.0", ""]], "type": "string"},
                     },
                     "v_range": [["v6.0.0", ""]],
                 },
             },
+        },
+        "pim_sm_global_vrf": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "vrf": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "bsr_candidate": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "bsr_interface": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "bsr_priority": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "bsr_hash": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+                "bsr_allow_quick_refresh": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cisco_crp_prefix": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "rp_address": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "ip6_address": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                        "group": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
+            },
+            "v_range": [["v8.0.0", ""]],
         },
     },
 }

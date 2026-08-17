@@ -115,7 +115,6 @@ options:
                             - Venue URL value.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure venue URL.
   fortinet.fortios.fortios_wireless_controller_hotspot20_anqp_venue_url:

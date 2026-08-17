@@ -116,7 +116,6 @@ options:
                     - Frequency of LLDP PDU transmission from FortiSwitch (5 - 4095 sec). Packet TTL is tx-hold * tx-interval.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch LLDP settings.
   fortinet.fortios.fortios_switch_controller_lldp_settings:

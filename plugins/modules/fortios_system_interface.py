@@ -146,6 +146,19 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            arp_egress_cos:
+                description:
+                    - CoS in VLAN tag for outgoing ARP packets.
+                type: str
+                choices:
+                    - 'cos0'
+                    - 'cos1'
+                    - 'cos2'
+                    - 'cos3'
+                    - 'cos4'
+                    - 'cos5'
+                    - 'cos6'
+                    - 'cos7'
             arpforward:
                 description:
                     - Enable/disable ARP forwarding.
@@ -364,6 +377,19 @@ options:
                 description:
                     - DHCP client identifier.
                 type: str
+            dhcp_egress_cos:
+                description:
+                    - CoS in VLAN tag for outgoing DHCP packets.
+                type: str
+                choices:
+                    - 'cos0'
+                    - 'cos1'
+                    - 'cos2'
+                    - 'cos3'
+                    - 'cos4'
+                    - 'cos5'
+                    - 'cos6'
+                    - 'cos7'
             dhcp_relay_agent_option:
                 description:
                     - Enable/disable DHCP relay agent option.
@@ -715,14 +741,16 @@ options:
                 type: int
             forward_error_correction:
                 description:
-                    - Configure forward error correction (FEC).
+                    - Enable/disable forward error correction (FEC).
                 type: str
                 choices:
                     - 'none'
                     - 'disable'
                     - 'cl91-rs-fec'
                     - 'cl74-fc-fec'
+                    - 'rs-fec544'
                     - 'auto'
+                    - 'default'
             gi_gk:
                 description:
                     - Enable/disable Gi Gatekeeper.
@@ -772,8 +800,15 @@ options:
                 type: str
             inbandwidth:
                 description:
-                    - Bandwidth limit for incoming traffic (0 - 80000000 kbps), 0 means unlimited.
+                    - Bandwidth limit for incoming traffic (0 - 100000000 kbps), 0 means unlimited.
                 type: int
+            inbandwidth_source:
+                description:
+                    - Determine which inbandwidth values to use for setting shaper.
+                type: str
+                choices:
+                    - 'default'
+                    - 'measured'
             ingress_cos:
                 description:
                     - Override incoming CoS in user VLAN tag on VLAN interface or assign a priority VLAN tag on physical interface.
@@ -822,6 +857,13 @@ options:
                 type: str
                 choices:
                     - 'inherit-global'
+                    - 'enable'
+                    - 'disable'
+            ipam_conflicts:
+                description:
+                    - Configure behavior for this interface on how to handle IPAM conflict detections.
+                type: str
+                choices:
                     - 'enable'
                     - 'disable'
             ipmac:
@@ -900,6 +942,19 @@ options:
                             - 'rapid'
                             - 'iapd'
                             - 'iana'
+                    dhcp6_egress_cos:
+                        description:
+                            - CoS in VLAN tag for outgoing DHCPv6 packets.
+                        type: str
+                        choices:
+                            - 'cos0'
+                            - 'cos1'
+                            - 'cos2'
+                            - 'cos3'
+                            - 'cos4'
+                            - 'cos5'
+                            - 'cos6'
+                            - 'cos7'
                     dhcp6_iapd_list:
                         description:
                             - DHCPv6 IA-PD list.
@@ -1018,8 +1073,8 @@ options:
                             - 'telnet'
                             - 'fgfm'
                             - 'fabric'
-                            - 'scim'
                             - 'probe-response'
+                            - 'scim'
                             - 'capwap'
                     ip6_default_life:
                         description:
@@ -1123,6 +1178,10 @@ options:
                         description:
                             - Hop limit (0 means unspecified).
                         type: int
+                    ip6_link_local:
+                        description:
+                            - IPv6 link-local address of interface.
+                        type: str
                     ip6_link_mtu:
                         description:
                             - IPv6 link MTU.
@@ -1138,6 +1197,10 @@ options:
                         description:
                             - IPv6 maximum interval (4 to 1800 sec).
                         type: int
+                    ip6_mgmt_address:
+                        description:
+                            - High Availability in-band management IPv6 address of this interface and should be in the same subnet with primary IPv6 address
+                        type: str
                     ip6_min_interval:
                         description:
                             - IPv6 minimum interval (3 to 1350 sec).
@@ -1537,12 +1600,15 @@ options:
                     - 'sr'
                     - 'lr'
                     - 'cr'
+                    - 'sr-lr'
+                    - 'kr'
                     - 'sr2'
                     - 'lr2'
                     - 'cr2'
                     - 'sr4'
                     - 'lr4'
                     - 'cr4'
+                    - 'dr'
                     - 'sr8'
                     - 'lr8'
                     - 'cr8'
@@ -1686,8 +1752,15 @@ options:
                 type: int
             outbandwidth:
                 description:
-                    - Bandwidth limit for outgoing traffic (0 - 80000000 kbps).
+                    - Bandwidth limit for outgoing traffic (0 - 100000000 kbps).
                 type: int
+            outbandwidth_source:
+                description:
+                    - Determine which outbandwidth values to use for setting shaper.
+                type: str
+                choices:
+                    - 'default'
+                    - 'measured'
             padt_retry_timeout:
                 description:
                     - PPPoE Active Discovery Terminate (PADT) used to terminate sessions after an idle time.
@@ -2030,14 +2103,14 @@ options:
                     - '100auto'
                     - '1000full'
                     - '1000auto'
-                    - '10000full'
-                    - '10000auto'
-                    - '40000full'
-                    - '40000auto'
                     - '2500auto'
                     - '5000auto'
+                    - '10000full'
+                    - '10000auto'
                     - '25000full'
                     - '25000auto'
+                    - '40000full'
+                    - '40000auto'
                     - '50000full'
                     - '50000auto'
                     - '100Gfull'
@@ -2046,6 +2119,8 @@ options:
                     - '200Gauto'
                     - '400Gfull'
                     - '400Gauto'
+                    - 'sgmii-auto'
+                    - 'sgmii-100full'
                     - '1000half'
             spillover_threshold:
                 description:
@@ -2194,6 +2269,10 @@ options:
                     - 'video'
                     - 'nac'
                     - 'nac-segment'
+            switch_controller_fortilink_settings:
+                description:
+                    - Integrated FortiLink settings for managed FortiSwitch. Source switch-controller.fortilink-settings.name.
+                type: str
             switch_controller_igmp_snooping:
                 description:
                     - Switch controller IGMP snooping.
@@ -2369,6 +2448,7 @@ options:
                     - 'vdom-link'
                     - 'loopback'
                     - 'switch'
+                    - 'hard-switch'
                     - 'vap-switch'
                     - 'wl-mesh'
                     - 'fext-wan'
@@ -2379,7 +2459,6 @@ options:
                     - 'lan-extension'
                     - 'hdlc'
                     - 'ssl'
-                    - 'hard-switch'
             username:
                 description:
                     - Username of the PPPoE account, provided by your ISP.
@@ -2531,7 +2610,6 @@ options:
                     - WINS server IP.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure interfaces.
   fortinet.fortios.fortios_system_interface:
@@ -2546,6 +2624,7 @@ EXAMPLES = """
           alias: "<your_own_value>"
           allowaccess: "ping"
           ap_discover: "enable"
+          arp_egress_cos: "cos0"
           arpforward: "enable"
           auth_cert: "<your_own_value> (source vpn.certificate.local.name)"
           auth_portal_addr: "<your_own_value>"
@@ -2563,7 +2642,7 @@ EXAMPLES = """
           client_options:
               -
                   code: "0"
-                  id: "26"
+                  id: "27"
                   ip: "<your_own_value>"
                   type: "hex"
                   value: "<your_own_value>"
@@ -2583,7 +2662,8 @@ EXAMPLES = """
           devindex: "0"
           dhcp_broadcast_flag: "disable"
           dhcp_classless_route_addition: "enable"
-          dhcp_client_identifier: "myId_46"
+          dhcp_client_identifier: "myId_47"
+          dhcp_egress_cos: "cos0"
           dhcp_relay_agent_option: "enable"
           dhcp_relay_allow_no_end_option: "disable"
           dhcp_relay_circuit_id: "<your_own_value>"
@@ -2600,7 +2680,7 @@ EXAMPLES = """
           dhcp_smart_relay: "disable"
           dhcp_snooping_server_list:
               -
-                  name: "default_name_62"
+                  name: "default_name_64"
                   server_ip: "<your_own_value>"
           disc_retry_timeout: "1"
           disconnect_threshold: "0"
@@ -2636,7 +2716,7 @@ EXAMPLES = """
           fail_action_on_extender: "soft-restart"
           fail_alert_interfaces:
               -
-                  name: "default_name_97 (source system.interface.name)"
+                  name: "default_name_99 (source system.interface.name)"
           fail_alert_method: "link-failed-signal"
           fail_detect: "enable"
           fail_detect_option: "detectserver"
@@ -2657,6 +2737,7 @@ EXAMPLES = """
           idle_timeout: "0"
           ike_saml_server: "<your_own_value> (source user.saml.name)"
           inbandwidth: "0"
+          inbandwidth_source: "default"
           ingress_cos: "disable"
           ingress_shaping_profile: "<your_own_value> (source firewall.shaping-profile.profile-name)"
           ingress_spillover_threshold: "0"
@@ -2665,6 +2746,7 @@ EXAMPLES = """
           internal: "0"
           ip: "<your_own_value>"
           ip_managed_by_fortiipam: "inherit-global"
+          ipam_conflicts: "enable"
           ipmac: "enable"
           ips_sniffer_mode: "enable"
           ipunnumbered: "<your_own_value>"
@@ -2674,11 +2756,12 @@ EXAMPLES = """
               client_options:
                   -
                       code: "0"
-                      id: "134"
+                      id: "138"
                       ip6: "<your_own_value>"
                       type: "hex"
                       value: "<your_own_value>"
               dhcp6_client_options: "rapid"
+              dhcp6_egress_cos: "cos0"
               dhcp6_iapd_list:
                   -
                       iaid: "<you_own_value>"
@@ -2697,7 +2780,7 @@ EXAMPLES = """
               dhcp6_relay_source_ip: "<your_own_value>"
               dhcp6_relay_type: "regular"
               icmp6_send_redirect: "enable"
-              interface_identifier: "myId_156"
+              interface_identifier: "myId_161"
               ip6_address: "<your_own_value>"
               ip6_adv_rio: "enable"
               ip6_allowaccess: "ping"
@@ -2723,9 +2806,11 @@ EXAMPLES = """
                   -
                       prefix: "<your_own_value>"
               ip6_hop_limit: "0"
+              ip6_link_local: "<your_own_value>"
               ip6_link_mtu: "0"
               ip6_manage_flag: "enable"
               ip6_max_interval: "600"
+              ip6_mgmt_address: "<your_own_value>"
               ip6_min_interval: "198"
               ip6_mode: "static"
               ip6_other_flag: "enable"
@@ -2794,7 +2879,7 @@ EXAMPLES = """
           macaddr: "<your_own_value>"
           managed_device:
               -
-                  name: "default_name_244"
+                  name: "default_name_251"
           managed_subnetwork_size: "4"
           management_ip: "<your_own_value>"
           measured_downstream_bandwidth: "0"
@@ -2819,7 +2904,7 @@ EXAMPLES = """
           mtu: "1500"
           mtu_override: "enable"
           multilink: "enable"
-          name: "default_name_268"
+          name: "default_name_275"
           ndiscforward: "enable"
           netbios_forward: "disable"
           netflow_sample_rate: "1"
@@ -2827,6 +2912,7 @@ EXAMPLES = """
           netflow_sampler_id: "0"
           np_qos_profile: "0"
           outbandwidth: "0"
+          outbandwidth_source: "default"
           padt_retry_timeout: "1"
           password: "<your_own_value>"
           phy_setting:
@@ -2864,7 +2950,7 @@ EXAMPLES = """
                   detectserver: "<your_own_value>"
                   gwdetect: "enable"
                   ha_priority: "1"
-                  id: "312"
+                  id: "320"
                   ip: "<your_own_value>"
                   ping_serv_status: "0"
                   secip_relay_ip: "<your_own_value>"
@@ -2877,7 +2963,7 @@ EXAMPLES = """
           security_external_web: "<your_own_value>"
           security_groups:
               -
-                  name: "default_name_324 (source user.group.name)"
+                  name: "default_name_332 (source user.group.name)"
           security_ip_auth_bypass: "enable"
           security_mac_auth_bypass: "mac-auth-only"
           security_mode: "none"
@@ -2908,6 +2994,7 @@ EXAMPLES = """
           switch_controller_dhcp_snooping_verify_mac: "enable"
           switch_controller_dynamic: "<your_own_value> (source switch-controller.fortilink-settings.name)"
           switch_controller_feature: "none"
+          switch_controller_fortilink_settings: "<your_own_value> (source switch-controller.fortilink-settings.name)"
           switch_controller_igmp_snooping: "enable"
           switch_controller_igmp_snooping_fast_leave: "enable"
           switch_controller_igmp_snooping_proxy: "enable"
@@ -2927,10 +3014,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_373"
+                  name: "default_name_382"
                   tags:
                       -
-                          name: "default_name_375 (source system.object-tagging.tags.name)"
+                          name: "default_name_384 (source system.object-tagging.tags.name)"
           tcp_mss: "0"
           telemetry_discover: "enable"
           trunk: "enable"
@@ -2958,7 +3045,7 @@ EXAMPLES = """
                   priority: "100"
                   proxy_arp:
                       -
-                          id: "401"
+                          id: "410"
                           ip: "<your_own_value>"
                   start_time: "3"
                   status: "enable"
@@ -3074,6 +3161,7 @@ def filter_system_interface_data(json):
         "alias",
         "allowaccess",
         "ap_discover",
+        "arp_egress_cos",
         "arpforward",
         "auth_cert",
         "auth_portal_addr",
@@ -3106,6 +3194,7 @@ def filter_system_interface_data(json):
         "dhcp_broadcast_flag",
         "dhcp_classless_route_addition",
         "dhcp_client_identifier",
+        "dhcp_egress_cos",
         "dhcp_relay_agent_option",
         "dhcp_relay_allow_no_end_option",
         "dhcp_relay_circuit_id",
@@ -3166,6 +3255,7 @@ def filter_system_interface_data(json):
         "idle_timeout",
         "ike_saml_server",
         "inbandwidth",
+        "inbandwidth_source",
         "ingress_cos",
         "ingress_shaping_profile",
         "ingress_spillover_threshold",
@@ -3174,6 +3264,7 @@ def filter_system_interface_data(json):
         "internal",
         "ip",
         "ip_managed_by_fortiipam",
+        "ipam_conflicts",
         "ipmac",
         "ips_sniffer_mode",
         "ipunnumbered",
@@ -3216,6 +3307,7 @@ def filter_system_interface_data(json):
         "netflow_sampler_id",
         "np_qos_profile",
         "outbandwidth",
+        "outbandwidth_source",
         "padt_retry_timeout",
         "password",
         "phy_setting",
@@ -3284,6 +3376,7 @@ def filter_system_interface_data(json):
         "switch_controller_dhcp_snooping_verify_mac",
         "switch_controller_dynamic",
         "switch_controller_feature",
+        "switch_controller_fortilink_settings",
         "switch_controller_igmp_snooping",
         "switch_controller_igmp_snooping_fast_leave",
         "switch_controller_igmp_snooping_proxy",
@@ -3744,6 +3837,34 @@ versioned_schema = {
         },
         "dhcp_client_identifier": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dhcp_renew_time": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "dhcp_egress_cos": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
+        "arp_egress_cos": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
         "ipunnumbered": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "username": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "pppoe_egress_cos": {
@@ -3920,16 +4041,34 @@ versioned_schema = {
                 {"value": "100auto", "v_range": [["v7.4.2", "v7.4.2"], ["v7.6.4", ""]]},
                 {"value": "1000full"},
                 {"value": "1000auto"},
+                {
+                    "value": "2500auto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "5000auto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
                 {"value": "10000full"},
                 {"value": "10000auto"},
+                {
+                    "value": "25000full",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "25000auto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
                 {"value": "40000full"},
                 {"value": "40000auto", "v_range": [["v7.4.0", ""]]},
-                {"value": "2500auto", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "5000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "25000full", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "25000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "50000full", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "50000auto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {
+                    "value": "50000full",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "50000auto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
                 {
                     "value": "100Gfull",
                     "v_range": [
@@ -3937,13 +4076,31 @@ versioned_schema = {
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
                         ["v7.4.2", "v7.4.2"],
+                        ["v8.0.0", ""],
                     ],
                 },
-                {"value": "100Gauto", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "200Gfull", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "200Gauto", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "400Gfull", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "400Gauto", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {
+                    "value": "100Gauto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "200Gfull",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "200Gauto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "400Gfull",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {
+                    "value": "400Gauto",
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                {"value": "sgmii-auto", "v_range": [["v8.0.0", ""]]},
+                {"value": "sgmii-100full", "v_range": [["v8.0.0", ""]]},
                 {"value": "1000half", "v_range": [["v6.0.0", "v7.0.3"]]},
             ],
         },
@@ -3970,6 +4127,16 @@ versioned_schema = {
                 {"value": "vdom-link"},
                 {"value": "loopback"},
                 {"value": "switch"},
+                {
+                    "value": "hard-switch",
+                    "v_range": [
+                        ["v6.0.0", "v6.2.7"],
+                        ["v6.4.1", "v7.0.12"],
+                        ["v7.2.1", "v7.2.4"],
+                        ["v7.4.2", "v7.4.2"],
+                        ["v8.0.0", ""],
+                    ],
+                },
                 {"value": "vap-switch"},
                 {"value": "wl-mesh"},
                 {"value": "fext-wan"},
@@ -3980,15 +4147,6 @@ versioned_schema = {
                 {"value": "lan-extension", "v_range": [["v7.0.2", ""]]},
                 {"value": "hdlc", "v_range": [["v6.0.0", "v7.6.3"]]},
                 {"value": "ssl", "v_range": [["v7.0.0", "v7.6.3"]]},
-                {
-                    "value": "hard-switch",
-                    "v_range": [
-                        ["v6.0.0", "v6.2.7"],
-                        ["v6.4.1", "v7.0.12"],
-                        ["v7.2.1", "v7.2.4"],
-                        ["v7.4.2", "v7.4.2"],
-                    ],
-                },
             ],
         },
         "dedicated_to": {
@@ -4057,10 +4215,66 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "tcp_mss": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "mediatype": {
+            "v_range": [
+                ["v6.0.0", "v6.2.7"],
+                ["v6.4.1", "v7.0.12"],
+                ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
+            ],
+            "type": "string",
+            "options": [
+                {"value": "none", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "gmii", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "sgmii", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "sr", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "lr", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "cr", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "sr-lr", "v_range": [["v8.0.0", ""]]},
+                {"value": "kr", "v_range": [["v8.0.0", ""]]},
+                {"value": "sr2", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "lr2", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "cr2", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "sr4", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "lr4", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "cr4", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "dr", "v_range": [["v8.0.0", ""]]},
+                {"value": "sr8", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "lr8", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {"value": "cr8", "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]]},
+                {
+                    "value": "cfp2-sr10",
+                    "v_range": [
+                        ["v6.0.0", "v6.2.7"],
+                        ["v6.4.1", "v7.0.12"],
+                        ["v7.2.1", "v7.2.4"],
+                    ],
+                },
+                {
+                    "value": "cfp2-lr4",
+                    "v_range": [
+                        ["v6.0.0", "v6.2.7"],
+                        ["v6.4.1", "v7.0.12"],
+                        ["v7.2.1", "v7.2.4"],
+                    ],
+                },
+            ],
+        },
         "inbandwidth": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "outbandwidth": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "egress_shaping_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ingress_shaping_profile": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "inbandwidth_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "default"}, {"value": "measured"}],
+        },
+        "outbandwidth_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "default"}, {"value": "measured"}],
+        },
         "spillover_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ingress_spillover_threshold": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "weight": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -4082,8 +4296,8 @@ versioned_schema = {
             "options": [{"value": "8021q"}, {"value": "8021ad"}],
         },
         "vlanid": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "gi_gk": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+        "trunk": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -4150,11 +4364,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "sw_algorithm": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "l2"}, {"value": "l3"}, {"value": "eh"}],
-        },
         "description": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "alias": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "security_mode": {
@@ -4180,6 +4389,29 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "security_8021x_mode": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "default"},
+                {"value": "dynamic-vlan"},
+                {"value": "fallback"},
+                {"value": "slave"},
+            ],
+        },
+        "security_8021x_master": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+        },
+        "security_8021x_dynamic_vlan_id": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "security_8021x_member_mode": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "switch"}, {"value": "disable"}],
+        },
         "security_external_web": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "security_external_logout": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "replacemsg_override_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -4200,6 +4432,36 @@ versioned_schema = {
             "v_range": [["v6.0.0", ""]],
         },
         "ike_saml_server": {"v_range": [["v7.2.0", ""]], "type": "string"},
+        "stp": {
+            "v_range": [
+                ["v6.0.0", "v6.2.7"],
+                ["v6.4.1", "v7.0.12"],
+                ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
+            ],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "stp_ha_secondary": {
+            "v_range": [
+                ["v7.0.0", "v7.0.12"],
+                ["v7.2.1", "v7.2.4"],
+                ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
+            ],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "enable"},
+                {"value": "priority-adjust"},
+            ],
+        },
+        "stp_edge": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "device_identification": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -4463,6 +4725,11 @@ versioned_schema = {
                 {"value": "16777216", "v_range": [["v7.6.3", ""]]},
             ],
         },
+        "ipam_conflicts": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "fortilink_split_interface": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -4577,6 +4844,10 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "switch_controller_fortilink_settings": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+        },
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "tagging": {
             "type": "list",
@@ -4603,127 +4874,17 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
-        "egress_queues": {
-            "v_range": [
-                ["v6.4.0", "v6.4.0"],
-                ["v7.2.0", "v7.2.0"],
-                ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
-            ],
-            "type": "dict",
-            "children": {
-                "cos0": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos1": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos2": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos3": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos4": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos5": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos6": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-                "cos7": {
-                    "v_range": [
-                        ["v6.4.0", "v6.4.0"],
-                        ["v7.2.0", "v7.2.0"],
-                        ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
-                    ],
-                    "type": "string",
-                },
-            },
-        },
-        "ingress_cos": {
-            "v_range": [
-                ["v6.4.0", "v6.4.0"],
-                ["v7.2.0", "v7.2.0"],
-                ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
-            ],
+        "forward_error_correction": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
             "type": "string",
             "options": [
+                {"value": "none"},
                 {"value": "disable"},
-                {"value": "cos0"},
-                {"value": "cos1"},
-                {"value": "cos2"},
-                {"value": "cos3"},
-                {"value": "cos4"},
-                {"value": "cos5"},
-                {"value": "cos6"},
-                {"value": "cos7"},
-            ],
-        },
-        "egress_cos": {
-            "v_range": [
-                ["v6.4.0", "v6.4.0"],
-                ["v7.2.0", "v7.2.0"],
-                ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
-            ],
-            "type": "string",
-            "options": [
-                {"value": "disable"},
-                {"value": "cos0"},
-                {"value": "cos1"},
-                {"value": "cos2"},
-                {"value": "cos3"},
-                {"value": "cos4"},
-                {"value": "cos5"},
-                {"value": "cos6"},
-                {"value": "cos7"},
+                {"value": "cl91-rs-fec"},
+                {"value": "cl74-fc-fec"},
+                {"value": "rs-fec544", "v_range": [["v8.0.0", ""]]},
+                {"value": "auto"},
+                {"value": "default", "v_range": [["v8.0.0", ""]]},
             ],
         },
         "eap_supplicant": {
@@ -4740,6 +4901,54 @@ versioned_schema = {
         "eap_password": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "eap_ca_cert": {"v_range": [["v7.2.0", ""]], "type": "string"},
         "eap_user_cert": {"v_range": [["v7.2.0", ""]], "type": "string"},
+        "np_qos_profile": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "port_mirroring": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "mirroring_direction": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "rx"},
+                {"value": "tx", "v_range": [["v7.4.2", "v7.4.2"]]},
+                {"value": "both", "v_range": [["v7.4.2", "v7.4.2"]]},
+            ],
+        },
+        "mirroring_port": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+        },
+        "mirroring_filter": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "filter_srcip": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                },
+                "filter_dstip": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                },
+                "filter_sport": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "filter_dport": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "filter_protocol": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+            },
+        },
         "default_purdue_level": {
             "v_range": [["v7.4.0", ""]],
             "type": "string",
@@ -4815,6 +5024,7 @@ versioned_schema = {
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "ip6_address": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "ip6_mgmt_address": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "ip6_extra_addr": {
                     "type": "list",
                     "elements": "dict",
@@ -4827,6 +5037,7 @@ versioned_schema = {
                     },
                     "v_range": [["v6.0.0", ""]],
                 },
+                "ip6_link_local": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "ip6_allowaccess": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "list",
@@ -4839,8 +5050,8 @@ versioned_schema = {
                         {"value": "telnet"},
                         {"value": "fgfm"},
                         {"value": "fabric", "v_range": [["v6.2.0", ""]]},
-                        {"value": "scim", "v_range": [["v7.6.4", ""]]},
                         {"value": "probe-response", "v_range": [["v7.6.5", ""]]},
+                        {"value": "scim", "v_range": [["v7.6.4", ""]]},
                         {"value": "capwap", "v_range": [["v6.0.0", "v6.0.11"]]},
                     ],
                     "multiple_values": True,
@@ -5073,6 +5284,20 @@ versioned_schema = {
                     },
                     "v_range": [["v6.0.0", ""]],
                 },
+                "dhcp6_egress_cos": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "cos0"},
+                        {"value": "cos1"},
+                        {"value": "cos2"},
+                        {"value": "cos3"},
+                        {"value": "cos4"},
+                        {"value": "cos5"},
+                        {"value": "cos6"},
+                        {"value": "cos7"},
+                    ],
+                },
                 "dhcp6_relay_service": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -5218,6 +5443,147 @@ versioned_schema = {
                 },
             },
         },
+        "gi_gk": {
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "sw_algorithm": {
+            "v_range": [
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [{"value": "l2"}, {"value": "l3"}, {"value": "eh"}],
+        },
+        "egress_queues": {
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "dict",
+            "children": {
+                "cos0": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos1": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos2": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos3": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos4": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos5": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos6": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+                "cos7": {
+                    "v_range": [
+                        ["v6.4.0", "v6.4.0"],
+                        ["v7.2.0", "v7.2.0"],
+                        ["v7.4.0", "v7.4.1"],
+                        ["v7.4.3", "v7.6.7"],
+                    ],
+                    "type": "string",
+                },
+            },
+        },
+        "ingress_cos": {
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
+        "egress_cos": {
+            "v_range": [
+                ["v6.4.0", "v6.4.0"],
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "cos0"},
+                {"value": "cos1"},
+                {"value": "cos2"},
+                {"value": "cos3"},
+                {"value": "cos4"},
+                {"value": "cos5"},
+                {"value": "cos6"},
+                {"value": "cos7"},
+            ],
+        },
         "drop_overlapped_fragment": {
             "v_range": [["v6.0.0", "v7.6.2"]],
             "type": "string",
@@ -5226,112 +5592,6 @@ versioned_schema = {
         "ring_rx": {"v_range": [], "type": "integer"},
         "ring_tx": {"v_range": [], "type": "integer"},
         "swc_first_create": {"v_range": [["v6.4.4", "v7.6.0"]], "type": "integer"},
-        "mediatype": {
-            "v_range": [
-                ["v6.0.0", "v6.2.7"],
-                ["v6.4.1", "v7.0.12"],
-                ["v7.2.1", "v7.2.4"],
-                ["v7.4.2", "v7.4.2"],
-            ],
-            "type": "string",
-            "options": [
-                {"value": "none", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "gmii", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "sgmii", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "sr", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "lr", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "cr", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "sr2", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "lr2", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "cr2", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "sr4", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "lr4", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "cr4", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "sr8", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "lr8", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {"value": "cr8", "v_range": [["v7.4.2", "v7.4.2"]]},
-                {
-                    "value": "cfp2-sr10",
-                    "v_range": [
-                        ["v6.0.0", "v6.2.7"],
-                        ["v6.4.1", "v7.0.12"],
-                        ["v7.2.1", "v7.2.4"],
-                    ],
-                },
-                {
-                    "value": "cfp2-lr4",
-                    "v_range": [
-                        ["v6.0.0", "v6.2.7"],
-                        ["v6.4.1", "v7.0.12"],
-                        ["v7.2.1", "v7.2.4"],
-                    ],
-                },
-            ],
-        },
-        "trunk": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "security_8021x_mode": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [
-                {"value": "default"},
-                {"value": "dynamic-vlan"},
-                {"value": "fallback"},
-                {"value": "slave"},
-            ],
-        },
-        "security_8021x_master": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-        "security_8021x_dynamic_vlan_id": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "integer",
-        },
-        "security_8021x_member_mode": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "switch"}, {"value": "disable"}],
-        },
-        "stp": {
-            "v_range": [
-                ["v6.0.0", "v6.2.7"],
-                ["v6.4.1", "v7.0.12"],
-                ["v7.2.1", "v7.2.4"],
-                ["v7.4.2", "v7.4.2"],
-            ],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "stp_ha_secondary": {
-            "v_range": [
-                ["v7.0.0", "v7.0.12"],
-                ["v7.2.1", "v7.2.4"],
-                ["v7.4.2", "v7.4.2"],
-            ],
-            "type": "string",
-            "options": [
-                {"value": "disable"},
-                {"value": "enable"},
-                {"value": "priority-adjust"},
-            ],
-        },
-        "stp_edge": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "forward_error_correction": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [
-                {"value": "none"},
-                {"value": "disable"},
-                {"value": "cl91-rs-fec"},
-                {"value": "cl74-fc-fec"},
-                {"value": "auto"},
-            ],
-        },
         "interconnect_profile": {
             "v_range": [["v7.4.2", "v7.4.2"]],
             "type": "string",
@@ -5340,32 +5600,6 @@ versioned_schema = {
                 {"value": "profile1"},
                 {"value": "profile2"},
             ],
-        },
-        "np_qos_profile": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-        "port_mirroring": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "mirroring_direction": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "rx"}, {"value": "tx"}, {"value": "both"}],
-        },
-        "mirroring_port": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-        "mirroring_filter": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "dict",
-            "children": {
-                "filter_srcip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                "filter_dstip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                "filter_sport": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "filter_dport": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "filter_protocol": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "integer",
-                },
-            },
         },
         "disconnect_threshold": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "integer"},
         "cli_conn_status": {

@@ -491,6 +491,10 @@ options:
                             - '802.11ax,n-only'
                             - '802.11ax,n,g-only'
                             - '802.11ax-only'
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -525,6 +529,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    override_cca_threshold:
+                        description:
+                            - Enable to override WTP profile CCA threshold enable/disable settings.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     override_channel:
                         description:
                             - Enable to override WTP profile channel settings.
@@ -535,6 +546,13 @@ options:
                     override_txpower:
                         description:
                             - Enable to override the WTP profile power level configuration.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    override_vap_status:
+                        description:
+                            - Enable to override WTP profile Virtual Access Point (VAP) enable/disable settings.
                         type: str
                         choices:
                             - 'enable'
@@ -583,6 +601,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -656,6 +681,10 @@ options:
                             - '802.11ax,n-only'
                             - '802.11ax,n,g-only'
                             - '802.11ax-only'
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -690,6 +719,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    override_cca_threshold:
+                        description:
+                            - Enable to override WTP profile CCA threshold enable/disable settings.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     override_channel:
                         description:
                             - Enable to override WTP profile channel settings.
@@ -700,6 +736,13 @@ options:
                     override_txpower:
                         description:
                             - Enable to override the WTP profile power level configuration.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    override_vap_status:
+                        description:
+                            - Enable to override WTP profile Virtual Access Point (VAP) enable/disable settings.
                         type: str
                         choices:
                             - 'enable'
@@ -748,6 +791,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -821,6 +871,10 @@ options:
                             - '802.11ax,n-only'
                             - '802.11ax,n,g-only'
                             - '802.11ax-only'
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -855,6 +909,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    override_cca_threshold:
+                        description:
+                            - Enable to override WTP profile CCA threshold enable/disable settings.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     override_channel:
                         description:
                             - Enable to override WTP profile channel settings.
@@ -865,6 +926,13 @@ options:
                     override_txpower:
                         description:
                             - Enable to override the WTP profile power level configuration.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    override_vap_status:
+                        description:
+                            - Enable to override WTP profile Virtual Access Point (VAP) enable/disable settings.
                         type: str
                         choices:
                             - 'enable'
@@ -913,6 +981,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -986,6 +1061,10 @@ options:
                             - '802.11ax,n-only'
                             - '802.11ax,n,g-only'
                             - '802.11ax-only'
+                    cca_threshold:
+                        description:
+                            - Configure Clear Channel Assessment (CCA) threshold in dBm (-94 to -11).
+                        type: str
                     channel:
                         description:
                             - Selected list of wireless radio channels.
@@ -1020,6 +1099,13 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+                    override_cca_threshold:
+                        description:
+                            - Enable to override WTP profile CCA threshold enable/disable settings.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     override_channel:
                         description:
                             - Enable to override WTP profile channel settings.
@@ -1030,6 +1116,13 @@ options:
                     override_txpower:
                         description:
                             - Enable to override the WTP profile power level configuration.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    override_vap_status:
+                        description:
+                            - Enable to override WTP profile Virtual Access Point (VAP) enable/disable settings.
                         type: str
                         choices:
                             - 'enable'
@@ -1074,6 +1167,13 @@ options:
                             - 'tunnel'
                             - 'bridge'
                             - 'manual'
+                            - 'enable'
+                            - 'disable'
+                    vap_status:
+                        description:
+                            - Enable/disable all configured SSIDs on this radio .
+                        type: str
+                        choices:
                             - 'enable'
                             - 'disable'
                     vaps:
@@ -1128,6 +1228,37 @@ options:
                 choices:
                     - 'tunnel'
                     - 'local'
+            static_lowi:
+                description:
+                    - Enable/disable static LOWI position of the FortiAP.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            static_lowi_alt:
+                description:
+                    - Static LOWI altitude position of the AP (between 0 and 500 meters).
+                type: int
+            static_lowi_alt_err:
+                description:
+                    - Static LOWI altitude error of the AP (between 0 and 50 meters).
+                type: int
+            static_lowi_lat:
+                description:
+                    - Static LOWI latitude position of the AP (between -90 and 90 degrees).
+                type: str
+            static_lowi_lat_err:
+                description:
+                    - Static LOWI latitude error of the AP (between 0 and 50 meters).
+                type: int
+            static_lowi_lon:
+                description:
+                    - Static LOWI longitude position of the AP (between -180 and 180 degrees).
+                type: str
+            static_lowi_lon_err:
+                description:
+                    - Static LOWI longitude error of the AP (between 0 and 50 meters).
+                type: int
             tun_mtu_downlink:
                 description:
                     - The MTU of downlink CAPWAP tunnel (576 - 1500 bytes or 0; 0 means the local MTU of FortiAP; ).
@@ -1165,7 +1296,6 @@ options:
                     - WTP profile name to apply to this WTP, AP or FortiAP. Source wireless-controller.wtp-profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Wireless Termination Points (WTPs), that is, FortiAPs or APs to be managed by FortiGate.
   fortinet.fortios.fortios_wireless_controller_wtp:
@@ -1233,14 +1363,17 @@ EXAMPLES = """
               auto_power_low: "10"
               auto_power_target: "<your_own_value>"
               band: "802.11a"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
               drma_manual_mode: "ap"
               override_analysis: "enable"
               override_band: "enable"
+              override_cca_threshold: "enable"
               override_channel: "enable"
               override_txpower: "enable"
+              override_vap_status: "enable"
               override_vaps: "enable"
               power_level: "100"
               power_mode: "dBm"
@@ -1248,23 +1381,27 @@ EXAMPLES = """
               radio_id: "2"
               spectrum_analysis: "enable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_78 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_82 (source wireless-controller.vap-group.name system.interface.name)"
           radio_2:
               auto_power_high: "17"
               auto_power_level: "enable"
               auto_power_low: "10"
               auto_power_target: "<your_own_value>"
               band: "802.11a"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
               drma_manual_mode: "ap"
               override_analysis: "enable"
               override_band: "enable"
+              override_cca_threshold: "enable"
               override_channel: "enable"
               override_txpower: "enable"
+              override_vap_status: "enable"
               override_vaps: "enable"
               power_level: "100"
               power_mode: "dBm"
@@ -1272,23 +1409,27 @@ EXAMPLES = """
               radio_id: "2"
               spectrum_analysis: "enable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_100 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_108 (source wireless-controller.vap-group.name system.interface.name)"
           radio_3:
               auto_power_high: "17"
               auto_power_level: "enable"
               auto_power_low: "10"
               auto_power_target: "<your_own_value>"
               band: "802.11a"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
               drma_manual_mode: "ap"
               override_analysis: "enable"
               override_band: "enable"
+              override_cca_threshold: "enable"
               override_channel: "enable"
               override_txpower: "enable"
+              override_vap_status: "enable"
               override_vaps: "enable"
               power_level: "100"
               power_mode: "dBm"
@@ -1296,41 +1437,53 @@ EXAMPLES = """
               radio_id: "2"
               spectrum_analysis: "enable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_122 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_134 (source wireless-controller.vap-group.name system.interface.name)"
           radio_4:
               auto_power_high: "17"
               auto_power_level: "enable"
               auto_power_low: "10"
               auto_power_target: "<your_own_value>"
               band: "802.11a"
+              cca_threshold: "<your_own_value>"
               channel:
                   -
                       chan: "<your_own_value>"
               drma_manual_mode: "ap"
               override_analysis: "enable"
               override_band: "enable"
+              override_cca_threshold: "enable"
               override_channel: "enable"
               override_txpower: "enable"
+              override_vap_status: "enable"
               override_vaps: "enable"
               power_level: "100"
               power_mode: "dBm"
               power_value: "27"
               spectrum_analysis: "enable"
               vap_all: "tunnel"
+              vap_status: "enable"
               vaps:
                   -
-                      name: "default_name_143 (source wireless-controller.vap-group.name system.interface.name)"
+                      name: "default_name_159 (source wireless-controller.vap-group.name system.interface.name)"
           region: "<your_own_value> (source wireless-controller.region.name)"
           region_x: "<your_own_value>"
           region_y: "<your_own_value>"
           split_tunneling_acl:
               -
                   dest_ip: "<your_own_value>"
-                  id: "149"
+                  id: "165"
           split_tunneling_acl_local_ap_subnet: "enable"
           split_tunneling_acl_path: "tunnel"
+          static_lowi: "enable"
+          static_lowi_alt: "0"
+          static_lowi_alt_err: "0"
+          static_lowi_lat: "<your_own_value>"
+          static_lowi_lat_err: "0"
+          static_lowi_lon: "<your_own_value>"
+          static_lowi_lon_err: "0"
           tun_mtu_downlink: "0"
           tun_mtu_uplink: "0"
           uuid: "<your_own_value>"
@@ -1477,6 +1630,13 @@ def filter_wireless_controller_wtp_data(json):
         "split_tunneling_acl",
         "split_tunneling_acl_local_ap_subnet",
         "split_tunneling_acl_path",
+        "static_lowi",
+        "static_lowi_alt",
+        "static_lowi_alt_err",
+        "static_lowi_lat",
+        "static_lowi_lat_err",
+        "static_lowi_lon",
+        "static_lowi_lon_err",
         "tun_mtu_downlink",
         "tun_mtu_uplink",
         "uuid",
@@ -1722,6 +1882,17 @@ versioned_schema = {
         "region": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "region_x": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "region_y": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "static_lowi": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "static_lowi_lat": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "static_lowi_lon": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "static_lowi_alt": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "static_lowi_lat_err": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "static_lowi_lon_err": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "static_lowi_alt_err": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "firmware_provision": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "firmware_provision_latest": {
             "v_range": [["v7.0.2", ""]],
@@ -2041,11 +2212,27 @@ versioned_schema = {
                 },
                 "power_level": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "power_value": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+                "override_vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "override_vaps": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "override_cca_threshold": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "vap_all": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -2199,11 +2386,27 @@ versioned_schema = {
                 },
                 "power_level": {"v_range": [["v6.0.0", ""]], "type": "integer"},
                 "power_value": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+                "override_vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "override_vaps": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "override_cca_threshold": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "vap_all": {
                     "v_range": [["v6.0.0", ""]],
                     "type": "string",
@@ -2357,11 +2560,27 @@ versioned_schema = {
                 },
                 "power_level": {"v_range": [["v6.2.0", ""]], "type": "integer"},
                 "power_value": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+                "override_vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "override_vaps": {
                     "v_range": [["v6.2.0", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "override_cca_threshold": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "vap_all": {
                     "v_range": [["v6.2.0", ""]],
                     "type": "string",
@@ -2554,11 +2773,27 @@ versioned_schema = {
                     "type": "integer",
                 },
                 "power_value": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+                "override_vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "vap_status": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "override_vaps": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
+                "override_cca_threshold": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "cca_threshold": {"v_range": [["v8.0.0", ""]], "type": "string"},
                 "vap_all": {
                     "v_range": [["v6.2.0", "v6.2.0"], ["v6.2.5", ""]],
                     "type": "string",

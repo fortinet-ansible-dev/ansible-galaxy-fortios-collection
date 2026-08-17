@@ -159,7 +159,7 @@ options:
                 type: str
             gratuitous_arps:
                 description:
-                    - Enable/disable gratuitous ARPs. Disable if link-failed-signal enabled.
+                    - Enable/disable gratuitous ARPs. Recommended to disable if link-failed-signal is enabled.
                 type: str
                 choices:
                     - 'enable'
@@ -304,6 +304,37 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            link_group:
+                description:
+                    - Link group table.
+                type: list
+                elements: dict
+                suboptions:
+                    member:
+                        description:
+                            - Member interface in this link group.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            devname:
+                                description:
+                                    - Interface name. Source system.interface.name.
+                                required: true
+                                type: str
+                    min_members:
+                        description:
+                            - Minimum number of members that must be up before this link group is considered up.
+                        type: int
+                    name:
+                        description:
+                            - Name.
+                        required: true
+                        type: str
+            link_group_monitor:
+                description:
+                    - Link groups to check for port monitoring. Source system.ha.link-group.name.
+                type: list
+                elements: str
             load_balance_all:
                 description:
                     - Enable to load balance TCP sessions. Disable to load balance proxy sessions only.
@@ -354,7 +385,7 @@ options:
                 type: str
             mode:
                 description:
-                    - HA mode. Must be the same for all members. FGSP requires standalone.
+                    - HA mode. Must be the same for all members.
                 type: str
                 choices:
                     - 'standalone'
@@ -386,7 +417,7 @@ options:
                 type: int
             password:
                 description:
-                    - Cluster password. Must be the same for all members.
+                    - Cluster password. It is mandatory and must be the same for all members
                 type: str
             pingserver_failover_threshold:
                 description:
@@ -651,6 +682,11 @@ options:
                 type: list
                 elements: dict
                 suboptions:
+                    link_group_monitor:
+                        description:
+                            - Link groups to check for port monitoring. Source system.ha.link-group.name.
+                        type: list
+                        elements: str
                     monitor:
                         description:
                             - Interfaces to check for port monitoring (or link failure). Source system.interface.name.
@@ -741,7 +777,6 @@ options:
                     - Weight-round-robin weight for each cluster unit. Syntax <priority> <weight>.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure HA.
   fortinet.fortios.fortios_system_ha:
@@ -791,6 +826,14 @@ EXAMPLES = """
           key: "<your_own_value>"
           l2ep_eth_type: "<your_own_value>"
           link_failed_signal: "enable"
+          link_group:
+              -
+                  member:
+                      -
+                          devname: "<your_own_value> (source system.interface.name)"
+                  min_members: "1"
+                  name: "default_name_48"
+          link_group_monitor: "<your_own_value> (source system.ha.link-group.name)"
           load_balance_all: "enable"
           logical_sn: "enable"
           memory_based_failover: "enable"
@@ -847,7 +890,7 @@ EXAMPLES = """
           unicast_hb_peerip: "<your_own_value>"
           unicast_peers:
               -
-                  id: "99"
+                  id: "105"
                   peer_ip: "<your_own_value>"
           unicast_status: "enable"
           uninterruptible_primary_wait: "30"
@@ -855,6 +898,7 @@ EXAMPLES = """
           upgrade_mode: "simultaneous"
           vcluster:
               -
+                  link_group_monitor: "<your_own_value> (source system.ha.link-group.name)"
                   monitor: "<your_own_value> (source system.interface.name)"
                   override: "enable"
                   override_wait_time: "0"
@@ -867,7 +911,7 @@ EXAMPLES = """
                   vcluster_id: "<you_own_value>"
                   vdom:
                       -
-                          name: "default_name_117 (source system.vdom.name)"
+                          name: "default_name_124 (source system.vdom.name)"
           vcluster_id: "0"
           vcluster_status: "enable"
           vcluster2: "enable"
@@ -1001,6 +1045,8 @@ def filter_system_ha_data(json):
         "key",
         "l2ep_eth_type",
         "link_failed_signal",
+        "link_group",
+        "link_group_monitor",
         "load_balance_all",
         "logical_sn",
         "memory_based_failover",
@@ -1093,8 +1139,10 @@ def flatten_multilists_attributes(data):
         ["hbdev"],
         ["session_sync_dev"],
         ["monitor"],
+        ["link_group_monitor"],
         ["pingserver_monitor_interface"],
         ["vcluster", "monitor"],
+        ["vcluster", "link_group_monitor"],
         ["vcluster", "pingserver_monitor_interface"],
         ["ipsec_phase2_proposal"],
         ["secondary_vcluster", "monitor"],
@@ -1457,6 +1505,31 @@ versioned_schema = {
         "nntp_proxy_threshold": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "pop3_proxy_threshold": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "smtp_proxy_threshold": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "link_group": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "member": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "devname": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
+                "min_members": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "override": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1466,6 +1539,12 @@ versioned_schema = {
         "override_wait_time": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "monitor": {
             "v_range": [["v6.0.0", ""]],
+            "type": "list",
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "link_group_monitor": {
+            "v_range": [["v8.0.0", ""]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",
@@ -1509,6 +1588,12 @@ versioned_schema = {
                 "override_wait_time": {"v_range": [["v7.2.0", ""]], "type": "integer"},
                 "monitor": {
                     "v_range": [["v7.2.0", ""]],
+                    "type": "list",
+                    "multiple_values": True,
+                    "elements": "str",
+                },
+                "link_group_monitor": {
+                    "v_range": [["v8.0.0", ""]],
                     "type": "list",
                     "multiple_values": True,
                     "elements": "str",

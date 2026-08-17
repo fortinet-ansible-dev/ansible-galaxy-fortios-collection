@@ -105,6 +105,7 @@ options:
                 choices:
                     - 'max-frame-size'
                     - 'power-negotiation'
+                    - 'eee-negotiation'
             auto_isl:
                 description:
                     - Enable/disable auto inter-switch LAG.
@@ -266,7 +267,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch LLDP profiles.
   fortinet.fortios.fortios_switch_controller_lldp_profile:
@@ -791,6 +791,7 @@ versioned_schema = {
             "options": [
                 {"value": "max-frame-size"},
                 {"value": "power-negotiation", "v_range": [["v6.2.0", ""]]},
+                {"value": "eee-negotiation", "v_range": [["v8.0.0", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",

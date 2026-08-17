@@ -123,7 +123,6 @@ options:
                     - VDOM. Source system.vdom.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FM.
   fortinet.fortios.fortios_system_fm:

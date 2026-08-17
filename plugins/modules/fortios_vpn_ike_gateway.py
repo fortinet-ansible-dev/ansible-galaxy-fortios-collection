@@ -87,7 +87,6 @@ options:
                     - Name of IKE gateway to list.
                 type: str
 """
-
 EXAMPLES = """
 - name: List gateways.
   fortinet.fortios.fortios_vpn_ike_gateway:

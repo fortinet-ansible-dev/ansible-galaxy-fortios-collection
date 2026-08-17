@@ -100,7 +100,6 @@ options:
                 type: list
                 elements: str
 """
-
 EXAMPLES = """
 - name: Configure NP6 IPsec engine status monitoring.
   fortinet.fortios.fortios_monitoring_np6_ipsec_engine:
@@ -412,20 +411,20 @@ def fortios_monitoring(data, fos, check_mode):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+    "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
     "type": "dict",
     "children": {
         "status": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "interval": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "integer",
         },
         "threshold": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "list",
             "multiple_values": True,
             "elements": "str",

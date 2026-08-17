@@ -194,7 +194,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure CIFS profile.
   fortinet.fortios.fortios_cifs_profile:

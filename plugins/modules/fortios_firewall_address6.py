@@ -106,6 +106,25 @@ options:
                 description:
                     - IPv6 addresses associated to a specific country.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             end_ip:
                 description:
                     - 'Final IP address (inclusive) in the range for the address (format: xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx).'
@@ -118,6 +137,14 @@ options:
                 description:
                     - Endpoint group name.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -125,6 +152,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             filter:
                 description:
                     - Match criteria filter.
@@ -187,6 +222,10 @@ options:
                 description:
                     - Object ID for NSX.
                 type: str
+            obj_tag:
+                description:
+                    - Tag of dynamic address object.
+                type: str
             passive_fqdn_learning:
                 description:
                     - Enable/disable passive learning of FQDNs.  When enabled, the FortiGate learns, trusts, and saves FQDNs from endpoint DNS queries .
@@ -224,6 +263,14 @@ options:
                 description:
                     - First MAC address in the range.
                 type: str
+            sub_type:
+                description:
+                    - Sub-type of address.
+                type: str
+                choices:
+                    - 'sdn'
+                    - 'ems-tag'
+                    - '8021x'
             subnet_segment:
                 description:
                     - IPv6 subnet segments.
@@ -246,6 +293,14 @@ options:
                         description:
                             - Subnet segment value.
                         type: str
+            tag_detection_level:
+                description:
+                    - Tag detection level of dynamic address object.
+                type: str
+            tag_type:
+                description:
+                    - Tag type of dynamic address object.
+                type: str
             tagging:
                 description:
                     - Config object tagging.
@@ -310,7 +365,6 @@ options:
                     - IPv6 address and wildcard netmask.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 firewall addresses.
   fortinet.fortios.fortios_firewall_address6:
@@ -322,10 +376,16 @@ EXAMPLES = """
           color: "0"
           comment: "Comment."
           country: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_8 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           end_ip: "<your_own_value>"
           end_mac: "<your_own_value>"
           epg_name: "<your_own_value>"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           filter: "<your_own_value>"
           fqdn: "<your_own_value>"
           host: "myhostname"
@@ -339,8 +399,9 @@ EXAMPLES = """
           macaddr:
               -
                   macaddr: "<your_own_value>"
-          name: "default_name_22"
+          name: "default_name_27"
           obj_id: "<your_own_value>"
+          obj_tag: "<your_own_value>"
           passive_fqdn_learning: "disable"
           route_tag: "0"
           sdn: "nsx"
@@ -348,18 +409,21 @@ EXAMPLES = """
           sdn_tag: "<your_own_value>"
           start_ip: "<your_own_value>"
           start_mac: "<your_own_value>"
+          sub_type: "sdn"
           subnet_segment:
               -
-                  name: "default_name_32"
+                  name: "default_name_39"
                   type: "any"
                   value: "<your_own_value>"
+          tag_detection_level: "<your_own_value>"
+          tag_type: "<your_own_value>"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_37"
+                  name: "default_name_46"
                   tags:
                       -
-                          name: "default_name_39 (source system.object-tagging.tags.name)"
+                          name: "default_name_48 (source system.object-tagging.tags.name)"
           template: "<your_own_value> (source firewall.address6-template.name)"
           tenant: "<your_own_value>"
           type: "ipprefix"
@@ -465,10 +529,14 @@ def filter_firewall_address6_data(json):
         "color",
         "comment",
         "country",
+        "custom_tags",
+        "display_with",
         "end_ip",
         "end_mac",
         "epg_name",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "filter",
         "fqdn",
         "host",
@@ -478,6 +546,7 @@ def filter_firewall_address6_data(json):
         "macaddr",
         "name",
         "obj_id",
+        "obj_tag",
         "passive_fqdn_learning",
         "route_tag",
         "sdn",
@@ -485,7 +554,10 @@ def filter_firewall_address6_data(json):
         "sdn_tag",
         "start_ip",
         "start_mac",
+        "sub_type",
         "subnet_segment",
+        "tag_detection_level",
+        "tag_type",
         "tagging",
         "template",
         "tenant",
@@ -679,6 +751,21 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -700,6 +787,11 @@ versioned_schema = {
                 {"value": "route-tag", "v_range": [["v7.4.0", ""]]},
                 {"value": "wildcard", "v_range": [["v7.6.4", ""]]},
             ],
+        },
+        "sub_type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "sdn"}, {"value": "ems-tag"}, {"value": "8021x"}],
         },
         "route_tag": {"v_range": [["v7.4.0", ""]], "type": "integer"},
         "macaddr": {
@@ -726,6 +818,32 @@ versioned_schema = {
         "fqdn": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "country": {"v_range": [["v6.4.0", ""]], "type": "string"},
         "cache_ttl": {"v_range": [["v6.0.0", ""]], "type": "integer"},
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "passive_fqdn_learning": {
+            "v_range": [["v7.6.5", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "obj_id": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "tagging": {
@@ -798,16 +916,9 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "private"}, {"value": "public"}, {"value": "all"}],
         },
-        "passive_fqdn_learning": {
-            "v_range": [["v7.6.5", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
+        "obj_tag": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "tag_detection_level": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "tag_type": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "start_mac": {
             "v_range": [
                 ["v6.2.0", "v6.2.0"],

@@ -100,7 +100,6 @@ options:
                     - Country name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Define geoip country name-ID table.
   fortinet.fortios.fortios_system_geoip_country:

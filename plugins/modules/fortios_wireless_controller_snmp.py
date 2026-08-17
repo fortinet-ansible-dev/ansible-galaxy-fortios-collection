@@ -257,7 +257,6 @@ options:
                             - 'enable'
                             - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure SNMP.
   fortinet.fortios.fortios_wireless_controller_snmp:

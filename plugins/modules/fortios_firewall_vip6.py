@@ -104,6 +104,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            auth_virtual_host:
+                description:
+                    - Virtual host for authentication portal. Source firewall.access-proxy-virtual-host.name.
+                type: str
             client_cert:
                 description:
                     - Enable/disable requesting client certificate.
@@ -714,7 +718,7 @@ options:
                     - 'enable'
             ssl_http_location_conversion:
                 description:
-                    - Enable to replace HTTP with HTTPS in the reply"s Location HTTP header field.
+                    - Enable to convert HTTP/HTTPS in the reply"s Location HTTP header field.
                 type: str
                 choices:
                     - 'enable'
@@ -722,6 +726,13 @@ options:
             ssl_http_match_host:
                 description:
                     - Enable/disable HTTP host matching for location conversion.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            ssl_http_strip_secure_cookies:
+                description:
+                    - Enable/disable removal of HTTPS-only directives in the reply"s Set-Cookie HTTP header fields.
                 type: str
                 choices:
                     - 'enable'
@@ -772,7 +783,7 @@ options:
                     - 'disable'
             ssl_server_algorithm:
                 description:
-                    - Permitted encryption algorithms for the server side of SSL full mode sessions according to encryption strength.
+                    - Permitted encryption algorithms for the server side of SSL sessions according to encryption strength.
                 type: str
                 choices:
                     - 'high'
@@ -878,6 +889,10 @@ options:
                             - 'tls-1.1'
                             - 'tls-1.2'
                             - 'tls-1.3'
+            ssl_server_client_certificate:
+                description:
+                    - Name of the client certificate presented to realserver during SSL/TLS handshake if requested. Source vpn.certificate.local.name.
+                type: str
             ssl_server_max_version:
                 description:
                     - Highest SSL/TLS version acceptable from a server. Use the client setting by default.
@@ -924,6 +939,13 @@ options:
                     - 'time'
                     - 'count'
                     - 'both'
+            ssl_upstream:
+                description:
+                    - Apply SSL encryption between the FortiGate and the upstream server .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             type:
                 description:
                     - Configure a static NAT server load balance VIP or access proxy.
@@ -958,7 +980,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure virtual IP for IPv6.
   fortinet.fortios.fortios_firewall_vip6:
@@ -968,6 +989,7 @@ EXAMPLES = """
       firewall_vip6:
           add_nat64_route: "disable"
           arp_reply: "disable"
+          auth_virtual_host: "myhostname (source firewall.access-proxy-virtual-host.name)"
           client_cert: "disable"
           color: "0"
           comment: "Comment."
@@ -988,7 +1010,7 @@ EXAMPLES = """
           http_multiplex: "enable"
           http_redirect: "enable"
           https_cookie_secure: "disable"
-          id: "25"
+          id: "26"
           ipv4_mappedip: "<your_own_value>"
           ipv4_mappedport: "<your_own_value>"
           ldb_method: "static"
@@ -997,8 +1019,8 @@ EXAMPLES = """
           max_embryonic_connections: "1000"
           monitor:
               -
-                  name: "default_name_33 (source firewall.ldb-monitor.name)"
-          name: "default_name_34"
+                  name: "default_name_34 (source firewall.ldb-monitor.name)"
+          name: "default_name_35"
           nat_source_vip: "disable"
           nat64: "disable"
           nat66: "disable"
@@ -1022,12 +1044,12 @@ EXAMPLES = """
                   healthcheck: "disable"
                   holddown_interval: "300"
                   http_host: "myhostname"
-                  id: "57"
+                  id: "58"
                   ip: "<your_own_value>"
                   max_connections: "0"
                   monitor:
                       -
-                          name: "default_name_61 (source firewall.ldb-monitor.name)"
+                          name: "default_name_62 (source firewall.ldb-monitor.name)"
                   port: "0"
                   status: "active"
                   translate_host: "enable"
@@ -1043,7 +1065,7 @@ EXAMPLES = """
           ssl_certificate: "<your_own_value> (source vpn.certificate.local.name)"
           ssl_certificate_dict:
               -
-                  name: "default_name_75 (source vpn.certificate.local.name)"
+                  name: "default_name_76 (source vpn.certificate.local.name)"
           ssl_cipher_suites:
               -
                   cipher: "TLS-AES-128-GCM-SHA256"
@@ -1067,6 +1089,7 @@ EXAMPLES = """
           ssl_hsts_include_subdomains: "disable"
           ssl_http_location_conversion: "enable"
           ssl_http_match_host: "enable"
+          ssl_http_strip_secure_cookies: "enable"
           ssl_max_version: "ssl-3.0"
           ssl_min_version: "ssl-3.0"
           ssl_mode: "half"
@@ -1078,12 +1101,14 @@ EXAMPLES = """
                   cipher: "TLS-AES-128-GCM-SHA256"
                   priority: "<you_own_value>"
                   versions: "ssl-3.0"
+          ssl_server_client_certificate: "<your_own_value> (source vpn.certificate.local.name)"
           ssl_server_max_version: "ssl-3.0"
           ssl_server_min_version: "ssl-3.0"
           ssl_server_renegotiation: "enable"
           ssl_server_session_state_max: "100"
           ssl_server_session_state_timeout: "60"
           ssl_server_session_state_type: "disable"
+          ssl_upstream: "enable"
           type: "static-nat"
           user_agent_detect: "disable"
           uuid: "<your_own_value>"
@@ -1186,6 +1211,7 @@ def filter_firewall_vip6_data(json):
     option_list = [
         "add_nat64_route",
         "arp_reply",
+        "auth_virtual_host",
         "client_cert",
         "color",
         "comment",
@@ -1251,6 +1277,7 @@ def filter_firewall_vip6_data(json):
         "ssl_hsts_include_subdomains",
         "ssl_http_location_conversion",
         "ssl_http_match_host",
+        "ssl_http_strip_secure_cookies",
         "ssl_max_version",
         "ssl_min_version",
         "ssl_mode",
@@ -1258,12 +1285,14 @@ def filter_firewall_vip6_data(json):
         "ssl_send_empty_frags",
         "ssl_server_algorithm",
         "ssl_server_cipher_suites",
+        "ssl_server_client_certificate",
         "ssl_server_max_version",
         "ssl_server_min_version",
         "ssl_server_renegotiation",
         "ssl_server_session_state_max",
         "ssl_server_session_state_timeout",
         "ssl_server_session_state_type",
+        "ssl_upstream",
         "type",
         "user_agent_detect",
         "uuid",
@@ -1665,6 +1694,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "auth_virtual_host": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "empty_cert_action": {
             "v_range": [["v7.6.1", ""]],
             "type": "string",
@@ -1793,6 +1823,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "half"}, {"value": "full"}],
         },
+        "ssl_upstream": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "ssl_certificate_dict": {
             "type": "list",
             "elements": "dict",
@@ -1804,6 +1839,10 @@ versioned_schema = {
                 }
             },
             "v_range": [["v7.4.2", ""]],
+        },
+        "ssl_server_client_certificate": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
         },
         "ssl_dh_bits": {
             "v_range": [["v6.0.0", ""]],
@@ -2186,6 +2225,11 @@ versioned_schema = {
         },
         "ssl_http_match_host": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ssl_http_strip_secure_cookies": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

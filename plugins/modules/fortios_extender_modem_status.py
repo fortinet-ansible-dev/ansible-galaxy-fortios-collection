@@ -87,7 +87,6 @@ options:
                     - FortiExtender serial number. Source extender-controller.extender.id.
                 type: str
 """
-
 EXAMPLES = """
 - name: Display detailed FortiExtender modem status.
   fortinet.fortios.fortios_extender_modem_status:

@@ -224,7 +224,6 @@ options:
                     - 'standard'
                     - 'dynamic'
 """
-
 EXAMPLES = """
 - name: Configure WCCP.
   fortinet.fortios.fortios_system_wccp:

@@ -115,6 +115,7 @@ options:
                 type: str
                 choices:
                     - 'sub-string'
+                    - 'fqdn'
                     - 'wildcard'
             name:
                 description:
@@ -148,7 +149,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure Access Proxy virtual hosts.
   fortinet.fortios.fortios_firewall_access_proxy_virtual_host:
@@ -512,7 +512,11 @@ versioned_schema = {
         "host_type": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",
-            "options": [{"value": "sub-string"}, {"value": "wildcard"}],
+            "options": [
+                {"value": "sub-string"},
+                {"value": "fqdn", "v_range": [["v8.0.0", ""]]},
+                {"value": "wildcard"},
+            ],
         },
         "replacemsg_group": {
             "v_range": [["v7.0.8", "v7.0.12"], ["v7.2.1", ""]],

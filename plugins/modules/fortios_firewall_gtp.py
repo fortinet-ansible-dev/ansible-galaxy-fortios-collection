@@ -1340,7 +1340,6 @@ options:
                     - Warning threshold for rate limiting (0 - 99 percent).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure GTP.
   fortinet.fortios.fortios_firewall_gtp:
@@ -2000,165 +1999,297 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "required": True,
         },
         "comment": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "remove_if_echo_expires": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "remove_if_recovery_differ": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "send_delete_when_timeout": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "send_delete_when_timeout_v2": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "gtp_in_gtp": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "unknown_version_action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "gtpv0": {
-            "v_range": [["v7.6.0", ""]],
+            "v_range": [["v7.6.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "min_message_length": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "max_message_length": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "control_plane_message_rate_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "sub_second_sampling": {
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.2.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "rate_sampling_interval": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "sub_second_interval": {
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.2.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "0.5"}, {"value": "0.25"}, {"value": "0.1"}],
         },
         "echo_request_interval": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "user_plane_message_rate_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "tunnel_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "global_tunnel_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "tunnel_timeout": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "half_open_timeout": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "half_close_timeout": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "default_apn_action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "default_imsi_action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "default_policy_action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "default_ip_action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "default_noip_action": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "apn_filter": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "imsi_filter": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "policy_filter": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ie_remover": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ip_filter": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "noip_filter": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "echo_requires_path_in_use": {
-            "v_range": [["v7.6.3", ""]],
+            "v_range": [["v7.6.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "monitor_mode": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [
                 {"value": "enable"},
@@ -2168,108 +2299,192 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
             ],
         },
         "forwarded_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "denied_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "rate_limited_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "state_invalid_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "tunnel_limit_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "extension_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "traffic_count_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "log_freq": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "gtpu_forwarded_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "gtpu_denied_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "gtpu_log_freq": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "log_gtpu_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "log_imsi_prefix": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "log_msisdn_prefix": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "invalid_reserved_field": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "reserved_ie": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "miss_must_ie": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "out_of_state_message": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "out_of_state_ie": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "spoof_src_addr": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "allow"}, {"value": "deny"}],
         },
         "handover_group": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "handover_group6": {
@@ -2277,12 +2492,16 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v6.4.4", "v7.0.8"],
                 ["v7.2.0", "v7.2.4"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
         },
         "authorized_sgsns": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "authorized_sgsns6": {
@@ -2290,12 +2509,16 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v6.4.4", "v7.0.8"],
                 ["v7.2.0", "v7.2.4"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
         },
         "invalid_sgsns_to_log": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "invalid_sgsns6_to_log": {
@@ -2303,12 +2526,16 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v6.4.4", "v7.0.8"],
                 ["v7.2.0", "v7.2.4"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
         },
         "authorized_ggsns": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "authorized_ggsns6": {
@@ -2316,7 +2543,7 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v6.4.4", "v7.0.8"],
                 ["v7.2.0", "v7.2.4"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
         },
@@ -2328,7 +2555,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2341,7 +2568,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.0.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                             "type": "string",
                             "required": True,
@@ -2350,14 +2577,14 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 "action": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "deny"}],
@@ -2366,7 +2593,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [{"value": "ms"}, {"value": "net"}, {"value": "vrf"}],
@@ -2374,7 +2601,11 @@ versioned_schema = {
                     "elements": "str",
                 },
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "imsi": {
             "type": "list",
@@ -2384,7 +2615,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2393,7 +2624,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2401,7 +2632,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2413,7 +2644,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.0.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                             "type": "string",
                             "required": True,
@@ -2422,14 +2653,14 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 "action": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "deny"}],
@@ -2438,7 +2669,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [{"value": "ms"}, {"value": "net"}, {"value": "vrf"}],
@@ -2446,7 +2677,11 @@ versioned_schema = {
                     "elements": "str",
                 },
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "policy": {
             "type": "list",
@@ -2456,7 +2691,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2469,7 +2704,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.0.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                             "type": "string",
                             "required": True,
@@ -2478,14 +2713,14 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 "messages": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [
@@ -2501,7 +2736,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [{"value": "ms"}, {"value": "net"}, {"value": "vrf"}],
@@ -2512,7 +2747,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [
@@ -2527,7 +2762,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2535,7 +2770,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2543,7 +2778,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [
@@ -2558,7 +2793,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.2.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                         },
                         {
@@ -2566,7 +2801,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.2.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                         },
                         {
@@ -2574,7 +2809,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.2.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                         },
                     ],
@@ -2585,7 +2820,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2593,7 +2828,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "deny"}],
@@ -2602,7 +2837,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2610,14 +2845,18 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
                 "imsi": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
                 "msisdn": {"v_range": [["v6.0.0", "v6.0.11"]], "type": "string"},
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "policy_v2": {
             "type": "list",
@@ -2627,7 +2866,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2640,7 +2879,7 @@ versioned_schema = {
                             "v_range": [
                                 ["v6.2.0", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                             "type": "string",
                             "required": True,
@@ -2649,14 +2888,14 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 "messages": {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [
@@ -2672,7 +2911,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [{"value": "ms"}, {"value": "net"}, {"value": "vrf"}],
@@ -2683,7 +2922,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [
@@ -2698,7 +2937,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2706,7 +2945,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2714,7 +2953,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [
@@ -2733,7 +2972,7 @@ versioned_schema = {
                                 ["v6.4.0", "v6.4.0"],
                                 ["v6.4.4", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                         },
                         {
@@ -2742,7 +2981,7 @@ versioned_schema = {
                                 ["v6.4.0", "v6.4.0"],
                                 ["v6.4.4", "v7.0.8"],
                                 ["v7.2.0", "v7.2.4"],
-                                ["v7.4.3", ""],
+                                ["v7.4.3", "v7.6.7"],
                             ],
                         },
                     ],
@@ -2753,7 +2992,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2761,7 +3000,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "deny"}],
@@ -2770,29 +3009,49 @@ versioned_schema = {
                     "v_range": [
                         ["v6.2.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "multiple_values": True,
                     "elements": "str",
                 },
             },
-            "v_range": [["v6.2.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.2.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "addr_notify": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "port_notify": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "interface_notify": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "context_id": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "ie_remove_policy": {
@@ -2803,7 +3062,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2812,7 +3071,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2821,7 +3080,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v6.4.4", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2829,7 +3088,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "list",
                     "options": [
@@ -2843,7 +3102,11 @@ versioned_schema = {
                     "elements": "str",
                 },
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "ip_policy": {
             "type": "list",
@@ -2853,7 +3116,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2862,7 +3125,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2870,7 +3133,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2879,7 +3142,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v6.4.4", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2888,7 +3151,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v6.4.4", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -2896,13 +3159,17 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "deny"}],
                 },
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "noip_policy": {
             "type": "list",
@@ -2912,7 +3179,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -2921,7 +3188,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "etsi"}, {"value": "ietf"}],
@@ -2930,7 +3197,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -2938,7 +3205,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -2946,43 +3213,71 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "allow"}, {"value": "deny"}],
                 },
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "message_filter_v0v1": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "message_filter_v2": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "ie_allow_list_v0v1": {
-            "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "ie_allow_list_v2": {
-            "v_range": [["v7.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "rat_timeout_profile": {
-            "v_range": [["v7.0.1", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.0.1", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
         },
         "ie_validation": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "imsi": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -2991,7 +3286,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3000,7 +3295,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3009,7 +3304,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3018,7 +3313,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3027,7 +3322,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3036,7 +3331,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3045,7 +3340,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3054,7 +3349,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3063,7 +3358,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3072,7 +3367,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3081,7 +3376,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3090,7 +3385,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3099,7 +3394,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3108,7 +3403,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3117,7 +3412,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3126,7 +3421,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3135,7 +3430,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3144,7 +3439,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -3152,23 +3447,27 @@ versioned_schema = {
             },
         },
         "message_rate_limit": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "echo_request": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
-                "echo_response": {"v_range": [["v7.4.4", ""]], "type": "integer"},
+                "echo_response": {"v_range": [["v7.4.4", "v7.6.7"]], "type": "integer"},
                 "version_not_support": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3176,7 +3475,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3184,7 +3483,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3192,7 +3491,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3200,7 +3499,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3208,7 +3507,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3216,7 +3515,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3224,7 +3523,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3232,7 +3531,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3240,7 +3539,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3248,7 +3547,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3256,7 +3555,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3264,7 +3563,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3272,7 +3571,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3280,7 +3579,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3288,7 +3587,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3296,7 +3595,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3304,7 +3603,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3312,7 +3611,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3320,7 +3619,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3328,7 +3627,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3336,7 +3635,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3344,7 +3643,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3352,7 +3651,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3360,7 +3659,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3368,7 +3667,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3376,7 +3675,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3384,7 +3683,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3392,7 +3691,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3400,7 +3699,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3408,7 +3707,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3416,7 +3715,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3424,7 +3723,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3432,7 +3731,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3440,7 +3739,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3448,7 +3747,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3456,7 +3755,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3464,7 +3763,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3472,7 +3771,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3480,7 +3779,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3488,7 +3787,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3496,7 +3795,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3504,7 +3803,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3512,7 +3811,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3520,7 +3819,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3528,7 +3827,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3536,7 +3835,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3544,7 +3843,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3552,7 +3851,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3560,7 +3859,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3568,7 +3867,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3576,7 +3875,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3584,7 +3883,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3592,7 +3891,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3600,7 +3899,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3608,7 +3907,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3623,7 +3922,11 @@ versioned_schema = {
             },
         },
         "rate_limit_mode": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [
                 {"value": "per-profile"},
@@ -3632,18 +3935,26 @@ versioned_schema = {
             ],
         },
         "warning_threshold": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "integer",
         },
         "message_rate_limit_v0": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "echo_request": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3651,7 +3962,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3659,21 +3970,25 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
             },
         },
         "message_rate_limit_v1": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "echo_request": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3681,7 +3996,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3689,21 +4004,25 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
             },
         },
         "message_rate_limit_v2": {
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "echo_request": {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3711,7 +4030,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3719,7 +4038,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3733,7 +4052,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                     "required": True,
@@ -3742,7 +4061,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -3750,7 +4069,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
@@ -3758,17 +4077,21 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
             },
-            "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v7.0.8"],
+                ["v7.2.0", "v7.2.4"],
+                ["v7.4.3", "v7.6.7"],
+            ],
         },
         "ie_white_list_v0v1": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
         "ie_white_list_v2": {"v_range": [["v6.0.0", "v6.4.4"]], "type": "string"},
     },
-    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", ""]],
+    "v_range": [["v6.0.0", "v7.0.8"], ["v7.2.0", "v7.2.4"], ["v7.4.3", "v7.6.7"]],
 }
 
 

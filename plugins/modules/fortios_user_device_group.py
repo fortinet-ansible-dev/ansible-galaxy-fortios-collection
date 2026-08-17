@@ -137,7 +137,6 @@ options:
                                 required: true
                                 type: str
 """
-
 EXAMPLES = """
 - name: Configure device groups.
   fortinet.fortios.fortios_user_device_group:

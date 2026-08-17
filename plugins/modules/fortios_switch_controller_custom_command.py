@@ -105,7 +105,6 @@ options:
                     - Description.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure the FortiGate switch controller to send custom commands to managed FortiSwitch devices.
   fortinet.fortios.fortios_switch_controller_custom_command:

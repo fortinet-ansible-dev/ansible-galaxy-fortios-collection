@@ -158,7 +158,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure AP local configuration profiles.
   fortinet.fortios.fortios_wireless_controller_apcfg_profile:

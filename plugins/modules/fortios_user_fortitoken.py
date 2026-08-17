@@ -131,7 +131,6 @@ options:
                     - 'active'
                     - 'lock'
 """
-
 EXAMPLES = """
 - name: Configure FortiToken.
   fortinet.fortios.fortios_user_fortitoken:

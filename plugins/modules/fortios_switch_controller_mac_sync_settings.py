@@ -87,7 +87,6 @@ options:
                     - Time interval between MAC synchronizations (30 - 1800 sec).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure global MAC synchronization settings.
   fortinet.fortios.fortios_switch_controller_mac_sync_settings:

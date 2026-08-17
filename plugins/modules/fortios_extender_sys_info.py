@@ -87,7 +87,6 @@ options:
                     - FortiExtender serial number. Source extender-controller.extender.id.
                 type: str
 """
-
 EXAMPLES = """
 - name: Display detailed FortiExtender system information.
   fortinet.fortios.fortios_extender_sys_info:

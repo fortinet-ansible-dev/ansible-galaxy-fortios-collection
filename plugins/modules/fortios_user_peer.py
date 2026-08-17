@@ -94,6 +94,20 @@ options:
                 description:
                     - Name of the CA certificate. Source vpn.certificate.ca.name.
                 type: str
+            checkemail:
+                description:
+                    - Peer certificate email address. Check passes if the certificate SAN matches the specified email address. If the certificate has no
+                       email-type SAN, the emailAddress DN in the Subject is checked instead.
+                type: str
+            checkhost:
+                description:
+                    - Peer certificate hostname. Check passes if the certificate SAN matches the specified hostname, and the client IP matches the hostname"s
+                       resolved IP. If the certificate has no DNS-type SAN, CN is checked instead.
+                type: str
+            checkip:
+                description:
+                    - Peer certificate IP address. Check passes if the certificate SAN and the client IP both match the specified IP.
+                type: str
             cn:
                 description:
                     - Peer certificate common name.
@@ -181,7 +195,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure peer users.
   fortinet.fortios.fortios_user_peer:
@@ -190,6 +203,9 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       user_peer:
           ca: "<your_own_value> (source vpn.certificate.ca.name)"
+          checkemail: "<your_own_value>"
+          checkhost: "myhostname"
+          checkip: "<your_own_value>"
           cn: "<your_own_value>"
           cn_type: "string"
           ldap_mode: "password"
@@ -201,7 +217,7 @@ EXAMPLES = """
           mfa_password: "<your_own_value>"
           mfa_server: "<your_own_value> (source user.radius.name user.ldap.name)"
           mfa_username: "<your_own_value>"
-          name: "default_name_15"
+          name: "default_name_18"
           ocsp_override_server: "<your_own_value> (source vpn.certificate.ocsp-server.name)"
           passwd: "<your_own_value>"
           subject: "<your_own_value>"
@@ -302,6 +318,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_user_peer_data(json):
     option_list = [
         "ca",
+        "checkemail",
+        "checkhost",
+        "checkip",
         "cn",
         "cn_type",
         "ldap_mode",
@@ -507,17 +526,6 @@ versioned_schema = {
         "ca": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "subject": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "cn": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "cn_type": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [
-                {"value": "string"},
-                {"value": "email"},
-                {"value": "FQDN"},
-                {"value": "ipv4"},
-                {"value": "ipv6"},
-            ],
-        },
         "mfa_mode": {
             "v_range": [["v7.4.1", ""]],
             "type": "string",
@@ -528,6 +536,9 @@ versioned_schema = {
             ],
         },
         "mfa_server": {"v_range": [["v7.4.1", ""]], "type": "string"},
+        "checkemail": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "checkip": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "checkhost": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "mfa_username": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "mfa_password": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "ocsp_override_server": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -537,6 +548,17 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "passwd": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "cn_type": {
+            "v_range": [["v6.0.0", "v7.6.7"]],
+            "type": "string",
+            "options": [
+                {"value": "string"},
+                {"value": "email"},
+                {"value": "FQDN"},
+                {"value": "ipv4"},
+                {"value": "ipv6"},
+            ],
+        },
         "ldap_server": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "string"},
         "ldap_username": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "string"},
         "ldap_password": {"v_range": [["v6.0.0", "v7.4.0"]], "type": "string"},

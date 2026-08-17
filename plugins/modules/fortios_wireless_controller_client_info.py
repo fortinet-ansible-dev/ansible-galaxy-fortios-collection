@@ -87,7 +87,6 @@ options:
                     - VFID.
                 type: str
 """
-
 EXAMPLES = """
 - name: Wireless controller client-info.
   fortinet.fortios.fortios_wireless_controller_client_info:

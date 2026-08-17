@@ -136,7 +136,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Address name. Source firewall.address6.name firewall.addrgrp6.name.
+                            - Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
                         required: true
                         type: str
             ip_based:
@@ -188,7 +188,7 @@ options:
                 suboptions:
                     name:
                         description:
-                            - Address name. Source firewall.address6.name firewall.addrgrp6.name.
+                            - Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
                         required: true
                         type: str
             srcintf:
@@ -235,7 +235,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure Authentication Rules.
   fortinet.fortios.fortios_authentication_rule:
@@ -254,7 +253,7 @@ EXAMPLES = """
                     .external-resource.name)"
           dstaddr6:
               -
-                  name: "default_name_11 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_11 (source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name)"
           ip_based: "enable"
           name: "default_name_13"
           protocol: "http"
@@ -265,7 +264,7 @@ EXAMPLES = """
                     .external-resource.name)"
           srcaddr6:
               -
-                  name: "default_name_19 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_19 (source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name)"
           srcintf:
               -
                   name: "default_name_21 (source system.interface.name system.zone.name system.sdwan.zone.name)"

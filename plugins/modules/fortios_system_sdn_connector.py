@@ -183,6 +183,29 @@ options:
                             - External IP name.
                         required: true
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             forwarding_rule:
                 description:
                     - Configure GCP forwarding rule.
@@ -275,6 +298,17 @@ options:
                     - 'us-south'
                     - 'us-east'
                     - 'great-britain'
+            k8s_allow_list:
+                description:
+                    - Allow list for the kubernetes cluster
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Kubernetes cluster name.
+                        required: true
+                        type: str
             key_passwd:
                 description:
                     - Private key password.
@@ -540,6 +574,10 @@ options:
                 description:
                     - Username of the remote SDN connector as login credentials.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vcenter_password:
                 description:
                     - vCenter server password for NSX quarantine.
@@ -568,7 +606,6 @@ options:
                     - AWS VPC ID.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure connection to SDN Connector.
   fortinet.fortios.fortios_system_sdn_connector:
@@ -598,6 +635,9 @@ EXAMPLES = """
           external_ip:
               -
                   name: "default_name_20"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           forwarding_rule:
               -
                   rule_name: "<your_own_value>"
@@ -607,27 +647,30 @@ EXAMPLES = """
               -
                   gcp_zone_list:
                       -
-                          name: "default_name_27"
-                  id: "28"
+                          name: "default_name_30"
+                  id: "31"
           group_name: "<your_own_value>"
           ha_status: "disable"
           ibm_region: "dallas"
           ibm_region_gen1: "us-south"
           ibm_region_gen2: "us-south"
+          k8s_allow_list:
+              -
+                  name: "default_name_38"
           key_passwd: "<your_own_value>"
           login_endpoint: "<your_own_value>"
           message_server_port: "0"
           microsoft_365: "disable"
-          name: "default_name_38"
+          name: "default_name_43"
           nic:
               -
                   ip:
                       -
-                          name: "default_name_41"
+                          name: "default_name_46"
                           private_ip: "<your_own_value>"
                           public_ip: "<your_own_value>"
                           resource_group: "<your_own_value>"
-                  name: "default_name_45"
+                  name: "default_name_50"
                   peer_nic: "<your_own_value>"
           oci_cert: "<your_own_value> (source certificate.local.name)"
           oci_fingerprint: "<your_own_value>"
@@ -645,14 +688,14 @@ EXAMPLES = """
           resource_url: "<your_own_value>"
           route:
               -
-                  name: "default_name_61"
+                  name: "default_name_66"
           route_table:
               -
-                  name: "default_name_63"
+                  name: "default_name_68"
                   resource_group: "<your_own_value>"
                   route:
                       -
-                          name: "default_name_66"
+                          name: "default_name_71"
                           next_hop: "<your_own_value>"
                   subscription_id: "<your_own_value>"
           secret_key: "<your_own_value>"
@@ -673,6 +716,7 @@ EXAMPLES = """
           use_metadata_iam: "disable"
           user_id: "<your_own_value>"
           username: "<your_own_value>"
+          uuid: "<your_own_value>"
           vcenter_password: "<your_own_value>"
           vcenter_server: "<your_own_value>"
           vcenter_username: "<your_own_value>"
@@ -786,6 +830,9 @@ def filter_system_sdn_connector_data(json):
         "domain",
         "external_account_list",
         "external_ip",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "forwarding_rule",
         "gcp_project",
         "gcp_project_list",
@@ -794,6 +841,7 @@ def filter_system_sdn_connector_data(json):
         "ibm_region",
         "ibm_region_gen1",
         "ibm_region_gen2",
+        "k8s_allow_list",
         "key_passwd",
         "login_endpoint",
         "message_server_port",
@@ -830,6 +878,7 @@ def filter_system_sdn_connector_data(json):
         "use_metadata_iam",
         "user_id",
         "username",
+        "uuid",
         "vcenter_password",
         "vcenter_server",
         "vcenter_username",
@@ -1021,6 +1070,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -1122,6 +1187,18 @@ versioned_schema = {
                 },
             },
             "v_range": [["v7.0.4", ""]],
+        },
+        "k8s_allow_list": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "tenant_id": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "client_id": {"v_range": [["v6.0.0", ""]], "type": "string"},

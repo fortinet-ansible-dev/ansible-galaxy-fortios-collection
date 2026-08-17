@@ -131,7 +131,6 @@ options:
                     - UDP port of the wireless access gateway.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure wireless access gateway (WAG) profiles used for tunnels on AP.
   fortinet.fortios.fortios_wireless_controller_wag_profile:

@@ -191,7 +191,6 @@ options:
                     - Prefix-list as filter for showing routes. Source router.prefix-list.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure router settings.
   fortinet.fortios.fortios_router_setting:

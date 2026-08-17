@@ -142,7 +142,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure object tagging.
   fortinet.fortios.fortios_system_object_tagging:

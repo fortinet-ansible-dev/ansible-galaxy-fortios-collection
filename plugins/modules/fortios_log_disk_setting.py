@@ -195,10 +195,18 @@ options:
                     - 'disable'
             upload_destination:
                 description:
-                    - The type of server to upload log files to. Only FTP is currently supported.
+                    - The type of server to upload log files to.
                 type: str
                 choices:
                     - 'ftp-server'
+                    - 'sftp-server'
+            upload_file_format:
+                description:
+                    - Configure the file format to be used for log files prior to being uploaded.
+                type: str
+                choices:
+                    - 'default'
+                    - 'lz4'
             upload_ssl_conn:
                 description:
                     - Enable/disable encrypted FTPS communication to upload log files.
@@ -214,7 +222,7 @@ options:
                 type: str
             uploadip:
                 description:
-                    - IP address of the FTP server to upload log files to.
+                    - IP address of the FTP/SFTP server to upload log files to.
                 type: str
             uploadpass:
                 description:
@@ -222,7 +230,7 @@ options:
                 type: str
             uploadport:
                 description:
-                    - TCP port to use for communicating with the FTP server .
+                    - 'TCP port to use for communicating with the FTP/SFTP server .'
                 type: int
             uploadsched:
                 description:
@@ -253,7 +261,6 @@ options:
                     - 'dlp'
                     - 'app-ctrl'
                     - 'waf'
-                    - 'gtp'
                     - 'dns'
                     - 'ssh'
                     - 'ssl'
@@ -261,6 +268,7 @@ options:
                     - 'icap'
                     - 'virtual-patch'
                     - 'debug'
+                    - 'gtp'
                     - 'ztna'
                     - 'cifs'
                     - 'spamfilter'
@@ -274,7 +282,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Settings for local disk logging.
   fortinet.fortios.fortios_log_disk_setting:
@@ -301,6 +308,7 @@ EXAMPLES = """
           upload: "enable"
           upload_delete_files: "enable"
           upload_destination: "ftp-server"
+          upload_file_format: "default"
           upload_ssl_conn: "default"
           uploaddir: "<your_own_value>"
           uploadip: "<your_own_value>"
@@ -427,6 +435,7 @@ def filter_log_disk_setting_data(json):
         "upload",
         "upload_delete_files",
         "upload_destination",
+        "upload_file_format",
         "upload_ssl_conn",
         "uploaddir",
         "uploadip",
@@ -694,7 +703,15 @@ versioned_schema = {
         "upload_destination": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
-            "options": [{"value": "ftp-server"}],
+            "options": [
+                {"value": "ftp-server"},
+                {"value": "sftp-server", "v_range": [["v8.0.0", ""]]},
+            ],
+        },
+        "upload_file_format": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "default"}, {"value": "lz4"}],
         },
         "uploadip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "uploadport": {"v_range": [["v6.0.0", ""]], "type": "integer"},
@@ -718,7 +735,6 @@ versioned_schema = {
                 {"value": "dlp"},
                 {"value": "app-ctrl"},
                 {"value": "waf"},
-                {"value": "gtp"},
                 {"value": "dns"},
                 {"value": "ssh", "v_range": [["v6.2.0", ""]]},
                 {"value": "ssl", "v_range": [["v6.2.0", ""]]},
@@ -726,6 +742,7 @@ versioned_schema = {
                 {"value": "icap", "v_range": [["v6.4.0", ""]]},
                 {"value": "virtual-patch", "v_range": [["v7.4.1", ""]]},
                 {"value": "debug", "v_range": [["v7.6.3", ""]]},
+                {"value": "gtp", "v_range": [["v6.0.0", "v7.6.7"]]},
                 {"value": "ztna", "v_range": [["v7.0.1", "v7.0.3"]]},
                 {"value": "cifs", "v_range": [["v6.2.0", "v6.4.4"]]},
                 {"value": "spamfilter", "v_range": [["v6.0.0", "v6.0.11"]]},

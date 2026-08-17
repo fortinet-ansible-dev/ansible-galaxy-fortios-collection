@@ -87,7 +87,6 @@ options:
                     - Verbose.
                 type: str
 """
-
 EXAMPLES = """
 - name: Wireless controller VAP-status.
   fortinet.fortios.fortios_wireless_controller_vap_status:

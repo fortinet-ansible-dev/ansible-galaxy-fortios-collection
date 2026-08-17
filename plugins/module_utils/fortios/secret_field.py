@@ -32,7 +32,8 @@ secret_fields = [
     "token_certificate", "ble_rtls_server_token", "admin_auth_tacacs+", "gch_cryptokey", "gch_cryptokey_version",
     "gch_keyring", "acme_eab_key_hmac", "eab_key_hmac", "gck_access_token_lifetime", "gck_keyid", "gch_private_key",
     "fortitoken_cloud_region", "gck_private_key", "cups_api_key", "tc_api_key", "apcfg_auto_cert_est_http_password",
-    "apcfg_auto_cert_scep_password"
+    "apcfg_auto_cert_scep_password", "captcha_site_key", "keys", "max_completion_tokens", "openai_api_key_part2",
+    "private_data_encryption_key", "token_url"
 ]
 
 
@@ -54,13 +55,19 @@ def is_secret_field(key_name):
         "_access_key",
         "_access_token",
         "_token",
+        "_site_key",
     )
     for suffix in secret_suffixes:
         if key_name.endswith(suffix) and len(key_name) > len(suffix):
             return True
 
     # Also match the bare forms (without the leading underscore) for common patterns.
-    if key_name.endswith("password") or key_name.endswith("private_key") or key_name.endswith("api_key"):
+    if (
+        key_name.endswith("password")
+        or key_name.endswith("private_key")
+        or key_name.endswith("api_key")
+        or "_api_key_" in key_name
+    ):
         return True
 
     return False

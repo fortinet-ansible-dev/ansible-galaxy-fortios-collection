@@ -167,7 +167,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam banned word list.
   fortinet.fortios.fortios_spamfilter_bword:

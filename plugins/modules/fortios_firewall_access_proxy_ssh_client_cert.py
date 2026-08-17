@@ -172,7 +172,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure Access Proxy SSH client certificate.
   fortinet.fortios.fortios_firewall_access_proxy_ssh_client_cert:

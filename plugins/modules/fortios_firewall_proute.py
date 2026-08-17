@@ -87,7 +87,6 @@ options:
                     - Number.
                 type: str
 """
-
 EXAMPLES = """
 - name: List policy routing.
   fortinet.fortios.fortios_firewall_proute:

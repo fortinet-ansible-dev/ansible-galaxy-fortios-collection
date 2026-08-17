@@ -109,7 +109,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure YouTube API keys.
   fortinet.fortios.fortios_videofilter_youtube_key:

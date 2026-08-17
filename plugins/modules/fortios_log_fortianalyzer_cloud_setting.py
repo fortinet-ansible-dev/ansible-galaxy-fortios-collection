@@ -201,7 +201,7 @@ options:
                     - 'TLSv1-3'
             status:
                 description:
-                    - Enable/disable logging to FortiAnalyzer.
+                    - Enable/disable logging to FortiAnalyzer Cloud.
                 type: str
                 choices:
                     - 'enable'
@@ -236,7 +236,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Global FortiAnalyzer Cloud settings.
   fortinet.fortios.fortios_log_fortianalyzer_cloud_setting:

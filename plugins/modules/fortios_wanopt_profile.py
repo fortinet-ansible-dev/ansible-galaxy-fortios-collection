@@ -441,7 +441,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure WAN optimization profiles.
   fortinet.fortios.fortios_wanopt_profile:

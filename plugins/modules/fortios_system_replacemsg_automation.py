@@ -116,7 +116,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Replacement messages.
   fortinet.fortios.fortios_system_replacemsg_automation:

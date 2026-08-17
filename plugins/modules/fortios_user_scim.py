@@ -156,7 +156,6 @@ options:
                     - Certificate for token verification. Source vpn.certificate.remote.name vpn.certificate.local.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure SCIM client entries.
   fortinet.fortios.fortios_user_scim:

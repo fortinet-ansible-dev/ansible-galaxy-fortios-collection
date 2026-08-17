@@ -248,6 +248,29 @@ options:
                         description:
                             - ClientHelloOuter SNI to be blocked.
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             ftps:
                 description:
                     - Configure FTPS options.
@@ -1470,6 +1493,10 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             whitelist:
                 description:
                     - Enable/disable exempting servers by FortiGuard whitelist.
@@ -1478,7 +1505,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure SSL/SSH protocol options.
   fortinet.fortios.fortios_firewall_ssl_ssh_profile:
@@ -1510,6 +1536,9 @@ EXAMPLES = """
               -
                   name: "default_name_24"
                   sni: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           ftps:
               allow_invalid_server_cert: "enable"
               cert_validation_failure: "allow"
@@ -1573,7 +1602,7 @@ EXAMPLES = """
               untrusted_cert: "allow"
               untrusted_server_cert: "allow"
           mapi_over_https: "enable"
-          name: "default_name_89"
+          name: "default_name_92"
           pop3s:
               allow_invalid_server_cert: "enable"
               cert_validation_failure: "allow"
@@ -1596,7 +1625,7 @@ EXAMPLES = """
           rpc_over_https: "enable"
           server_cert:
               -
-                  name: "default_name_111 (source vpn.certificate.local.name)"
+                  name: "default_name_114 (source vpn.certificate.local.name)"
           server_cert_mode: "re-sign"
           smtps:
               allow_invalid_server_cert: "enable"
@@ -1653,7 +1682,7 @@ EXAMPLES = """
                   address: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   address6: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
                   fortiguard_category: "0"
-                  id: "167"
+                  id: "170"
                   regex: "<your_own_value>"
                   type: "fortiguard-category"
                   wildcard_fqdn: "<your_own_value> (source firewall.wildcard-fqdn.custom.name firewall.wildcard-fqdn.group.name)"
@@ -1668,7 +1697,7 @@ EXAMPLES = """
                   ftps_client_certificate: "bypass"
                   https_client_cert_request: "bypass"
                   https_client_certificate: "bypass"
-                  id: "181"
+                  id: "184"
                   imaps_client_cert_request: "bypass"
                   imaps_client_certificate: "bypass"
                   ip: "<your_own_value>"
@@ -1682,6 +1711,7 @@ EXAMPLES = """
           supported_alpn: "http1-1"
           untrusted_caname: "<your_own_value> (source vpn.certificate.local.name vpn.certificate.hsm-local.name)"
           use_ssl_server: "disable"
+          uuid: "<your_own_value>"
           whitelist: "enable"
 """
 
@@ -1785,6 +1815,9 @@ def filter_firewall_ssl_ssh_profile_data(json):
         "comment",
         "dot",
         "ech_outer_sni",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "ftps",
         "https",
         "imaps",
@@ -1810,6 +1843,7 @@ def filter_firewall_ssl_ssh_profile_data(json):
         "supported_alpn",
         "untrusted_caname",
         "use_ssl_server",
+        "uuid",
         "whitelist",
     ]
 
@@ -2035,6 +2069,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ssl": {
             "v_range": [["v6.0.0", ""]],

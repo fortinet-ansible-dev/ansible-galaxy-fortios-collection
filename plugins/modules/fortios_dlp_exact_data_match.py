@@ -116,6 +116,29 @@ options:
                 description:
                     - External resource for exact data match. Source system.external-resource.name.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             name:
                 description:
                     - Name of table containing the exact-data-match template.
@@ -125,8 +148,11 @@ options:
                 description:
                     - Number of optional columns need to match.
                 type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure exact-data-match template used by DLP scan.
   fortinet.fortios.fortios_dlp_exact_data_match:
@@ -140,8 +166,12 @@ EXAMPLES = """
                   optional: "enable"
                   type: "<your_own_value> (source dlp.data-type.name)"
           data: "<your_own_value> (source system.external-resource.name)"
-          name: "default_name_8"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          name: "default_name_11"
           optional: "0"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -236,7 +266,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_dlp_exact_data_match_data(json):
-    option_list = ["columns", "data", "name", "optional"]
+    option_list = [
+        "columns",
+        "data",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "name",
+        "optional",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -421,6 +460,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.4.2", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "optional": {"v_range": [["v7.4.2", ""]], "type": "integer"},
         "data": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "columns": {

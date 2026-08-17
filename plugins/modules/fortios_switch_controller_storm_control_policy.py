@@ -137,7 +137,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch storm control policy to be applied on managed-switch ports.
   fortinet.fortios.fortios_switch_controller_storm_control_policy:

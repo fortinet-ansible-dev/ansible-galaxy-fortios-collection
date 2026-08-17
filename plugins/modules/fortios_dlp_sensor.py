@@ -139,6 +139,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             feature_set:
                 description:
                     - Flow/proxy feature set.
@@ -348,8 +371,11 @@ options:
                     - 'mm3'
                     - 'mm4'
                     - 'mm7'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure sensors used by DLP blocking.
   fortinet.fortios.fortios_dlp_sensor:
@@ -367,37 +393,41 @@ EXAMPLES = """
                   status: "enable"
           eval: "<your_own_value>"
           extended_log: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           feature_set: "flow"
           filter:
               -
                   action: "allow"
                   archive: "disable"
-                  company_identifier: "myId_16"
+                  company_identifier: "myId_19"
                   expiry: "<your_own_value>"
                   file_size: "10"
                   file_type: "0"
                   filter_by: "credit-card"
                   fp_sensitivity:
                       -
-                          name: "default_name_22 (source dlp.fp-sensitivity.name)"
-                  id: "23"
+                          name: "default_name_25 (source dlp.fp-sensitivity.name)"
+                  id: "26"
                   match_percentage: "10"
-                  name: "default_name_25"
+                  name: "default_name_28"
                   proto: "smtp"
                   regexp: "<your_own_value>"
                   sensitivity:
                       -
-                          name: "default_name_29 (source dlp.sensitivity.name)"
+                          name: "default_name_32 (source dlp.sensitivity.name)"
                   severity: "info"
                   type: "file"
           flow_based: "enable"
           full_archive_proto: "smtp"
           match_type: "match-all"
           nac_quar_log: "enable"
-          name: "default_name_36"
+          name: "default_name_39"
           options: "<your_own_value>"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           summary_proto: "smtp"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -498,6 +528,9 @@ def filter_dlp_sensor_data(json):
         "entries",
         "eval",
         "extended_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "feature_set",
         "filter",
         "flow_based",
@@ -508,6 +541,7 @@ def filter_dlp_sensor_data(json):
         "options",
         "replacemsg_group",
         "summary_proto",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -749,6 +783,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "match_type": {
             "v_range": [["v7.2.0", ""]],
             "type": "string",

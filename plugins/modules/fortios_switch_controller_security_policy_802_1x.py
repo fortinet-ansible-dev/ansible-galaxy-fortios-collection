@@ -90,6 +90,13 @@ options:
         default: null
         type: dict
         suboptions:
+            allow_mac_move:
+                description:
+                    - Enable/disable MAC move .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             auth_fail_vlan:
                 description:
                     - Enable to allow limited access to clients that cannot authenticate.
@@ -148,6 +155,10 @@ options:
                 description:
                     - Authentication server timeout VLAN name. Source system.interface.name.
                 type: str
+            client_limit:
+                description:
+                    - Configure the maximum number of endpoint devices this FortiGate unit will accept while configured in MAC mode.
+                type: int
             dacl:
                 description:
                     - Enable/disable dynamic access control list on this interface.
@@ -158,6 +169,13 @@ options:
             eap_auto_untagged_vlans:
                 description:
                     - Enable/disable automatic inclusion of untagged VLANs.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            eap_egress_tagged:
+                description:
+                    - Enable/disable egress frame tag .
                 type: str
                 choices:
                     - 'disable'
@@ -246,7 +264,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure 802.1x MAC Authentication Bypass (MAB) policies.
   fortinet.fortios.fortios_switch_controller_security_policy_802_1x:
@@ -254,6 +271,7 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       switch_controller_security_policy_802_1x:
+          allow_mac_move: "disable"
           auth_fail_vlan: "disable"
           auth_fail_vlan_id: "<your_own_value> (source system.interface.name)"
           auth_fail_vlanid: "32767"
@@ -264,8 +282,10 @@ EXAMPLES = """
           authserver_timeout_tagged_vlanid: "<your_own_value> (source system.interface.name)"
           authserver_timeout_vlan: "disable"
           authserver_timeout_vlanid: "<your_own_value> (source system.interface.name)"
+          client_limit: "20"
           dacl: "disable"
           eap_auto_untagged_vlans: "disable"
+          eap_egress_tagged: "disable"
           eap_passthru: "disable"
           framevid_apply: "disable"
           guest_auth_delay: "30"
@@ -273,14 +293,14 @@ EXAMPLES = """
           guest_vlan_id: "<your_own_value> (source system.interface.name)"
           guest_vlanid: "32767"
           mac_auth_bypass: "disable"
-          name: "default_name_22"
+          name: "default_name_25"
           open_auth: "disable"
           policy_type: "802.1X"
           radius_timeout_overwrite: "disable"
           security_mode: "802.1X"
           user_group:
               -
-                  name: "default_name_28 (source user.group.name)"
+                  name: "default_name_31 (source user.group.name)"
 """
 
 RETURN = """
@@ -376,6 +396,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_switch_controller_security_policy_802_1x_data(json):
     option_list = [
+        "allow_mac_move",
         "auth_fail_vlan",
         "auth_fail_vlan_id",
         "auth_fail_vlanid",
@@ -386,8 +407,10 @@ def filter_switch_controller_security_policy_802_1x_data(json):
         "authserver_timeout_tagged_vlanid",
         "authserver_timeout_vlan",
         "authserver_timeout_vlanid",
+        "client_limit",
         "dacl",
         "eap_auto_untagged_vlans",
+        "eap_egress_tagged",
         "eap_passthru",
         "framevid_apply",
         "guest_auth_delay",
@@ -703,6 +726,17 @@ versioned_schema = {
         },
         "dacl": {
             "v_range": [["v7.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "client_limit": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "eap_egress_tagged": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "allow_mac_move": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },

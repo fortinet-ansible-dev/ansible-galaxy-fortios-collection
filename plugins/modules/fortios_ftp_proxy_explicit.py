@@ -156,7 +156,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure explicit FTP proxy settings.
   fortinet.fortios.fortios_ftp_proxy_explicit:

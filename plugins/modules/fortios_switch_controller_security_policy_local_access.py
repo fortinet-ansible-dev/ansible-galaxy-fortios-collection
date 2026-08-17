@@ -122,7 +122,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure allowaccess list for mgmt and internal interfaces on managed FortiSwitch units.
   fortinet.fortios.fortios_switch_controller_security_policy_local_access:

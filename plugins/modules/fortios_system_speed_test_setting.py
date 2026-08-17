@@ -92,7 +92,6 @@ options:
                     - Number of parallel client streams (1 - 64) for the TCP protocol to run during the speed test.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure speed test setting.
   fortinet.fortios.fortios_system_speed_test_setting:

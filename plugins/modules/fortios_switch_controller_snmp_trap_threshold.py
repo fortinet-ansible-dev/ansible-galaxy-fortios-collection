@@ -95,7 +95,6 @@ options:
                     - Memory usage when trap is sent.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch SNMP trap threshold values globally.
   fortinet.fortios.fortios_switch_controller_snmp_trap_threshold:

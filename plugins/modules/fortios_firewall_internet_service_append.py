@@ -99,7 +99,6 @@ options:
                     - Matching TCP/UDP/SCTP destination port (0 to 65535, 0 means any port).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure additional port mappings for Internet Services.
   fortinet.fortios.fortios_firewall_internet_service_append:

@@ -106,7 +106,6 @@ options:
                     - Interrupt name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure interrupt affinity.
   fortinet.fortios.fortios_system_affinity_interrupt:

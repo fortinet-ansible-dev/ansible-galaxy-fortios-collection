@@ -175,7 +175,6 @@ options:
                     - 'policing'
                     - 'queuing'
 """
-
 EXAMPLES = """
 - name: Configure shaping profiles.
   fortinet.fortios.fortios_firewall_shaping_profile:

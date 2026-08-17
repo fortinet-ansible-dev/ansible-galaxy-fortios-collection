@@ -107,7 +107,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure ACL groups to be applied on managed FortiSwitch ports.
   fortinet.fortios.fortios_switch_controller_acl_group:

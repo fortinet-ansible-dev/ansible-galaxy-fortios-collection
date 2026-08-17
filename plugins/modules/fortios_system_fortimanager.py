@@ -126,7 +126,6 @@ options:
                     - Virtual domain name. Source system.vdom.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiManager.
   fortinet.fortios.fortios_system_fortimanager:

@@ -168,7 +168,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure endpoint control settings.
   fortinet.fortios.fortios_endpoint_control_settings:

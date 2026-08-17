@@ -124,7 +124,6 @@ options:
                     - User name to sign in with. Must have proper permissions for service.
                 type: str
 """
-
 EXAMPLES = """
 - name: Define known domain controller servers.
   fortinet.fortios.fortios_credential_store_domain_controller:

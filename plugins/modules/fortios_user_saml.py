@@ -120,6 +120,29 @@ options:
                 description:
                     - SP entity ID.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             group_claim_type:
                 description:
                     - Group claim in assertion statement.
@@ -177,6 +200,10 @@ options:
                     - SAML server entry name.
                 required: true
                 type: str
+            realm:
+                description:
+                    - FortiIdentity cloud realm.
+                type: str
             reauth:
                 description:
                     - Enable/disable signalling of IDP to force user re-authentication .
@@ -211,6 +238,10 @@ options:
                     - 'display-name'
                     - 'external-id'
                     - 'email'
+            service_provider_address:
+                description:
+                    - The address to handle SAML auth request. To include a port, append it after a colon.
+                type: str
             single_logout_url:
                 description:
                     - SP single logout URL.
@@ -219,6 +250,13 @@ options:
                 description:
                     - SP single sign-on URL.
                 type: str
+            type:
+                description:
+                    - SAML type.
+                type: str
+                choices:
+                    - 'custom'
+                    - 'fortiidentity-cloud'
             user_claim_type:
                 description:
                     - User name claim in assertion statement.
@@ -248,8 +286,15 @@ options:
                 description:
                     - User name in assertion statement.
                 type: str
+            user_source:
+                description:
+                    - FortiIdentity cloud user souce.
+                type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: SAML server entry configuration.
   fortinet.fortios.fortios_user_saml:
@@ -263,6 +308,9 @@ EXAMPLES = """
           clock_tolerance: "15"
           digest_method: "sha1"
           entity_id: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           group_claim_type: "email"
           group_name: "<your_own_value>"
           idp_cert: "<your_own_value> (source vpn.certificate.remote.name)"
@@ -270,16 +318,21 @@ EXAMPLES = """
           idp_single_logout_url: "<your_own_value>"
           idp_single_sign_on_url: "<your_own_value>"
           limit_relaystate: "enable"
-          name: "default_name_16"
+          name: "default_name_19"
+          realm: "<your_own_value>"
           reauth: "enable"
           require_signed_resp_and_asrt: "enable"
           scim_client: "<your_own_value> (source user.scim.name)"
           scim_group_attr_type: "display-name"
           scim_user_attr_type: "user-name"
+          service_provider_address: "<your_own_value>"
           single_logout_url: "<your_own_value>"
           single_sign_on_url: "<your_own_value>"
+          type: "custom"
           user_claim_type: "email"
           user_name: "<your_own_value>"
+          user_source: "<your_own_value>"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -381,6 +434,9 @@ def filter_user_saml_data(json):
         "clock_tolerance",
         "digest_method",
         "entity_id",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "group_claim_type",
         "group_name",
         "idp_cert",
@@ -389,15 +445,20 @@ def filter_user_saml_data(json):
         "idp_single_sign_on_url",
         "limit_relaystate",
         "name",
+        "realm",
         "reauth",
         "require_signed_resp_and_asrt",
         "scim_client",
         "scim_group_attr_type",
         "scim_user_attr_type",
+        "service_provider_address",
         "single_logout_url",
         "single_sign_on_url",
+        "type",
         "user_claim_type",
         "user_name",
+        "user_source",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -579,7 +640,29 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.2.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "cert": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "custom"}, {"value": "fortiidentity-cloud"}],
+        },
+        "service_provider_address": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "entity_id": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "single_sign_on_url": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "single_logout_url": {"v_range": [["v6.2.0", ""]], "type": "string"},
@@ -621,6 +704,8 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "clock_tolerance": {"v_range": [["v7.0.4", ""]], "type": "integer"},
+        "realm": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "user_source": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "adfs_claim": {
             "v_range": [["v7.0.0", ""]],
             "type": "string",

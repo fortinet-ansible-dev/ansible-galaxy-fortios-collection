@@ -98,7 +98,6 @@ options:
                     - Maximum time after which IGMP query will be sent (10 - 1200 sec).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch IGMP snooping global settings.
   fortinet.fortios.fortios_switch_controller_igmp_snooping:

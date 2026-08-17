@@ -180,7 +180,6 @@ options:
                     - User name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure devices.
   fortinet.fortios.fortios_user_device:

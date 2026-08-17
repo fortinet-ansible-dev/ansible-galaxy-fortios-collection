@@ -119,7 +119,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure a list of hashes to be exempt from AV scanning.
   fortinet.fortios.fortios_antivirus_exempt_list:

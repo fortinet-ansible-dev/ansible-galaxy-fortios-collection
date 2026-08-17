@@ -123,7 +123,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Proxy destination connection fast-fallback.
   fortinet.fortios.fortios_web_proxy_fast_fallback:

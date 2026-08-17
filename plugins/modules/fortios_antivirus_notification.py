@@ -131,7 +131,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure AntiVirus notification lists.
   fortinet.fortios.fortios_antivirus_notification:

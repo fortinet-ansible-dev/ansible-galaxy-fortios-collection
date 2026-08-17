@@ -110,6 +110,17 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this policy. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
             dnat:
                 description:
                     - IPv4 DNAT address used for multicast destination addresses.
@@ -212,7 +223,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure multicast NAT policies.
   fortinet.fortios.fortios_firewall_multicast_policy:
@@ -223,22 +233,25 @@ EXAMPLES = """
           action: "accept"
           auto_asic_offload: "enable"
           comments: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_7 (source firewall.custom-tag.name)"
           dnat: "<your_own_value>"
           dstaddr:
               -
-                  name: "default_name_8 (source firewall.multicast-address.name)"
+                  name: "default_name_10 (source firewall.multicast-address.name)"
           dstintf: "<your_own_value> (source system.interface.name system.zone.name system.sdwan.zone.name)"
           end_port: "65535"
-          id: "11"
+          id: "13"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           logtraffic: "all"
-          name: "default_name_14"
+          name: "default_name_16"
           protocol: "0"
           snat: "enable"
           snat_ip: "<your_own_value>"
           srcaddr:
               -
-                  name: "default_name_19 (source firewall.address.name firewall.addrgrp.name)"
+                  name: "default_name_21 (source firewall.address.name firewall.addrgrp.name)"
           srcintf: "<your_own_value> (source system.interface.name system.zone.name system.sdwan.zone.name)"
           start_port: "1"
           status: "enable"
@@ -343,6 +356,7 @@ def filter_firewall_multicast_policy_data(json):
         "action",
         "auto_asic_offload",
         "comments",
+        "custom_tags",
         "dnat",
         "dstaddr",
         "dstintf",
@@ -560,6 +574,18 @@ versioned_schema = {
         },
         "srcintf": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "dstintf": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "srcaddr": {
             "type": "list",
             "elements": "dict",

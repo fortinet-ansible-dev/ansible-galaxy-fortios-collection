@@ -114,7 +114,6 @@ options:
                     - 'accepted'
                     - 'suppressed'
 """
-
 EXAMPLES = """
 - name: Configure access point status (rogue | accepted | suppressed).
   fortinet.fortios.fortios_wireless_controller_ap_status:

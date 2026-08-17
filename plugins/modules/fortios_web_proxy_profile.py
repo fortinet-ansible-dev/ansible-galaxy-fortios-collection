@@ -90,6 +90,29 @@ options:
         default: null
         type: dict
         suboptions:
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             header_client_cert:
                 description:
                     - 'Action to take on the HTTP Client-Cert/Client-Cert-Chain headers in forwarded responses: forwards (pass), adds, or removes the HTTP
@@ -199,7 +222,7 @@ options:
                             - 'enable'
                     content:
                         description:
-                            - 'HTTP header content (max length: 3999 characters).'
+                            - HTTP header content (0 - 16383).
                         type: str
                     dstaddr:
                         description:
@@ -259,8 +282,11 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure web proxy profiles.
   fortinet.fortios.fortios_web_proxy_profile:
@@ -268,6 +294,9 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       web_proxy_profile:
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           header_client_cert: "pass"
           header_client_ip: "pass"
           header_front_end_https: "pass"
@@ -285,16 +314,17 @@ EXAMPLES = """
                   content: "<your_own_value>"
                   dstaddr:
                       -
-                          name: "default_name_18 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_21 (source firewall.address.name firewall.addrgrp.name)"
                   dstaddr6:
                       -
-                          name: "default_name_20 (source firewall.address6.name firewall.addrgrp6.name)"
-                  id: "21"
-                  name: "default_name_22"
+                          name: "default_name_23 (source firewall.address6.name firewall.addrgrp6.name)"
+                  id: "24"
+                  name: "default_name_25"
                   protocol: "https"
           log_header_change: "enable"
-          name: "default_name_25"
+          name: "default_name_28"
           strip_encoding: "enable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -390,6 +420,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_web_proxy_profile_data(json):
     option_list = [
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "header_client_cert",
         "header_client_ip",
         "header_front_end_https",
@@ -403,6 +436,7 @@ def filter_web_proxy_profile_data(json):
         "log_header_change",
         "name",
         "strip_encoding",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -620,6 +654,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "header_client_ip": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

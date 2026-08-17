@@ -94,6 +94,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             max_connections:
                 description:
                     - Maximum number of web proxy WISP connections (4 - 4096).
@@ -119,8 +142,11 @@ options:
                 description:
                     - Period of time before WISP requests time out (1 - 15 sec).
                 type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure Websense Integrated Services Protocol (WISP) servers.
   fortinet.fortios.fortios_web_proxy_wisp:
@@ -129,12 +155,16 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       web_proxy_wisp:
           comment: "Comment."
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           max_connections: "64"
-          name: "default_name_5"
+          name: "default_name_8"
           outgoing_ip: "<your_own_value>"
           server_ip: "<your_own_value>"
           server_port: "15868"
           timeout: "5"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -231,12 +261,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_web_proxy_wisp_data(json):
     option_list = [
         "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "max_connections",
         "name",
         "outgoing_ip",
         "server_ip",
         "server_port",
         "timeout",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -418,6 +452,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "outgoing_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "server_ip": {"v_range": [["v6.0.0", ""]], "type": "string"},

@@ -298,6 +298,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             filter:
                 description:
                     - IPS sensor filter.
@@ -472,8 +495,11 @@ options:
                     - 'disable'
                     - 'block'
                     - 'monitor'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure IPS sensor.
   fortinet.fortios.fortios_ips_sensor:
@@ -521,6 +547,9 @@ EXAMPLES = """
                       -
                           id: "36"
           extended_log: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           filter:
               -
                   action: "pass"
@@ -528,7 +557,7 @@ EXAMPLES = """
                   location: "<your_own_value>"
                   log: "disable"
                   log_packet: "disable"
-                  name: "default_name_44"
+                  name: "default_name_47"
                   os: "<your_own_value>"
                   protocol: "<your_own_value>"
                   quarantine: "none"
@@ -536,14 +565,14 @@ EXAMPLES = """
                   quarantine_log: "disable"
                   severity: "<your_own_value>"
                   status: "disable"
-          name: "default_name_52"
+          name: "default_name_55"
           override:
               -
                   action: "pass"
                   exempt_ip:
                       -
                           dst_ip: "<your_own_value>"
-                          id: "57"
+                          id: "60"
                           src_ip: "<your_own_value>"
                   log: "disable"
                   log_packet: "disable"
@@ -554,6 +583,7 @@ EXAMPLES = """
                   status: "disable"
           replacemsg_group: "<your_own_value> (source system.replacemsg-group.name)"
           scan_botnet_connections: "disable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -653,11 +683,15 @@ def filter_ips_sensor_data(json):
         "comment",
         "entries",
         "extended_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "filter",
         "name",
         "override",
         "replacemsg_group",
         "scan_botnet_connections",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -875,6 +909,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "replacemsg_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "block_malicious_url": {

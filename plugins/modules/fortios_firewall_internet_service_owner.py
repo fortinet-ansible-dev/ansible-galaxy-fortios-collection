@@ -102,7 +102,6 @@ options:
                     - Internet Service owner name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Internet Service owner.
   fortinet.fortios.fortios_firewall_internet_service_owner:

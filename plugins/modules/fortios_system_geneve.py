@@ -130,7 +130,6 @@ options:
                     - GENEVE network ID.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure GENEVE devices.
   fortinet.fortios.fortios_system_geneve:

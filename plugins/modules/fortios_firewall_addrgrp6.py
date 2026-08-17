@@ -90,6 +90,13 @@ options:
         default: null
         type: dict
         suboptions:
+            category:
+                description:
+                    - Address group category.
+                type: str
+                choices:
+                    - 'default'
+                    - 'ztna-ems-tag'
             color:
                 description:
                     - Integer value to determine the color of the icon in the GUI (1 - 32).
@@ -98,6 +105,25 @@ options:
                 description:
                     - Comment.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address group. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             exclude:
                 description:
                     - Enable/disable address6 exclusion.
@@ -116,6 +142,14 @@ options:
                             - Address6 name. Source firewall.address6.name firewall.addrgrp6.name.
                         required: true
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -123,6 +157,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             member:
                 description:
                     - Address objects contained within the group.
@@ -165,6 +207,13 @@ options:
                                     - Tag name. Source system.object-tagging.tags.name.
                                 required: true
                                 type: str
+            type:
+                description:
+                    - Address group type.
+                type: str
+                choices:
+                    - 'default'
+                    - 'dynamic-tag'
             uuid:
                 description:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
@@ -177,7 +226,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPv6 address groups.
   fortinet.fortios.fortios_firewall_addrgrp6:
@@ -185,24 +233,32 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       firewall_addrgrp6:
+          category: "default"
           color: "0"
           comment: "Comment."
+          custom_tags:
+              -
+                  name: "default_name_7 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           exclude: "enable"
           exclude_member:
               -
-                  name: "default_name_7 (source firewall.address6.name firewall.addrgrp6.name)"
+                  name: "default_name_11 (source firewall.address6.name firewall.addrgrp6.name)"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           member:
               -
-                  name: "default_name_10 (source firewall.address6.name firewall.addrgrp6.name)"
-          name: "default_name_11"
+                  name: "default_name_16 (source firewall.address6.name firewall.addrgrp6.name)"
+          name: "default_name_17"
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_14"
+                  name: "default_name_20"
                   tags:
                       -
-                          name: "default_name_16 (source system.object-tagging.tags.name)"
+                          name: "default_name_22 (source system.object-tagging.tags.name)"
+          type: "default"
           uuid: "<your_own_value>"
           visibility: "enable"
 """
@@ -300,14 +356,20 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_firewall_addrgrp6_data(json):
     option_list = [
+        "category",
         "color",
         "comment",
+        "custom_tags",
+        "display_with",
         "exclude",
         "exclude_member",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "member",
         "name",
         "tagging",
+        "type",
         "uuid",
         "visibility",
     ]
@@ -495,7 +557,32 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "default"}, {"value": "dynamic-tag"}],
+        },
+        "category": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "default"}, {"value": "ztna-ems-tag"}],
+        },
         "uuid": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "member": {
@@ -552,10 +639,26 @@ versioned_schema = {
             },
             "v_range": [["v6.0.0", ""]],
         },
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "visibility": {
             "v_range": [["v6.0.0", "v6.2.7"]],

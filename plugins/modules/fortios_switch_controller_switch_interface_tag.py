@@ -96,7 +96,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure switch object tags.
   fortinet.fortios.fortios_switch_controller_switch_interface_tag:

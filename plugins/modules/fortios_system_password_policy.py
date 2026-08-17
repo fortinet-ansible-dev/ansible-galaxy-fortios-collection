@@ -118,8 +118,8 @@ options:
                     - 'disable'
             login_lockout_upon_weaker_encryption:
                 description:
-                    - Enable/disable administrative user login lockout upon downgrade (defaut = disable). If enabled, changing the FortiOS firmware to a
-                       version where safer passwords are unsupported will lock out administrative users.
+                    - Enable/disable administrative user login lockout upon downgrade . If enabled, changing the FortiOS firmware to a version where safer
+                       passwords are unsupported will lock out administrative users.
                 type: str
                 choices:
                     - 'enable'
@@ -167,7 +167,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure password policy for locally defined administrator passwords and IPsec VPN pre-shared keys.
   fortinet.fortios.fortios_system_password_policy:

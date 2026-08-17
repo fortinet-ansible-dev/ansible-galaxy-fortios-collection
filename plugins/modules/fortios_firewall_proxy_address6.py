@@ -1,0 +1,857 @@
+#!/usr/bin/python
+from __future__ import absolute_import, division, print_function
+
+# Copyright: (c) 2022 Fortinet
+# GNU General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/gpl-3.0.txt)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+__metaclass__ = type
+
+ANSIBLE_METADATA = {
+    "status": ["preview"],
+    "supported_by": "community",
+    "metadata_version": "1.1",
+}
+
+DOCUMENTATION = """
+---
+module: fortios_firewall_proxy_address6
+short_description: Configure web proxy address6 in Fortinet's FortiOS and FortiGate.
+description:
+    - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
+      user to set and modify firewall feature and proxy_address6 category.
+      Examples include all parameters and values need to be adjusted to datasources before usage.
+      Tested with FOS v6.0.0
+version_added: "2.0.0"
+author:
+    - Link Zheng (@chillancezen)
+    - Jie Xue (@JieX19)
+    - Hongbin Lu (@fgtdev-hblu)
+    - Frank Shen (@frankshen01)
+    - Miguel Angel Munoz (@mamunozgonzalez)
+    - Nicolas Thomas (@thomnico)
+notes:
+    - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
+
+
+requirements:
+    - ansible>=2.16
+options:
+    access_token:
+        description:
+            - Token-based authentication.
+              Generated from GUI of Fortigate.
+        type: str
+        required: false
+    enable_log:
+        description:
+            - Enable/Disable logging for task.
+        type: bool
+        required: false
+        default: false
+    vdom:
+        description:
+            - Virtual domain, among those defined previously. A vdom is a
+              virtual instance of the FortiGate that can be configured and
+              used as a different unit.
+        type: str
+        default: root
+    member_path:
+        type: str
+        description:
+            - Member attribute path to operate on.
+            - Delimited by a slash character if there are more than one attribute.
+            - Parameter marked with member_path is legitimate for doing member operation.
+    member_state:
+        type: str
+        description:
+            - Add or delete a member under specified attribute path.
+            - When member_state is specified, the state option is ignored.
+        choices:
+            - 'present'
+            - 'absent'
+
+    state:
+        description:
+            - Indicates whether to create or remove the object.
+        type: str
+        required: true
+        choices:
+            - 'present'
+            - 'absent'
+    firewall_proxy_address6:
+        description:
+            - Configure web proxy address6.
+        default: null
+        type: dict
+        suboptions:
+            application:
+                description:
+                    - SaaS application.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - SaaS application name.
+                        required: true
+                        type: str
+            case_sensitivity:
+                description:
+                    - Enable to make the pattern case sensitive.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
+            category:
+                description:
+                    - FortiGuard category ID.
+                type: list
+                elements: dict
+                suboptions:
+                    id:
+                        description:
+                            - FortiGuard category ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+            color:
+                description:
+                    - Integer value to determine the color of the icon in the GUI (1 - 32).
+                type: int
+            comment:
+                description:
+                    - Optional comments.
+                type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
+            header:
+                description:
+                    - HTTP header value as a regular expression.
+                type: str
+            header_group:
+                description:
+                    - HTTP header group.
+                type: list
+                elements: dict
+                suboptions:
+                    case_sensitivity:
+                        description:
+                            - Case sensitivity in pattern.
+                        type: str
+                        choices:
+                            - 'disable'
+                            - 'enable'
+                    header:
+                        description:
+                            - HTTP header regular expression.
+                        type: str
+                    header_name:
+                        description:
+                            - HTTP header.
+                        type: str
+                    id:
+                        description:
+                            - ID. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
+            header_name:
+                description:
+                    - Name of HTTP header.
+                type: str
+            host:
+                description:
+                    - Address6 object for the host. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.vipgrp6.name
+                       firewall.vip6.name.
+                type: str
+            host_regex:
+                description:
+                    - Host name as a regular expression.
+                type: str
+            llm_servers:
+                description:
+                    - LLM Proxy server names.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Server name. Source llm.server.name.
+                        required: true
+                        type: str
+            method:
+                description:
+                    - HTTP request methods to be used.
+                type: list
+                elements: str
+                choices:
+                    - 'get'
+                    - 'post'
+                    - 'put'
+                    - 'head'
+                    - 'connect'
+                    - 'trace'
+                    - 'options'
+                    - 'delete'
+                    - 'update'
+                    - 'patch'
+                    - 'other'
+            name:
+                description:
+                    - Address6 name.
+                required: true
+                type: str
+            path:
+                description:
+                    - URL path as a regular expression.
+                type: str
+            query:
+                description:
+                    - Match the query part of the URL as a regular expression.
+                type: str
+            referrer:
+                description:
+                    - Enable/disable use of referrer field in the HTTP header to match the address.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            tagging:
+                description:
+                    - Config object tagging.
+                type: list
+                elements: dict
+                suboptions:
+                    category:
+                        description:
+                            - Tag category. Source system.object-tagging.category.
+                        type: str
+                    name:
+                        description:
+                            - Tagging entry name.
+                        required: true
+                        type: str
+                    tags:
+                        description:
+                            - Tags.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Tag name. Source system.object-tagging.tags.name.
+                                required: true
+                                type: str
+            type:
+                description:
+                    - Proxy address6 type.
+                type: str
+                choices:
+                    - 'host-regex'
+                    - 'url'
+                    - 'category'
+                    - 'method'
+                    - 'ua'
+                    - 'header'
+                    - 'src-advanced'
+                    - 'dst-advanced'
+                    - 'saas'
+                    - 'llm-server'
+            ua:
+                description:
+                    - Names of browsers to be used as user agent.
+                type: list
+                elements: str
+                choices:
+                    - 'chrome'
+                    - 'ms'
+                    - 'firefox'
+                    - 'safari'
+                    - 'ie'
+                    - 'edge'
+                    - 'other'
+            ua_max_ver:
+                description:
+                    - Maximum version of the user agent specified in dotted notation. For example, use 120 with the ua field set to "chrome" to require Google
+                       Chrome"s maximum version must be 120.
+                type: str
+            ua_min_ver:
+                description:
+                    - Minimum version of the user agent specified in dotted notation. For example, use 90.0.1 with the ua field set to "chrome" to require
+                       Google Chrome"s minimum version must be 90.0.1.
+                type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
+"""
+EXAMPLES = """
+- name: Configure web proxy address6.
+  fortinet.fortios.fortios_firewall_proxy_address6:
+      vdom: "{{ vdom }}"
+      state: "present"
+      access_token: "<your_own_value>"
+      firewall_proxy_address6:
+          application:
+              -
+                  name: "default_name_4"
+          case_sensitivity: "disable"
+          category:
+              -
+                  id: "7"
+          color: "0"
+          comment: "Optional comments."
+          custom_tags:
+              -
+                  name: "default_name_11 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
+          header: "<your_own_value>"
+          header_group:
+              -
+                  case_sensitivity: "disable"
+                  header: "<your_own_value>"
+                  header_name: "<your_own_value>"
+                  id: "18"
+          header_name: "<your_own_value>"
+          host: "myhostname (source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.vipgrp6.name firewall.vip6.name)"
+          host_regex: "myhostname"
+          llm_servers:
+              -
+                  name: "default_name_23 (source llm.server.name)"
+          method: "get"
+          name: "default_name_25"
+          path: "<your_own_value>"
+          query: "<your_own_value>"
+          referrer: "enable"
+          tagging:
+              -
+                  category: "<your_own_value> (source system.object-tagging.category)"
+                  name: "default_name_31"
+                  tags:
+                      -
+                          name: "default_name_33 (source system.object-tagging.tags.name)"
+          type: "host-regex"
+          ua: "chrome"
+          ua_max_ver: "<your_own_value>"
+          ua_min_ver: "<your_own_value>"
+          uuid: "<your_own_value>"
+"""
+
+RETURN = """
+build:
+  description: Build number of the fortigate image
+  returned: always
+  type: str
+  sample: '1547'
+http_method:
+  description: Last method used to provision the content into FortiGate
+  returned: always
+  type: str
+  sample: 'PUT'
+http_status:
+  description: Last result given by FortiGate on last operation applied
+  returned: always
+  type: str
+  sample: "200"
+mkey:
+  description: Master key (id) used in the last call to FortiGate
+  returned: success
+  type: str
+  sample: "id"
+name:
+  description: Name of the table used to fulfill the request
+  returned: always
+  type: str
+  sample: "urlfilter"
+path:
+  description: Path of the table used to fulfill the request
+  returned: always
+  type: str
+  sample: "webfilter"
+revision:
+  description: Internal revision number
+  returned: always
+  type: str
+  sample: "17.0.2.10658"
+serial:
+  description: Serial number of the unit
+  returned: always
+  type: str
+  sample: "FGVMEVYYQT3AB5352"
+status:
+  description: Indication of the operation's result
+  returned: always
+  type: str
+  sample: "success"
+vdom:
+  description: Virtual domain used
+  returned: always
+  type: str
+  sample: "root"
+version:
+  description: Version of the FortiGate
+  returned: always
+  type: str
+  sample: "v5.6.3"
+"""
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.connection import Connection
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios import (
+    FortiOSHandler,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios import (
+    check_legacy_fortiosapi,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios import (
+    schema_to_module_spec,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.fortios import (
+    check_schema_versioning,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortimanager.common import (
+    FAIL_SOCKET_MSG,
+)
+from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post_processor import (
+    remove_invalid_fields,
+)
+
+
+def filter_firewall_proxy_address6_data(json):
+    option_list = [
+        "application",
+        "case_sensitivity",
+        "category",
+        "color",
+        "comment",
+        "custom_tags",
+        "display_with",
+        "header",
+        "header_group",
+        "header_name",
+        "host",
+        "host_regex",
+        "llm_servers",
+        "method",
+        "name",
+        "path",
+        "query",
+        "referrer",
+        "tagging",
+        "type",
+        "ua",
+        "ua_max_ver",
+        "ua_min_ver",
+        "uuid",
+    ]
+
+    json = remove_invalid_fields(json)
+    dictionary = {}
+
+    for attribute in option_list:
+        if attribute in json and json[attribute] is not None:
+            dictionary[attribute] = json[attribute]
+
+    return dictionary
+
+
+def flatten_single_path(data, path, index):
+    if (
+        not data
+        or index == len(path)
+        or path[index] not in data
+        or (not data[path[index]] and not isinstance(data[path[index]], list))
+    ):
+        return
+
+    if index == len(path) - 1:
+        data[path[index]] = " ".join(str(elem) for elem in data[path[index]])
+        if len(data[path[index]]) == 0:
+            data[path[index]] = None
+    elif isinstance(data[path[index]], list):
+        for value in data[path[index]]:
+            flatten_single_path(value, path, index + 1)
+    else:
+        flatten_single_path(data[path[index]], path, index + 1)
+
+
+def flatten_multilists_attributes(data):
+    multilist_attrs = [
+        ["method"],
+        ["ua"],
+    ]
+
+    for attr in multilist_attrs:
+        flatten_single_path(data, attr, 0)
+
+    return data
+
+
+def underscore_to_hyphen(data):
+    new_data = None
+    if isinstance(data, list):
+        new_data = []
+        for i, elem in enumerate(data):
+            new_data.append(underscore_to_hyphen(elem))
+    elif isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            new_data[k.replace("_", "-")] = underscore_to_hyphen(v)
+    else:
+        return data
+    return new_data
+
+
+def firewall_proxy_address6(data, fos):
+    state = None
+    vdom = data["vdom"]
+    parameters = None
+    state = data.get("state", None)
+    firewall_proxy_address6_data = data["firewall_proxy_address6"]
+
+    filtered_data = filter_firewall_proxy_address6_data(firewall_proxy_address6_data)
+    filtered_data = flatten_multilists_attributes(filtered_data)
+    converted_data = underscore_to_hyphen(filtered_data)
+
+    # pass post processed data to member operations
+    # no need to do underscore_to_hyphen since do_member_operation handles it by itself
+    data_copy = data.copy()
+    data_copy["firewall_proxy_address6"] = filtered_data
+    fos.do_member_operation(
+        "firewall",
+        "proxy-address6",
+        data_copy,
+    )
+
+    if state == "present" or state is True:
+        return fos.set(
+            "firewall",
+            "proxy-address6",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
+
+    elif state == "absent":
+        return fos.delete(
+            "firewall",
+            "proxy-address6",
+            mkey=converted_data["name"],
+            vdom=vdom,
+            parameters=parameters,
+        )
+    else:
+        fos._module.fail_json(msg="state must be present or absent!")
+
+
+def is_successful_status(resp):
+    return (
+        "status" in resp
+        and resp["status"] == "success"
+        or "http_status" in resp
+        and resp["http_status"] == 200
+        or "http_method" in resp
+        and resp["http_method"] == "DELETE"
+        and resp["http_status"] == 404
+    )
+
+
+def fortios_firewall(data, fos):
+
+    if data["firewall_proxy_address6"]:
+        resp = firewall_proxy_address6(data, fos)
+    else:
+        fos._module.fail_json(msg="missing task body: %s" % ("firewall_proxy_address6"))
+
+    return (
+        not is_successful_status(resp),
+        is_successful_status(resp)
+        and (resp["revision_changed"] if "revision_changed" in resp else True),
+        resp,
+        {},
+    )
+
+
+versioned_schema = {
+    "type": "list",
+    "elements": "dict",
+    "children": {
+        "name": {"v_range": [["v8.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "host-regex"},
+                {"value": "url"},
+                {"value": "category"},
+                {"value": "method"},
+                {"value": "ua"},
+                {"value": "header"},
+                {"value": "src-advanced"},
+                {"value": "dst-advanced"},
+                {"value": "saas"},
+                {"value": "llm-server"},
+            ],
+        },
+        "host": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "host_regex": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "path": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "query": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "referrer": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "category": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {"v_range": [["v8.0.0", ""]], "type": "integer", "required": True}
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "method": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "get"},
+                {"value": "post"},
+                {"value": "put"},
+                {"value": "head"},
+                {"value": "connect"},
+                {"value": "trace"},
+                {"value": "options"},
+                {"value": "delete"},
+                {"value": "update"},
+                {"value": "patch"},
+                {"value": "other"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "ua": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "list",
+            "options": [
+                {"value": "chrome"},
+                {"value": "ms"},
+                {"value": "firefox"},
+                {"value": "safari"},
+                {"value": "ie"},
+                {"value": "edge"},
+                {"value": "other"},
+            ],
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "ua_min_ver": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "ua_max_ver": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "header_name": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "header": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "case_sensitivity": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "header_group": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "id": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "header_name": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "header": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "case_sensitivity": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "llm_servers": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "color": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "tagging": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "category": {"v_range": [["v8.0.0", ""]], "type": "string"},
+                "tags": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "comment": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "application": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+    },
+    "v_range": [["v8.0.0", ""]],
+}
+
+
+def main():
+    module_spec = schema_to_module_spec(versioned_schema)
+    mkeyname = "name"
+    fields = {
+        "access_token": {"required": False, "type": "str", "no_log": True},
+        "enable_log": {"required": False, "type": "bool", "default": False},
+        "vdom": {"required": False, "type": "str", "default": "root"},
+        "member_path": {"required": False, "type": "str"},
+        "member_state": {
+            "type": "str",
+            "required": False,
+            "choices": ["present", "absent"],
+        },
+        "state": {"required": True, "type": "str", "choices": ["present", "absent"]},
+        "firewall_proxy_address6": {
+            "required": False,
+            "type": "dict",
+            "default": None,
+            "options": {},
+        },
+    }
+    for attribute_name in module_spec["options"]:
+        fields["firewall_proxy_address6"]["options"][attribute_name] = module_spec[
+            "options"
+        ][attribute_name]
+        if mkeyname and mkeyname == attribute_name:
+            fields["firewall_proxy_address6"]["options"][attribute_name][
+                "required"
+            ] = True
+
+    module = AnsibleModule(argument_spec=fields, supports_check_mode=False)
+    check_legacy_fortiosapi(module)
+
+    is_error = False
+    has_changed = False
+    result = None
+    diff = None
+
+    versions_check_result = None
+    if module._socket_path:
+        connection = Connection(module._socket_path)
+        if "access_token" in module.params:
+            connection.set_custom_option("access_token", module.params["access_token"])
+
+        if "enable_log" in module.params:
+            connection.set_custom_option("enable_log", module.params["enable_log"])
+        else:
+            connection.set_custom_option("enable_log", False)
+        fos = FortiOSHandler(connection, module, mkeyname, admin_passwd_header=False)
+        versions_check_result = check_schema_versioning(
+            fos, versioned_schema, "firewall_proxy_address6"
+        )
+
+        is_error, has_changed, result, diff = fortios_firewall(module.params, fos)
+
+    else:
+        module.fail_json(**FAIL_SOCKET_MSG)
+
+    if versions_check_result and versions_check_result["matched"] is False:
+        module.warn(
+            "Ansible has detected version mismatch between FortOS system and your playbook, see more details by specifying option -vvv"
+        )
+
+    if not is_error:
+        if versions_check_result and versions_check_result["matched"] is False:
+            module.exit_json(
+                changed=has_changed,
+                version_check_warning=versions_check_result,
+                meta=result,
+                diff=diff,
+            )
+        else:
+            module.exit_json(changed=has_changed, meta=result, diff=diff)
+    else:
+        if versions_check_result and versions_check_result["matched"] is False:
+            module.fail_json(
+                msg="Error in repo",
+                version_check_warning=versions_check_result,
+                meta=result,
+            )
+        else:
+            module.fail_json(msg="Error in repo", meta=result)
+
+
+if __name__ == "__main__":
+    main()

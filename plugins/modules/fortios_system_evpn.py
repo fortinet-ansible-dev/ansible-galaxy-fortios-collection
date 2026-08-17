@@ -92,9 +92,23 @@ options:
         default: null
         type: dict
         suboptions:
+            adv_default_gw:
+                description:
+                    - Enable/disable advertisement of default gateway.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             arp_suppression:
                 description:
                     - Enable/disable ARP suppression.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            distribute_local_route:
+                description:
+                    - Enable/disable distribution of local EVPN routes as IPv4 routes to BGP.
                 type: str
                 choices:
                     - 'enable'
@@ -126,6 +140,10 @@ options:
                             - 'Route target: AA:NN|A.B.C.D:NN.'
                         required: true
                         type: str
+            interface:
+                description:
+                    - Outgoing interface for all VxLANs in this L3VRF EVPN instance. Source system.interface.name.
+                type: str
             ip_local_learning:
                 description:
                     - Enable/disable IP address local learning.
@@ -133,12 +151,26 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            l3_instance:
+                description:
+                    - L3VRF EVPN instance ID. Source system.evpn.id.
+                type: int
             rd:
                 description:
                     - 'Route Distinguisher: AA:NN|A.B.C.D:NN.'
                 type: str
+            type:
+                description:
+                    - EVPN instance type.
+                type: str
+                choices:
+                    - 'macvrf'
+                    - 'ipvrf'
+            virtual_mac_vrid:
+                description:
+                    - VRID used to generate virtual MAC address.
+                type: int
 """
-
 EXAMPLES = """
 - name: Configure EVPN instance.
   fortinet.fortios.fortios_system_evpn:
@@ -146,16 +178,22 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       system_evpn:
+          adv_default_gw: "enable"
           arp_suppression: "enable"
+          distribute_local_route: "enable"
           export_rt:
               -
                   route_target: "<your_own_value>"
-          id: "6"
+          id: "8"
           import_rt:
               -
                   route_target: "<your_own_value>"
+          interface: "<your_own_value> (source system.interface.name)"
           ip_local_learning: "enable"
+          l3_instance: "0"
           rd: "<your_own_value>"
+          type: "macvrf"
+          virtual_mac_vrid: "0"
 """
 
 RETURN = """
@@ -251,12 +289,18 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_system_evpn_data(json):
     option_list = [
+        "adv_default_gw",
         "arp_suppression",
+        "distribute_local_route",
         "export_rt",
         "id",
         "import_rt",
+        "interface",
         "ip_local_learning",
+        "l3_instance",
         "rd",
+        "type",
+        "virtual_mac_vrid",
     ]
 
     json = remove_invalid_fields(json)
@@ -438,6 +482,11 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "id": {"v_range": [["v7.4.0", ""]], "type": "integer", "required": True},
+        "type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "macvrf"}, {"value": "ipvrf"}],
+        },
         "rd": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "import_rt": {
             "type": "list",
@@ -473,6 +522,19 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "adv_default_gw": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "distribute_local_route": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "virtual_mac_vrid": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "l3_instance": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "interface": {"v_range": [["v8.0.0", ""]], "type": "string"},
     },
     "v_range": [["v7.4.0", ""]],
 }

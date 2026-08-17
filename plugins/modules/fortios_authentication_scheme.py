@@ -90,6 +90,30 @@ options:
         default: null
         type: dict
         suboptions:
+            captcha:
+                description:
+                    - Enable/disable CAPTCHA for form authentication .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            captcha_secret_key:
+                description:
+                    - CAPTCHA secret key.
+                type: str
+            captcha_site_key:
+                description:
+                    - CAPTCHA site key.
+                type: str
+            captcha_vendor:
+                description:
+                    - CAPTCHA vendor .
+                type: str
+                choices:
+                    - 'google-recaptcha-v2-checkbox'
+                    - 'google-recaptcha-v2-invisible'
+                    - 'google-recaptcha-v3'
+                    - 'cloudflare-turnstile'
             cert_http_header:
                 description:
                     - Enable/disable authentication with user certificate in Client-Cert HTTP header .
@@ -165,7 +189,9 @@ options:
                     - 'ssh-publickey'
                     - 'cert'
                     - 'saml'
+                    - 'oidc'
                     - 'entra-sso'
+                    - 'ztna-relay'
             name:
                 description:
                     - Authentication scheme name.
@@ -178,6 +204,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            oidc_server:
+                description:
+                    - OpenID Connect server configuration. Source user.oidc.name.
+                type: str
+            oidc_timeout:
+                description:
+                    - OpenID Connect authentication timeout in seconds.
+                type: int
             require_tfa:
                 description:
                     - Enable/disable two-factor authentication .
@@ -217,7 +251,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure Authentication Schemes.
   fortinet.fortios.fortios_authentication_scheme:
@@ -225,6 +258,10 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       authentication_scheme:
+          captcha: "enable"
+          captcha_secret_key: "<your_own_value>"
+          captcha_site_key: "<your_own_value>"
+          captcha_vendor: "google-recaptcha-v2-checkbox"
           cert_http_header: "enable"
           digest_algo: "md5"
           digest_rfc2069: "enable"
@@ -236,8 +273,10 @@ EXAMPLES = """
           group_attr_type: "display-name"
           kerberos_keytab: "<your_own_value> (source user.krb-keytab.name)"
           method: "ntlm"
-          name: "default_name_14"
+          name: "default_name_18"
           negotiate_ntlm: "enable"
+          oidc_server: "<your_own_value> (source user.oidc.name)"
+          oidc_timeout: "120"
           require_tfa: "enable"
           saml_server: "<your_own_value> (source user.saml.name)"
           saml_timeout: "120"
@@ -245,7 +284,7 @@ EXAMPLES = """
           user_cert: "enable"
           user_database:
               -
-                  name: "default_name_22 (source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name user.scim.name)"
+                  name: "default_name_28 (source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name user.group.name user.scim.name)"
 """
 
 RETURN = """
@@ -341,6 +380,10 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_authentication_scheme_data(json):
     option_list = [
+        "captcha",
+        "captcha_secret_key",
+        "captcha_site_key",
+        "captcha_vendor",
         "cert_http_header",
         "digest_algo",
         "digest_rfc2069",
@@ -354,6 +397,8 @@ def filter_authentication_scheme_data(json):
         "method",
         "name",
         "negotiate_ntlm",
+        "oidc_server",
+        "oidc_timeout",
         "require_tfa",
         "saml_server",
         "saml_timeout",
@@ -592,7 +637,9 @@ versioned_schema = {
                 {"value": "ssh-publickey"},
                 {"value": "cert", "v_range": [["v7.0.0", ""]]},
                 {"value": "saml", "v_range": [["v7.0.0", ""]]},
+                {"value": "oidc", "v_range": [["v8.0.0", ""]]},
                 {"value": "entra-sso", "v_range": [["v7.6.1", ""]]},
+                {"value": "ztna-relay", "v_range": [["v8.0.0", ""]]},
             ],
             "multiple_values": True,
             "elements": "str",
@@ -606,12 +653,31 @@ versioned_schema = {
         "domain_controller": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "saml_server": {"v_range": [["v7.0.0", ""]], "type": "string"},
         "saml_timeout": {"v_range": [["v7.0.0", ""]], "type": "integer"},
+        "oidc_server": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "oidc_timeout": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "fsso_agent_for_ntlm": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "require_tfa": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "captcha": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "captcha_vendor": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "google-recaptcha-v2-checkbox"},
+                {"value": "google-recaptcha-v2-invisible"},
+                {"value": "google-recaptcha-v3"},
+                {"value": "cloudflare-turnstile"},
+            ],
+        },
+        "captcha_site_key": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "captcha_secret_key": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "fsso_guest": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

@@ -106,6 +106,14 @@ options:
                 description:
                     - Write an event log message this many days before the schedule expires.
                 type: int
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -113,6 +121,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             name:
                 description:
                     - Onetime schedule name.
@@ -131,7 +147,6 @@ options:
                     - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
                 type: str
 """
-
 EXAMPLES = """
 - name: Onetime schedule configuration.
   fortinet.fortios.fortios_firewall_schedule_onetime:
@@ -143,8 +158,10 @@ EXAMPLES = """
           end: "<your_own_value>"
           end_utc: "<your_own_value>"
           expiration_days: "3"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
-          name: "default_name_8"
+          fabric_object_source: "member"
+          name: "default_name_10"
           start: "<your_own_value>"
           start_utc: "<your_own_value>"
           uuid: "<your_own_value>"
@@ -247,7 +264,9 @@ def filter_firewall_schedule_onetime_data(json):
         "end",
         "end_utc",
         "expiration_days",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "name",
         "start",
         "start_utc",
@@ -442,17 +461,27 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v7.6.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "start": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "start_utc": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "end": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "end_utc": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "expiration_days": {"v_range": [["v6.0.0", ""]], "type": "integer"},
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
     },
     "v_range": [["v6.0.0", ""]],
 }

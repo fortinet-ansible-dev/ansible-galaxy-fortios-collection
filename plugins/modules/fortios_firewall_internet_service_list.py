@@ -102,7 +102,6 @@ options:
                     - Internet Service category name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Internet Service list.
   fortinet.fortios.fortios_firewall_internet_service_list:

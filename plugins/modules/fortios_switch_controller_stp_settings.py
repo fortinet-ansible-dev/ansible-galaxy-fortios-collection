@@ -118,7 +118,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch spanning tree protocol (STP).
   fortinet.fortios.fortios_switch_controller_stp_settings:

@@ -102,7 +102,6 @@ options:
                     - IP block list reason name.
                 type: str
 """
-
 EXAMPLES = """
 - name: IP block list reason.
   fortinet.fortios.fortios_firewall_internet_service_ipbl_reason:

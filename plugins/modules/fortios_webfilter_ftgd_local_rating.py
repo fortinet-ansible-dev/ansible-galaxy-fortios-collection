@@ -111,7 +111,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure local FortiGuard Web Filter local ratings.
   fortinet.fortios.fortios_webfilter_ftgd_local_rating:

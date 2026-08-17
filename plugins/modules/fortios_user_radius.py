@@ -218,6 +218,29 @@ options:
                 choices:
                     - 'plus'
                     - 'comma'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             group_override_attr_type:
                 description:
                     - RADIUS attribute type to override user group information.
@@ -588,12 +611,15 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vrf_select:
                 description:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure RADIUS server entries.
   fortinet.fortios.fortios_user_radius:
@@ -625,6 +651,9 @@ EXAMPLES = """
                   name: "default_name_22"
           client_cert: "<your_own_value> (source vpn.certificate.local.name)"
           delimiter: "plus"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           group_override_attr_type: "filter-Id"
           h3c_compatibility: "enable"
           interface: "<your_own_value> (source system.interface.name)"
@@ -632,7 +661,7 @@ EXAMPLES = """
           mac_case: "uppercase"
           mac_password_delimiter: "hyphen"
           mac_username_delimiter: "hyphen"
-          name: "default_name_32"
+          name: "default_name_35"
           nas_id: "<your_own_value>"
           nas_id_type: "legacy"
           nas_ip: "<your_own_value>"
@@ -674,6 +703,7 @@ EXAMPLES = """
           transport_protocol: "udp"
           use_management_vdom: "enable"
           username_case_sensitive: "enable"
+          uuid: "<your_own_value>"
           vrf_select: "0"
 """
 
@@ -782,6 +812,9 @@ def filter_user_radius_data(json):
         "class",
         "client_cert",
         "delimiter",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "group_override_attr_type",
         "h3c_compatibility",
         "interface",
@@ -831,6 +864,7 @@ def filter_user_radius_data(json):
         "transport_protocol",
         "use_management_vdom",
         "username_case_sensitive",
+        "uuid",
         "vrf_select",
     ]
 
@@ -1046,6 +1080,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "server": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "secret": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "secondary_server": {"v_range": [["v6.0.0", ""]], "type": "string"},

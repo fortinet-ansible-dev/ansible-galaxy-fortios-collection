@@ -91,7 +91,6 @@ options:
                     - 'transparent-e2e'
                     - 'transparent-p2p'
 """
-
 EXAMPLES = """
 - name: Global PTP settings.
   fortinet.fortios.fortios_switch_controller_ptp_settings:

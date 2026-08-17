@@ -125,6 +125,29 @@ options:
                         choices:
                             - 'enable'
                             - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             id:
                 description:
                     - ID. see <a href='#notes'>Notes</a>.
@@ -134,8 +157,11 @@ options:
                 description:
                     - Name of table.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure AntiSpam DNSBL/ORBL.
   fortinet.fortios.fortios_emailfilter_dnsbl:
@@ -150,8 +176,12 @@ EXAMPLES = """
                   id: "6"
                   server: "192.168.100.40"
                   status: "enable"
-          id: "9"
-          name: "default_name_10"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          id: "12"
+          name: "default_name_13"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -246,7 +276,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_emailfilter_dnsbl_data(json):
-    option_list = ["comment", "entries", "id", "name"]
+    option_list = [
+        "comment",
+        "entries",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "id",
+        "name",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -432,6 +471,22 @@ versioned_schema = {
     "children": {
         "id": {"v_range": [["v6.2.0", ""]], "type": "integer", "required": True},
         "name": {"v_range": [["v6.2.0", ""]], "type": "string"},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.2.0", ""]], "type": "string"},
         "entries": {
             "type": "list",

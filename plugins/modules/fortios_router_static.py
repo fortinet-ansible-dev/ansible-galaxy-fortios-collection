@@ -139,15 +139,15 @@ options:
                 type: str
             internet_service:
                 description:
-                    - Application ID in the Internet service database. Source firewall.internet-service.id.
+                    - Application ID in the Internet Service database. Source firewall.internet-service.id.
                 type: int
             internet_service_custom:
                 description:
-                    - Application name in the Internet service custom database. Source firewall.internet-service-custom.name.
+                    - Application name in the Internet Service custom database. Source firewall.internet-service-custom.name.
                 type: str
             internet_service_fortiguard:
                 description:
-                    - Application name in the Internet service fortiguard database. Source firewall.internet-service-fortiguard.name.
+                    - Application name in the Internet Service FortiGuard database. Source firewall.internet-service-fortiguard.name.
                 type: str
             link_monitor_exempt:
                 description:
@@ -218,7 +218,6 @@ options:
                     - Administrative weight (0 - 255).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure IPv4 static routing tables.
   fortinet.fortios.fortios_router_static:

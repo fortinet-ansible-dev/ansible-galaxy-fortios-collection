@@ -98,7 +98,7 @@ options:
                 suboptions:
                     accept_lifetime:
                         description:
-                            - 'Lifetime of received authentication key (format: hh:mm:ss day month year).'
+                            - Lifetime of received authentication key.
                         type: str
                     algorithm:
                         description:
@@ -122,7 +122,7 @@ options:
                         type: str
                     send_lifetime:
                         description:
-                            - 'Lifetime of sent authentication key (format: hh:mm:ss day month year).'
+                            - Lifetime of sent authentication key.
                         type: str
             name:
                 description:
@@ -130,7 +130,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure key-chain.
   fortinet.fortios.fortios_router_key_chain:

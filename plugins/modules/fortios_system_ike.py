@@ -531,7 +531,6 @@ options:
                     - Maximum number of IPsec tunnels to negotiate simultaneously.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure IKE global attributes.
   fortinet.fortios.fortios_system_ike:
@@ -611,7 +610,7 @@ EXAMPLES = """
           dh_mode: "software"
           dh_multiprocess: "enable"
           dh_worker_count: "0"
-          embryonic_limit: "10000"
+          embryonic_limit: "20000"
 """
 
 RETURN = """

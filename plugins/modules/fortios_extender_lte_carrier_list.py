@@ -87,7 +87,6 @@ options:
                     - FortiExtender serial number. Source extender-controller.extender.id.
                 type: str
 """
-
 EXAMPLES = """
 - name: Display FortiExtender modem carrier list.
   fortinet.fortios.fortios_extender_lte_carrier_list:

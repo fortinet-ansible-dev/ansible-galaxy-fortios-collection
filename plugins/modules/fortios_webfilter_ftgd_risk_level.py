@@ -103,7 +103,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard Web Filter risk level.
   fortinet.fortios.fortios_webfilter_ftgd_risk_level:

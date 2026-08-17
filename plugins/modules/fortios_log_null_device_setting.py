@@ -90,7 +90,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Settings for null device logging.
   fortinet.fortios.fortios_log_null_device_setting:

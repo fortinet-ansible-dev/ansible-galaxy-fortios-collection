@@ -113,7 +113,6 @@ options:
                     - Region name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Define region table.
   fortinet.fortios.fortios_firewall_region:

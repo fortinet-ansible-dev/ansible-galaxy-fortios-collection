@@ -726,7 +726,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure Agentless VPN.
   fortinet.fortios.fortios_vpn_ssl_settings:

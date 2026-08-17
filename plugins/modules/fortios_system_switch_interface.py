@@ -20,7 +20,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: fortios_system_switch_interface
-short_description: Configure software switch interfaces by grouping physical and WiFi interfaces in Fortinet's FortiOS and FortiGate.
+short_description: Configure software switch interfaces by grouping interfaces in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the
       user to set and modify system feature and switch_interface category.
@@ -86,7 +86,7 @@ options:
             - 'absent'
     system_switch_interface:
         description:
-            - Configure software switch interfaces by grouping physical and WiFi interfaces.
+            - Configure software switch interfaces by grouping interfaces.
         default: null
         type: dict
         suboptions:
@@ -103,7 +103,7 @@ options:
                 type: int
             member:
                 description:
-                    - Names of the interfaces that belong to the virtual switch.
+                    - Names of the interfaces that belong to the software switch.
                 type: list
                 elements: dict
                 suboptions:
@@ -159,9 +159,8 @@ options:
                     - VDOM that the software switch belongs to. Source system.vdom.name.
                 type: str
 """
-
 EXAMPLES = """
-- name: Configure software switch interfaces by grouping physical and WiFi interfaces.
+- name: Configure software switch interfaces by grouping interfaces.
   fortinet.fortios.fortios_system_switch_interface:
       vdom: "{{ vdom }}"
       state: "present"

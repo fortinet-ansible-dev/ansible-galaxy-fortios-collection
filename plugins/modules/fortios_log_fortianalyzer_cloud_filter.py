@@ -157,7 +157,6 @@ options:
                             - 'dlp'
                             - 'app-ctrl'
                             - 'waf'
-                            - 'gtp'
                             - 'dns'
                             - 'ssh'
                             - 'ssl'
@@ -165,6 +164,7 @@ options:
                             - 'icap'
                             - 'virtual-patch'
                             - 'debug'
+                            - 'gtp'
                             - 'ztna'
                     filter:
                         description:
@@ -260,7 +260,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Filters for FortiAnalyzer Cloud.
   fortinet.fortios.fortios_log_fortianalyzer_cloud_filter:
@@ -647,11 +646,6 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "gtp": {
-            "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "forti_switch": {
             "v_range": [["v7.4.2", ""]],
             "type": "string",
@@ -681,7 +675,6 @@ versioned_schema = {
                         {"value": "dlp"},
                         {"value": "app-ctrl"},
                         {"value": "waf"},
-                        {"value": "gtp"},
                         {"value": "dns"},
                         {"value": "ssh"},
                         {"value": "ssl"},
@@ -689,6 +682,7 @@ versioned_schema = {
                         {"value": "icap"},
                         {"value": "virtual-patch", "v_range": [["v7.4.1", ""]]},
                         {"value": "debug", "v_range": [["v7.6.3", ""]]},
+                        {"value": "gtp", "v_range": [["v7.0.0", "v7.6.7"]]},
                         {"value": "ztna", "v_range": [["v7.0.1", "v7.0.3"]]},
                     ],
                 },
@@ -700,6 +694,11 @@ versioned_schema = {
                 },
             },
             "v_range": [["v7.0.0", ""]],
+        },
+        "gtp": {
+            "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "debug": {
             "v_range": [["v7.6.3", "v7.6.3"]],

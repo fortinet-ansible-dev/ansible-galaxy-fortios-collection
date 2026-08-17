@@ -148,7 +148,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure ACME client.
   fortinet.fortios.fortios_system_acme:

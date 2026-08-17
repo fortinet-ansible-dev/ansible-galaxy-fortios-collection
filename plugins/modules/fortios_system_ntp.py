@@ -220,7 +220,6 @@ options:
                     - 'fortiguard'
                     - 'custom'
 """
-
 EXAMPLES = """
 - name: Configure system NTP information.
   fortinet.fortios.fortios_system_ntp:

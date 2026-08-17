@@ -121,7 +121,6 @@ options:
                     - 'standard'
                     - 'more'
 """
-
 EXAMPLES = """
 - name: Configure console.
   fortinet.fortios.fortios_system_console:

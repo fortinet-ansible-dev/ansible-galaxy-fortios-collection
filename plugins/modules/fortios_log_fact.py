@@ -277,6 +277,14 @@ options:
                  - 'forticloud_traffic_sniffer'
                  - 'forticloud_traffic_fortiview'
                  - 'forticloud_traffic_threat'
+                 - 'disk_event_:session_id'
+                 - 'disk_traffic_:session_id'
+                 - 'memory_event_:session_id'
+                 - 'memory_traffic_:session_id'
+                 - 'fortianalyzer_event_:session_id'
+                 - 'fortianalyzer_traffic_:session_id'
+                 - 'forticloud_event_:session_id'
+                 - 'forticloud_traffic_:session_id'
 
     selector:
         description:
@@ -436,6 +444,14 @@ options:
          - 'forticloud_traffic_sniffer'
          - 'forticloud_traffic_fortiview'
          - 'forticloud_traffic_threat'
+         - 'disk_event_:session_id'
+         - 'disk_traffic_:session_id'
+         - 'memory_event_:session_id'
+         - 'memory_traffic_:session_id'
+         - 'fortianalyzer_event_:session_id'
+         - 'fortianalyzer_traffic_:session_id'
+         - 'forticloud_event_:session_id'
+         - 'forticloud_traffic_:session_id'
 
     params:
         description:
@@ -674,6 +690,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_webfilter_raw": {
@@ -684,6 +701,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_waf_raw": {
@@ -694,6 +712,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_ips_raw": {
@@ -704,6 +723,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_anomaly_raw": {
@@ -714,6 +734,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_app-ctrl_raw": {
@@ -724,6 +745,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_cifs_raw": {
@@ -734,6 +756,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_emailfilter_raw": {
@@ -744,6 +767,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_dlp_raw": {
@@ -754,6 +778,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_voip_raw": {
@@ -764,6 +789,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_gtp_raw": {
@@ -774,6 +800,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_dns_raw": {
@@ -784,6 +811,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_ssh_raw": {
@@ -794,6 +822,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_ssl_raw": {
@@ -804,6 +833,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_file-filter_raw": {
@@ -814,6 +844,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_virus_raw": {
@@ -824,6 +855,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_webfilter_raw": {
@@ -834,6 +866,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_waf_raw": {
@@ -844,6 +877,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_ips_raw": {
@@ -854,6 +888,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_anomaly_raw": {
@@ -864,6 +899,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_app-ctrl_raw": {
@@ -874,6 +910,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_cifs_raw": {
@@ -884,6 +921,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_emailfilter_raw": {
@@ -894,6 +932,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_dlp_raw": {
@@ -904,6 +943,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_voip_raw": {
@@ -914,6 +954,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_gtp_raw": {
@@ -924,6 +965,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_dns_raw": {
@@ -934,6 +976,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_ssh_raw": {
@@ -944,6 +987,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_ssl_raw": {
@@ -954,6 +998,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "memory_file-filter_raw": {
@@ -964,6 +1009,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_virus_raw": {
@@ -974,6 +1020,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_webfilter_raw": {
@@ -984,6 +1031,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_waf_raw": {
@@ -994,6 +1042,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_ips_raw": {
@@ -1004,6 +1053,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_anomaly_raw": {
@@ -1014,6 +1064,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_app-ctrl_raw": {
@@ -1024,6 +1075,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_cifs_raw": {
@@ -1034,6 +1086,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_emailfilter_raw": {
@@ -1044,6 +1097,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_dlp_raw": {
@@ -1054,6 +1108,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_voip_raw": {
@@ -1064,6 +1119,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_gtp_raw": {
@@ -1074,6 +1130,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_dns_raw": {
@@ -1084,6 +1141,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_ssh_raw": {
@@ -1094,6 +1152,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_ssl_raw": {
@@ -1104,6 +1163,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "fortianalyzer_file-filter_raw": {
@@ -1114,6 +1174,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_virus_raw": {
@@ -1124,6 +1185,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_webfilter_raw": {
@@ -1134,6 +1196,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_waf_raw": {
@@ -1144,6 +1207,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_ips_raw": {
@@ -1154,6 +1218,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_anomaly_raw": {
@@ -1164,6 +1229,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_app-ctrl_raw": {
@@ -1174,6 +1240,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_cifs_raw": {
@@ -1184,6 +1251,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_emailfilter_raw": {
@@ -1194,6 +1262,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_dlp_raw": {
@@ -1204,6 +1273,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_voip_raw": {
@@ -1214,6 +1284,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_gtp_raw": {
@@ -1224,6 +1295,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_dns_raw": {
@@ -1234,6 +1306,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_ssh_raw": {
@@ -1244,6 +1317,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_ssl_raw": {
@@ -1254,6 +1328,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "forticloud_file-filter_raw": {
@@ -1264,6 +1339,7 @@ module_selectors_defs = {
             "serial_no": {"type": "string", "required": "False"},
             "is_ha_member": {"type": "boolean", "required": "False"},
             "filter": {"type": "string", "required": "False"},
+            "keep_session_alive": {"type": "boolean", "required": "False"},
         },
     },
     "disk_event_vpn": {
@@ -2058,6 +2134,26 @@ module_selectors_defs = {
             "extra": {"type": "string", "required": "False"},
         },
     },
+    "disk_event_:session_id": {"url": "disk/event/:session_id", "params": {}},
+    "disk_traffic_:session_id": {"url": "disk/traffic/:session_id", "params": {}},
+    "memory_event_:session_id": {"url": "memory/event/:session_id", "params": {}},
+    "memory_traffic_:session_id": {"url": "memory/traffic/:session_id", "params": {}},
+    "fortianalyzer_event_:session_id": {
+        "url": "fortianalyzer/event/:session_id",
+        "params": {},
+    },
+    "fortianalyzer_traffic_:session_id": {
+        "url": "fortianalyzer/traffic/:session_id",
+        "params": {},
+    },
+    "forticloud_event_:session_id": {
+        "url": "forticloud/event/:session_id",
+        "params": {},
+    },
+    "forticloud_traffic_:session_id": {
+        "url": "forticloud/traffic/:session_id",
+        "params": {},
+    },
 }
 
 
@@ -2322,6 +2418,14 @@ def main():
                 "forticloud_traffic_sniffer",
                 "forticloud_traffic_fortiview",
                 "forticloud_traffic_threat",
+                "disk_event_:session_id",
+                "disk_traffic_:session_id",
+                "memory_event_:session_id",
+                "memory_traffic_:session_id",
+                "fortianalyzer_event_:session_id",
+                "fortianalyzer_traffic_:session_id",
+                "forticloud_event_:session_id",
+                "forticloud_traffic_:session_id",
             ],
         },
         "selectors": {
@@ -2489,6 +2593,14 @@ def main():
                         "forticloud_traffic_sniffer",
                         "forticloud_traffic_fortiview",
                         "forticloud_traffic_threat",
+                        "disk_event_:session_id",
+                        "disk_traffic_:session_id",
+                        "memory_event_:session_id",
+                        "memory_traffic_:session_id",
+                        "fortianalyzer_event_:session_id",
+                        "fortianalyzer_traffic_:session_id",
+                        "forticloud_event_:session_id",
+                        "forticloud_traffic_:session_id",
                     ],
                 },
             },

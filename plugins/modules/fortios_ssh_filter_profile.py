@@ -111,6 +111,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             file_filter:
                 description:
                     - File filter.
@@ -263,8 +286,11 @@ options:
                         choices:
                             - 'simple'
                             - 'regex'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure SSH filter profile.
   fortinet.fortios.fortios_ssh_filter_profile:
@@ -274,6 +300,9 @@ EXAMPLES = """
       ssh_filter_profile:
           block: "x11"
           default_command_log: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           file_filter:
               entries:
                   -
@@ -282,7 +311,7 @@ EXAMPLES = """
                       direction: "incoming"
                       file_type:
                           -
-                              name: "default_name_11 (source antivirus.filetype.name)"
+                              name: "default_name_14 (source antivirus.filetype.name)"
                       filter: "<your_own_value>"
                       password_protected: "yes"
                       protocol: "ssh"
@@ -290,16 +319,17 @@ EXAMPLES = """
               scan_archive_contents: "enable"
               status: "enable"
           log: "x11"
-          name: "default_name_19"
+          name: "default_name_22"
           shell_commands:
               -
                   action: "block"
                   alert: "enable"
-                  id: "23"
+                  id: "26"
                   log: "enable"
                   pattern: "<your_own_value>"
                   severity: "low"
                   type: "simple"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -397,10 +427,14 @@ def filter_ssh_filter_profile_data(json):
     option_list = [
         "block",
         "default_command_log",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "file_filter",
         "log",
         "name",
         "shell_commands",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -620,6 +654,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "block": {
             "v_range": [["v6.0.0", ""]],
             "type": "list",

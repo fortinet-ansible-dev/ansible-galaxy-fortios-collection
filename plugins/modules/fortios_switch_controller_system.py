@@ -131,14 +131,13 @@ options:
                     - 'enable'
             tunnel_mode:
                 description:
-                    - Compatible/strict tunnel mode.
+                    - Configure tunnel mode security .
                 type: str
                 choices:
                     - 'compatible'
                     - 'moderate'
                     - 'strict'
 """
-
 EXAMPLES = """
 - name: Configure system-wide switch controller settings.
   fortinet.fortios.fortios_switch_controller_system:

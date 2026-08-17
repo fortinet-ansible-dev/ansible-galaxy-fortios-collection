@@ -135,7 +135,6 @@ options:
                 type: list
                 elements: int
 """
-
 EXAMPLES = """
 - name: Configure IPv6 extension header filter.
   fortinet.fortios.fortios_firewall_ipv6_eh_filter:

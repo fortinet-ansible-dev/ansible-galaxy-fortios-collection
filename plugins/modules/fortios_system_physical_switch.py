@@ -142,7 +142,6 @@ options:
                             - 'up'
                             - 'down'
 """
-
 EXAMPLES = """
 - name: Configure physical switches.
   fortinet.fortios.fortios_system_physical_switch:
@@ -442,6 +441,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "string",
             "required": True,
@@ -452,6 +452,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
@@ -462,6 +463,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "integer",
         },
@@ -506,6 +508,7 @@ versioned_schema = {
         ["v6.4.1", "v7.0.12"],
         ["v7.2.1", "v7.2.4"],
         ["v7.4.2", "v7.4.2"],
+        ["v8.0.0", ""],
     ],
 }
 

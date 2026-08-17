@@ -82,6 +82,13 @@ options:
         default: null
         type: dict
         suboptions:
+            allow_mac_move:
+                description:
+                    - Enable/disable MAC move .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             link_down_auth:
                 description:
                     - Interface-reauthentication state to set if a link is down.
@@ -89,6 +96,13 @@ options:
                 choices:
                     - 'set-unauth'
                     - 'no-action'
+            mab_entry_as:
+                description:
+                    - Configure MAB MAC entry as static or dynamic .
+                type: str
+                choices:
+                    - 'static'
+                    - 'dynamic'
             mab_reauth:
                 description:
                     - Enable/disable MAB re-authentication.
@@ -152,13 +166,14 @@ options:
                     - 802.1X Tx period (seconds).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure global 802.1X settings.
   fortinet.fortios.fortios_switch_controller_802_1x_settings:
       vdom: "{{ vdom }}"
       switch_controller_802_1x_settings:
+          allow_mac_move: "disable"
           link_down_auth: "set-unauth"
+          mab_entry_as: "static"
           mab_reauth: "disable"
           mac_called_station_delimiter: "colon"
           mac_calling_station_delimiter: "colon"
@@ -263,7 +278,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_switch_controller_802_1x_settings_data(json):
     option_list = [
+        "allow_mac_move",
         "link_down_auth",
+        "mab_entry_as",
         "mab_reauth",
         "mac_called_station_delimiter",
         "mac_calling_station_delimiter",
@@ -468,6 +485,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "mab_entry_as": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "static"}, {"value": "dynamic"}],
+        },
         "mac_username_delimiter": {
             "v_range": [["v7.4.2", ""]],
             "type": "string",
@@ -512,6 +534,11 @@ versioned_schema = {
             "v_range": [["v7.4.2", ""]],
             "type": "string",
             "options": [{"value": "lowercase"}, {"value": "uppercase"}],
+        },
+        "allow_mac_move": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
         },
     },
 }

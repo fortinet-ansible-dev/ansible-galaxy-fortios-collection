@@ -110,7 +110,6 @@ options:
                     - MAC address.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure ARP table.
   fortinet.fortios.fortios_system_arp_table:

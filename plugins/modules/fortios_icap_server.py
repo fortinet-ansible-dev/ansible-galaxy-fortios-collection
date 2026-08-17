@@ -98,6 +98,29 @@ options:
                     - 'ip4'
                     - 'ip6'
                     - 'fqdn'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             fqdn:
                 description:
                     - ICAP remote server Fully Qualified Domain Name (FQDN).
@@ -153,8 +176,11 @@ options:
                 description:
                     - CA certificate name. Source certificate.ca.name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure ICAP servers.
   fortinet.fortios.fortios_icap_server:
@@ -163,6 +189,9 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       icap_server:
           addr_type: "ip4"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           fqdn: "<your_own_value>"
           healthcheck: "disable"
           healthcheck_service: "<your_own_value>"
@@ -170,10 +199,11 @@ EXAMPLES = """
           ip_version: "4"
           ip6_address: "<your_own_value>"
           max_connections: "100"
-          name: "default_name_11"
+          name: "default_name_14"
           port: "1344"
           secure: "disable"
           ssl_cert: "<your_own_value> (source certificate.ca.name)"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -270,6 +300,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_icap_server_data(json):
     option_list = [
         "addr_type",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "fqdn",
         "healthcheck",
         "healthcheck_service",
@@ -281,6 +314,7 @@ def filter_icap_server_data(json):
         "port",
         "secure",
         "ssl_cert",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -462,6 +496,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "addr_type": {
             "v_range": [["v7.2.0", ""]],
             "type": "string",

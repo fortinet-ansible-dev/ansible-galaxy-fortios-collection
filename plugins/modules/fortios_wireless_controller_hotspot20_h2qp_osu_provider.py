@@ -155,7 +155,6 @@ options:
                         required: true
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure online sign up (OSU) provider list.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_osu_provider:

@@ -102,6 +102,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             fqdn:
                 description:
                     - Forward server Fully Qualified Domain Name (FQDN).
@@ -169,12 +192,15 @@ options:
                 description:
                     - HTTP authentication user name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vrf_select:
                 description:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure forward-server addresses.
   fortinet.fortios.fortios_web_proxy_forward_server:
@@ -184,6 +210,9 @@ EXAMPLES = """
       web_proxy_forward_server:
           addr_type: "ip"
           comment: "Comment."
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           fqdn: "<your_own_value>"
           healthcheck: "disable"
           interface: "<your_own_value> (source system.interface.name)"
@@ -192,11 +221,12 @@ EXAMPLES = """
           ipv6: "<your_own_value>"
           masquerade: "enable"
           monitor: "<your_own_value>"
-          name: "default_name_13"
+          name: "default_name_16"
           password: "<your_own_value>"
           port: "3128"
           server_down_option: "block"
           username: "<your_own_value>"
+          uuid: "<your_own_value>"
           vrf_select: "-1"
 """
 
@@ -295,6 +325,9 @@ def filter_web_proxy_forward_server_data(json):
     option_list = [
         "addr_type",
         "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "fqdn",
         "healthcheck",
         "interface",
@@ -308,6 +341,7 @@ def filter_web_proxy_forward_server_data(json):
         "port",
         "server_down_option",
         "username",
+        "uuid",
         "vrf_select",
     ]
 
@@ -496,6 +530,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "addr_type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

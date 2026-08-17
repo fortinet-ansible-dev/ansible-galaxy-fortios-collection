@@ -120,7 +120,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Concentrator configuration.
   fortinet.fortios.fortios_vpn_ipsec_concentrator:

@@ -104,7 +104,6 @@ options:
                     - VLAN interface name. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure WiFi network access control (NAC) profiles.
   fortinet.fortios.fortios_wireless_controller_nac_profile:

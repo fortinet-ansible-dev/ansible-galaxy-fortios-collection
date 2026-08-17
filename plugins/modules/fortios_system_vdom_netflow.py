@@ -157,7 +157,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure NetFlow per VDOM.
   fortinet.fortios.fortios_system_vdom_netflow:

@@ -127,7 +127,6 @@ options:
                     - 'ssl'
                     - 'ssh'
 """
-
 EXAMPLES = """
 - name: Configure decrypted traffic mirror.
   fortinet.fortios.fortios_firewall_decrypted_traffic_mirror:

@@ -227,7 +227,6 @@ options:
                     - Width.
                 type: str
 """
-
 EXAMPLES = """
 - name: Report style configuration.
   fortinet.fortios.fortios_report_style:

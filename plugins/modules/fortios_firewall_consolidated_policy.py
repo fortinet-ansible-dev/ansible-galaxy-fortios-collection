@@ -670,7 +670,6 @@ options:
                     - Webproxy profile name. Source web-proxy.profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure consolidated IPv4/IPv6 policies.
   fortinet.fortios.fortios_firewall_consolidated_policy:

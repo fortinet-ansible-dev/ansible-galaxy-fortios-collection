@@ -87,7 +87,6 @@ options:
                     - Frequency to refresh the server list (sec).
                 type: str
 """
-
 EXAMPLES = """
 - name: Display rating info.
   fortinet.fortios.fortios_webfilter_status:

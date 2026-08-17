@@ -226,7 +226,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure FortiGate Session Life Support Protocol (FGSP) session synchronization.
   fortinet.fortios.fortios_system_cluster_sync:

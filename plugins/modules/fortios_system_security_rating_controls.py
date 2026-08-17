@@ -109,7 +109,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Settings for individual Security Rating controls.
   fortinet.fortios.fortios_system_security_rating_controls:

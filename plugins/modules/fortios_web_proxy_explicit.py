@@ -89,6 +89,13 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            client_certificate_blocklist:
+                description:
+                    - Enable/disable blocking client malicious certificates list by FortiGuard during TLS handshake.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             empty_cert_action:
                 description:
                     - Action of an empty client certificate.
@@ -375,13 +382,13 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure explicit Web proxy settings.
   fortinet.fortios.fortios_web_proxy_explicit:
       vdom: "{{ vdom }}"
       web_proxy_explicit:
           client_cert: "disable"
+          client_certificate_blocklist: "enable"
           empty_cert_action: "accept"
           ftp_incoming_port: "<your_own_value>"
           ftp_over_http: "enable"
@@ -408,16 +415,16 @@ EXAMPLES = """
                   comments: "<your_own_value>"
                   dstaddr:
                       -
-                          name: "default_name_28 (source firewall.address.name firewall.addrgrp.name)"
+                          name: "default_name_29 (source firewall.address.name firewall.addrgrp.name)"
                   pac_file_data: "<your_own_value>"
                   pac_file_name: "<your_own_value>"
                   policyid: "<you_own_value>"
                   srcaddr:
                       -
-                          name: "default_name_33 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
+                          name: "default_name_34 (source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name)"
                   srcaddr6:
                       -
-                          name: "default_name_35 (source firewall.address6.name firewall.addrgrp6.name)"
+                          name: "default_name_36 (source firewall.address6.name firewall.addrgrp6.name)"
                   status: "enable"
           pref_dns_result: "ipv4"
           realm: "<your_own_value>"
@@ -425,7 +432,7 @@ EXAMPLES = """
           secure_web_proxy: "disable"
           secure_web_proxy_cert:
               -
-                  name: "default_name_42 (source vpn.certificate.local.name)"
+                  name: "default_name_43 (source vpn.certificate.local.name)"
           socks: "enable"
           socks_incoming_port: "<your_own_value>"
           ssl_algorithm: "high"
@@ -532,6 +539,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_web_proxy_explicit_data(json):
     option_list = [
         "client_cert",
+        "client_certificate_blocklist",
         "empty_cert_action",
         "ftp_incoming_port",
         "ftp_over_http",
@@ -986,6 +994,11 @@ versioned_schema = {
         },
         "trace_auth_no_rsp": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "client_certificate_blocklist": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

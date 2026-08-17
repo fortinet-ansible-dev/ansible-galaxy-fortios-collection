@@ -125,7 +125,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure device access control lists.
   fortinet.fortios.fortios_user_device_access_list:

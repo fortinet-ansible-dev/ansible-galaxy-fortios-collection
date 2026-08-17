@@ -113,7 +113,6 @@ options:
                     - SMC NTP synchronization interval (1 - 65535 secs).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure SMC NTP information.
   fortinet.fortios.fortios_system_smc_ntp:

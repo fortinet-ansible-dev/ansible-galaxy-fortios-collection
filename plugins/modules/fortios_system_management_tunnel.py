@@ -129,7 +129,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Management tunnel configuration.
   fortinet.fortios.fortios_system_management_tunnel:

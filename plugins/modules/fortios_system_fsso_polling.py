@@ -105,7 +105,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure Fortinet Single Sign On (FSSO) server.
   fortinet.fortios.fortios_system_fsso_polling:

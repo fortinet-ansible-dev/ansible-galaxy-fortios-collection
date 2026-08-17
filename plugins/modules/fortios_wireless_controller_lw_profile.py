@@ -130,7 +130,6 @@ options:
                     - TC Port value of LoRaWAN device.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure LoRaWAN profile.
   fortinet.fortios.fortios_wireless_controller_lw_profile:

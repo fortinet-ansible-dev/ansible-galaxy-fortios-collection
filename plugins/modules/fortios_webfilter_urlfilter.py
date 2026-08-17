@@ -163,7 +163,7 @@ options:
                             - 'disable'
                     type:
                         description:
-                            - Filter type (simple, regex, or wildcard).
+                            - Filter type (simple or wildcard). If table type "profile", regex also supported.
                         type: str
                         choices:
                             - 'simple'
@@ -177,6 +177,29 @@ options:
                         description:
                             - Web proxy profile. Source web-proxy.profile.name.
                         type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             id:
                 description:
                     - ID. see <a href='#notes'>Notes</a>.
@@ -214,8 +237,18 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            type:
+                description:
+                    - Type of URL filter table (profile or category).
+                type: str
+                choices:
+                    - 'profile'
+                    - 'category'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure URL filter lists.
   fortinet.fortios.fortios_webfilter_urlfilter:
@@ -237,12 +270,17 @@ EXAMPLES = """
                   type: "simple"
                   url: "myurl.com"
                   web_proxy_profile: "<your_own_value> (source web-proxy.profile.name)"
-          id: "16"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
+          id: "19"
           include_subdomains: "enable"
           ip_addr_block: "enable"
           ip4_mapped_ip6: "enable"
-          name: "default_name_20"
+          name: "default_name_23"
           one_arm_ips_urlfilter: "enable"
+          type: "profile"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -340,12 +378,17 @@ def filter_webfilter_urlfilter_data(json):
     option_list = [
         "comment",
         "entries",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "id",
         "include_subdomains",
         "ip_addr_block",
         "ip4_mapped_ip6",
         "name",
         "one_arm_ips_urlfilter",
+        "type",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -564,6 +607,22 @@ versioned_schema = {
     "children": {
         "id": {"v_range": [["v6.0.0", ""]], "type": "integer", "required": True},
         "name": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "one_arm_ips_urlfilter": {
             "v_range": [["v6.0.0", ""]],
@@ -584,6 +643,11 @@ versioned_schema = {
             "v_range": [["v7.6.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "profile"}, {"value": "category"}],
         },
         "entries": {
             "type": "list",

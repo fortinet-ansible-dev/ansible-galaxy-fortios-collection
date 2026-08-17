@@ -104,7 +104,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure authentication based routing.
   fortinet.fortios.fortios_router_auth_path:

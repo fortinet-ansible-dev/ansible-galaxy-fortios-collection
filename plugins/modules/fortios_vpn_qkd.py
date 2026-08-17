@@ -127,7 +127,6 @@ options:
                     - IPv4, IPv6 or DNS address of the KME.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Quantum Key Distribution servers
   fortinet.fortios.fortios_vpn_qkd:

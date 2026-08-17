@@ -117,7 +117,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure an aggregate of IPsec tunnels.
   fortinet.fortios.fortios_system_ipsec_aggregate:

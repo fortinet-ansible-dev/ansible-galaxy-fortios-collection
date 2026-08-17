@@ -90,6 +90,29 @@ options:
         default: null
         type: dict
         suboptions:
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             group_poll_interval:
                 description:
                     - Interval in minutes within to fetch groups from FSSO server, or unset to disable.
@@ -237,12 +260,15 @@ options:
                 description:
                     - LDAP server to get user information. Source user.ldap.name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vrf_select:
                 description:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure Fortinet Single Sign On (FSSO) agents.
   fortinet.fortios.fortios_user_fsso:
@@ -250,6 +276,9 @@ EXAMPLES = """
       state: "present"
       access_token: "<your_own_value>"
       user_fsso:
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           group_poll_interval: "0"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
@@ -258,7 +287,7 @@ EXAMPLES = """
           ldap_poll_interval: "180"
           ldap_server: "<your_own_value> (source user.ldap.name)"
           logon_timeout: "5"
-          name: "default_name_11"
+          name: "default_name_14"
           password: "<your_own_value>"
           password2: "<your_own_value>"
           password3: "<your_own_value>"
@@ -282,6 +311,7 @@ EXAMPLES = """
           ssl_trusted_cert: "<your_own_value> (source vpn.certificate.remote.name vpn.certificate.ca.name)"
           type: "default"
           user_info_server: "<your_own_value> (source user.ldap.name)"
+          uuid: "<your_own_value>"
           vrf_select: "0"
 """
 
@@ -378,6 +408,9 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 def filter_user_fsso_data(json):
     option_list = [
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "group_poll_interval",
         "interface",
         "interface_select_method",
@@ -410,6 +443,7 @@ def filter_user_fsso_data(json):
         "ssl_trusted_cert",
         "type",
         "user_info_server",
+        "uuid",
         "vrf_select",
     ]
 
@@ -592,6 +626,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "type": {
             "v_range": [["v6.2.0", ""]],
             "type": "string",

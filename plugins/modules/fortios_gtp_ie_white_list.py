@@ -115,7 +115,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: IE white list.
   fortinet.fortios.fortios_gtp_ie_white_list:

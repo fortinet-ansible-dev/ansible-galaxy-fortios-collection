@@ -576,7 +576,7 @@ options:
                         type: str
             summary_address6:
                 description:
-                    - IS-IS IPv6 summary address.
+                    - IS-IS IPv6 summary addresses.
                 type: list
                 elements: dict
                 suboptions:
@@ -598,7 +598,6 @@ options:
                             - IPv6 prefix.
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure IS-IS.
   fortinet.fortios.fortios_router_isis:

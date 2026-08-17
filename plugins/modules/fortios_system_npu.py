@@ -89,6 +89,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            dedicated_lacp_queue:
+                description:
+                    - Enable/disable dedication of HIF queue #0 for LACP.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             dedicated_management_affinity:
                 description:
                     - Affinity setting for management daemons (hexadecimal value up to 256 bits in the format of xxxxxxxxxxxxxxxx).
@@ -100,6 +107,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            default_ipsec_mcs_type:
+                description:
+                    - Configure default IPSec MCS type.
+                type: str
+                choices:
+                    - 'policing'
+                    - 'shaping'
             default_qos_type:
                 description:
                     - Set default QoS type.
@@ -129,7 +143,7 @@ options:
                             - 'disable'
             double_level_mcast_offload:
                 description:
-                    - Enable double level mcast offload.
+                    - Enable/disable double level mcast offload.
                 type: str
                 choices:
                     - 'enable'
@@ -269,11 +283,20 @@ options:
                     - IPv4/IPv6 anomaly protection.
                 type: dict
                 suboptions:
+                    gre_csum_err:
+                        description:
+                            - Invalid IPv4 GRE checksum anomalies.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'drop'
+                            - 'trap-to-host'
                     icmp_csum_err:
                         description:
                             - Invalid IPv4 ICMP checksum anomalies.
                         type: str
                         choices:
+                            - 'allow'
                             - 'drop'
                             - 'trap-to-host'
                     icmp_frag:
@@ -467,11 +490,20 @@ options:
                             - 'allow'
                             - 'drop'
                             - 'trap-to-host'
+                    sctp_csum_err:
+                        description:
+                            - Invalid IPv4 SCTP checksum anomalies.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'drop'
+                            - 'trap-to-host'
                     tcp_csum_err:
                         description:
                             - Invalid IPv4 TCP checksum anomalies.
                         type: str
                         choices:
+                            - 'allow'
                             - 'drop'
                             - 'trap-to-host'
                     tcp_fin_noack:
@@ -535,11 +567,20 @@ options:
                             - Invalid IPv4 UDP checksum anomalies.
                         type: str
                         choices:
+                            - 'allow'
                             - 'drop'
                             - 'trap-to-host'
                     udp_land:
                         description:
                             - UDP land anomalies.
+                        type: str
+                        choices:
+                            - 'allow'
+                            - 'drop'
+                            - 'trap-to-host'
+                    udplite_csum_err:
+                        description:
+                            - Invalid IPv4 UDP-Lite checksum anomalies.
                         type: str
                         choices:
                             - 'allow'
@@ -661,6 +702,17 @@ options:
                 choices:
                     - 'drop'
                     - 'pass'
+            ike_port:
+                description:
+                    - Configure additional IPsec ports for offloading.
+                type: list
+                elements: dict
+                suboptions:
+                    port:
+                        description:
+                            - Port. see <a href='#notes'>Notes</a>.
+                        required: true
+                        type: int
             inbound_dscp_copy_port:
                 description:
                     - Physical interfaces that support inbound-dscp-copy.
@@ -780,6 +832,15 @@ options:
                         description:
                             - CoS profile name for CoS 7. Source system.isf-queue-profile.name.
                         type: str
+            lag_hash_gre:
+                description:
+                    - Set LAG hash for standard GRE.
+                type: str
+                choices:
+                    - 'disable'
+                    - 'gre_inner_l3'
+                    - 'gre_inner_l4'
+                    - 'gre_inner_l3l4'
             lag_out_port_select:
                 description:
                     - Enable/disable LAG outgoing port selection based on incoming traffic port.
@@ -810,6 +871,13 @@ options:
                     - 'tpe-based'
                     - 'session-based'
                     - 'disable'
+            mcs_host_packet_tpe_shaping:
+                description:
+                    - Enable/disable NPU shaping for host traffic with shaping profile on IPSec interface.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             napi_break_interval:
                 description:
                     -  NAPI break interval .
@@ -819,6 +887,13 @@ options:
                     - Configure queue assignment on NP7.
                 type: dict
                 suboptions:
+                    custom_etype_lookup:
+                        description:
+                            - Enable/Disable np-queue lookup for custom Ethernet Types.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     ethernet_type:
                         description:
                             - Configure a NP7 QoS Ethernet Type.
@@ -3124,7 +3199,7 @@ options:
                     - 'disable'
             session_acct_interval:
                 description:
-                    - Session accounting update interval (1 - 10 sec).
+                    - Session accounting update interval (1 - 600 sec).
                 type: int
             session_denied_offload:
                 description:
@@ -3241,6 +3316,21 @@ options:
                     - '7G'
                     - '8G'
                     - '9G'
+            sw_np_rate:
+                description:
+                    - Bandwidth from switch to NP.
+                type: int
+            sw_np_rate_burst:
+                description:
+                    - Burst value for bandwidth from switch to NP.
+                type: int
+            sw_np_rate_unit:
+                description:
+                    - Unit for bandwidth from switch to NP.
+                type: str
+                choices:
+                    - 'mbps'
+                    - 'pps'
             sw_tr_hash:
                 description:
                     - Configure switch traditional hashing.
@@ -3281,23 +3371,45 @@ options:
                 choices:
                     - '10G'
                     - '25G'
+            use_mse_oft:
+                description:
+                    - Enable/disable use of MSE OFT.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             vlan_lookup_cache:
                 description:
-                    - Enable/disable vlan lookup cache .
+                    - Enable/disable VLAN lookup cache .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            vxlan_mac_flapping_guard:
+                description:
+                    - Enable/disable VxLAN MAC flapping guard.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            vxlan_offload:
+                description:
+                    - Enable/disable offloading vxlan.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure NPU attributes.
   fortinet.fortios.fortios_system_npu:
       vdom: "{{ vdom }}"
       system_npu:
           capwap_offload: "enable"
+          dedicated_lacp_queue: "enable"
           dedicated_management_affinity: "<your_own_value>"
           dedicated_management_cpu: "enable"
+          default_ipsec_mcs_type: "policing"
           default_qos_type: "policing"
           dos_options:
               npu_dos_meter_mode: "global"
@@ -3312,13 +3424,14 @@ EXAMPLES = """
           dsw_queue_dts_profile:
               -
                   iport: "eif0"
-                  name: "default_name_18"
+                  name: "default_name_20"
                   oport: "eif0"
                   profile_id: "0"
                   queue_select: "0"
           fastpath: "disable"
           fp_anomaly:
-              icmp_csum_err: "drop"
+              gre_csum_err: "allow"
+              icmp_csum_err: "allow"
               icmp_frag: "allow"
               icmp_land: "allow"
               ipv4_csum_err: "drop"
@@ -3343,7 +3456,8 @@ EXAMPLES = """
               ipv6_proto_err: "allow"
               ipv6_saddr_err: "allow"
               ipv6_unknopt: "allow"
-              tcp_csum_err: "drop"
+              sctp_csum_err: "allow"
+              tcp_csum_err: "allow"
               tcp_fin_noack: "allow"
               tcp_fin_only: "allow"
               tcp_land: "allow"
@@ -3351,8 +3465,9 @@ EXAMPLES = """
               tcp_syn_data: "allow"
               tcp_syn_fin: "allow"
               tcp_winnuke: "allow"
-              udp_csum_err: "drop"
+              udp_csum_err: "allow"
               udp_land: "allow"
+              udplite_csum_err: "allow"
           gtp_enhanced_cpu_range: "0"
           gtp_enhanced_mode: "enable"
           gtp_support: "enable"
@@ -3373,9 +3488,12 @@ EXAMPLES = """
               tcpsyn_ack_max: "40000"
               tcpsyn_max: "40000"
               udp_max: "40000"
-          htab_dedi_queue_nr: "4"
+          htab_dedi_queue_nr: "1"
           htab_msg_queue: "data"
           htx_icmp_csum_chk: "drop"
+          ike_port:
+              -
+                  port: "<you_own_value>"
           inbound_dscp_copy_port:
               -
                   interface: "<your_own_value>"
@@ -3400,29 +3518,32 @@ EXAMPLES = """
               cos5: "<your_own_value> (source system.isf-queue-profile.name)"
               cos6: "<your_own_value> (source system.isf-queue-profile.name)"
               cos7: "<your_own_value> (source system.isf-queue-profile.name)"
+          lag_hash_gre: "disable"
           lag_out_port_select: "disable"
-          max_receive_unit: "0"
+          max_receive_unit: "10000"
           max_session_timeout: "40"
           mcast_denied_ses_offload: "enable"
           mcast_session_accounting: "tpe-based"
+          mcs_host_packet_tpe_shaping: "enable"
           napi_break_interval: "0"
           np_queues:
+              custom_etype_lookup: "enable"
               ethernet_type:
                   -
-                      name: "default_name_113"
+                      name: "default_name_123"
                       queue: "0"
                       type: "<your_own_value>"
                       weight: "15"
               ip_protocol:
                   -
-                      name: "default_name_118"
+                      name: "default_name_128"
                       protocol: "0"
                       queue: "0"
                       weight: "14"
               ip_service:
                   -
                       dport: "0"
-                      name: "default_name_124"
+                      name: "default_name_134"
                       protocol: "0"
                       queue: "0"
                       sport: "0"
@@ -3501,13 +3622,13 @@ EXAMPLES = """
                       dscp7: "queue0"
                       dscp8: "queue0"
                       dscp9: "queue0"
-                      id: "202"
+                      id: "212"
                       type: "cos"
                       weight: "6"
               scheduler:
                   -
                       mode: "none"
-                      name: "default_name_207"
+                      name: "default_name_217"
           npu_group_effective_scope: "255"
           npu_tcam:
               -
@@ -3623,7 +3744,7 @@ EXAMPLES = """
                       vdid: "0"
                   mir_act:
                       vlif: "0"
-                  name: "default_name_322"
+                  name: "default_name_332"
                   oid: "0"
                   pri_act:
                       priority: "0"
@@ -3761,13 +3882,19 @@ EXAMPLES = """
               source_ip_upper_16: "include"
               source_port: "include"
           sw_np_bandwidth: "0G"
+          sw_np_rate: "0"
+          sw_np_rate_burst: "16"
+          sw_np_rate_unit: "mbps"
           sw_tr_hash:
               draco15: "enable"
               tcp_udp_port: "include"
           tunnel_over_vlink: "enable"
           uesp_offload: "enable"
           ull_port_mode: "10G"
+          use_mse_oft: "enable"
           vlan_lookup_cache: "enable"
+          vxlan_mac_flapping_guard: "enable"
+          vxlan_offload: "enable"
 """
 
 RETURN = """
@@ -3864,8 +3991,10 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_system_npu_data(json):
     option_list = [
         "capwap_offload",
+        "dedicated_lacp_queue",
         "dedicated_management_affinity",
         "dedicated_management_cpu",
+        "default_ipsec_mcs_type",
         "default_qos_type",
         "dos_options",
         "double_level_mcast_offload",
@@ -3881,6 +4010,7 @@ def filter_system_npu_data(json):
         "htab_dedi_queue_nr",
         "htab_msg_queue",
         "htx_icmp_csum_chk",
+        "ike_port",
         "inbound_dscp_copy_port",
         "intf_shaping_offload",
         "ip_fragment_offload",
@@ -3892,11 +4022,13 @@ def filter_system_npu_data(json):
         "ipsec_ob_np_sel",
         "ipsec_over_vlink",
         "isf_np_queues",
+        "lag_hash_gre",
         "lag_out_port_select",
         "max_receive_unit",
         "max_session_timeout",
         "mcast_denied_ses_offload",
         "mcast_session_accounting",
+        "mcs_host_packet_tpe_shaping",
         "napi_break_interval",
         "np_queues",
         "npu_group_effective_scope",
@@ -3917,11 +4049,17 @@ def filter_system_npu_data(json):
         "strip_esp_padding",
         "sw_eh_hash",
         "sw_np_bandwidth",
+        "sw_np_rate",
+        "sw_np_rate_burst",
+        "sw_np_rate_unit",
         "sw_tr_hash",
         "tunnel_over_vlink",
         "uesp_offload",
         "ull_port_mode",
+        "use_mse_oft",
         "vlan_lookup_cache",
+        "vxlan_mac_flapping_guard",
+        "vxlan_offload",
     ]
 
     json = remove_invalid_fields(json)
@@ -4095,9 +4233,2864 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "dedicated_lacp_queue": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "dedicated_management_affinity": {
             "v_range": [["v7.0.1", ""]],
             "type": "string",
+        },
+        "dos_options": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "npu_dos_meter_mode": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "global"}, {"value": "local"}],
+                },
+                "npu_dos_tpe_mode": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+        },
+        "napi_break_interval": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "hpe": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "all_protocol": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "tcpsyn_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "tcpsyn_ack_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "tcpfin_rst_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "tcp_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "udp_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "icmp_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "sctp_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "esp_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "ip_frag_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "ip_others_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "arp_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "l2_others_max": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "high_priority": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "enable_shaper": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+            },
+        },
+        "capwap_offload": {
+            "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "vxlan_offload": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "vxlan_mac_flapping_guard": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "default_qos_type": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "policing"},
+                {"value": "shaping"},
+                {"value": "policing-enhanced"},
+            ],
+        },
+        "default_ipsec_mcs_type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "policing"}, {"value": "shaping"}],
+        },
+        "shaping_stats": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "mcs_host_packet_tpe_shaping": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "gtp_support": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "per_session_accounting": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "traffic-log-only"},
+                {"value": "disable"},
+                {"value": "enable"},
+            ],
+        },
+        "session_acct_interval": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "max_session_timeout": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "fp_anomaly": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "tcp_syn_fin": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "tcp_fin_noack": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "tcp_fin_only": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "tcp_no_flag": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "tcp_syn_data": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "tcp_winnuke": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "tcp_land": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "udp_land": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "icmp_land": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "icmp_frag": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_land": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_proto_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_unknopt": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_optrr": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_optssrr": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_optlsrr": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_optstream": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_optsecurity": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_opttimestamp": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv4_csum_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "drop"}, {"value": "trap-to-host"}],
+                },
+                "tcp_csum_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow", "v_range": [["v8.0.0", ""]]},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "udp_csum_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow", "v_range": [["v8.0.0", ""]]},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "udplite_csum_err": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "icmp_csum_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow", "v_range": [["v8.0.0", ""]]},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "gre_csum_err": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "sctp_csum_err": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_land": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_proto_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_unknopt": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_saddr_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_daddr_err": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_optralert": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_optjumbo": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_opttunnel": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_opthomeaddr": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_optnsap": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_optendpid": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+                "ipv6_optinvld": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "allow"},
+                        {"value": "drop"},
+                        {"value": "trap-to-host"},
+                    ],
+                },
+            },
+        },
+        "ip_reassembly": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "min_timeout": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "max_timeout": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "status": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "disable"}, {"value": "enable"}],
+                },
+            },
+        },
+        "hash_tbl_spread": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "vlan_lookup_cache": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ip_fragment_offload": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "htx_icmp_csum_chk": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "drop"}, {"value": "pass"}],
+        },
+        "htab_msg_queue": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "data"}, {"value": "idle"}, {"value": "dedicated"}],
+        },
+        "htab_dedi_queue_nr": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "dsw_dts_profile": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "profile_id": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                    "required": True,
+                },
+                "min_limit": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "step": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "action": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "wait"},
+                        {"value": "drop"},
+                        {"value": "drop_tmr_0"},
+                        {"value": "drop_tmr_1"},
+                        {"value": "enque"},
+                        {"value": "enque_0"},
+                        {"value": "enque_1"},
+                    ],
+                },
+            },
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+        },
+        "dsw_queue_dts_profile": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "iport": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "eif0"},
+                        {"value": "eif1"},
+                        {"value": "eif2"},
+                        {"value": "eif3"},
+                        {"value": "eif4"},
+                        {"value": "eif5"},
+                        {"value": "eif6"},
+                        {"value": "eif7"},
+                        {"value": "htx0"},
+                        {"value": "htx1"},
+                        {"value": "sse0"},
+                        {"value": "sse1"},
+                        {"value": "sse2"},
+                        {"value": "sse3"},
+                        {"value": "rlt"},
+                        {"value": "dfr"},
+                        {"value": "ipseci"},
+                        {"value": "ipseco"},
+                        {"value": "ipti"},
+                        {"value": "ipto"},
+                        {"value": "vep0"},
+                        {"value": "vep2"},
+                        {"value": "vep4"},
+                        {"value": "vep6"},
+                        {"value": "ivs"},
+                        {"value": "l2ti1"},
+                        {"value": "l2to"},
+                        {"value": "l2ti0"},
+                        {"value": "ple"},
+                        {"value": "spath"},
+                        {"value": "qtm"},
+                    ],
+                },
+                "oport": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "eif0"},
+                        {"value": "eif1"},
+                        {"value": "eif2"},
+                        {"value": "eif3"},
+                        {"value": "eif4"},
+                        {"value": "eif5"},
+                        {"value": "eif6"},
+                        {"value": "eif7"},
+                        {"value": "hrx"},
+                        {"value": "sse0"},
+                        {"value": "sse1"},
+                        {"value": "sse2"},
+                        {"value": "sse3"},
+                        {"value": "rlt"},
+                        {"value": "dfr"},
+                        {"value": "ipseci"},
+                        {"value": "ipseco"},
+                        {"value": "ipti"},
+                        {"value": "ipto"},
+                        {"value": "vep0"},
+                        {"value": "vep2"},
+                        {"value": "vep4"},
+                        {"value": "vep6"},
+                        {"value": "ivs"},
+                        {"value": "l2ti1"},
+                        {"value": "l2to"},
+                        {"value": "l2ti0"},
+                        {"value": "ple"},
+                        {"value": "sync"},
+                        {"value": "nss"},
+                        {"value": "tsk"},
+                        {"value": "qtm"},
+                    ],
+                },
+                "profile_id": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "queue_select": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+            },
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+        },
+        "npu_tcam": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "type": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "L2_src_tc"},
+                        {"value": "L2_tgt_tc"},
+                        {"value": "L2_src_mir"},
+                        {"value": "L2_tgt_mir"},
+                        {"value": "L2_src_act"},
+                        {"value": "L2_tgt_act"},
+                        {"value": "IPv4_src_tc"},
+                        {"value": "IPv4_tgt_tc"},
+                        {"value": "IPv4_src_mir"},
+                        {"value": "IPv4_tgt_mir"},
+                        {"value": "IPv4_src_act"},
+                        {"value": "IPv4_tgt_act"},
+                        {"value": "IPv6_src_tc"},
+                        {"value": "IPv6_tgt_tc"},
+                        {"value": "IPv6_src_mir"},
+                        {"value": "IPv6_tgt_mir"},
+                        {"value": "IPv6_src_act"},
+                        {"value": "IPv6_tgt_act"},
+                    ],
+                },
+                "oid": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "vid": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "integer",
+                },
+                "data": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "gen_buf_cnt": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_pri": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_pri_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "gen_iv": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "gen_tv": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "gen_pkt_ctrl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_l3_flags": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_l4_flags": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "vdid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tp": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tgt_updt": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "smac_change": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "ext_tag": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tgt_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "tvid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tgt_cfi": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tgt_prio": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "sp": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "src_updt": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "slink": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "svid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "src_cfi": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "src_prio": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "srcmac": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "dstmac": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ethertype": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ipver": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "ihl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "ip4_id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "srcip": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "dstip": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ip6_fl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "srcipv6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "dstipv6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ttl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "protocol": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tos": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "frag_off": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mf": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "df": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "srcport": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "dstport": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tcp_fin": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_syn": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_rst": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_push": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_ack": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_urg": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_ece": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_cwr": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "l4_wd8": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "l4_wd9": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "l4_wd10": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "l4_wd11": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                },
+                "mask": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "gen_buf_cnt": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_pri": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_pri_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "gen_iv": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "gen_tv": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "gen_pkt_ctrl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_l3_flags": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "gen_l4_flags": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "vdid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tp": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tgt_updt": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "smac_change": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "ext_tag": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tgt_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "valid"}, {"value": "invalid"}],
+                        },
+                        "tvid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tgt_cfi": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tgt_prio": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "sp": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "src_updt": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "slink": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "svid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "src_cfi": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "src_prio": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "srcmac": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "dstmac": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ethertype": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ipver": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "ihl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "ip4_id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "srcip": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "dstip": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ip6_fl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "srcipv6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "dstipv6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "ttl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "protocol": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tos": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "frag_off": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mf": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "df": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "srcport": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "dstport": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tcp_fin": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_syn": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_rst": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_push": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_ack": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_urg": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_ece": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tcp_cwr": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "l4_wd8": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "l4_wd9": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "l4_wd10": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "l4_wd11": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                },
+                "mir_act": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "vlif": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        }
+                    },
+                },
+                "pri_act": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "priority": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "weight": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                },
+                "sact": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "fwd_lif_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "fwd_lif": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "fwd_tvid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "fwd_tvid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "df_lif_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "df_lif": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "act_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "act": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "pleen_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "pleen": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "icpen_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "icpen": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "vdm_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "vdm": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "learn_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "learn": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "rfsh_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "rfsh": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "fwd_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "fwd": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "x_mode_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "x_mode": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "promis_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "promis": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "bmproc_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "bmproc": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mac_id_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "mac_id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "dosen_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "dosen": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "dfr_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "dfr": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "m_srh_ctrl_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "m_srh_ctrl": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tpe_id_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tpe_id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "vdom_id_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "vdom_id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mss_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "mss": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tp_smchk_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tp_smchk": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "etype_pid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "etype_pid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "frag_proc_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "frag_proc": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "espff_proc_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "espff_proc": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "prio_pid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "prio_pid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "igmp_mld_snp_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "igmp_mld_snp": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "smac_skip_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "smac_skip": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "dmac_skip_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "dmac_skip": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                },
+                "tact": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "dict",
+                    "children": {
+                        "act_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "act": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mtuv4_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "mtuv4": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mtuv6_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "mtuv6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mac_id_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "mac_id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "slif_act_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "slif_act": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tlif_act_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tlif_act": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tgtv_act_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tgtv_act": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "tpeid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "tpeid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "v6fe_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "v6fe": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "xlt_vid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "xlt_vid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "xlt_lif_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "xlt_lif": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "mss_t_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "mss_t": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "lnkid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "lnkid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "sublnkid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "sublnkid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "fmtuv4_s_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "fmtuv4_s": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "fmtuv6_s_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "fmtuv6_s": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "vep_en_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "vep_en": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "vep_slid_v": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "enable"}, {"value": "disable"}],
+                        },
+                        "vep_slid": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                },
+            },
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+        },
+        "np_queues": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "profile": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "id": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                            "required": True,
+                        },
+                        "type": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [{"value": "cos"}, {"value": "dscp"}],
+                        },
+                        "weight": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "cos0": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos1": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos2": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos3": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos4": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos5": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "cos7": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp0": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp1": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp2": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp3": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp4": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp5": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp6": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp7": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp8": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp9": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp10": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp11": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp12": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp13": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp14": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp15": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp16": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp17": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp18": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp19": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp20": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp21": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp22": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp23": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp24": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp25": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp26": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp27": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp28": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp29": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp30": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp31": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp32": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp33": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp34": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp35": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp36": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp37": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp38": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp39": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp40": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp41": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp42": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp43": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp44": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp45": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp46": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp47": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp48": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp49": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp50": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp51": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp52": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp53": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp54": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp55": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp56": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp57": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp58": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp59": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp60": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp61": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp62": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                        "dscp63": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "queue0"},
+                                {"value": "queue1"},
+                                {"value": "queue2"},
+                                {"value": "queue3"},
+                                {"value": "queue4"},
+                                {"value": "queue5"},
+                                {"value": "queue6"},
+                                {"value": "queue7"},
+                            ],
+                        },
+                    },
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                "ethernet_type": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "type": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                        },
+                        "queue": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "weight": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                "ip_protocol": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "protocol": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "queue": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "weight": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                "ip_service": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "protocol": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "sport": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "dport": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "queue": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                        "weight": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "integer",
+                        },
+                    },
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                "scheduler": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        },
+                        "mode": {
+                            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                            "type": "string",
+                            "options": [
+                                {"value": "none"},
+                                {"value": "priority"},
+                                {"value": "round-robin"},
+                            ],
+                        },
+                    },
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                },
+                "custom_etype_lookup": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+            },
+        },
+        "sw_np_rate": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "sw_np_rate_unit": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "mbps"}, {"value": "pps"}],
+        },
+        "sw_np_rate_burst": {"v_range": [["v8.0.0", ""]], "type": "integer"},
+        "double_level_mcast_offload": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "mcast_denied_ses_offload": {
+            "v_range": [["v7.6.5", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "session_denied_offload": {
+            "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "qtm_buf_mode": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "6ch"}, {"value": "4ch"}],
+        },
+        "ipsec_ob_np_sel": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "rr"}, {"value": "Packet"}, {"value": "Hash"}],
+        },
+        "max_receive_unit": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "integer",
+        },
+        "lag_hash_gre": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "disable"},
+                {"value": "gre_inner_l3"},
+                {"value": "gre_inner_l4"},
+                {"value": "gre_inner_l3l4"},
+            ],
+        },
+        "use_mse_oft": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ike_port": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "port": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "integer",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
         },
         "port_cpu_map": {
             "type": "list",
@@ -4108,7 +7101,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "required": True,
@@ -4118,7 +7111,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4127,34 +7120,24 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
         },
-        "mcast_denied_ses_offload": {
-            "v_range": [["v7.6.5", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "fastpath": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "capwap_offload": {
-            "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
         "ipsec_enc_subengine_mask": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
         },
         "ipsec_dec_subengine_mask": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
         },
         "sw_np_bandwidth": {
-            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [
                 {"value": "0G"},
@@ -4162,58 +7145,67 @@ versioned_schema = {
                 {"value": "4G"},
                 {"value": "5G"},
                 {"value": "6G"},
-                {"value": "7G", "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", ""]]},
-                {"value": "8G", "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", ""]]},
-                {"value": "9G", "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", ""]]},
+                {
+                    "value": "7G",
+                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
+                },
+                {
+                    "value": "8G",
+                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
+                },
+                {
+                    "value": "9G",
+                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
+                },
             ],
         },
         "gtp_enhanced_mode": {
-            "v_range": [["v6.0.0", ""]],
+            "v_range": [["v6.0.0", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "gtp_enhanced_cpu_range": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "0"}, {"value": "1"}, {"value": "2"}],
         },
         "intf_shaping_offload": {
-            "v_range": [["v6.4.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "strip_esp_padding": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "strip_clear_text_padding": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ipsec_inbound_cache": {
-            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.2.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "sse_backpressure": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "rdp_offload": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "ipsec_over_vlink": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "uesp_offload": {
-            "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -4222,7 +7214,7 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
             "options": [
@@ -4236,7 +7228,7 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "dict",
             "children": {
@@ -4245,7 +7237,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4254,7 +7246,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4263,7 +7255,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4272,7 +7264,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4281,7 +7273,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4290,7 +7282,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4299,7 +7291,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4308,7 +7300,7 @@ versioned_schema = {
                         ["v6.4.0", "v6.4.0"],
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                 },
@@ -4320,7 +7312,7 @@ versioned_schema = {
                 ["v6.0.11", "v6.2.0"],
                 ["v6.2.5", "v6.2.7"],
                 ["v6.4.4", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
             "options": [
@@ -4334,25 +7326,33 @@ versioned_schema = {
                 ["v6.2.0", "v6.2.0"],
                 ["v6.2.7", "v6.2.7"],
                 ["v6.4.4", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "lag_out_port_select": {
-            "v_range": [["v6.2.0", "v6.2.7"], ["v6.4.1", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.2.0", "v6.2.7"],
+                ["v6.4.1", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
         "sw_eh_hash": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "computation": {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [
@@ -4366,7 +7366,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4375,7 +7375,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4384,7 +7384,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4393,7 +7393,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4402,7 +7402,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4411,7 +7411,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4420,7 +7420,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
@@ -4429,47 +7429,46 @@ versioned_schema = {
                     "v_range": [
                         ["v7.2.0", "v7.2.0"],
                         ["v7.4.0", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "integer",
                 },
             },
         },
         "sw_tr_hash": {
-            "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
             "type": "dict",
             "children": {
                 "draco15": {
-                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
                 },
                 "tcp_udp_port": {
-                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+                    "v_range": [["v7.4.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
                     "type": "string",
                     "options": [{"value": "include"}, {"value": "exclude"}],
                 },
             },
         },
-        "session_denied_offload": {
-            "v_range": [["v7.0.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
         "tunnel_over_vlink": {
-            "v_range": [["v7.4.4", ""]],
+            "v_range": [["v7.4.4", "v7.6.7"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "priority_protocol": {
-            "v_range": [["v6.0.0", "v6.0.0"], ["v6.0.11", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v6.0.0", "v6.0.0"],
+                ["v6.0.11", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "dict",
             "children": {
                 "bgp": {
                     "v_range": [
                         ["v6.0.0", "v6.0.0"],
                         ["v6.0.11", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -4478,7 +7477,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v6.0.0"],
                         ["v6.0.11", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -4487,7 +7486,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v6.0.0"],
                         ["v6.0.11", "v7.4.1"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                     "type": "string",
                     "options": [{"value": "enable"}, {"value": "disable"}],
@@ -4543,2504 +7542,9 @@ versioned_schema = {
                 ["v7.4.2", "v7.4.2"],
             ],
         },
-        "ipsec_ob_np_sel": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "rr"}, {"value": "Packet"}, {"value": "Hash"}],
-        },
         "npu_group_effective_scope": {
             "v_range": [["v7.4.2", "v7.4.2"]],
             "type": "integer",
-        },
-        "dos_options": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "dict",
-            "children": {
-                "npu_dos_meter_mode": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "global"}, {"value": "local"}],
-                },
-                "npu_dos_tpe_mode": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "enable"}, {"value": "disable"}],
-                },
-            },
-        },
-        "napi_break_interval": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-        "hpe": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "dict",
-            "children": {
-                "all_protocol": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "tcpsyn_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "tcpsyn_ack_max": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "integer",
-                },
-                "tcpfin_rst_max": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "integer",
-                },
-                "tcp_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "udp_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "icmp_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "sctp_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "esp_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "ip_frag_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "ip_others_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "arp_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "l2_others_max": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "high_priority": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "enable_shaper": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "disable"}, {"value": "enable"}],
-                },
-            },
-        },
-        "default_qos_type": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [
-                {"value": "policing"},
-                {"value": "shaping"},
-                {"value": "policing-enhanced"},
-            ],
-        },
-        "shaping_stats": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "gtp_support": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "per_session_accounting": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [
-                {"value": "traffic-log-only"},
-                {"value": "disable"},
-                {"value": "enable"},
-            ],
-        },
-        "session_acct_interval": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-        "max_session_timeout": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-        "fp_anomaly": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "dict",
-            "children": {
-                "tcp_syn_fin": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "tcp_fin_noack": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "tcp_fin_only": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "tcp_no_flag": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "tcp_syn_data": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "tcp_winnuke": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "tcp_land": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "udp_land": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "icmp_land": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "icmp_frag": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_land": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_proto_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_unknopt": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_optrr": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_optssrr": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_optlsrr": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_optstream": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_optsecurity": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_opttimestamp": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv4_csum_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "drop"}, {"value": "trap-to-host"}],
-                },
-                "tcp_csum_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "drop"}, {"value": "trap-to-host"}],
-                },
-                "udp_csum_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "drop"}, {"value": "trap-to-host"}],
-                },
-                "icmp_csum_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "drop"}, {"value": "trap-to-host"}],
-                },
-                "ipv6_land": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_proto_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_unknopt": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_saddr_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_daddr_err": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_optralert": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_optjumbo": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_opttunnel": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_opthomeaddr": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_optnsap": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_optendpid": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-                "ipv6_optinvld": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "allow"},
-                        {"value": "drop"},
-                        {"value": "trap-to-host"},
-                    ],
-                },
-            },
-        },
-        "ip_reassembly": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "dict",
-            "children": {
-                "min_timeout": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "max_timeout": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "status": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [{"value": "disable"}, {"value": "enable"}],
-                },
-            },
-        },
-        "hash_tbl_spread": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "vlan_lookup_cache": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "ip_fragment_offload": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "disable"}, {"value": "enable"}],
-        },
-        "htx_icmp_csum_chk": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "drop"}, {"value": "pass"}],
-        },
-        "htab_msg_queue": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "data"}, {"value": "idle"}, {"value": "dedicated"}],
-        },
-        "htab_dedi_queue_nr": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-        "dsw_dts_profile": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "profile_id": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "integer",
-                    "required": True,
-                },
-                "min_limit": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "step": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "action": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "wait"},
-                        {"value": "drop"},
-                        {"value": "drop_tmr_0"},
-                        {"value": "drop_tmr_1"},
-                        {"value": "enque"},
-                        {"value": "enque_0"},
-                        {"value": "enque_1"},
-                    ],
-                },
-            },
-            "v_range": [["v7.4.2", "v7.4.2"]],
-        },
-        "dsw_queue_dts_profile": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "required": True,
-                },
-                "iport": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "eif0"},
-                        {"value": "eif1"},
-                        {"value": "eif2"},
-                        {"value": "eif3"},
-                        {"value": "eif4"},
-                        {"value": "eif5"},
-                        {"value": "eif6"},
-                        {"value": "eif7"},
-                        {"value": "htx0"},
-                        {"value": "htx1"},
-                        {"value": "sse0"},
-                        {"value": "sse1"},
-                        {"value": "sse2"},
-                        {"value": "sse3"},
-                        {"value": "rlt"},
-                        {"value": "dfr"},
-                        {"value": "ipseci"},
-                        {"value": "ipseco"},
-                        {"value": "ipti"},
-                        {"value": "ipto"},
-                        {"value": "vep0"},
-                        {"value": "vep2"},
-                        {"value": "vep4"},
-                        {"value": "vep6"},
-                        {"value": "ivs"},
-                        {"value": "l2ti1"},
-                        {"value": "l2to"},
-                        {"value": "l2ti0"},
-                        {"value": "ple"},
-                        {"value": "spath"},
-                        {"value": "qtm"},
-                    ],
-                },
-                "oport": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "eif0"},
-                        {"value": "eif1"},
-                        {"value": "eif2"},
-                        {"value": "eif3"},
-                        {"value": "eif4"},
-                        {"value": "eif5"},
-                        {"value": "eif6"},
-                        {"value": "eif7"},
-                        {"value": "hrx"},
-                        {"value": "sse0"},
-                        {"value": "sse1"},
-                        {"value": "sse2"},
-                        {"value": "sse3"},
-                        {"value": "rlt"},
-                        {"value": "dfr"},
-                        {"value": "ipseci"},
-                        {"value": "ipseco"},
-                        {"value": "ipti"},
-                        {"value": "ipto"},
-                        {"value": "vep0"},
-                        {"value": "vep2"},
-                        {"value": "vep4"},
-                        {"value": "vep6"},
-                        {"value": "ivs"},
-                        {"value": "l2ti1"},
-                        {"value": "l2to"},
-                        {"value": "l2ti0"},
-                        {"value": "ple"},
-                        {"value": "sync"},
-                        {"value": "nss"},
-                        {"value": "tsk"},
-                        {"value": "qtm"},
-                    ],
-                },
-                "profile_id": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "queue_select": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-            },
-            "v_range": [["v7.4.2", "v7.4.2"]],
-        },
-        "npu_tcam": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "name": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "required": True,
-                },
-                "type": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "L2_src_tc"},
-                        {"value": "L2_tgt_tc"},
-                        {"value": "L2_src_mir"},
-                        {"value": "L2_tgt_mir"},
-                        {"value": "L2_src_act"},
-                        {"value": "L2_tgt_act"},
-                        {"value": "IPv4_src_tc"},
-                        {"value": "IPv4_tgt_tc"},
-                        {"value": "IPv4_src_mir"},
-                        {"value": "IPv4_tgt_mir"},
-                        {"value": "IPv4_src_act"},
-                        {"value": "IPv4_tgt_act"},
-                        {"value": "IPv6_src_tc"},
-                        {"value": "IPv6_tgt_tc"},
-                        {"value": "IPv6_src_mir"},
-                        {"value": "IPv6_tgt_mir"},
-                        {"value": "IPv6_src_act"},
-                        {"value": "IPv6_tgt_act"},
-                    ],
-                },
-                "oid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "vid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                "data": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "dict",
-                    "children": {
-                        "gen_buf_cnt": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_pri": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_pri_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "gen_iv": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "gen_tv": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "gen_pkt_ctrl": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_l3_flags": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_l4_flags": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "vdid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tp": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tgt_updt": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "smac_change": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "ext_tag": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tgt_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "tvid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tgt_cfi": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tgt_prio": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "sp": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "src_updt": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "slink": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "svid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "src_cfi": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "src_prio": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "srcmac": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "dstmac": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "ethertype": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                        },
-                        "ipver": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "ihl": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "ip4_id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "srcip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "dstip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "ip6_fl": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "srcipv6": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                        },
-                        "dstipv6": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                        },
-                        "ttl": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "protocol": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tos": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "frag_off": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "mf": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "df": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "srcport": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "dstport": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tcp_fin": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_syn": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_rst": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_push": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_ack": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_urg": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_ece": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_cwr": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "l4_wd8": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "l4_wd9": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "l4_wd10": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "l4_wd11": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                },
-                "mask": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "dict",
-                    "children": {
-                        "gen_buf_cnt": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_pri": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_pri_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "gen_iv": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "gen_tv": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "gen_pkt_ctrl": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_l3_flags": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "gen_l4_flags": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "vdid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tp": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tgt_updt": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "smac_change": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "ext_tag": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tgt_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "valid"}, {"value": "invalid"}],
-                        },
-                        "tvid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tgt_cfi": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tgt_prio": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "sp": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "src_updt": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "slink": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "svid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "src_cfi": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "src_prio": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "srcmac": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "dstmac": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "ethertype": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                        },
-                        "ipver": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "ihl": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "ip4_id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "srcip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "dstip": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "ip6_fl": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "srcipv6": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                        },
-                        "dstipv6": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                        },
-                        "ttl": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "protocol": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tos": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "frag_off": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "mf": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "df": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "srcport": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "dstport": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tcp_fin": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_syn": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_rst": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_push": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_ack": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_urg": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_ece": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tcp_cwr": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "l4_wd8": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "l4_wd9": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "l4_wd10": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "l4_wd11": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                },
-                "mir_act": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "dict",
-                    "children": {
-                        "vlif": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"}
-                    },
-                },
-                "pri_act": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "dict",
-                    "children": {
-                        "priority": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "weight": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                },
-                "sact": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "dict",
-                    "children": {
-                        "fwd_lif_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "fwd_lif": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "fwd_tvid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "fwd_tvid": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "df_lif_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "df_lif": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "act_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "act": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "pleen_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "pleen": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "icpen_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "icpen": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "vdm_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "vdm": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "learn_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "learn": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "rfsh_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "rfsh": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "fwd_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "fwd": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "x_mode_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "x_mode": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "promis_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "promis": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "bmproc_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "bmproc": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "mac_id_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "mac_id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "dosen_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "dosen": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "dfr_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "dfr": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "m_srh_ctrl_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "m_srh_ctrl": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tpe_id_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tpe_id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "vdom_id_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "vdom_id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "mss_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "mss": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "tp_smchk_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tp_smchk": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "etype_pid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "etype_pid": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "frag_proc_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "frag_proc": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "espff_proc_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "espff_proc": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "prio_pid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "prio_pid": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "igmp_mld_snp_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "igmp_mld_snp": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "smac_skip_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "smac_skip": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "dmac_skip_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "dmac_skip": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                },
-                "tact": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "dict",
-                    "children": {
-                        "act_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "act": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "mtuv4_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "mtuv4": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "mtuv6_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "mtuv6": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "mac_id_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "mac_id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "slif_act_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "slif_act": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tlif_act_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tlif_act": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tgtv_act_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tgtv_act": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "tpeid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "tpeid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "v6fe_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "v6fe": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "xlt_vid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "xlt_vid": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "xlt_lif_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "xlt_lif": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "mss_t_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "mss_t": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "lnkid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "lnkid": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "sublnkid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "sublnkid": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "fmtuv4_s_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "fmtuv4_s": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "fmtuv6_s_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "fmtuv6_s": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "vep_en_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "vep_en": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "vep_slid_v": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "enable"}, {"value": "disable"}],
-                        },
-                        "vep_slid": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                },
-            },
-            "v_range": [["v7.4.2", "v7.4.2"]],
-        },
-        "np_queues": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "dict",
-            "children": {
-                "profile": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "id": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                            "required": True,
-                        },
-                        "type": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [{"value": "cos"}, {"value": "dscp"}],
-                        },
-                        "weight": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "cos0": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos1": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos2": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos3": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos4": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos5": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos6": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "cos7": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp0": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp1": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp2": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp3": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp4": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp5": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp6": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp7": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp8": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp9": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp10": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp11": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp12": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp13": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp14": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp15": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp16": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp17": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp18": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp19": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp20": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp21": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp22": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp23": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp24": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp25": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp26": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp27": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp28": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp29": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp30": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp31": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp32": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp33": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp34": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp35": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp36": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp37": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp38": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp39": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp40": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp41": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp42": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp43": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp44": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp45": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp46": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp47": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp48": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp49": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp50": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp51": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp52": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp53": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp54": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp55": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp56": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp57": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp58": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp59": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp60": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp61": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp62": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                        "dscp63": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "queue0"},
-                                {"value": "queue1"},
-                                {"value": "queue2"},
-                                {"value": "queue3"},
-                                {"value": "queue4"},
-                                {"value": "queue5"},
-                                {"value": "queue6"},
-                                {"value": "queue7"},
-                            ],
-                        },
-                    },
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                },
-                "ethernet_type": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "name": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "required": True,
-                        },
-                        "type": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "string"},
-                        "queue": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "weight": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                },
-                "ip_protocol": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "name": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "required": True,
-                        },
-                        "protocol": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "queue": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "weight": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                },
-                "ip_service": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "name": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "required": True,
-                        },
-                        "protocol": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                        "sport": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "dport": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "queue": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
-                        "weight": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "integer",
-                        },
-                    },
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                },
-                "scheduler": {
-                    "type": "list",
-                    "elements": "dict",
-                    "children": {
-                        "name": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "required": True,
-                        },
-                        "mode": {
-                            "v_range": [["v7.4.2", "v7.4.2"]],
-                            "type": "string",
-                            "options": [
-                                {"value": "none"},
-                                {"value": "priority"},
-                                {"value": "round-robin"},
-                            ],
-                        },
-                    },
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                },
-            },
         },
         "inbound_dscp_copy_port": {
             "type": "list",
@@ -7054,22 +7558,11 @@ versioned_schema = {
             },
             "v_range": [["v7.4.2", "v7.4.2"]],
         },
-        "double_level_mcast_offload": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "qtm_buf_mode": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "6ch"}, {"value": "4ch"}],
-        },
         "ull_port_mode": {
             "v_range": [["v7.4.2", "v7.4.2"]],
             "type": "string",
             "options": [{"value": "10G"}, {"value": "25G"}],
         },
-        "max_receive_unit": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
     },
 }
 

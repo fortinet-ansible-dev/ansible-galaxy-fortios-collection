@@ -140,6 +140,14 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -147,6 +155,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             fqdn:
                 description:
                     - Fully qualified domain name.
@@ -273,7 +289,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure custom services.
   fortinet.fortios.fortios_firewall_service_custom:
@@ -292,13 +307,15 @@ EXAMPLES = """
           check_reset_range: "disable"
           color: "0"
           comment: "Comment."
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           fqdn: "<your_own_value>"
           helper: "auto"
           icmpcode: ""
           icmptype: ""
           iprange: "<your_own_value>"
-          name: "default_name_18"
+          name: "default_name_20"
           protocol: "TCP/UDP/UDP-Lite/SCTP"
           protocol_number: "0"
           proxy: "enable"
@@ -416,7 +433,9 @@ def filter_firewall_service_custom_data(json):
         "check_reset_range",
         "color",
         "comment",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "fqdn",
         "helper",
         "icmpcode",
@@ -624,6 +643,21 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v7.4.2", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "proxy": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -673,7 +707,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 {
@@ -681,7 +715,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 {
@@ -689,7 +723,7 @@ versioned_schema = {
                     "v_range": [
                         ["v6.0.0", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
                 {
@@ -697,7 +731,7 @@ versioned_schema = {
                     "v_range": [
                         ["v7.0.1", "v7.0.8"],
                         ["v7.2.0", "v7.2.4"],
-                        ["v7.4.3", ""],
+                        ["v7.4.3", "v7.6.7"],
                     ],
                 },
             ],
@@ -752,11 +786,6 @@ versioned_schema = {
                 "id": {"v_range": [["v6.0.0", ""]], "type": "integer", "required": True}
             },
             "v_range": [["v6.0.0", ""]],
-        },
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "visibility": {
             "v_range": [["v6.0.0", "v7.2.2"]],

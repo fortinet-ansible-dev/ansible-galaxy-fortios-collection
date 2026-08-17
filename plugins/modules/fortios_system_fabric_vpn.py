@@ -134,6 +134,10 @@ options:
                 description:
                     - 'IPv4 address and subnet mask for hub"s loopback address, syntax: X.X.X.X/24.'
                 type: str
+            loopback_address_block_ipam:
+                description:
+                    - IPAM firewall address that will be used for hub"s loopback address. Source firewall.address.name.
+                type: str
             loopback_advertised_subnet:
                 description:
                     - Loopback advertised subnet reference. Source system.fabric-vpn.advertised-subnets.id.
@@ -189,6 +193,10 @@ options:
                         description:
                             - 'IPv4 address and subnet mask for the overlay tunnel , syntax: X.X.X.X/24.'
                         type: str
+                    overlay_tunnel_block_ipam:
+                        description:
+                            - Source for the overlay tunnel, obtained from the firewall addresses managed by IPAM Source firewall.address.name.
+                        type: str
                     remote_gw:
                         description:
                             - IP address of the hub gateway (Set by hub).
@@ -209,6 +217,7 @@ options:
                     - 'health-check'
                     - 'manual'
                     - 'auto'
+                    - 'fabric'
             psksecret:
                 description:
                     - Pre-shared secret for ADVPN.
@@ -239,7 +248,6 @@ options:
                     - 'hub'
                     - 'spoke'
 """
-
 EXAMPLES = """
 - name: Setup for self orchestrated fabric auto discovery VPN.
   fortinet.fortios.fortios_system_fabric_vpn:
@@ -257,6 +265,7 @@ EXAMPLES = """
           branch_name: "<your_own_value>"
           health_checks: "<your_own_value> (source system.sdwan.health-check.name)"
           loopback_address_block: "<your_own_value>"
+          loopback_address_block_ipam: "<your_own_value> (source firewall.address.name)"
           loopback_advertised_subnet: "0"
           loopback_interface: "<your_own_value> (source system.interface.name)"
           overlays:
@@ -268,9 +277,10 @@ EXAMPLES = """
                   interface: "<your_own_value> (source system.interface.name)"
                   ipsec_network_id: "0"
                   ipsec_phase1: "<your_own_value> (source vpn.ipsec.phase1-interface.name)"
-                  name: "default_name_24"
+                  name: "default_name_25"
                   overlay_policy: "0"
                   overlay_tunnel_block: "<your_own_value>"
+                  overlay_tunnel_block_ipam: "<your_own_value> (source firewall.address.name)"
                   remote_gw: "<your_own_value>"
                   route_policy: "0"
                   sdwan_member: "0"
@@ -380,6 +390,7 @@ def filter_system_fabric_vpn_data(json):
         "branch_name",
         "health_checks",
         "loopback_address_block",
+        "loopback_address_block_ipam",
         "loopback_advertised_subnet",
         "loopback_interface",
         "overlays",
@@ -608,6 +619,7 @@ versioned_schema = {
                 {"value": "health-check"},
                 {"value": "manual"},
                 {"value": "auto"},
+                {"value": "fabric", "v_range": [["v8.0.0", ""]]},
             ],
         },
         "vpn_role": {
@@ -626,6 +638,10 @@ versioned_schema = {
                 },
                 "ipsec_network_id": {"v_range": [["v7.6.3", ""]], "type": "integer"},
                 "overlay_tunnel_block": {"v_range": [["v7.2.4", ""]], "type": "string"},
+                "overlay_tunnel_block_ipam": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                },
                 "remote_gw": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "interface": {"v_range": [["v7.2.4", ""]], "type": "string"},
                 "bgp_neighbor": {"v_range": [["v7.2.4", ""]], "type": "string"},
@@ -666,6 +682,7 @@ versioned_schema = {
             "v_range": [["v7.2.4", ""]],
         },
         "loopback_address_block": {"v_range": [["v7.2.4", ""]], "type": "string"},
+        "loopback_address_block_ipam": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "loopback_interface": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "loopback_advertised_subnet": {"v_range": [["v7.2.4", ""]], "type": "integer"},
         "psksecret": {"v_range": [["v7.2.4", ""]], "type": "string"},

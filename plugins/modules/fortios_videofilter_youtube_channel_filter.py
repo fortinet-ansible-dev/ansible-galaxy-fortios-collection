@@ -156,7 +156,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure YouTube channel filter.
   fortinet.fortios.fortios_videofilter_youtube_channel_filter:

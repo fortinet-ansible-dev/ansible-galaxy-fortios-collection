@@ -76,6 +76,14 @@ options:
             - 'present'
             - 'absent'
 
+    state:
+        description:
+            - Indicates whether to create or remove the object.
+        type: str
+        required: true
+        choices:
+            - 'present'
+            - 'absent'
     system_fortisandbox:
         description:
             - Configure FortiSandbox.
@@ -84,7 +92,7 @@ options:
         suboptions:
             ca:
                 description:
-                    - The CA that signs remote FortiSandbox certificate, empty for no check. Source vpn.certificate.ca.name.
+                    - The CA that signs remote FortiSandbox certificate, empty for no check. Source certificate.ca.name.
                 type: str
             certificate_verification:
                 description:
@@ -96,6 +104,28 @@ options:
             cn:
                 description:
                     - The CN of remote server certificate, case sensitive, empty for no check.
+                type: str
+            cn_list:
+                description:
+                    - The CN list of remote server certificate, case sensitive, empty for no check.
+                type: list
+                elements: dict
+                suboptions:
+                    cn:
+                        description:
+                            - CN Name.
+                        required: true
+                        type: str
+            default:
+                description:
+                    - Set as default FortiSandbox.
+                type: str
+                choices:
+                    - 'enable'
+            device:
+                description:
+                    - Device Name.
+                required: true
                 type: str
             email:
                 description:
@@ -166,15 +196,21 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiSandbox.
   fortinet.fortios.fortios_system_fortisandbox:
       vdom: "{{ vdom }}"
+      state: "present"
+      access_token: "<your_own_value>"
       system_fortisandbox:
-          ca: "<your_own_value> (source vpn.certificate.ca.name)"
+          ca: "<your_own_value> (source certificate.ca.name)"
           certificate_verification: "enable"
           cn: "<your_own_value>"
+          cn_list:
+              -
+                  cn: "<your_own_value>"
+          default: "enable"
+          device: "<your_own_value>"
           email: "<your_own_value>"
           enc_algorithm: "default"
           forticloud: "enable"
@@ -284,6 +320,9 @@ def filter_system_fortisandbox_data(json):
         "ca",
         "certificate_verification",
         "cn",
+        "cn_list",
+        "default",
+        "device",
         "email",
         "enc_algorithm",
         "forticloud",
@@ -425,9 +464,25 @@ def system_fortisandbox(data, fos, check_mode=False):
         data_copy,
     )
 
-    return fos.set(
-        "system", "fortisandbox", data=converted_data, vdom=vdom, parameters=parameters
-    )
+    if state == "present" or state is True:
+        return fos.set(
+            "system",
+            "fortisandbox",
+            data=converted_data,
+            vdom=vdom,
+            parameters=parameters,
+        )
+
+    elif state == "absent":
+        return fos.delete(
+            "system",
+            "fortisandbox",
+            mkey=converted_data["device"],
+            vdom=vdom,
+            parameters=parameters,
+        )
+    else:
+        fos._module.fail_json(msg="state must be present or absent!")
 
 
 def is_successful_status(resp):
@@ -460,18 +515,19 @@ def fortios_system(data, fos, check_mode):
 
 
 versioned_schema = {
-    "v_range": [["v6.0.0", ""]],
-    "type": "dict",
+    "type": "list",
+    "elements": "dict",
     "children": {
+        "device": {"v_range": [["v8.0.0", ""]], "type": "string", "required": True},
         "status": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "forticloud": {
-            "v_range": [["v7.0.0", ""]],
+        "default": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
+            "options": [{"value": "enable"}],
         },
         "inline_scan": {
             "v_range": [["v7.2.0", ""]],
@@ -508,20 +564,34 @@ versioned_schema = {
             ],
         },
         "email": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ca": {"v_range": [["v7.6.1", ""]], "type": "string"},
-        "cn": {"v_range": [["v7.6.1", ""]], "type": "string"},
         "certificate_verification": {
             "v_range": [["v7.6.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "ca": {"v_range": [["v7.6.1", ""]], "type": "string"},
+        "cn_list": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "cn": {"v_range": [["v8.0.0", ""]], "type": "string", "required": True}
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
+        "forticloud": {
+            "v_range": [["v7.0.0", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "cn": {"v_range": [["v7.6.1", "v7.6.7"]], "type": "string"},
     },
+    "v_range": [["v6.0.0", ""]],
 }
 
 
 def main():
     module_spec = schema_to_module_spec(versioned_schema)
-    mkeyname = None
+    mkeyname = "device"
     fields = {
         "access_token": {"required": False, "type": "str", "no_log": True},
         "enable_log": {"required": False, "type": "bool", "default": False},
@@ -532,6 +602,7 @@ def main():
             "required": False,
             "choices": ["present", "absent"],
         },
+        "state": {"required": True, "type": "str", "choices": ["present", "absent"]},
         "system_fortisandbox": {
             "required": False,
             "type": "dict",

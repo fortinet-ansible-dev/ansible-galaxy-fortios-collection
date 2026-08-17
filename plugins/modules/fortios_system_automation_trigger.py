@@ -272,7 +272,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Trigger for automation stitches.
   fortinet.fortios.fortios_system_automation_trigger:

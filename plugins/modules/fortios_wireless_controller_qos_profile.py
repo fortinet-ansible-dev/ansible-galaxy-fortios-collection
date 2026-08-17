@@ -233,7 +233,6 @@ options:
                     - DSCP marking for voice access .
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure WiFi quality of service (QoS) profiles.
   fortinet.fortios.fortios_wireless_controller_qos_profile:

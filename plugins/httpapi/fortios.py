@@ -37,7 +37,7 @@ class HttpApi(HttpApiBase):
         self._conn = connection
         self._system_version = None
         self._ansible_fos_version = 'v6.0.0'
-        self._ansible_galaxy_version = '2.5.1'
+        self._ansible_galaxy_version = '2.6.0'
         self._log = None
         self._logged_in = False
         self._api_login = False
@@ -79,6 +79,52 @@ class HttpApi(HttpApiBase):
 
         return self._session_key
 
+    def _is_use_ssl_enabled(self):
+        """Return whether the httpapi connection is configured to use HTTPS."""
+        try:
+            use_ssl = self._conn.get_option('use_ssl')
+        except Exception:
+            use_ssl = self._options.get('use_ssl', True)
+
+        if isinstance(use_ssl, bool):
+            return use_ssl
+
+        return str(use_ssl).lower() in ('yes', 'true', '1', 'on')
+
+    def _get_httpapi_port(self):
+        """Return the configured httpapi port, if one was explicitly set."""
+        try:
+            return self._conn.get_option('port')
+        except Exception:
+            return self._options.get('port')
+
+    def _raise_if_http_to_https_port(self):
+        if self._is_use_ssl_enabled():
+            return
+
+        port = self._get_httpapi_port()
+        if str(port) != '443':
+            return
+
+        raise Exception(
+            'Connection protocol mismatch: ansible_httpapi_use_ssl is set to false, '
+            'so Ansible is attempting to use HTTP, but ansible_httpapi_port is set to 443, '
+            'which normally expects HTTPS traffic. For normal FortiOS REST API usage, set '
+            'ansible_httpapi_use_ssl: true and ansible_httpapi_port: 443. For initial VM license '
+            'import, use ansible_httpapi_use_ssl: false with ansible_httpapi_port: 80.'
+        )
+
+    def _require_https_for_access_token_auth(self):
+        if self._is_use_ssl_enabled():
+            return
+
+        raise Exception(
+            'FortiOS REST API access token authentication requires HTTPS. '
+            'ansible_httpapi_use_ssl is set to false, so Ansible is attempting to use HTTP. '
+            'Set ansible_httpapi_use_ssl: true and ansible_httpapi_port: 443. '
+            'If the FortiGate uses a self-signed certificate, keep ansible_httpapi_validate_certs: false.'
+        )
+
     def set_become(self, become_context):
         """
         Elevation is not required on Fortinet devices - Skipped
@@ -98,7 +144,10 @@ class HttpApi(HttpApiBase):
         if (username is None or password is None) and self.get_access_token() is None:
             raise Exception('Please provide access token or username/password to login')
 
+        self._raise_if_http_to_https_port()
+
         if self.get_access_token() is not None:
+            self._require_https_for_access_token_auth()
             self.log('login with access token')
             self._logged_in = True
             # Do NOT call /logincheck here.
@@ -142,11 +191,27 @@ class HttpApi(HttpApiBase):
             dummy, result_data = self.send_request(url='/logincheck', should_pre_login=False, data=data, method='POST')
             self.log('/logincheck with user: %s %s' % (username, 'succeeds' if result_data[0] == '1' else 'fails'))
             if result_data[0] != '1':
+                if not self._is_use_ssl_enabled():
+                    raise Exception(
+                        'FortiOS username/password authentication failed over HTTP. '
+                        'For normal FortiOS REST API usage, set ansible_httpapi_use_ssl: true and '
+                        'ansible_httpapi_port: 443. If this is an initial VM license import, '
+                        'use ansible_httpapi_use_ssl: false with ansible_httpapi_port: 80 and '
+                        'verify the username/password and HTTP administrative access.'
+                    )
                 raise Exception('Wrong credentials. Please check')
             self._logged_in = True
         else:
             self.log('API based auth with user: %s %s' % (username, 'succeeds' if "LOGIN_SUCCESS" in result_data else 'fails'))
             if "LOGIN_SUCCESS" not in result_data:
+                if not self._is_use_ssl_enabled():
+                    raise Exception(
+                        'FortiOS API based authentication failed over HTTP. '
+                        'For normal FortiOS REST API usage, set ansible_httpapi_use_ssl: true and '
+                        'ansible_httpapi_port: 443. If this is an initial VM license import, '
+                        'use ansible_httpapi_use_ssl: false with ansible_httpapi_port: 80 and '
+                        'verify the username/password and HTTP administrative access.'
+                    )
                 raise Exception('API based auth failed: wrong credentials. Please check')
             self._logged_in = True
             self._api_login = True

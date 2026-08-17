@@ -338,7 +338,6 @@ options:
                     - 'cifs'
                     - 'ssh'
 """
-
 EXAMPLES = """
 - name: Configure quarantine options.
   fortinet.fortios.fortios_antivirus_quarantine:

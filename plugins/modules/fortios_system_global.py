@@ -113,6 +113,37 @@ options:
                     - HTTPS Strict-Transport-Security header max-age in seconds. A value of 0 will reset any HSTS records in the browser.When
                        admin-https-redirect is disabled the header max-age will be 0.
                 type: int
+            admin_http_json_request_limit:
+                description:
+                    - HTTP JSON request body size limit in bytes (0 will disable the limit).
+                type: int
+            admin_http_login_request_size_limit:
+                description:
+                    - HTTP login request body size limit in bytes.
+                type: int
+            admin_http_rate_limit_exempt_auth:
+                description:
+                    - Enable/disable exemption of authenticated administrator sessions from rate limiting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            admin_http_rate_limit_max_requests:
+                description:
+                    - Maximum number of HTTP requests that are allowed to be made in a second by a single client (0 will disable rate limiting).
+                type: int
+            admin_http_request_body_timeout:
+                description:
+                    - Authenticated HTTP request body timeout, in milliseconds (0 will disable the timeout).
+                type: int
+            admin_http_request_header_timeout:
+                description:
+                    - HTTP request header timeout, in milliseconds (0 will disable the timeout).
+                type: int
+            admin_http_unauthenticated_request_body_timeout:
+                description:
+                    - Unauthenticated HTTP request body timeout, in milliseconds, before authentication (0 will disable the timeout).
+                type: int
             admin_https_pki_required:
                 description:
                     - Enable/disable admin login method. Enable to force administrators to provide a valid certificate to log in if PKI is enabled. Disable to
@@ -694,6 +725,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            gtpu_dynamic_source_port:
+                description:
+                    - Enable/disable GTP-U dynamic source port support.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             gui_allow_default_hostname:
                 description:
                     - Enable/disable the factory default hostname warning on the GUI setup wizard.
@@ -748,6 +786,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            gui_custom_theme:
+                description:
+                    - Custom theme that overrides the default FortiGate themes. Source system.theme.name.
+                type: str
             gui_date_format:
                 description:
                     - Default date format used throughout GUI.
@@ -834,6 +876,10 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            gui_login_request_rate_limit:
+                description:
+                    - Conifgure number of login requests to maintain in the request queue (0 - 30).
+                type: int
             gui_replacement_message_groups:
                 description:
                     - Enable/disable replacement message groups on the GUI.
@@ -844,6 +890,13 @@ options:
             gui_rest_api_cache:
                 description:
                     - Enable/disable REST API result caching on FortiGate.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            gui_restrict_theme_change:
+                description:
+                    - Enable/disable restricting editing and assigning override themes to super admins.
                 type: str
                 choices:
                     - 'enable'
@@ -896,6 +949,14 @@ options:
                 description:
                     - FortiGate unit"s hostname. Most models will truncate names longer than 24 characters. Some models support hostnames up to 35 characters.
                 type: str
+            http_request_limit:
+                description:
+                    - HTTP request body size limit.
+                type: int
+            http_unauthenticated_request_limit:
+                description:
+                    - HTTP request body size limit before authentication.
+                type: int
             httpd_max_worker_count:
                 description:
                     - Maximum number of simultaneous HTTP requests that will be served. This number may affect GUI and REST API performance (0 - 128).
@@ -918,8 +979,8 @@ options:
                 choices:
                     - 'mini'
                     - 'standard'
-                    - 'full'
                     - 'on-demand'
+                    - 'full'
             internet_service_download_list:
                 description:
                     - Configure which on-demand Internet Service IDs are to be downloaded.
@@ -1091,6 +1152,12 @@ options:
                 description:
                     - Configure syslog daemon process spawning threshold. Use a percentage threshold of syslogd CPU usage (1 - 99) or set to zero to use
                        dynamic scheduling based on the number of packets in the syslogd queue .
+                type: int
+            log_fsck_timeout:
+                description:
+                    - Configure the maximum the number of seconds the FortiGate unit waits while the file system check is in progress before allowing the boot
+                       process to complete and the system fully is operational.  Zero seconds means the FortiGate unit waits until the file system check is
+                          complete (0 - 3600).
                 type: int
             log_single_cpu_high:
                 description:
@@ -1264,7 +1331,7 @@ options:
                     - 'disable'
             private_data_encryption:
                 description:
-                    - Enable/disable private data encryption using an AES 128-bit key or passpharse.
+                    - Enable/disable private data encryption using an AES 128-bit key or passphrase.
                 type: str
                 choices:
                     - 'disable'
@@ -1555,10 +1622,10 @@ options:
                             - '4x10G'
                             - '4x25G'
                             - '4x50G'
-                            - '8x25G'
                             - '8x50G'
                             - '4x100G'
                             - '2x200G'
+                            - '8x25G'
             ssd_trim_date:
                 description:
                     - Date within a month to run ssd trim.
@@ -1807,6 +1874,13 @@ options:
                 description:
                     - Affinity setting for syslog (hexadecimal value up to 256 bits in the format of xxxxxxxxxxxxxxxx).
                 type: str
+            tcp_congestion_control:
+                description:
+                    - Configure TCP congestion control algorithm .
+                type: str
+                choices:
+                    - 'cubic'
+                    - 'bbr'
             tcp_halfclose_timer:
                 description:
                     - Number of seconds the FortiGate unit should wait to close a session after one peer has sent a FIN packet but the other has not responded
@@ -2074,7 +2148,6 @@ options:
                        number plus one (1024 - 49150).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure global attributes.
   fortinet.fortios.fortios_system_global:
@@ -2086,6 +2159,13 @@ EXAMPLES = """
           admin_forticloud_sso_login: "enable"
           admin_host: "myhostname"
           admin_hsts_max_age: "63072000"
+          admin_http_json_request_limit: "33554432"
+          admin_http_login_request_size_limit: "4096"
+          admin_http_rate_limit_exempt_auth: "enable"
+          admin_http_rate_limit_max_requests: "100"
+          admin_http_request_body_timeout: "1800000"
+          admin_http_request_header_timeout: "10000"
+          admin_http_unauthenticated_request_body_timeout: "1000"
           admin_https_pki_required: "enable"
           admin_https_redirect: "enable"
           admin_https_ssl_banned_ciphers: "RSA"
@@ -2179,6 +2259,7 @@ EXAMPLES = """
           fortitoken_cloud_region: "<your_own_value>"
           fortitoken_cloud_sync_interval: "24"
           geoip_full_db: "enable"
+          gtpu_dynamic_source_port: "enable"
           gui_allow_default_hostname: "enable"
           gui_allow_incompatible_fabric_fgt: "enable"
           gui_app_detection_sdwan: "enable"
@@ -2187,6 +2268,7 @@ EXAMPLES = """
           gui_cdn_usage: "enable"
           gui_certificates: "enable"
           gui_custom_language: "enable"
+          gui_custom_theme: "<your_own_value> (source system.theme.name)"
           gui_date_format: "yyyy/MM/dd"
           gui_date_time_source: "system"
           gui_device_latitude: "<your_own_value>"
@@ -2200,21 +2282,25 @@ EXAMPLES = """
           gui_ipv6: "enable"
           gui_lines_per_page: "500"
           gui_local_out: "enable"
+          gui_login_request_rate_limit: "0"
           gui_replacement_message_groups: "enable"
           gui_rest_api_cache: "enable"
+          gui_restrict_theme_change: "enable"
           gui_theme: "jade"
           gui_wireless_opensecurity: "enable"
           gui_workflow_management: "enable"
           ha_affinity: "<your_own_value>"
           honor_df: "enable"
           hostname: "myhostname"
+          http_request_limit: "524288000"
+          http_unauthenticated_request_limit: "131072"
           httpd_max_worker_count: "0"
           igmp_state_limit: "3200"
           interface_subnet_usage: "disable"
           internet_service_database: "mini"
           internet_service_download_list:
               -
-                  id: "136 (source firewall.internet-service.id)"
+                  id: "149 (source firewall.internet-service.id)"
           interval: "5"
           ip_conflict_detection: "enable"
           ip_fragment_mem_thresholds: "32"
@@ -2241,6 +2327,7 @@ EXAMPLES = """
           lldp_reception: "enable"
           lldp_transmission: "enable"
           log_daemon_cpu_threshold: "0"
+          log_fsck_timeout: "300"
           log_single_cpu_high: "enable"
           log_ssl_connection: "enable"
           log_uuid: "disable"
@@ -2252,7 +2339,7 @@ EXAMPLES = """
           management_port: "443"
           management_port_use_admin_sport: "enable"
           management_vdom: "<your_own_value> (source system.vdom.name)"
-          max_dlpstat_memory: "174"
+          max_dlpstat_memory: "188"
           max_route_cache_size: "0"
           mc_ttl_notchange: "enable"
           memory_use_threshold_extreme: "95"
@@ -2350,6 +2437,7 @@ EXAMPLES = """
           switch_controller_reserved_network: "<your_own_value>"
           sys_perf_log_interval: "5"
           syslog_affinity: "<your_own_value>"
+          tcp_congestion_control: "cubic"
           tcp_halfclose_timer: "120"
           tcp_halfopen_timer: "10"
           tcp_option: "enable"
@@ -2373,9 +2461,9 @@ EXAMPLES = """
           url_filter_affinity: "<your_own_value>"
           url_filter_count: "1"
           user_device_store_max_device_mem: "2"
-          user_device_store_max_devices: "676984"
-          user_device_store_max_unified_mem: "3384923340"
-          user_device_store_max_users: "676984"
+          user_device_store_max_devices: "146215"
+          user_device_store_max_unified_mem: "731078860"
+          user_device_store_max_users: "146215"
           user_history_password_threshold: "3"
           user_server_cert: "<your_own_value> (source certificate.local.name)"
           vdom_admin: "enable"
@@ -2502,6 +2590,13 @@ def filter_system_global_data(json):
         "admin_forticloud_sso_login",
         "admin_host",
         "admin_hsts_max_age",
+        "admin_http_json_request_limit",
+        "admin_http_login_request_size_limit",
+        "admin_http_rate_limit_exempt_auth",
+        "admin_http_rate_limit_max_requests",
+        "admin_http_request_body_timeout",
+        "admin_http_request_header_timeout",
+        "admin_http_unauthenticated_request_body_timeout",
         "admin_https_pki_required",
         "admin_https_redirect",
         "admin_https_ssl_banned_ciphers",
@@ -2595,6 +2690,7 @@ def filter_system_global_data(json):
         "fortitoken_cloud_region",
         "fortitoken_cloud_sync_interval",
         "geoip_full_db",
+        "gtpu_dynamic_source_port",
         "gui_allow_default_hostname",
         "gui_allow_incompatible_fabric_fgt",
         "gui_app_detection_sdwan",
@@ -2603,6 +2699,7 @@ def filter_system_global_data(json):
         "gui_cdn_usage",
         "gui_certificates",
         "gui_custom_language",
+        "gui_custom_theme",
         "gui_date_format",
         "gui_date_time_source",
         "gui_device_latitude",
@@ -2616,14 +2713,18 @@ def filter_system_global_data(json):
         "gui_ipv6",
         "gui_lines_per_page",
         "gui_local_out",
+        "gui_login_request_rate_limit",
         "gui_replacement_message_groups",
         "gui_rest_api_cache",
+        "gui_restrict_theme_change",
         "gui_theme",
         "gui_wireless_opensecurity",
         "gui_workflow_management",
         "ha_affinity",
         "honor_df",
         "hostname",
+        "http_request_limit",
+        "http_unauthenticated_request_limit",
         "httpd_max_worker_count",
         "igmp_state_limit",
         "interface_subnet_usage",
@@ -2655,6 +2756,7 @@ def filter_system_global_data(json):
         "lldp_reception",
         "lldp_transmission",
         "log_daemon_cpu_threshold",
+        "log_fsck_timeout",
         "log_single_cpu_high",
         "log_ssl_connection",
         "log_uuid",
@@ -2761,6 +2863,7 @@ def filter_system_global_data(json):
         "switch_controller_reserved_network",
         "sys_perf_log_interval",
         "syslog_affinity",
+        "tcp_congestion_control",
         "tcp_halfclose_timer",
         "tcp_halfopen_timer",
         "tcp_option",
@@ -2849,8 +2952,8 @@ def flatten_multilists_attributes(data):
         ["admin_https_ssl_versions"],
         ["admin_https_ssl_ciphersuites"],
         ["admin_https_ssl_banned_ciphers"],
-        ["split_port"],
         ["fgd_alert_subscription"],
+        ["split_port"],
         ["ssh_kex_algo"],
         ["ssh_enc_algo"],
         ["ssh_mac_algo"],
@@ -3267,6 +3370,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "log_fsck_timeout": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "timezone": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "traffic_priority": {
             "v_range": [["v6.0.0", ""]],
@@ -3321,11 +3425,36 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "split_port": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
+        "virtual_switch_vlan": {
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_port_mode": {
             "type": "list",
-            "multiple_values": True,
-            "elements": "str",
+            "elements": "dict",
+            "children": {
+                "interface": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                },
+                "split_mode": {
+                    "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [
+                        {"value": "disable"},
+                        {"value": "4x10G"},
+                        {"value": "4x25G"},
+                        {"value": "4x50G"},
+                        {"value": "8x50G"},
+                        {"value": "4x100G"},
+                        {"value": "2x200G"},
+                        {"value": "8x25G", "v_range": [["v7.4.2", "v7.4.2"]]},
+                    ],
+                },
+            },
+            "v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]],
         },
         "revision_image_auto_backup": {
             "v_range": [["v6.0.0", ""]],
@@ -3649,6 +3778,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "tcp_congestion_control": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "cubic"}, {"value": "bbr"}],
+        },
         "wireless_controller": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3813,8 +3947,33 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
-        "rest_api_key_url_query": {
-            "v_range": [["v7.6.1", ""]],
+        "gui_login_request_rate_limit": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "integer",
+        },
+        "http_request_limit": {"v_range": [["v7.6.7", ""]], "type": "integer"},
+        "http_unauthenticated_request_limit": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "integer",
+        },
+        "admin_http_request_header_timeout": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "integer",
+        },
+        "admin_http_request_body_timeout": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "integer",
+        },
+        "admin_http_unauthenticated_request_body_timeout": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "integer",
+        },
+        "admin_http_rate_limit_max_requests": {
+            "v_range": [["v7.6.7", ""]],
+            "type": "integer",
+        },
+        "admin_http_rate_limit_exempt_auth": {
+            "v_range": [["v7.6.7", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
@@ -3824,14 +3983,9 @@ versioned_schema = {
         },
         "arp_max_entry": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "ha_affinity": {"v_range": [["v7.0.1", ""]], "type": "string"},
-        "bfd_affinity": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "cmdbsvr_affinity": {"v_range": [["v7.0.1", ""]], "type": "string"},
         "av_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "wad_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
-        "ips_affinity": {
-            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", ""]],
-            "type": "string",
-        },
         "miglog_affinity": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "syslog_affinity": {"v_range": [["v7.2.4", ""]], "type": "string"},
         "url_filter_affinity": {"v_range": [["v6.2.0", ""]], "type": "string"},
@@ -3890,6 +4044,7 @@ versioned_schema = {
                 {"value": "red", "v_range": [["v6.0.0", "v6.0.11"]]},
             ],
         },
+        "gui_custom_theme": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "gui_date_format": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -3958,8 +4113,8 @@ versioned_schema = {
             "options": [
                 {"value": "mini"},
                 {"value": "standard"},
-                {"value": "full"},
                 {"value": "on-demand", "v_range": [["v7.2.4", ""]]},
+                {"value": "full", "v_range": [["v7.0.4", "v7.6.7"]]},
             ],
         },
         "internet_service_download_list": {
@@ -4001,6 +4156,11 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "gtpu_dynamic_source_port": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "user_history_password_threshold": {
             "v_range": [["v7.6.0", ""]],
             "type": "integer",
@@ -4033,6 +4193,35 @@ versioned_schema = {
             "v_range": [["v7.6.3", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "gui_restrict_theme_change": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "split_port": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
+            "type": "list",
+            "multiple_values": True,
+            "elements": "str",
+        },
+        "admin_http_login_request_size_limit": {
+            "v_range": [["v7.6.7", "v7.6.7"]],
+            "type": "integer",
+        },
+        "admin_http_json_request_limit": {
+            "v_range": [["v7.6.7", "v7.6.7"]],
+            "type": "integer",
+        },
+        "rest_api_key_url_query": {
+            "v_range": [["v7.6.1", "v7.6.7"]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "bfd_affinity": {"v_range": [["v7.4.2", "v7.6.7"]], "type": "string"},
+        "ips_affinity": {
+            "v_range": [["v6.0.0", "v7.4.1"], ["v7.4.3", "v7.6.7"]],
+            "type": "string",
         },
         "vpn_ems_sn_check": {
             "v_range": [["v7.4.0", "v7.6.2"]],
@@ -4182,37 +4371,6 @@ versioned_schema = {
             "v_range": [["v7.0.6", "v7.0.12"], ["v7.2.1", "v7.4.3"]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "virtual_switch_vlan": {
-            "v_range": [["v7.4.2", "v7.4.2"]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
-        "split_port_mode": {
-            "type": "list",
-            "elements": "dict",
-            "children": {
-                "interface": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "required": True,
-                },
-                "split_mode": {
-                    "v_range": [["v7.4.2", "v7.4.2"]],
-                    "type": "string",
-                    "options": [
-                        {"value": "disable"},
-                        {"value": "4x10G"},
-                        {"value": "4x25G"},
-                        {"value": "4x50G"},
-                        {"value": "8x25G"},
-                        {"value": "8x50G"},
-                        {"value": "4x100G"},
-                        {"value": "2x200G"},
-                    ],
-                },
-            },
-            "v_range": [["v7.4.2", "v7.4.2"]],
         },
         "ipsec_soft_dec_async": {
             "v_range": [["v6.0.0", "v7.4.1"]],

@@ -129,6 +129,7 @@ options:
                     - 'firmware-changed'
                     - 'node-failed'
                     - 'image-missing'
+                    - 'suspension-timeout'
             ha_reboot_controller:
                 description:
                     - Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the HA cluster.
@@ -208,7 +209,6 @@ options:
                     - Limit upgrade to this virtual domain (VDOM). Source system.vdom.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Independent upgrades for managed devices.
   fortinet.fortios.fortios_system_device_upgrade:
@@ -613,6 +613,7 @@ versioned_schema = {
                 {"value": "firmware-changed", "v_range": [["v7.6.1", ""]]},
                 {"value": "node-failed"},
                 {"value": "image-missing", "v_range": [["v7.6.4", ""]]},
+                {"value": "suspension-timeout", "v_range": [["v8.0.0", ""]]},
             ],
         },
     },

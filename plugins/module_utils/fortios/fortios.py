@@ -790,10 +790,7 @@ class FortiOSHandler(object):
             # Failing to address this will result in an API issue, since action=move will be included
             # in the parameters for a GET request.
             http_status, result_data = self._conn.send_request(
-                url=url,
-                params=parameters,
-                data=json.dumps(data),
-                method="PUT",
+                url=url, params=parameters, data=json.dumps(data), method="PUT",
                 headers=self._with_admin_passwd_header(headers),
             )
             return self.formatresponse(result_data, http_status, vdom=vdom)
@@ -813,10 +810,7 @@ class FortiOSHandler(object):
             )
 
         http_status, result_data = self._conn.send_request(
-            url=url,
-            params=parameters,
-            data=json.dumps(data),
-            method="PUT",
+            url=url, params=parameters, data=json.dumps(data), method="PUT",
             headers=self._with_admin_passwd_header(headers),
         )
 
@@ -831,10 +825,7 @@ class FortiOSHandler(object):
         url = self.cmdb_url(path, name, vdom, mkey=None)
 
         http_status, result_data = self._conn.send_request(
-            url=url,
-            params=parameters,
-            data=json.dumps(data),
-            method="POST",
+            url=url, params=parameters, data=json.dumps(data), method="POST",
             headers=self._with_admin_passwd_header(headers),
         )
 
@@ -855,24 +846,12 @@ class FortiOSHandler(object):
 
         return self.formatresponse(result_data, http_status, vdom=vdom)
 
-    def delete(
-        self,
-        path,
-        name,
-        vdom=None,
-        mkey=None,
-        parameters=None,
-        data=None,
-        headers=None,
-    ):
+    def delete(self, path, name, vdom=None, mkey=None, parameters=None, data=None, headers=None):
         if not mkey:
             mkey = self.get_mkey(path, name, data, vdom=vdom)
         url = self.cmdb_url(path, name, vdom, mkey)
         http_status, result_data = self._conn.send_request(
-            url=url,
-            params=parameters,
-            data=json.dumps(data),
-            method="DELETE",
+            url=url, params=parameters, data=json.dumps(data), method="DELETE",
             headers=self._with_admin_passwd_header(headers),
         )
         return self.formatresponse(result_data, http_status, vdom=vdom)

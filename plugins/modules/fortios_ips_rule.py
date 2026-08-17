@@ -180,7 +180,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure IPS rules.
   fortinet.fortios.fortios_ips_rule:

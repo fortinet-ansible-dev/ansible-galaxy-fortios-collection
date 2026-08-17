@@ -128,7 +128,6 @@ options:
                     - Name of table.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure MMS content checksum list.
   fortinet.fortios.fortios_antivirus_mms_checksum:

@@ -129,8 +129,11 @@ options:
                     - DNS server name. Source system.interface.name.
                 required: true
                 type: str
+            ssl_cert:
+                description:
+                    - SSL certificate for DNS. Source vpn.certificate.local.name.
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure DNS servers.
   fortinet.fortios.fortios_system_dns_server:
@@ -144,6 +147,7 @@ EXAMPLES = """
           doq: "enable"
           mode: "recursive"
           name: "default_name_8 (source system.interface.name)"
+          ssl_cert: "<your_own_value> (source vpn.certificate.local.name)"
 """
 
 RETURN = """
@@ -238,7 +242,15 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_system_dns_server_data(json):
-    option_list = ["dnsfilter_profile", "doh", "doh3", "doq", "mode", "name"]
+    option_list = [
+        "dnsfilter_profile",
+        "doh",
+        "doh3",
+        "doq",
+        "mode",
+        "name",
+        "ssl_cert",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -449,6 +461,7 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "ssl_cert": {"v_range": [["v8.0.0", ""]], "type": "string"},
     },
     "v_range": [["v6.0.0", ""]],
 }

@@ -241,9 +241,10 @@ options:
                         choices:
                             - 'update'
                             - 'rating'
-                            - 'vpatch-query'
+                            - 'iotv-query'
                             - 'iot-collect'
                             - 'iot-query'
+                            - 'vpatch-query'
             type:
                 description:
                     - Central management type.
@@ -252,6 +253,13 @@ options:
                     - 'fortimanager'
                     - 'fortiguard'
                     - 'none'
+            use_default_servers_as_main:
+                description:
+                    - Enable/disable use of the public FortiGuard servers as main servers.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             vdom:
                 description:
                     - Virtual domain (VDOM) name to use when communicating with FortiManager. Source system.vdom.name.
@@ -261,7 +269,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure central management.
   fortinet.fortios.fortios_system_central_management:
@@ -296,6 +303,7 @@ EXAMPLES = """
                   server_address6: "<your_own_value>"
                   server_type: "update"
           type: "fortimanager"
+          use_default_servers_as_main: "enable"
           vdom: "<your_own_value> (source system.vdom.name)"
           vrf_select: "0"
 """
@@ -415,6 +423,7 @@ def filter_system_central_management_data(json):
         "serial_number",
         "server_list",
         "type",
+        "use_default_servers_as_main",
         "vdom",
         "vrf_select",
     ]
@@ -698,9 +707,13 @@ versioned_schema = {
                     "options": [
                         {"value": "update"},
                         {"value": "rating"},
-                        {"value": "vpatch-query", "v_range": [["v7.6.0", ""]]},
+                        {"value": "iotv-query", "v_range": [["v8.0.0", ""]]},
                         {"value": "iot-collect", "v_range": [["v7.2.1", ""]]},
-                        {"value": "iot-query", "v_range": [["v7.2.1", "v7.4.4"]]},
+                        {
+                            "value": "iot-query",
+                            "v_range": [["v7.2.1", "v7.4.4"], ["v8.0.0", ""]],
+                        },
+                        {"value": "vpatch-query", "v_range": [["v7.6.0", "v7.6.7"]]},
                     ],
                     "multiple_values": True,
                     "elements": "str",
@@ -732,6 +745,11 @@ versioned_schema = {
         },
         "include_default_servers": {
             "v_range": [["v6.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "use_default_servers_as_main": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

@@ -122,7 +122,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: Configure IPv6/IPv4 in IPv6 tunnel.
   fortinet.fortios.fortios_system_ipv6_tunnel:

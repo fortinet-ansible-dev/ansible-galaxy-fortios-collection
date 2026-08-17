@@ -140,7 +140,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure BFD.
   fortinet.fortios.fortios_router_bfd:

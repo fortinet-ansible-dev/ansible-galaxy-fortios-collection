@@ -110,7 +110,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure IPS URL filter DNS servers.
   fortinet.fortios.fortios_system_ips_urlfilter_dns:

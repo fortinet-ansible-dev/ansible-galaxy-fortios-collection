@@ -283,7 +283,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv6 routing policies.
   fortinet.fortios.fortios_router_policy6:

@@ -132,6 +132,29 @@ options:
                 description:
                     - 'Final port number (inclusive) in the range for the address pool (1024 - 65535).'
                 type: int
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             icmp_session_quota:
                 description:
                     - Maximum number of concurrent ICMP sessions allowed per client (0 - 2097000).
@@ -222,8 +245,11 @@ options:
                 description:
                     - Maximum number of concurrent UDP sessions allowed per client (0 - 2097000).
                 type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv4 IP pools.
   fortinet.fortios.fortios_firewall_ippool:
@@ -240,8 +266,11 @@ EXAMPLES = """
           comments: "<your_own_value>"
           endip: "<your_own_value>"
           endport: "65533"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           icmp_session_quota: "0"
-          name: "default_name_13"
+          name: "default_name_16"
           nat64: "disable"
           num_blocks_per_user: "8"
           pba_interim_log: "0"
@@ -258,6 +287,7 @@ EXAMPLES = """
           tcp_session_quota: "0"
           type: "overload"
           udp_session_quota: "0"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -362,6 +392,9 @@ def filter_firewall_ippool_data(json):
         "comments",
         "endip",
         "endport",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "icmp_session_quota",
         "name",
         "nat64",
@@ -380,6 +413,7 @@ def filter_firewall_ippool_data(json):
         "tcp_session_quota",
         "type",
         "udp_session_quota",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -561,6 +595,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

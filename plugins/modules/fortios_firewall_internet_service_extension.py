@@ -246,7 +246,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure Internet Services Extension.
   fortinet.fortios.fortios_firewall_internet_service_extension:

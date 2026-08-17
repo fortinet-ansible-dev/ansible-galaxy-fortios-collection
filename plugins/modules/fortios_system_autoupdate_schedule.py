@@ -115,7 +115,6 @@ options:
                     - Update time.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure update schedule.
   fortinet.fortios.fortios_system_autoupdate_schedule:

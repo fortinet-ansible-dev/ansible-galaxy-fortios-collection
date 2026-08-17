@@ -239,7 +239,6 @@ options:
                             - FortiExtender interface name. Source system.interface.name.
                         type: str
 """
-
 EXAMPLES = """
 - name: Extender controller configuration.
   fortinet.fortios.fortios_extension_controller_extender:

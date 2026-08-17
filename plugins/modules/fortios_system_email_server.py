@@ -168,7 +168,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure the email server used by the FortiGate various things. For example, for sending email messages to users to support user authentication
    features.

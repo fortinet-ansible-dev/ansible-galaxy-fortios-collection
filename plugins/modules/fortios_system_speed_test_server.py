@@ -139,7 +139,6 @@ options:
                     - Speed test server timestamp.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure speed test server list.
   fortinet.fortios.fortios_system_speed_test_server:

@@ -102,7 +102,6 @@ options:
                     - City name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Define city table.
   fortinet.fortios.fortios_firewall_city:

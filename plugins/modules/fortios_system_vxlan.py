@@ -162,7 +162,6 @@ options:
                     - VXLAN network ID.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure VXLAN devices.
   fortinet.fortios.fortios_system_vxlan:

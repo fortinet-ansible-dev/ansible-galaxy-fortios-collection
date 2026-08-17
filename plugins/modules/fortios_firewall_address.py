@@ -132,6 +132,25 @@ options:
                 description:
                     - IP addresses associated to a specific country.
                 type: str
+            custom_tags:
+                description:
+                    - Custom tags.
+                type: list
+                elements: dict
+                suboptions:
+                    name:
+                        description:
+                            - Names of custom tags used with this address. Source firewall.custom-tag.name.
+                        required: true
+                        type: str
+            display_with:
+                description:
+                    - Display object with first tag, all tags, or just the icon & color.
+                type: str
+                choices:
+                    - 'all-tags'
+                    - 'first-tag-only'
+                    - 'icon-and-color'
             end_ip:
                 description:
                     - Final IP address (inclusive) in the range for the address.
@@ -144,6 +163,14 @@ options:
                 description:
                     - Endpoint group name.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             fabric_object:
                 description:
                     - Security Fabric global object setting.
@@ -151,6 +178,14 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             filter:
                 description:
                     - Match criteria filter.
@@ -178,10 +213,21 @@ options:
                 description:
                     - Dynamic address matching hardware vendor.
                 type: str
+            hw_version:
+                description:
+                    - Dynamic address matching hardware version.
+                type: str
             interface:
                 description:
                     - Name of interface whose IP address is to be used. Source system.interface.name.
                 type: str
+            ipam_allocate_unique:
+                description:
+                    - Allocate unique subnet for FortiIPAM managed fabric-object address.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             list:
                 description:
                     - IP address list.
@@ -212,6 +258,34 @@ options:
                             - MAC address ranges <start>[-<end>] separated by space.
                         required: true
                         type: str
+            managed_subnetwork_size:
+                description:
+                    - Number of IP addresses to be allocated by FortiIPAM for this address.
+                type: str
+                choices:
+                    - '4'
+                    - '8'
+                    - '16'
+                    - '32'
+                    - '64'
+                    - '128'
+                    - '256'
+                    - '512'
+                    - '1024'
+                    - '2048'
+                    - '4096'
+                    - '8192'
+                    - '16384'
+                    - '32768'
+                    - '65536'
+                    - '131072'
+                    - '262144'
+                    - '524288'
+                    - '1048576'
+                    - '2097152'
+                    - '4194304'
+                    - '8388608'
+                    - '16777216'
             name:
                 description:
                     - Address name.
@@ -314,6 +388,7 @@ options:
                     - 'external-resource'
                     - 'telemetry'
                     - 'obsolete'
+                    - '8021x'
                     - 'fortipolicy-tag'
             subnet:
                 description:
@@ -377,6 +452,7 @@ options:
                     - 'wildcard'
                     - 'dynamic'
                     - 'interface-subnet'
+                    - 'ipam'
                     - 'mac'
                     - 'route-tag'
                     - 'wildcard-fqdn'
@@ -400,7 +476,6 @@ options:
                     - Fully Qualified Domain Name with wildcard characters.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPv4 addresses.
   fortinet.fortios.fortios_firewall_address:
@@ -416,18 +491,26 @@ EXAMPLES = """
           color: "0"
           comment: "Comment."
           country: "<your_own_value>"
+          custom_tags:
+              -
+                  name: "default_name_12 (source firewall.custom-tag.name)"
+          display_with: "all-tags"
           end_ip: "<your_own_value>"
           end_mac: "<your_own_value>"
           epg_name: "<your_own_value>"
+          fabric_force_sync: "enable"
           fabric_object: "enable"
+          fabric_object_source: "member"
           filter: "<your_own_value>"
           fqdn: "<your_own_value>"
           fsso_group:
               -
-                  name: "default_name_18 (source user.adgrp.name)"
+                  name: "default_name_23 (source user.adgrp.name)"
           hw_model: "<your_own_value>"
           hw_vendor: "<your_own_value>"
+          hw_version: "<your_own_value>"
           interface: "<your_own_value> (source system.interface.name)"
+          ipam_allocate_unique: "enable"
           list:
               -
                   ip: "<your_own_value>"
@@ -436,7 +519,8 @@ EXAMPLES = """
           macaddr:
               -
                   macaddr: "<your_own_value>"
-          name: "default_name_28"
+          managed_subnetwork_size: "4"
+          name: "default_name_36"
           node_ip_only: "enable"
           obj_id: "<your_own_value>"
           obj_tag: "<your_own_value>"
@@ -451,7 +535,7 @@ EXAMPLES = """
           sdn_tag: "<your_own_value>"
           sso_attribute_value:
               -
-                  name: "default_name_42"
+                  name: "default_name_50"
           start_ip: "<your_own_value>"
           start_mac: "<your_own_value>"
           sub_type: "sdn"
@@ -463,10 +547,10 @@ EXAMPLES = """
           tagging:
               -
                   category: "<your_own_value> (source system.object-tagging.category)"
-                  name: "default_name_53"
+                  name: "default_name_61"
                   tags:
                       -
-                          name: "default_name_55 (source system.object-tagging.tags.name)"
+                          name: "default_name_63 (source system.object-tagging.tags.name)"
           tenant: "<your_own_value>"
           type: "ipmask"
           uuid: "<your_own_value>"
@@ -576,18 +660,25 @@ def filter_firewall_address_data(json):
         "color",
         "comment",
         "country",
+        "custom_tags",
+        "display_with",
         "end_ip",
         "end_mac",
         "epg_name",
+        "fabric_force_sync",
         "fabric_object",
+        "fabric_object_source",
         "filter",
         "fqdn",
         "fsso_group",
         "hw_model",
         "hw_vendor",
+        "hw_version",
         "interface",
+        "ipam_allocate_unique",
         "list",
         "macaddr",
+        "managed_subnetwork_size",
         "name",
         "node_ip_only",
         "obj_id",
@@ -799,6 +890,21 @@ versioned_schema = {
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
         "uuid": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v6.4.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "subnet": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "type": {
             "v_range": [["v6.0.0", ""]],
@@ -811,6 +917,7 @@ versioned_schema = {
                 {"value": "wildcard"},
                 {"value": "dynamic"},
                 {"value": "interface-subnet", "v_range": [["v6.2.0", ""]]},
+                {"value": "ipam", "v_range": [["v8.0.0", ""]]},
                 {"value": "mac", "v_range": [["v6.2.0", ""]]},
                 {"value": "route-tag", "v_range": [["v7.4.0", ""]]},
                 {"value": "wildcard-fqdn", "v_range": [["v6.0.0", "v6.0.11"]]},
@@ -833,6 +940,7 @@ versioned_schema = {
                 {"value": "external-resource", "v_range": [["v7.6.1", ""]]},
                 {"value": "telemetry", "v_range": [["v7.6.4", ""]]},
                 {"value": "obsolete", "v_range": [["v7.6.3", ""]]},
+                {"value": "8021x", "v_range": [["v8.0.0", ""]]},
                 {"value": "fortipolicy-tag", "v_range": [["v7.2.4", "v7.6.2"]]},
             ],
         },
@@ -911,12 +1019,33 @@ versioned_schema = {
         "tag_detection_level": {"v_range": [["v7.0.4", ""]], "type": "string"},
         "tag_type": {"v_range": [["v7.0.4", ""]], "type": "string"},
         "hw_vendor": {"v_range": [["v7.4.0", ""]], "type": "string"},
-        "hw_model": {"v_range": [["v7.4.0", ""]], "type": "string"},
+        "hw_version": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "os": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "sw_version": {"v_range": [["v7.4.0", ""]], "type": "string"},
         "agent_id": {"v_range": [["v7.6.4", ""]], "type": "string"},
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "associated_interface": {"v_range": [["v6.0.0", ""]], "type": "string"},
+        "display_with": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "all-tags"},
+                {"value": "first-tag-only"},
+                {"value": "icon-and-color"},
+            ],
+        },
+        "custom_tags": {
+            "type": "list",
+            "elements": "dict",
+            "children": {
+                "name": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "required": True,
+                }
+            },
+            "v_range": [["v8.0.0", ""]],
+        },
         "color": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "filter": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "sdn_addr_type": {
@@ -970,16 +1099,46 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "managed_subnetwork_size": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "4"},
+                {"value": "8"},
+                {"value": "16"},
+                {"value": "32"},
+                {"value": "64"},
+                {"value": "128"},
+                {"value": "256"},
+                {"value": "512"},
+                {"value": "1024"},
+                {"value": "2048"},
+                {"value": "4096"},
+                {"value": "8192"},
+                {"value": "16384"},
+                {"value": "32768"},
+                {"value": "65536"},
+                {"value": "131072"},
+                {"value": "262144"},
+                {"value": "524288"},
+                {"value": "1048576"},
+                {"value": "2097152"},
+                {"value": "4194304"},
+                {"value": "8388608"},
+                {"value": "16777216"},
+            ],
+        },
+        "ipam_allocate_unique": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "passive_fqdn_learning": {
             "v_range": [["v7.6.5", ""]],
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
-        "fabric_object": {
-            "v_range": [["v6.4.4", ""]],
-            "type": "string",
-            "options": [{"value": "enable"}, {"value": "disable"}],
-        },
+        "hw_model": {"v_range": [["v7.4.0", "v7.6.7"]], "type": "string"},
         "start_mac": {"v_range": [["v6.2.0", "v6.4.4"]], "type": "string"},
         "end_mac": {"v_range": [["v6.2.0", "v6.4.4"]], "type": "string"},
         "visibility": {

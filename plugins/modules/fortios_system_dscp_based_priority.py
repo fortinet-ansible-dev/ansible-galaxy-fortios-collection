@@ -110,7 +110,6 @@ options:
                     - 'medium'
                     - 'high'
 """
-
 EXAMPLES = """
 - name: Configure DSCP based priority table.
   fortinet.fortios.fortios_system_dscp_based_priority:

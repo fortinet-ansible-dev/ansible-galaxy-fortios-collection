@@ -87,7 +87,6 @@ options:
                     - NP6 ID
                 type: str
 """
-
 EXAMPLES = """
 - name: Show NP6 non-zero subengine drop counters.
   fortinet.fortios.fortios_hardware_npu_np6_dce:

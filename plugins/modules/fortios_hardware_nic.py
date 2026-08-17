@@ -87,7 +87,6 @@ options:
                     - NIC name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Display NIC information.
   fortinet.fortios.fortios_hardware_nic:

@@ -111,7 +111,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure online sign up (OSU) provider NAI list.
   fortinet.fortios.fortios_wireless_controller_hotspot20_h2qp_osu_provider_nai:

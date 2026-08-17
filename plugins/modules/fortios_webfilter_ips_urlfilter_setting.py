@@ -99,7 +99,6 @@ options:
                     - Filter based on geographical location. Route will NOT be installed if the resolved IP address belongs to the country in the filter.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure IPS URL filter settings.
   fortinet.fortios.fortios_webfilter_ips_urlfilter_setting:

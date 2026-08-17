@@ -95,13 +95,12 @@ options:
                     - 'disable'
             status:
                 description:
-                    - Enable/disable logging to FortiAnalyzer.
+                    - Enable/disable logging to FortiAnalyzer Cloud.
                 type: str
                 choices:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Override FortiAnalyzer Cloud settings.
   fortinet.fortios.fortios_log_fortianalyzer_cloud_override_setting:

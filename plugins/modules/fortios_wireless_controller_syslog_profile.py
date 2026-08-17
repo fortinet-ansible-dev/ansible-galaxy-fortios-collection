@@ -150,7 +150,6 @@ options:
                     - 'standard'
                     - 'fortianalyzer'
 """
-
 EXAMPLES = """
 - name: Configure Wireless Termination Points (WTP) system log server profile.
   fortinet.fortios.fortios_wireless_controller_syslog_profile:

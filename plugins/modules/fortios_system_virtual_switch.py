@@ -173,7 +173,6 @@ options:
                     - VLAN.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure virtual hardware switch interfaces.
   fortinet.fortios.fortios_system_virtual_switch:
@@ -488,6 +487,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "string",
             "required": True,
@@ -498,10 +498,11 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "string",
         },
-        "vlan": {"v_range": [["v7.4.2", "v7.4.2"]], "type": "integer"},
+        "vlan": {"v_range": [["v7.4.2", "v7.4.2"], ["v8.0.0", ""]], "type": "integer"},
         "port": {
             "type": "list",
             "elements": "dict",
@@ -512,6 +513,7 @@ versioned_schema = {
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
                         ["v7.4.2", "v7.4.2"],
+                        ["v8.0.0", ""],
                     ],
                     "type": "string",
                     "required": True,
@@ -522,6 +524,7 @@ versioned_schema = {
                         ["v6.4.1", "v7.0.12"],
                         ["v7.2.1", "v7.2.4"],
                         ["v7.4.2", "v7.4.2"],
+                        ["v8.0.0", ""],
                     ],
                     "type": "string",
                 },
@@ -559,6 +562,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
         },
         "span": {
@@ -601,6 +605,7 @@ versioned_schema = {
         ["v6.4.1", "v7.0.12"],
         ["v7.2.1", "v7.2.4"],
         ["v7.4.2", "v7.4.2"],
+        ["v8.0.0", ""],
     ],
 }
 

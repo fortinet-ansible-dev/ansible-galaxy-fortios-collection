@@ -148,7 +148,6 @@ options:
                     - Memory usage when trap is sent.
                 type: int
 """
-
 EXAMPLES = """
 - name: SNMP system info configuration.
   fortinet.fortios.fortios_system_snmp_sysinfo:

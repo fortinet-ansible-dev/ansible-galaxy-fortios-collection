@@ -124,6 +124,13 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            ftnt_sec_mod:
+                description:
+                    - Enable/disable Forti Security Module logging.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             ha:
                 description:
                     - Enable/disable ha event logging.
@@ -223,7 +230,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure log event filters.
   fortinet.fortios.fortios_log_eventfilter:
@@ -235,6 +241,7 @@ EXAMPLES = """
           endpoint: "enable"
           event: "enable"
           fortiextender: "enable"
+          ftnt_sec_mod: "enable"
           ha: "enable"
           rest_api: "enable"
           router: "enable"
@@ -350,6 +357,7 @@ def filter_log_eventfilter_data(json):
         "endpoint",
         "event",
         "fortiextender",
+        "ftnt_sec_mod",
         "ha",
         "rest_api",
         "router",
@@ -624,6 +632,11 @@ versioned_schema = {
         },
         "telemetry": {
             "v_range": [["v7.6.4", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "ftnt_sec_mod": {
+            "v_range": [["v8.0.0", ""]],
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },

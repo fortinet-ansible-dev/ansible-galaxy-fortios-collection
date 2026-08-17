@@ -110,7 +110,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiNDR.
   fortinet.fortios.fortios_system_fortindr:

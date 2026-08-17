@@ -172,7 +172,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: KMIP server entry configuration.
   fortinet.fortios.fortios_vpn_kmip_server:

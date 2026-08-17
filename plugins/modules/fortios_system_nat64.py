@@ -137,7 +137,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure NAT64.
   fortinet.fortios.fortios_system_nat64:

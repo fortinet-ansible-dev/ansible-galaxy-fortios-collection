@@ -102,6 +102,29 @@ options:
                     - 'source'
                     - 'destination'
                     - 'both'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             member:
                 description:
                     - Internet Service group member.
@@ -122,8 +145,11 @@ options:
                     - Internet Service group name.
                 required: true
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure group of Internet Service.
   fortinet.fortios.fortios_firewall_internet_service_group:
@@ -133,11 +159,15 @@ EXAMPLES = """
       firewall_internet_service_group:
           comment: "Comment."
           direction: "source"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           member:
               -
-                  id: "6 (source firewall.internet-service.id)"
-                  name: "default_name_7 (source firewall.internet-service-name.name)"
-          name: "default_name_8"
+                  id: "9 (source firewall.internet-service.id)"
+                  name: "default_name_10 (source firewall.internet-service-name.name)"
+          name: "default_name_11"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -232,7 +262,16 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_firewall_internet_service_group_data(json):
-    option_list = ["comment", "direction", "member", "name"]
+    option_list = [
+        "comment",
+        "direction",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "member",
+        "name",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -427,6 +466,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "direction": {
             "v_range": [["v6.2.0", ""]],

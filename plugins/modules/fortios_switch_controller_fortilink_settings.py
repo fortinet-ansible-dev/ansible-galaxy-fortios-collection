@@ -98,6 +98,11 @@ options:
                     - 'legacy'
                     - 'fail-open'
                     - 'fail-close'
+            admin_policy:
+                description:
+                    - FortiSwitch"s admin security-policy applied to all switch on this Fortilink interface. Source switch-controller.security-policy.admin
+                      .name.
+                type: str
             fortilink:
                 description:
                     - FortiLink interface to which this fortilink-setting belongs. Source system.interface.name.
@@ -166,7 +171,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure integrated FortiLink settings for FortiSwitch.
   fortinet.fortios.fortios_switch_controller_fortilink_settings:
@@ -175,6 +179,7 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       switch_controller_fortilink_settings:
           access_vlan_mode: "legacy"
+          admin_policy: "<your_own_value> (source switch-controller.security-policy.admin.name)"
           fortilink: "<your_own_value> (source system.interface.name)"
           inactive_timer: "15"
           link_down_flush: "disable"
@@ -188,7 +193,7 @@ EXAMPLES = """
                       vlan_name: "<your_own_value> (source system.interface.name)"
               onboarding_vlan: "<your_own_value> (source system.interface.name)"
               parent_key: "<your_own_value>"
-          name: "default_name_16"
+          name: "default_name_17"
 """
 
 RETURN = """
@@ -285,6 +290,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 def filter_switch_controller_fortilink_settings_data(json):
     option_list = [
         "access_vlan_mode",
+        "admin_policy",
         "fortilink",
         "inactive_timer",
         "link_down_flush",
@@ -503,6 +509,7 @@ versioned_schema = {
                 {"value": "fail-close"},
             ],
         },
+        "admin_policy": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "nac_ports": {
             "v_range": [["v7.0.0", ""]],
             "type": "dict",

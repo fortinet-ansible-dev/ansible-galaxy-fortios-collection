@@ -102,7 +102,6 @@ options:
                 required: true
                 type: int
 """
-
 EXAMPLES = """
 - name: Show Internet Service reputation.
   fortinet.fortios.fortios_firewall_internet_service_reputation:

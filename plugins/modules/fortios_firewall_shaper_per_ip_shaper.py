@@ -120,9 +120,32 @@ options:
                 description:
                     - Reverse (reply) DiffServ setting to be applied to traffic accepted by this shaper.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             max_bandwidth:
                 description:
-                    - Upper bandwidth limit enforced by this shaper (0 - 80000000). 0 means no limit. Units depend on the bandwidth-unit setting.
+                    - Upper bandwidth limit enforced by this shaper (0 - 100000000). 0 means no limit. Units depend on the bandwidth-unit setting.
                 type: int
             max_concurrent_session:
                 description:
@@ -141,8 +164,11 @@ options:
                     - Traffic shaper name.
                 required: true
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure per-IP traffic shaper.
   fortinet.fortios.fortios_firewall_shaper_per_ip_shaper:
@@ -155,11 +181,15 @@ EXAMPLES = """
           diffserv_reverse: "enable"
           diffservcode_forward: "<your_own_value>"
           diffservcode_rev: "<your_own_value>"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           max_bandwidth: "0"
           max_concurrent_session: "0"
           max_concurrent_tcp_session: "0"
           max_concurrent_udp_session: "0"
-          name: "default_name_12"
+          name: "default_name_15"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -260,11 +290,15 @@ def filter_firewall_shaper_per_ip_shaper_data(json):
         "diffserv_reverse",
         "diffservcode_forward",
         "diffservcode_rev",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "max_bandwidth",
         "max_concurrent_session",
         "max_concurrent_tcp_session",
         "max_concurrent_udp_session",
         "name",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -460,6 +494,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "max_bandwidth": {"v_range": [["v6.0.0", ""]], "type": "integer"},
         "bandwidth_unit": {
             "v_range": [["v6.0.0", ""]],

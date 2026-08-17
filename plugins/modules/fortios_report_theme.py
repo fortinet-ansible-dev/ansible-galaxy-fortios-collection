@@ -219,7 +219,6 @@ options:
                     - Table of contents title style.
                 type: str
 """
-
 EXAMPLES = """
 - name: Report themes configuration
   fortinet.fortios.fortios_report_theme:

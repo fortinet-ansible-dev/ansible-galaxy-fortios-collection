@@ -266,6 +266,13 @@ options:
                         description:
                             - URL parameter.
                         type: str
+                    verify_cert:
+                        description:
+                            - Enable/disable certificate verification of the real server.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
                     vnc_keyboard_layout:
                         description:
                             - Keyboard layout.
@@ -306,11 +313,42 @@ options:
                             - Group name. Source user.group.name.
                         required: true
                         type: str
+            llm_secure_proxy:
+                description:
+                    - LLM secure proxy.
+                type: dict
+                suboptions:
+                    all_llm_servers:
+                        description:
+                            - Include all LLM servers.
+                        type: str
+                        choices:
+                            - 'enable'
+                            - 'disable'
+                    llm_servers:
+                        description:
+                            - LLM proxy server names.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - Server name. Source llm.server.name.
+                                required: true
+                                type: str
             name:
                 description:
                     - Bookmark name.
                 required: true
                 type: str
+            type:
+                description:
+                    - Bookmark type.
+                type: str
+                choices:
+                    - 'user'
+                    - 'ldap-dynamic'
+                    - 'saml-dynamic'
             users:
                 description:
                     - User name.
@@ -323,7 +361,6 @@ options:
                         required: true
                         type: str
 """
-
 EXAMPLES = """
 - name: Configure ztna web-portal bookmark.
   fortinet.fortios.fortios_ztna_web_portal_bookmark:
@@ -353,15 +390,22 @@ EXAMPLES = """
                   send_preconnection_id: "enable"
                   sso: "disable"
                   url: "myurl.com"
+                  verify_cert: "enable"
                   vnc_keyboard_layout: "default"
                   width: "0"
           groups:
               -
-                  name: "default_name_27 (source user.group.name)"
-          name: "default_name_28"
+                  name: "default_name_28 (source user.group.name)"
+          llm_secure_proxy:
+              all_llm_servers: "enable"
+              llm_servers:
+                  -
+                      name: "default_name_32 (source llm.server.name)"
+          name: "default_name_33"
+          type: "user"
           users:
               -
-                  name: "default_name_30 (source user.local.name user.certificate.name)"
+                  name: "default_name_36 (source user.local.name user.certificate.name)"
 """
 
 RETURN = """
@@ -444,7 +488,7 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.data_post
 
 
 def filter_ztna_web_portal_bookmark_data(json):
-    option_list = ["bookmarks", "groups", "name", "users"]
+    option_list = ["bookmarks", "groups", "llm_secure_proxy", "name", "type", "users"]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -547,6 +591,15 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.6.1", ""]], "type": "string", "required": True},
+        "type": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [
+                {"value": "user"},
+                {"value": "ldap-dynamic"},
+                {"value": "saml-dynamic"},
+            ],
+        },
         "users": {
             "type": "list",
             "elements": "dict",
@@ -595,6 +648,11 @@ versioned_schema = {
                     ],
                 },
                 "url": {"v_range": [["v7.6.1", ""]], "type": "string"},
+                "verify_cert": {
+                    "v_range": [["v7.6.7", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
                 "host": {"v_range": [["v7.6.1", ""]], "type": "string"},
                 "folder": {"v_range": [["v7.6.1", ""]], "type": "string"},
                 "domain": {"v_range": [["v7.6.1", ""]], "type": "string"},
@@ -733,6 +791,29 @@ versioned_schema = {
                 },
             },
             "v_range": [["v7.6.1", ""]],
+        },
+        "llm_secure_proxy": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "dict",
+            "children": {
+                "all_llm_servers": {
+                    "v_range": [["v8.0.0", ""]],
+                    "type": "string",
+                    "options": [{"value": "enable"}, {"value": "disable"}],
+                },
+                "llm_servers": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v8.0.0", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v8.0.0", ""]],
+                },
+            },
         },
     },
     "v_range": [["v7.6.1", ""]],

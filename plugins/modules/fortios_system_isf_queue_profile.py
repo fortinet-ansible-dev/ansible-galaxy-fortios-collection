@@ -144,7 +144,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: Create a queue profile of switch.
   fortinet.fortios.fortios_system_isf_queue_profile:
@@ -452,7 +451,7 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
             "required": True,
@@ -462,7 +461,7 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "integer",
         },
@@ -471,7 +470,7 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "integer",
         },
@@ -480,13 +479,17 @@ versioned_schema = {
                 ["v6.4.0", "v6.4.0"],
                 ["v7.2.0", "v7.2.0"],
                 ["v7.4.0", "v7.4.1"],
-                ["v7.4.3", ""],
+                ["v7.4.3", "v7.6.7"],
             ],
             "type": "string",
             "options": [{"value": "kbps"}, {"value": "pps"}],
         },
         "burst_bps_granularity": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -500,7 +503,11 @@ versioned_schema = {
             ],
         },
         "burst_pps_granularity": {
-            "v_range": [["v7.2.0", "v7.2.0"], ["v7.4.0", "v7.4.1"], ["v7.4.3", ""]],
+            "v_range": [
+                ["v7.2.0", "v7.2.0"],
+                ["v7.4.0", "v7.4.1"],
+                ["v7.4.3", "v7.6.7"],
+            ],
             "type": "string",
             "options": [
                 {"value": "disable"},
@@ -523,7 +530,7 @@ versioned_schema = {
         ["v6.4.0", "v6.4.0"],
         ["v7.2.0", "v7.2.0"],
         ["v7.4.0", "v7.4.1"],
-        ["v7.4.3", ""],
+        ["v7.4.3", "v7.6.7"],
     ],
 }
 

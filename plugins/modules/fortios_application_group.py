@@ -173,7 +173,6 @@ options:
                 type: list
                 elements: str
 """
-
 EXAMPLES = """
 - name: Configure firewall application groups.
   fortinet.fortios.fortios_application_group:

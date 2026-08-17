@@ -567,7 +567,6 @@ options:
                 required: true
                 type: str
 """
-
 EXAMPLES = """
 - name: FortiExtender extender profile configuration.
   fortinet.fortios.fortios_extender_controller_extender_profile:

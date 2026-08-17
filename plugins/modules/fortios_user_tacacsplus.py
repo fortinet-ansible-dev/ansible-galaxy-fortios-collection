@@ -166,7 +166,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure TACACS+ server entries.
   fortinet.fortios.fortios_user_tacacsplus:

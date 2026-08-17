@@ -155,7 +155,6 @@ options:
                                 required: true
                                 type: str
 """
-
 EXAMPLES = """
 - name: Configure security exemption list.
   fortinet.fortios.fortios_user_security_exempt_list:

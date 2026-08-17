@@ -99,6 +99,29 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             group_down_option:
                 description:
                     - 'Action to take when all of the servers in the forward server group are down: block sessions until at least one server is back up or
@@ -135,8 +158,11 @@ options:
                         description:
                             - Optionally assign a weight of the forwarding server for weighted load balancing (1 - 100).
                         type: int
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure a forward server group consisting or multiple forward servers. Supports failover and load balancing.
   fortinet.fortios.fortios_web_proxy_forward_server_group:
@@ -145,13 +171,17 @@ EXAMPLES = """
       access_token: "<your_own_value>"
       web_proxy_forward_server_group:
           affinity: "enable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           group_down_option: "block"
           ldb_method: "weighted"
-          name: "default_name_6"
+          name: "default_name_9"
           server_list:
               -
-                  name: "default_name_8 (source web-proxy.forward-server.name)"
+                  name: "default_name_11 (source web-proxy.forward-server.name)"
                   weight: "10"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -246,7 +276,17 @@ from ansible_collections.fortinet.fortios.plugins.module_utils.fortios.compariso
 
 
 def filter_web_proxy_forward_server_group_data(json):
-    option_list = ["affinity", "group_down_option", "ldb_method", "name", "server_list"]
+    option_list = [
+        "affinity",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
+        "group_down_option",
+        "ldb_method",
+        "name",
+        "server_list",
+        "uuid",
+    ]
 
     json = remove_invalid_fields(json)
     dictionary = {}
@@ -441,6 +481,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "affinity": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

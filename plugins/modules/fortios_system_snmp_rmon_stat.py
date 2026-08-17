@@ -106,7 +106,6 @@ options:
                     - Data source of the Ethernet statistics entry. Source system.interface.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: SNMP Remote Network Monitoring (RMON) Ethernet statistics configuration.
   fortinet.fortios.fortios_system_snmp_rmon_stat:

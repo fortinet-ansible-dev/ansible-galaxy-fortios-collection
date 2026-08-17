@@ -755,7 +755,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure wireless intrusion detection system (WIDS) profiles.
   fortinet.fortios.fortios_wireless_controller_wids_profile:

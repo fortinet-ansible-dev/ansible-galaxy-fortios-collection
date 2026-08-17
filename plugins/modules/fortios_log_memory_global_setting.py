@@ -99,7 +99,6 @@ options:
                     - Maximum amount of memory that can be used for memory logging in bytes.
                 type: int
 """
-
 EXAMPLES = """
 - name: Global settings for memory logging.
   fortinet.fortios.fortios_log_memory_global_setting:
@@ -108,7 +107,7 @@ EXAMPLES = """
           full_final_warning_threshold: "95"
           full_first_warning_threshold: "75"
           full_second_warning_threshold: "90"
-          max_size: "676984668"
+          max_size: "146215772"
 """
 
 RETURN = """

@@ -91,7 +91,6 @@ options:
                     - SFlow collector port (0 - 65535).
                 type: int
 """
-
 EXAMPLES = """
 - name: Configure FortiSwitch sFlow.
   fortinet.fortios.fortios_switch_controller_sflow:

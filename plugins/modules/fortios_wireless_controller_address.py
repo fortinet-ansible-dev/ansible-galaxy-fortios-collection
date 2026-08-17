@@ -107,7 +107,6 @@ options:
                     - 'allow'
                     - 'deny'
 """
-
 EXAMPLES = """
 - name: Configure the client with its MAC address.
   fortinet.fortios.fortios_wireless_controller_address:

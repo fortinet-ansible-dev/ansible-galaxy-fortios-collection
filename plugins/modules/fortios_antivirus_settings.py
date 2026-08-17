@@ -132,7 +132,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure AntiVirus settings.
   fortinet.fortios.fortios_antivirus_settings:

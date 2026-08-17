@@ -118,7 +118,6 @@ options:
                     - 'fortigate'
                     - 'ha-cluster'
 """
-
 EXAMPLES = """
 - name: Automation destinations.
   fortinet.fortios.fortios_system_automation_destination:

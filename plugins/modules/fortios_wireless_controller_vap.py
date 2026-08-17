@@ -271,6 +271,13 @@ options:
                 description:
                     - Hard timeout - AP will always clear the session after timeout regardless of traffic (0 - 864000 sec).
                 type: int
+            captive_portal_dynamic_redirect_url:
+                description:
+                    - Enable/disable captive portal dynamic redirect URL .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             captive_portal_fw_accounting:
                 description:
                     - Enable/disable RADIUS accounting for captive portal firewall authentication session.
@@ -318,13 +325,26 @@ options:
                     - 'disable'
             dhcp_option82_circuit_id_insertion:
                 description:
-                    - Enable/disable DHCP option 82 circuit-id insert .
-                type: str
+                    - Selected fields of DHCP option 82 circuit-id insert.
+                type: list
+                elements: str
                 choices:
+                    - 'ap-mac'
+                    - 'ap-model'
+                    - 'ap-hostname'
+                    - 'ssid'
+                    - 'ssid-type'
+                    - 'network-type'
+                    - 'vlan'
+                    - 'wtp-profile'
                     - 'style-1'
                     - 'style-2'
                     - 'style-3'
                     - 'disable'
+            dhcp_option82_delimiter:
+                description:
+                    - DHCP option 82 field delimiter.
+                type: str
             dhcp_option82_insertion:
                 description:
                     - Enable/disable DHCP option 82 insert .
@@ -334,9 +354,11 @@ options:
                     - 'disable'
             dhcp_option82_remote_id_insertion:
                 description:
-                    - Enable/disable DHCP option 82 remote-id insert .
-                type: str
+                    - Selected fields of DHCP option 82 remote-id insert.
+                type: list
+                elements: str
                 choices:
+                    - 'client-mac'
                     - 'style-1'
                     - 'disable'
             domain_name_stripping:
@@ -988,6 +1010,17 @@ options:
                 choices:
                     - 'enable'
                     - 'disable'
+            radius_auth_surviv_intv:
+                description:
+                    - RADIUS authentication survivability cache timeout interval in seconds (3600 - 864000).
+                type: int
+            radius_auth_survivability:
+                description:
+                    - Enable/disable RADIUS authentication survivability .
+                type: str
+                choices:
+                    - 'disable'
+                    - 'enable'
             radius_mac_auth:
                 description:
                     - Enable/disable RADIUS-based MAC authentication of clients .
@@ -1542,8 +1575,15 @@ options:
                         type: int
                     wtp_group:
                         description:
-                            - WTP group name. Source wireless-controller.wtp-group.name.
-                        type: str
+                            - WTP group list(maximum 16 WTP groups). Source wireless-controller.wtp-group.name.
+                        type: list
+                        elements: dict
+                        suboptions:
+                            name:
+                                description:
+                                    - WTP group name. Source wireless-controller.wtp-group.name.
+                                required: true
+                                type: str
             vlan_pooling:
                 description:
                     - Enable/disable VLAN pooling, to allow grouping of multiple wireless controller VLANs into VLAN pools . When set to wtp-group, VLAN
@@ -1570,7 +1610,6 @@ options:
                     - WebFilter profile name. Source webfilter.profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure Virtual Access Points (VAPs).
   fortinet.fortios.fortios_wireless_controller_vap:
@@ -1607,6 +1646,7 @@ EXAMPLES = """
           captive_portal: "enable"
           captive_portal_ac_name: "<your_own_value>"
           captive_portal_auth_timeout: "0"
+          captive_portal_dynamic_redirect_url: "enable"
           captive_portal_fw_accounting: "enable"
           captive_portal_macauth_radius_secret: "<your_own_value>"
           captive_portal_macauth_radius_server: "<your_own_value>"
@@ -1616,9 +1656,10 @@ EXAMPLES = """
           dhcp_address_enforcement: "enable"
           dhcp_lease_time: "2400"
           dhcp_option43_insertion: "enable"
-          dhcp_option82_circuit_id_insertion: "style-1"
+          dhcp_option82_circuit_id_insertion: "ap-mac"
+          dhcp_option82_delimiter: "<your_own_value>"
           dhcp_option82_insertion: "enable"
-          dhcp_option82_remote_id_insertion: "style-1"
+          dhcp_option82_remote_id_insertion: "client-mac"
           domain_name_stripping: "disable"
           dynamic_vlan: "enable"
           eap_reauth: "enable"
@@ -1666,7 +1707,7 @@ EXAMPLES = """
           mac_filter: "enable"
           mac_filter_list:
               -
-                  id: "90"
+                  id: "92"
                   mac: "<your_own_value>"
                   mac_filter_policy: "allow"
           mac_filter_policy_other: "allow"
@@ -1688,7 +1729,7 @@ EXAMPLES = """
                   key_name: "<your_own_value>"
                   mpsk_schedules:
                       -
-                          name: "default_name_110 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                          name: "default_name_112 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
                   passphrase: "<your_own_value>"
           mpsk_profile: "<your_own_value> (source wireless-controller.mpsk-profile.name)"
           mu_mimo: "enable"
@@ -1696,7 +1737,7 @@ EXAMPLES = """
           multicast_rate: "0"
           nac: "enable"
           nac_profile: "<your_own_value> (source wireless-controller.nac-profile.name)"
-          name: "default_name_118"
+          name: "default_name_120"
           nas_filter_rule: "enable"
           neighbor_report_dual_band: "disable"
           okc: "disable"
@@ -1729,12 +1770,14 @@ EXAMPLES = """
           radio_2g_threshold: "<your_own_value>"
           radio_5g_threshold: "<your_own_value>"
           radio_sensitivity: "enable"
+          radius_auth_surviv_intv: "86400"
+          radius_auth_survivability: "disable"
           radius_mac_auth: "enable"
           radius_mac_auth_block_interval: "0"
           radius_mac_auth_server: "<your_own_value> (source user.radius.name)"
           radius_mac_auth_usergroups:
               -
-                  name: "default_name_155 (source user.group.name)"
+                  name: "default_name_159 (source user.group.name)"
           radius_mac_mpsk_auth: "enable"
           radius_mac_mpsk_timeout: "86400"
           radius_server: "<your_own_value> (source user.radius.name)"
@@ -1761,7 +1804,7 @@ EXAMPLES = """
           scan_botnet_connections: "disable"
           schedule:
               -
-                  name: "default_name_181 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
+                  name: "default_name_185 (source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name)"
           secondary_wag_profile: "<your_own_value> (source wireless-controller.wag-profile.name)"
           security: "open"
           security_exempt_list: "<your_own_value> (source user.security-exempt-list.name)"
@@ -1769,7 +1812,7 @@ EXAMPLES = """
           security_redirect_url: "<your_own_value>"
           selected_usergroups:
               -
-                  name: "default_name_188 (source user.group.name)"
+                  name: "default_name_192 (source user.group.name)"
           set_80211k: "disable"
           set_80211v: "disable"
           split_tunneling: "enable"
@@ -1784,7 +1827,7 @@ EXAMPLES = """
           tunnel_fallback_interval: "7200"
           usergroup:
               -
-                  name: "default_name_202 (source user.group.name)"
+                  name: "default_name_206 (source user.group.name)"
           utm_log: "enable"
           utm_profile: "<your_own_value> (source wireless-controller.utm-profile.name)"
           utm_status: "enable"
@@ -1792,12 +1835,14 @@ EXAMPLES = """
           vlan_auto: "enable"
           vlan_name:
               -
-                  name: "default_name_209"
+                  name: "default_name_213"
                   vlan_id: "<your_own_value>"
           vlan_pool:
               -
-                  id: "212"
-                  wtp_group: "<your_own_value> (source wireless-controller.wtp-group.name)"
+                  id: "216"
+                  wtp_group:
+                      -
+                          name: "default_name_218 (source wireless-controller.wtp-group.name)"
           vlan_pooling: "wtp-group"
           vlanid: "0"
           voice_enterprise: "disable"
@@ -1926,6 +1971,7 @@ def filter_wireless_controller_vap_data(json):
         "captive_portal",
         "captive_portal_ac_name",
         "captive_portal_auth_timeout",
+        "captive_portal_dynamic_redirect_url",
         "captive_portal_fw_accounting",
         "captive_portal_macauth_radius_secret",
         "captive_portal_macauth_radius_server",
@@ -1936,6 +1982,7 @@ def filter_wireless_controller_vap_data(json):
         "dhcp_lease_time",
         "dhcp_option43_insertion",
         "dhcp_option82_circuit_id_insertion",
+        "dhcp_option82_delimiter",
         "dhcp_option82_insertion",
         "dhcp_option82_remote_id_insertion",
         "domain_name_stripping",
@@ -2032,6 +2079,8 @@ def filter_wireless_controller_vap_data(json):
         "radio_2g_threshold",
         "radio_5g_threshold",
         "radio_sensitivity",
+        "radius_auth_surviv_intv",
+        "radius_auth_survivability",
         "radius_mac_auth",
         "radius_mac_auth_block_interval",
         "radius_mac_auth_server",
@@ -2132,6 +2181,8 @@ def flatten_multilists_attributes(data):
         ["broadcast_suppression"],
         ["ipv6_rules"],
         ["vlan_name", "vlan_id"],
+        ["dhcp_option82_circuit_id_insertion"],
+        ["dhcp_option82_remote_id_insertion"],
         ["rates_11a"],
         ["rates_11bg"],
         ["rates_11n_ss12"],
@@ -2450,6 +2501,12 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "disable"}, {"value": "enable"}],
         },
+        "radius_auth_survivability": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "disable"}, {"value": "enable"}],
+        },
+        "radius_auth_surviv_intv": {"v_range": [["v8.0.0", ""]], "type": "integer"},
         "fast_bss_transition": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",
@@ -2768,6 +2825,11 @@ versioned_schema = {
                 {"value": "external-macauth", "v_range": [["v7.0.0", ""]]},
             ],
         },
+        "captive_portal_dynamic_redirect_url": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "selected_usergroups": {
             "type": "list",
             "elements": "dict",
@@ -2995,7 +3057,18 @@ versioned_schema = {
                     "type": "integer",
                     "required": True,
                 },
-                "wtp_group": {"v_range": [["v6.0.0", ""]], "type": "string"},
+                "wtp_group": {
+                    "type": "list",
+                    "elements": "dict",
+                    "children": {
+                        "name": {
+                            "v_range": [["v7.6.7", ""]],
+                            "type": "string",
+                            "required": True,
+                        }
+                    },
+                    "v_range": [["v6.0.0", ""]],
+                },
             },
             "v_range": [["v6.0.0", ""]],
         },
@@ -3009,20 +3082,37 @@ versioned_schema = {
             "type": "string",
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
+        "dhcp_option82_delimiter": {"v_range": [["v7.6.7", ""]], "type": "string"},
         "dhcp_option82_circuit_id_insertion": {
             "v_range": [["v6.0.0", ""]],
-            "type": "string",
+            "type": "list",
             "options": [
-                {"value": "style-1"},
-                {"value": "style-2"},
-                {"value": "style-3", "v_range": [["v6.4.0", ""]]},
-                {"value": "disable"},
+                {"value": "ap-mac", "v_range": [["v7.6.7", ""]]},
+                {"value": "ap-model", "v_range": [["v7.6.7", ""]]},
+                {"value": "ap-hostname", "v_range": [["v7.6.7", ""]]},
+                {"value": "ssid", "v_range": [["v7.6.7", ""]]},
+                {"value": "ssid-type", "v_range": [["v7.6.7", ""]]},
+                {"value": "network-type", "v_range": [["v7.6.7", ""]]},
+                {"value": "vlan", "v_range": [["v7.6.7", ""]]},
+                {"value": "wtp-profile", "v_range": [["v7.6.7", ""]]},
+                {"value": "style-1", "v_range": [["v6.0.0", "v7.6.6"]]},
+                {"value": "style-2", "v_range": [["v6.0.0", "v7.6.6"]]},
+                {"value": "style-3", "v_range": [["v6.4.0", "v7.6.6"]]},
+                {"value": "disable", "v_range": [["v6.0.0", "v7.6.6"]]},
             ],
+            "multiple_values": True,
+            "elements": "str",
         },
         "dhcp_option82_remote_id_insertion": {
             "v_range": [["v6.0.0", ""]],
-            "type": "string",
-            "options": [{"value": "style-1"}, {"value": "disable"}],
+            "type": "list",
+            "options": [
+                {"value": "client-mac", "v_range": [["v7.6.7", ""]]},
+                {"value": "style-1", "v_range": [["v6.0.0", "v7.6.6"]]},
+                {"value": "disable", "v_range": [["v6.0.0", "v7.6.6"]]},
+            ],
+            "multiple_values": True,
+            "elements": "str",
         },
         "ptk_rekey": {
             "v_range": [["v6.0.0", ""]],

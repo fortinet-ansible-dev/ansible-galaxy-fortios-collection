@@ -150,7 +150,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure the password policy for guest administrators.
   fortinet.fortios.fortios_system_password_policy_guest_admin:

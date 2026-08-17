@@ -195,6 +195,13 @@ options:
                         choices:
                             - 'ignore'
                             - 'revoke'
+            csr_include_device_sn:
+                description:
+                    - Enable/disable inclusion of device serial number in CSR .
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
             interface:
                 description:
                     - Specify outgoing interface to reach server. Source system.interface.name.
@@ -308,7 +315,6 @@ options:
                     - VRF ID used for connection to server.
                 type: int
 """
-
 EXAMPLES = """
 - name: VPN certificate setting.
   fortinet.fortios.fortios_vpn_certificate_setting:
@@ -335,6 +341,7 @@ EXAMPLES = """
               chain_crl_absence: "ignore"
               expiry: "ignore"
               leaf_crl_absence: "ignore"
+          csr_include_device_sn: "enable"
           interface: "<your_own_value> (source system.interface.name)"
           interface_select_method: "auto"
           ocsp_default_server: "<your_own_value> (source vpn.certificate.ocsp-server.name)"
@@ -467,6 +474,7 @@ def filter_vpn_certificate_setting_data(json):
         "cn_allow_multi",
         "cn_match",
         "crl_verification",
+        "csr_include_device_sn",
         "interface",
         "interface_select_method",
         "ocsp_default_server",
@@ -767,6 +775,11 @@ versioned_schema = {
             "options": [{"value": "enable"}, {"value": "disable"}],
         },
         "cert_expire_warning": {"v_range": [["v7.2.1", ""]], "type": "integer"},
+        "csr_include_device_sn": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
         "certname_rsa1024": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "certname_rsa2048": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "certname_rsa4096": {"v_range": [["v6.2.0", ""]], "type": "string"},

@@ -116,6 +116,29 @@ options:
                 description:
                     - Comment.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             log_packet:
                 description:
                     - Enable/disable packet log for triggered diameter settings.
@@ -178,8 +201,11 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure Diameter filter profiles.
   fortinet.fortios.fortios_diameter_filter_profile:
@@ -191,14 +217,18 @@ EXAMPLES = """
           command_code_invalid: "allow"
           command_code_range: "<your_own_value>"
           comment: "Comment."
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           log_packet: "disable"
           message_length_invalid: "allow"
           missing_request_action: "allow"
           monitor_all_messages: "disable"
-          name: "default_name_11"
+          name: "default_name_14"
           protocol_version_invalid: "allow"
           request_error_flag_set: "allow"
           track_requests_answers: "disable"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -298,6 +328,9 @@ def filter_diameter_filter_profile_data(json):
         "command_code_invalid",
         "command_code_range",
         "comment",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "log_packet",
         "message_length_invalid",
         "missing_request_action",
@@ -306,6 +339,7 @@ def filter_diameter_filter_profile_data(json):
         "protocol_version_invalid",
         "request_error_flag_set",
         "track_requests_answers",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -491,6 +525,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v7.4.2", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "comment": {"v_range": [["v7.4.2", ""]], "type": "string"},
         "monitor_all_messages": {
             "v_range": [["v7.4.2", ""]],

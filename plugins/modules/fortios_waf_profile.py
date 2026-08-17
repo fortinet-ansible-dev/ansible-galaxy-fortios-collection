@@ -757,6 +757,29 @@ options:
                 choices:
                     - 'disable'
                     - 'enable'
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             method:
                 description:
                     - Method restriction.
@@ -1066,8 +1089,11 @@ options:
                             - 'high'
                             - 'medium'
                             - 'low'
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
 """
-
 EXAMPLES = """
 - name: Configure Web application firewall configuration.
   fortinet.fortios.fortios_waf_profile:
@@ -1182,6 +1208,9 @@ EXAMPLES = """
                   status: "enable"
           extended_log: "enable"
           external: "disable"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           method:
               default_allowed_methods: "get"
               log: "enable"
@@ -1189,12 +1218,12 @@ EXAMPLES = """
                   -
                       address: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                       allowed_methods: "get"
-                      id: "113"
+                      id: "116"
                       pattern: "<your_own_value>"
                       regex: "enable"
               severity: "high"
               status: "enable"
-          name: "default_name_118"
+          name: "default_name_121"
           signature:
               credit_card_detection_threshold: "3"
               custom_signature:
@@ -1203,21 +1232,21 @@ EXAMPLES = """
                       case_sensitivity: "disable"
                       direction: "request"
                       log: "enable"
-                      name: "default_name_126"
+                      name: "default_name_129"
                       pattern: "<your_own_value>"
                       severity: "high"
                       status: "enable"
                       target: "arg"
               disabled_signature:
                   -
-                      id: "132 (source waf.signature.id)"
+                      id: "135 (source waf.signature.id)"
               disabled_sub_class:
                   -
-                      id: "134 (source waf.sub-class.id)"
+                      id: "137 (source waf.sub-class.id)"
               main_class:
                   -
                       action: "allow"
-                      id: "137 (source waf.main-class.id)"
+                      id: "140 (source waf.main-class.id)"
                       log: "enable"
                       severity: "high"
                       status: "enable"
@@ -1225,16 +1254,17 @@ EXAMPLES = """
               -
                   access_pattern:
                       -
-                          id: "143"
+                          id: "146"
                           negate: "enable"
                           pattern: "<your_own_value>"
                           regex: "enable"
                           srcaddr: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
                   action: "bypass"
                   address: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
-                  id: "150"
+                  id: "153"
                   log: "enable"
                   severity: "high"
+          uuid: "<your_own_value>"
 """
 
 RETURN = """
@@ -1335,10 +1365,14 @@ def filter_waf_profile_data(json):
         "constraint",
         "extended_log",
         "external",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "method",
         "name",
         "signature",
         "url_access",
+        "uuid",
     ]
 
     json = remove_invalid_fields(json)
@@ -1554,6 +1588,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "external": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

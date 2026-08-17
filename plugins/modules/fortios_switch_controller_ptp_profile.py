@@ -134,7 +134,6 @@ options:
                 choices:
                     - 'l2-mcast'
 """
-
 EXAMPLES = """
 - name: Global PTP profile.
   fortinet.fortios.fortios_switch_controller_ptp_profile:

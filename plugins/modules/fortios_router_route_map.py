@@ -221,7 +221,7 @@ options:
                         suboptions:
                             as:
                                 description:
-                                    - AS number (0 - 4294967295). Use quotes for repeating numbers, For example, "1 1 2".
+                                    - AS number (0 - 4294967295).
                                 required: true
                                 type: str
                     set_aspath_action:
@@ -246,7 +246,7 @@ options:
                         suboptions:
                             community:
                                 description:
-                                    - 'Attribute: AA|AA:NN|internet|local-AS|no-advertise|no-export (exact match required for well known communities).'
+                                    - 'Attribute: AA|AA:NN|internet|local-AS|no-advertise|no-export|gshut.(exact match required for well known communities).'
                                 required: true
                                 type: str
                     set_community_additive:
@@ -367,22 +367,21 @@ options:
                         type: int
                     set_vpnv4_nexthop:
                         description:
-                            - IP address of VPNv4 next-hop.
+                            - IP address of VPNv4 next hop.
                         type: str
                     set_vpnv6_nexthop:
                         description:
-                            - IPv6 global address of VPNv6 next-hop.
+                            - IPv6 global address of VPNv6 next hop.
                         type: str
                     set_vpnv6_nexthop_local:
                         description:
-                            - IPv6 link-local address of VPNv6 next-hop.
+                            - IPv6 link-local address of VPNv6 next hop.
                         type: str
                     set_weight:
                         description:
                             - BGP weight for routing table.
                         type: int
 """
-
 EXAMPLES = """
 - name: Configure route maps.
   fortinet.fortios.fortios_router_route_map:

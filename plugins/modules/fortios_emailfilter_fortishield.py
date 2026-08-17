@@ -101,7 +101,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure FortiGuard - AntiSpam.
   fortinet.fortios.fortios_emailfilter_fortishield:

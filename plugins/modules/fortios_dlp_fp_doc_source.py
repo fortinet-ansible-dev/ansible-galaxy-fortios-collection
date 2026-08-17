@@ -176,6 +176,10 @@ options:
                 description:
                     - User name required to log into the file server.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             vdom:
                 description:
                     - Select the VDOM that can communicate with the file server.
@@ -196,7 +200,6 @@ options:
                     - 'friday'
                     - 'saturday'
 """
-
 EXAMPLES = """
 - name: Create a DLP fingerprint database by allowing the FortiGate to access a file server containing files from which to create fingerprints.
   fortinet.fortios.fortios_dlp_fp_doc_source:
@@ -220,6 +223,7 @@ EXAMPLES = """
           tod_hour: "1"
           tod_min: "0"
           username: "<your_own_value>"
+          uuid: "<your_own_value>"
           vdom: "mgmt"
           weekday: "sunday"
 """
@@ -333,6 +337,7 @@ def filter_dlp_fp_doc_source_data(json):
         "tod_hour",
         "tod_min",
         "username",
+        "uuid",
         "vdom",
         "weekday",
     ]
@@ -520,6 +525,7 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "server_type": {
             "v_range": [["v6.0.0", ""]],
             "type": "string",

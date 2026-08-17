@@ -143,7 +143,6 @@ options:
                     - 'enable'
                     - 'disable'
 """
-
 EXAMPLES = """
 - name: Configure inter wireless controller operation.
   fortinet.fortios.fortios_wireless_controller_inter_controller:

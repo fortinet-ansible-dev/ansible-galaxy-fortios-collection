@@ -132,7 +132,6 @@ options:
                     - '53248'
                     - '57344'
 """
-
 EXAMPLES = """
 - name: Configure Spanning Tree Protocol (STP).
   fortinet.fortios.fortios_system_stp:
@@ -419,6 +418,7 @@ versioned_schema = {
         ["v6.4.1", "v7.0.12"],
         ["v7.2.1", "v7.2.4"],
         ["v7.4.2", "v7.4.2"],
+        ["v8.0.0", ""],
     ],
     "type": "dict",
     "children": {
@@ -428,6 +428,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "string",
             "options": [
@@ -454,6 +455,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "integer",
         },
@@ -463,6 +465,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "integer",
         },
@@ -472,6 +475,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "integer",
         },
@@ -481,6 +485,7 @@ versioned_schema = {
                 ["v6.4.1", "v7.0.12"],
                 ["v7.2.1", "v7.2.4"],
                 ["v7.4.2", "v7.4.2"],
+                ["v8.0.0", ""],
             ],
             "type": "integer",
         },

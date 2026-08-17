@@ -103,7 +103,6 @@ options:
                     - 'disable'
                     - 'enable'
 """
-
 EXAMPLES = """
 - name: PTP policy configuration.
   fortinet.fortios.fortios_switch_controller_ptp_policy:

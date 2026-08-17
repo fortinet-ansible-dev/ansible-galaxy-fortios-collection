@@ -126,6 +126,29 @@ options:
                 description:
                     - Name of an existing email filter profile. Source emailfilter.profile.name.
                 type: str
+            fabric_force_sync:
+                description:
+                    - Enable/disable forced synchronization of configuration objects from the root FortiGate unit to the downstream devices.  Configuration
+                       conflict check is skipped.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object:
+                description:
+                    - Security Fabric global object setting.
+                type: str
+                choices:
+                    - 'enable'
+                    - 'disable'
+            fabric_object_source:
+                description:
+                    - Source of truth for fabric object.
+                type: str
+                choices:
+                    - 'member'
+                    - 'local'
+                    - 'root'
             file_filter_profile:
                 description:
                     - Name of an existing file-filter profile. Source file-filter.profile.name.
@@ -141,6 +164,10 @@ options:
             ips_voip_filter:
                 description:
                     - Name of an existing VoIP (ips) profile. Source voip.profile.name.
+                type: str
+            llm_profile:
+                description:
+                    - Name of an existing LLM profile. Source llm.profile.name.
                 type: str
             mms_profile:
                 description:
@@ -175,6 +202,10 @@ options:
                 description:
                     - Name of an existing telemetry profile. Source telemetry-controller.profile.name.
                 type: str
+            uuid:
+                description:
+                    - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+                type: str
             videofilter_profile:
                 description:
                     - Name of an existing VideoFilter profile. Source videofilter.profile.name.
@@ -196,7 +227,6 @@ options:
                     - Name of an existing Web filter profile. Source webfilter.profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Configure profile groups.
   fortinet.fortios.fortios_firewall_profile_group:
@@ -213,18 +243,23 @@ EXAMPLES = """
           dlp_sensor: "<your_own_value> (source dlp.sensor.name)"
           dnsfilter_profile: "<your_own_value> (source dnsfilter.profile.name)"
           emailfilter_profile: "<your_own_value> (source emailfilter.profile.name)"
+          fabric_force_sync: "enable"
+          fabric_object: "enable"
+          fabric_object_source: "member"
           file_filter_profile: "<your_own_value> (source file-filter.profile.name)"
           icap_profile: "<your_own_value> (source icap.profile.name)"
           ips_sensor: "<your_own_value> (source ips.sensor.name)"
           ips_voip_filter: "<your_own_value> (source voip.profile.name)"
+          llm_profile: "<your_own_value> (source llm.profile.name)"
           mms_profile: "<your_own_value> (source firewall.mms-profile.name)"
-          name: "default_name_17"
+          name: "default_name_21"
           profile_protocol_options: "<your_own_value> (source firewall.profile-protocol-options.name)"
           sctp_filter_profile: "<your_own_value> (source sctp-filter.profile.name)"
           spamfilter_profile: "<your_own_value> (source spamfilter.profile.name)"
           ssh_filter_profile: "<your_own_value> (source ssh-filter.profile.name)"
           ssl_ssh_profile: "<your_own_value> (source firewall.ssl-ssh-profile.name)"
           telemetry_profile: "<your_own_value> (source telemetry-controller.profile.name)"
+          uuid: "<your_own_value>"
           videofilter_profile: "<your_own_value> (source videofilter.profile.name)"
           virtual_patch_profile: "<your_own_value> (source virtual-patch.profile.name)"
           voip_profile: "<your_own_value> (source voip.profile.name)"
@@ -334,10 +369,14 @@ def filter_firewall_profile_group_data(json):
         "dlp_sensor",
         "dnsfilter_profile",
         "emailfilter_profile",
+        "fabric_force_sync",
+        "fabric_object",
+        "fabric_object_source",
         "file_filter_profile",
         "icap_profile",
         "ips_sensor",
         "ips_voip_filter",
+        "llm_profile",
         "mms_profile",
         "name",
         "profile_protocol_options",
@@ -346,6 +385,7 @@ def filter_firewall_profile_group_data(json):
         "ssh_filter_profile",
         "ssl_ssh_profile",
         "telemetry_profile",
+        "uuid",
         "videofilter_profile",
         "virtual_patch_profile",
         "voip_profile",
@@ -536,6 +576,22 @@ versioned_schema = {
     "elements": "dict",
     "children": {
         "name": {"v_range": [["v6.0.0", ""]], "type": "string", "required": True},
+        "uuid": {"v_range": [["v8.0.0", ""]], "type": "string"},
+        "fabric_object": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_force_sync": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "enable"}, {"value": "disable"}],
+        },
+        "fabric_object_source": {
+            "v_range": [["v8.0.0", ""]],
+            "type": "string",
+            "options": [{"value": "member"}, {"value": "local"}, {"value": "root"}],
+        },
         "profile_protocol_options": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "ssl_ssh_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "av_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
@@ -557,6 +613,7 @@ versioned_schema = {
         "ssh_filter_profile": {"v_range": [["v6.0.0", ""]], "type": "string"},
         "casb_profile": {"v_range": [["v7.4.1", ""]], "type": "string"},
         "telemetry_profile": {"v_range": [["v7.6.3", ""]], "type": "string"},
+        "llm_profile": {"v_range": [["v8.0.0", ""]], "type": "string"},
         "cifs_profile": {"v_range": [["v6.2.0", "v7.6.0"]], "type": "string"},
         "dlp_sensor": {"v_range": [["v6.0.0", "v7.0.12"]], "type": "string"},
         "mms_profile": {"v_range": [["v6.0.0", "v6.2.7"]], "type": "string"},

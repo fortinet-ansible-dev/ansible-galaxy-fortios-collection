@@ -124,7 +124,6 @@ options:
                     - FortiGate profile configuration. Source extension-controller.fortigate-profile.name.
                 type: str
 """
-
 EXAMPLES = """
 - name: FortiGate controller configuration.
   fortinet.fortios.fortios_extension_controller_fortigate:

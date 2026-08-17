@@ -102,7 +102,6 @@ options:
                     - Signature subclass name.
                 type: str
 """
-
 EXAMPLES = """
 - name: Hidden table for datasource.
   fortinet.fortios.fortios_waf_sub_class:
